@@ -4,7 +4,7 @@
         <activity android:name="io.dcloud.uniapp.UniAppActivity" android:configChanges="orientation|keyboard|keyboardHidden|smallestScreenSize|screenLayout|screenSize|mcc|mnc|fontScale|navigation|uiMode" android:exported="true" android:screenOrientation="portrait" android:theme="@style/UniAppX.Activity.DefaultTheme" android:windowSoftInputMode="adjustResize" tools:replace="android:exported,android:theme,android:configChanges,android:windowSoftInputMode,android:screenOrientation">
         </activity>
         <meta-data android:name="DCLOUD_UNI_APPID" android:value="__UNI__511F0A5"/>
-        <meta-data tools:replace="android:value" android:name="GETUI_APPID" android:value="__UNI__511F0A5"/>
-        <meta-data tools:replace="android:value" android:name="GY_APP_ID" android:value="__UNI__511F0A5"/>
+        <meta-data tools:replace="android:value" android:name="GETUI_APPID" android:value="${GETUI_APPID}"/>
+        <meta-data tools:replace="android:value" android:name="GY_APP_ID" android:value="${GY_APP_ID}"/>
     </application>
 </manifest>
