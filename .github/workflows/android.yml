@@ -37,7 +37,7 @@ jobs:
         ORG_GRADLE_PROJECT_DEBUG_KEY_ALIAS: androiddebugkey
         ORG_GRADLE_PROJECT_DEBUG_KEY_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
     - name: Upload debug APK
-      uses: actions/upload-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: debug-apk
         path: app/build/outputs/apk/debug/app-debug.apk
