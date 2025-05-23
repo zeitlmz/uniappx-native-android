@@ -180,7 +180,7 @@ open class GenPagesPersonalWalletAddBankCard : BasePage {
                                             return utsArrayOf(
                                                 createVNode(_component_x_form_item, utsMapOf("rule" to unref(validname), "field" to "username", "label" to "姓名", "required" to true), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                                                     return utsArrayOf(
-                                                        createVNode(_component_x_input, utsMapOf("cursor-color" to "red", "color" to "transparent", "modelValue" to unref(reqData).realName, "onUpdate:modelValue" to fun(`$event`){
+                                                        createVNode(_component_x_input, utsMapOf("cursor-color" to "red", "color" to "transparent", "modelValue" to unref(reqData).realName, "onUpdate:modelValue" to fun(`$event`:String){
                                                             unref(reqData).realName = `$event`
                                                         }
                                                         , "align" to "right", "placeholder" to "请输入姓名"), null, 8, utsArrayOf(
@@ -194,7 +194,7 @@ open class GenPagesPersonalWalletAddBankCard : BasePage {
                                                 )),
                                                 createVNode(_component_x_form_item, utsMapOf("rule" to unref(vaildIdCards), "field" to "idCardNum", "label" to "身份证号", "required" to true), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                                                     return utsArrayOf(
-                                                        createVNode(_component_x_input, utsMapOf("color" to "transparent", "modelValue" to unref(reqData).idCard, "onUpdate:modelValue" to fun(`$event`){
+                                                        createVNode(_component_x_input, utsMapOf("color" to "transparent", "modelValue" to unref(reqData).idCard, "onUpdate:modelValue" to fun(`$event`:String){
                                                             unref(reqData).idCard = `$event`
                                                         }
                                                         , "align" to "right", "placeholder" to "请输入身份证号"), null, 8, utsArrayOf(
@@ -208,7 +208,7 @@ open class GenPagesPersonalWalletAddBankCard : BasePage {
                                                 )),
                                                 createVNode(_component_x_form_item, utsMapOf("rule" to unref(vaildBankCards), "field" to "bankCardNum", "label" to "银行卡号", "required" to true), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                                                     return utsArrayOf(
-                                                        createVNode(_component_x_input, utsMapOf("color" to "transparent", "modelValue" to unref(reqData).bankCard, "onUpdate:modelValue" to fun(`$event`){
+                                                        createVNode(_component_x_input, utsMapOf("color" to "transparent", "modelValue" to unref(reqData).bankCard, "onUpdate:modelValue" to fun(`$event`:String){
                                                             unref(reqData).bankCard = `$event`
                                                         }
                                                         , "align" to "right", "placeholder" to "请输入银行卡号"), null, 8, utsArrayOf(
@@ -222,7 +222,7 @@ open class GenPagesPersonalWalletAddBankCard : BasePage {
                                                 )),
                                                 createVNode(_component_x_form_item, utsMapOf("rule" to unref(vaildPhones), "field" to "phoneNum", "label" to "预留手机号", "required" to true, "labelWidth" to "150"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                                                     return utsArrayOf(
-                                                        createVNode(_component_x_input, utsMapOf("color" to "transparent", "modelValue" to unref(reqData).bankPhone, "onUpdate:modelValue" to fun(`$event`){
+                                                        createVNode(_component_x_input, utsMapOf("color" to "transparent", "modelValue" to unref(reqData).bankPhone, "onUpdate:modelValue" to fun(`$event`:String){
                                                             unref(reqData).bankPhone = `$event`
                                                         }
                                                         , "align" to "right", "placeholder" to "请输入手机号"), null, 8, utsArrayOf(
@@ -236,7 +236,7 @@ open class GenPagesPersonalWalletAddBankCard : BasePage {
                                                 )),
                                                 createVNode(_component_x_form_item, utsMapOf("rule" to unref(vaildVerifyCodes), "field" to "verifyCode", "label" to "验证码", "required" to true), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                                                     return utsArrayOf(
-                                                        createVNode(_component_x_input, utsMapOf("color" to "transparent", "type" to "number", "modelValue" to unref(reqData).code, "onUpdate:modelValue" to fun(`$event`){
+                                                        createVNode(_component_x_input, utsMapOf("color" to "transparent", "type" to "number", "modelValue" to unref(reqData).code, "onUpdate:modelValue" to fun(`$event`:String){
                                                             unref(reqData).code = `$event`
                                                         }
                                                         , "align" to "right", "placeholder" to "请输入", "font-size" to "30rpx"), utsMapOf("inputRight" to withSlotCtx(fun(): UTSArray<Any> {
