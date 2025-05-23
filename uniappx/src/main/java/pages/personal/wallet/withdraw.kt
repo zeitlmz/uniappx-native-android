@@ -19,7 +19,6 @@ import uts.sdk.modules.xLoadingS.XLOADINGS_TYPE
 import uts.sdk.modules.xTipsS.XTIPS_TYPE
 import uts.sdk.modules.xLoadingS.hideXloading
 import uts.sdk.modules.xLoadingS.showLoading
-import uts.sdk.modules.mcAmapNavPlus.init
 import io.dcloud.uniapp.extapi.navigateBack as uni_navigateBack
 import uts.sdk.modules.xTipsS.showTips as showTips1
 import uts.sdk.modules.uniKuxrouter.useKuxRouter as uni_useKuxRouter

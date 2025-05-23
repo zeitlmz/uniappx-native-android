@@ -88,7 +88,6 @@ import io.dcloud.uniapp.extapi.getSystemInfoSync as uni_getSystemInfoSync
 import io.dcloud.uniapp.extapi.hideLoading as uni_hideLoading
 import uts.sdk.modules.xLoadingS.hideXloading
 import uts.sdk.modules.xLoadingS.showLoading
-import uts.sdk.modules.mcAmapNavPlus.init
 import io.dcloud.uniapp.extapi.loadFontFace as uni_loadFontFace
 import io.dcloud.uniapp.extapi.onOsThemeChange as uni_onOsThemeChange
 import io.dcloud.uniapp.extapi.removeStorageSync as uni_removeStorageSync

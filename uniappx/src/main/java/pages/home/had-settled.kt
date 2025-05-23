@@ -22,8 +22,6 @@ import io.dcloud.uniapp.extapi.exit as uni_exit
 import io.dcloud.uniapp.extapi.getStorageSync as uni_getStorageSync
 import uts.sdk.modules.xLoadingS.hideXloading
 import uts.sdk.modules.xLoadingS.showLoading
-import uts.sdk.modules.mcAmapNavPlus.init
-import io.dcloud.uniapp.extapi.setStorageSync as uni_setStorageSync
 import uts.sdk.modules.xModalS.showModal
 import uts.sdk.modules.xToastS.showToast as showXToast
 import uts.sdk.modules.uniKuxrouter.useKuxRouter as uni_useKuxRouter
@@ -391,20 +389,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                 , 3000)
             }
             val locationAgreeConfirm = fun(){
-                setTimeout(fun(){
-                    init(MAP_CONFIG["naviKey"] as String, fun(all: Boolean){
-                        if (all) {
-                            console.log("同意权限=======", all)
-                            startLocation.value = true
-                            uni_setStorageSync("locationAgree", "true")
-                            onShow()
-                        } else {
-                            locationAgreeCancel()
-                        }
-                    }
-                    )
-                }
-                , 250)
+                setTimeout(fun(){}, 250)
             }
             val initJg = fun(){
                 val jg = JgUtil()

@@ -128,7 +128,7 @@ open class GenComponentsMcDragVerifyIndex : VueComponent {
                 val _component_x_icon = resolveEasyComponent("x-icon", GenUniModulesTmxUiComponentsXIconXIconClass)
                 val _component_x_finger = resolveEasyComponent("x-finger", GenUniModulesTmxUiComponentsXFingerXFingerClass)
                 return createElementVNode("view", utsMapOf("class" to "drag-verify box", "style" to normalizeStyle(unref(outStyle))), utsArrayOf(
-                    createVNode(_component_x_finger, utsMapOf("disabled" to (_ctx.disabled || unref(isCompleted)), "style" to normalizeStyle(utsMapOf("width" to "100%", "height" to "100%")), "clickDiff" to _ctx.clickDiff, "longDiff" to _ctx.longDiff, "swiperDiff" to _ctx.swiperDiff, "onMove" to move, "onStart" to start, "onSwiper" to unref(touchSwiper)), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                    createVNode(_component_x_finger, utsMapOf("disabled" to (_ctx.disabled || unref(isCompleted)), "style" to normalizeStyle(utsMapOf("width" to "100%", "height" to "100%")), "clickDiff" to _ctx.clickDiff, "longDiff" to _ctx.longDiff, "swiperDiff" to _ctx.swiperDiff, "onMove" to move, "onStart" to start, "onSwiper" to touchSwiper), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                         return utsArrayOf(
                             createElementVNode("view", utsMapOf("class" to "drag-verify inner flex-row flex-row-center-center", "ref_key" to "dragVerifyInner", "ref" to dragVerifyInner, "style" to normalizeStyle(unref(innerStyle))), utsArrayOf(
                                 if (isTrue(_ctx.disabled || unref(isCompleted))) {
@@ -160,8 +160,7 @@ open class GenComponentsMcDragVerifyIndex : VueComponent {
                         "style",
                         "clickDiff",
                         "longDiff",
-                        "swiperDiff",
-                        "onSwiper"
+                        "swiperDiff"
                     ))
                 ), 4)
             }

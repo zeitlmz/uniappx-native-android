@@ -16,7 +16,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.`$emit` as uni__emit
 import uts.sdk.modules.xModalS.X_MODAL_TYPE
-import uts.sdk.modules.mcAmapNavPlus.init
 import io.dcloud.uniapp.extapi.makePhoneCall as uni_makePhoneCall
 import uts.sdk.modules.jjMd5.md5
 import uts.sdk.modules.xModalS.showModal
@@ -62,10 +61,7 @@ open class GenPagesPersonalIndex : BasePage {
             val formDetail = reactive<PERSONAL_INDEX_INFO>(PERSONAL_INDEX_INFO(name = "", avatar = "", serviceStar = 0, accompanyDays = "1", totalOrder = "0", totalIncome = "0", todayOrder = 0, operatingIncome = "0", teamRanking = 0, activityBonus = "0", totalFineAmount = "0", totalAmountReceived = "0"))
             val bodyActualHei = ref<Number>(screenHeight)
             val autoHeight = fun(): Number {
-                val bodyHeight = (screenHeight - globalData.safeAreaBottom - statusBarHeight - 20 - 20) * 2
-                val needHeight: Number = 1466
-                bodyActualHei.value = needHeight
-                return bodyActualHei.value
+                return 1466
             }
             val handleCustomer = fun(){
                 console.log("进入客服")
@@ -279,7 +275,7 @@ open class GenPagesPersonalIndex : BasePage {
                                     createElementVNode("text", utsMapOf("class" to "text-size"), "天，累计完单"),
                                     createElementVNode("text", utsMapOf("class" to "text-size cus-green"), toDisplayString(unref(formDetail).totalOrder), 1),
                                     createElementVNode("text", utsMapOf("class" to "text-size"), "笔，累计收益"),
-                                    createElementVNode("text", utsMapOf("class" to "text-size cus-green"), toDisplayString(unref(formDetail).totalIncome ?: 0), 1),
+                                    createElementVNode("text", utsMapOf("class" to "text-size cus-green"), toDisplayString(unref(formDetail).totalIncome), 1),
                                     createElementVNode("text", utsMapOf("class" to "text-size"), "元~")
                                 ), 4),
                                 createElementVNode("view", utsMapOf("class" to "card-view", "style" to normalizeStyle("width: " + unref(screenWidth) + "px;")), utsArrayOf(
@@ -365,7 +361,10 @@ open class GenPagesPersonalIndex : BasePage {
                                             ), "_" to 1), 8, utsArrayOf(
                                                 "onClick"
                                             )),
-                                            createVNode(_component_mc_active_animation, utsMapOf("class" to "menu-item", "onClick" to toSwitchPhone), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                            createVNode(_component_mc_active_animation, utsMapOf("class" to "menu-item", "onClick" to fun(){
+                                                toSwitchPhone()
+                                            }
+                                            ), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                                                 return utsArrayOf(
                                                     createElementVNode("image", utsMapOf("class" to "menu-icon", "src" to ("" + unref(resBaseUrl) + "/static/images/personal-change-phone.png")), null, 8, utsArrayOf(
                                                         "src"
@@ -373,7 +372,9 @@ open class GenPagesPersonalIndex : BasePage {
                                                     createElementVNode("text", null, "更换手机")
                                                 )
                                             }
-                                            ), "_" to 1)),
+                                            ), "_" to 1), 8, utsArrayOf(
+                                                "onClick"
+                                            )),
                                             createVNode(_component_mc_active_animation, utsMapOf("class" to "menu-item", "onClick" to fun(){
                                                 toTradeQualification()
                                             }
@@ -432,10 +433,6 @@ open class GenPagesPersonalIndex : BasePage {
                                             ), "_" to 1), 8, utsArrayOf(
                                                 "onClick"
                                             ))
-                                        )),
-                                        createElementVNode("view", utsMapOf("class" to "menu-row"), utsArrayOf(
-                                            createElementVNode("view", utsMapOf("class" to "menu-item")),
-                                            createElementVNode("view", utsMapOf("class" to "menu-item"))
                                         ))
                                     ))
                                 ), 4)

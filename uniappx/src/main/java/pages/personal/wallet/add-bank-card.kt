@@ -58,37 +58,50 @@ open class GenPagesPersonalWalletAddBankCard : BasePage {
             val router = uni_useKuxRouter()
             val globalData = inject("globalData") as GlobalDataType
             val reqData = reactive<BANK_CARD_INFO>(BANK_CARD_INFO(id = 0, realName = "", idCard = "", bankName = "", bankCard = "", bankPhone = "", bankLogo = "", code = "", status = -1, bankNameAndCard = ""))
-            var vaildUsername = utsArrayOf<FORM_RULE>(FORM_RULE(type = "string", errorMessage = "不能空且要小于4个字符", trigger = "blur", valid = fun(kVal: Any?): Boolean {
+            val vaildUsernameRule = FORM_RULE(type = "string", errorMessage = "不能空且要小于4个字符", trigger = "blur", valid = fun(kVal: Any?): Boolean {
                 var pval = kVal as String
                 return pval.length > 0 && pval.length <= 4
             }
-            ))
-            var vaildIdCard = utsArrayOf<FORM_RULE>(FORM_RULE(type = "string", errorMessage = "不能空且不小于18个字符", valid = fun(kVal: Any?): Boolean {
+            )
+            var vaildUsername: UTSArray<FORM_RULE> = utsArrayOf<FORM_RULE>(vaildUsernameRule)
+            val vaildIdCardRule = FORM_RULE(type = "string", errorMessage = "不能空且不小于18个字符", valid = fun(kVal: Any?): Boolean {
                 var pval = kVal as String
                 return pval.length == 18
             }
-            ))
-            var vaildBankCard = utsArrayOf<FORM_RULE>(FORM_RULE(type = "string", errorMessage = "银行卡号必须是16-19位数字", valid = fun(kVal: Any?): Boolean {
+            )
+            var vaildIdCard: UTSArray<FORM_RULE> = utsArrayOf<FORM_RULE>(vaildIdCardRule)
+            val vaildBankCardRule = FORM_RULE(type = "string", errorMessage = "银行卡号必须是16-19位数字", valid = fun(kVal: Any?): Boolean {
                 var pval = kVal as String
                 return UTSRegExp("^\\d{16,19}\$", "").test(pval)
             }
-            ))
-            var vaildPhone = utsArrayOf<FORM_RULE>(FORM_RULE(type = "string", errorMessage = "请输入正确的手机号", valid = fun(kVal: Any?): Boolean {
+            )
+            var vaildBankCard: UTSArray<FORM_RULE> = utsArrayOf<FORM_RULE>(vaildBankCardRule)
+            val vaildPhonerule = FORM_RULE(type = "string", errorMessage = "请输入正确的手机号", valid = fun(kVal: Any?): Boolean {
                 var pval = kVal as String
                 return UTSRegExp("^1[3-9]\\d{9}\$", "").test(pval)
             }
-            ))
-            var vaildVerifyCode = utsArrayOf<FORM_RULE>(FORM_RULE(type = "string", errorMessage = "验证码必须是4-6位数字", valid = fun(kVal: Any?): Boolean {
+            )
+            var vaildPhone: UTSArray<FORM_RULE> = utsArrayOf<FORM_RULE>(vaildPhonerule)
+            val vaildVerifyCoderRule = FORM_RULE(type = "string", errorMessage = "验证码必须是4-6位数字", valid = fun(kVal: Any?): Boolean {
                 var pval = kVal as String
                 return UTSRegExp("^\\d{4,6}\$", "").test(pval)
             }
-            ))
+            )
+            var vaildVerifyCode: UTSArray<FORM_RULE> = utsArrayOf<FORM_RULE>(vaildVerifyCoderRule)
             val validname = ref<UTSArray<FORM_RULE>>(vaildUsername)
             val vaildIdCards = ref<UTSArray<FORM_RULE>>(vaildIdCard)
             val vaildBankCards = ref<UTSArray<FORM_RULE>>(vaildBankCard)
             val vaildPhones = ref<UTSArray<FORM_RULE>>(vaildPhone)
             val vaildVerifyCodes = ref<UTSArray<FORM_RULE>>(vaildVerifyCode)
+            val containerHeight = screenHeight - globalData.safeAreaBottom - statusBarHeight - 20 as Number
             val countdown = ref<Number>(0)
+            val getCountdown = fun(paramCountdown: Number): String {
+                return if (paramCountdown > 0) {
+                    "" + countdown + "s\u540E\u91CD\u8BD5"
+                } else {
+                    "获取验证码"
+                }
+            }
             val onGetCode = fun(){
                 if (countdown.value > 0) {
                     return
@@ -98,7 +111,8 @@ open class GenPagesPersonalWalletAddBankCard : BasePage {
                     return
                 }
                 showLoading(XLOADINGS_TYPE(title = "验证码发送中"))
-                sendBankCardPhoneValid(reqData.bankPhone as String).then(fun(res: Response){
+                val bankPhone = reqData.bankPhone as String
+                sendBankCardPhoneValid(bankPhone).then(fun(res: Response){
                     if (res.code == 200) {
                         showToast1(XTOAST_TYPE(title = "验证码发送成功", iconCode = "success", iconColor = "green", titleColor = "green"))
                         hideXloading()
@@ -155,7 +169,7 @@ open class GenPagesPersonalWalletAddBankCard : BasePage {
                         createElementVNode("view", utsMapOf("class" to "home-bg"), utsArrayOf(
                             createElementVNode("view", utsMapOf("class" to "top-bg"))
                         )),
-                        createElementVNode("view", utsMapOf("class" to "container", "style" to normalizeStyle("height: " + (unref(screenHeight) - unref(globalData).safeAreaBottom - unref(statusBarHeight) - 20) + "px;")), utsArrayOf(
+                        createElementVNode("view", utsMapOf("class" to "container", "style" to normalizeStyle("height: " + containerHeight + "px;")), utsArrayOf(
                             createElementVNode("view", utsMapOf("class" to "mt-50 mb-15"), utsArrayOf(
                                 createVNode(_component_x_sheet, null, utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                                     return utsArrayOf(
@@ -166,7 +180,7 @@ open class GenPagesPersonalWalletAddBankCard : BasePage {
                                             return utsArrayOf(
                                                 createVNode(_component_x_form_item, utsMapOf("rule" to unref(validname), "field" to "username", "label" to "姓名", "required" to true), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                                                     return utsArrayOf(
-                                                        createVNode(_component_x_input, utsMapOf("cursor-color" to "red", "color" to "transparent", "modelValue" to unref(reqData).realName, "onUpdate:modelValue" to fun(`$event`: String){
+                                                        createVNode(_component_x_input, utsMapOf("cursor-color" to "red", "color" to "transparent", "modelValue" to unref(reqData).realName, "onUpdate:modelValue" to fun(`$event`){
                                                             unref(reqData).realName = `$event`
                                                         }
                                                         , "align" to "right", "placeholder" to "请输入姓名"), null, 8, utsArrayOf(
@@ -180,7 +194,7 @@ open class GenPagesPersonalWalletAddBankCard : BasePage {
                                                 )),
                                                 createVNode(_component_x_form_item, utsMapOf("rule" to unref(vaildIdCards), "field" to "idCardNum", "label" to "身份证号", "required" to true), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                                                     return utsArrayOf(
-                                                        createVNode(_component_x_input, utsMapOf("color" to "transparent", "modelValue" to unref(reqData).idCard, "onUpdate:modelValue" to fun(`$event`: String){
+                                                        createVNode(_component_x_input, utsMapOf("color" to "transparent", "modelValue" to unref(reqData).idCard, "onUpdate:modelValue" to fun(`$event`){
                                                             unref(reqData).idCard = `$event`
                                                         }
                                                         , "align" to "right", "placeholder" to "请输入身份证号"), null, 8, utsArrayOf(
@@ -194,7 +208,7 @@ open class GenPagesPersonalWalletAddBankCard : BasePage {
                                                 )),
                                                 createVNode(_component_x_form_item, utsMapOf("rule" to unref(vaildBankCards), "field" to "bankCardNum", "label" to "银行卡号", "required" to true), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                                                     return utsArrayOf(
-                                                        createVNode(_component_x_input, utsMapOf("color" to "transparent", "modelValue" to unref(reqData).bankCard, "onUpdate:modelValue" to fun(`$event`: String){
+                                                        createVNode(_component_x_input, utsMapOf("color" to "transparent", "modelValue" to unref(reqData).bankCard, "onUpdate:modelValue" to fun(`$event`){
                                                             unref(reqData).bankCard = `$event`
                                                         }
                                                         , "align" to "right", "placeholder" to "请输入银行卡号"), null, 8, utsArrayOf(
@@ -208,7 +222,7 @@ open class GenPagesPersonalWalletAddBankCard : BasePage {
                                                 )),
                                                 createVNode(_component_x_form_item, utsMapOf("rule" to unref(vaildPhones), "field" to "phoneNum", "label" to "预留手机号", "required" to true, "labelWidth" to "150"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                                                     return utsArrayOf(
-                                                        createVNode(_component_x_input, utsMapOf("color" to "transparent", "modelValue" to unref(reqData).bankPhone, "onUpdate:modelValue" to fun(`$event`: String){
+                                                        createVNode(_component_x_input, utsMapOf("color" to "transparent", "modelValue" to unref(reqData).bankPhone, "onUpdate:modelValue" to fun(`$event`){
                                                             unref(reqData).bankPhone = `$event`
                                                         }
                                                         , "align" to "right", "placeholder" to "请输入手机号"), null, 8, utsArrayOf(
@@ -222,17 +236,12 @@ open class GenPagesPersonalWalletAddBankCard : BasePage {
                                                 )),
                                                 createVNode(_component_x_form_item, utsMapOf("rule" to unref(vaildVerifyCodes), "field" to "verifyCode", "label" to "验证码", "required" to true), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                                                     return utsArrayOf(
-                                                        createVNode(_component_x_input, utsMapOf("color" to "transparent", "type" to "number", "modelValue" to unref(reqData).code, "onUpdate:modelValue" to fun(`$event`: String){
+                                                        createVNode(_component_x_input, utsMapOf("color" to "transparent", "type" to "number", "modelValue" to unref(reqData).code, "onUpdate:modelValue" to fun(`$event`){
                                                             unref(reqData).code = `$event`
                                                         }
                                                         , "align" to "right", "placeholder" to "请输入", "font-size" to "30rpx"), utsMapOf("inputRight" to withSlotCtx(fun(): UTSArray<Any> {
                                                             return utsArrayOf(
-                                                                createElementVNode("text", utsMapOf("class" to "get-code-btn", "onClick" to toValidateBankCard), toDisplayString(if (unref(countdown) > 0) {
-                                                                    "" + unref(countdown) + "s\u540E\u91CD\u8BD5"
-                                                                } else {
-                                                                    "获取验证码"
-                                                                }
-                                                                ), 1)
+                                                                createElementVNode("text", utsMapOf("class" to "get-code-btn", "onClick" to toValidateBankCard), toDisplayString(getCountdown(unref(countdown))), 1)
                                                             )
                                                         }
                                                         ), "_" to 1), 8, utsArrayOf(

@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace 'com.mc.driver.client'
+    namespace 'cn.uvuejs.kux'
 	compileSdk 34
 	
 	buildFeatures {
@@ -13,9 +13,9 @@ android {
 	}
 
     defaultConfig {
-        applicationId 'com.mc.driver.client'
+        applicationId 'cn.uvuejs.kux'
         minSdk 21
-		targetSdk 34
+		targetSdk 30
         versionCode 4
         versionName '4.0.0'
 
@@ -36,10 +36,10 @@ android {
 
     signingConfigs {
         config {
-            storeFile file("../app/mc-driver.keystore")
+            storeFile file("../app/debug.keystore")
             storePassword "mcdriver"
-            keyAlias "mc-driver"
-            keyPassword "mcdriver"
+            keyAlias "androiddebugkey"
+            keyPassword "adminadmindebug"
         }
     }
 
@@ -62,12 +62,12 @@ android {
 	    abortOnError false
 	}
 	compileOptions {
-	    sourceCompatibility JavaVersion.VERSION_17
-	    targetCompatibility JavaVersion.VERSION_17
+	    sourceCompatibility JavaVersion.VERSION_1_8
+	    targetCompatibility JavaVersion.VERSION_1_8
 	}
 	
     kotlinOptions {
-        jvmTarget = '17'
+        jvmTarget = '1.8'
     }
 
     aaptOptions {
@@ -92,7 +92,6 @@ dependencies {
 	implementation project(':jj-md5')
 	implementation project(':kux-request-interceptors')
 	implementation project(':kux-router')
-	implementation project(':mc-amap-nav-plus')
 	implementation project(':mc-wechat-sdk')
 	implementation project(':uni-kuxrouter')
 	implementation project(':x-base642file-s')

@@ -20,7 +20,6 @@ import uts.sdk.modules.xModalS.X_MODAL_TYPE
 import io.dcloud.uniapp.extapi.exit as uni_exit
 import uts.sdk.modules.xLoadingS.hideXloading
 import uts.sdk.modules.xLoadingS.showLoading
-import uts.sdk.modules.mcAmapNavPlus.init
 import uts.sdk.modules.xModalS.showModal
 import uts.sdk.modules.uniKuxrouter.useKuxRouter as uni_useKuxRouter
 open class GenPagesHomeNotSettled : VueComponent {
