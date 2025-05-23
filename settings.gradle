@@ -25,7 +25,20 @@ dependencyResolutionManagement {
         }
     }
 }
-rootProject.name = "kux-pip-app"
+rootProject.name = "每橙车主-app"
 include ':app'
 include ':uniappx'
-include ':kux-pip'
+include ':jg-jpush'
+include ':jj-md5'
+include ':kux-request-interceptors'
+include ':kux-router'
+include ':mc-amap-nav-plus'
+include ':mc-wechat-sdk'
+include ':uni-kuxrouter'
+include ':x-base642file-s'
+include ':x-loading-s'
+include ':x-modal-s'
+include ':x-share-s'
+include ':x-tips-s'
+include ':x-toast-s'
+include ':x-vibrate-s'

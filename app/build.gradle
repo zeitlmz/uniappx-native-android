@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace 'cn.uvuejs.kux'
+    namespace 'com.mc.driver.client'
 	compileSdk 34
 	
 	buildFeatures {
@@ -13,20 +13,22 @@ android {
 	}
 
     defaultConfig {
-        applicationId 'cn.uvuejs.kux'
+        applicationId 'com.mc.driver.client'
         minSdk 21
 		targetSdk 30
-        versionCode 100
-        versionName '1.0.0'
+        versionCode 4
+        versionName '4.0.0'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
 
-        buildConfigField "String", "UTSRegisterComponents", "\"[{\\\"name\\\":\\\"video\\\",\\\"class\\\":\\\"uts.sdk.modules.DCloudUniVideo.VideoComponent\\\"}]\""
+        buildConfigField "String", "UTSRegisterComponents", "\"[{\\\"name\\\":\\\"video\\\",\\\"class\\\":\\\"uts.sdk.modules.DCloudUniVideo.VideoComponent\\\"},{\\\"name\\\":\\\"canvas\\\",\\\"class\\\":\\\"io.dcloud.canvas.CanvasComponent\\\",\\\"node\\\":\\\"io.dcloud.canvas.UniCanvasElementImpl\\\"}]\""
+        buildConfigField "String", "UTSEasyCom", "\"[{\\\"class\\\":\\\"uts.sdk.modules.DCloudUniActionSheet.UniActionSheetExtApiPagesRegister\\\",\\\"method\\\":\\\"register\\\"},{\\\"class\\\":\\\"uts.sdk.modules.DCloudUniPreviewImage.UniPreviewImageExtApiPagesRegister\\\",\\\"method\\\":\\\"register\\\"},{\\\"class\\\":\\\"uts.sdk.modules.DCloudUniModal.UniModalExtApiPagesRegister\\\",\\\"method\\\":\\\"register\\\"},{\\\"class\\\":\\\"uts.sdk.modules.DCloudUniCamera.UniCameraExtApiComponentsRegister\\\",\\\"method\\\":\\\"register\\\"}]\""
+        buildConfigField "String", "UTSRegisterProvider", "\"[{\\\"name\\\":\\\"system\\\",\\\"service\\\":\\\"location\\\",\\\"class\\\":\\\"uts.sdk.modules.DCloudUniLocationSystem.UniLocationSystemProviderImpl\\\"}]\""
 		
 
         ndk {
-            abiFilters "arm64-v8a"
+            abiFilters "armeabi-v7a","arm64-v8a"
         }
 
     }
@@ -35,9 +37,9 @@ android {
     signingConfigs {
         config {
             storeFile file("../app/debug.keystore")
-            storePassword "adminadmindebug"
-            keyAlias "androiddebugkey"
-            keyPassword "adminadmindebug"
+            storePassword "mcdriver"
+            keyAlias "mc-driver"
+            keyPassword "mcdriver"
         }
     }
 
@@ -86,11 +88,33 @@ dependencies {
     implementation project(':uniappx')
     implementation fileTree(include: ['*.aar', '*.jar'], dir: '../uniappx/libs')
     implementation "com.squareup.okhttp3:okhttp:3.12.12"
-	implementation project(':kux-pip')
+	implementation project(':jg-jpush')
+	implementation project(':jj-md5')
+	implementation project(':kux-request-interceptors')
+	implementation project(':kux-router')
+	implementation project(':mc-amap-nav-plus')
+	implementation project(':mc-wechat-sdk')
+	implementation project(':uni-kuxrouter')
+	implementation project(':x-base642file-s')
+	implementation project(':x-loading-s')
+	implementation project(':x-modal-s')
+	implementation project(':x-share-s')
+	implementation project(':x-tips-s')
+	implementation project(':x-toast-s')
+	implementation project(':x-vibrate-s')
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     implementation 'androidx.annotation:annotation:1.1.0'
     implementation 'androidx.core:core:1.1.0'
+    implementation 'androidx.webkit:webkit:1.6.0'
     implementation 'com.squareup.okhttp3:okhttp:3.12.12'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.18.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.activity:activity-ktx:1.9.2'
+    implementation 'androidx.camera:camera-core:1.4.1'
+    implementation 'androidx.camera:camera-camera2:1.4.1'
+    implementation 'androidx.camera:camera-lifecycle:1.4.1'
+    implementation 'androidx.camera:camera-view:1.4.1'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
 }

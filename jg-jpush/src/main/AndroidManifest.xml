@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+    <!-- Required -->
+    <!--huawei_permission_start-->
+    <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE"/>
+    <!--huawei_permission_end-->
+    <permission android:name="com.mc.driver.client.permission.JPUSH_MESSAGE" android:protectionLevel="signature"/>
+    <uses-permission android:name="com.mc.driver.client.permission.JPUSH_MESSAGE"/>
+    <!-- 适配Android13，弹出通知必须权限-->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <!-- Optional. Required for location feature -->
+    <!-- 为了提高sdk识别唯一用户的能力，保证消息推送的精准送达，建议集成以下权限（可选）-->
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <!-- 如您需要接入地理围栏业务，权限已在高德组件中集成，此处不需要在配置-->
+    <!-- 如您需要对应设备通知相关的能力，建议集成以下权限（可选）-->
+    <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE"/>
+    <!-- 华为角标 -->
+    <uses-permission android:name="com.vivo.notification.permission.BADGE_ICON"/>
+    <!-- VIVO角标权限 -->
+    <uses-permission android:name="com.hihonor.android.launcher.permission.CHANGE_BADGE"/>
+    <!--honor 角标-->
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <!--振动器权限，JPUSH支持通知开启振动功能，小米推送必须-->
+    <!-- 扩展备用权限（可选）-->
+    <permission android:name="com.mc.driver.client.permission.JOPERATE_MESSAGE" android:protectionLevel="signature"/>
+    <uses-permission android:name="com.mc.driver.client.permission.JOPERATE_MESSAGE"/>
+    <!-- wifi配置 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
+    <!--jpush_permission_start-->
+    <uses-sdk tools:overrideLibrary="
+		 cn.jpush.android.thirdpush.fcm
+		,cn.jpush.android.thirdpush.huawei
+		,cn.jpush.android.thirdpush.meizu
+		,cn.jpush.android.thirdpush.oppo
+		,cn.jpush.android.thirdpush.vivo
+		,cn.jpush.android.thirdpush.xiaomi
+		,com.google.firebase.firebase_core
+		,com.google.firebase.messaging
+		,com.google.firebase.analytics.connector.impl
+		,com.google.firebase.measurement
+		,com.google.android.gms.measurement.api
+		,com.google.firebase.measurement_impl
+		,com.google.firebase.iid
+		,com.google.firebase
+		,com.google.firebase.iid.internal
+		,com.google.android.gms.base
+		,com.google.android.gms.tasks
+		,com.google.firebase.analytics.connector
+		,com.google.android.gms.stats
+		,com.google.android.gms.ads_identifier
+		,com.google.android.gms.common
+		,com.google.android.gms.measurement_base
+		,com.huawei.android.hms.openid
+		,com.huawei.agconnect.core
+		,com.huawei.hmf.tasks
+		,com.huawei.hms.framework.network.grs
+		,com.huawei.hms.framework.common
+		,com.huawei.android.hms.base
+		,com.huawei.android.hms.push
+		,android.support.mediacompat
+		,android.support.fragment
+		,android.support.coreutils
+		,android.support.coreui
+		,android.support.compat
+		,android.arch.lifecycle"/>
+    <!--jpush_permission_end-->
+    <application>
+        <service android:name="uts.sdk.modules.jgJpush.MyJCommonService" android:enabled="true" android:exported="false">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTER"/>
+                <action android:name="cn.jpush.android.intent.UNREGISTER"/>
+                <action android:name="cn.jpush.android.intent.REPORT"/>
+                <action android:name="cn.jpush.android.intent.PUSH_RECEIVED"/>
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED"/>
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED"/>
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED"/>
+                <action android:name="cn.jpush.android.intent.CONNECTION"/>
+                <category android:name="com.mc.driver.client"/>
+            </intent-filter>
+        </service>
+        <!--huawei_config_start-->
+        <service android:name="cn.jpush.android.service.PluginHuaweiPlatformsService" android:exported="false">
+            <intent-filter>
+                <action android:name="com.huawei.push.action.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+        <!--huawei_config_end-->
+        <!--nio_config_start-->
+        <meta-data android:name="nio_push_app_id" android:value=""/>
+        <!--nio_config_end-->
+        <meta-data android:name="com.huawei.hms.client.appid" android:value="114202141"/>
+        <meta-data android:name="com.huawei.hms.client.cpid" android:value="30086000703531086"/>
+        <receiver android:name="uts.sdk.modules.jgJpush.MyJPushMessageReceiver" android:enabled="true" android:exported="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE"/>
+                <action android:name="cn.jpush.android.intent.REGISTRATION"/>
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED"/>
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED"/>
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED"/>
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_CLICK_ACTION"/>
+                <action android:name="cn.jpush.android.intent.CONNECTION"/>
+                <category android:name="com.mc.driver.client"/>
+            </intent-filter>
+        </receiver>
+        <meta-data android:name="JPUSH_CHANNEL" android:value="default" tools:replace="android:value"/>
+        <meta-data android:name="JPUSH_APPKEY" android:value="8e00add2deac36aa5599da87" tools:replace="android:value"/>
+        <meta-data android:name="applicationId" android:value="com.mc.driver.client" tools:replace="android:value"/>
+        <meta-data android:name="JPUSH_PKGNAME" android:value="com.mc.driver.client" tools:replace="android:value"/>
+    </application>
+</manifest>

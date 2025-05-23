@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+    <!-- // 在应用的AndroidManifest.xml添加如下<queries>标签 -->
+    <queries>
+        <package android:name="com.mc.driver.client"/>
+        <!-- // 指定微信包名 -->
+    </queries>
+</manifest>
