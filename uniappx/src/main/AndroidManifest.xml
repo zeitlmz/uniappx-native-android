@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+    <application>
+        <meta-data android:name="DCLOUD_UNI_APPID" android:value="__UNI__511F0A5"/>
+        <meta-data android:name="DCLOUD_CHANNEL" android:value=""/>
+        <meta-data android:name="TencentMapSDK" android:value=""/>
+        <meta-data android:name="DCLOUD_DEBUG" android:value="false"/>
+    </application>
+</manifest>

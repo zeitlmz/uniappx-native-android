@@ -1,0 +1,44 @@
+pluginManagement {
+	repositories {
+		flatDir {
+			dirs 'libs'
+		}
+		google()
+		mavenCentral()
+		gradlePluginPortal()
+	}
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        maven { url = uri("https://jitpack.io") }
+		maven { url = uri("https://developer.huawei.com/repo/") }
+		maven { url = uri("https://maven.aliyun.com/repository/public/") }
+		maven { url = uri("https://maven.aliyun.com/repository/central") }
+		maven { url = uri("https://android-sdk.is.com/") }
+		maven { url = uri("https://dl-maven-android.mintegral.com/repository/mbridge_android_sdk_oversea") }
+		maven { url = uri("https://oss.sonatype.org/content/groups/public") }
+        flatDir {
+            dirs('./plugins/')
+        }
+    }
+}
+rootProject.name = "每橙车主-app"
+include ':app'
+include ':uniappx'
+include ':jg-jpush'
+include ':jj-md5'
+include ':kux-request-interceptors'
+include ':kux-router'
+include ':mc-amap-nav-plus'
+include ':mc-wechat-sdk'
+include ':uni-kuxrouter'
+include ':x-base642file-s'
+include ':x-loading-s'
+include ':x-modal-s'
+include ':x-share-s'
+include ':x-tips-s'
+include ':x-toast-s'
+include ':x-vibrate-s'

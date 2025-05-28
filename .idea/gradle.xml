@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="testRunner" value="CHOOSE_PER_TEST" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleJvm" value="corretto-17" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/jg-jpush" />
+            <option value="$PROJECT_DIR$/jj-md5" />
+            <option value="$PROJECT_DIR$/kux-request-interceptors" />
+            <option value="$PROJECT_DIR$/kux-router" />
+            <option value="$PROJECT_DIR$/mc-amap-nav-plus" />
+            <option value="$PROJECT_DIR$/mc-wechat-sdk" />
+            <option value="$PROJECT_DIR$/uni-kuxrouter" />
+            <option value="$PROJECT_DIR$/uniappx" />
+            <option value="$PROJECT_DIR$/x-base642file-s" />
+            <option value="$PROJECT_DIR$/x-loading-s" />
+            <option value="$PROJECT_DIR$/x-modal-s" />
+            <option value="$PROJECT_DIR$/x-share-s" />
+            <option value="$PROJECT_DIR$/x-tips-s" />
+            <option value="$PROJECT_DIR$/x-toast-s" />
+            <option value="$PROJECT_DIR$/x-vibrate-s" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+    <option name="parallelModelFetch" value="true" />
+  </component>
+</project>
