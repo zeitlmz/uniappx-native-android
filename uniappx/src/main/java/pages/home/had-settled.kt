@@ -74,7 +74,7 @@ open class GenPagesHomeHadSettled : VueComponent {
             val disabledDates = ref(utsArrayOf<String>())
             val hadGetWeather = ref<WeatherData>(WeatherData(province = "", city = "", adcode = "", weather = "", temperature = "", winddirection = "", windpower = "", humidity = "", reporttime = "", temperature_float = 0, humidity_float = 0))
             val onLocation = fun(location: String){
-                val locationInfo = UTSAndroid.consoleDebugError(JSON.parse<LocationInfo>(location), " at pages/home/had-settled.uvue:367")
+                val locationInfo = UTSAndroid.consoleDebugError(JSON.parse<LocationInfo>(location), " at pages/home/had-settled.uvue:362")
                 if (locationInfo != null) {
                     globalData.position = locationInfo
                     if (ws.getIsConnected()) {
@@ -94,7 +94,7 @@ open class GenPagesHomeHadSettled : VueComponent {
             }
             val advList = utsArrayOf(
                 ADV_ITEM(image = "/static/images/adv-driver-join-2.png", click = fun(index: Number){
-                    console.log(index, " at pages/home/had-settled.uvue:398")
+                    console.log(index, " at pages/home/had-settled.uvue:393")
                 }
                 )
             )
@@ -118,27 +118,27 @@ open class GenPagesHomeHadSettled : VueComponent {
             )
             val gridFuncs = utsArrayOf(
                 GRID_FUNC_ITEM(icon = "/static/icons/icon-car.png", text = "租车购车", click = fun(){
-                    console.log("租车购车", " at pages/home/had-settled.uvue:444")
+                    console.log("租车购车", " at pages/home/had-settled.uvue:439")
                 }
                 ),
                 GRID_FUNC_ITEM(icon = "/static/icons/icon-idcard.png", text = "证件代办", click = fun(){
-                    console.log("证件代办", " at pages/home/had-settled.uvue:451")
+                    console.log("证件代办", " at pages/home/had-settled.uvue:446")
                 }
                 ),
                 GRID_FUNC_ITEM(icon = "/static/icons/icon-power.png", text = "充电站", click = fun(){
-                    console.log("充电站", " at pages/home/had-settled.uvue:458")
+                    console.log("充电站", " at pages/home/had-settled.uvue:453")
                 }
                 ),
                 GRID_FUNC_ITEM(icon = "/static/icons/icon-giveup.png", text = "加油站", click = fun(){
-                    console.log("加油站", " at pages/home/had-settled.uvue:465")
+                    console.log("加油站", " at pages/home/had-settled.uvue:460")
                 }
                 ),
                 GRID_FUNC_ITEM(icon = "/static/icons/icon-wc.png", text = "附近厕所", click = fun(){
-                    console.log("附近厕所", " at pages/home/had-settled.uvue:472")
+                    console.log("附近厕所", " at pages/home/had-settled.uvue:467")
                 }
                 ),
                 GRID_FUNC_ITEM(icon = "/static/icons/icon-service.png", text = "联系客服", click = fun(){
-                    console.log("联系客服", " at pages/home/had-settled.uvue:479")
+                    console.log("联系客服", " at pages/home/had-settled.uvue:474")
                 }
                 )
             )
@@ -168,7 +168,7 @@ open class GenPagesHomeHadSettled : VueComponent {
             }
             val showNavModal = ref<Boolean>(false)
             val toOrderDetail = fun(order: IntercityOrderSummaryInfo){
-                val query: UTSJSONObject = object : UTSJSONObject(UTSSourceMapPosition("query", "pages/home/had-settled.uvue", 507, 9)) {
+                val query: UTSJSONObject = object : UTSJSONObject(UTSSourceMapPosition("query", "pages/home/had-settled.uvue", 502, 9)) {
                     var planId = order.planId?.toString(10)
                     var summaryId = order.summaryId?.toString(10)
                     var orderStatus = order.status
@@ -180,7 +180,7 @@ open class GenPagesHomeHadSettled : VueComponent {
             val handleStartPickup = fun(order: IntercityOrderSummaryInfo){
                 showLoading(XLOADINGS_TYPE(title = "正在出车中..."))
                 ws?.sendAndOnErr(WebSocketSendMessage(type = MessageType["BEFORE_CHECK"] as Number), fun(data){
-                    console.log("检车成功：", data, " at pages/home/had-settled.uvue:522")
+                    console.log("检车成功：", data, " at pages/home/had-settled.uvue:517")
                     restartListening(order.summaryId.toString(10)).then(fun(){
                         order.status = 1
                         toOrderDetail(order)
@@ -199,7 +199,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                 if (order.remainingSeats <= 0) {
                     return showToast("车辆已满座，无法继续下单", "error")
                 }
-                val query: UTSJSONObject = object : UTSJSONObject(UTSSourceMapPosition("query", "pages/home/had-settled.uvue", 542, 9)) {
+                val query: UTSJSONObject = object : UTSJSONObject(UTSSourceMapPosition("query", "pages/home/had-settled.uvue", 537, 9)) {
                     var planId = order.planId.toString(10)
                     var linesGroupName = order.lineGroup
                     var xcTime = order.departureDate + " " + order.departureStartTime + ":00"
@@ -209,7 +209,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                         queryDate.value
                     }
                 }
-                console.log("扫码上车", query, " at pages/home/had-settled.uvue:548")
+                console.log("扫码上车", query, " at pages/home/had-settled.uvue:543")
                 router.push("/pages/other/scan-order/index?planId=" + query["planId"] + "&linesGroupName=" + query["linesGroupName"] + "&xcTime=" + query["xcTime"] + "&date=" + query["date"])
             }
             val todayOrderCount = ref(0)
@@ -221,7 +221,7 @@ open class GenPagesHomeHadSettled : VueComponent {
             }
             val dateStyles = ref(utsArrayOf<xCalendarDateStyle_type>())
             val queryOrderList = fun(type: Number){
-                console.log("查询订单列表:", ws?.getIsConnected(), " at pages/home/had-settled.uvue:578")
+                console.log("查询订单列表:", ws?.getIsConnected(), " at pages/home/had-settled.uvue:573")
                 ws?.sendAndOn(WebSocketSendMessage(type = MessageType["QUERY_ORDER"] as Number, content = object : UTSJSONObject() {
                     var queryType = if (type == 0) {
                         OrderQueryType["TODAY"]
@@ -235,10 +235,10 @@ open class GenPagesHomeHadSettled : VueComponent {
                         queryDate.value
                     }
                 }), fun(data){
-                    val orderInfo = UTSAndroid.consoleDebugError(JSON.parse<QueryResponse<OrderSummary>>(data), " at pages/home/had-settled.uvue:586")
-                    console.log("订单信息：", orderInfo, " at pages/home/had-settled.uvue:587")
+                    val orderInfo = UTSAndroid.consoleDebugError(JSON.parse<QueryResponse<OrderSummary>>(data), " at pages/home/had-settled.uvue:581")
+                    console.log("订单信息：", orderInfo, " at pages/home/had-settled.uvue:582")
                     todayOrderCount.value = orderInfo?.data?.todayOrderCount ?: 0
-                    console.log("type：", type, " at pages/home/had-settled.uvue:589")
+                    console.log("type：", type, " at pages/home/had-settled.uvue:584")
                     otherOrderCount.value = orderInfo?.data?.otherOrderCount ?: 0
                     if (orderInfo?.queryType == 0) {
                         orderList.value = orderInfo?.data?.intercityOrderSummaryInfos ?: utsArrayOf()
@@ -252,8 +252,8 @@ open class GenPagesHomeHadSettled : VueComponent {
                 ws?.sendAndOn(WebSocketSendMessage(type = MessageType["QUERY_ORDER"] as Number, content = object : UTSJSONObject() {
                     var queryType = OrderQueryType["CALENDAR"] as Number
                 }), fun(data){
-                    val orderInfo = UTSAndroid.consoleDebugError(JSON.parse<QueryResponse<UTSJSONObject>>(data), " at pages/home/had-settled.uvue:606")
-                    console.log("日历预约订单数量信息：", orderInfo?.data, " at pages/home/had-settled.uvue:607")
+                    val orderInfo = UTSAndroid.consoleDebugError(JSON.parse<QueryResponse<UTSJSONObject>>(data), " at pages/home/had-settled.uvue:601")
+                    console.log("日历预约订单数量信息：", orderInfo?.data, " at pages/home/had-settled.uvue:602")
                     val dateStyleList: UTSArray<xCalendarDateStyle_type> = utsArrayOf()
                     val dateList = UTSJSONObject.keys(orderInfo?.data ?: UTSJSONObject())
                     dateList.forEach(fun(key: String, index: Number, arr: UTSArray<String>){
@@ -301,10 +301,11 @@ open class GenPagesHomeHadSettled : VueComponent {
                 }
             }
             val handleCancelPickup = fun(order: IntercityOrderSummaryInfo){
-                console.log("取消接驾", order, " at pages/home/had-settled.uvue:675")
+                console.log("取消接驾", order, " at pages/home/had-settled.uvue:646")
                 showLoading(XLOADINGS_TYPE(title = "正在取消接驾..."))
                 ws?.sendAndOnErr(WebSocketSendMessage(type = MessageType["CANCEL_CAR"] as Number), fun(data){
-                    console.log("收车成功：", data, " at pages/home/had-settled.uvue:680")
+                    console.log("收车成功：", data, " at pages/home/had-settled.uvue:651")
+                    showTips("取消接驾成功", "success")
                     hideXloading()
                     orderQuery()
                 }
@@ -316,9 +317,10 @@ open class GenPagesHomeHadSettled : VueComponent {
             val onHide = fun(){}
             val initWs = fun(){
                 ws.setOpenCallback(fun(){
-                    console.log("首页监听到连接打开事件=======", " at pages/home/had-settled.uvue:694")
+                    console.log("首页监听到连接打开事件=======", " at pages/home/had-settled.uvue:666")
                     isInit.value = true
                     orderQuery()
+                    showTips("服务已连接", "success")
                 }
                 )
                 ws?.on(MessageType["WARNING"] as Number, fun(data){
@@ -344,7 +346,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                 }
                 )
                 ws?.on(MessageType["FORCE_LOGOUT"] as Number, fun(data){
-                    console.log("您的账号已在另一台设备登录，当前连接已断开：", data, " at pages/home/had-settled.uvue:730")
+                    console.log("您的账号已在另一台设备登录，当前连接已断开：", data, " at pages/home/had-settled.uvue:703")
                     clearAuth()
                     showModal(X_MODAL_TYPE(title = "温馨提示", content = "\u60A8\u7684\u8D26\u53F7\u5DF2\u5728\u53E6\u4E00\u53F0\u8BBE\u5907\u767B\u5F55\uFF0C\u5F53\u524D\u8FDE\u63A5\u5DF2\u65AD\u5F00", confirmText = "知道了", confirmBgColor = globalData.theme.primaryColor, showCancel = false, confirm = fun(){
                         router.reLaunch("/pages/home/index")
@@ -353,7 +355,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                 }
                 )
                 ws?.on(MessageType["ORDER_CANCEL"] as Number, fun(data){
-                    console.log("您有一个订单已被取消：", data, " at pages/home/had-settled.uvue:744")
+                    console.log("您有一个订单已被取消：", data, " at pages/home/had-settled.uvue:717")
                     showModal(X_MODAL_TYPE(title = "温馨提示", content = "\u60A8\u6709\u4E00\u4E2A\u8BA2\u5355\u5DF2\u88AB\u53D6\u6D88", confirmText = "知道了", confirmBgColor = globalData.theme.primaryColor, showCancel = false, confirm = fun(){
                         orderQuery()
                     }
@@ -362,13 +364,13 @@ open class GenPagesHomeHadSettled : VueComponent {
                 }
                 )
                 ws?.on(MessageType["ORDER_ADD"] as Number, fun(data){
-                    console.log("您有一个新的订单：", data, " at pages/home/had-settled.uvue:758")
+                    console.log("您有一个新的订单：", data, " at pages/home/had-settled.uvue:731")
                     orderQuery()
                     PlayAudio("/static/audio/new-order.mp3", 1)
                 }
                 )
                 ws?.on(MessageType["BIG_ORDER_FINISH"] as Number, fun(data){
-                    console.log("因订单取消或调度，您当前订单已全部完成：", data, " at pages/home/had-settled.uvue:763")
+                    console.log("因订单取消或调度，您当前订单已全部完成：", data, " at pages/home/had-settled.uvue:736")
                     showModal(X_MODAL_TYPE(title = "温馨提示", content = "\u56E0\u8BA2\u5355\u53D6\u6D88\u6216\u8C03\u5EA6\uFF0C\u60A8\u5F53\u524D\u8BA2\u5355\u5DF2\u5168\u90E8\u5B8C\u6210", confirmText = "知道了", confirmBgColor = globalData.theme.primaryColor, showCancel = false, confirm = fun(){
                         orderQuery()
                     }
@@ -377,7 +379,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                 }
                 )
                 ws?.sendAndOn(WebSocketSendMessage(type = MessageType["QUERY_CAR_SETTING"] as Number, content = ""), fun(data){
-                    val json = UTSAndroid.consoleDebugError(JSON.parse<UTSJSONObject>(data), " at pages/home/had-settled.uvue:777")
+                    val json = UTSAndroid.consoleDebugError(JSON.parse<UTSJSONObject>(data), " at pages/home/had-settled.uvue:750")
                     globalData.carSetting.closeReceiveOrderSwitch = json?.getBoolean("closeReceiveOrderSwitch") ?: true
                     globalData.carSetting.enableAIRouteStrategy = json?.getBoolean("enableAIRouteStrategy") ?: false
                     globalData.carSetting.routeStrategy = json?.getString("routeStrategy") ?: "OVERALL_OPTIMAL"
@@ -408,7 +410,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                 setTimeout(fun(){
                     init(MAP_CONFIG["naviKey"] as String, fun(all: Boolean){
                         if (all) {
-                            console.log("同意权限=======", all, " at pages/home/had-settled.uvue:821")
+                            console.log("同意权限=======", all, " at pages/home/had-settled.uvue:794")
                             startLocation.value = true
                             uni_setStorageSync("locationAgree", "true")
                             onShow()
@@ -431,7 +433,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                 app.globalData.jg = jg
             }
             val handlePromotion = fun(){
-                console.log("跳转推广页", " at pages/home/had-settled.uvue:842")
+                console.log("跳转推广页", " at pages/home/had-settled.uvue:815")
                 router.push("/pages/personal/promotion/index")
                 showValidModal.value = false
             }
@@ -439,7 +441,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                 isInit.value = true
                 initJg()
                 val locationAgree = uni_getStorageSync("locationAgree")
-                console.log("首页面渲染onMounted", " at pages/home/had-settled.uvue:850")
+                console.log("首页面渲染onMounted", " at pages/home/had-settled.uvue:823")
                 showValidModal.value = true
                 if (locationAgree != null && locationAgree != "") {
                     locationAgreeConfirm()
