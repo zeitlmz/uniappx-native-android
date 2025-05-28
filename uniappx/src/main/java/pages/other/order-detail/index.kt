@@ -6,6 +6,7 @@ import io.dcloud.uniapp.framework.*
 import io.dcloud.uniapp.runtime.*
 import io.dcloud.uniapp.vue.*
 import io.dcloud.uniapp.vue.shared.*
+import io.dcloud.unicloud.*
 import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
@@ -32,32 +33,32 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
         onPageScroll(fun(e: OnPageScrollOptions) {
             xProvitae.scrollTop = e.scrollTop
         }
-        , __ins)
+            , __ins)
         onResize(fun(_: OnResizeOptions) {
             uni__emit("onResize", fun() {})
         }
-        , __ins)
+            , __ins)
         onLoad(fun(_: OnLoadOptions) {}, __ins)
         onPageHide(fun() {
             uni__emit("onHide", fun() {})
         }
-        , __ins)
+            , __ins)
         onReady(fun() {
             uni__emit("onReady", fun() {})
             xProvitae.pageReady = true
         }
-        , __ins)
+            , __ins)
         onPageShow(fun() {
             uni__emit("onShow", fun() {})
         }
-        , __ins)
+            , __ins)
         onReady(fun() {
             this.initEvt(true)
-            console.log("onReady")
+            console.log("onReady", " at pages/other/order-detail/index.uvue:605")
         }
-        , __ins)
+            , __ins)
         onLoad(fun(query: OnLoadOptions) {
-            console.log("query:", query)
+            console.log("query:", query, " at pages/other/order-detail/index.uvue:608")
             this.orderParams = query
             this.routeStrategy = this.globalData.carSetting.routeStrategy ?: "OVERALL_OPTIMAL"
             this.routeStrategyStr = this.routeStrategyOptions.find(fun(item): Boolean {
@@ -76,13 +77,13 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
             )
             this.updateToday()
         }
-        , __ins)
+            , __ins)
         onBeforeUnmount(fun() {
             val mapView = (this.`$refs`["mapView"] as McAmapComponentPublicInstance)
             mapView?.destroy()
             uni__off("queryOrderDetail", null)
         }
-        , __ins)
+            , __ins)
     }
     @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
     override fun `$render`(): Any? {
@@ -159,12 +160,12 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                                 return createElementVNode("text", utsMapOf("key" to item.code, "onClick" to fun(){
                                     _ctx.routeLoveClick(item)
                                 }
-                                , "class" to "radio-card mr-7", "style" to normalizeStyle("" + (if (_ctx.routeStrategy == item.code) {
-                                    "font-weight: bold;color: " + _ctx.globalData.theme.primaryColor + ";"
-                                } else {
-                                    ""
-                                }
-                                ))), toDisplayString(item.name), 13, utsArrayOf(
+                                    , "class" to "radio-card mr-7", "style" to normalizeStyle("" + (if (_ctx.routeStrategy == item.code) {
+                                        "font-weight: bold;color: " + _ctx.globalData.theme.primaryColor + ";"
+                                    } else {
+                                        ""
+                                    }
+                                            ))), toDisplayString(item.name), 13, utsArrayOf(
                                     "onClick"
                                 ))
                             }
@@ -175,12 +176,12 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                                 return createElementVNode("text", utsMapOf("key" to item.code, "onClick" to fun(){
                                     _ctx.routeLoveClick(item)
                                 }
-                                , "class" to "radio-card mr-7", "style" to normalizeStyle("" + (if (_ctx.routeStrategy == item.code) {
-                                    "font-weight: bold;color: " + _ctx.globalData.theme.primaryColor + ";"
-                                } else {
-                                    ""
-                                }
-                                ))), toDisplayString(item.name), 13, utsArrayOf(
+                                    , "class" to "radio-card mr-7", "style" to normalizeStyle("" + (if (_ctx.routeStrategy == item.code) {
+                                        "font-weight: bold;color: " + _ctx.globalData.theme.primaryColor + ";"
+                                    } else {
+                                        ""
+                                    }
+                                            ))), toDisplayString(item.name), 13, utsArrayOf(
                                     "onClick"
                                 ))
                             }
@@ -213,7 +214,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                     } else {
                         "#ffffff"
                     }
-                    ))), utsArrayOf(
+                            ))), utsArrayOf(
                         withDirectives(createElementVNode("view", utsMapOf("class" to "flex-row-center-between", "onClick" to _ctx.viewOrders, "style" to normalizeStyle("height:40rpx;margin-bottom: 20rpx;background-color: " + _ctx.globalData.theme.primaryLinearColors[0] + ";")), utsArrayOf(
                             createElementVNode("image", utsMapOf("style" to normalizeStyle(utsMapOf("height" to "27rpx", "width" to "27rpx", "margin-top" to "6rpx")), "src" to ("" + _ctx.resBaseUrl + "/static/icons/icon-tow-arrow-down-outline.png"), "mode" to "widthFix"), null, 12, utsArrayOf(
                                 "src"
@@ -263,20 +264,20 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                                 createElementVNode("image", utsMapOf("onClick" to fun(){
                                     _ctx.showAiDescModal = true
                                 }
-                                , "class" to "planning-icon", "src" to ("" + _ctx.resBaseUrl + "/static/icons/icon-tips-outline-small.png")), null, 8, utsArrayOf(
+                                    , "class" to "planning-icon", "src" to ("" + _ctx.resBaseUrl + "/static/icons/icon-tips-outline-small.png")), null, 8, utsArrayOf(
                                     "onClick",
                                     "src"
                                 )),
                                 createElementVNode("text", utsMapOf("onClick" to fun(){
                                     _ctx.showAiDescModal = true
                                 }
-                                , "class" to "text"), "智能规划", 8, utsArrayOf(
+                                    , "class" to "text"), "智能规划", 8, utsArrayOf(
                                     "onClick"
                                 )),
                                 createVNode(_component_x_switch, utsMapOf("modelValue" to _ctx.isSmartPlanning, "onUpdate:modelValue" to fun(`$event`: Boolean){
                                     _ctx.isSmartPlanning = `$event`
                                 }
-                                , "disabled" to (_ctx.orderData.orderCount <= 1), "size" to "small", "onChange" to _ctx.onPlanningChange, "color" to "#D1B27A"), null, 8, utsArrayOf(
+                                    , "disabled" to (_ctx.orderData.orderCount <= 1), "size" to "small", "onChange" to _ctx.onPlanningChange, "color" to "#D1B27A"), null, 8, utsArrayOf(
                                     "modelValue",
                                     "onUpdate:modelValue",
                                     "disabled",
@@ -331,7 +332,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                                 } else {
                                     ""
                                 }
-                                )), "onClick" to fun(){
+                                        )), "onClick" to fun(){
                                     _ctx.selectRoute(route)
                                 }
                                 ), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
@@ -342,7 +343,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                                             } else {
                                                 ""
                                             }
-                                            ))), "线路" + toDisplayString(index + 1), 5),
+                                                    ))), "线路" + toDisplayString(index + 1), 5),
                                             createElementVNode("view", utsMapOf("class" to "traffic-light"), utsArrayOf(
                                                 createElementVNode("image", utsMapOf("class" to "light-icon", "src" to if (_ctx.selectedRoute.routeId === route.routeId) {
                                                     "" + _ctx.resBaseUrl + "/static/icons/icon-traffic-white-outline-small.png"
@@ -357,7 +358,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                                                 } else {
                                                     ""
                                                 }
-                                                ))), toDisplayString(route.lights), 5)
+                                                        ))), toDisplayString(route.lights), 5)
                                             ))
                                         )),
                                         createElementVNode("text", utsMapOf("class" to "route-time", "style" to normalizeStyle("" + (if (_ctx.selectedRoute.routeId === route.routeId) {
@@ -365,13 +366,13 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                                         } else {
                                             ""
                                         }
-                                        ))), toDisplayString(route.time), 5),
+                                                ))), toDisplayString(route.time), 5),
                                         createElementVNode("text", utsMapOf("class" to "route-distance", "style" to normalizeStyle("" + (if (_ctx.selectedRoute.routeId === route.routeId) {
                                             "color: #ffffff;"
                                         } else {
                                             ""
                                         }
-                                        ))), toDisplayString(route.distance), 5)
+                                                ))), toDisplayString(route.distance), 5)
                                     )
                                 }
                                 ), "_" to 2), 1032, utsArrayOf(
@@ -867,15 +868,15 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
             createVNode(_component_x_modal, utsMapOf("show" to _ctx.showValidModal, "onUpdate:show" to fun(`$event`: Boolean){
                 _ctx.showValidModal = `$event`
             }
-            , "show-close" to "", "onClose" to _ctx.modalClose, "height" to "300rpx", "z-index" to "100", "title" to "请输入乘客手机尾号", "show-footer" to false, "overlayClick" to false), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                , "show-close" to "", "onClose" to _ctx.modalClose, "height" to "300rpx", "z-index" to "100", "title" to "请输入乘客手机尾号", "show-footer" to false, "overlayClick" to false), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                 return utsArrayOf(
                     createVNode(_component_x_code_input, utsMapOf("auto-focus" to "", "place-shape" to "line", "onClick" to fun(){
                         _ctx.showKey = true
                     }
-                    , "onConfirm" to _ctx.validPhoneConfirm, "modelValue" to _ctx.phoneSuffix, "onUpdate:modelValue" to fun(`$event`: String){
-                        _ctx.phoneSuffix = `$event`
-                    }
-                    , "useSysKeyborad" to false, "skin" to "fill"), null, 8, utsArrayOf(
+                        , "onConfirm" to _ctx.validPhoneConfirm, "modelValue" to _ctx.phoneSuffix, "onUpdate:modelValue" to fun(`$event`: String){
+                            _ctx.phoneSuffix = `$event`
+                        }
+                        , "useSysKeyborad" to false, "skin" to "fill"), null, 8, utsArrayOf(
                         "onClick",
                         "onConfirm",
                         "modelValue",
@@ -891,9 +892,9 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
             createVNode(_component_x_keyboard_number, utsMapOf("mode" to "password", "max-len" to 4, "btn-color" to "white", "digit" to false, "modelShow" to _ctx.showKey, "onUpdate:modelShow" to fun(`$event`: Boolean){
                 _ctx.showKey = `$event`
             }
-            , "modelValue" to _ctx.phoneSuffix, "onUpdate:modelValue" to fun(`$event`: String){
-                _ctx.phoneSuffix = `$event`
-            }
+                , "modelValue" to _ctx.phoneSuffix, "onUpdate:modelValue" to fun(`$event`: String){
+                    _ctx.phoneSuffix = `$event`
+                }
             ), null, 8, utsArrayOf(
                 "modelShow",
                 "onUpdate:modelShow",
@@ -903,12 +904,12 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
             createVNode(_component_x_modal, utsMapOf("show" to _ctx.showCancelModal, "onUpdate:show" to fun(`$event`: Boolean){
                 _ctx.showCancelModal = `$event`
             }
-            , "show-close" to "", "onClose" to _ctx.modalCancelClose, "height" to if (_ctx.isLiquidatedDamages) {
-                "690rpx"
-            } else {
-                "550rpx"
-            }
-            , "z-index" to "100", "title" to ("\u53D6\u6D88" + _ctx.orderNo + "\u53F7\u8BA2\u5355"), "show-footer" to false, "overlayClick" to false), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                , "show-close" to "", "onClose" to _ctx.modalCancelClose, "height" to if (_ctx.isLiquidatedDamages) {
+                    "690rpx"
+                } else {
+                    "550rpx"
+                }
+                , "z-index" to "100", "title" to ("\u53D6\u6D88" + _ctx.orderNo + "\u53F7\u8BA2\u5355"), "show-footer" to false, "overlayClick" to false), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                 return utsArrayOf(
                     if (isTrue(_ctx.isLiquidatedDamages)) {
                         createElementVNode("view", utsMapOf("key" to 0, "class" to "pb-15 flex-row flex-row-center-center"), utsArrayOf(
@@ -922,7 +923,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                     createVNode(_component_x_input, utsMapOf("type" to "textarea", "auto-focus" to "", "modelValue" to _ctx.cancelReason, "onUpdate:modelValue" to fun(`$event`: String){
                         _ctx.cancelReason = `$event`
                     }
-                    , "height" to "200rpx", "maxlength" to 50, "showChartCount" to "", "placeholder" to "请输入取消原因"), null, 8, utsArrayOf(
+                        , "height" to "200rpx", "maxlength" to 50, "showChartCount" to "", "placeholder" to "请输入取消原因"), null, 8, utsArrayOf(
                         "modelValue",
                         "onUpdate:modelValue"
                     )),
@@ -1016,10 +1017,10 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
             createVNode(_component_x_modal, utsMapOf("show" to _ctx.showAiDescModal, "onUpdate:show" to fun(`$event`: Boolean){
                 _ctx.showAiDescModal = `$event`
             }
-            , "bgColor" to "#ECF1F8", "show-cancel" to false, "confirm-text" to "知道了", "onConfirm" to fun(){
-                _ctx.showAiDescModal = false
-            }
-            , "show-title" to false, "height" to "520rpx"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                , "bgColor" to "#ECF1F8", "show-cancel" to false, "confirm-text" to "知道了", "onConfirm" to fun(){
+                    _ctx.showAiDescModal = false
+                }
+                , "show-title" to false, "height" to "520rpx"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                 return utsArrayOf(
                     createElementVNode("text", utsMapOf("class" to "ai-desc-title"), "智能规划介绍"),
                     createElementVNode("view", utsMapOf("class" to "desc"), utsArrayOf(
@@ -1138,7 +1139,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                 this.updateToday()
             }
         }
-        , 3000)
+            , 3000)
     }
     open var initEvt = ::gen_initEvt_fn
     open fun gen_initEvt_fn(canCalcRoute: Boolean) {
@@ -1152,17 +1153,17 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
     }
     open var viewSeat = ::gen_viewSeat_fn
     open fun gen_viewSeat_fn(item: OrderItem) {
-        console.log("OrderItem:", item)
+        console.log("OrderItem:", item, " at pages/other/order-detail/index.uvue:650")
         val that = this
         that.currentChooseSeat = item.chooseSeat
         val date = formatDate(Date(), "yyyy-MM-dd")
         refreshSeatTemplate("DRIVER_PLAN:ORDER_SEAT_METADATA:" + item.planId + ":" + date).then(fun(res: Response){
             if (res.code == 200) {
-                that.seatSelectTemplates = JSON.parseObject<UTSArray<SeatSelectTemplate>>(JSON.stringify(res.data)) ?: utsArrayOf()
+                that.seatSelectTemplates = UTSAndroid.consoleDebugError(JSON.parseObject<UTSArray<SeatSelectTemplate>>(JSON.stringify(res.data)), " at pages/other/order-detail/index.uvue:656") ?: utsArrayOf()
                 setTimeout(fun(){
                     (that.`$refs`["seatViewer"] as McSeatViewerComponentPublicInstance)?.show()
                 }
-                , 100)
+                    , 100)
             }
         }
         )
@@ -1193,7 +1194,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                 }
             )
         )))), fun(data){
-            val res = (JSON.parse<OrderData>(data) as OrderData).data
+            val res = (UTSAndroid.consoleDebugError(JSON.parse<OrderData>(data), " at pages/other/order-detail/index.uvue:677") as OrderData).data
             that.orderData = res
             that.routeStrategy = res.orderRoute.routeStrategy
             if (forceCalc || (that.orderParams["orderStatus"] != "0" || res.orderItems.length > 1) && canCalcRoute) {
@@ -1219,10 +1220,10 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                     )
                     mapView?.setMarkers(markers)
                 }
-                , 10)
+                    , 10)
             }
             uni__emit("onSendData", JSON.stringify(that.orderData))
-            console.log("订单详情数据：", that.orderData)
+            console.log("订单详情数据：", that.orderData, " at pages/other/order-detail/index.uvue:702")
         }
         )
     }
@@ -1247,14 +1248,14 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
         val mapView = (this.`$refs`["mapView"] as McAmapComponentPublicInstance)
         mapView?.getLocation(SingleLocationOptions(), fun(res: LocationResult){
             var log = "\u5355\u6B21\u5B9A\u4F4D\u56DE\u8C03 " + JSON.stringify(res)
-            console.log(log)
+            console.log(log, " at pages/other/order-detail/index.uvue:731")
         }
         )
     }
     open var naviInfoUpdate = ::gen_naviInfoUpdate_fn
     open fun gen_naviInfoUpdate_fn(navInfo: String) {
-        console.log("导航信息更新：", navInfo)
-        val navInfoArr = JSON.parse<UTSArray<UTSJSONObject>>(navInfo)
+        console.log("导航信息更新：", navInfo, " at pages/other/order-detail/index.uvue:735")
+        val navInfoArr = UTSAndroid.consoleDebugError(JSON.parse<UTSArray<UTSJSONObject>>(navInfo), " at pages/other/order-detail/index.uvue:736")
         val nav = navInfoArr?.get(0)
         this.viaDistance = formatDistance(nav?.getNumber("distance") ?: 0, DistanceOption())
         this.viaTime = formatDuration(nav?.getNumber("time") ?: 0)
@@ -1269,7 +1270,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
     open var calcRouteSuccess = ::gen_calcRouteSuccess_fn
     open fun gen_calcRouteSuccess_fn(data: String) {
         hideXloading()
-        val routeData = JSON.parse<UTSJSONObject>(data) ?: UTSJSONObject()
+        val routeData = UTSAndroid.consoleDebugError(JSON.parse<UTSJSONObject>(data), " at pages/other/order-detail/index.uvue:745") ?: UTSJSONObject()
         val routes: UTSArray<RouteSimpleInfo> = utsArrayOf()
         UTSJSONObject.keys(routeData).forEach(fun(key: String, index: Number, array: UTSArray<String>){
             val value = routeData.getJSON(key)
@@ -1282,7 +1283,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
         setTimeout(fun(){
             mapView?.changeRouteById(this.routes[0].routeId)
         }
-        , 10)
+            , 10)
     }
     open var startNavigation = ::gen_startNavigation_fn
     open fun gen_startNavigation_fn(isEmulator: Boolean) {
@@ -1312,27 +1313,27 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
     }
     open var arriveDestination = ::gen_arriveDestination_fn
     open fun gen_arriveDestination_fn() {
-        console.log("组件回调-到达目的地")
+        console.log("组件回调-到达目的地", " at pages/other/order-detail/index.uvue:790")
     }
     open var locationupdate = ::gen_locationupdate_fn
     open fun gen_locationupdate_fn(location: Any) {
-        console.log("位置信息更新", location)
+        console.log("位置信息更新", location, " at pages/other/order-detail/index.uvue:793")
     }
     open var onPlanningChange = ::gen_onPlanningChange_fn
     open fun gen_onPlanningChange_fn(kVal: Boolean) {
         ws?.sendAndOnErr(WebSocketSendMessage(type = MessageType["QUERY_CAR_SETTING"] as Number, content = object : UTSJSONObject() {
             var enableAIRouteStrategy = kVal
         }), fun(data){
-            val json = JSON.parse<UTSJSONObject>(data)
+            val json = UTSAndroid.consoleDebugError(JSON.parse<UTSJSONObject>(data), " at pages/other/order-detail/index.uvue:802")
             this.globalData.carSetting.closeReceiveOrderSwitch = json?.getBoolean("closeReceiveOrderSwitch") ?: true
             this.globalData.carSetting.enableAIRouteStrategy = json?.getBoolean("enableAIRouteStrategy") ?: false
             this.globalData.carSetting.routeStrategy = json?.getString("routeStrategy") ?: "OVERALL_OPTIMAL"
             this.queryOrderDetail(true, false)
         }
-        , fun(data){
-            this.isSmartPlanning = false
-            console.log("this.isSmartPlanning = ", this.isSmartPlanning)
-        }
+            , fun(data){
+                this.isSmartPlanning = false
+                console.log("this.isSmartPlanning = ", this.isSmartPlanning, " at pages/other/order-detail/index.uvue:809")
+            }
         )
     }
     open var selectRoute = ::gen_selectRoute_fn
@@ -1360,7 +1361,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                 var duration = that.viaTime
             }
         })), fun(data){
-            console.log("同步路线成功：", data)
+            console.log("同步路线成功：", data, " at pages/other/order-detail/index.uvue:837")
         }
         )
     }
@@ -1384,7 +1385,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
         setTimeout(fun(){
             this.selectRoute(this.selectedRoute)
         }
-        , 100)
+            , 100)
     }
     open var routeLoveClick = ::gen_routeLoveClick_fn
     open fun gen_routeLoveClick_fn(option: RouteStrategyOption) {
@@ -1394,7 +1395,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
         setTimeout(fun(){
             this.showRouteStrategyOptions = false
         }
-        , 50)
+            , 50)
     }
     open var routeLoveBtnClick = ::gen_routeLoveBtnClick_fn
     open fun gen_routeLoveBtnClick_fn() {
@@ -1406,7 +1407,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
     open var openTrip = ::gen_openTrip_fn
     open fun gen_openTrip_fn() {
         ws?.sendAndOn(WebSocketSendMessage(type = MessageType["OPEN_TRIP"] as Number), fun(data){
-            console.log("开启行程：", data)
+            console.log("开启行程：", data, " at pages/other/order-detail/index.uvue:877")
             this.orderData.driverStatus = 3
             vibrator(100)
         }
@@ -1415,7 +1416,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
     open var closeTrip = ::gen_closeTrip_fn
     open fun gen_closeTrip_fn() {
         ws?.sendAndOn(WebSocketSendMessage(type = MessageType["STOP_TRIP"] as Number), fun(data){
-            console.log("关闭行程：", data)
+            console.log("关闭行程：", data, " at pages/other/order-detail/index.uvue:886")
             vibrator(100)
             this.orderData.driverStatus = 0
         }
@@ -1444,7 +1445,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
     open fun gen_verifyArrivedSuccess_fn() {
         val that = this
         ws?.sendAndOn(WebSocketSendMessage(type = MessageType["ARRIVED_TRIP"] as Number, content = that.orderId), fun(data){
-            console.log("到达上车点：", data)
+            console.log("到达上车点：", data, " at pages/other/order-detail/index.uvue:919")
             vibrator(100)
             that.queryOrderDetail(false, false)
         }
@@ -1461,14 +1462,14 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
             this.phoneSuffix = ""
             this.orderId = ""
         }
-        , 100)
+            , 100)
     }
     open var handleStartPickup = ::gen_handleStartPickup_fn
     open fun gen_handleStartPickup_fn() {
         val that = this
         showLoading(XLOADINGS_TYPE(title = "正在出车中..."))
         ws?.sendAndOnErr(WebSocketSendMessage(type = MessageType["BEFORE_CHECK"] as Number), fun(data){
-            console.log("检车成功：", data)
+            console.log("检车成功：", data, " at pages/other/order-detail/index.uvue:940")
             restartListening(that.orderParams["summaryId"] as String).then(fun(){
                 that.orderParams["orderStatus"] = "1"
                 that.queryOrderDetail(true, false)
@@ -1479,9 +1480,9 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
             }
             )
         }
-        , fun(data){
-            hideXloading()
-        }
+            , fun(data){
+                hideXloading()
+            }
         )
     }
     open var validPhoneConfirm = ::gen_validPhoneConfirm_fn
@@ -1492,7 +1493,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
             var phoneLastFour = that.phoneSuffix
             var orderId = that.orderId
         })), fun(data){
-            console.log("到达上车点：", data)
+            console.log("到达上车点：", data, " at pages/other/order-detail/index.uvue:962")
             that.queryOrderDetail(that.orderIndex == that.orderData.orderItems.length - 1, false)
             hideXloading()
             vibrator(100)
@@ -1502,9 +1503,9 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
             that.orderId = ""
             that.orderIndex = 0
         }
-        , fun(data){
-            hideXloading()
-        }
+            , fun(data){
+                hideXloading()
+            }
         )
     }
     open var toSelectPlan = ::gen_toSelectPlan_fn
@@ -1520,15 +1521,15 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
         showModal(X_MODAL_TYPE(title = "温馨提示", content = "\u786E\u8BA4\u5B8C\u6210" + sortNum + "\u53F7\u8BA2\u5355\uFF1F", confirmText = "确认", confirmBgColor = that.globalData.theme.primaryColor, confirm = fun(){
             showLoading(XLOADINGS_TYPE(title = "正在完成订单..."))
             ws?.sendAndOnErr(WebSocketSendMessage(type = MessageType["ORDER_FINISH"] as Number, content = orderId), fun(data){
-                console.log("完成订单：", data)
+                console.log("完成订单：", data, " at pages/other/order-detail/index.uvue:995")
                 if (that.orderIndex < that.orderData.orderItems.length - 1) {
                     that.queryOrderDetail(true, false)
                 }
                 hideXloading()
             }
-            , fun(data){
-                hideXloading()
-            }
+                , fun(data){
+                    hideXloading()
+                }
             )
         }
         ))
@@ -1541,14 +1542,14 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
         } else {
             showLoading(XLOADINGS_TYPE(title = "正在开启行程..."))
             ws?.sendAndOnErr(WebSocketSendMessage(type = MessageType["OPEN_TRIP"] as Number), fun(data){
-                console.log("开启行程：", data)
+                console.log("开启行程：", data, " at pages/other/order-detail/index.uvue:1015")
                 hideXloading()
                 that.orderData.driverStatus = 3
                 that.finishOrder(orderId, sortNum)
             }
-            , fun(data){
-                hideXloading()
-            }
+                , fun(data){
+                    hideXloading()
+                }
             )
         }
     }
@@ -1566,7 +1567,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
         this.orderNo = sortNum
         this.orderId = orderId
         getIntercityPassengerCancellation(orderId).then(fun(res: Response){
-            val data = JSON.parse<PassengerCancellation>(JSON.stringify(res.data))
+            val data = UTSAndroid.consoleDebugError(JSON.parse<PassengerCancellation>(JSON.stringify(res.data)), " at pages/other/order-detail/index.uvue:1036")
             if (1 == data?.isCancel) {
                 this.showCancelModal = true
                 this.isLiquidatedDamages = 1 == data?.isLiquidatedDamages
@@ -1589,9 +1590,9 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
             var driverCancelResponsibility = that.driverCancelResponsibility == "true"
             var cancelReason = "司机主动取消，原因如下：" + that.cancelReason
         })), fun(data){
-            console.log("取消订单：", data)
+            console.log("取消订单：", data, " at pages/other/order-detail/index.uvue:1062")
             hideXloading()
-            val res = JSON.parse<OrderCancelResponse>(data)
+            val res = UTSAndroid.consoleDebugError(JSON.parse<OrderCancelResponse>(data), " at pages/other/order-detail/index.uvue:1064")
             that.orderId = ""
             that.showCancelModal = false
             if (res?.summaryId == that.orderParams["summaryId"]) {
@@ -1604,20 +1605,21 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                 } else {
                     that.queryOrderDetail(true, false)
                 }
+                PlayAudio("/static/audio/order-cancel.mp3", 1)
             }
         }
-        , fun(data){
-            hideXloading()
-        }
+            , fun(data){
+                hideXloading()
+            }
         )
     }
     open var onOrderAdd = ::gen_onOrderAdd_fn
     open fun gen_onOrderAdd_fn() {
         val that = this
         ws?.on(MessageType["ORDER_ADD"] as Number, fun(data){
-            console.log("您有一个新的订单：", data)
+            console.log("您有一个新的订单：", data, " at pages/other/order-detail/index.uvue:1092")
             hideXloading()
-            val res = JSON.parse<OrderAddResponse>(data)
+            val res = UTSAndroid.consoleDebugError(JSON.parse<OrderAddResponse>(data), " at pages/other/order-detail/index.uvue:1094")
             if (res?.summaryId == that.orderParams["summaryId"]) {
                 setTimeout(fun() {
                     showModal(X_MODAL_TYPE(title = "温馨提示", content = "\u60A8\u6536\u5230\u4E00\u7B14\u65B0\u7684\u8BA2\u5355", confirmText = "知道了", confirmBgColor = this.globalData.theme.primaryColor, showCancel = false, close = fun(){
@@ -1625,7 +1627,8 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                     }
                     ))
                 }
-                , 250)
+                    , 250)
+                PlayAudio("/static/audio/new-order.mp3", 1)
             }
         }
         )
@@ -1634,9 +1637,9 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
     open fun gen_onOrderAllFinish_fn() {
         val that = this
         ws?.on(MessageType["BIG_ORDER_FINISH"] as Number, fun(data){
-            console.log("因订单取消或调度，您当前订单已全部完成：", data)
+            console.log("因订单取消或调度，您当前订单已全部完成：", data, " at pages/other/order-detail/index.uvue:1115")
             hideXloading()
-            val res = JSON.parse<OrderFinishResponse>(data)
+            val res = UTSAndroid.consoleDebugError(JSON.parse<OrderFinishResponse>(data), " at pages/other/order-detail/index.uvue:1117")
             if (res?.summaryId == that.orderParams["summaryId"]) {
                 setTimeout(fun() {
                     showModal(X_MODAL_TYPE(title = "温馨提示", content = "\u56E0\u8BA2\u5355\u53D6\u6D88\u6216\u8C03\u5EA6\uFF0C\u60A8\u5F53\u524D\u8BA2\u5355\u5DF2\u5168\u90E8\u5B8C\u6210", confirmText = "返回首页", confirmBgColor = this.globalData.theme.primaryColor, showCancel = false, close = fun(){
@@ -1644,7 +1647,8 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                     }
                     ))
                 }
-                , 250)
+                    , 250)
+                PlayAudio("/static/audio/order-cancel.mp3", 1)
             }
         }
         )
@@ -1653,9 +1657,9 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
     open fun gen_onOneOrderFinish_fn() {
         val that = this
         ws?.on(MessageType["ORDER_FINISH"] as Number, fun(data){
-            console.log("因订单取消或调度，您当前订单已全部完成：", data)
+            console.log("因订单取消或调度，您当前订单已全部完成：", data, " at pages/other/order-detail/index.uvue:1138")
             hideXloading()
-            val res = JSON.parse<OrderFinishResponse>(data)
+            val res = UTSAndroid.consoleDebugError(JSON.parse<OrderFinishResponse>(data), " at pages/other/order-detail/index.uvue:1140")
             if (res?.summaryId == that.orderParams["summaryId"]) {
                 if (res?.allOfOrderCompleted ?: false) {
                     setTimeout(fun() {
@@ -1666,6 +1670,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                 } else {
                     that.queryOrderDetail(false, false)
                 }
+                PlayAudio("/static/audio/order-cancel.mp3", 1)
             }
         }
         )
@@ -1674,8 +1679,8 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
     open fun gen_onOrderCancel_fn() {
         val that = this
         ws?.on(MessageType["ORDER_CANCEL"] as Number, fun(data){
-            val res = JSON.parse<OrderCancelResponse>(data)
-            console.log("您有一个订单已被取消：", res)
+            val res = UTSAndroid.consoleDebugError(JSON.parse<OrderCancelResponse>(data), " at pages/other/order-detail/index.uvue:1165")
+            console.log("您有一个订单已被取消：", res, " at pages/other/order-detail/index.uvue:1166")
             if (res?.summaryId == that.orderParams["summaryId"]) {
                 if (res?.backIndex ?: false) {
                     setTimeout(fun() {
@@ -1690,8 +1695,9 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                         }
                         ))
                     }
-                    , 250)
+                        , 250)
                 }
+                PlayAudio("/static/audio/order-cancel.mp3", 1)
             }
         }
         )
@@ -1699,17 +1705,17 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
     open var callPhone = ::gen_callPhone_fn
     open fun gen_callPhone_fn(phone: String) {
         uni_makePhoneCall(MakePhoneCallOptions(phoneNumber = phone, success = fun(result: MakePhoneCallSuccess){
-            console.log("拨打电话成功")
+            console.log("拨打电话成功", " at pages/other/order-detail/index.uvue:1203")
         }
-        , fail = fun(_err){
-            console.log("拨打电话失败", _err)
-            showToast("拨打电话失败", "error")
-        }
+            , fail = fun(_err){
+                console.log("拨打电话失败", _err, " at pages/other/order-detail/index.uvue:1206")
+                showToast("拨打电话失败", "error")
+            }
         ))
     }
     open var onDragSortchange = ::gen_onDragSortchange_fn
     open fun gen_onDragSortchange_fn(list: UTSArray<UTSJSONObject>) {
-        console.warn("变动的数据：", list)
+        console.warn("变动的数据：", list, " at pages/other/order-detail/index.uvue:1212")
         if (list.length == 1) {
             return
         }
@@ -1728,14 +1734,14 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
             var reserveDate = that.orderParams["queryDate"]
             var summaryId = that.orderParams["summaryId"]
         })), fun(data){
-            console.log("重新排序成功：", data)
+            console.log("重新排序成功：", data, " at pages/other/order-detail/index.uvue:1229")
             that.queryOrderDetail(true, false)
             hideXloading()
         }
-        , fun(data){
-            that.queryOrderDetail(false, false)
-            hideXloading()
-        }
+            , fun(data){
+                that.queryOrderDetail(false, false)
+                hideXloading()
+            }
         )
     }
     companion object {

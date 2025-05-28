@@ -348,23 +348,26 @@ open class GenPagesHomeHadSettled : VueComponent {
                         orderQuery()
                     }
                     ))
+                    PlayAudio("/static/audio/order-cancel.mp3", 1)
                 }
                 )
                 ws?.on(MessageType["ORDER_ADD"] as Number, fun(data){
-                    console.log("您有一个新的订单：", data, " at pages/home/had-settled.uvue:746")
+                    console.log("您有一个新的订单：", data, " at pages/home/had-settled.uvue:747")
                     orderQuery()
+                    PlayAudio("/static/audio/new-order.mp3", 1)
                 }
                 )
                 ws?.on(MessageType["BIG_ORDER_FINISH"] as Number, fun(data){
-                    console.log("因订单取消或调度，您当前订单已全部完成：", data, " at pages/home/had-settled.uvue:750")
+                    console.log("因订单取消或调度，您当前订单已全部完成：", data, " at pages/home/had-settled.uvue:752")
                     showModal(X_MODAL_TYPE(title = "温馨提示", content = "\u56E0\u8BA2\u5355\u53D6\u6D88\u6216\u8C03\u5EA6\uFF0C\u60A8\u5F53\u524D\u8BA2\u5355\u5DF2\u5168\u90E8\u5B8C\u6210", confirmText = "知道了", confirmBgColor = globalData.theme.primaryColor, showCancel = false, confirm = fun(){
                         orderQuery()
                     }
                     ))
+                    PlayAudio("/static/audio/order-cancel.mp3", 1)
                 }
                 )
                 ws?.sendAndOn(WebSocketSendMessage(type = MessageType["QUERY_CAR_SETTING"] as Number, content = ""), fun(data){
-                    val json = UTSAndroid.consoleDebugError(JSON.parse<UTSJSONObject>(data), " at pages/home/had-settled.uvue:763")
+                    val json = UTSAndroid.consoleDebugError(JSON.parse<UTSJSONObject>(data), " at pages/home/had-settled.uvue:766")
                     globalData.carSetting.closeReceiveOrderSwitch = json?.getBoolean("closeReceiveOrderSwitch") ?: true
                     globalData.carSetting.enableAIRouteStrategy = json?.getBoolean("enableAIRouteStrategy") ?: false
                     globalData.carSetting.routeStrategy = json?.getString("routeStrategy") ?: "OVERALL_OPTIMAL"
@@ -395,7 +398,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                 setTimeout(fun(){
                     init(MAP_CONFIG["naviKey"] as String, fun(all: Boolean){
                         if (all) {
-                            console.log("同意权限=======", all, " at pages/home/had-settled.uvue:807")
+                            console.log("同意权限=======", all, " at pages/home/had-settled.uvue:810")
                             startLocation.value = true
                             uni_setStorageSync("locationAgree", "true")
                             onShow()
@@ -418,7 +421,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                 app.globalData.jg = jg
             }
             val handlePromotion = fun(){
-                console.log("跳转推广页", " at pages/home/had-settled.uvue:828")
+                console.log("跳转推广页", " at pages/home/had-settled.uvue:831")
                 router.push("/pages/personal/promotion/index")
                 showValidModal.value = false
             }
@@ -426,7 +429,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                 isInit.value = true
                 initJg()
                 val locationAgree = uni_getStorageSync("locationAgree")
-                console.log("首页面渲染onMounted", " at pages/home/had-settled.uvue:836")
+                console.log("首页面渲染onMounted", " at pages/home/had-settled.uvue:839")
                 showValidModal.value = true
                 if (locationAgree != null && locationAgree != "") {
                     locationAgreeConfirm()
@@ -434,7 +437,6 @@ open class GenPagesHomeHadSettled : VueComponent {
                 } else {
                     showAgreeLocationModal.value = true
                 }
-                PlayAudio("/static/audio/new-order.mp3", 1)
             }
             )
             return fun(): Any? {
