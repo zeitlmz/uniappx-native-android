@@ -30,8 +30,6 @@
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <!--用与导航状态中保持屏幕常亮-->
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <!--允许写设备缓存，用于问题排查-->
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
     <!--允许读设备等信息，用于问题排查-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 </manifest>
