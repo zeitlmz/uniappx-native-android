@@ -36,7 +36,7 @@ android {
 
     signingConfigs {
         config {
-            storeFile file("../app/debug.keystore")
+            storeFile file("../app/mc-driver.keystore")
             storePassword "mcdriver"
             keyAlias "mc-driver"
             keyPassword "mcdriver"
