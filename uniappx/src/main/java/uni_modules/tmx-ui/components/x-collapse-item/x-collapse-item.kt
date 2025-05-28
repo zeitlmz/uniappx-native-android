@@ -6,6 +6,7 @@ import io.dcloud.uniapp.framework.*
 import io.dcloud.uniapp.runtime.*
 import io.dcloud.uniapp.vue.*
 import io.dcloud.uniapp.vue.shared.*
+import io.dcloud.unicloud.*
 import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
@@ -14,6 +15,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import io.dcloud.uniapp.extapi.createSelectorQuery as uni_createSelectorQuery
 open class GenUniModulesTmxUiComponentsXCollapseItemXCollapseItem : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {
         onMounted(fun() {
@@ -22,7 +24,7 @@ open class GenUniModulesTmxUiComponentsXCollapseItemXCollapseItem : VueComponent
             try {
                 parent = this.`$parent` as XCollapseComponentPublicInstance
             }
-             catch (e: Throwable) {}
+            catch (e: Throwable) {}
             if (parent != null) {
                 parent.addItem(CHIDREN_ITEM(id = this.name, ele = this))
             }
@@ -49,20 +51,20 @@ open class GenUniModulesTmxUiComponentsXCollapseItemXCollapseItem : VueComponent
             }
             this.resizeObserver!!.observe(ele!!)
         }
-        , __ins)
+            , __ins)
         onUpdated(fun() {}, __ins)
         onBeforeUnmount(fun() {
             var parent: XCollapseComponentPublicInstance? = null
             try {
                 parent = this.`$parent` as XCollapseComponentPublicInstance
             }
-             catch (e: Throwable) {}
+            catch (e: Throwable) {}
             if (parent != null) {
                 parent!!.delItem(this.name)
             }
             this.resizeObserver?.disconnect()
         }
-        , __ins)
+            , __ins)
     }
     @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
     override fun `$render`(): Any? {
@@ -112,11 +114,11 @@ open class GenUniModulesTmxUiComponentsXCollapseItemXCollapseItem : VueComponent
                     } else {
                         "#bfbfbf"
                     }
-                    , "style" to normalizeStyle(utsMapOf("margin-left" to "12px")), "name" to if (_ctx.opened) {
-                        "arrow-down-s-line"
-                    } else {
-                        "arrow-right-s-line"
-                    }
+                        , "style" to normalizeStyle(utsMapOf("margin-left" to "12px")), "name" to if (_ctx.opened) {
+                            "arrow-down-s-line"
+                        } else {
+                            "arrow-right-s-line"
+                        }
                     ), null, 8, utsArrayOf(
                         "color",
                         "style",
@@ -251,7 +253,7 @@ open class GenUniModulesTmxUiComponentsXCollapseItemXCollapseItem : VueComponent
             try {
                 parent = this.`$parent` as XCollapseComponentPublicInstance
             }
-             catch (e: Throwable) {}
+            catch (e: Throwable) {}
             if (parent != null) {
                 parent.addChange(this.name)
             }
@@ -259,17 +261,13 @@ open class GenUniModulesTmxUiComponentsXCollapseItemXCollapseItem : VueComponent
     }
     open var getNodes = ::gen_getNodes_fn
     open fun gen_getNodes_fn() {
-        var _this = this
-        var ele = this.`$refs`["xCollapseItemContent"] as UniElement?
-        if (ele == null) {
-            return
-        }
-        ele.getBoundingClientRectAsync()?.then(fun(rect: DOMRect){
-            _this.itemHeight = rect.height
-            if (_this._isActive) {
-                _this.open()
+        uni_createSelectorQuery().`in`(this).select(".xCollapseItemContent").boundingClientRect().exec(fun(ret){
+            var nodeinfo = ret[0] as NodeInfo
+            this.itemHeight = nodeinfo.height!!
+            if (this._isActive) {
+                this.open()
             } else {
-                _this.close()
+                this.close()
             }
         }
         )
