@@ -13981,6 +13981,33 @@ fun getDaysInMonth(year: Number, month: Number): UTSArray<String> {
     }
     return datesStr
 }
+fun getMissingDates(dateList: UTSArray<String>): UTSArray<String> {
+    if (dateList.length <= 1) {
+        return utsArrayOf()
+    }
+    val sortedDates = dateList.slice().sort()
+    val missingDates: UTSArray<String> = utsArrayOf()
+    run {
+        var i: Number = 0
+        while(i < sortedDates.length - 1){
+            val currentDate = Date(formatDateStr(sortedDates[i]))
+            val nextDate = Date(formatDateStr(sortedDates[i + 1]))
+            val daysDiff = Math.floor((nextDate.getTime() - currentDate.getTime()) / 86400000)
+            if (daysDiff > 1) {
+                run {
+                    var j: Number = 1
+                    while(j < daysDiff){
+                        val missingDate = Date(currentDate.getTime() + j * 86400000)
+                        missingDates.push(formatDate(missingDate, "yyyy-MM-dd"))
+                        j++
+                    }
+                }
+            }
+            i++
+        }
+    }
+    return missingDates
+}
 open class xDateArrayItem (
     @JsonNotNull
     open var date: xDateDayInfoType,
