@@ -63,7 +63,7 @@ open class GenUniModulesTmxUiComponentsXPickerTimeXPickerTime : VueComponent {
             createVNode(_component_x_drawer, utsMapOf("cancel-text" to _ctx.cancelText, "confirm-text" to _ctx.confirmText, "zIndex" to _ctx.zIndex, "widthCoverCenter" to true, "disabledScroll" to true, "title" to _ctx.title, "onClose" to _ctx.onClose, "onConfirm" to _ctx.onConfirm, "onCancel" to _ctx.onCancel, "showFooter" to true, "show" to _ctx.show, "onUpdate:show" to fun(`$event`: Boolean){
                 _ctx.show = `$event`
             }
-            , "show-close" to _ctx.showClose, "size" to "410"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+            , "show-close" to _ctx.showClose, "size" to "410px"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                 return utsArrayOf(
                     createElementVNode("view", utsMapOf("class" to "xPickerDateWrap"), utsArrayOf(
                         if (isTrue(_ctx.show)) {

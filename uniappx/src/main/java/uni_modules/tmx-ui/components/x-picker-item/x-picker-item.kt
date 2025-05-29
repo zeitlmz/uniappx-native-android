@@ -86,7 +86,7 @@ open class GenUniModulesTmxUiComponentsXPickerItemXPickerItem : VueComponent {
                                 return utsArrayOf(
                                     createElementVNode(Fragment, null, RenderHelpers.renderList(_ctx._list, fun(item, index, __index, _cached): Any {
                                         return createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("height" to "50px")), "key" to index, "class" to "xPickerViewWrapCoumn"), utsArrayOf(
-                                            createElementVNode("text", utsMapOf("class" to "xPickerViewWrapCoumnText", "style" to normalizeStyle(utsMapOf("fontSize" to _ctx._fontSize, "lineHeight" to 1.1, "fontWeight" to if (_ctx.nowCurrentIndex[0] == index) {
+                                            createElementVNode("text", utsMapOf("class" to "xPickerViewWrapCoumnText", "style" to normalizeStyle(utsMapOf("fontSize" to _ctx._computedCalc(_ctx.fontSize), "lineHeight" to 1.1, "fontWeight" to if (_ctx.nowCurrentIndex[0] == index) {
                                                 "bold"
                                             } else {
                                                 "inherit"
@@ -158,6 +158,7 @@ open class GenUniModulesTmxUiComponentsXPickerItemXPickerItem : VueComponent {
     open var tid: Number by `$data`
     open var tid2: Number by `$data`
     open var tid3: Number by `$data`
+    open var _computedCalc: (x: String) -> String by `$data`
     open var _fontSize: String by `$data`
     open var _parentIndex: Number by `$data`
     open var _cellHeight: String by `$data`
@@ -176,7 +177,12 @@ open class GenUniModulesTmxUiComponentsXPickerItemXPickerItem : VueComponent {
     override fun data(): Map<String, Any?> {
         return utsMapOf("boxHeight" to 0, "id" to ("xPickerItem-" + getUid()) as String, "nowCurrentIndex" to utsArrayOf(
             0
-        ), "tid" to 0, "tid2" to 0, "tid3" to 3, "_fontSize" to computed<String>(fun(): String {
+        ), "tid" to 0, "tid2" to 0, "tid3" to 3, "_computedCalc" to computed<(x: String) -> String>(fun(): (x: String) -> String {
+            return fun(x: String): String {
+                return checkIsCssUnit(x, xConfig.unit)
+            }
+        }
+        ), "_fontSize" to computed<String>(fun(): String {
             var fontSize = checkIsCssUnit(this.fontSize, xConfig.unit)
             if (xConfig.fontScale == 1) {
                 return fontSize

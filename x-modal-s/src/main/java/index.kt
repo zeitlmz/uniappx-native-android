@@ -394,11 +394,11 @@ fun close(call: () -> Unit, isClose: Boolean) {
                     dialogModal?.dismiss()
                 }
             }
-             catch (e: Throwable) {}
+            catch (e: Throwable) {}
             call()
         }
     }
-    , null)
+        , null)
 }
 fun rgbToColorNumber(rgba: RGBA): Int {
     return Color.argb((rgba.a * 255).toInt(), rgba!!.r.toInt(), rgba!!.g.toInt(), rgba!!.b.toInt())
@@ -599,7 +599,7 @@ fun _createModalView(context: Context, decorView: ViewGroup, opts: X_MODAL_TYPE)
                                 config.close()
                             }
                         }
-                        , (t.type == "mask" && config.clickMaskClose) || t.type != "mask")
+                            , (t.type == "mask" && config.clickMaskClose) || t.type != "mask")
                     }
                 }
             }
@@ -640,7 +640,7 @@ fun _createModalView(context: Context, decorView: ViewGroup, opts: X_MODAL_TYPE)
         var ani = container.animate() as ViewPropertyAnimator
         ani.alpha(s1).scaleX(s1).scaleY(s1).setDuration(350).setInterpolator(AccelerateDecelerateInterpolator()).start()
     }
-     catch (e: Throwable) {
+    catch (e: Throwable) {
         console.error(e)
     }
     masker = maskerDom
@@ -650,7 +650,7 @@ fun _showModal_(opts: X_MODAL_TYPE) {
         dialogModal = FullScreenDialogFragment(UTSAndroid.getUniActivity()!!, opts)
         dialogModal?.show()
     }
-    , null)
+        , null)
 }
 fun showModal(opts: X_MODAL_TYPE) {
     dialogModal?.dismiss()

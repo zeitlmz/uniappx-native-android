@@ -89,11 +89,14 @@ open class GenUniModulesTmxUiComponentsXFormItemXFormItem : VueComponent {
                     createCommentVNode("v-if", true)
                 }
                 ,
-                createElementVNode("view", utsMapOf("class" to "xFormIteContent", "style" to normalizeStyle(utsMapOf("flex" to if (_ctx._labelDirection == "horizontal") {
-                    "1"
-                } else {
-                    "auto"
-                }
+                createElementVNode("view", utsMapOf("class" to "xFormIteContent", "style" to normalizeStyle(utsArrayOf(
+                    utsMapOf("flex" to if (_ctx._labelDirection == "horizontal") {
+                        "1"
+                    } else {
+                        "auto"
+                    }
+                    ),
+                    _ctx._contentStyle
                 ))), utsArrayOf(
                     renderSlot(_ctx.`$slots`, "default")
                 ), 4)
@@ -134,11 +137,13 @@ open class GenUniModulesTmxUiComponentsXFormItemXFormItem : VueComponent {
     open var cellPadding: UTSArray<String> by `$props`
     open var labelPadding: UTSArray<String> by `$props`
     open var showError: Boolean by `$props`
+    open var contentStyle: String by `$props`
     open var id: String by `$data`
     open var errorText: String by `$data`
     open var isError: Boolean by `$data`
     open var first: Boolean by `$data`
     open var tid: Number by `$data`
+    open var _contentStyle: String by `$data`
     open var _showError: Boolean by `$data`
     open var _cellPadding: UTSArray<String> by `$data`
     open var _labelPadding: UTSArray<String> by `$data`
@@ -158,7 +163,10 @@ open class GenUniModulesTmxUiComponentsXFormItemXFormItem : VueComponent {
     open var _labelAlign: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("id" to ("xFormItem-" + getUid()) as String, "errorText" to "请正确填写", "isError" to false, "first" to true, "tid" to 0, "_showError" to computed<Boolean>(fun(): Boolean {
+        return utsMapOf("id" to ("xFormItem-" + getUid()) as String, "errorText" to "请正确填写", "isError" to false, "first" to true, "tid" to 0, "_contentStyle" to computed<String>(fun(): String {
+            return this.contentStyle
+        }
+        ), "_showError" to computed<Boolean>(fun(): Boolean {
             return this.showError
         }
         ), "_cellPadding" to computed<UTSArray<String>>(fun(): UTSArray<String> {
@@ -277,12 +285,22 @@ open class GenUniModulesTmxUiComponentsXFormItemXFormItem : VueComponent {
         var parent: XFormComponentPublicInstance = pelement as XFormComponentPublicInstance
         parent.delItem(this.id)
     }
+    open var getParentRules = ::gen_getParentRules_fn
+    open fun gen_getParentRules_fn(): UTSArray<FORM_RULE> {
+        var pelement = this.findParent(this)
+        if (pelement == null) {
+            return utsArrayOf<FORM_RULE>()
+        }
+        var parent: XFormComponentPublicInstance = pelement as XFormComponentPublicInstance
+        return parent.getRules(this.field) as UTSArray<FORM_RULE>
+    }
     open fun vaildCompele(kVal: Any?, isSkipBlur: Boolean? = true): FORM_SUBMIT_OBJECT {
         this.first = false
         if (!this._required) {
             return FORM_SUBMIT_OBJECT(valid = true, key = this.field, value = kVal, errorMessage = "")
         }
-        if (this._rule.length == 0 && this._required) {
+        val rulesList = this._rule.concat(this.getParentRules()) as UTSArray<FORM_RULE>
+        if (rulesList.length == 0 && this._required) {
             var isSuccess = formVaild(kVal, FORM_RULE())
             this.isError = !isSuccess
             return FORM_SUBMIT_OBJECT(valid = isSuccess, key = this.field, value = kVal, errorMessage = if (isSuccess) {
@@ -295,8 +313,8 @@ open class GenUniModulesTmxUiComponentsXFormItemXFormItem : VueComponent {
         var isSuccess = true
         run {
             var i: Number = 0
-            while(i < this._rule.length){
-                var item = this._rule[i]
+            while(i < rulesList.length){
+                var item = rulesList[i]
                 if (item.trigger == "blur" && isSkipBlur == true) {
                     i++
                     continue
@@ -318,6 +336,46 @@ open class GenUniModulesTmxUiComponentsXFormItemXFormItem : VueComponent {
             ""
         } else {
             this.errorText
+        }
+        )
+    }
+    open var getVaildStatus = ::gen_getVaildStatus_fn
+    open fun gen_getVaildStatus_fn(kVal: Any?): FORM_SUBMIT_OBJECT {
+        if (!this._required) {
+            return FORM_SUBMIT_OBJECT(valid = true, key = this.field, value = kVal, errorMessage = "")
+        }
+        val rulesList = this._rule.concat(this.getParentRules()) as UTSArray<FORM_RULE>
+        if (rulesList.length == 0 && this._required) {
+            var isSuccess = formVaild(kVal, FORM_RULE())
+            return FORM_SUBMIT_OBJECT(valid = isSuccess, key = this.field, value = kVal, errorMessage = if (isSuccess) {
+                ""
+            } else {
+                "请正确填写/选择"
+            }
+            )
+        }
+        var isSuccess = true
+        var errotips = ""
+        run {
+            var i: Number = 0
+            while(i < rulesList.length){
+                var item = rulesList[i]
+                isSuccess = formVaild(kVal, item)
+                if (!isSuccess) {
+                    if (item.errorMessage != "" && UTSAndroid.`typeof`(item.errorMessage) == "string") {
+                        errotips = item.errorMessage!! as String
+                    } else {
+                        errotips = "请正确填写/选择"
+                    }
+                    break
+                }
+                i++
+            }
+        }
+        return FORM_SUBMIT_OBJECT(valid = isSuccess, key = this.field, value = kVal, errorMessage = if (isSuccess) {
+            ""
+        } else {
+            errotips
         }
         )
     }
@@ -362,7 +420,7 @@ open class GenUniModulesTmxUiComponentsXFormItemXFormItem : VueComponent {
         ), "labelPadding" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
             return utsArrayOf<String>("12", "12")
         }
-        ), "showError" to utsMapOf("type" to "Boolean", "default" to true)))
+        ), "showError" to utsMapOf("type" to "Boolean", "default" to true), "contentStyle" to utsMapOf("type" to "String", "default" to "")))
         var propsNeedCastKeys = utsArrayOf(
             "label",
             "showLabel",
@@ -378,7 +436,8 @@ open class GenUniModulesTmxUiComponentsXFormItemXFormItem : VueComponent {
             "showBottomBorder",
             "cellPadding",
             "labelPadding",
-            "showError"
+            "showError",
+            "contentStyle"
         )
         var components: Map<String, CreateVueComponent> = utsMapOf()
     }

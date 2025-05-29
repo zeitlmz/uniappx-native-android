@@ -103,7 +103,12 @@ open class GenUniModulesTmxUiComponentsXTextXText : VueComponent {
             return this._style
         }
         ), "_fontSize" to computed<String>(fun(): String {
-            var fontSize = checkIsCssUnit(this.fontSize, xConfig.unit)
+            var basefontsize = if (this.fontSize == "") {
+                xConfig.fontSize
+            } else {
+                this.fontSize
+            }
+            var fontSize = checkIsCssUnit(basefontsize, xConfig.unit)
             if (xConfig.fontScale == 1) {
                 return fontSize
             }
@@ -241,7 +246,7 @@ open class GenUniModulesTmxUiComponentsXTextXText : VueComponent {
         ), "heightLightReg" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
             return utsArrayOf<String>()
         }
-        ), "heightLightStyle" to utsMapOf("type" to "String", "default" to ""), "lines" to utsMapOf("type" to "Number", "default" to 0), "selectable" to utsMapOf("type" to "Boolean", "default" to false), "color" to utsMapOf("type" to "String", "default" to "#333333"), "darkColor" to utsMapOf("type" to "String", "default" to ""), "heightLightColor" to utsMapOf("type" to "String", "default" to "primary"), "lineHeight" to utsMapOf("type" to "String", "default" to "1.7"), "fontSize" to utsMapOf("type" to "String", "default" to "15px")))
+        ), "heightLightStyle" to utsMapOf("type" to "String", "default" to ""), "lines" to utsMapOf("type" to "Number", "default" to 0), "selectable" to utsMapOf("type" to "Boolean", "default" to false), "color" to utsMapOf("type" to "String", "default" to "#333333"), "darkColor" to utsMapOf("type" to "String", "default" to ""), "heightLightColor" to utsMapOf("type" to "String", "default" to "primary"), "lineHeight" to utsMapOf("type" to "String", "default" to "1.7"), "fontSize" to utsMapOf("type" to "String", "default" to "")))
         var propsNeedCastKeys = utsArrayOf(
             "_style",
             "_class",

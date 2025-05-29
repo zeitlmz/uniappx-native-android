@@ -6,7 +6,6 @@ import io.dcloud.uniapp.framework.*
 import io.dcloud.uniapp.runtime.*
 import io.dcloud.uniapp.vue.*
 import io.dcloud.uniapp.vue.shared.*
-import io.dcloud.unicloud.*
 import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
@@ -20,13 +19,9 @@ open class GenUniModulesTmxUiComponentsXCollapseItemXCollapseItem : VueComponent
     constructor(__ins: ComponentInternalInstance) : super(__ins) {
         onMounted(fun() {
             this.list = this.xCollapseDefaultName as UTSArray<String>
-            var parent: XCollapseComponentPublicInstance? = null
-            try {
-                parent = this.`$parent` as XCollapseComponentPublicInstance
-            }
-            catch (e: Throwable) {}
+            val parent = this.getParent() as XCollapseComponentPublicInstance?
             if (parent != null) {
-                parent.addItem(CHIDREN_ITEM(id = this.name, ele = this))
+                parent!!.addItem(CHIDREN_ITEM(id = this.name, ele = this))
             }
             if (this._isActive) {
                 this.getNodes()
@@ -51,20 +46,16 @@ open class GenUniModulesTmxUiComponentsXCollapseItemXCollapseItem : VueComponent
             }
             this.resizeObserver!!.observe(ele!!)
         }
-            , __ins)
+        , __ins)
         onUpdated(fun() {}, __ins)
         onBeforeUnmount(fun() {
-            var parent: XCollapseComponentPublicInstance? = null
-            try {
-                parent = this.`$parent` as XCollapseComponentPublicInstance
-            }
-            catch (e: Throwable) {}
+            val parent = this.getParent() as XCollapseComponentPublicInstance?
             if (parent != null) {
                 parent!!.delItem(this.name)
             }
             this.resizeObserver?.disconnect()
         }
-            , __ins)
+        , __ins)
     }
     @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
     override fun `$render`(): Any? {
@@ -72,7 +63,7 @@ open class GenUniModulesTmxUiComponentsXCollapseItemXCollapseItem : VueComponent
         val _cache = this.`$`.renderCache
         val _component_x_icon = resolveEasyComponent("x-icon", GenUniModulesTmxUiComponentsXIconXIconClass)
         val _component_x_divider = resolveEasyComponent("x-divider", GenUniModulesTmxUiComponentsXDividerXDividerClass)
-        return createElementVNode("view", utsMapOf("class" to "xCollapseItemBox", "ref" to "xCollapseItemContent", "style" to normalizeStyle(utsMapOf("background" to _ctx._color))), utsArrayOf(
+        return createElementVNode("view", utsMapOf("class" to "xCollapseItemBox", "style" to normalizeStyle(utsMapOf("background" to _ctx._color))), utsArrayOf(
             createElementVNode("view", utsMapOf("onClick" to _ctx.itemClick, "class" to "xCollapseItem", "style" to normalizeStyle(utsMapOf("opacity" to if (_ctx._disabled) {
                 0.5
             } else {
@@ -114,11 +105,11 @@ open class GenUniModulesTmxUiComponentsXCollapseItemXCollapseItem : VueComponent
                     } else {
                         "#bfbfbf"
                     }
-                        , "style" to normalizeStyle(utsMapOf("margin-left" to "12px")), "name" to if (_ctx.opened) {
-                            "arrow-down-s-line"
-                        } else {
-                            "arrow-right-s-line"
-                        }
+                    , "style" to normalizeStyle(utsMapOf("margin-left" to "12px")), "name" to if (_ctx.opened) {
+                        "arrow-down-s-line"
+                    } else {
+                        "arrow-right-s-line"
+                    }
                     ), null, 8, utsArrayOf(
                         "color",
                         "style",
@@ -240,6 +231,15 @@ open class GenUniModulesTmxUiComponentsXCollapseItemXCollapseItem : VueComponent
         }
         ))
     }
+    open var getParent = ::gen_getParent_fn
+    open fun gen_getParent_fn(): Any? {
+        var parent: XCollapseComponentPublicInstance? = null
+        try {
+            parent = this.`$parent` as XCollapseComponentPublicInstance
+        }
+         catch (e: Throwable) {}
+        return parent
+    }
     open var setList = ::gen_setList_fn
     open fun gen_setList_fn(items: UTSArray<String>) {
         this.list = items
@@ -253,7 +253,7 @@ open class GenUniModulesTmxUiComponentsXCollapseItemXCollapseItem : VueComponent
             try {
                 parent = this.`$parent` as XCollapseComponentPublicInstance
             }
-            catch (e: Throwable) {}
+             catch (e: Throwable) {}
             if (parent != null) {
                 parent.addChange(this.name)
             }

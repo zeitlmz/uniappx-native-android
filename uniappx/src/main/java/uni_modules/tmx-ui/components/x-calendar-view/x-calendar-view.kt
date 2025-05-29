@@ -94,7 +94,7 @@ open class GenUniModulesTmxUiComponentsXCalendarViewXCalendarView : VueComponent
             createElementVNode("view", utsMapOf("class" to "xCalendarViewHeader"), utsArrayOf(
                 createElementVNode(Fragment, null, RenderHelpers.renderList(7, fun(item, index, __index, _cached): Any {
                     return createElementVNode("view", utsMapOf("class" to "xCalendarViewDate", "key" to index), utsArrayOf(
-                        createVNode(_component_x_text, utsMapOf("color" to "#333", "font-size" to "16"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                        createVNode(_component_x_text, utsMapOf("color" to "#333", "font-size" to "14"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                             return utsArrayOf(
                                 toDisplayString(_ctx.weeksCn[index]!!)
                             )

@@ -20,8 +20,8 @@ open class GenUniModulesTmxUiComponentsXDragItemXDragItem : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {
         onMounted(fun() {
             this.orderIndex = this.order
-            this.getNodes()
             uni__on("onResize", this.getNodes)
+            this.getNodes()
         }
         , __ins)
         onBeforeUnmount(fun() {

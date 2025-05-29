@@ -102,9 +102,9 @@ open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueCompo
             }
             , "show-close" to _ctx.showClose, "size" to "80%"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                 return utsArrayOf(
-                    createElementVNode("view", utsMapOf("class" to "xPickerSlectedIwrap"), utsArrayOf(
+                    createElementVNode("view", utsMapOf("class" to "xPickerSlectedIwrap", "style" to normalizeStyle(utsMapOf("height" to _ctx._computedCalc("44"), "borderRadius" to _ctx._computedCalc("44")))), utsArrayOf(
                         createElementVNode("view", utsMapOf("class" to "xPickerSlectedInputBox", "style" to normalizeStyle(utsMapOf("backgroundColor" to _ctx._inputBgColor))), utsArrayOf(
-                            createElementVNode("input", utsMapOf("placeholder" to "请输入关键词", "style" to normalizeStyle(utsMapOf("color" to _ctx._inputColor)), "onInput" to _ctx.inpuEvent, "onConfirm" to _ctx.inputConfirm, "value" to _ctx.searchKey, "class" to "xPickerSlectedInput"), null, 44, utsArrayOf(
+                            createElementVNode("input", utsMapOf("placeholder" to "请输入关键词", "style" to normalizeStyle(utsMapOf("color" to _ctx._inputColor, "fontSize" to _ctx._computedCalc("16"))), "onInput" to _ctx.inpuEvent, "onConfirm" to _ctx.inputConfirm, "value" to _ctx.searchKey, "class" to "xPickerSlectedInput"), null, 44, utsArrayOf(
                                 "onInput",
                                 "onConfirm",
                                 "value"
@@ -119,7 +119,7 @@ open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueCompo
                                 createCommentVNode("v-if", true)
                             }
                         ), 4),
-                        createVNode(_component_x_button, utsMapOf("width" to "80", "onClick" to _ctx.inputConfirm, "color" to _ctx._color, "height" to "44", "round" to "0"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                        createVNode(_component_x_button, utsMapOf("width" to "80", "onClick" to _ctx.inputConfirm, "color" to _ctx._color, "round" to "0", "height" to "44"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                             return utsArrayOf(
                                 "搜索"
                             )
@@ -128,7 +128,7 @@ open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueCompo
                             "onClick",
                             "color"
                         ))
-                    )),
+                    ), 4),
                     createElementVNode("view", utsMapOf("class" to "xPickerSlectedWrap"), utsArrayOf(
                         if (isTrue(!_ctx.yanchiDuration)) {
                             createVNode(_component_x_loading, utsMapOf("key" to 0))
@@ -157,7 +157,7 @@ open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueCompo
                                                             ""
                                                         }
                                                     )
-                                                )), "style" to normalizeStyle(utsMapOf("height" to _ctx._itemHeight))), utsArrayOf(
+                                                )), "style" to normalizeStyle(utsMapOf("height" to _ctx._computedCalc(_ctx.itemHeight)))), utsArrayOf(
                                                     createElementVNode("view", utsMapOf("class" to "xPickerSlectedItemWrap", "style" to normalizeStyle(utsMapOf("border-bottom" to ("1px solid " + _ctx._borderColor), "margin" to "0 16px"))), utsArrayOf(
                                                         createElementVNode("view", utsMapOf("class" to "xPickerSlectedItemText"), utsArrayOf(
                                                             renderSlot(_ctx.`$slots`, "item", GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelectedSlotDataItem(item = item.item), fun(): UTSArray<Any> {
@@ -170,7 +170,7 @@ open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueCompo
                                                                         } else {
                                                                             "#888"
                                                                         }
-                                                                    }, "font-size" to "16", "line-height" to "1.2", "lines" to 2), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                                    }, "font-size" to "15", "line-height" to "1.2", "lines" to 2), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                                                                         return utsArrayOf(
                                                                             toDisplayString(item.title)
                                                                         )
@@ -339,6 +339,7 @@ open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueCompo
             this.`$data`["isRefresh"] = value
         }
     open var isBootomIsRefresh: Boolean by `$data`
+    open var _computedCalc: (x: String) -> String by `$data`
     open var _disabled: Boolean by `$data`
     open var _isRadioMode: Boolean by `$data`
     open var _disabledPull: Boolean by `$data`
@@ -354,7 +355,12 @@ open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueCompo
     open var _inputColor: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("show" to false, "nowValue" to utsArrayOf<xPickerSelectedListyType>(), "searchList" to utsArrayOf<xPickerSelectedListyType>(), "searchKey" to "", "duration" to 60, "yanchiDuration" to false, "tid" to 100, "isRefresh" to false, "isBootomIsRefresh" to false, "_disabled" to computed<Boolean>(fun(): Boolean {
+        return utsMapOf("show" to false, "nowValue" to utsArrayOf<xPickerSelectedListyType>(), "searchList" to utsArrayOf<xPickerSelectedListyType>(), "searchKey" to "", "duration" to 60, "yanchiDuration" to false, "tid" to 100, "isRefresh" to false, "isBootomIsRefresh" to false, "_computedCalc" to computed<(x: String) -> String>(fun(): (x: String) -> String {
+            return fun(x: String): String {
+                return checkIsCssUnit(x, xConfig.unit)
+            }
+        }
+        ), "_disabled" to computed<Boolean>(fun(): Boolean {
             return this.disabled
         }
         ), "_isRadioMode" to computed<Boolean>(fun(): Boolean {
@@ -579,7 +585,7 @@ open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueCompo
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xPickerSlectedFooterBtn" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-end")), "xPickerSlectedFooter" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "paddingTop" to 12, "paddingRight" to 16, "paddingBottom" to 12, "paddingLeft" to 16)), "xPickerSlectedInputBox" to padStyleMapOf(utsMapOf("height" to "100%", "flex" to 1, "position" to "relative", "display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-end")), "clearClick" to padStyleMapOf(utsMapOf("paddingTop" to 0, "paddingRight" to 16, "paddingBottom" to 0, "paddingLeft" to 16, "display" to "flex", "justifyContent" to "center", "alignItems" to "center", "flexDirection" to "row")), "xPickerSlectedIwrap" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center", "height" to 44, "borderTopLeftRadius" to 44, "borderTopRightRadius" to 44, "borderBottomRightRadius" to 44, "borderBottomLeftRadius" to 44, "marginTop" to 0, "marginRight" to 16, "marginBottom" to 16, "marginLeft" to 16)), "xPickerSlectedInput" to padStyleMapOf(utsMapOf("height" to "100%", "flex" to 1, "paddingTop" to 0, "paddingRight" to 16, "paddingBottom" to 0, "paddingLeft" to 16)), "xPickerSlectedItemWrap" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-start", "alignItems" to "center", "height" to "100%")), "xPickerSlectedItemText" to padStyleMapOf(utsMapOf("flex" to 1)), "xPickerSlectedWrap" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "column", "flex" to 1)))
+                return utsMapOf("xPickerSlectedFooterBtn" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-end")), "xPickerSlectedFooter" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "paddingTop" to 12, "paddingRight" to 16, "paddingBottom" to 12, "paddingLeft" to 16)), "xPickerSlectedInputBox" to padStyleMapOf(utsMapOf("height" to "100%", "flex" to 1, "position" to "relative", "display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-end")), "clearClick" to padStyleMapOf(utsMapOf("paddingTop" to 0, "paddingRight" to 16, "paddingBottom" to 0, "paddingLeft" to 16, "display" to "flex", "justifyContent" to "center", "alignItems" to "center", "flexDirection" to "row")), "xPickerSlectedIwrap" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center", "marginTop" to 0, "marginRight" to 16, "marginBottom" to 16, "marginLeft" to 16)), "xPickerSlectedInput" to padStyleMapOf(utsMapOf("height" to "100%", "flex" to 1, "paddingTop" to 0, "paddingRight" to 16, "paddingBottom" to 0, "paddingLeft" to 16)), "xPickerSlectedItemWrap" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-start", "alignItems" to "center", "height" to "100%")), "xPickerSlectedItemText" to padStyleMapOf(utsMapOf("flex" to 1)), "xPickerSlectedWrap" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "column", "flex" to 1)))
             }
         var inheritAttrs = true
         var inject: Map<String, Map<String, Any?>> = utsMapOf()

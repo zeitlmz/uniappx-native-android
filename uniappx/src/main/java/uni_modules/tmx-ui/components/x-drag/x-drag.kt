@@ -18,7 +18,7 @@ import io.dcloud.uniapp.extapi.getWindowInfo as uni_getWindowInfo
 import uts.sdk.modules.xVibrateS.vibrator
 open class GenUniModulesTmxUiComponentsXDragXDrag : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {
-        provide("XDRAGE_HEIGHT", checkIsCssUnit(this.itemHeight, "rpx"))
+        provide("XDRAGE_HEIGHT", checkIsCssUnit(this.itemHeight, xConfig.unit))
         provide("XDRAGE_COL", this.col)
         provide("XDRAGE_MAX_LEN", this.list.length)
         onMounted(fun() {
@@ -378,7 +378,7 @@ open class GenUniModulesTmxUiComponentsXDragXDrag : VueComponent {
         var inheritAttrs = true
         var inject: Map<String, Map<String, Any?>> = utsMapOf()
         var emits: Map<String, Any?> = utsMapOf("change" to null, "move" to null, "end" to null, "start" to null)
-        var props = normalizePropsOptions(utsMapOf("itemHeight" to utsMapOf("type" to "String", "default" to "100"), "col" to utsMapOf("type" to "Number", "default" to 1), "list" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<UTSJSONObject> {
+        var props = normalizePropsOptions(utsMapOf("itemHeight" to utsMapOf("type" to "String", "default" to "50"), "col" to utsMapOf("type" to "Number", "default" to 1), "list" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<UTSJSONObject> {
             return utsArrayOf<UTSJSONObject>()
         }
         , "required" to true), "scrollDiff" to utsMapOf("type" to "Number", "default" to 25)))

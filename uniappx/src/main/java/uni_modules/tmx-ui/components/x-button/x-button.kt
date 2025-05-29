@@ -88,7 +88,7 @@ open class GenUniModulesTmxUiComponentsXButtonXButton : VueComponent {
                     createVNode(_component_x_icon, utsMapOf("key" to 0, "style" to normalizeStyle(utsMapOf("marginRight" to if (_ctx._iconBtn) {
                         "0px"
                     } else {
-                        " 5px"
+                        " 3px"
                     })), "font-size" to _ctx._iconSize, "color" to _ctx._set_font_color, "name" to _ctx._icon), null, 8, utsArrayOf(
                         "style",
                         "font-size",
@@ -185,16 +185,16 @@ open class GenUniModulesTmxUiComponentsXButtonXButton : VueComponent {
             var fontSize = this.fontSize
             if (fontSize == "") {
                 if (this.size == "mini") {
-                    fontSize = "12px"
+                    fontSize = "12"
                 }
                 if (this.size == "small") {
-                    fontSize = "14px"
+                    fontSize = "14"
                 }
                 if (this.size == "normal") {
-                    fontSize = "16px"
+                    fontSize = "16"
                 }
                 if (this.size == "large") {
-                    fontSize = "18px"
+                    fontSize = "18"
                 }
             }
             fontSize = checkIsCssUnit(fontSize, xConfig.unit)
@@ -235,10 +235,10 @@ open class GenUniModulesTmxUiComponentsXButtonXButton : VueComponent {
             if (radius == "") {
                 radius = xConfig.buttonRadius
                 if (this.size == "mini") {
-                    radius = "6px"
+                    radius = "6"
                 }
                 if (this.size == "small") {
-                    radius = "8px"
+                    radius = "8"
                 }
             }
             return checkIsCssUnit(radius, xConfig.unit)
@@ -254,19 +254,19 @@ open class GenUniModulesTmxUiComponentsXButtonXButton : VueComponent {
                 return checkIsCssUnit(this.height, xConfig.unit)
             }
             if (this.size == "mini") {
-                return "24px"
+                return checkIsCssUnit("24", xConfig.unit)
             }
             if (this.size == "small") {
-                return "32px"
+                return checkIsCssUnit("32", xConfig.unit)
             }
             if (this.size == "normal") {
-                return "46px"
+                return checkIsCssUnit("46", xConfig.unit)
             }
             if (this.size == "large") {
-                return "56px"
+                return checkIsCssUnit("56", xConfig.unit)
             }
             return checkIsCssUnit(if (this.height == "") {
-                "44px"
+                "44"
             } else {
                 this.height
             }
@@ -283,16 +283,16 @@ open class GenUniModulesTmxUiComponentsXButtonXButton : VueComponent {
                 return checkIsCssUnit(this.width, xConfig.unit)
             }
             if (this.size == "mini") {
-                return "46px"
+                return checkIsCssUnit("46", xConfig.unit)
             }
             if (this.size == "small") {
-                return "60px"
+                return checkIsCssUnit("60", xConfig.unit)
             }
             if (this.size == "normal") {
-                return "98px"
+                return checkIsCssUnit("98", xConfig.unit)
             }
             if (this.size == "large") {
-                return "128px"
+                return checkIsCssUnit("128", xConfig.unit)
             }
             return checkIsCssUnit(this.width, xConfig.unit)
         }
