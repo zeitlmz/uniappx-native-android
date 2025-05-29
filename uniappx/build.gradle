@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace 'cn.uvuejs.uniappx'
+    namespace 'com.mc.driver.client'
     compileSdk 34
 
     defaultConfig {
@@ -37,7 +37,7 @@ android {
 
 dependencies {
     compileOnly fileTree(include: ['*.aar', '*.jar'], dir: './libs')
-	compileOnly fileTree(include: ['*.aar', '*.jar'], dir: '../app/libs')
+    compileOnly fileTree(include: ['*.aar', '*.jar'], dir: '../app/libs')
     implementation("androidx.core:core-ktx:1.8.0")
 //    implementation("androidx.recyclerview:recyclerview:1.0.0")
     implementation("androidx.appcompat:appcompat:1.0.0")
