@@ -19,11 +19,9 @@ import uts.sdk.modules.xLoadingS.XLOADINGS_TYPE
 import uts.sdk.modules.xToastS.XTOAST_TYPE
 import uts.sdk.modules.xModalS.X_MODAL_TYPE
 import io.dcloud.uniapp.extapi.exit as uni_exit
-import io.dcloud.uniapp.extapi.getStorageSync as uni_getStorageSync
 import uts.sdk.modules.xLoadingS.hideXloading
 import uts.sdk.modules.xLoadingS.showLoading
 import uts.sdk.modules.mcAmapNavPlus.init
-import io.dcloud.uniapp.extapi.setStorageSync as uni_setStorageSync
 import uts.sdk.modules.xModalS.showModal
 import uts.sdk.modules.xToastS.showToast as showXToast
 import uts.sdk.modules.uniKuxrouter.useKuxRouter as uni_useKuxRouter
@@ -336,7 +334,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                     clearAuth()
                     if (data != "") {
                         setTimeout(fun(){
-                            showModal(X_MODAL_TYPE(title = "温馨提示", content = data?.toString(), confirmText = "知道了", showCancel = false, confirmBgColor = globalData.theme.primaryColor, confirm = fun(){
+                            showModal(X_MODAL_TYPE(title = "温馨提示", content = data?.toString(), confirmText = "知道了", showCancel = false, confirmBgColor = globalData.theme.primaryColor, close = fun(){
                                 router.reLaunch("/pages/home/index")
                             }
                             ))
@@ -412,7 +410,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                         if (all) {
                             console.log("同意权限=======", all)
                             startLocation.value = true
-                            uni_setStorageSync("locationAgree", "true")
+                            setLocationAgreeStatus()
                             onShow()
                         } else {
                             locationAgreeCancel()
@@ -440,10 +438,8 @@ open class GenPagesHomeHadSettled : VueComponent {
             onMounted(fun(){
                 isInit.value = true
                 initJg()
-                val locationAgree = uni_getStorageSync("locationAgree")
-                console.log("首页面渲染onMounted")
                 showValidModal.value = true
-                if (locationAgree != null && locationAgree != "") {
+                if (getLocationAgreeStatus()) {
                     locationAgreeConfirm()
                     onShow()
                 } else {

@@ -122,7 +122,7 @@ open class GenPagesHomeNotSettled : VueComponent {
                     logout().then(fun(res: Response){
                         if (res.code == 200) {
                             clearAuth()
-                            router.push("/pages/home/index")
+                            router.reLaunch("/pages/home/index")
                             showTips("已退出登录", "success")
                         } else {
                             showTips(res.msg, "error")

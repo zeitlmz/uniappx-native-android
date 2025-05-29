@@ -834,10 +834,10 @@ val isRelease = "production" === "production"
 var baseUrl = "https://testenv.mctwlx.com/srv"
 var wsBaseUrl = "wss://testenv.mctwlx.com/ws/mcpt-engine-driverWs/driverWs"
 val runBlock2 = run {
-//    if (isRelease) {
-//        baseUrl = "https://www.mctwlx.com/srv"
-//        wsBaseUrl = "wss://www.mctwlx.com/ws/mcpt-engine-driverWs/driverWs"
-//    }
+    if (isRelease) {
+        baseUrl = "https://www.mctwlx.com/srv"
+        wsBaseUrl = "wss://www.mctwlx.com/ws/mcpt-engine-driverWs/driverWs"
+    }
 }
 val resBaseUrl = "https://prod.resource.mctwlx.com/car/app-resources/driver"
 val miniProgramCover = resBaseUrl + "/static/images/img-self-share-reward.png"
@@ -9040,6 +9040,31 @@ val setPrivacyStatus = fun(){
 val getPrivacyStatus = fun(): Boolean {
     val v = uni_getStorageSync(privacyKey)
     if (v == null || v != "agree") {
+        return false
+    }
+    return true
+}
+val locationKey = "locationAgreeKey"
+val setLocationAgreeStatus = fun(){
+    uni_setStorageSync(locationKey, "locationAgree")
+}
+val getLocationAgreeStatus = fun(): Boolean {
+    val v = uni_getStorageSync(locationKey)
+    if (v == null || v != "locationAgree") {
+        return false
+    }
+    return true
+}
+val photoAgreeKey = "photoAgreeKey"
+val removePhotoAgreeStatus = fun(){
+    uni_removeStorageSync(photoAgreeKey)
+}
+val setPhotoAgreeStatus = fun(){
+    uni_setStorageSync(photoAgreeKey, "photoAgree")
+}
+val getPhotoAgreeStatus = fun(): Boolean {
+    val v = uni_getStorageSync(photoAgreeKey)
+    if (v == null || v != "photoAgree") {
         return false
     }
     return true
@@ -17698,6 +17723,55 @@ open class FormDataReactiveObject : FormData, IUTSReactive<FormData> {
             triggerReactiveSet(__v_raw, "grantPlatformGroup", oldValue, value)
         }
 }
+open class ImageType (
+    @JsonNotNull
+    open var type: Number,
+    @JsonNotNull
+    open var type2: String,
+) : UTSReactiveObject() {
+    override fun __v_create(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): UTSReactiveObject {
+        return ImageTypeReactiveObject(this, __v_isReadonly, __v_isShallow, __v_skip)
+    }
+}
+open class ImageTypeReactiveObject : ImageType, IUTSReactive<ImageType> {
+    override var __v_raw: ImageType
+    override var __v_isReadonly: Boolean
+    override var __v_isShallow: Boolean
+    override var __v_skip: Boolean
+    constructor(__v_raw: ImageType, __v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean) : super(type = __v_raw.type, type2 = __v_raw.type2) {
+        this.__v_raw = __v_raw
+        this.__v_isReadonly = __v_isReadonly
+        this.__v_isShallow = __v_isShallow
+        this.__v_skip = __v_skip
+    }
+    override fun __v_clone(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): ImageTypeReactiveObject {
+        return ImageTypeReactiveObject(this.__v_raw, __v_isReadonly, __v_isShallow, __v_skip)
+    }
+    override var type: Number
+        get() {
+            return trackReactiveGet(__v_raw, "type", __v_raw.type, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("type")) {
+                return
+            }
+            val oldValue = __v_raw.type
+            __v_raw.type = value
+            triggerReactiveSet(__v_raw, "type", oldValue, value)
+        }
+    override var type2: String
+        get() {
+            return trackReactiveGet(__v_raw, "type2", __v_raw.type2, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("type2")) {
+                return
+            }
+            val oldValue = __v_raw.type2
+            __v_raw.type2 = value
+            triggerReactiveSet(__v_raw, "type2", oldValue, value)
+        }
+}
 val GenPagesDriverJoinIndexClass = CreateVueComponent(GenPagesDriverJoinIndex::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "page", name = "", inheritAttrs = GenPagesDriverJoinIndex.inheritAttrs, inject = GenPagesDriverJoinIndex.inject, props = GenPagesDriverJoinIndex.props, propsNeedCastKeys = GenPagesDriverJoinIndex.propsNeedCastKeys, emits = GenPagesDriverJoinIndex.emits, components = GenPagesDriverJoinIndex.components, styles = GenPagesDriverJoinIndex.styles, setup = fun(props: ComponentPublicInstance): Any? {
         return GenPagesDriverJoinIndex.setup(props as GenPagesDriverJoinIndex)
@@ -22876,6 +22950,55 @@ open class colorOptionReactiveObject : colorOption, IUTSReactive<colorOption> {
         }
 }
 val colorOptions = ref(utsArrayOf<colorOption>(colorOption(name = "黑色", color = "#000000"), colorOption(name = "灰色", color = "#808080"), colorOption(name = "银色", color = "#C0C0C0"), colorOption(name = "白色", color = "#FFFFFF"), colorOption(name = "红色", color = "#FF0000"), colorOption(name = "金色(米/香槟)", color = "#CFB53B"), colorOption(name = "棕色(褐/咖啡)", color = "#8B4513"), colorOption(name = "蓝色", color = "#0000FF"), colorOption(name = "紫色", color = "#800080"), colorOption(name = "绿色", color = "#00FF00"), colorOption(name = "紫色2", color = "#E533AB")))
+open class ImageType1 (
+    @JsonNotNull
+    open var type: Number,
+    @JsonNotNull
+    open var type2: String,
+) : UTSReactiveObject() {
+    override fun __v_create(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): UTSReactiveObject {
+        return ImageType1ReactiveObject(this, __v_isReadonly, __v_isShallow, __v_skip)
+    }
+}
+open class ImageType1ReactiveObject : ImageType1, IUTSReactive<ImageType1> {
+    override var __v_raw: ImageType1
+    override var __v_isReadonly: Boolean
+    override var __v_isShallow: Boolean
+    override var __v_skip: Boolean
+    constructor(__v_raw: ImageType1, __v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean) : super(type = __v_raw.type, type2 = __v_raw.type2) {
+        this.__v_raw = __v_raw
+        this.__v_isReadonly = __v_isReadonly
+        this.__v_isShallow = __v_isShallow
+        this.__v_skip = __v_skip
+    }
+    override fun __v_clone(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): ImageType1ReactiveObject {
+        return ImageType1ReactiveObject(this.__v_raw, __v_isReadonly, __v_isShallow, __v_skip)
+    }
+    override var type: Number
+        get() {
+            return trackReactiveGet(__v_raw, "type", __v_raw.type, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("type")) {
+                return
+            }
+            val oldValue = __v_raw.type
+            __v_raw.type = value
+            triggerReactiveSet(__v_raw, "type", oldValue, value)
+        }
+    override var type2: String
+        get() {
+            return trackReactiveGet(__v_raw, "type2", __v_raw.type2, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("type2")) {
+                return
+            }
+            val oldValue = __v_raw.type2
+            __v_raw.type2 = value
+            triggerReactiveSet(__v_raw, "type2", oldValue, value)
+        }
+}
 val GenPagesOtherCarManageAddIndexClass = CreateVueComponent(GenPagesOtherCarManageAddIndex::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "page", name = "", inheritAttrs = GenPagesOtherCarManageAddIndex.inheritAttrs, inject = GenPagesOtherCarManageAddIndex.inject, props = GenPagesOtherCarManageAddIndex.props, propsNeedCastKeys = GenPagesOtherCarManageAddIndex.propsNeedCastKeys, emits = GenPagesOtherCarManageAddIndex.emits, components = GenPagesOtherCarManageAddIndex.components, styles = GenPagesOtherCarManageAddIndex.styles, setup = fun(props: ComponentPublicInstance): Any? {
         return GenPagesOtherCarManageAddIndex.setup(props as GenPagesOtherCarManageAddIndex)

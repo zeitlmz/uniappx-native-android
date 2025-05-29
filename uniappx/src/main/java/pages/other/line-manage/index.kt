@@ -132,6 +132,14 @@ open class GenPagesOtherLineManageIndex : BasePage {
                                                                 return utsArrayOf(
                                                                     createElementVNode(Fragment, null, RenderHelpers.renderList(unref(itemMap).get(index), fun(item2, index2, __index, _cached): Any {
                                                                         return createVNode(_component_x_sheet, utsMapOf("margin" to utsArrayOf(
+                                                                            "0",
+                                                                            if (index2 == 0) {
+                                                                                "0"
+                                                                            } else {
+                                                                                "20rpx"
+                                                                            }
+                                                                            ,
+                                                                            "0",
                                                                             "0"
                                                                         ), "class" to "flex-row flex-row-center-between", "color" to unref(globalData).theme.painColor), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                                                                             return utsArrayOf(
@@ -155,6 +163,7 @@ open class GenPagesOtherLineManageIndex : BasePage {
                                                                             )
                                                                         }
                                                                         ), "_" to 2), 1032, utsArrayOf(
+                                                                            "margin",
                                                                             "color"
                                                                         ))
                                                                     }
