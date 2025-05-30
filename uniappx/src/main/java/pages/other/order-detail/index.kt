@@ -74,6 +74,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                 this.initEvt(canCalcRoute)
             }
             )
+            this.getServiceConfig()
             this.updateToday()
         }
         , __ins)
@@ -403,8 +404,13 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                                                         createElementVNode("view", utsMapOf("class" to "more-menu"), utsArrayOf(
                                                             createVNode(_component_x_cell, utsMapOf("onClick" to fun(){
                                                                 _ctx.cancelOrder(item.orderId, item.sortNum)
-                                                            }, "show-bottom-border" to false, "card" to false, "titleColor" to "red", "title" to "取消订单"), null, 8, utsArrayOf(
-                                                                "onClick"
+                                                            }, "show-bottom-border" to false, "card" to false, "titleColor" to if (_ctx.serviceConfig.allowDriverCancelOrder) {
+                                                                "red"
+                                                            } else {
+                                                                "#999999"
+                                                            }, "title" to "取消订单"), null, 8, utsArrayOf(
+                                                                "onClick",
+                                                                "titleColor"
                                                             ))
                                                         ))
                                                     )
@@ -546,8 +552,13 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                                                                                         createElementVNode("view", utsMapOf("class" to "more-menu"), utsArrayOf(
                                                                                             createVNode(_component_x_cell, utsMapOf("onClick" to fun(){
                                                                                                 _ctx.cancelOrder(item.orderId, item.sortNum)
-                                                                                            }, "show-bottom-border" to false, "card" to false, "titleColor" to "red", "title" to "取消订单"), null, 8, utsArrayOf(
-                                                                                                "onClick"
+                                                                                            }, "show-bottom-border" to false, "card" to false, "titleColor" to if (_ctx.serviceConfig.allowDriverCancelOrder) {
+                                                                                                "red"
+                                                                                            } else {
+                                                                                                "#999999"
+                                                                                            }, "title" to "取消订单"), null, 8, utsArrayOf(
+                                                                                                "onClick",
+                                                                                                "titleColor"
                                                                                             ))
                                                                                         ))
                                                                                     )
@@ -702,8 +713,13 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                                                                                         createElementVNode("view", utsMapOf("class" to "more-menu"), utsArrayOf(
                                                                                             createVNode(_component_x_cell, utsMapOf("onClick" to fun(){
                                                                                                 _ctx.cancelOrder(item.orderId, item.sortNum)
-                                                                                            }, "show-bottom-border" to false, "card" to false, "titleColor" to "red", "title" to "取消订单"), null, 8, utsArrayOf(
-                                                                                                "onClick"
+                                                                                            }, "show-bottom-border" to false, "card" to false, "titleColor" to if (_ctx.serviceConfig.allowDriverCancelOrder) {
+                                                                                                "red"
+                                                                                            } else {
+                                                                                                "#999999"
+                                                                                            }, "title" to "取消订单"), null, 8, utsArrayOf(
+                                                                                                "onClick",
+                                                                                                "titleColor"
                                                                                             ))
                                                                                         ))
                                                                                     )
@@ -1077,6 +1093,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
     open var viaDistance: String by `$data`
     open var viaTime: String by `$data`
     open var mapContentHeight: Number by `$data`
+    open var serviceConfig: ServiceOrderPermission by `$data`
     open var cardHeight: Number by `$data`
     open var cardShowHeight: Number by `$data`
     open var pullViewHeight: Number by `$data`
@@ -1090,7 +1107,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
             var FASTEST: Number = 0
             var CHARGE_LESS: Number = 14
             var DONT_HIGH_SPEED: Number = 13
-        }, "routeStrategyOptions" to utsArrayOf<RouteStrategyOption>(RouteStrategyOption(code = "OVERALL_OPTIMAL", name = "综合最优"), RouteStrategyOption(code = "FASTEST", name = "速度优先"), RouteStrategyOption(code = "CHARGE_LESS", name = "少收费"), RouteStrategyOption(code = "DONT_HIGH_SPEED", name = "不走高速")), "routeStrategy" to "OVERALL_OPTIMAL", "routeStrategyStr" to "综合最优", "tripingViewHeight" to 200, "viaDistance" to "0公里", "viaTime" to "0分钟", "mapContentHeight" to 0, "cardHeight" to computed<Number>(fun(): Number {
+        }, "routeStrategyOptions" to utsArrayOf<RouteStrategyOption>(RouteStrategyOption(code = "OVERALL_OPTIMAL", name = "综合最优"), RouteStrategyOption(code = "FASTEST", name = "速度优先"), RouteStrategyOption(code = "CHARGE_LESS", name = "少收费"), RouteStrategyOption(code = "DONT_HIGH_SPEED", name = "不走高速")), "routeStrategy" to "OVERALL_OPTIMAL", "routeStrategyStr" to "综合最优", "tripingViewHeight" to 200, "viaDistance" to "0公里", "viaTime" to "0分钟", "mapContentHeight" to 0, "serviceConfig" to ServiceOrderPermission(allocateSeatModel = false, allowSubmitOrderNoCar = false, allowDriverCloseTakeOrder = false, allowDriverCancelOrder = false, enableNumberPrivacy = false, enableCallRecording = false), "cardHeight" to computed<Number>(fun(): Number {
             return if (this.isDx) {
                 400
             } else {
@@ -1127,6 +1144,14 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
             return isToday
         }
         ))
+    }
+    open var getServiceConfig = ::gen_getServiceConfig_fn
+    open fun gen_getServiceConfig_fn() {
+        getServiceOperationSetting().then(fun(res: Response){
+            val data = JSON.parse<ServiceOrderPermission>(JSON.stringify(res.data))
+            this.serviceConfig = data!!
+        }
+        )
     }
     open var longpressStop = ::gen_longpressStop_fn
     open fun gen_longpressStop_fn() {}
@@ -1563,6 +1588,10 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
     }
     open var cancelOrder = ::gen_cancelOrder_fn
     open fun gen_cancelOrder_fn(orderId: String, sortNum: Number) {
+        if (!this.serviceConfig.allowDriverCancelOrder) {
+            showTips("您的服务商设置当前不允许取消订单", "warning")
+            return
+        }
         this.orderNo = sortNum
         this.orderId = orderId
         getIntercityPassengerCancellation(orderId).then(fun(res: Response){

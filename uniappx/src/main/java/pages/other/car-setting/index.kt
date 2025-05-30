@@ -48,6 +48,12 @@ open class GenPagesOtherCarSettingIndex : BasePage {
             val _cache = __ins.renderCache
             val globalData = inject("globalData") as GlobalDataType
             val ws = Ws.ws
+            val serviceConfig = ref<ServiceOrderPermission>(ServiceOrderPermission(allocateSeatModel = false, allowSubmitOrderNoCar = false, allowDriverCloseTakeOrder = false, allowDriverCancelOrder = false, enableNumberPrivacy = false, enableCallRecording = false))
+            val onStopOrderClick = fun(){
+                if (!globalData.carSetting.closeReceiveOrderSwitch && !serviceConfig.value.allowDriverCloseTakeOrder) {
+                    showTips("您的服务商设置当前不允许停止接单", "warning")
+                }
+            }
             val showRouteStrategy = ref(false)
             val showAiDescModal = ref(false)
             val routeStrategyStr = ref("综合最优")
@@ -90,6 +96,11 @@ open class GenPagesOtherCarSettingIndex : BasePage {
                 }
                 )?.name ?: ""
                 queryOrUpdateSetting("")
+                getServiceOperationSetting().then(fun(res: Response){
+                    val data = JSON.parse<ServiceOrderPermission>(JSON.stringify(res.data))
+                    serviceConfig.value = data!!
+                }
+                )
             }
             )
             return fun(): Any? {
@@ -109,13 +120,14 @@ open class GenPagesOtherCarSettingIndex : BasePage {
                                 return utsArrayOf(
                                     createElementVNode("view", utsMapOf("class" to "setting-item"), utsArrayOf(
                                         createElementVNode("text", utsMapOf("class" to "name"), "停止接单"),
-                                        createVNode(_component_x_switch, utsMapOf("modelValue" to unref(globalData).carSetting.closeReceiveOrderSwitch, "onUpdate:modelValue" to fun(`$event`: Boolean){
+                                        createVNode(_component_x_switch, utsMapOf("onClick" to onStopOrderClick, "disabled" to (!unref(globalData).carSetting.closeReceiveOrderSwitch && !unref(serviceConfig).allowDriverCloseTakeOrder), "modelValue" to unref(globalData).carSetting.closeReceiveOrderSwitch, "onUpdate:modelValue" to fun(`$event`: Boolean){
                                             unref(globalData).carSetting.closeReceiveOrderSwitch = `$event`
                                         }
                                         , "onChange" to changeOrderEvt, "label" to utsArrayOf(
                                             "开",
                                             "关"
                                         )), null, 8, utsArrayOf(
+                                            "disabled",
                                             "modelValue",
                                             "onUpdate:modelValue"
                                         ))

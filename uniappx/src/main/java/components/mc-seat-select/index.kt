@@ -77,6 +77,10 @@ open class GenComponentsMcSeatSelectIndex : VueComponent {
                 if (props.readonly) {
                     return
                 }
+                if (seat.isForbidSelect) {
+                    uni_showToast(ShowToastOptions(title = "该座位暂未开放", icon = "none"))
+                    return
+                }
                 if (otherSelectedMap.get(seat.seatKey) != null) {
                     uni_showToast(ShowToastOptions(title = "无法选择他人座位", icon = "none"))
                     return
@@ -163,29 +167,38 @@ open class GenComponentsMcSeatSelectIndex : VueComponent {
                                 }
                                 ) + "元", 3)
                             ), 4),
-                            if (isTrue(unref(selfSelectedMap).get(unref(fjsSeat).seatKey ?: ""))) {
+                            if (isTrue(unref(fjsSeat).isForbidSelect)) {
                                 createElementVNode("image", utsMapOf("key" to 0, "onClick" to fun(){
                                     selectEvt(unref(fjsSeat))
-                                }, "class" to "selected", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-seat-selected-filled-small.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
+                                }, "class" to "selected", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-seat-forbid-select-filled-small.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
                                     "onClick",
                                     "src"
                                 ))
                             } else {
-                                if (isTrue(unref(fjsSeat).selected)) {
+                                if (isTrue(unref(selfSelectedMap).get(unref(fjsSeat).seatKey ?: ""))) {
                                     createElementVNode("image", utsMapOf("key" to 1, "onClick" to fun(){
                                         selectEvt(unref(fjsSeat))
-                                    }, "class" to "selected", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-seat-sales-filled-small.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
+                                    }, "class" to "selected", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-seat-selected-filled-small.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
                                         "onClick",
                                         "src"
                                     ))
                                 } else {
-                                    createElementVNode("image", utsMapOf("key" to 2, "onClick" to fun(){
-                                        selectEvt(unref(fjsSeat))
+                                    if (isTrue(unref(fjsSeat).selected)) {
+                                        createElementVNode("image", utsMapOf("key" to 2, "onClick" to fun(){
+                                            selectEvt(unref(fjsSeat))
+                                        }, "class" to "selected", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-seat-sales-filled-small.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
+                                            "onClick",
+                                            "src"
+                                        ))
+                                    } else {
+                                        createElementVNode("image", utsMapOf("key" to 3, "onClick" to fun(){
+                                            selectEvt(unref(fjsSeat))
+                                        }
+                                        , "class" to "empty", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-seat-empty-filled-small.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
+                                            "onClick",
+                                            "src"
+                                        ))
                                     }
-                                    , "class" to "empty", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-seat-empty-filled-small.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
-                                        "onClick",
-                                        "src"
-                                    ))
                                 }
                             }
                             ,
@@ -219,28 +232,37 @@ open class GenComponentsMcSeatSelectIndex : VueComponent {
                                             } else {
                                                 createCommentVNode("v-if", true)
                                             },
-                                            if (unref(selfSelectedMap).get(seat.seatKey) != null) {
+                                            if (isTrue(seat.isForbidSelect)) {
                                                 createElementVNode("image", utsMapOf("key" to 1, "onClick" to fun(){
-                                                    selectEvt(seat)
-                                                }, "class" to "selected", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-seat-selected-filled-small.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
+                                                    selectEvt(unref(fjsSeat))
+                                                }, "class" to "selected", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-seat-forbid-select-filled-small.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
                                                     "onClick",
                                                     "src"
                                                 ))
                                             } else {
-                                                if (isTrue(seat.selected)) {
+                                                if (unref(selfSelectedMap).get(seat.seatKey) != null) {
                                                     createElementVNode("image", utsMapOf("key" to 2, "onClick" to fun(){
                                                         selectEvt(seat)
-                                                    }, "class" to "selected", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-seat-sales-filled-small.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
+                                                    }, "class" to "selected", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-seat-selected-filled-small.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
                                                         "onClick",
                                                         "src"
                                                     ))
                                                 } else {
-                                                    createElementVNode("image", utsMapOf("key" to 3, "onClick" to fun(){
-                                                        selectEvt(seat)
-                                                    }, "class" to "empty", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-seat-empty-filled-small.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
-                                                        "onClick",
-                                                        "src"
-                                                    ))
+                                                    if (isTrue(seat.selected)) {
+                                                        createElementVNode("image", utsMapOf("key" to 3, "onClick" to fun(){
+                                                            selectEvt(seat)
+                                                        }, "class" to "selected", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-seat-sales-filled-small.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
+                                                            "onClick",
+                                                            "src"
+                                                        ))
+                                                    } else {
+                                                        createElementVNode("image", utsMapOf("key" to 4, "onClick" to fun(){
+                                                            selectEvt(seat)
+                                                        }, "class" to "empty", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-seat-empty-filled-small.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
+                                                            "onClick",
+                                                            "src"
+                                                        ))
+                                                    }
                                                 }
                                             },
                                             createElementVNode("view", utsMapOf("class" to "desc-box"), utsArrayOf(

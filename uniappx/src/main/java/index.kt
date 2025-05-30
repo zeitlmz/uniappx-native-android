@@ -798,6 +798,111 @@ open class WeatherDataReactiveObject : WeatherData, IUTSReactive<WeatherData> {
             triggerReactiveSet(__v_raw, "humidity_float", oldValue, value)
         }
 }
+open class ServiceOrderPermission (
+    @JsonNotNull
+    open var allocateSeatModel: Boolean = false,
+    @JsonNotNull
+    open var allowSubmitOrderNoCar: Boolean = false,
+    @JsonNotNull
+    open var allowDriverCloseTakeOrder: Boolean = false,
+    @JsonNotNull
+    open var allowDriverCancelOrder: Boolean = false,
+    @JsonNotNull
+    open var enableNumberPrivacy: Boolean = false,
+    @JsonNotNull
+    open var enableCallRecording: Boolean = false,
+) : UTSReactiveObject() {
+    override fun __v_create(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): UTSReactiveObject {
+        return ServiceOrderPermissionReactiveObject(this, __v_isReadonly, __v_isShallow, __v_skip)
+    }
+}
+open class ServiceOrderPermissionReactiveObject : ServiceOrderPermission, IUTSReactive<ServiceOrderPermission> {
+    override var __v_raw: ServiceOrderPermission
+    override var __v_isReadonly: Boolean
+    override var __v_isShallow: Boolean
+    override var __v_skip: Boolean
+    constructor(__v_raw: ServiceOrderPermission, __v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean) : super(allocateSeatModel = __v_raw.allocateSeatModel, allowSubmitOrderNoCar = __v_raw.allowSubmitOrderNoCar, allowDriverCloseTakeOrder = __v_raw.allowDriverCloseTakeOrder, allowDriverCancelOrder = __v_raw.allowDriverCancelOrder, enableNumberPrivacy = __v_raw.enableNumberPrivacy, enableCallRecording = __v_raw.enableCallRecording) {
+        this.__v_raw = __v_raw
+        this.__v_isReadonly = __v_isReadonly
+        this.__v_isShallow = __v_isShallow
+        this.__v_skip = __v_skip
+    }
+    override fun __v_clone(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): ServiceOrderPermissionReactiveObject {
+        return ServiceOrderPermissionReactiveObject(this.__v_raw, __v_isReadonly, __v_isShallow, __v_skip)
+    }
+    override var allocateSeatModel: Boolean
+        get() {
+            return trackReactiveGet(__v_raw, "allocateSeatModel", __v_raw.allocateSeatModel, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("allocateSeatModel")) {
+                return
+            }
+            val oldValue = __v_raw.allocateSeatModel
+            __v_raw.allocateSeatModel = value
+            triggerReactiveSet(__v_raw, "allocateSeatModel", oldValue, value)
+        }
+    override var allowSubmitOrderNoCar: Boolean
+        get() {
+            return trackReactiveGet(__v_raw, "allowSubmitOrderNoCar", __v_raw.allowSubmitOrderNoCar, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("allowSubmitOrderNoCar")) {
+                return
+            }
+            val oldValue = __v_raw.allowSubmitOrderNoCar
+            __v_raw.allowSubmitOrderNoCar = value
+            triggerReactiveSet(__v_raw, "allowSubmitOrderNoCar", oldValue, value)
+        }
+    override var allowDriverCloseTakeOrder: Boolean
+        get() {
+            return trackReactiveGet(__v_raw, "allowDriverCloseTakeOrder", __v_raw.allowDriverCloseTakeOrder, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("allowDriverCloseTakeOrder")) {
+                return
+            }
+            val oldValue = __v_raw.allowDriverCloseTakeOrder
+            __v_raw.allowDriverCloseTakeOrder = value
+            triggerReactiveSet(__v_raw, "allowDriverCloseTakeOrder", oldValue, value)
+        }
+    override var allowDriverCancelOrder: Boolean
+        get() {
+            return trackReactiveGet(__v_raw, "allowDriverCancelOrder", __v_raw.allowDriverCancelOrder, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("allowDriverCancelOrder")) {
+                return
+            }
+            val oldValue = __v_raw.allowDriverCancelOrder
+            __v_raw.allowDriverCancelOrder = value
+            triggerReactiveSet(__v_raw, "allowDriverCancelOrder", oldValue, value)
+        }
+    override var enableNumberPrivacy: Boolean
+        get() {
+            return trackReactiveGet(__v_raw, "enableNumberPrivacy", __v_raw.enableNumberPrivacy, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("enableNumberPrivacy")) {
+                return
+            }
+            val oldValue = __v_raw.enableNumberPrivacy
+            __v_raw.enableNumberPrivacy = value
+            triggerReactiveSet(__v_raw, "enableNumberPrivacy", oldValue, value)
+        }
+    override var enableCallRecording: Boolean
+        get() {
+            return trackReactiveGet(__v_raw, "enableCallRecording", __v_raw.enableCallRecording, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("enableCallRecording")) {
+                return
+            }
+            val oldValue = __v_raw.enableCallRecording
+            __v_raw.enableCallRecording = value
+            triggerReactiveSet(__v_raw, "enableCallRecording", oldValue, value)
+        }
+}
 val MessageType: UTSJSONObject = object : UTSJSONObject() {
     var WARNING: Number = -1
     var NOT_AUTH: Number = -2
@@ -873,7 +978,7 @@ val showToast = fun(title: String, type: String){
 val showTips = fun(title: String, type: String){
     val messageOption = MessageOptions[type] as MessageOption
     vibrator(100)
-    showXTips(XTIPS_TYPE(title = title, iconCode = messageOption?.icon, iconColor = messageOption?.color, titleColor = messageOption?.color, position = "bottom", offset = screenHeight / 3))
+    showXTips(XTIPS_TYPE(title = title, iconCode = messageOption?.icon, iconColor = messageOption?.color, titleColor = messageOption?.color, position = "bottom", offset = screenHeight / 1.8))
 }
 val TOKEN_HEADER = "MC-CLIENT-TOKEN"
 val TOKEN_KEY = "mcIntercityCarToken" + (if (isRelease) {
@@ -15854,6 +15959,8 @@ open class SeatSelectTemplate (
     @JsonNotNull
     open var columnNumber: Number,
     @JsonNotNull
+    open var isForbidSelect: Boolean = false,
+    @JsonNotNull
     open var isShow: Boolean = false,
     @JsonNotNull
     open var amplitudePrice: String,
@@ -15869,7 +15976,7 @@ open class SeatSelectTemplateReactiveObject : SeatSelectTemplate, IUTSReactive<S
     override var __v_isReadonly: Boolean
     override var __v_isShallow: Boolean
     override var __v_skip: Boolean
-    constructor(__v_raw: SeatSelectTemplate, __v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean) : super(seatKey = __v_raw.seatKey, displayName = __v_raw.displayName, rowsNumber = __v_raw.rowsNumber, columnNumber = __v_raw.columnNumber, isShow = __v_raw.isShow, amplitudePrice = __v_raw.amplitudePrice, selected = __v_raw.selected) {
+    constructor(__v_raw: SeatSelectTemplate, __v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean) : super(seatKey = __v_raw.seatKey, displayName = __v_raw.displayName, rowsNumber = __v_raw.rowsNumber, columnNumber = __v_raw.columnNumber, isForbidSelect = __v_raw.isForbidSelect, isShow = __v_raw.isShow, amplitudePrice = __v_raw.amplitudePrice, selected = __v_raw.selected) {
         this.__v_raw = __v_raw
         this.__v_isReadonly = __v_isReadonly
         this.__v_isShallow = __v_isShallow
@@ -15925,6 +16032,18 @@ open class SeatSelectTemplateReactiveObject : SeatSelectTemplate, IUTSReactive<S
             val oldValue = __v_raw.columnNumber
             __v_raw.columnNumber = value
             triggerReactiveSet(__v_raw, "columnNumber", oldValue, value)
+        }
+    override var isForbidSelect: Boolean
+        get() {
+            return trackReactiveGet(__v_raw, "isForbidSelect", __v_raw.isForbidSelect, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("isForbidSelect")) {
+                return
+            }
+            val oldValue = __v_raw.isForbidSelect
+            __v_raw.isForbidSelect = value
+            triggerReactiveSet(__v_raw, "isForbidSelect", oldValue, value)
         }
     override var isShow: Boolean
         get() {
@@ -17372,6 +17491,9 @@ val getDriverLinesOpenCityList = fun(): UTSPromise<Response> {
 }
 val getServiceListByOpenCity = fun(param: UTSJSONObject): UTSPromise<Response> {
     return httpGet("/mcpt-car/app/car/driver/getServiceListByOpenCity", param)
+}
+val getServiceOperationSetting = fun(): UTSPromise<Response> {
+    return httpGet("/mcpt-car/app/car/driver/getServiceOperationSetting", UTSJSONObject())
 }
 open class FormData (
     @JsonNotNull

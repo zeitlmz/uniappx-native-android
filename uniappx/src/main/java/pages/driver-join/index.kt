@@ -338,7 +338,7 @@ open class GenPagesDriverJoinIndex : BasePage {
             }
             val saveInformation = ::gen_saveInformation_fn
             val agreeCancel = fun(){
-                showXToast(XTOAST_TYPE(title = "您已拒绝相册读取权限，将无法选取照片进行上传", iconCode = "info", iconColor = "#ff8900", duration = 2500))
+                showXToast(XTOAST_TYPE(title = "您已拒绝相机使用/媒体访问权限申请，将无法拍摄/选取照片进行上传", iconCode = "info", iconColor = "#ff8900", duration = 3000))
             }
             val agreeConfirm = fun(){
                 setPhotoAgreeStatus()
@@ -673,15 +673,16 @@ open class GenPagesDriverJoinIndex : BasePage {
                     createVNode(_component_x_modal, utsMapOf("show" to showAgreeModal.value, "onUpdate:show" to fun(`$event`: Boolean){
                         showAgreeModal.value = `$event`
                     }
-                    , "bgColor" to "#ECF1F8", "cancel-text" to "拒绝", "overlay-click" to false, "onCancel" to agreeCancel, "confirm-text" to "同意", "onConfirm" to agreeConfirm, "show-title" to false, "height" to "750rpx"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                    , "bgColor" to "#ECF1F8", "cancel-text" to "拒绝", "overlay-click" to false, "onCancel" to agreeCancel, "confirm-text" to "同意", "onConfirm" to agreeConfirm, "show-title" to false, "height" to "850rpx"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                         return utsArrayOf(
-                            createElementVNode("text", utsMapOf("class" to "photo-agree-title"), "相册读取权限申请"),
+                            createElementVNode("text", utsMapOf("class" to "photo-agree-title"), "相机使用/媒体访问权限申请"),
                             createElementVNode("view", utsMapOf("class" to "desc"), utsArrayOf(
-                                createElementVNode("text", utsMapOf("class" to "pb-10"), "我们获取您手机的相册读取权限是用于以下功能："),
-                                createElementVNode("text", utsMapOf("class" to "pb-10"), "1、选取身份证正反面：用于实名认证以及驾驶员身份识别"),
-                                createElementVNode("text", utsMapOf("class" to "pb-10"), "2、选取驾驶证主/副页：用于驾驶员驾驶资格的审核。"),
-                                createElementVNode("text", utsMapOf("class" to "pb-10"), "3、选取驾驶员网约/客运从业资质：用于驾驶员从业资质的审核。"),
-                                createElementVNode("text", null, "如果您拒绝我们获取您的上述信息，将导致您无法提交审核信息。")
+                                createElementVNode("text", utsMapOf("class" to "pb-10"), "我们获取您手机的相机使用/媒体访问权限是用于以下功能："),
+                                createElementVNode("text", utsMapOf("class" to "pb-10"), "1、拍摄/选取身份证正反面照片：用于实名认证以及驾驶员身份识别"),
+                                createElementVNode("text", utsMapOf("class" to "pb-10"), "2、拍摄/选取驾驶证主/副页照片：用于驾驶员驾驶资格的审核。"),
+                                createElementVNode("text", utsMapOf("class" to "pb-10"), "3、拍摄/选取驾驶员网约/客运从业资质照片：用于驾驶员从业资质的审核。"),
+                                createElementVNode("text", utsMapOf("class" to "pb-10"), "相机使用/媒体访问权限是在相机拍摄或相册选取照片时各自申请。"),
+                                createElementVNode("text", null, "如果您拒绝我们获取您的上述所有信息，将导致您无法提交审核信息。")
                             ))
                         )
                     }
