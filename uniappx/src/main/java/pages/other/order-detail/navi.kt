@@ -30,25 +30,25 @@ open class GenPagesOtherOrderDetailNavi : BasePage {
         onPageScroll(fun(e: OnPageScrollOptions) {
             xProvitae.scrollTop = e.scrollTop
         }
-        , __ins)
+            , __ins)
         onResize(fun(_: OnResizeOptions) {
             uni__emit("onResize", fun() {})
         }
-        , __ins)
+            , __ins)
         onLoad(fun(_: OnLoadOptions) {}, __ins)
         onPageHide(fun() {
             uni__emit("onHide", fun() {})
         }
-        , __ins)
+            , __ins)
         onReady(fun() {
             uni__emit("onReady", fun() {})
             xProvitae.pageReady = true
         }
-        , __ins)
+            , __ins)
         onPageShow(fun() {
             uni__emit("onShow", fun() {})
         }
-        , __ins)
+            , __ins)
         onReady(fun() {
             this.onOrderAdd()
             this.onOrderAllFinish()
@@ -67,7 +67,7 @@ open class GenPagesOtherOrderDetailNavi : BasePage {
             }
             )
         }
-        , __ins)
+            , __ins)
         onLoad(fun(query: OnLoadOptions) {
             val that = this
             console.log("query:", query)
@@ -86,12 +86,12 @@ open class GenPagesOtherOrderDetailNavi : BasePage {
             }
             )
         }
-        , __ins)
+            , __ins)
         onBeforeUnmount(fun() {
             val naviView = (this.`$refs`["naviView"] as McAmapNavComponentPublicInstance)
             naviView?.destroy()
         }
-        , __ins)
+            , __ins)
     }
     @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
     override fun `$render`(): Any? {
@@ -117,13 +117,13 @@ open class GenPagesOtherOrderDetailNavi : BasePage {
                         createElementVNode("view", utsMapOf("key" to 0, "class" to "triping-panel", "style" to normalizeStyle("height: " + (180 + _ctx.globalData.safeAreaBottom) + "px;")), utsArrayOf(
                             createElementVNode("view", utsMapOf("class" to "header flex-row flex-row-center-between"), utsArrayOf(
                                 createElementVNode("text", utsMapOf("class" to "current-step"), utsArrayOf(
-                                    if (isTrue(_ctx.orderData.driverStatus == 3 || _ctx.orderData.orderChains[_ctx.currentIndex]?.waitingStatus == 0)) {
+                                    if (isTrue(_ctx.orderData.orderChains[_ctx.currentIndex]?.orderStatus == 3 || _ctx.orderData.orderChains[_ctx.currentIndex]?.waitingStatus == 0)) {
                                         createElementVNode("text", utsMapOf("key" to 0), "正在前往")
                                     } else {
                                         createElementVNode("text", utsMapOf("key" to 1), "已达到")
                                     },
                                     createElementVNode("text", utsMapOf("style" to normalizeStyle("color: #" + _ctx.orderData.orderChains[_ctx.currentIndex]?.pointColor + ";")), toDisplayString(_ctx.orderData.orderChains[_ctx.currentIndex]?.pointName), 5),
-                                    createElementVNode("text", null, toDisplayString(if (_ctx.orderData.driverStatus == 3) {
+                                    createElementVNode("text", null, toDisplayString(if (_ctx.orderData.orderChains[_ctx.currentIndex]?.orderStatus == 3) {
                                         "目的地"
                                     } else {
                                         "上车点"
@@ -198,15 +198,15 @@ open class GenPagesOtherOrderDetailNavi : BasePage {
             createVNode(_component_x_modal, utsMapOf("show" to _ctx.showValidModal, "onUpdate:show" to fun(`$event`: Boolean){
                 _ctx.showValidModal = `$event`
             }
-            , "show-close" to "", "onClose" to _ctx.modalClose, "height" to "300rpx", "z-index" to "100", "title" to "请输入乘客手机尾号", "show-footer" to false, "overlayClick" to false), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                , "show-close" to "", "onClose" to _ctx.modalClose, "height" to "300rpx", "z-index" to "100", "title" to "请输入乘客手机尾号", "show-footer" to false, "overlayClick" to false), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                 return utsArrayOf(
                     createVNode(_component_x_code_input, utsMapOf("auto-focus" to "", "place-shape" to "line", "onClick" to fun(){
                         _ctx.showKey = true
                     }
-                    , "onConfirm" to _ctx.validPhoneConfirm, "modelValue" to _ctx.phoneSuffix, "onUpdate:modelValue" to fun(`$event`: String){
-                        _ctx.phoneSuffix = `$event`
-                    }
-                    , "useSysKeyborad" to false, "skin" to "fill"), null, 8, utsArrayOf(
+                        , "onConfirm" to _ctx.validPhoneConfirm, "modelValue" to _ctx.phoneSuffix, "onUpdate:modelValue" to fun(`$event`: String){
+                            _ctx.phoneSuffix = `$event`
+                        }
+                        , "useSysKeyborad" to false, "skin" to "fill"), null, 8, utsArrayOf(
                         "onClick",
                         "onConfirm",
                         "modelValue",
@@ -222,9 +222,9 @@ open class GenPagesOtherOrderDetailNavi : BasePage {
             createVNode(_component_x_keyboard_number, utsMapOf("mode" to "password", "max-len" to 4, "btn-color" to "white", "digit" to false, "modelShow" to _ctx.showKey, "onUpdate:modelShow" to fun(`$event`: Boolean){
                 _ctx.showKey = `$event`
             }
-            , "modelValue" to _ctx.phoneSuffix, "onUpdate:modelValue" to fun(`$event`: String){
-                _ctx.phoneSuffix = `$event`
-            }
+                , "modelValue" to _ctx.phoneSuffix, "onUpdate:modelValue" to fun(`$event`: String){
+                    _ctx.phoneSuffix = `$event`
+                }
             ), null, 8, utsArrayOf(
                 "modelShow",
                 "onUpdate:modelShow",
@@ -278,9 +278,9 @@ open class GenPagesOtherOrderDetailNavi : BasePage {
         showModal(X_MODAL_TYPE(title = "温馨提示", content = "\u786E\u8BA4\u5230\u8FBE" + that.orderData.orderChains[that.currentIndex].pointName + "\u4E0A\u8F66\u70B9\uFF1F", confirmText = "确认", confirmBgColor = that.globalData.theme.primaryColor, confirm = fun(){
             that.verifyArrivedSuccess()
         }
-        , close = fun() {
-            that.resetVerify()
-        }
+            , close = fun() {
+                that.resetVerify()
+            }
         ))
     }
     open var verifyArrivedSuccess = ::gen_verifyArrivedSuccess_fn
@@ -293,10 +293,10 @@ open class GenPagesOtherOrderDetailNavi : BasePage {
             uni__emit("queryOrderDetail", false)
             hideXloading()
         }
-        , fun(data){
-            hideXloading()
-            that.resetVerify()
-        }
+            , fun(data){
+                hideXloading()
+                that.resetVerify()
+            }
         )
     }
     open var verifySuccess = ::gen_verifySuccess_fn
@@ -310,7 +310,7 @@ open class GenPagesOtherOrderDetailNavi : BasePage {
             this.phoneSuffix = ""
             this.resetVerify()
         }
-        , 250)
+            , 250)
     }
     open var validPhoneConfirm = ::gen_validPhoneConfirm_fn
     open fun gen_validPhoneConfirm_fn() {
@@ -332,10 +332,10 @@ open class GenPagesOtherOrderDetailNavi : BasePage {
                 uni__emit("queryOrderDetail", false)
             }
         }
-        , fun(data){
-            hideXloading()
-            that.resetVerify()
-        }
+            , fun(data){
+                hideXloading()
+                that.resetVerify()
+            }
         )
     }
     open var resetVerify = ::gen_resetVerify_fn
@@ -358,9 +358,9 @@ open class GenPagesOtherOrderDetailNavi : BasePage {
                 that.orderData.driverStatus = 3
                 that.finishOrder()
             }
-            , fun(data){
-                hideXloading()
-            }
+                , fun(data){
+                    hideXloading()
+                }
             )
         }
     }
@@ -378,15 +378,15 @@ open class GenPagesOtherOrderDetailNavi : BasePage {
                 vibrator(100)
                 hideXloading()
             }
-            , fun(data){
-                hideXloading()
-                that.resetVerify()
-            }
+                , fun(data){
+                    hideXloading()
+                    that.resetVerify()
+                }
             )
         }
-        , close = fun() {
-            that.resetVerify()
-        }
+            , close = fun() {
+                that.resetVerify()
+            }
         ))
     }
     open var onOrderAdd = ::gen_onOrderAdd_fn
@@ -477,10 +477,10 @@ open class GenPagesOtherOrderDetailNavi : BasePage {
         uni_makePhoneCall(MakePhoneCallOptions(phoneNumber = phone, success = fun(result: MakePhoneCallSuccess){
             console.log("拨打电话成功")
         }
-        , fail = fun(_err){
-            console.log("拨打电话失败", _err)
-            showToast("拨打电话失败", "error")
-        }
+            , fail = fun(_err){
+                console.log("拨打电话失败", _err)
+                showToast("拨打电话失败", "error")
+            }
         ))
     }
     companion object {
