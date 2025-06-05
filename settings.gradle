@@ -1,12 +1,12 @@
 pluginManagement {
-	repositories {
-		flatDir {
-			dirs 'libs'
-		}
-		google()
-		mavenCentral()
-		gradlePluginPortal()
-	}
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
 }
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
@@ -14,12 +14,12 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven { url = uri("https://jitpack.io") }
-		maven { url = uri("https://developer.huawei.com/repo/") }
-		maven { url = uri("https://maven.aliyun.com/repository/public/") }
-		maven { url = uri("https://maven.aliyun.com/repository/central") }
-		maven { url = uri("https://android-sdk.is.com/") }
-		maven { url = uri("https://dl-maven-android.mintegral.com/repository/mbridge_android_sdk_oversea") }
-		maven { url = uri("https://oss.sonatype.org/content/groups/public") }
+        maven { url = uri("https://developer.huawei.com/repo/") }
+        maven { url = uri("https://maven.aliyun.com/repository/public/") }
+        maven { url = uri("https://maven.aliyun.com/repository/central") }
+        maven { url = uri("https://android-sdk.is.com/") }
+        maven { url = uri("https://dl-maven-android.mintegral.com/repository/mbridge_android_sdk_oversea") }
+        maven { url = uri("https://oss.sonatype.org/content/groups/public") }
         flatDir {
             dirs('./plugins/')
         }
@@ -33,6 +33,7 @@ include ':jj-md5'
 include ':kux-request-interceptors'
 include ':kux-router'
 include ':mc-amap-nav-plus'
+include ':mc-permission-request'
 include ':mc-wechat-sdk'
 include ':uni-kuxrouter'
 include ':x-base642file-s'

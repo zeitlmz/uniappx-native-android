@@ -752,7 +752,9 @@ open class GenPagesHomeHadSettled : VueComponent {
                                                             return utsArrayOf(
                                                                 createVNode(_component_mc_date_picker, utsMapOf("modelValue" to unref(queryDate), "onUpdate:modelValue" to fun(`$event`: String){
                                                                     trySetRefValue(queryDate, `$event`)
-                                                                }, "date-style" to unref(dateStyles), "start-date" to unref(dateRange)[0], "disabledDays" to unref(disabledDates), "end-date" to unref(dateRange)[1]), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                                }, "date-style" to unref(dateStyles), "start-date" to unref(dateRange)[0], "disabledDays" to unref(disabledDates), "end-date" to unref(dateRange)[1], "onChange" to fun(){
+                                                                    queryOrderList(1)
+                                                                }), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                                                                     return utsArrayOf(
                                                                         createElementVNode("view", utsMapOf("class" to "left-box", "style" to normalizeStyle("width: " + (unref(screenWidth) - 115) + "px;")), utsArrayOf(
                                                                             createElementVNode("image", utsMapOf("class" to "icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-date.png")), null, 8, utsArrayOf(
@@ -770,9 +772,14 @@ open class GenPagesHomeHadSettled : VueComponent {
                                                                     "date-style",
                                                                     "start-date",
                                                                     "disabledDays",
-                                                                    "end-date"
+                                                                    "end-date",
+                                                                    "onChange"
                                                                 )),
-                                                                createElementVNode("text", utsMapOf("onClick" to orderQuery, "class" to "text-btn"), "查询")
+                                                                createElementVNode("text", utsMapOf("onClick" to fun(){
+                                                                    queryOrderList(1)
+                                                                }, "class" to "text-btn"), "查询", 8, utsArrayOf(
+                                                                    "onClick"
+                                                                ))
                                                             )
                                                         }), "_" to 1), 8, utsArrayOf(
                                                             "style"

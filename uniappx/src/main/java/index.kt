@@ -93,6 +93,8 @@ import uts.sdk.modules.xLoadingS.showLoading
 import uts.sdk.modules.mcAmapNavPlus.init
 import io.dcloud.uniapp.extapi.loadFontFace as uni_loadFontFace
 import io.dcloud.uniapp.extapi.onOsThemeChange as uni_onOsThemeChange
+import uts.sdk.modules.mcPermissionRequest.permissionsRequest
+import uts.sdk.modules.mcPermissionRequest.requestNotificationPermission
 import io.dcloud.uniapp.extapi.removeStorageSync as uni_removeStorageSync
 import io.dcloud.uniapp.extapi.request as uni_request
 import io.dcloud.uniapp.extapi.rpx2px as uni_rpx2px
@@ -23822,8 +23824,8 @@ fun main(app: IApp) {
 open class UniAppConfig : io.dcloud.uniapp.appframe.AppConfig {
     override var name: String = "每橙车主"
     override var appid: String = "__UNI__511F0A5"
-    override var versionName: String = "4.0.1"
-    override var versionCode: String = "401"
+    override var versionName: String = "4.0.3"
+    override var versionCode: String = "403"
     override var uniCompilerVersion: String = "4.66"
     override var defaultAppTheme: String = "light"
     constructor() : super() {}

@@ -66,6 +66,7 @@ dependencies {
     implementation project(':kux-request-interceptors')
     implementation project(':kux-router')
     implementation project(':mc-amap-nav-plus')
+    implementation project(':mc-permission-request')
     implementation project(':mc-wechat-sdk')
     implementation project(':uni-kuxrouter')
     implementation project(':x-base642file-s')

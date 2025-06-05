@@ -1180,8 +1180,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
         console.log("OrderItem:", item)
         val that = this
         that.currentChooseSeat = item.chooseSeat
-        val date = formatDate(Date(), "yyyy-MM-dd")
-        refreshSeatTemplate("DRIVER_PLAN:ORDER_SEAT_METADATA:" + item.planId + ":" + date).then(fun(res: Response){
+        refreshSeatTemplate("DRIVER_PLAN:ORDER_SEAT_METADATA:" + item.planId + ":" + item.departureDay).then(fun(res: Response){
             if (res.code == 200) {
                 that.seatSelectTemplates = JSON.parseObject<UTSArray<SeatSelectTemplate>>(JSON.stringify(res.data)) ?: utsArrayOf()
                 setTimeout(fun(){
@@ -1633,7 +1632,6 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                 } else {
                     that.queryOrderDetail(true, false)
                 }
-                McAudio.play("/static/audio/order-cancel.mp3", false)
             }
         }
         , fun(data){
@@ -1665,18 +1663,17 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
     open fun gen_onOrderAllFinish_fn() {
         val that = this
         ws?.on(MessageType["BIG_ORDER_FINISH"] as Number, fun(data){
-            console.log("因订单取消或调度，您当前订单已全部完成：", data)
+            console.log("您当前订单已全部完成：", data)
             hideXloading()
             val res = JSON.parse<OrderFinishResponse>(data)
             if (res?.summaryId == that.orderParams["summaryId"]) {
                 setTimeout(fun() {
-                    showModal(X_MODAL_TYPE(title = "温馨提示", content = "\u56E0\u8BA2\u5355\u53D6\u6D88\u6216\u8C03\u5EA6\uFF0C\u60A8\u5F53\u524D\u8BA2\u5355\u5DF2\u5168\u90E8\u5B8C\u6210", confirmText = "返回首页", confirmBgColor = this.globalData.theme.primaryColor, showCancel = false, close = fun(){
+                    showModal(X_MODAL_TYPE(title = "温馨提示", content = "\u60A8\u5F53\u524D\u8BA2\u5355\u5DF2\u5168\u90E8\u5B8C\u6210", confirmText = "返回首页", confirmBgColor = this.globalData.theme.primaryColor, showCancel = false, close = fun(){
                         uni_reLaunch(ReLaunchOptions(url = "/pages/home/index"))
                     }
                     ))
                 }
                 , 250)
-                McAudio.play("/static/audio/order-cancel.mp3", false)
             }
         }
         )
@@ -1685,7 +1682,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
     open fun gen_onOneOrderFinish_fn() {
         val that = this
         ws?.on(MessageType["ORDER_FINISH"] as Number, fun(data){
-            console.log("因订单取消或调度，您当前订单已全部完成：", data)
+            console.log("订单完成：", data)
             hideXloading()
             val res = JSON.parse<OrderFinishResponse>(data)
             if (res?.summaryId == that.orderParams["summaryId"]) {
@@ -1698,7 +1695,6 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                 } else {
                     that.queryOrderDetail(false, false)
                 }
-                McAudio.play("/static/audio/order-cancel.mp3", false)
             }
         }
         )
@@ -1712,7 +1708,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
             if (res?.summaryId == that.orderParams["summaryId"]) {
                 if (res?.backIndex ?: false) {
                     setTimeout(fun() {
-                        showModal(X_MODAL_TYPE(title = "温馨提示", content = "\u60A8\u5F53\u524D\u8BA2\u5355\u5DF2\u5168\u90E8\u7ED3\u675F", confirmText = "返回首页", confirmBgColor = this.globalData.theme.primaryColor, showCancel = false, close = fun(){
+                        showModal(X_MODAL_TYPE(title = "温馨提示", content = "\u56E0\u53D6\u6D88\u6216\u8C03\u5EA6\uFF0C\u60A8\u5F53\u524D\u8BA2\u5355\u5DF2\u5168\u90E8\u7ED3\u675F", confirmText = "返回首页", confirmBgColor = this.globalData.theme.primaryColor, showCancel = false, close = fun(){
                             uni_reLaunch(ReLaunchOptions(url = "/pages/home/index"))
                         }))
                     }, 250)

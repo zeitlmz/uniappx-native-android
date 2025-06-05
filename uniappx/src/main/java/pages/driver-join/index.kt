@@ -210,7 +210,11 @@ open class GenPagesDriverJoinIndex : BasePage {
                                 }
                                 if (validPeriodArr.length > 0) {
                                     formData.idCardStartTime = validPeriodArr[0].replace(".", "-").replace(".", "-")
-                                    formData.idCardEndTime = validPeriodArr[1].replace(".", "-").replace(".", "-")
+                                    if (validPeriodArr.indexOf("长期") != -1) {
+                                        formData.idCardEndTime = "2099-01-01"
+                                    } else {
+                                        formData.idCardEndTime = validPeriodArr[1].replace(".", "-").replace(".", "-")
+                                    }
                                 }
                             }
                         }

@@ -21,6 +21,8 @@ import io.dcloud.uniapp.extapi.exit as uni_exit
 import uts.sdk.modules.xLoadingS.hideXloading
 import uts.sdk.modules.xLoadingS.showLoading
 import uts.sdk.modules.mcAmapNavPlus.init
+import uts.sdk.modules.mcPermissionRequest.permissionsRequest
+import uts.sdk.modules.mcPermissionRequest.requestNotificationPermission
 import uts.sdk.modules.xModalS.showModal
 import uts.sdk.modules.uniKuxrouter.useKuxRouter as uni_useKuxRouter
 open class GenPagesHomeNotSettled : VueComponent {
@@ -170,6 +172,9 @@ open class GenPagesHomeNotSettled : VueComponent {
                     app.globalData.jg = jg
                 }
             }
+            val openNotifiPerm = fun(){
+                requestNotificationPermission()
+            }
             val loginRequest = fun(){
                 showLoading(XLOADINGS_TYPE(title = "登录中..."))
                 login(object : UTSJSONObject() {
@@ -188,6 +193,10 @@ open class GenPagesHomeNotSettled : VueComponent {
                     showTips("登录成功", "success")
                     showLogin.value = false
                     emit("checkHasEntry")
+                    setTimeout(fun(){
+                        openNotifiPerm()
+                    }
+                    , 300)
                 }
                 ).`catch`(fun(err: Any?){
                     val errInfo = JSON.parse(JSON.stringify(err)) as UTSJSONObject
