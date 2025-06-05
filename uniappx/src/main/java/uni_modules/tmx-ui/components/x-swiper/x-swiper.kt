@@ -16,9 +16,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.`$off` as uni__off
 import io.dcloud.uniapp.extapi.`$on` as uni__on
+import uts.sdk.modules.mcAmapNavPlus.checkLocationPermission
+import uts.sdk.modules.mcAmapNavPlus.init
 import io.dcloud.uniapp.extapi.createSelectorQuery as uni_createSelectorQuery
 import io.dcloud.uniapp.extapi.getElementById as uni_getElementById
-import uts.sdk.modules.mcAmapNavPlus.init
 open class GenUniModulesTmxUiComponentsXSwiperXSwiper : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {
         provide("xSwiperRadius", this._round)

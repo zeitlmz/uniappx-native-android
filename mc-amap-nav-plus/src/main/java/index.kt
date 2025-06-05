@@ -168,9 +168,9 @@ open class PlatformUtils {
                 callback(false, "用户拒绝了部分权限")
             }
         }
-        , fun(_: Boolean, _: UTSArray<String>) {
-            callback(false, "用户拒绝了部分权限")
-        }
+            , fun(_: Boolean, _: UTSArray<String>) {
+                callback(false, "用户拒绝了部分权限")
+            }
         )
     }
 }
@@ -289,16 +289,10 @@ open class NaviOptions (
     @JsonNotNull
     open var end: PointType,
 ) : UTSObject()
-fun init(apiKey: String, cb: AgreeCallback) {
-    checkLocationPermission(fun(all: Boolean){
-        if (all) {
-            MapsInitializer.updatePrivacyShow(UTSAndroid.getAppContext()!!, true, true)
-            MapsInitializer.updatePrivacyAgree(UTSAndroid.getAppContext()!!, true)
-            AMapNavi.setApiKey(UTSAndroid.getAppContext()!!, apiKey)
-        }
-        cb(all)
-    }
-    )
+fun init(apiKey: String) {
+    MapsInitializer.updatePrivacyShow(UTSAndroid.getAppContext()!!, true, true)
+    MapsInitializer.updatePrivacyAgree(UTSAndroid.getAppContext()!!, true)
+    AMapNavi.setApiKey(UTSAndroid.getAppContext()!!, apiKey)
 }
 fun checkLocationPermission(cb: AgreeCallback) {
     console.log("定位权限申请 checkLocationPermission执行")
@@ -313,13 +307,13 @@ fun checkLocationPermission(cb: AgreeCallback) {
         }
         cb(allRight)
     }
-    , fun(doNotAskAgain: Boolean, grantedList: UTSArray<String>) {
-        console.log("用户拒绝了部分权限，仅允许了grantedList中的权限")
-        if (doNotAskAgain) {
-            console.log("用户拒绝了权限，并且选择不再询问")
+        , fun(doNotAskAgain: Boolean, grantedList: UTSArray<String>) {
+            console.log("用户拒绝了部分权限，仅允许了grantedList中的权限")
+            if (doNotAskAgain) {
+                console.log("用户拒绝了权限，并且选择不再询问")
+            }
+            cb(doNotAskAgain)
         }
-        cb(doNotAskAgain)
-    }
     )
 }
 fun getAmapOnceLocation(options: SingleLocationOptions, successCallback: SuccessCallback) {
@@ -589,12 +583,12 @@ open class NativeMap {
                 console.log("用户仅同意了 grantedList中的权限", grantedList)
             }
         }
-        , fun(doNotAskAgain: Boolean, grantedList: UTSArray<String>) {
-            console.log("用户拒绝了部分权限，仅允许了grantedList中的权限")
-            if (doNotAskAgain) {
-                console.log("用户拒绝了权限，并且选择不再询问")
+            , fun(doNotAskAgain: Boolean, grantedList: UTSArray<String>) {
+                console.log("用户拒绝了部分权限，仅允许了grantedList中的权限")
+                if (doNotAskAgain) {
+                    console.log("用户拒绝了权限，并且选择不再询问")
+                }
             }
-        }
         )
     }
     open fun getLocation(options: SingleLocationOptions, successCallback: SuccessCallback) {
@@ -704,34 +698,34 @@ open class NativeMap {
             )
             this.options.calcSuccessCb?.invoke(JSON.stringify(data))
         }
-        , fun(){
-            this.options.arriveCb?.invoke()
-        }
-        , fun(){
-            this.routeData.clear()
-        }
-        , fun(data: NaviInfo){
-            val arr: UTSArray<UTSJSONObject> = utsArrayOf()
-            console.log("导航信息更新-sdk:", data)
-            data.getToViaInfo()?.forEach(fun(item: AMapNaviToViaInfo){
-                arr.push(object : UTSJSONObject() {
-                    var distance = item.getDistance()
-                    var time = item.getTime()
-                })
+            , fun(){
+                this.options.arriveCb?.invoke()
             }
-            )
-            if (arr.length > 0) {
-                console.log("导航信息更新-多单:", data.getToViaInfo())
-            } else {
-                console.log("导航信息更新一单:", ReflectionUtil)
-                arr.push(object : UTSJSONObject() {
-                    var distance = ReflectionUtil.getProtectedField<Number>(data, "mRouteRemainDis")
-                    var time = ReflectionUtil.getProtectedField<Number>(data, "mRouteRemainTime")
-                })
+            , fun(){
+                this.routeData.clear()
             }
-            console.log("导航信息-arr:", arr)
-            this.options.naviInfoUpdateCb?.invoke(JSON.stringify(arr))
-        }
+            , fun(data: NaviInfo){
+                val arr: UTSArray<UTSJSONObject> = utsArrayOf()
+                console.log("导航信息更新-sdk:", data)
+                data.getToViaInfo()?.forEach(fun(item: AMapNaviToViaInfo){
+                    arr.push(object : UTSJSONObject() {
+                        var distance = item.getDistance()
+                        var time = item.getTime()
+                    })
+                }
+                )
+                if (arr.length > 0) {
+                    console.log("导航信息更新-多单:", data.getToViaInfo())
+                } else {
+                    console.log("导航信息更新一单:", ReflectionUtil)
+                    arr.push(object : UTSJSONObject() {
+                        var distance = ReflectionUtil.getProtectedField<Number>(data, "mRouteRemainDis")
+                        var time = ReflectionUtil.getProtectedField<Number>(data, "mRouteRemainTime")
+                    })
+                }
+                console.log("导航信息-arr:", arr)
+                this.options.naviInfoUpdateCb?.invoke(JSON.stringify(arr))
+            }
         ))
     }
 }

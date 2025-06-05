@@ -17,10 +17,11 @@ import kotlinx.coroutines.async
 import uts.sdk.modules.jgJpush.JgUtil
 import uts.sdk.modules.xLoadingS.XLOADINGS_TYPE
 import uts.sdk.modules.xModalS.X_MODAL_TYPE
+import uts.sdk.modules.mcAmapNavPlus.checkLocationPermission
+import uts.sdk.modules.mcAmapNavPlus.init
 import io.dcloud.uniapp.extapi.exit as uni_exit
 import uts.sdk.modules.xLoadingS.hideXloading
 import uts.sdk.modules.xLoadingS.showLoading
-import uts.sdk.modules.mcAmapNavPlus.init
 import uts.sdk.modules.mcPermissionRequest.permissionsRequest
 import uts.sdk.modules.mcPermissionRequest.requestNotificationPermission
 import uts.sdk.modules.xModalS.showModal

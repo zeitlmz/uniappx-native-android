@@ -14,14 +14,15 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import io.dcloud.uniapp.extapi.`$once` as uni__once
 import uts.sdk.modules.jgJpush.JgUtil
 import uts.sdk.modules.xLoadingS.XLOADINGS_TYPE
 import uts.sdk.modules.xToastS.XTOAST_TYPE
 import uts.sdk.modules.xModalS.X_MODAL_TYPE
-import io.dcloud.uniapp.extapi.exit as uni_exit
+import uts.sdk.modules.mcAmapNavPlus.checkLocationPermission
+import uts.sdk.modules.mcAmapNavPlus.init
 import uts.sdk.modules.xLoadingS.hideXloading
 import uts.sdk.modules.xLoadingS.showLoading
-import uts.sdk.modules.mcAmapNavPlus.init
 import uts.sdk.modules.xModalS.showModal
 import uts.sdk.modules.xToastS.showToast as showXToast
 import uts.sdk.modules.uniKuxrouter.useKuxRouter as uni_useKuxRouter
@@ -398,27 +399,28 @@ open class GenPagesHomeHadSettled : VueComponent {
             }
             __expose(utsMapOf("onShow" to onShow, "onHide" to onHide))
             val locationAgreeCancel = fun(){
-                showXToast(XTOAST_TYPE(title = "您已拒绝定位获取权限，将无法进行后面的业务，App即将退出", iconCode = "info", iconColor = "#ff8900", duration = 2500))
                 setTimeout(fun(){
-                    uni_exit(null)
-                }
-                , 3000)
-            }
-            val locationAgreeConfirm = fun(){
-                setTimeout(fun(){
-                    init(MAP_CONFIG["naviKey"] as String, fun(all: Boolean){
-                        if (all) {
-                            console.log("同意权限=======", all)
-                            startLocation.value = true
-                            setLocationAgreeStatus()
-                            onShow()
-                        } else {
-                            locationAgreeCancel()
-                        }
-                    }
-                    )
+                    showXToast(XTOAST_TYPE(title = "您已拒绝定位获取权限，将无法进行后面的业务", iconCode = "info", iconColor = "#ff8900", duration = 2500))
                 }
                 , 250)
+                removeLocationAgreeStatus()
+                uni__once("startLocation", fun(){
+                    startLocation.value = true
+                }
+                )
+            }
+            val locationAgreeConfirm = fun(){
+                checkLocationPermission(fun(all: Boolean){
+                    if (all) {
+                        console.log("同意权限=======", all)
+                        startLocation.value = true
+                        setLocationAgreeStatus()
+                        onShow()
+                    } else {
+                        locationAgreeCancel()
+                    }
+                }
+                )
             }
             val initJg = fun(){
                 val jg = JgUtil()
@@ -430,6 +432,9 @@ open class GenPagesHomeHadSettled : VueComponent {
                 , 10000)
                 app.globalData.jg = jg
             }
+            val initMap = fun(){
+                init(MAP_CONFIG["naviKey"] as String)
+            }
             val handlePromotion = fun(){
                 console.log("跳转推广页")
                 router.push("/pages/personal/promotion/index")
@@ -438,6 +443,7 @@ open class GenPagesHomeHadSettled : VueComponent {
             onMounted(fun(){
                 isInit.value = true
                 initJg()
+                initMap()
                 showValidModal.value = true
                 if (getLocationAgreeStatus()) {
                     locationAgreeConfirm()

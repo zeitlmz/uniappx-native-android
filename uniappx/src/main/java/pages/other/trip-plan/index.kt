@@ -15,6 +15,7 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.`$emit` as uni__emit
+import uts.sdk.modules.mcAmapNavPlus.checkLocationPermission
 import uts.sdk.modules.mcAmapNavPlus.init
 import uts.sdk.modules.uniKuxrouter.useKuxRouter as uni_useKuxRouter
 open class GenPagesOtherTripPlanIndex : BasePage {

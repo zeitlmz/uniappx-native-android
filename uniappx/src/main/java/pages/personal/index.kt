@@ -16,6 +16,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.`$emit` as uni__emit
 import uts.sdk.modules.xModalS.X_MODAL_TYPE
+import uts.sdk.modules.mcAmapNavPlus.checkLocationPermission
 import uts.sdk.modules.mcAmapNavPlus.init
 import io.dcloud.uniapp.extapi.makePhoneCall as uni_makePhoneCall
 import uts.sdk.modules.jjMd5.md5

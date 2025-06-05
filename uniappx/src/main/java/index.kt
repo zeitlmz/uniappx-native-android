@@ -75,6 +75,8 @@ import uts.sdk.modules.kuxRouter.UseAddInterceptorOptions
 import uts.sdk.modules.xLoadingS.XLOADINGS_TYPE
 import uts.sdk.modules.xTipsS.XTIPS_TYPE
 import uts.sdk.modules.xToastS.XTOAST_TYPE
+import uts.sdk.modules.mcAmapNavPlus.checkLocationPermission
+import uts.sdk.modules.mcAmapNavPlus.init
 import io.dcloud.uniapp.extapi.chooseImage as uni_chooseImage
 import io.dcloud.uniapp.extapi.chooseVideo as uni_chooseVideo
 import io.dcloud.uniapp.extapi.compressImage as uni_compressImage
@@ -90,7 +92,6 @@ import io.dcloud.uniapp.extapi.getWindowInfo as uni_getWindowInfo
 import io.dcloud.uniapp.extapi.hideLoading as uni_hideLoading
 import uts.sdk.modules.xLoadingS.hideXloading
 import uts.sdk.modules.xLoadingS.showLoading
-import uts.sdk.modules.mcAmapNavPlus.init
 import io.dcloud.uniapp.extapi.loadFontFace as uni_loadFontFace
 import io.dcloud.uniapp.extapi.onOsThemeChange as uni_onOsThemeChange
 import uts.sdk.modules.mcPermissionRequest.permissionsRequest
@@ -9154,6 +9155,9 @@ val getPrivacyStatus = fun(): Boolean {
 val locationKey = "locationAgreeKey"
 val setLocationAgreeStatus = fun(){
     uni_setStorageSync(locationKey, "locationAgree")
+}
+val removeLocationAgreeStatus = fun(){
+    uni_removeStorageSync(locationKey)
 }
 val getLocationAgreeStatus = fun(): Boolean {
     val v = uni_getStorageSync(locationKey)
