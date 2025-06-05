@@ -26,25 +26,25 @@ open class GenPagesPersonalJourneyOrderDetail : BasePage {
         onPageScroll(fun(e: OnPageScrollOptions) {
             xProvitae.scrollTop = e.scrollTop
         }
-        , __ins)
+            , __ins)
         onResize(fun(_: OnResizeOptions) {
             uni__emit("onResize", fun() {})
         }
-        , __ins)
+            , __ins)
         onLoad(fun(_: OnLoadOptions) {}, __ins)
         onPageHide(fun() {
             uni__emit("onHide", fun() {})
         }
-        , __ins)
+            , __ins)
         onReady(fun() {
             uni__emit("onReady", fun() {})
             xProvitae.pageReady = true
         }
-        , __ins)
+            , __ins)
         onPageShow(fun() {
             uni__emit("onShow", fun() {})
         }
-        , __ins)
+            , __ins)
     }
     companion object {
         @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
@@ -60,7 +60,7 @@ open class GenPagesPersonalJourneyOrderDetail : BasePage {
                 try {
                     return (parseFloat(driverChargingValue) * 100).toString(10) + "%"
                 }
-                 catch (err: Throwable) {
+                catch (err: Throwable) {
                     console.error("transPercentage转换失败：", err)
                     return "--"
                 }
@@ -116,7 +116,7 @@ open class GenPagesPersonalJourneyOrderDetail : BasePage {
                                 "src"
                             ))
                         )),
-                        createElementVNode("view", utsMapOf("class" to "container"), utsArrayOf(
+                        createElementVNode("view", utsMapOf("class" to "container", "style" to normalizeStyle("height:" + (unref(screenHeight) - unref(statusBarHeight) - 20) + "px")), utsArrayOf(
                             if (unref(orderDetail).length <= 0) {
                                 createVNode(_component_x_empty, utsMapOf("key" to 0, "style" to normalizeStyle(utsMapOf("margin-top" to "50px")), "loading" to false, "empty" to true, "showBtn" to false), null, 8, utsArrayOf(
                                     "style"
@@ -125,7 +125,7 @@ open class GenPagesPersonalJourneyOrderDetail : BasePage {
                                 createCommentVNode("v-if", true)
                             }
                             ,
-                            createVNode(_component_x_swiper, utsMapOf("modelValue" to 0, "height" to "900", "space" to 10, "model" to "spaceOnly", "spaceOffset" to 5, "autoPlay" to false, "damping" to 1, "vertical" to false, "dotSize" to "10", "dotColor" to "rgba(188, 188, 188, 0.5)", "dotActiveColor" to "rgba(188, 188, 188, 0.5)"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                            createVNode(_component_x_swiper, utsMapOf("modelValue" to 0, "height" to ("" + (unref(screenHeight) - unref(statusBarHeight) - 20) + " + ''"), "space" to 10, "model" to "spaceOnly", "spaceOffset" to 5, "autoPlay" to false, "damping" to 1, "vertical" to false, "dotSize" to "10", "dotColor" to "rgba(188, 188, 188, 0.5)", "dotActiveColor" to "rgba(188, 188, 188, 0.5)"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                                 return utsArrayOf(
                                     createElementVNode(Fragment, null, RenderHelpers.renderList(unref(orderDetail), fun(item, index, __index, _cached): Any {
                                         return createVNode(_component_x_swiper_item, utsMapOf("order" to index, "key" to index, "dotOffset" to "3"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
@@ -166,13 +166,13 @@ open class GenPagesPersonalJourneyOrderDetail : BasePage {
                                                                         return utsArrayOf(
                                                                             createVNode(_component_x_steps_item, utsMapOf("activeIcon" to ("" + unref(resBaseUrl) + "/static/icons/icon-location-filled.png")), utsMapOf("default" to withScopedSlotCtx(fun(active: GenUniModulesTmxUiComponentsXStepsItemXStepsItemSlotDataDefault): UTSArray<Any> {
                                                                                 return utsArrayOf(
-                                                                                    createVNode(_component_x_text, utsMapOf("class" to "text-black text-weight-b", "lines" to 2), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                                                    createVNode(_component_x_text, utsMapOf("class" to "text-black text-weight-b", "font-size" to "30rpx", "lines" to 2), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                                                                                         return utsArrayOf(
                                                                                             toDisplayString(item.startAddress)
                                                                                         )
                                                                                     }
                                                                                     ), "_" to 2), 1024),
-                                                                                    createVNode(_component_x_text, utsMapOf("color" to "#898989"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                                                    createVNode(_component_x_text, utsMapOf("font-size" to "30rpx", "color" to "#898989"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                                                                                         return utsArrayOf(
                                                                                             "上车时间：" + toDisplayString(item.boardingTime)
                                                                                         )
@@ -185,13 +185,13 @@ open class GenPagesPersonalJourneyOrderDetail : BasePage {
                                                                             )),
                                                                             createVNode(_component_x_steps_item, utsMapOf("activeIcon" to ("" + unref(resBaseUrl) + "/static/icons/icon-location-end.png")), utsMapOf("default" to withScopedSlotCtx(fun(active: GenUniModulesTmxUiComponentsXStepsItemXStepsItemSlotDataDefault): UTSArray<Any> {
                                                                                 return utsArrayOf(
-                                                                                    createVNode(_component_x_text, utsMapOf("class" to "text-black text-weight-b", "lines" to 2), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                                                    createVNode(_component_x_text, utsMapOf("class" to "text-black text-weight-b", "font-size" to "30rpx", "lines" to 2), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                                                                                         return utsArrayOf(
                                                                                             toDisplayString(item.endAddress)
                                                                                         )
                                                                                     }
                                                                                     ), "_" to 2), 1024),
-                                                                                    createVNode(_component_x_text, utsMapOf("color" to "#898989"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                                                    createVNode(_component_x_text, utsMapOf("font-size" to "30rpx", "color" to "#898989"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                                                                                         return utsArrayOf(
                                                                                             "结束时间：" + toDisplayString(item.completeTime)
                                                                                         )
@@ -244,8 +244,10 @@ open class GenPagesPersonalJourneyOrderDetail : BasePage {
                                     ), 128)
                                 )
                             }
-                            ), "_" to 1))
-                        ))
+                            ), "_" to 1), 8, utsArrayOf(
+                                "height"
+                            ))
+                        ), 4)
                     )
                 }
                 ), "_" to 1))
