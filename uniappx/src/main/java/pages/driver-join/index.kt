@@ -174,6 +174,13 @@ open class GenPagesDriverJoinIndex : BasePage {
                 )
             }
             val initServcieList = ::gen_initServcieList_fn
+            val checkDate = fun(dateStr: String?): Boolean {
+                if (dateStr == null) {
+                    return false
+                }
+                val pattern = UTSRegExp("^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])\$", "")
+                return pattern.test(dateStr)
+            }
             fun gen_handleUploadFileInfo_fn(type: String, path: String, recognizeRes: UTSJSONObject) {
                 when (type) {
                     "frontSideIdCardPhoto" -> 
@@ -210,10 +217,16 @@ open class GenPagesDriverJoinIndex : BasePage {
                                 }
                                 if (validPeriodArr.length > 0) {
                                     formData.idCardStartTime = validPeriodArr[0].replace(".", "-").replace(".", "-")
-                                    if (validPeriodArr.indexOf("长期") != -1) {
-                                        formData.idCardEndTime = "2099-01-01"
+                                    formData.idCardStartTime = if (checkDate(formData.idCardStartTime)) {
+                                        formData.idCardStartTime
                                     } else {
-                                        formData.idCardEndTime = validPeriodArr[1].replace(".", "-").replace(".", "-")
+                                        null
+                                    }
+                                    formData.idCardEndTime = validPeriodArr[1].replace(".", "-").replace(".", "-")
+                                    formData.idCardEndTime = if (checkDate(formData.idCardEndTime)) {
+                                        formData.idCardEndTime
+                                    } else {
+                                        null
                                     }
                                 }
                             }
@@ -226,6 +239,11 @@ open class GenPagesDriverJoinIndex : BasePage {
                             if (!objOfNull(recognizeRes)) {
                                 formData.licenseFirstReceiveDate = recognizeRes.getString("initialIssueDate")
                                 formData.licenseValidityStart = recognizeRes.getString("validFromDate")
+                                formData.licenseValidityStart = if (checkDate(formData.licenseValidityStart)) {
+                                    formData.licenseValidityStart
+                                } else {
+                                    null
+                                }
                                 formData.licenseIssuingAuthority = recognizeRes.getString("issueAuthority")
                                 formData.licenseNo = recognizeRes.getString("licenseNumber")
                                 formData.licenseCarClass = recognizeRes.getString("approvedType")

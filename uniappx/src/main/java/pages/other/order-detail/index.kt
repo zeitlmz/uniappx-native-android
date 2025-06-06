@@ -86,6 +86,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
             val mapView = (this.`$refs`["mapView"] as McAmapComponentPublicInstance)
             mapView?.destroy()
             uni__off("queryOrderDetail", null)
+            hideXloading()
         }
         , __ins)
     }

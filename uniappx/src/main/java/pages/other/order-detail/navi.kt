@@ -90,6 +90,7 @@ open class GenPagesOtherOrderDetailNavi : BasePage {
         onBeforeUnmount(fun() {
             val naviView = (this.`$refs`["naviView"] as McAmapNavComponentPublicInstance)
             naviView?.destroy()
+            hideXloading()
         }
         , __ins)
     }

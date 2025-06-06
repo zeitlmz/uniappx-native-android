@@ -10248,13 +10248,14 @@ open class MapStore {
     }
 }
 open class NativeMap {
-    private var element: UniNativeViewElement
+    private var element: UniNativeViewElement? = null
     private var aMap: AMap? = null
     private var mAMapNavi: AMapNavi? = null
-    private var options: MapOption
-    private var routeData: Map<Int, AMapNaviPath> = Map<Int, AMapNaviPath>()
-    private var markers: ArrayList<Marker> = ArrayList()
-    private var routeOverlays: SparseArray<RouteOverLay> = SparseArray<RouteOverLay>()
+    private var options: MapOption? = null
+    private var routeData: Map<Int, AMapNaviPath>? = Map<Int, AMapNaviPath>()
+    private var markers: ArrayList<Marker>? = ArrayList()
+    private var routeOverlays: SparseArray<RouteOverLay>? = SparseArray<RouteOverLay>()
+    private var naviListener: MyNaviListener? = null
     constructor(element: UniNativeViewElement, options: MapOption){
         this.element = element
         this.options = options
@@ -10280,11 +10281,11 @@ open class NativeMap {
         this.markers = this.aMap?.addMarkers(markerOptionsList, false) as ArrayList<Marker>
     }
     open fun removeMarkers() {
-        this.markers.forEach(fun(marker){
+        this.markers?.forEach(fun(marker){
             marker.remove()
         }
         )
-        this.markers.clear()
+        this.markers?.clear()
     }
     open fun playTTS(text: String, forcePlay: Boolean) {
         this.mAMapNavi?.playTTS(text, forcePlay)
@@ -10293,9 +10294,9 @@ open class NativeMap {
         this.mAMapNavi?.selectRouteId(routeId.toInt())
         run {
             var i: Int = 0
-            while(i < this.routeOverlays.size()){
-                val id: Int = this.routeOverlays.keyAt(i)
-                val routeOverlay: RouteOverLay = this.routeOverlays.valueAt(i)
+            while(i < (this.routeOverlays?.size() ?: 0 as Int)){
+                val id: Int = this.routeOverlays?.keyAt(i) ?: 0 as Int
+                val routeOverlay: RouteOverLay? = this.routeOverlays?.valueAt(i)
                 var transparency: Number = 0.4
                 var zIndex: Int = -2
                 var arrowVisible = true
@@ -10303,7 +10304,7 @@ open class NativeMap {
                     transparency = 1
                     zIndex = -1
                     val boundsBuilder = LatLngBounds.Builder()
-                    val coords = this.routeData.get(routeId.toInt())?.getCoordList()
+                    val coords = this.routeData?.get(routeId.toInt())?.getCoordList()
                     if (coords != null) {
                         coords.forEach(fun(coord: NaviLatLng){
                             boundsBuilder.include(LatLng(coord.getLatitude(), coord.getLongitude()))
@@ -10314,15 +10315,15 @@ open class NativeMap {
                     arrowVisible = false
                     this.aMap?.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 120))
                 }
-                routeOverlay.setArrowOnRoute(arrowVisible)
-                routeOverlay.setTransparency(transparency.toFloat())
-                routeOverlay.setZindex(zIndex)
+                routeOverlay?.setArrowOnRoute(arrowVisible)
+                routeOverlay?.setTransparency(transparency.toFloat())
+                routeOverlay?.setZindex(zIndex)
                 i++
             }
         }
     }
     open fun drawRoutes(routeId: Number, path: AMapNaviPath) {
-        val routeOverLay: RouteOverLay = RouteOverLay(this.aMap!!, path, this.element.getAndroidActivity()!!)
+        val routeOverLay: RouteOverLay = RouteOverLay(this.aMap!!, path, UTSAndroid.getUniActivity()!!)
         routeOverLay.setTrafficLine(true)
         routeOverLay.setArrowOnRoute(true)
         routeOverLay.setPassRouteVisible(true)
@@ -10330,7 +10331,7 @@ open class NativeMap {
         val transparency: Number = 0.4
         routeOverLay.setTransparency(transparency.toFloat())
         routeOverLay.addToMap()
-        this.routeOverlays.put(routeId.toInt(), routeOverLay)
+        this.routeOverlays?.put(routeId.toInt(), routeOverLay)
     }
     open fun checkLocationPermission() {
         var permissions = utsArrayOf(
@@ -10375,19 +10376,27 @@ open class NativeMap {
         this.removeMarkers()
         this.aMap?.clear()
         this.aMap = null
+        this.mAMapNavi?.removeAMapNaviListener(this.naviListener!!)
         this.mAMapNavi = null
+        this.naviListener = null
+        this.element = null
+        this.options = null
+        this.markers = null
+        this.routeOverlays = null
+        this.routeData = null
+        console.log("destroy-map:", this.aMap)
     }
     open fun clearRoute() {
         run {
             var i: Int = 0
-            while(i < this.routeOverlays.size()){
-                val routeOverlay: RouteOverLay = this.routeOverlays.valueAt(i)
-                routeOverlay.removeFromMap()
+            while(i < (this.routeOverlays?.size() ?: 0 as Int)){
+                val routeOverlay: RouteOverLay? = this.routeOverlays?.valueAt(i)
+                routeOverlay?.removeFromMap()
                 i++
             }
         }
-        this.routeOverlays.clear()
-        this.routeData.clear()
+        this.routeOverlays?.clear()
+        this.routeData?.clear()
     }
     open fun calculate(navOption: AmapNavOption) {
         console.log("开始算路，配置：", navOption)
@@ -10426,23 +10435,23 @@ open class NativeMap {
             mapView?.onCreate(Bundle())
             MapStore.mapView = mapView
         }
-        this.element.bindAndroidView(mapView!!)
+        this.element?.bindAndroidView(mapView!!)
         this.aMap = mapView?.getMap()!! as AMap
         this.aMap?.setMapType(4)
         this.aMap?.setTrafficEnabled(true)
-        this.aMap?.setMyLocationEnabled(this.options.selfLocation)
+        this.aMap?.setMyLocationEnabled(this.options?.selfLocation ?: false)
         val myLocationStyle = MyLocationStyle()
         myLocationStyle.strokeColor(Color.argb(0, 0, 0, 0))
         myLocationStyle.radiusFillColor(Color.argb(0, 0, 0, 0))
         myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE_NO_CENTER)
         this.aMap?.setMyLocationStyle(myLocationStyle)
         val mUiSettings = this.aMap?.getUiSettings()
-        mUiSettings?.setMyLocationButtonEnabled(this.options.showLocationBtn)
+        mUiSettings?.setMyLocationButtonEnabled(this.options?.showLocationBtn ?: false)
         mUiSettings?.setScaleControlsEnabled(true)
         mUiSettings?.setZoomControlsEnabled(false)
         this.mAMapNavi = AMapNavi.getInstance(context) as AMapNavi
         this.mAMapNavi?.setUseInnerVoice(true, true)
-        this.mAMapNavi?.addAMapNaviListener(MyNaviListener(this.mAMapNavi, fun(res: RoutesData){
+        this.naviListener = MyNaviListener(this.mAMapNavi, fun(res: RoutesData){
             this.routeData = res.data
             val data: UTSJSONObject = UTSJSONObject()
             res.data.forEach(fun(value: AMapNaviPath, key: Int){
@@ -10460,13 +10469,13 @@ open class NativeMap {
                 this.drawRoutes(key, value)
             }
             )
-            this.options.calcSuccessCb?.invoke(JSON.stringify(data))
+            this.options?.calcSuccessCb?.invoke(JSON.stringify(data))
         }
         , fun(){
-            this.options.arriveCb?.invoke()
+            this.options?.arriveCb?.invoke()
         }
         , fun(){
-            this.routeData.clear()
+            this.routeData?.clear()
         }
         , fun(data: NaviInfo){
             val arr: UTSArray<UTSJSONObject> = utsArrayOf()
@@ -10488,17 +10497,19 @@ open class NativeMap {
                 })
             }
             console.log("导航信息-arr:", arr)
-            this.options.naviInfoUpdateCb?.invoke(JSON.stringify(arr))
+            this.options?.naviInfoUpdateCb?.invoke(JSON.stringify(arr))
         }
-        ))
+        )
+        this.mAMapNavi?.addAMapNaviListener(naviListener)
     }
 }
 open class NativeNavi {
-    private var element: UniNativeViewElement
+    private var element: UniNativeViewElement? = null
     private var aMap: AMap? = null
     private var mAMapNavi: AMapNavi? = null
-    private var markers: ArrayList<Marker> = ArrayList()
-    private var quitCb: QuitType
+    private var markers: ArrayList<Marker>? = ArrayList()
+    private var quitCb: QuitType? = null
+    private var mNaviViewListener: MyNaviViewListener? = null
     constructor(element: UniNativeViewElement, quitCb: QuitType){
         this.element = element
         this.quitCb = quitCb
@@ -10513,6 +10524,12 @@ open class NativeNavi {
         this.removeMarkers()
         this.aMap = null
         this.mAMapNavi = null
+        this.markers = null
+        this.mNaviViewListener = null
+        this.element = null
+        this.quitCb = null
+        MapStore.mapNaviView?.setAMapNaviViewListener(null)
+        console.log("destroy-navi:", this.mAMapNavi)
     }
     open fun addMarkers(markers: UTSArray<MarkerOption>) {
         val markerOptionsList: UTSArray<MarkerOptions> = utsArrayOf()
@@ -10524,11 +10541,11 @@ open class NativeNavi {
         this.markers = this.aMap?.addMarkers(markerOptionsList, false) as ArrayList<Marker>
     }
     open fun removeMarkers() {
-        this.markers.forEach(fun(marker){
+        this.markers?.forEach(fun(marker){
             marker.remove()
         }
         )
-        this.markers.clear()
+        this.markers?.clear()
     }
     open fun playTTS(text: String, forcePlay: Boolean) {
         this.mAMapNavi?.playTTS(text, forcePlay)
@@ -10539,13 +10556,13 @@ open class NativeNavi {
     open fun bindView() {
         NaviSetting.updatePrivacyShow(UTSAndroid.getAppContext()!!, true, true)
         NaviSetting.updatePrivacyAgree(UTSAndroid.getAppContext()!!, true)
-        val activity = this.element.getAndroidActivity()
-        val mNaviViewListener = MyNaviViewListener(fun(){
+        val activity = this.element?.getAndroidActivity()
+        this.mNaviViewListener = MyNaviViewListener(fun(){
             this.stopNavi()
-            this.quitCb()
+            this.quitCb?.invoke()
         }
         )
-        this.mAMapNavi = AMapNavi.getInstance(activity) as AMapNavi
+        this.mAMapNavi = AMapNavi.getInstance(activity!!) as AMapNavi
         val naviMapViewOption: AMapNaviViewOptions = AMapNaviViewOptions()
         naviMapViewOption.setAutoDisplayOverview(true)
         naviMapViewOption.setSettingMenuEnabled(false)
@@ -10562,9 +10579,9 @@ open class NativeNavi {
         mapNaviView?.setShowTrafficLightView(true)
         mapNaviView?.setShowDriveCongestion(true)
         mapNaviView?.setTrafficLightsVisible(true)
-        mapNaviView?.setAMapNaviViewListener(mNaviViewListener)
+        mapNaviView?.setAMapNaviViewListener(this.mNaviViewListener!!)
         this.aMap = mapNaviView?.getMap()
-        this.element.bindAndroidView(mapNaviView!!)
+        this.element?.bindAndroidView(mapNaviView!!)
     }
 }
 val GenUniModulesMcAmapNavPlusComponentsMcAmapLocationMcAmapLocationClass = CreateVueComponent(GenUniModulesMcAmapNavPlusComponentsMcAmapLocationMcAmapLocation::class.java, fun(): VueComponentOptions {
