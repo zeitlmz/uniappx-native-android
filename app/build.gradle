@@ -88,14 +88,14 @@ android {
         abortOnError false
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_21
-        targetCompatibility JavaVersion.VERSION_21
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
         // 增量编译
         incremental true
     }
 
     kotlinOptions {
-        jvmTarget = '21'
+        jvmTarget = '17'
         // Kotlin 编译器优化
         freeCompilerArgs += [
                 '-Xopt-in=kotlin.RequiresOptIn'
@@ -112,8 +112,7 @@ android {
 tasks.withType(JavaCompile).configureEach {
     options.fork = true
     options.forkOptions.jvmArgs += [
-            '-Xmx4g',
-            '-XX:+UseG1GC'
+            '-Xmx4g'
     ]
 }
 
