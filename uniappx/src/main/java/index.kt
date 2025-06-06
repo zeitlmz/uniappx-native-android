@@ -10564,11 +10564,7 @@ open class NativeNavi {
         )
         this.mAMapNavi = AMapNavi.getInstance(activity!!) as AMapNavi
         val naviMapViewOption: AMapNaviViewOptions = AMapNaviViewOptions()
-        naviMapViewOption.setAutoDisplayOverview(true)
         naviMapViewOption.setSettingMenuEnabled(false)
-        naviMapViewOption.setMapStyle(MapStyle.DAY, "")
-        naviMapViewOption.setTrafficLayerEnabled(true)
-        naviMapViewOption.setLaneInfoShow(true)
         var mapNaviView = MapStore.mapNaviView
         if (mapNaviView == null) {
             console.log("创建mapNaviView地图了=======")
@@ -10576,6 +10572,11 @@ open class NativeNavi {
             mapNaviView?.onCreate(Bundle())
             MapStore.mapNaviView = mapNaviView
         }
+        mapNaviView.getViewOptions().setAutoDisplayOverview(true)
+        mapNaviView.getViewOptions().setSettingMenuEnabled(false)
+        mapNaviView.getViewOptions().setMapStyle(MapStyle.DAY, "")
+        mapNaviView.getViewOptions().setTrafficLayerEnabled(true)
+        mapNaviView.getViewOptions().setLaneInfoShow(true)
         mapNaviView?.setShowTrafficLightView(true)
         mapNaviView?.setShowDriveCongestion(true)
         mapNaviView?.setTrafficLightsVisible(true)

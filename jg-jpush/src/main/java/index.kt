@@ -40,6 +40,8 @@ open class JgUtil {
         config.setOppoAppKey("b271982497f04d969fe5ca51fd5ef691")
         config.setOppoAppSecret("6cff3eb5e88245f6926e817c0ce25577")
         config.setHwAppId("111537715")
+        config.setMzAppId("155549")
+        config.setMzAppKey("da823c2266bb43dfb1502c6ca8a6e4e2")
         JPushInterface.setChannel(cusContext, "mc-cs")
         JPushInterface.init(cusContext, config)
         this.clearBadgeNumber()
