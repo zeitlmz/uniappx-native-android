@@ -321,7 +321,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                                 )
                             ))
                         )),
-                        withDirectives(createElementVNode("view", utsMapOf("class" to "routes-container", "style" to normalizeStyle("background-image: linear-gradient(to bottom, " + _ctx.globalData.theme.painColor + ", #fffff);")), utsArrayOf(
+                        withDirectives(createElementVNode("view", utsMapOf("class" to "routes-container", "style" to normalizeStyle("background-image: linear-gradient(to bottom, " + _ctx.globalData.theme.painColor + ", #ffffff);")), utsArrayOf(
                             if (_ctx.routes.length <= 0) {
                                 createElementVNode("view", utsMapOf("key" to 0, "class" to "flex-row flex-row-center-center", "style" to normalizeStyle(utsMapOf("height" to "200rpx", "color" to "#cccccc"))), utsArrayOf(
                                     createElementVNode("text", utsMapOf("style" to normalizeStyle(utsMapOf("text-align" to "center"))), "暂无路线规划", 4)
@@ -1461,13 +1461,23 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
     }
     open var routeLoveClick = ::gen_routeLoveClick_fn
     open fun gen_routeLoveClick_fn(option: RouteStrategyOption) {
-        this.routeStrategy = option.code
-        this.routeStrategyStr = option.name
-        this.calcRoute()
-        setTimeout(fun(){
-            this.showRouteStrategyOptions = false
+        ws?.sendAndOn(WebSocketSendMessage(type = MessageType["QUERY_CAR_SETTING"] as Number, content = object : UTSJSONObject() {
+            var routeStrategy = option.code
+        }), fun(data){
+            console.log("查询订单列表：", data)
+            val json = JSON.parse<UTSJSONObject>(data)
+            this.routeStrategy = json?.getString("routeStrategy") ?: "OVERALL_OPTIMAL"
+            this.routeStrategyStr = this.routeStrategyOptions.find(fun(item): Boolean {
+                return item.code == this.globalData.carSetting.routeStrategy
+            }
+            )?.name ?: "综合最优"
+            this.calcRoute()
+            setTimeout(fun(){
+                this.showRouteStrategyOptions = false
+            }
+            , 50)
         }
-        , 50)
+        )
     }
     open var routeLoveBtnClick = ::gen_routeLoveBtnClick_fn
     open fun gen_routeLoveBtnClick_fn() {

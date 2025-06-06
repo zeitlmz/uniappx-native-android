@@ -3,8 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:largeHeap="true"
+        android:hardwareAccelerated="true"
+        android:allowBackup="false"
+        android:usesCleartextTraffic="true"
+
         android:name=".App"
-        android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:extractNativeLibs="true"
         android:fullBackupContent="@xml/backup_rules"
@@ -14,6 +18,16 @@
         android:supportsRtl="true"
         tools:replace="android:allowBackup"
         tools:targetApi="34">
+        <!-- 针对不同设备的内存配置 -->
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.4" />
+
+        <!-- 性能优化配置 -->
+        <meta-data
+            android:name="android.webkit.WebView.MetricsOptOut"
+            android:value="true" />
+
         <activity
             android:name="io.dcloud.uniapp.UniAppActivity"
             android:exported="true"

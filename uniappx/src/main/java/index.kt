@@ -10322,6 +10322,7 @@ open class NativeMap {
         }
     }
     open fun drawRoutes(routeId: Number, path: AMapNaviPath) {
+        var act = this.element.getAndroidActivity()
         val routeOverLay: RouteOverLay = RouteOverLay(this.aMap!!, path, this.element.getAndroidActivity()!!)
         routeOverLay.setTrafficLine(true)
         routeOverLay.setArrowOnRoute(true)
@@ -15380,13 +15381,6 @@ val GenUniModulesTmxUiComponentsXSwiperXSwiperClass = CreateVueComponent(GenUniM
 }
 )
 typealias XSwiperComponentPublicInstance = GenUniModulesTmxUiComponentsXSwiperXSwiper
-val GenUniModulesTmxUiComponentsXOverlayXOverlayClass = CreateVueComponent(GenUniModulesTmxUiComponentsXOverlayXOverlay::class.java, fun(): VueComponentOptions {
-    return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXOverlayXOverlay.inheritAttrs, inject = GenUniModulesTmxUiComponentsXOverlayXOverlay.inject, props = GenUniModulesTmxUiComponentsXOverlayXOverlay.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXOverlayXOverlay.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXOverlayXOverlay.emits, components = GenUniModulesTmxUiComponentsXOverlayXOverlay.components, styles = GenUniModulesTmxUiComponentsXOverlayXOverlay.styles)
-}
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXOverlayXOverlay {
-    return GenUniModulesTmxUiComponentsXOverlayXOverlay(instance)
-}
-)
 typealias callbackType1 = () -> UTSPromise<Boolean>
 val GenUniModulesTmxUiComponentsXModalXModalClass = CreateVueComponent(GenUniModulesTmxUiComponentsXModalXModal::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXModalXModal.inheritAttrs, inject = GenUniModulesTmxUiComponentsXModalXModal.inject, props = GenUniModulesTmxUiComponentsXModalXModal.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXModalXModal.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXModalXModal.emits, components = GenUniModulesTmxUiComponentsXModalXModal.components, styles = GenUniModulesTmxUiComponentsXModalXModal.styles)
@@ -23614,6 +23608,13 @@ val GenPagesPersonalSwitchPhoneNoLoginIndexClass = CreateVueComponent(GenPagesPe
 }
 , fun(instance, renderer): GenPagesPersonalSwitchPhoneNoLoginIndex {
     return GenPagesPersonalSwitchPhoneNoLoginIndex(instance, renderer)
+}
+)
+val GenUniModulesTmxUiComponentsXOverlayXOverlayClass = CreateVueComponent(GenUniModulesTmxUiComponentsXOverlayXOverlay::class.java, fun(): VueComponentOptions {
+    return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXOverlayXOverlay.inheritAttrs, inject = GenUniModulesTmxUiComponentsXOverlayXOverlay.inject, props = GenUniModulesTmxUiComponentsXOverlayXOverlay.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXOverlayXOverlay.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXOverlayXOverlay.emits, components = GenUniModulesTmxUiComponentsXOverlayXOverlay.components, styles = GenUniModulesTmxUiComponentsXOverlayXOverlay.styles)
+}
+, fun(instance, renderer): GenUniModulesTmxUiComponentsXOverlayXOverlay {
+    return GenUniModulesTmxUiComponentsXOverlayXOverlay(instance)
 }
 )
 val getPromotionReward = fun(): UTSPromise<Response> {

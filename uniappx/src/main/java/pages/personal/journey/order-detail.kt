@@ -26,25 +26,25 @@ open class GenPagesPersonalJourneyOrderDetail : BasePage {
         onPageScroll(fun(e: OnPageScrollOptions) {
             xProvitae.scrollTop = e.scrollTop
         }
-            , __ins)
+        , __ins)
         onResize(fun(_: OnResizeOptions) {
             uni__emit("onResize", fun() {})
         }
-            , __ins)
+        , __ins)
         onLoad(fun(_: OnLoadOptions) {}, __ins)
         onPageHide(fun() {
             uni__emit("onHide", fun() {})
         }
-            , __ins)
+        , __ins)
         onReady(fun() {
             uni__emit("onReady", fun() {})
             xProvitae.pageReady = true
         }
-            , __ins)
+        , __ins)
         onPageShow(fun() {
             uni__emit("onShow", fun() {})
         }
-            , __ins)
+        , __ins)
     }
     companion object {
         @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
@@ -60,7 +60,7 @@ open class GenPagesPersonalJourneyOrderDetail : BasePage {
                 try {
                     return (parseFloat(driverChargingValue) * 100).toString(10) + "%"
                 }
-                catch (err: Throwable) {
+                 catch (err: Throwable) {
                     console.error("transPercentage转换失败：", err)
                     return "--"
                 }

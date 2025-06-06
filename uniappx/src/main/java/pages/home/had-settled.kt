@@ -435,16 +435,10 @@ open class GenPagesHomeHadSettled : VueComponent {
             val initMap = fun(){
                 init(MAP_CONFIG["naviKey"] as String)
             }
-            val handlePromotion = fun(){
-                console.log("跳转推广页")
-                router.push("/pages/personal/promotion/index")
-                showValidModal.value = false
-            }
             onMounted(fun(){
                 isInit.value = true
                 initJg()
                 initMap()
-                showValidModal.value = true
                 if (getLocationAgreeStatus()) {
                     locationAgreeConfirm()
                     onShow()
@@ -466,7 +460,6 @@ open class GenPagesHomeHadSettled : VueComponent {
                 val _component_x_image = resolveEasyComponent("x-image", GenUniModulesTmxUiComponentsXImageXImageClass)
                 val _component_x_swiper_item = resolveEasyComponent("x-swiper-item", GenUniModulesTmxUiComponentsXSwiperItemXSwiperItemClass)
                 val _component_x_swiper = resolveEasyComponent("x-swiper", GenUniModulesTmxUiComponentsXSwiperXSwiperClass)
-                val _component_x_overlay = resolveEasyComponent("x-overlay", GenUniModulesTmxUiComponentsXOverlayXOverlayClass)
                 val _component_x_modal = resolveEasyComponent("x-modal", GenUniModulesTmxUiComponentsXModalXModalClass)
                 return createElementVNode(Fragment, null, utsArrayOf(
                     if (isTrue(unref(startLocation))) {
@@ -978,19 +971,6 @@ open class GenPagesHomeHadSettled : VueComponent {
                         ))
                     ), 12, utsArrayOf(
                         "direction"
-                    )),
-                    createVNode(_component_x_overlay, utsMapOf("show" to unref(showValidModal), "onUpdate:show" to fun(`$event`: Boolean){
-                        trySetRefValue(showValidModal, `$event`)
-                    }
-                    , "show-close" to true, "z-index" to 100, "overlayClick" to false, "custom-style" to "display: flex;align-items: center;justify-content: center;"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                        return utsArrayOf(
-                            createElementVNode("image", utsMapOf("onClick" to handlePromotion, "src" to ("" + unref(resBaseUrl) + "/static/images/activity-promotion.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
-                                "src"
-                            ))
-                        )
-                    }
-                    ), "_" to 1), 8, utsArrayOf(
-                        "show"
                     )),
                     createVNode(_component_x_modal, utsMapOf("show" to unref(showAgreeLocationModal), "onUpdate:show" to fun(`$event`: Boolean){
                         trySetRefValue(showAgreeLocationModal, `$event`)

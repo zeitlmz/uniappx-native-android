@@ -1,23 +1,26 @@
+import com.android.build.gradle.internal.tasks.R8Task
 
 plugins {
     id 'com.android.application'
-	id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.android'
 }
 
 android {
     namespace 'com.mc.driver.client'
-	compileSdk 34
-	
-	buildFeatures {
-		buildConfig true
-	}
+    compileSdk 34
+
+    buildFeatures {
+        buildConfig true
+    }
 
     defaultConfig {
         applicationId 'com.mc.driver.client'
         minSdk 24
-		targetSdk 34
+        targetSdk 34
         versionCode 403
         versionName '4.0.3'
+        // Vector drawable 优化
+        vectorDrawables.useSupportLibrary = true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -25,16 +28,36 @@ android {
         buildConfigField "String", "UTSRegisterComponents", "\"[{\\\"name\\\":\\\"canvas\\\",\\\"class\\\":\\\"io.dcloud.canvas.CanvasComponent\\\",\\\"node\\\":\\\"io.dcloud.canvas.UniCanvasElementImpl\\\"}]\""
         buildConfigField "String", "UTSEasyCom", "\"[{\\\"class\\\":\\\"uts.sdk.modules.DCloudUniActionSheet.UniActionSheetExtApiPagesRegister\\\",\\\"method\\\":\\\"register\\\"},{\\\"class\\\":\\\"uts.sdk.modules.DCloudUniPreviewImage.UniPreviewImageExtApiPagesRegister\\\",\\\"method\\\":\\\"register\\\"},{\\\"class\\\":\\\"uts.sdk.modules.DCloudUniModal.UniModalExtApiPagesRegister\\\",\\\"method\\\":\\\"register\\\"},{\\\"class\\\":\\\"uts.sdk.modules.DCloudUniCamera.UniCameraExtApiComponentsRegister\\\",\\\"method\\\":\\\"register\\\"}]\""
         buildConfigField "String", "UTSRegisterProvider", "\"[{\\\"name\\\":\\\"system\\\",\\\"service\\\":\\\"location\\\",\\\"class\\\":\\\"uts.sdk.modules.DCloudUniLocationSystem.UniLocationSystemProviderImpl\\\"}]\""
-		
+
+        // JVM参数优化
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += [
+                        "room.schemaLocation": "$projectDir/schemas".toString(),
+                        "room.incremental"   : "true"
+                ]
+            }
+        }
+
+        // 打包优化
+        packagingOptions {
+            pickFirst '**/libc++_shared.so'
+            pickFirst '**/libjsc.so'
+            exclude 'META-INF/DEPENDENCIES'
+            exclude 'META-INF/LICENSE'
+            exclude 'META-INF/LICENSE.txt'
+            exclude 'META-INF/NOTICE'
+            exclude 'META-INF/NOTICE.txt'
+        }
 
         ndk {
 //            abiFilters "armeabi-v7a"
-            abiFilters "arm64-v8a"
-//            abiFilters "armeabi-v7a","arm64-v8a"
+//            abiFilters "arm64-v8a"
+            abiFilters "armeabi-v7a", "arm64-v8a"
         }
 
     }
-	
+
 
     signingConfigs {
         config {
@@ -45,31 +68,38 @@ android {
         }
     }
 
+
     buildTypes {
         release {
             minifyEnabled false
-			signingConfig signingConfigs.config
+            signingConfig signingConfigs.config
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
         debug {
-			minifyEnabled false
+            minifyEnabled false
             signingConfig signingConfigs.config
-			proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 
-	lintOptions {
-	    checkReleaseBuilds false
-	    abortOnError false
-	}
-	compileOptions {
-	    sourceCompatibility JavaVersion.VERSION_17
-	    targetCompatibility JavaVersion.VERSION_17
-	}
-	
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+        // 增量编译
+        incremental true
+    }
+
     kotlinOptions {
         jvmTarget = '17'
+        // Kotlin 编译器优化
+        freeCompilerArgs += [
+                '-Xopt-in=kotlin.RequiresOptIn'
+        ]
     }
 
     aaptOptions {
@@ -78,9 +108,28 @@ android {
     }
 }
 
+// ✅ 正确的任务内存配置
+tasks.withType(JavaCompile).configureEach {
+    options.fork = true
+    options.forkOptions.jvmArgs += [
+            '-Xmx4g',
+            '-XX:+UseG1GC'
+    ]
+}
+
+// 配置 R8/ProGuard 任务
+//tasks.withType(R8Task).configureEach {
+//    jvmArgs.addAll([
+//            '-Xmx6g',
+//            '-XX:+UseG1GC',
+//            '-XX:MaxGCPauseMillis=200'
+//    ])
+//}
 
 dependencies {
-	implementation fileTree(include: ['*.aar', '*.jar'], dir: './libs')
+    implementation fileTree(include: ['*.aar', '*.jar'], dir: './libs')
+    // 内存优化相关
+    implementation 'androidx.lifecycle:lifecycle-process:2.7.0'
 //    implementation 'androidx.core:core-ktx:1.12.0'
 //    implementation 'androidx.appcompat:appcompat:1.6.1'
 //    implementation 'com.google.android.material:material:1.11.0'
@@ -90,21 +139,21 @@ dependencies {
     implementation project(':uniappx')
     implementation fileTree(include: ['*.aar', '*.jar'], dir: '../uniappx/libs')
 //    implementation "com.squareup.okhttp3:okhttp:3.12.12"
-	implementation project(':jg-jpush')
-	implementation project(':jj-md5')
-	implementation project(':kux-request-interceptors')
-	implementation project(':kux-router')
-	implementation project(':mc-amap-nav-plus')
+    implementation project(':jg-jpush')
+    implementation project(':jj-md5')
+    implementation project(':kux-request-interceptors')
+    implementation project(':kux-router')
+    implementation project(':mc-amap-nav-plus')
     implementation project(':mc-permission-request')
-	implementation project(':mc-wechat-sdk')
-	implementation project(':uni-kuxrouter')
-	implementation project(':x-base642file-s')
-	implementation project(':x-loading-s')
-	implementation project(':x-modal-s')
-	implementation project(':x-share-s')
-	implementation project(':x-tips-s')
-	implementation project(':x-toast-s')
-	implementation project(':x-vibrate-s')
+    implementation project(':mc-wechat-sdk')
+    implementation project(':uni-kuxrouter')
+    implementation project(':x-base642file-s')
+    implementation project(':x-loading-s')
+    implementation project(':x-modal-s')
+    implementation project(':x-share-s')
+    implementation project(':x-tips-s')
+    implementation project(':x-toast-s')
+    implementation project(':x-vibrate-s')
 //    implementation 'com.squareup.okhttp3:okhttp:3.12.12'
 //    implementation 'com.github.bumptech.glide:glide:4.9.0'
 //    implementation 'androidx.recyclerview:recyclerview:1.0.0'

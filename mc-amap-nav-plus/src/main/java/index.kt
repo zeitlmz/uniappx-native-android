@@ -562,6 +562,7 @@ open class NativeMap {
         }
     }
     open fun drawRoutes(routeId: Number, path: AMapNaviPath) {
+        console.log("drawRoutes====>",routeId,path)
         val routeOverLay: RouteOverLay = RouteOverLay(this.aMap!!, path, this.element.getAndroidActivity()!!)
         routeOverLay.setTrafficLine(true)
         routeOverLay.setArrowOnRoute(true)
