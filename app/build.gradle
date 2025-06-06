@@ -88,14 +88,14 @@ android {
         abortOnError false
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility JavaVersion.VERSION_21
+        targetCompatibility JavaVersion.VERSION_21
         // 增量编译
         incremental true
     }
 
     kotlinOptions {
-        jvmTarget = '17'
+        jvmTarget = '21'
         // Kotlin 编译器优化
         freeCompilerArgs += [
                 '-Xopt-in=kotlin.RequiresOptIn'
