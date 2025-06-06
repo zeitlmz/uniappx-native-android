@@ -10322,7 +10322,6 @@ open class NativeMap {
         }
     }
     open fun drawRoutes(routeId: Number, path: AMapNaviPath) {
-        var act = this.element.getAndroidActivity()
         val routeOverLay: RouteOverLay = RouteOverLay(this.aMap!!, path, this.element.getAndroidActivity()!!)
         routeOverLay.setTrafficLine(true)
         routeOverLay.setArrowOnRoute(true)
@@ -10374,6 +10373,9 @@ open class NativeMap {
     open fun destroy() {
         this.clearRoute()
         this.removeMarkers()
+        this.aMap?.clear()
+        this.aMap = null
+        this.mAMapNavi = null
     }
     open fun clearRoute() {
         run {
@@ -10416,6 +10418,7 @@ open class NativeMap {
         val context = UTSAndroid.getAppContext()!!
         this.mAMapNavi = AMapNavi.getInstance(context) as AMapNavi
         this.mAMapNavi?.setMultipleRouteNaviMode(false)
+        this.mAMapNavi?.setTrafficInfoUpdateEnabled(true)
         var mapView = MapStore.mapView
         if (mapView == null) {
             console.log("创建mapView地图了=======")
@@ -10508,6 +10511,8 @@ open class NativeNavi {
     open fun destroy() {
         this.stopNavi()
         this.removeMarkers()
+        this.aMap = null
+        this.mAMapNavi = null
     }
     open fun addMarkers(markers: UTSArray<MarkerOption>) {
         val markerOptionsList: UTSArray<MarkerOptions> = utsArrayOf()
@@ -10542,6 +10547,11 @@ open class NativeNavi {
         )
         this.mAMapNavi = AMapNavi.getInstance(activity) as AMapNavi
         val naviMapViewOption: AMapNaviViewOptions = AMapNaviViewOptions()
+        naviMapViewOption.setAutoDisplayOverview(true)
+        naviMapViewOption.setSettingMenuEnabled(false)
+        naviMapViewOption.setMapStyle(MapStyle.DAY, "")
+        naviMapViewOption.setTrafficLayerEnabled(true)
+        naviMapViewOption.setLaneInfoShow(true)
         var mapNaviView = MapStore.mapNaviView
         if (mapNaviView == null) {
             console.log("创建mapNaviView地图了=======")
@@ -10549,11 +10559,6 @@ open class NativeNavi {
             mapNaviView?.onCreate(Bundle())
             MapStore.mapNaviView = mapNaviView
         }
-        mapNaviView?.getViewOptions()?.setAutoDisplayOverview(true)
-        mapNaviView?.getViewOptions()?.setSettingMenuEnabled(false)
-        mapNaviView?.getViewOptions()?.setMapStyle(MapStyle.DAY, "")
-        mapNaviView?.getViewOptions()?.setTrafficLayerEnabled(true)
-        mapNaviView?.getViewOptions()?.setLaneInfoShow(true)
         mapNaviView?.setShowTrafficLightView(true)
         mapNaviView?.setShowDriveCongestion(true)
         mapNaviView?.setTrafficLightsVisible(true)

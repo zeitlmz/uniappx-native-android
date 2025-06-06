@@ -153,6 +153,7 @@ open class GenUniModulesMcAmapNavPlusComponentsMcAmapMcAmap : VueComponent {
             }
             val destroy = fun(){
                 mapView?.destroy()
+                mapView = null
             }
             __expose(utsMapOf("startAwaysLocation" to startAwaysLocation, "stopAwaysLocation" to stopAwaysLocation, "getLocation" to getLocation, "calculate" to calculate, "destroy" to destroy, "changeRouteById" to changeRouteById, "playTTS" to playTTS, "startNavi" to startNavi, "addMarkers" to addMarkers, "setMarkers" to setMarkers, "removeMarkers" to removeMarkers))
             return fun(): Any? {

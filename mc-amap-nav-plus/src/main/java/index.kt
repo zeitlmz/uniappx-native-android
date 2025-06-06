@@ -168,9 +168,9 @@ open class PlatformUtils {
                 callback(false, "用户拒绝了部分权限")
             }
         }
-            , fun(_: Boolean, _: UTSArray<String>) {
-                callback(false, "用户拒绝了部分权限")
-            }
+        , fun(_: Boolean, _: UTSArray<String>) {
+            callback(false, "用户拒绝了部分权限")
+        }
         )
     }
 }
@@ -307,13 +307,13 @@ fun checkLocationPermission(cb: AgreeCallback) {
         }
         cb(allRight)
     }
-        , fun(doNotAskAgain: Boolean, grantedList: UTSArray<String>) {
-            console.log("用户拒绝了部分权限，仅允许了grantedList中的权限")
-            if (doNotAskAgain) {
-                console.log("用户拒绝了权限，并且选择不再询问")
-            }
-            cb(doNotAskAgain)
+    , fun(doNotAskAgain: Boolean, grantedList: UTSArray<String>) {
+        console.log("用户拒绝了部分权限，仅允许了grantedList中的权限")
+        if (doNotAskAgain) {
+            console.log("用户拒绝了权限，并且选择不再询问")
         }
+        cb(doNotAskAgain)
+    }
     )
 }
 fun getAmapOnceLocation(options: SingleLocationOptions, successCallback: SuccessCallback) {
@@ -562,7 +562,6 @@ open class NativeMap {
         }
     }
     open fun drawRoutes(routeId: Number, path: AMapNaviPath) {
-        console.log("drawRoutes====>",routeId,path)
         val routeOverLay: RouteOverLay = RouteOverLay(this.aMap!!, path, this.element.getAndroidActivity()!!)
         routeOverLay.setTrafficLine(true)
         routeOverLay.setArrowOnRoute(true)
@@ -584,12 +583,12 @@ open class NativeMap {
                 console.log("用户仅同意了 grantedList中的权限", grantedList)
             }
         }
-            , fun(doNotAskAgain: Boolean, grantedList: UTSArray<String>) {
-                console.log("用户拒绝了部分权限，仅允许了grantedList中的权限")
-                if (doNotAskAgain) {
-                    console.log("用户拒绝了权限，并且选择不再询问")
-                }
+        , fun(doNotAskAgain: Boolean, grantedList: UTSArray<String>) {
+            console.log("用户拒绝了部分权限，仅允许了grantedList中的权限")
+            if (doNotAskAgain) {
+                console.log("用户拒绝了权限，并且选择不再询问")
             }
+        }
         )
     }
     open fun getLocation(options: SingleLocationOptions, successCallback: SuccessCallback) {
@@ -614,6 +613,9 @@ open class NativeMap {
     open fun destroy() {
         this.clearRoute()
         this.removeMarkers()
+        this.aMap?.clear()
+        this.aMap = null
+        this.mAMapNavi = null
     }
     open fun clearRoute() {
         run {
@@ -656,6 +658,7 @@ open class NativeMap {
         val context = UTSAndroid.getAppContext()!!
         this.mAMapNavi = AMapNavi.getInstance(context) as AMapNavi
         this.mAMapNavi?.setMultipleRouteNaviMode(false)
+        this.mAMapNavi?.setTrafficInfoUpdateEnabled(true)
         var mapView = MapStore.mapView
         if (mapView == null) {
             console.log("创建mapView地图了=======")
@@ -699,34 +702,34 @@ open class NativeMap {
             )
             this.options.calcSuccessCb?.invoke(JSON.stringify(data))
         }
-            , fun(){
-                this.options.arriveCb?.invoke()
+        , fun(){
+            this.options.arriveCb?.invoke()
+        }
+        , fun(){
+            this.routeData.clear()
+        }
+        , fun(data: NaviInfo){
+            val arr: UTSArray<UTSJSONObject> = utsArrayOf()
+            console.log("导航信息更新-sdk:", data)
+            data.getToViaInfo()?.forEach(fun(item: AMapNaviToViaInfo){
+                arr.push(object : UTSJSONObject() {
+                    var distance = item.getDistance()
+                    var time = item.getTime()
+                })
             }
-            , fun(){
-                this.routeData.clear()
+            )
+            if (arr.length > 0) {
+                console.log("导航信息更新-多单:", data.getToViaInfo())
+            } else {
+                console.log("导航信息更新一单:", ReflectionUtil)
+                arr.push(object : UTSJSONObject() {
+                    var distance = ReflectionUtil.getProtectedField<Number>(data, "mRouteRemainDis")
+                    var time = ReflectionUtil.getProtectedField<Number>(data, "mRouteRemainTime")
+                })
             }
-            , fun(data: NaviInfo){
-                val arr: UTSArray<UTSJSONObject> = utsArrayOf()
-                console.log("导航信息更新-sdk:", data)
-                data.getToViaInfo()?.forEach(fun(item: AMapNaviToViaInfo){
-                    arr.push(object : UTSJSONObject() {
-                        var distance = item.getDistance()
-                        var time = item.getTime()
-                    })
-                }
-                )
-                if (arr.length > 0) {
-                    console.log("导航信息更新-多单:", data.getToViaInfo())
-                } else {
-                    console.log("导航信息更新一单:", ReflectionUtil)
-                    arr.push(object : UTSJSONObject() {
-                        var distance = ReflectionUtil.getProtectedField<Number>(data, "mRouteRemainDis")
-                        var time = ReflectionUtil.getProtectedField<Number>(data, "mRouteRemainTime")
-                    })
-                }
-                console.log("导航信息-arr:", arr)
-                this.options.naviInfoUpdateCb?.invoke(JSON.stringify(arr))
-            }
+            console.log("导航信息-arr:", arr)
+            this.options.naviInfoUpdateCb?.invoke(JSON.stringify(arr))
+        }
         ))
     }
 }
@@ -748,6 +751,8 @@ open class NativeNavi {
     open fun destroy() {
         this.stopNavi()
         this.removeMarkers()
+        this.aMap = null
+        this.mAMapNavi = null
     }
     open fun addMarkers(markers: UTSArray<MarkerOption>) {
         val markerOptionsList: UTSArray<MarkerOptions> = utsArrayOf()
@@ -782,6 +787,11 @@ open class NativeNavi {
         )
         this.mAMapNavi = AMapNavi.getInstance(activity) as AMapNavi
         val naviMapViewOption: AMapNaviViewOptions = AMapNaviViewOptions()
+        naviMapViewOption.setAutoDisplayOverview(true)
+        naviMapViewOption.setSettingMenuEnabled(false)
+        naviMapViewOption.setMapStyle(MapStyle.DAY, "")
+        naviMapViewOption.setTrafficLayerEnabled(true)
+        naviMapViewOption.setLaneInfoShow(true)
         var mapNaviView = MapStore.mapNaviView
         if (mapNaviView == null) {
             console.log("创建mapNaviView地图了=======")
@@ -789,11 +799,6 @@ open class NativeNavi {
             mapNaviView?.onCreate(Bundle())
             MapStore.mapNaviView = mapNaviView
         }
-        mapNaviView?.getViewOptions()?.setAutoDisplayOverview(true)
-        mapNaviView?.getViewOptions()?.setSettingMenuEnabled(false)
-        mapNaviView?.getViewOptions()?.setMapStyle(MapStyle.DAY, "")
-        mapNaviView?.getViewOptions()?.setTrafficLayerEnabled(true)
-        mapNaviView?.getViewOptions()?.setLaneInfoShow(true)
         mapNaviView?.setShowTrafficLightView(true)
         mapNaviView?.setShowDriveCongestion(true)
         mapNaviView?.setTrafficLightsVisible(true)

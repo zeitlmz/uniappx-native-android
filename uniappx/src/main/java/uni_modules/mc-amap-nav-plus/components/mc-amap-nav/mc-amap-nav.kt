@@ -103,6 +103,7 @@ open class GenUniModulesMcAmapNavPlusComponentsMcAmapNavMcAmapNav : VueComponent
             }
             val destroy = fun(){
                 navi?.destroy()
+                navi = null
             }
             __expose(utsMapOf("stopNavi" to stopNavi, "setShowMode" to setShowMode, "destroy" to destroy, "playTTS" to playTTS, "addMarkers" to addMarkers, "setMarkers" to setMarkers, "removeMarkers" to removeMarkers))
             return fun(): Any? {

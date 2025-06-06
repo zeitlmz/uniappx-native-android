@@ -180,6 +180,7 @@ fun configCover(opts: XLOADINGS_TYPE): XLOADINGS_TYPE_PRIVATE {
     }
     return XLOADINGS_TYPE_PRIVATE(iconColor = iconColor, contentBgColor = contentBgColor, maskBgColor = maskBgColor, iconSize = iconSize, iconCode = iconCode, title = title, titleSize = titleSize, titleColor = titleColor, size = size)
 }
+var rotationAnimator: ObjectAnimator? = null
 var maskDomId: Number = 5894
 fun px2dp(n: Number): Number {
     val mets = UTSAndroid.getAppContext()!!.resources!!.getDisplayMetrics()
@@ -192,16 +193,19 @@ fun setSpin(textView: TextView) {
      catch (e: Throwable) {}
     var rotationStart: Number = 0
     var rotation: Number = 360
-    var rotationAnimator = ObjectAnimator.ofFloat(textView, "rotation", rotationStart.toFloat(), rotation.toFloat())
-    rotationAnimator.setDuration(1000)
+    rotationAnimator = ObjectAnimator.ofFloat(textView, "rotation", rotationStart.toFloat(), rotation.toFloat())
+    if (rotationAnimator == null) {
+        return
+    }
+    rotationAnimator!!.setDuration(1000)
     open class LinearInterpolator : TimeInterpolator {
         override fun getInterpolation(input: Float): Float {
             return input
         }
     }
-    rotationAnimator.setInterpolator(LinearInterpolator())
-    rotationAnimator.setRepeatCount(ValueAnimator.INFINITE)
-    rotationAnimator.start()
+    rotationAnimator!!.setInterpolator(LinearInterpolator())
+    rotationAnimator!!.setRepeatCount(ValueAnimator.INFINITE)
+    rotationAnimator!!.start()
 }
 var dialogModal: FullScreenDialogFragment? = null
 open class FullScreenDialogFragment : Dialog {
@@ -242,6 +246,9 @@ open class FullScreenDialogFragment : Dialog {
 fun hideXloading() {
     UTSAndroid.getDispatcher("main").async(fun(_) {
         dialogModal?.dismiss()
+        dialogModal = null
+        rotationAnimator?.cancel()
+        rotationAnimator = null
     }
     )
 }
