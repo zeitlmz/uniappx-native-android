@@ -90,6 +90,16 @@ open class GenPagesOtherOrderDetailNavi : BasePage {
         onBeforeUnmount(fun() {
             val naviView = (this.`$refs`["naviView"] as McAmapNavComponentPublicInstance)
             naviView?.destroy()
+            ws1?.off(MessageType["ARRIVED_TRIP"] as Number)
+            ws1?.off(MessageType["OPEN_TRIP"] as Number)
+            ws1?.off(MessageType["ORDER_FINISH"] as Number)
+            ws1?.off(MessageType["ORDER_ADD"] as Number)
+            ws1?.off(MessageType["BIG_ORDER_FINISH"] as Number)
+            ws1?.off(MessageType["ORDER_SORT"] as Number)
+            ws1?.off(MessageType["ORDER_CANCEL"] as Number)
+            ws1?.off(MessageType["BEFORE_CHECK"] as Number)
+            ws1?.off(MessageType["ORDER_FINISH"] as Number)
+            ws1?.off(MessageType["VALID_PHONE"] as Number)
             hideXloading()
         }
         , __ins)

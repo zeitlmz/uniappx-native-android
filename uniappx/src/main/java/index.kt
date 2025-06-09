@@ -942,10 +942,10 @@ val isRelease = "production" === "production"
 var baseUrl = "https://testenv.mctwlx.com/srv"
 var wsBaseUrl = "wss://testenv.mctwlx.com/ws/mcpt-engine-driverWs/driverWs"
 val runBlock2 = run {
-    if (isRelease) {
-        baseUrl = "https://www.mctwlx.com/srv"
-        wsBaseUrl = "wss://www.mctwlx.com/ws/mcpt-engine-driverWs/driverWs"
-    }
+//    if (isRelease) {
+//        baseUrl = "https://www.mctwlx.com/srv"
+//        wsBaseUrl = "wss://www.mctwlx.com/ws/mcpt-engine-driverWs/driverWs"
+//    }
 }
 val resBaseUrl = "https://prod.resource.mctwlx.com/car/app-resources/driver"
 val miniProgramCover = resBaseUrl + "/static/images/img-self-share-reward.png"
