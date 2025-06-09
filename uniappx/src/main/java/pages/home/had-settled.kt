@@ -176,6 +176,10 @@ open class GenPagesHomeHadSettled : VueComponent {
                 router.push("/pages/other/order-detail/index?planId=" + query["planId"] + "&summaryId=" + query["summaryId"] + "&orderStatus=" + query["orderStatus"] + "&typeOfBoarding=" + query["typeOfBoarding"] + "&queryDate=" + query["queryDate"])
             }
             val handleStartPickup = fun(order: IntercityOrderSummaryInfo){
+                if (!isLocationAgree()) {
+                    showAgreeLocationModal.value = true
+                    return
+                }
                 showLoading(XLOADINGS_TYPE(title = "正在出车中..."))
                 ws?.sendAndOnErr(WebSocketSendMessage(type = MessageType["BEFORE_CHECK"] as Number), fun(data){
                     console.log("检车成功：", data)
@@ -403,7 +407,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                     showXToast(XTOAST_TYPE(title = "您已拒绝定位获取权限，将无法进行后面的业务", iconCode = "info", iconColor = "#ff8900", duration = 2500))
                 }
                 , 250)
-                removeLocationAgreeStatus()
+                setLocationGrantStatus("reject")
                 uni__once("startLocation", fun(){
                     startLocation.value = true
                 }
@@ -414,7 +418,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                     if (all) {
                         console.log("同意权限=======", all)
                         startLocation.value = true
-                        setLocationAgreeStatus()
+                        setLocationGrantStatus("agree")
                         onShow()
                     } else {
                         locationAgreeCancel()
@@ -439,10 +443,10 @@ open class GenPagesHomeHadSettled : VueComponent {
                 isInit.value = true
                 initJg()
                 initMap()
-                if (getLocationAgreeStatus()) {
+                if (isLocationAgree()) {
                     locationAgreeConfirm()
                     onShow()
-                } else {
+                } else if (!isLocationReject()) {
                     showAgreeLocationModal.value = true
                 }
             }

@@ -9152,16 +9152,20 @@ val getPrivacyStatus = fun(): Boolean {
     }
     return true
 }
-val locationKey = "locationAgreeKey"
-val setLocationAgreeStatus = fun(){
-    uni_setStorageSync(locationKey, "locationAgree")
+val locationKey = "locationGrant_"
+val setLocationGrantStatus = fun(status: String){
+    uni_setStorageSync(locationKey, locationKey + status)
 }
-val removeLocationAgreeStatus = fun(){
-    uni_removeStorageSync(locationKey)
-}
-val getLocationAgreeStatus = fun(): Boolean {
+val isLocationReject = fun(): Boolean {
     val v = uni_getStorageSync(locationKey)
-    if (v == null || v != "locationAgree") {
+    if (v == null || v != (locationKey + "reject")) {
+        return false
+    }
+    return true
+}
+val isLocationAgree = fun(): Boolean {
+    val v = uni_getStorageSync(locationKey)
+    if (v == null || v != (locationKey + "agree")) {
         return false
     }
     return true

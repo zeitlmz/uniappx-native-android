@@ -1181,7 +1181,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
         checkLocationPermission(fun(all: Boolean){
             if (all) {
                 console.log("同意权限=======", all)
-                setLocationAgreeStatus()
+                setLocationGrantStatus("agree")
                 uni__emit("startLocation", true)
                 this.queryOrderDetail(true, false)
                 this.initLocation()
@@ -1298,8 +1298,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
     }
     open var calcRoute = ::gen_calcRoute_fn
     open fun gen_calcRoute_fn() {
-        if (!getLocationAgreeStatus()) {
-            this.showAgreeLocationModal = true
+        if (!isLocationAgree()) {
             return
         }
         showLoading(XLOADINGS_TYPE(title = "正在进行线路规划..."))
@@ -1361,6 +1360,10 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
     open var startNavigation = ::gen_startNavigation_fn
     open fun gen_startNavigation_fn(isEmulator: Boolean) {
         val that = this
+        if (!isLocationAgree()) {
+            that.showAgreeLocationModal = true
+            return
+        }
         if (that.routes.length <= 0) {
             return showTips("暂无路线规划，无法开启导航", "warning")
         }
@@ -1546,6 +1549,10 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
     open var handleStartPickup = ::gen_handleStartPickup_fn
     open fun gen_handleStartPickup_fn() {
         val that = this
+        if (!isLocationAgree()) {
+            that.showAgreeLocationModal = true
+            return
+        }
         showLoading(XLOADINGS_TYPE(title = "正在出车中..."))
         ws?.sendAndOnErr(WebSocketSendMessage(type = MessageType["BEFORE_CHECK"] as Number), fun(data){
             console.log("检车成功：", data)
