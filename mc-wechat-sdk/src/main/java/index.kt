@@ -26,7 +26,7 @@ import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.downloadFile as uni_downloadFile
 import io.dcloud.uniapp.extapi.showToast as uni_showToast
 open class WeChatShare {
-    private var appId: String = "wx4a95879e12a27180"
+    private var appId: String = "wx251c3866781ef220"
     private var miniProgramId: String = "gh_2a74a079e98e"
     private var mWXApi: IWXAPI = WXAPIFactory.createWXAPI(UTSAndroid.getAppContext(), this.appId, false)
     private var webpageUrl: String = ""

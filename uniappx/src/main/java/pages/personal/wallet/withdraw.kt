@@ -29,25 +29,25 @@ open class GenPagesPersonalWalletWithdraw : BasePage {
         onPageScroll(fun(e: OnPageScrollOptions) {
             xProvitae.scrollTop = e.scrollTop
         }
-        , __ins)
+            , __ins)
         onResize(fun(_: OnResizeOptions) {
             uni__emit("onResize", fun() {})
         }
-        , __ins)
+            , __ins)
         onLoad(fun(_: OnLoadOptions) {}, __ins)
         onPageHide(fun() {
             uni__emit("onHide", fun() {})
         }
-        , __ins)
+            , __ins)
         onReady(fun() {
             uni__emit("onReady", fun() {})
             xProvitae.pageReady = true
         }
-        , __ins)
+            , __ins)
         onPageShow(fun() {
             uni__emit("onShow", fun() {})
         }
-        , __ins)
+            , __ins)
     }
     companion object {
         @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
@@ -101,12 +101,10 @@ open class GenPagesPersonalWalletWithdraw : BasePage {
                     }
                 }
                 )
-                getWithdrawRule().then(fun(res: Response){
-                    if (res.data != null && res.code == 200) {
-                        val data = res.data as UTSJSONObject
-                        withdrawRule.value = JSON.parse<UTSArray<String>>(JSON.stringify(data.getArray("explain"))) as UTSArray<String>
-                    }
-                }
+                withdrawRule.value = utsArrayOf(
+                    "1、提现手续费：每橙专车会收取每笔提现金额的1%作为手续费",
+                    "2、提现时间：每周一至周五（如遇法定节假日顺延）",
+                    "3、提现限制：单日提现限额2000元"
                 )
             }
             val handleWithdraw = fun(){
@@ -148,6 +146,7 @@ open class GenPagesPersonalWalletWithdraw : BasePage {
             return fun(): Any? {
                 val _component_x_input = resolveEasyComponent("x-input", GenUniModulesTmxUiComponentsXInputXInputClass)
                 val _component_mc_primary_button = resolveEasyComponent("mc-primary-button", GenComponentsMcPrimaryButtonIndexClass)
+                val _component_x_text = resolveEasyComponent("x-text", GenUniModulesTmxUiComponentsXTextXTextClass)
                 val _component_mc_base_container = resolveEasyComponent("mc-base-container", GenComponentsMcBaseContainerIndexClass)
                 return createVNode(_component_mc_base_container, utsMapOf("showStatusBarPlaceholder" to false, "scroll" to true, "show-navbar" to true, "navbarIsPlace" to false, "static-transparent" to false, "title" to "提现"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                     return utsArrayOf(
@@ -173,7 +172,7 @@ open class GenPagesPersonalWalletWithdraw : BasePage {
                                         createVNode(_component_x_input, utsMapOf("style" to normalizeStyle(utsMapOf("margin-left" to "10px")), "type" to "digit", "modelValue" to unref(withdrawAmount), "onUpdate:modelValue" to fun(`$event`: String){
                                             withdrawAmount = trySetRefValue(withdrawAmount, `$event`)
                                         }
-                                        , "placeholder" to "0.00", "color" to "#ffffff"), null, 8, utsArrayOf(
+                                            , "placeholder" to "0.00", "color" to "#ffffff"), null, 8, utsArrayOf(
                                             "style",
                                             "modelValue"
                                         ))
@@ -206,7 +205,13 @@ open class GenPagesPersonalWalletWithdraw : BasePage {
                                     createElementVNode("view", utsMapOf("class" to "rules-list"), utsArrayOf(
                                         createElementVNode(Fragment, null, RenderHelpers.renderList(unref(withdrawRule), fun(item, index, __index, _cached): Any {
                                             return createElementVNode("view", utsMapOf("class" to "rule-item", "key" to index), utsArrayOf(
-                                                createElementVNode("text", utsMapOf("class" to "text"), toDisplayString(item), 1)
+                                                createVNode(_component_x_text, utsMapOf("style" to normalizeStyle(utsMapOf("font-size" to "25rpx", "font-weight" to "350"))), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                    return utsArrayOf(
+                                                        toDisplayString(item)
+                                                    )
+                                                }), "_" to 2), 1032, utsArrayOf(
+                                                    "style"
+                                                ))
                                             ))
                                         }), 128)
                                     ))

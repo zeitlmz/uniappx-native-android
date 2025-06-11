@@ -142,25 +142,25 @@ open class GenPagesHomeHadSettled : VueComponent {
             )
             val getStatusClass = fun(status: Number): String {
                 when (status) {
-                    2 -> 
+                    2 ->
                         return "processing"
-                    1 -> 
+                    1 ->
                         return "waiting"
-                    0 -> 
+                    0 ->
                         return "pending"
-                    else -> 
+                    else ->
                         return ""
                 }
             }
             val getStatusName = fun(status: Number): String {
                 when (status) {
-                    2 -> 
+                    2 ->
                         return "进行中"
-                    1 -> 
+                    1 ->
                         return "接驾中"
-                    0 -> 
+                    0 ->
                         return "待出发"
-                    else -> 
+                    else ->
                         return ""
                 }
             }
@@ -192,9 +192,9 @@ open class GenPagesHomeHadSettled : VueComponent {
                     }
                     )
                 }
-                , fun(data){
-                    hideXloading()
-                }
+                    , fun(data){
+                        hideXloading()
+                    }
                 )
             }
             val handleScanBoard = fun(order: IntercityOrderSummaryInfo){
@@ -230,7 +230,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                     } else {
                         OrderQueryType["RESERVATION_LIST"]
                     }
-                     as Number
+                            as Number
                     var condition = if (type == 0) {
                         ""
                     } else {
@@ -284,7 +284,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                     setTimeout(fun(){
                         queryOrderList(1)
                     }
-                    , 250)
+                        , 250)
                 }
                 )
             }
@@ -312,9 +312,9 @@ open class GenPagesHomeHadSettled : VueComponent {
                     hideXloading()
                     orderQuery()
                 }
-                , fun(data){
-                    hideXloading()
-                }
+                    , fun(data){
+                        hideXloading()
+                    }
                 )
             }
             val onHide = fun(){}
@@ -331,7 +331,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                         setTimeout(fun(){
                             showModal(X_MODAL_TYPE(title = "温馨提示", content = data?.toString(), confirmText = "知道了", showCancel = false, confirmBgColor = globalData.theme.primaryColor))
                         }
-                        , 300)
+                            , 300)
                     }
                 }
                 )
@@ -344,7 +344,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                             }
                             ))
                         }
-                        , 300)
+                            , 300)
                     }
                 }
                 )
@@ -406,7 +406,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                 setTimeout(fun(){
                     showXToast(XTOAST_TYPE(title = "您已拒绝定位获取权限，将无法进行后面的业务", iconCode = "info", iconColor = "#ff8900", duration = 2500))
                 }
-                , 250)
+                    , 250)
                 setLocationGrantStatus("reject")
                 uni__once("startLocation", fun(){
                     startLocation.value = true
@@ -433,7 +433,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                     jg.getRegistrationID()
                     jg.getConnectionState()
                 }
-                , 10000)
+                    , 10000)
                 app.globalData.jg = jg
             }
             val initMap = fun(){
@@ -480,7 +480,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                     } else {
                         "vertical"
                     }
-                    , "show-scrollbar" to false), utsArrayOf(
+                        , "show-scrollbar" to false), utsArrayOf(
                         createElementVNode("view", utsMapOf("style" to normalizeStyle("width:100%;height: " + unref(statusBarHeight) + "px;")), null, 4),
                         createElementVNode("view", utsMapOf("class" to "home-bg"), utsArrayOf(
                             createElementVNode("view", utsMapOf("class" to "top-bg", "style" to normalizeStyle("background-image: linear-gradient(to bottom," + unref(globalData).theme.painColor2 + ", #FFFFFF);")), null, 4)
@@ -489,7 +489,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                             createVNode(_component_x_tabs, utsMapOf("modelValue" to unref(acitveTab), "onUpdate:modelValue" to fun(`$event`: String){
                                 trySetRefValue(acitveTab, `$event`)
                             }
-                            , "onChange" to onTabChange, "line-full" to false, "line-height" to "3", "line-color" to "#000000", "color" to "#00000000", "list" to tabs), utsMapOf("default" to withScopedSlotCtx(fun(slotProps: GenUniModulesTmxUiComponentsXTabsXTabsSlotDataDefault): UTSArray<Any> {
+                                , "onChange" to onTabChange, "line-full" to false, "line-height" to "3", "line-color" to "#000000", "color" to "#00000000", "list" to tabs), utsMapOf("default" to withScopedSlotCtx(fun(slotProps: GenUniModulesTmxUiComponentsXTabsXTabsSlotDataDefault): UTSArray<Any> {
                                 val item = slotProps.item
                                 val active = slotProps.active
                                 return utsArrayOf(
@@ -608,7 +608,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                                             createElementVNode("view", utsMapOf("onClick" to fun(){
                                                 onOrderTypeChange(0)
                                             }
-                                            , "class" to "tab-item"), utsArrayOf(
+                                                , "class" to "tab-item"), utsArrayOf(
                                                 createElementVNode("text", utsMapOf("class" to "text"), "当日订单(" + toDisplayString(unref(todayOrderCount)) + ")", 1)
                                             ), 8, utsArrayOf(
                                                 "onClick"
@@ -616,7 +616,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                                             createElementVNode("view", utsMapOf("onClick" to fun(){
                                                 onOrderTypeChange(1)
                                             }
-                                            , "class" to "tab-item"), utsArrayOf(
+                                                , "class" to "tab-item"), utsArrayOf(
                                                 createElementVNode("text", utsMapOf("class" to "text"), "预约订单(" + toDisplayString(unref(otherOrderCount)) + ")", 1)
                                             ), 8, utsArrayOf(
                                                 "onClick"
@@ -631,7 +631,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                                                         return createElementVNode("view", utsMapOf("class" to "order-item", "onClick" to fun(){
                                                             toOrderDetail(order)
                                                         }
-                                                        , "key" to order.summaryId), utsArrayOf(
+                                                            , "key" to order.summaryId), utsArrayOf(
                                                             createElementVNode("view", utsMapOf("class" to "order-top"), utsArrayOf(
                                                                 createElementVNode("view", utsMapOf("class" to "order-left"), utsArrayOf(
                                                                     createElementVNode("text", utsMapOf("class" to normalizeClass(utsArrayOf(
@@ -979,7 +979,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                     createVNode(_component_x_modal, utsMapOf("show" to unref(showAgreeLocationModal), "onUpdate:show" to fun(`$event`: Boolean){
                         trySetRefValue(showAgreeLocationModal, `$event`)
                     }
-                    , "bgColor" to "#ECF1F8", "cancel-text" to "拒绝", "overlay-click" to false, "onCancel" to locationAgreeCancel, "confirm-text" to "同意", "onConfirm" to locationAgreeConfirm, "show-title" to false, "height" to "450rpx"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                        , "bgColor" to "#ECF1F8", "cancel-text" to "拒绝", "overlay-click" to false, "onCancel" to locationAgreeCancel, "confirm-text" to "同意", "onConfirm" to locationAgreeConfirm, "show-title" to false, "height" to "450rpx"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                         return utsArrayOf(
                             createElementVNode("text", utsMapOf("class" to "location-agree-title"), "定位权限获取申请"),
                             createElementVNode("view", utsMapOf("class" to "desc"), utsArrayOf(
