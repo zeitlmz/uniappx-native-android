@@ -10599,6 +10599,19 @@ val GenUniModulesMcAmapNavPlusComponentsMcAmapLocationMcAmapLocationClass = Crea
     return GenUniModulesMcAmapNavPlusComponentsMcAmapLocationMcAmapLocation(instance)
 }
 )
+open class POSITION_TYPE_XY (
+    @JsonNotNull
+    open var x: Number,
+    @JsonNotNull
+    open var y: Number,
+) : UTSObject()
+val GenUniModulesTmxUiComponentsXFloatButtonXFloatButtonClass = CreateVueComponent(GenUniModulesTmxUiComponentsXFloatButtonXFloatButton::class.java, fun(): VueComponentOptions {
+    return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXFloatButtonXFloatButton.inheritAttrs, inject = GenUniModulesTmxUiComponentsXFloatButtonXFloatButton.inject, props = GenUniModulesTmxUiComponentsXFloatButtonXFloatButton.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXFloatButtonXFloatButton.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXFloatButtonXFloatButton.emits, components = GenUniModulesTmxUiComponentsXFloatButtonXFloatButton.components, styles = GenUniModulesTmxUiComponentsXFloatButtonXFloatButton.styles)
+}
+, fun(instance, renderer): GenUniModulesTmxUiComponentsXFloatButtonXFloatButton {
+    return GenUniModulesTmxUiComponentsXFloatButtonXFloatButton(instance)
+}
+)
 open class ITEMINFO (
     @JsonNotNull
     open var text: String,
@@ -22144,9 +22157,6 @@ val getWallet = fun(): UTSPromise<Response> {
 val getBankCard = fun(): UTSPromise<Response> {
     return httpGet("/mcpt-system/app/withdrawDeposit/getBankCard", UTSJSONObject())
 }
-val getWithdrawRule = fun(): UTSPromise<Response> {
-    return httpGet("/mcpt-system/app/withdrawDeposit/getWithdrawRule", UTSJSONObject())
-}
 val validateBankCard = fun(param: UTSJSONObject): UTSPromise<Response> {
     return httpPost("/mcpt-system/app/withdrawDeposit/validateBankCard", param)
 }
@@ -23856,8 +23866,8 @@ fun main(app: IApp) {
 open class UniAppConfig : io.dcloud.uniapp.appframe.AppConfig {
     override var name: String = "每橙车主"
     override var appid: String = "__UNI__511F0A5"
-    override var versionName: String = "4.0.3"
-    override var versionCode: String = "403"
+    override var versionName: String = "4.0.4"
+    override var versionCode: String = "404"
     override var uniCompilerVersion: String = "4.66"
     override var defaultAppTheme: String = "light"
     constructor() : super() {}

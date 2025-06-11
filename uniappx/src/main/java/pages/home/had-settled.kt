@@ -54,6 +54,7 @@ open class GenPagesHomeHadSettled : VueComponent {
             val router = uni_useKuxRouter()
             val cacheUserInfo = ref<Any?>(null)
             val globalData = inject("globalData") as GlobalDataType
+            val currentDeg = ref("0deg")
             val acitveTab = ref<String>("0")
             val acitveOrderType = ref<Number>(0)
             val showValidModal = ref<Boolean>(false)
@@ -142,25 +143,25 @@ open class GenPagesHomeHadSettled : VueComponent {
             )
             val getStatusClass = fun(status: Number): String {
                 when (status) {
-                    2 ->
+                    2 -> 
                         return "processing"
-                    1 ->
+                    1 -> 
                         return "waiting"
-                    0 ->
+                    0 -> 
                         return "pending"
-                    else ->
+                    else -> 
                         return ""
                 }
             }
             val getStatusName = fun(status: Number): String {
                 when (status) {
-                    2 ->
+                    2 -> 
                         return "进行中"
-                    1 ->
+                    1 -> 
                         return "接驾中"
-                    0 ->
+                    0 -> 
                         return "待出发"
-                    else ->
+                    else -> 
                         return ""
                 }
             }
@@ -192,9 +193,9 @@ open class GenPagesHomeHadSettled : VueComponent {
                     }
                     )
                 }
-                    , fun(data){
-                        hideXloading()
-                    }
+                , fun(data){
+                    hideXloading()
+                }
                 )
             }
             val handleScanBoard = fun(order: IntercityOrderSummaryInfo){
@@ -223,14 +224,13 @@ open class GenPagesHomeHadSettled : VueComponent {
             }
             val dateStyles = ref(utsArrayOf<xCalendarDateStyle_type>())
             val queryOrderList = fun(type: Number){
-                console.log("查询订单列表:", ws?.getIsConnected())
                 ws?.sendAndOn(WebSocketSendMessage(type = MessageType["QUERY_ORDER"] as Number, content = object : UTSJSONObject() {
                     var queryType = if (type == 0) {
                         OrderQueryType["TODAY"]
                     } else {
                         OrderQueryType["RESERVATION_LIST"]
                     }
-                            as Number
+                     as Number
                     var condition = if (type == 0) {
                         ""
                     } else {
@@ -284,7 +284,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                     setTimeout(fun(){
                         queryOrderList(1)
                     }
-                        , 250)
+                    , 250)
                 }
                 )
             }
@@ -312,12 +312,11 @@ open class GenPagesHomeHadSettled : VueComponent {
                     hideXloading()
                     orderQuery()
                 }
-                    , fun(data){
-                        hideXloading()
-                    }
+                , fun(data){
+                    hideXloading()
+                }
                 )
             }
-            val onHide = fun(){}
             val initWs = fun(){
                 ws.setOpenCallback(fun(){
                     console.log("首页监听到连接打开事件=======")
@@ -331,7 +330,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                         setTimeout(fun(){
                             showModal(X_MODAL_TYPE(title = "温馨提示", content = data?.toString(), confirmText = "知道了", showCancel = false, confirmBgColor = globalData.theme.primaryColor))
                         }
-                            , 300)
+                        , 300)
                     }
                 }
                 )
@@ -344,7 +343,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                             }
                             ))
                         }
-                            , 300)
+                        , 300)
                     }
                 }
                 )
@@ -389,10 +388,25 @@ open class GenPagesHomeHadSettled : VueComponent {
                 }
                 )
             }
+            var anmiInter: Number = 0
+            val anmiInterval = fun(){
+                if (anmiInter > 0) {
+                    clearInterval(anmiInter)
+                }
+                anmiInter = setInterval(fun(){
+                    if (currentDeg.value == "0deg") {
+                        currentDeg.value = "360deg"
+                    } else {
+                        currentDeg.value = "0deg"
+                    }
+                }
+                , 7000)
+            }
             val onShow = fun(){
                 initWs()
                 if (isInit.value) {
                     orderQuery()
+                    anmiInterval()
                 }
                 if (globalData.position.adcode != "" && globalData.position.adcode != null) {
                     getWeather(globalData.position.adcode).then(fun(res: UTSJSONObject){
@@ -401,12 +415,11 @@ open class GenPagesHomeHadSettled : VueComponent {
                     )
                 }
             }
-            __expose(utsMapOf("onShow" to onShow, "onHide" to onHide))
             val locationAgreeCancel = fun(){
                 setTimeout(fun(){
                     showXToast(XTOAST_TYPE(title = "您已拒绝定位获取权限，将无法进行后面的业务", iconCode = "info", iconColor = "#ff8900", duration = 2500))
                 }
-                    , 250)
+                , 250)
                 setLocationGrantStatus("reject")
                 uni__once("startLocation", fun(){
                     startLocation.value = true
@@ -433,16 +446,26 @@ open class GenPagesHomeHadSettled : VueComponent {
                     jg.getRegistrationID()
                     jg.getConnectionState()
                 }
-                    , 10000)
+                , 10000)
                 app.globalData.jg = jg
             }
             val initMap = fun(){
                 init(MAP_CONFIG["naviKey"] as String)
             }
+            val handlePromotion = fun(){
+                console.log("跳转推广页")
+                router.push("/pages/personal/promotion/index")
+            }
+            val onHide = fun(){
+                if (anmiInter > 0) {
+                    clearInterval(anmiInter)
+                }
+            }
             onMounted(fun(){
                 isInit.value = true
                 initJg()
                 initMap()
+                anmiInterval()
                 if (isLocationAgree()) {
                     locationAgreeConfirm()
                     onShow()
@@ -451,8 +474,16 @@ open class GenPagesHomeHadSettled : VueComponent {
                 }
             }
             )
+            onUnmounted(fun(){
+                if (anmiInter > 0) {
+                    clearInterval(anmiInter)
+                }
+            }
+            )
+            __expose(utsMapOf("onShow" to onShow, "onHide" to onHide))
             return fun(): Any? {
                 val _component_mc_amap_location = resolveEasyComponent("mc-amap-location", GenUniModulesMcAmapNavPlusComponentsMcAmapLocationMcAmapLocationClass)
+                val _component_x_float_button = resolveEasyComponent("x-float-button", GenUniModulesTmxUiComponentsXFloatButtonXFloatButtonClass)
                 val _component_x_text = resolveEasyComponent("x-text", GenUniModulesTmxUiComponentsXTextXTextClass)
                 val _component_x_tabs = resolveEasyComponent("x-tabs", GenUniModulesTmxUiComponentsXTabsXTabsClass)
                 val _component_mc_active_animation = resolveEasyComponent("mc-active-animation", GenComponentsMcActiveAnimationIndexClass)
@@ -472,6 +503,20 @@ open class GenPagesHomeHadSettled : VueComponent {
                         createCommentVNode("v-if", true)
                     }
                     ,
+                    createVNode(_component_x_float_button, utsMapOf("onClick" to handlePromotion, "round" to "0", "bg-color" to "#00000000", "width" to "150rpx", "height" to "170rpx", "offset" to utsArrayOf(
+                        -1,
+                        unref(screenHeight) / 1.5
+                    )), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                        return utsArrayOf(
+                            createElementVNode("view", utsMapOf("class" to "flex flex-center inv-box", "style" to normalizeStyle(utsMapOf("width" to "100%", "height" to "100%"))), utsArrayOf(
+                                createElementVNode("image", utsMapOf("class" to "anime-box", "style" to normalizeStyle("transform: rotateY(" + unref(currentDeg) + ")"), "src" to "/static/icons/icon-inv-bg.png", "mode" to "widthFix"), null, 4),
+                                createElementVNode("image", utsMapOf("class" to "btn", "src" to "/static/icons/icon-inv-btn.png", "mode" to "widthFix"))
+                            ), 4)
+                        )
+                    }
+                    ), "_" to 1), 8, utsArrayOf(
+                        "offset"
+                    )),
                     createElementVNode("scroll-view", utsMapOf("style" to normalizeStyle(utsArrayOf(
                         utsMapOf("flex" to "1"),
                         "height: " + unref(screenHeight) + "px;background-color: #ffffff;"
@@ -480,7 +525,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                     } else {
                         "vertical"
                     }
-                        , "show-scrollbar" to false), utsArrayOf(
+                    , "show-scrollbar" to false), utsArrayOf(
                         createElementVNode("view", utsMapOf("style" to normalizeStyle("width:100%;height: " + unref(statusBarHeight) + "px;")), null, 4),
                         createElementVNode("view", utsMapOf("class" to "home-bg"), utsArrayOf(
                             createElementVNode("view", utsMapOf("class" to "top-bg", "style" to normalizeStyle("background-image: linear-gradient(to bottom," + unref(globalData).theme.painColor2 + ", #FFFFFF);")), null, 4)
@@ -489,7 +534,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                             createVNode(_component_x_tabs, utsMapOf("modelValue" to unref(acitveTab), "onUpdate:modelValue" to fun(`$event`: String){
                                 trySetRefValue(acitveTab, `$event`)
                             }
-                                , "onChange" to onTabChange, "line-full" to false, "line-height" to "3", "line-color" to "#000000", "color" to "#00000000", "list" to tabs), utsMapOf("default" to withScopedSlotCtx(fun(slotProps: GenUniModulesTmxUiComponentsXTabsXTabsSlotDataDefault): UTSArray<Any> {
+                            , "onChange" to onTabChange, "line-full" to false, "line-height" to "3", "line-color" to "#000000", "color" to "#00000000", "list" to tabs), utsMapOf("default" to withScopedSlotCtx(fun(slotProps: GenUniModulesTmxUiComponentsXTabsXTabsSlotDataDefault): UTSArray<Any> {
                                 val item = slotProps.item
                                 val active = slotProps.active
                                 return utsArrayOf(
@@ -608,7 +653,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                                             createElementVNode("view", utsMapOf("onClick" to fun(){
                                                 onOrderTypeChange(0)
                                             }
-                                                , "class" to "tab-item"), utsArrayOf(
+                                            , "class" to "tab-item"), utsArrayOf(
                                                 createElementVNode("text", utsMapOf("class" to "text"), "当日订单(" + toDisplayString(unref(todayOrderCount)) + ")", 1)
                                             ), 8, utsArrayOf(
                                                 "onClick"
@@ -616,7 +661,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                                             createElementVNode("view", utsMapOf("onClick" to fun(){
                                                 onOrderTypeChange(1)
                                             }
-                                                , "class" to "tab-item"), utsArrayOf(
+                                            , "class" to "tab-item"), utsArrayOf(
                                                 createElementVNode("text", utsMapOf("class" to "text"), "预约订单(" + toDisplayString(unref(otherOrderCount)) + ")", 1)
                                             ), 8, utsArrayOf(
                                                 "onClick"
@@ -631,7 +676,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                                                         return createElementVNode("view", utsMapOf("class" to "order-item", "onClick" to fun(){
                                                             toOrderDetail(order)
                                                         }
-                                                            , "key" to order.summaryId), utsArrayOf(
+                                                        , "key" to order.summaryId), utsArrayOf(
                                                             createElementVNode("view", utsMapOf("class" to "order-top"), utsArrayOf(
                                                                 createElementVNode("view", utsMapOf("class" to "order-left"), utsArrayOf(
                                                                     createElementVNode("text", utsMapOf("class" to normalizeClass(utsArrayOf(
@@ -979,7 +1024,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                     createVNode(_component_x_modal, utsMapOf("show" to unref(showAgreeLocationModal), "onUpdate:show" to fun(`$event`: Boolean){
                         trySetRefValue(showAgreeLocationModal, `$event`)
                     }
-                        , "bgColor" to "#ECF1F8", "cancel-text" to "拒绝", "overlay-click" to false, "onCancel" to locationAgreeCancel, "confirm-text" to "同意", "onConfirm" to locationAgreeConfirm, "show-title" to false, "height" to "450rpx"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                    , "bgColor" to "#ECF1F8", "cancel-text" to "拒绝", "overlay-click" to false, "onCancel" to locationAgreeCancel, "confirm-text" to "同意", "onConfirm" to locationAgreeConfirm, "show-title" to false, "height" to "450rpx"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                         return utsArrayOf(
                             createElementVNode("text", utsMapOf("class" to "location-agree-title"), "定位权限获取申请"),
                             createElementVNode("view", utsMapOf("class" to "desc"), utsArrayOf(
@@ -1002,7 +1047,7 @@ open class GenPagesHomeHadSettled : VueComponent {
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("container" to padStyleMapOf(utsMapOf("width" to "100%", "position" to "relative")), "home-bg" to padStyleMapOf(utsMapOf("position" to "absolute", "top" to 0, "left" to 0, "width" to "100%", "zIndex" to -1)), "top-bg" to utsMapOf(".home-bg " to utsMapOf("height" to 300, "width" to "100%")), "header" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "paddingTop" to 10, "paddingRight" to 15, "paddingBottom" to 0, "paddingLeft" to 23)), "avatar-box" to utsMapOf(".header " to utsMapOf("width" to 50, "height" to 50, "borderTopStyle" to "none", "borderRightStyle" to "none", "borderBottomStyle" to "none", "borderLeftStyle" to "none", "borderTopColor" to "#000000", "borderRightColor" to "#000000", "borderBottomColor" to "#000000", "borderLeftColor" to "#000000")), "avatar" to utsMapOf(".header .avatar-box " to utsMapOf("width" to "100%", "height" to "100%")), "card" to padStyleMapOf(utsMapOf("width" to "100%", "backgroundColor" to "#ffffff", "boxShadow" to "0px 11px 35px 0px rgba(253, 214, 190, 0.23)", "borderTopLeftRadius" to 15, "borderTopRightRadius" to 15, "borderBottomRightRadius" to 15, "borderBottomLeftRadius" to 15, "borderTopWidth" to 2, "borderRightWidth" to 2, "borderBottomWidth" to 2, "borderLeftWidth" to 2, "borderTopStyle" to "solid", "borderRightStyle" to "solid", "borderBottomStyle" to "solid", "borderLeftStyle" to "solid", "borderTopColor" to "#FFFFFF", "borderRightColor" to "#FFFFFF", "borderBottomColor" to "#FFFFFF", "borderLeftColor" to "#FFFFFF", "paddingTop" to 20, "paddingRight" to 20, "paddingBottom" to 20, "paddingLeft" to 20)), "card-header" to utsMapOf(".card " to utsMapOf("paddingTop" to 0, "paddingRight" to 15, "paddingBottom" to 0, "paddingLeft" to 15, "width" to "100%", "display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "space-between", "marginBottom" to 10)), "left" to utsMapOf(".card .card-header " to utsMapOf("display" to "flex", "flexDirection" to "row", "alignItems" to "center")), "location-icon" to utsMapOf(".card .card-header .left " to utsMapOf("width" to 13, "height" to 15, "marginRight" to 5)), "arrow-icon" to utsMapOf(".card .card-header .left " to utsMapOf("width" to 8, "height" to 4, "marginLeft" to 5)), "features" to utsMapOf(".card .card-body " to utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "paddingTop" to 20, "paddingRight" to 0, "paddingBottom" to 20, "paddingLeft" to 0)), "feature-item" to utsMapOf(".card .card-body .features " to utsMapOf("display" to "flex", "alignItems" to "center", "flex" to 1)), "feature-icon" to utsMapOf(".card .card-body .features .feature-item " to utsMapOf("width" to 28.5, "height" to 29.5, "marginBottom" to 10)), "feature-text" to utsMapOf(".card .card-body .features .feature-item " to utsMapOf("display" to "flex", "flexDirection" to "column", "fontSize" to 15)), "grid-func" to utsMapOf(".card .card-body " to utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "paddingTop" to 20, "paddingRight" to 0, "paddingBottom" to 20, "paddingLeft" to 0)), "grid-item" to utsMapOf(".card .card-body .grid-func " to utsMapOf("display" to "flex", "alignItems" to "center", "flex" to 1)), "grid-icon" to utsMapOf(".card .card-body .grid-func .grid-item " to utsMapOf("width" to 35, "height" to 39, "marginBottom" to 10)), "grid-text" to utsMapOf(".card .card-body .grid-func .grid-item " to utsMapOf("display" to "flex", "flexDirection" to "column", "fontSize" to 15, "color" to "#141414")), "data-picker-box" to padStyleMapOf(utsMapOf("width" to "100%", "backgroundColor" to "#F4F7FD", "borderTopLeftRadius" to 6, "borderTopRightRadius" to 6, "borderBottomRightRadius" to 6, "borderBottomLeftRadius" to 6, "display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "space-between", "marginBottom" to 15)), "left-box" to utsMapOf(".data-picker-box " to utsMapOf("display" to "flex", "flexDirection" to "row", "alignItems" to "center", "paddingTop" to 13, "paddingRight" to 15, "paddingBottom" to 13, "paddingLeft" to 15)), "icon" to utsMapOf(".data-picker-box .left-box " to utsMapOf("width" to 15, "height" to 15, "marginTop" to 0, "marginRight" to 10, "marginBottom" to 0, "marginLeft" to 10)), "text" to utsMapOf(".data-picker-box " to utsMapOf("fontWeight" to "400", "fontSize" to 15, "color" to "#000000"), ".order-tab .active-tab-left " to utsMapOf("color" to "#000000", "fontWeight" to "700", "fontSize" to 20, "textAlign" to "center"), ".order-tab .active-tab-right " to utsMapOf("color" to "#000000", "fontWeight" to "700", "fontSize" to 20, "textAlign" to "center"), ".order-tab .tab-item " to utsMapOf("fontSize" to 20, "color" to "#979DA4")), "text-btn" to utsMapOf(".data-picker-box " to utsMapOf("fontWeight" to "400", "fontSize" to 15, "color" to "#000000", "paddingLeft" to 25, "paddingRight" to 25, "borderLeftWidth" to 0.5, "borderLeftStyle" to "solid", "borderLeftColor" to "#D2D8E3")), "order-tab" to padStyleMapOf(utsMapOf("paddingTop" to 10, "paddingBottom" to 10, "backgroundColor" to "#FFFFFF", "position" to "relative")), "tab-group" to utsMapOf(".order-tab " to utsMapOf("display" to "flex", "flexDirection" to "row", "borderTopLeftRadius" to 15, "borderTopRightRadius" to 15, "boxShadow" to "0px -2.5px 5px 0px rgba(155, 177, 214, 0.23)")), "bg-img-left" to utsMapOf(".order-tab " to utsMapOf("position" to "absolute", "bottom" to 5, "zIndex" to 1, "width" to "58%", "height" to 76, "left" to -10)), "bg-img-right" to utsMapOf(".order-tab " to utsMapOf("position" to "absolute", "bottom" to 5, "zIndex" to 1, "width" to "58%", "height" to 76, "right" to -10)), "active-tab-left" to utsMapOf(".order-tab " to utsMapOf("position" to "absolute", "bottom" to 10, "paddingBottom" to 10, "zIndex" to 3, "left" to 0)), "active-tab-right" to utsMapOf(".order-tab " to utsMapOf("position" to "absolute", "bottom" to 10, "paddingBottom" to 10, "zIndex" to 3, "right" to 0)), "active-line" to utsMapOf(".order-tab " to utsMapOf("position" to "absolute", "bottom" to 0, "left" to "50%", "transform" to "translateX(-50%)", "width" to 60, "height" to 3, "backgroundColor" to "#000000", "borderTopLeftRadius" to 2, "borderTopRightRadius" to 2, "borderBottomRightRadius" to 2, "borderBottomLeftRadius" to 2)), "tab-item" to utsMapOf(".order-tab " to utsMapOf("flex" to 1, "textAlign" to "center", "paddingTop" to 18, "paddingRight" to 0, "paddingBottom" to 9, "paddingLeft" to 0, "position" to "relative", "display" to "flex", "flexDirection" to "column", "alignItems" to "center", "justifyContent" to "center")), "order-box" to padStyleMapOf(utsMapOf("width" to "100%", "backgroundColor" to "#ffffff", "overflow" to "visible")), "order-list" to utsMapOf(".order-box " to utsMapOf("minHeight" to "800rpx", "paddingTop" to 5, "paddingRight" to 15, "paddingBottom" to 15, "paddingLeft" to 15, "backgroundColor" to "#FFFFFF")), "order-item" to utsMapOf(".order-box .order-list " to utsMapOf("backgroundColor" to "#FFFFFF", "borderTopLeftRadius" to 15, "borderTopRightRadius" to 15, "borderBottomRightRadius" to 15, "borderBottomLeftRadius" to 15, "marginBottom" to 15, "boxShadow" to "0px 0px 20px 0px rgba(155, 153, 208, 0.35)", "paddingTop" to 15, "paddingRight" to 15, "paddingBottom" to 15, "paddingLeft" to 15, "marginBottom:last-child" to 5)), "order-top" to utsMapOf(".order-box .order-list .order-item " to utsMapOf("display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "space-between", "paddingBottom" to 10, "borderBottomWidth" to 0.5, "borderBottomStyle" to "solid", "borderBottomColor" to "#DADADA")), "divider-line" to utsMapOf(".order-box .order-list .order-item " to utsMapOf("height" to 1, "backgroundColor" to "#F5F5F5", "width" to "100%")), "order-left" to utsMapOf(".order-box .order-list .order-item " to utsMapOf("display" to "flex", "flexDirection" to "row", "alignItems" to "center")), "order-type" to utsMapOf(".order-box .order-list .order-item " to utsMapOf("paddingRight" to 8, "marginRight" to 8, "fontWeight" to "700", "fontSize" to 15, "borderRightWidth" to 0.5, "borderRightStyle" to "solid", "borderRightColor" to "#C8C8C8", "color" to "#C70000"), ".order-box .order-list .order-item .pinche" to utsMapOf("color" to "#C70000"), ".order-box .order-list .order-item .duxiang" to utsMapOf("color" to "#C78300")), "order-time" to utsMapOf(".order-box .order-list .order-item " to utsMapOf("fontSize" to 16, "color" to "#000000")), "order-status" to utsMapOf(".order-box .order-list .order-item " to utsMapOf("paddingTop" to 4, "paddingRight" to 15, "paddingBottom" to 4, "paddingLeft" to 15, "borderTopLeftRadius" to 5, "borderTopRightRadius" to 5, "borderBottomRightRadius" to 5, "borderBottomLeftRadius" to 5, "fontSize" to 15, "color" to "#FFFFFF"), ".order-box .order-list .order-item .processing" to utsMapOf("backgroundColor" to "#89B06D"), ".order-box .order-list .order-item .waiting" to utsMapOf("backgroundColor" to "#64ADEF"), ".order-box .order-list .order-item .pending" to utsMapOf("backgroundColor" to "#84A1C3")), "order-route" to utsMapOf(".order-box .order-list .order-item " to utsMapOf("paddingTop" to 15)), "from-to" to utsMapOf(".order-box .order-list .order-item .order-route " to utsMapOf("display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "center", "marginBottom" to 15)), "city" to utsMapOf(".order-box .order-list .order-item .order-route .from-to " to utsMapOf("fontSize" to 18, "fontWeight" to "700", "color" to "#222222")), "path-container" to utsMapOf(".order-box .order-list .order-item .order-route .from-to " to utsMapOf("position" to "relative", "width" to 32, "height" to 20, "marginTop" to 0, "marginRight" to 12, "marginBottom" to 0, "marginLeft" to 12, "display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "center")), "dashed-line" to utsMapOf(".order-box .order-list .order-item .order-route .from-to .path-container " to utsMapOf("width" to 30, "height" to 10, "position" to "absolute")), "route-info" to utsMapOf(".order-box .order-list .order-item .order-route " to utsMapOf("paddingTop" to 0, "paddingRight" to 10, "paddingBottom" to 0, "paddingLeft" to 10, "display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "space-between", "marginBottom" to 20)), "route-name" to utsMapOf(".order-box .order-list .order-item .order-route .route-info " to utsMapOf("fontSize" to 16, "color" to "#7E7E7E")), "seat-info" to utsMapOf(".order-box .order-list .order-item .order-route .route-info " to utsMapOf("fontSize" to 16, "color" to "#7E7E7E")), "order-count" to utsMapOf(".order-box .order-list .order-item .order-route .route-info " to utsMapOf("fontSize" to 16, "color" to "#7E7E7E")), "route-divider" to utsMapOf(".order-box .order-list .order-item .order-route .route-info " to utsMapOf("marginTop" to 0, "marginRight" to 8, "marginBottom" to 0, "marginLeft" to 8, "color" to "#7E7E7E", "fontSize" to 16)), "highlight" to utsMapOf(".order-box .order-list .order-item .order-route .route-info " to utsMapOf("color" to "#C78300", "fontWeight" to "700", "fontSize" to 16)), "btn-group" to utsMapOf(".order-box .order-list .order-item .order-route " to utsMapOf("flexGrow" to 1, "width" to "100%", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "space-between")), "location-agree-title" to padStyleMapOf(utsMapOf("textAlign" to "center", "width" to "100%", "marginTop" to "30rpx", "marginRight" to 0, "marginBottom" to "30rpx", "marginLeft" to 0, "fontWeight" to "bold", "fontSize" to "32rpx", "color" to "#000000")))
+                return utsMapOf("container" to padStyleMapOf(utsMapOf("width" to "100%", "position" to "relative")), "inv-box" to padStyleMapOf(utsMapOf("position" to "relative")), "anime-box" to utsMapOf(".inv-box " to utsMapOf("width" to "100%", "transitionProperty" to "transform", "transitionDuration" to "2s")), "btn" to utsMapOf(".inv-box " to utsMapOf("position" to "absolute", "bottom" to "20rpx", "width" to "70%")), "home-bg" to padStyleMapOf(utsMapOf("position" to "absolute", "top" to 0, "left" to 0, "width" to "100%", "zIndex" to -1)), "top-bg" to utsMapOf(".home-bg " to utsMapOf("height" to 300, "width" to "100%")), "header" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "paddingTop" to 10, "paddingRight" to 15, "paddingBottom" to 0, "paddingLeft" to 23)), "avatar-box" to utsMapOf(".header " to utsMapOf("width" to 50, "height" to 50, "borderTopStyle" to "none", "borderRightStyle" to "none", "borderBottomStyle" to "none", "borderLeftStyle" to "none", "borderTopColor" to "#000000", "borderRightColor" to "#000000", "borderBottomColor" to "#000000", "borderLeftColor" to "#000000")), "avatar" to utsMapOf(".header .avatar-box " to utsMapOf("width" to "100%", "height" to "100%")), "card" to padStyleMapOf(utsMapOf("width" to "100%", "backgroundColor" to "#ffffff", "boxShadow" to "0px 11px 35px 0px rgba(253, 214, 190, 0.23)", "borderTopLeftRadius" to 15, "borderTopRightRadius" to 15, "borderBottomRightRadius" to 15, "borderBottomLeftRadius" to 15, "borderTopWidth" to 2, "borderRightWidth" to 2, "borderBottomWidth" to 2, "borderLeftWidth" to 2, "borderTopStyle" to "solid", "borderRightStyle" to "solid", "borderBottomStyle" to "solid", "borderLeftStyle" to "solid", "borderTopColor" to "#FFFFFF", "borderRightColor" to "#FFFFFF", "borderBottomColor" to "#FFFFFF", "borderLeftColor" to "#FFFFFF", "paddingTop" to 20, "paddingRight" to 20, "paddingBottom" to 20, "paddingLeft" to 20)), "card-header" to utsMapOf(".card " to utsMapOf("paddingTop" to 0, "paddingRight" to 15, "paddingBottom" to 0, "paddingLeft" to 15, "width" to "100%", "display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "space-between", "marginBottom" to 10)), "left" to utsMapOf(".card .card-header " to utsMapOf("display" to "flex", "flexDirection" to "row", "alignItems" to "center")), "location-icon" to utsMapOf(".card .card-header .left " to utsMapOf("width" to 13, "height" to 15, "marginRight" to 5)), "arrow-icon" to utsMapOf(".card .card-header .left " to utsMapOf("width" to 8, "height" to 4, "marginLeft" to 5)), "features" to utsMapOf(".card .card-body " to utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "paddingTop" to 20, "paddingRight" to 0, "paddingBottom" to 20, "paddingLeft" to 0)), "feature-item" to utsMapOf(".card .card-body .features " to utsMapOf("display" to "flex", "alignItems" to "center", "flex" to 1)), "feature-icon" to utsMapOf(".card .card-body .features .feature-item " to utsMapOf("width" to 28.5, "height" to 29.5, "marginBottom" to 10)), "feature-text" to utsMapOf(".card .card-body .features .feature-item " to utsMapOf("display" to "flex", "flexDirection" to "column", "fontSize" to 15)), "grid-func" to utsMapOf(".card .card-body " to utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "paddingTop" to 20, "paddingRight" to 0, "paddingBottom" to 20, "paddingLeft" to 0)), "grid-item" to utsMapOf(".card .card-body .grid-func " to utsMapOf("display" to "flex", "alignItems" to "center", "flex" to 1)), "grid-icon" to utsMapOf(".card .card-body .grid-func .grid-item " to utsMapOf("width" to 35, "height" to 39, "marginBottom" to 10)), "grid-text" to utsMapOf(".card .card-body .grid-func .grid-item " to utsMapOf("display" to "flex", "flexDirection" to "column", "fontSize" to 15, "color" to "#141414")), "data-picker-box" to padStyleMapOf(utsMapOf("width" to "100%", "backgroundColor" to "#F4F7FD", "borderTopLeftRadius" to 6, "borderTopRightRadius" to 6, "borderBottomRightRadius" to 6, "borderBottomLeftRadius" to 6, "display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "space-between", "marginBottom" to 15)), "left-box" to utsMapOf(".data-picker-box " to utsMapOf("display" to "flex", "flexDirection" to "row", "alignItems" to "center", "paddingTop" to 13, "paddingRight" to 15, "paddingBottom" to 13, "paddingLeft" to 15)), "icon" to utsMapOf(".data-picker-box .left-box " to utsMapOf("width" to 15, "height" to 15, "marginTop" to 0, "marginRight" to 10, "marginBottom" to 0, "marginLeft" to 10)), "text" to utsMapOf(".data-picker-box " to utsMapOf("fontWeight" to "400", "fontSize" to 15, "color" to "#000000"), ".order-tab .active-tab-left " to utsMapOf("color" to "#000000", "fontWeight" to "700", "fontSize" to 20, "textAlign" to "center"), ".order-tab .active-tab-right " to utsMapOf("color" to "#000000", "fontWeight" to "700", "fontSize" to 20, "textAlign" to "center"), ".order-tab .tab-item " to utsMapOf("fontSize" to 20, "color" to "#979DA4")), "text-btn" to utsMapOf(".data-picker-box " to utsMapOf("fontWeight" to "400", "fontSize" to 15, "color" to "#000000", "paddingLeft" to 25, "paddingRight" to 25, "borderLeftWidth" to 0.5, "borderLeftStyle" to "solid", "borderLeftColor" to "#D2D8E3")), "order-tab" to padStyleMapOf(utsMapOf("paddingTop" to 10, "paddingBottom" to 10, "backgroundColor" to "#FFFFFF", "position" to "relative")), "tab-group" to utsMapOf(".order-tab " to utsMapOf("display" to "flex", "flexDirection" to "row", "borderTopLeftRadius" to 15, "borderTopRightRadius" to 15, "boxShadow" to "0px -2.5px 5px 0px rgba(155, 177, 214, 0.23)")), "bg-img-left" to utsMapOf(".order-tab " to utsMapOf("position" to "absolute", "bottom" to 5, "zIndex" to 1, "width" to "58%", "height" to 76, "left" to -10)), "bg-img-right" to utsMapOf(".order-tab " to utsMapOf("position" to "absolute", "bottom" to 5, "zIndex" to 1, "width" to "58%", "height" to 76, "right" to -10)), "active-tab-left" to utsMapOf(".order-tab " to utsMapOf("position" to "absolute", "bottom" to 10, "paddingBottom" to 10, "zIndex" to 3, "left" to 0)), "active-tab-right" to utsMapOf(".order-tab " to utsMapOf("position" to "absolute", "bottom" to 10, "paddingBottom" to 10, "zIndex" to 3, "right" to 0)), "active-line" to utsMapOf(".order-tab " to utsMapOf("position" to "absolute", "bottom" to 0, "left" to "50%", "transform" to "translateX(-50%)", "width" to 60, "height" to 3, "backgroundColor" to "#000000", "borderTopLeftRadius" to 2, "borderTopRightRadius" to 2, "borderBottomRightRadius" to 2, "borderBottomLeftRadius" to 2)), "tab-item" to utsMapOf(".order-tab " to utsMapOf("flex" to 1, "textAlign" to "center", "paddingTop" to 18, "paddingRight" to 0, "paddingBottom" to 9, "paddingLeft" to 0, "position" to "relative", "display" to "flex", "flexDirection" to "column", "alignItems" to "center", "justifyContent" to "center")), "order-box" to padStyleMapOf(utsMapOf("width" to "100%", "backgroundColor" to "#ffffff", "overflow" to "visible")), "order-list" to utsMapOf(".order-box " to utsMapOf("minHeight" to "800rpx", "paddingTop" to 5, "paddingRight" to 15, "paddingBottom" to 15, "paddingLeft" to 15, "backgroundColor" to "#FFFFFF")), "order-item" to utsMapOf(".order-box .order-list " to utsMapOf("backgroundColor" to "#FFFFFF", "borderTopLeftRadius" to 15, "borderTopRightRadius" to 15, "borderBottomRightRadius" to 15, "borderBottomLeftRadius" to 15, "marginBottom" to 15, "boxShadow" to "0px 0px 20px 0px rgba(155, 153, 208, 0.35)", "paddingTop" to 15, "paddingRight" to 15, "paddingBottom" to 15, "paddingLeft" to 15, "marginBottom:last-child" to 5)), "order-top" to utsMapOf(".order-box .order-list .order-item " to utsMapOf("display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "space-between", "paddingBottom" to 10, "borderBottomWidth" to 0.5, "borderBottomStyle" to "solid", "borderBottomColor" to "#DADADA")), "divider-line" to utsMapOf(".order-box .order-list .order-item " to utsMapOf("height" to 1, "backgroundColor" to "#F5F5F5", "width" to "100%")), "order-left" to utsMapOf(".order-box .order-list .order-item " to utsMapOf("display" to "flex", "flexDirection" to "row", "alignItems" to "center")), "order-type" to utsMapOf(".order-box .order-list .order-item " to utsMapOf("paddingRight" to 8, "marginRight" to 8, "fontWeight" to "700", "fontSize" to 15, "borderRightWidth" to 0.5, "borderRightStyle" to "solid", "borderRightColor" to "#C8C8C8", "color" to "#C70000"), ".order-box .order-list .order-item .pinche" to utsMapOf("color" to "#C70000"), ".order-box .order-list .order-item .duxiang" to utsMapOf("color" to "#C78300")), "order-time" to utsMapOf(".order-box .order-list .order-item " to utsMapOf("fontSize" to 16, "color" to "#000000")), "order-status" to utsMapOf(".order-box .order-list .order-item " to utsMapOf("paddingTop" to 4, "paddingRight" to 15, "paddingBottom" to 4, "paddingLeft" to 15, "borderTopLeftRadius" to 5, "borderTopRightRadius" to 5, "borderBottomRightRadius" to 5, "borderBottomLeftRadius" to 5, "fontSize" to 15, "color" to "#FFFFFF"), ".order-box .order-list .order-item .processing" to utsMapOf("backgroundColor" to "#89B06D"), ".order-box .order-list .order-item .waiting" to utsMapOf("backgroundColor" to "#64ADEF"), ".order-box .order-list .order-item .pending" to utsMapOf("backgroundColor" to "#84A1C3")), "order-route" to utsMapOf(".order-box .order-list .order-item " to utsMapOf("paddingTop" to 15)), "from-to" to utsMapOf(".order-box .order-list .order-item .order-route " to utsMapOf("display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "center", "marginBottom" to 15)), "city" to utsMapOf(".order-box .order-list .order-item .order-route .from-to " to utsMapOf("fontSize" to 18, "fontWeight" to "700", "color" to "#222222")), "path-container" to utsMapOf(".order-box .order-list .order-item .order-route .from-to " to utsMapOf("position" to "relative", "width" to 32, "height" to 20, "marginTop" to 0, "marginRight" to 12, "marginBottom" to 0, "marginLeft" to 12, "display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "center")), "dashed-line" to utsMapOf(".order-box .order-list .order-item .order-route .from-to .path-container " to utsMapOf("width" to 30, "height" to 10, "position" to "absolute")), "route-info" to utsMapOf(".order-box .order-list .order-item .order-route " to utsMapOf("paddingTop" to 0, "paddingRight" to 10, "paddingBottom" to 0, "paddingLeft" to 10, "display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "space-between", "marginBottom" to 20)), "route-name" to utsMapOf(".order-box .order-list .order-item .order-route .route-info " to utsMapOf("fontSize" to 16, "color" to "#7E7E7E")), "seat-info" to utsMapOf(".order-box .order-list .order-item .order-route .route-info " to utsMapOf("fontSize" to 16, "color" to "#7E7E7E")), "order-count" to utsMapOf(".order-box .order-list .order-item .order-route .route-info " to utsMapOf("fontSize" to 16, "color" to "#7E7E7E")), "route-divider" to utsMapOf(".order-box .order-list .order-item .order-route .route-info " to utsMapOf("marginTop" to 0, "marginRight" to 8, "marginBottom" to 0, "marginLeft" to 8, "color" to "#7E7E7E", "fontSize" to 16)), "highlight" to utsMapOf(".order-box .order-list .order-item .order-route .route-info " to utsMapOf("color" to "#C78300", "fontWeight" to "700", "fontSize" to 16)), "btn-group" to utsMapOf(".order-box .order-list .order-item .order-route " to utsMapOf("flexGrow" to 1, "width" to "100%", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "space-between")), "location-agree-title" to padStyleMapOf(utsMapOf("textAlign" to "center", "width" to "100%", "marginTop" to "30rpx", "marginRight" to 0, "marginBottom" to "30rpx", "marginLeft" to 0, "fontWeight" to "bold", "fontSize" to "32rpx", "color" to "#000000")), "@TRANSITION" to utsMapOf("anime-box" to utsMapOf("property" to "transform", "duration" to "2s")))
             }
         var inheritAttrs = true
         var inject: Map<String, Map<String, Any?>> = utsMapOf()

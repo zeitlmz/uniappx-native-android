@@ -29,25 +29,25 @@ open class GenPagesPersonalWalletWithdraw : BasePage {
         onPageScroll(fun(e: OnPageScrollOptions) {
             xProvitae.scrollTop = e.scrollTop
         }
-            , __ins)
+        , __ins)
         onResize(fun(_: OnResizeOptions) {
             uni__emit("onResize", fun() {})
         }
-            , __ins)
+        , __ins)
         onLoad(fun(_: OnLoadOptions) {}, __ins)
         onPageHide(fun() {
             uni__emit("onHide", fun() {})
         }
-            , __ins)
+        , __ins)
         onReady(fun() {
             uni__emit("onReady", fun() {})
             xProvitae.pageReady = true
         }
-            , __ins)
+        , __ins)
         onPageShow(fun() {
             uni__emit("onShow", fun() {})
         }
-            , __ins)
+        , __ins)
     }
     companion object {
         @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
@@ -102,7 +102,7 @@ open class GenPagesPersonalWalletWithdraw : BasePage {
                 }
                 )
                 withdrawRule.value = utsArrayOf(
-                    "1、提现手续费：每橙专车会收取每笔提现金额的1%作为手续费",
+                    "1、提现手续费：每笔提现收取金额的1%作为手续费",
                     "2、提现时间：每周一至周五（如遇法定节假日顺延）",
                     "3、提现限制：单日提现限额2000元"
                 )
@@ -172,7 +172,7 @@ open class GenPagesPersonalWalletWithdraw : BasePage {
                                         createVNode(_component_x_input, utsMapOf("style" to normalizeStyle(utsMapOf("margin-left" to "10px")), "type" to "digit", "modelValue" to unref(withdrawAmount), "onUpdate:modelValue" to fun(`$event`: String){
                                             withdrawAmount = trySetRefValue(withdrawAmount, `$event`)
                                         }
-                                            , "placeholder" to "0.00", "color" to "#ffffff"), null, 8, utsArrayOf(
+                                        , "placeholder" to "0.00", "color" to "#ffffff"), null, 8, utsArrayOf(
                                             "style",
                                             "modelValue"
                                         ))

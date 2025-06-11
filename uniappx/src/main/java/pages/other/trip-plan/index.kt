@@ -23,25 +23,25 @@ open class GenPagesOtherTripPlanIndex : BasePage {
         onPageScroll(fun(e: OnPageScrollOptions) {
             xProvitae.scrollTop = e.scrollTop
         }
-            , __ins)
+        , __ins)
         onResize(fun(_: OnResizeOptions) {
             uni__emit("onResize", fun() {})
         }
-            , __ins)
+        , __ins)
         onLoad(fun(_: OnLoadOptions) {}, __ins)
         onPageHide(fun() {
             uni__emit("onHide", fun() {})
         }
-            , __ins)
+        , __ins)
         onReady(fun() {
             uni__emit("onReady", fun() {})
             xProvitae.pageReady = true
         }
-            , __ins)
+        , __ins)
         onPageShow(fun() {
             uni__emit("onShow", fun() {})
         }
-            , __ins)
+        , __ins)
     }
     companion object {
         @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
@@ -138,19 +138,19 @@ open class GenPagesOtherTripPlanIndex : BasePage {
                                     )), "onClick" to fun(){
                                         datePickerClick(item)
                                     }
-                                        , "key" to item.date), utsArrayOf(
+                                    , "key" to item.date), utsArrayOf(
                                         createElementVNode("text", utsMapOf("class" to "week-name", "style" to normalizeStyle("" + (if (unref(date).date == item.date) {
                                             "color:" + unref(globalData).theme.primaryColor + ";"
                                         } else {
                                             ""
                                         }
-                                                ))), toDisplayString(item.dayOfWeek), 5),
+                                        ))), toDisplayString(item.dayOfWeek), 5),
                                         createElementVNode("text", utsMapOf("class" to "date-value", "style" to normalizeStyle("" + (if (unref(date).date == item.date) {
                                             "color:" + unref(globalData).theme.primaryColor + ";"
                                         } else {
                                             ""
                                         }
-                                                ))), toDisplayString(item.monthDay), 5)
+                                        ))), toDisplayString(item.monthDay), 5)
                                     ), 10, utsArrayOf(
                                         "onClick"
                                     ))
@@ -160,7 +160,7 @@ open class GenPagesOtherTripPlanIndex : BasePage {
                             createVNode(_component_mc_date_picker, utsMapOf("modelValue" to unref(date).date, "onUpdate:modelValue" to fun(`$event`: String){
                                 unref(date).date = `$event`
                             }
-                                , "end-date" to "2099-12-31", "onChange" to datePickerModalClick), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                            , "end-date" to "2099-12-31", "onChange" to datePickerModalClick), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                                 return utsArrayOf(
                                     createElementVNode("view", utsMapOf("class" to "more-date"), utsArrayOf(
                                         createElementVNode("text", utsMapOf("class" to "text"), "更多"),
@@ -181,10 +181,10 @@ open class GenPagesOtherTripPlanIndex : BasePage {
                                 createVNode(_component_x_pull_refresh, utsMapOf("height" to ("" + (unref(screenHeight) - unref(statusBarHeight) - 210 - unref(globalData).safeAreaBottom) + "px"), "pullHeight" to 30, "disabled-bottom" to true, "show-scrollbar" to false, "modelValue" to unref(isfresh), "onUpdate:modelValue" to fun(`$event`: Boolean){
                                     trySetRefValue(isfresh, `$event`)
                                 }
-                                    , "model-bottom-status" to unref(bottomFresh), "onUpdate:modelBottomStatus" to fun(`$event`: Boolean){
-                                        trySetRefValue(bottomFresh, `$event`)
-                                    }
-                                    , "onRefresh" to topLoad, "onBottomRefresh" to bottomLoad), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                , "model-bottom-status" to unref(bottomFresh), "onUpdate:modelBottomStatus" to fun(`$event`: Boolean){
+                                    trySetRefValue(bottomFresh, `$event`)
+                                }
+                                , "onRefresh" to topLoad, "onBottomRefresh" to bottomLoad), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                                     return utsArrayOf(
                                         createElementVNode(Fragment, null, RenderHelpers.renderList(unref(serviceLinesDistrictToCityList), fun(item, index, __index, _cached): Any {
                                             return createVNode(_component_x_sheet, utsMapOf("margin" to utsArrayOf(

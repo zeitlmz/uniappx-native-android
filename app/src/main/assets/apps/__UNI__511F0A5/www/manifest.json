@@ -3,8 +3,8 @@
   "name": "每橙车主",
   "description": "每橙车主",
   "version": {
-    "name": "4.0.3",
-    "code": "403"
+    "name": "4.0.4",
+    "code": "404"
   },
   "uni-app-x": {
     "compilerVersion": "4.66"

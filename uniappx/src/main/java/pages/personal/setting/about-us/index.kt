@@ -62,7 +62,7 @@ open class GenPagesPersonalSettingAboutUsIndex : BasePage {
                             "20"
                         )), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                             return utsArrayOf(
-                                createElementVNode("text", utsMapOf("class" to "desc"), "每橙专车定位于汽车消费生态服务产业解决方案，以自研的“每橙专车”出行平台为支撑，通过网约车、定制客运和旅游专车三大主营业务板块，构建汽车后市场和客运服务相融合的多维数字消费生态。"),
+                                createElementVNode("text", utsMapOf("class" to "desc"), "每橙车主定位于汽车消费生态服务产业解决方案，以自研的“每橙车主”出行平台为支撑，通过网约车、定制客运和旅游专车三大主营业务板块，构建汽车后市场和客运服务相融合的多维数字消费生态。"),
                                 createElementVNode("view", utsMapOf("class" to "ercode-box"), utsArrayOf(
                                     createElementVNode("image", utsMapOf("class" to "ercode", "src" to ("" + unref(resBaseUrl) + "/static/images/image-wx-qrcode.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
                                         "src"
