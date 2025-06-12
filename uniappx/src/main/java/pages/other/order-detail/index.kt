@@ -1620,6 +1620,17 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                 console.log("完成订单：", data)
                 if (that.orderIndex < that.orderData.orderItems.length - 1) {
                     that.queryOrderDetail(true, false)
+                } else {
+                    val res = JSON.parse<OrderFinishResponse>(data)
+                    if (res?.allOfOrderCompleted ?: false) {
+                        setTimeout(fun(){
+                            showModal(X_MODAL_TYPE(title = "温馨提示", content = "\u60A8\u5F53\u524D\u8BA2\u5355\u5DF2\u5168\u90E8\u7ED3\u675F", confirmText = "返回首页", confirmBgColor = this.globalData.theme.primaryColor, close = fun(){
+                                uni_reLaunch(ReLaunchOptions(url = "/pages/home/index"))
+                            }
+                            ))
+                        }
+                        , 250)
+                    }
                 }
                 hideXloading()
             }
@@ -1736,12 +1747,12 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
     open fun gen_onOrderAllFinish_fn() {
         val that = this
         ws?.on(MessageType["BIG_ORDER_FINISH"] as Number, fun(data){
-            console.log("您当前订单已全部完成：", data)
+            console.log("因订单取消或调度，您当前订单已全部完成：", data)
             hideXloading()
             val res = JSON.parse<OrderFinishResponse>(data)
             if (res?.summaryId == that.orderParams["summaryId"]) {
                 setTimeout(fun() {
-                    showModal(X_MODAL_TYPE(title = "温馨提示", content = "\u60A8\u5F53\u524D\u8BA2\u5355\u5DF2\u5168\u90E8\u5B8C\u6210", confirmText = "返回首页", confirmBgColor = this.globalData.theme.primaryColor, showCancel = false, close = fun(){
+                    showModal(X_MODAL_TYPE(title = "温馨提示", content = "\u56E0\u8BA2\u5355\u53D6\u6D88\u6216\u8C03\u5EA6\uFF0C\u60A8\u5F53\u524D\u8BA2\u5355\u5DF2\u5168\u90E8\u5B8C\u6210", confirmText = "返回首页", confirmBgColor = this.globalData.theme.primaryColor, showCancel = false, close = fun(){
                         uni_reLaunch(ReLaunchOptions(url = "/pages/home/index"))
                     }
                     ))

@@ -23866,8 +23866,8 @@ fun main(app: IApp) {
 open class UniAppConfig : io.dcloud.uniapp.appframe.AppConfig {
     override var name: String = "每橙车主"
     override var appid: String = "__UNI__511F0A5"
-    override var versionName: String = "4.0.4"
-    override var versionCode: String = "404"
+    override var versionName: String = "4.0.3"
+    override var versionCode: String = "403"
     override var uniCompilerVersion: String = "4.66"
     override var defaultAppTheme: String = "light"
     constructor() : super() {}
