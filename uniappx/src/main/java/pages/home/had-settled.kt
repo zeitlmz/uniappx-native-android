@@ -436,7 +436,6 @@ open class GenPagesHomeHadSettled : VueComponent {
                     if (all) {
                         console.log("同意权限=======", all)
                         startLocation.value = true
-                        setLocationGrantStatus("agree")
                         onShow()
                     } else {
                         locationAgreeCancel()

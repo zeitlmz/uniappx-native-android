@@ -129,34 +129,29 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                 return utsArrayOf(
                     createElementVNode("view", utsMapOf("class" to "flex-row flex-row-center-between"), utsArrayOf(
                         createElementVNode("view", utsMapOf("class" to "flex-row flex-row-center-between pl-15 pt-15"), utsArrayOf(
-                            withDirectives(createVNode(_component_mc_primary_button, utsMapOf("onClick" to _ctx.openTrip, "height" to "57rpx", "bgColor" to "#ffffff", "icon-path" to ("" + _ctx.resBaseUrl + "/static/icons/icon-books-2.png"), "color" to "#000000", "margin-right" to "20rpx"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                return utsArrayOf(
-                                    " 开启行程 "
-                                )
+                            if (_ctx.orderData.driverStatus == 0) {
+                                createVNode(_component_mc_primary_button, utsMapOf("key" to 0, "onClick" to _ctx.openTrip, "height" to "57rpx", "bgColor" to "#ffffff", "icon-path" to ("" + _ctx.resBaseUrl + "/static/icons/icon-books-2.png"), "color" to "#000000", "margin-right" to "20rpx"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                    return utsArrayOf(
+                                        " 开启行程 "
+                                    )
+                                }), "_" to 1), 8, utsArrayOf(
+                                    "onClick",
+                                    "icon-path"
+                                ))
+                            } else {
+                                if (_ctx.orderData.driverStatus == 3) {
+                                    createVNode(_component_mc_primary_button, utsMapOf("key" to 1, "onClick" to _ctx.closeTrip, "height" to "57rpx", "bgColor" to "#ffffff", "icon-path" to ("" + _ctx.resBaseUrl + "/static/icons/icon-stop-trip-outline.png"), "color" to "#000000", "margin-right" to "20rpx"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                        return utsArrayOf(
+                                            " 暂停行程 "
+                                        )
+                                    }), "_" to 1), 8, utsArrayOf(
+                                        "onClick",
+                                        "icon-path"
+                                    ))
+                                } else {
+                                    createCommentVNode("v-if", true)
+                                }
                             }
-                            ), "_" to 1), 8, utsArrayOf(
-                                "onClick",
-                                "icon-path"
-                            )), utsArrayOf(
-                                utsArrayOf(
-                                    vShow,
-                                    _ctx.orderData.driverStatus == 0
-                                )
-                            )),
-                            withDirectives(createVNode(_component_mc_primary_button, utsMapOf("onClick" to _ctx.closeTrip, "height" to "57rpx", "bgColor" to "#ffffff", "icon-path" to ("" + _ctx.resBaseUrl + "/static/icons/icon-stop-trip-outline.png"), "color" to "#000000", "margin-right" to "20rpx"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                return utsArrayOf(
-                                    " 暂停行程 "
-                                )
-                            }
-                            ), "_" to 1), 8, utsArrayOf(
-                                "onClick",
-                                "icon-path"
-                            )), utsArrayOf(
-                                utsArrayOf(
-                                    vShow,
-                                    _ctx.orderData.driverStatus == 3
-                                )
-                            ))
                         )),
                         createElementVNode("view", utsMapOf("class" to "flex-row flex-row-center-between pt-10 pr-15"), utsArrayOf(
                             createVNode(_component_mc_primary_button, utsMapOf("height" to "57rpx", "onClick" to _ctx.initLocation, "bgColor" to "#ffffff", "icon-size" to "35rpx", "icon-path" to ("" + _ctx.resBaseUrl + "/static/icons/icon-my-location-outline.png"), "color" to "#000000"), null, 8, utsArrayOf(

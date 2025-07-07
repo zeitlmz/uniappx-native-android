@@ -53,6 +53,9 @@ open class GenPagesPersonalSettingAccountSafeIndex : BasePage {
             val toAccountCancellation = fun(){
                 router.push("/pages/personal/setting/account-safe/account-cancellation/index")
             }
+            val toRevokePrivacy = fun(){
+                router.push("/pages/personal/setting/account-safe/revoke-privacy/index")
+            }
             val toSecondaryPassword = fun(){
                 router.push("/pages/personal/setting/account-safe/secondary-password/index")
             }
@@ -112,6 +115,32 @@ open class GenPagesPersonalSettingAccountSafeIndex : BasePage {
                                     return utsArrayOf(
                                         createElementVNode("view", utsMapOf("class" to "setting-header"), utsArrayOf(
                                             createElementVNode("text", utsMapOf("class" to "label"), "永久注销账号"),
+                                            createElementVNode("image", utsMapOf("class" to "icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-arrow-right-line-samll.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
+                                                "src"
+                                            ))
+                                        )),
+                                        createElementVNode("view", utsMapOf("class" to "desc"), utsArrayOf(
+                                            createElementVNode("text", utsMapOf("class" to "text"), "操作后账号信息无法恢复，请谨慎操作")
+                                        ))
+                                    )
+                                }
+                                ), "_" to 1))
+                            )
+                        }
+                        ), "_" to 1)),
+                        createVNode(_component_x_sheet, utsMapOf("margin" to utsArrayOf(
+                            "15"
+                        ), "padding" to utsArrayOf(
+                            "20",
+                            "15",
+                            "20",
+                            "25"
+                        )), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                            return utsArrayOf(
+                                createVNode(_component_mc_active_animation, utsMapOf("class" to "setting-item", "onClick" to toRevokePrivacy), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                    return utsArrayOf(
+                                        createElementVNode("view", utsMapOf("class" to "setting-header"), utsArrayOf(
+                                            createElementVNode("text", utsMapOf("class" to "label"), "撤回同意隐私政策"),
                                             createElementVNode("image", utsMapOf("class" to "icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-arrow-right-line-samll.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
                                                 "src"
                                             ))
