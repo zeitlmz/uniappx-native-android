@@ -85,7 +85,7 @@ open class GenUniModulesTmxUiComponentsXImageXImage : VueComponent {
         val _ctx = this
         val _cache = this.`$`.renderCache
         val _component_x_icon = resolveEasyComponent("x-icon", GenUniModulesTmxUiComponentsXIconXIconClass)
-        return createElementVNode("view", utsMapOf("key" to _ctx.keyidsf, "onTouchstart" to _ctx.mStart, "onTouchend" to _ctx.mEnd, "class" to "xImage", "ref" to "xImage", "id" to _ctx.idBox, "style" to normalizeStyle(utsMapOf("width" to _ctx._place_size.width, "height" to _ctx._place_size.height))), utsArrayOf(
+        return createElementVNode("view", utsMapOf("key" to _ctx.keyidsf, "onClick" to _ctx.prevImage, "class" to "xImage", "ref" to "xImage", "id" to _ctx.idBox, "style" to normalizeStyle(utsMapOf("width" to _ctx._place_size.width, "height" to _ctx._place_size.height))), utsArrayOf(
             createElementVNode("view", utsMapOf("class" to "xImageBox", "style" to normalizeStyle(utsMapOf("width" to _ctx._img_box_size.width, "height" to _ctx._img_box_size.height, "borderRadius" to _ctx._round, "pointerEvent" to "none"))), utsArrayOf(
                 if (isTrue(_ctx.isLoading)) {
                     renderSlot(_ctx.`$slots`, "loading", utsMapOf("key" to 0), fun(): UTSArray<Any> {
@@ -149,9 +149,8 @@ open class GenUniModulesTmxUiComponentsXImageXImage : VueComponent {
                     createCommentVNode("v-if", true)
                 }
             ), 4)
-        ), 44, utsArrayOf(
-            "onTouchstart",
-            "onTouchend",
+        ), 12, utsArrayOf(
+            "onClick",
             "id"
         ))
     }
@@ -349,6 +348,7 @@ open class GenUniModulesTmxUiComponentsXImageXImage : VueComponent {
         this.imgrealWidth = evt.detail.width
         this.imgrealHeight = evt.detail.height
         this.isLoading = false
+        this.androidAndWebUrl = this._src
         this.isError = false
         this.isLoaded = true
     }
@@ -377,21 +377,6 @@ open class GenUniModulesTmxUiComponentsXImageXImage : VueComponent {
     open fun gen_imgError_fn() {
         this.isError = true
         this.isLoading = false
-    }
-    open var mStart = ::gen_mStart_fn
-    open fun gen_mStart_fn(evt: UniTouchEvent) {
-        this.dateTime = Date.now()
-        this._x = evt.changedTouches[0].clientX
-        this._y = evt.changedTouches[0].clientY
-    }
-    open var mEnd = ::gen_mEnd_fn
-    open fun gen_mEnd_fn(evt: UniTouchEvent) {
-        var diffdate = Date.now() - this.dateTime
-        var diffx = Math.abs(evt.changedTouches[0].clientX - this._x)
-        var diffy = Math.abs(evt.changedTouches[0].clientY - this._y)
-        if (Math.abs(diffx) == Math.abs(diffy) && diffx == 0 && diffdate > 50 && diffdate <= 250) {
-            this.prevImage()
-        }
     }
     open var getNodes = ::gen_getNodes_fn
     open fun gen_getNodes_fn() {

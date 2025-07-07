@@ -17,7 +17,6 @@ import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.`$emit` as uni__emit
 import uts.sdk.modules.xTipsS.XTIPS_TYPE
 import uts.sdk.modules.xModalS.X_MODAL_TYPE
-import io.dcloud.uniapp.extapi.openAppAuthorizeSetting as uni_openAppAuthorizeSetting
 import uts.sdk.modules.xModalS.showModal
 import uts.sdk.modules.xTipsS.showTips as showTips1
 import uts.sdk.modules.uniKuxrouter.useKuxRouter as uni_useKuxRouter
@@ -55,12 +54,6 @@ open class GenPagesPersonalSettingIndex : BasePage {
             val globalData = inject("globalData") as GlobalDataType
             val router = uni_useKuxRouter()
             val showRouteLove = ref(false)
-            val openSystemSettings = fun(){
-                uni_openAppAuthorizeSetting(OpenAppAuthorizeSettingOptions(success = fun(res) {
-                    console.log("openSystemSettings=", res)
-                }
-                ))
-            }
             val menuList = utsArrayOf<MenuItem>(MenuItem(title = "账号安全", showArrow = true, click = fun(){
                 console.log("进入账户安全")
                 router.push("/pages/personal/setting/account-safe/index")
@@ -69,7 +62,7 @@ open class GenPagesPersonalSettingIndex : BasePage {
                 router.push("/pages/personal/setting/emergency-contact/index")
             }
             ), MenuItem(title = "权限管理", showArrow = true, click = fun(){
-                openSystemSettings()
+                router.push("/pages/personal/setting/grant-manage/index")
             }
             ), MenuItem(title = "协议管理", showArrow = true, click = fun(){
                 router.push("/pages/personal/setting/agreement/index")

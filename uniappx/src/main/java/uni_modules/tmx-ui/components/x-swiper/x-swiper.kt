@@ -372,12 +372,12 @@ open class GenUniModulesTmxUiComponentsXSwiperXSwiper : VueComponent {
                 pgs = 0
                 this.isLastingAniMoveing = true
             }
+            t.updateEvents(pgs)
             t.nowCureentIndex = pgs
             var pos = t.getPageLeftPos(pgs)
             t.setStylePos(pos, anima)
             t.status = "runing"
             t.pushArrayChildrenList(t.nowCureentIndex, -1)
-            t.updateEvents(pgs)
             t.gerRestHeight()
         }
         , this.duration)

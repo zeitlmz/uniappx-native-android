@@ -273,9 +273,23 @@ open class GenUniModulesTmxUiComponentsXStepperXStepper : VueComponent {
         var v1 = str.split(".")
         var result = v1[0]
         if (v1.length == 0) {
-            result = "0." + UTSArray(0).fill(0, this.decimalLen).join("")
+            result = "0."
+            run {
+                var i: Number = 0
+                while(i < this.decimalLen){
+                    result += "0"
+                    i++
+                }
+            }
         } else if (v1.length == 1) {
-            result = result + "." + UTSArray(0).fill(0, this.decimalLen).join("")
+            result = result + "."
+            run {
+                var i: Number = 0
+                while(i < this.decimalLen){
+                    result += "0"
+                    i++
+                }
+            }
         } else {
             result = result + "." + v1[1].substring(0, this.decimalLen)
         }

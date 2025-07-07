@@ -277,7 +277,7 @@ fun _showTips_(opts: XTIPS_TYPE?) {
                 clearTimeout(tid!!)
             }
         }
-         catch (e: Throwable) {}
+        catch (e: Throwable) {}
         var realopts = if (opts == null) {
             (XTIPS_TYPE(title = ""))
         } else {
@@ -378,7 +378,7 @@ fun _showTips_(opts: XTIPS_TYPE?) {
             var ani = contentWrapDiv.animate() as ViewPropertyAnimator
             ani.alpha(s1).scaleX(s1).scaleY(s1).setDuration(300).setInterpolator(AccelerateDecelerateInterpolator()).start()
         }
-         catch (e: Throwable) {}
+        catch (e: Throwable) {}
         if (config.duration == 0) {
             return
         }
@@ -386,7 +386,7 @@ fun _showTips_(opts: XTIPS_TYPE?) {
             tid = null
             __hideTips__(decorView)
         }
-        , (config.duration + 300).toInt())
+            , (config.duration + 300).toInt())
     }
     )
 }

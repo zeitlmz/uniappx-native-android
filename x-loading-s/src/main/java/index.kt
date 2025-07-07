@@ -190,9 +190,12 @@ fun setSpin(textView: TextView) {
     try {
         textView.clearAnimation()
     }
-     catch (e: Throwable) {}
+    catch (e: Throwable) {}
     var rotationStart: Number = 0
     var rotation: Number = 360
+    if (rotationAnimator != null) {
+        rotationAnimator!!.cancel()
+    }
     rotationAnimator = ObjectAnimator.ofFloat(textView, "rotation", rotationStart.toFloat(), rotation.toFloat())
     if (rotationAnimator == null) {
         return
@@ -346,7 +349,7 @@ fun _createToastView(context: Context, decorView: ViewGroup, opts: XLOADINGS_TYP
         var ani = contentWrapDiv.animate() as ViewPropertyAnimator
         ani.alpha(s1).scaleX(s1).scaleY(s1).setDuration(300).setInterpolator(AccelerateDecelerateInterpolator()).start()
     }
-     catch (e: Throwable) {}
+    catch (e: Throwable) {}
     return maskerDom
 }
 fun _showLoading_(opts: XLOADINGS_TYPE?) {

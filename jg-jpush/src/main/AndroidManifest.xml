@@ -140,15 +140,15 @@
         <!--oppo_config_start-->
         <meta-data
             android:name="OPPO_APPKEY"
-            android:value="b271982497f04d969fe5ca51fd5ef691"
+            android:value="OP-b271982497f04d969fe5ca51fd5ef691"
             tools:replace="android:value"/>
         <meta-data
             android:name="OPPO_APPID"
-            android:value="33302519"
+            android:value="OP-33302519"
             tools:replace="android:value"/>
         <meta-data
             android:name="OPPO_APPSECRET"
-            android:value="6cff3eb5e88245f6926e817c0ce25577"
+            android:value="OP-6cff3eb5e88245f6926e817c0ce25577"
             tools:replace="android:value"/>
         <!--  HONOR_config-->
         <meta-data

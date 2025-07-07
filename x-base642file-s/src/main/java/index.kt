@@ -34,7 +34,7 @@ fun toPngFile(data: String): UTSPromise<String> {
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos)
         fileUrl = file.getPath()
     }
-     catch (error: Throwable) {
+    catch (error: Throwable) {
         console.error("处理图片错误:", error)
         return UTSPromise.reject(fileUrl) as UTSPromise<String>
     }

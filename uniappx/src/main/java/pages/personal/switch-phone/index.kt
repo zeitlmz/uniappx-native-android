@@ -152,7 +152,7 @@ open class GenPagesPersonalSwitchPhoneIndex : BasePage {
                                                 return utsArrayOf(
                                                     createVNode(_component_x_form_item, utsMapOf("field" to "oldPhoneNumber", "label" to "手机号", "required" to true), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                                                         return utsArrayOf(
-                                                            createVNode(_component_x_input, utsMapOf("color" to "transparent", "modelValue" to unref(reqData).oldPhoneNumber, "onUpdate:modelValue" to fun(`$event`: String){
+                                                            createVNode(_component_x_input, utsMapOf("type" to "number", "color" to "transparent", "modelValue" to unref(reqData).oldPhoneNumber, "onUpdate:modelValue" to fun(`$event`: String){
                                                                 unref(reqData).oldPhoneNumber = `$event`
                                                             }
                                                             , "align" to "right", "disabled" to true, "placeholder" to "请输入旧手机号"), null, 8, utsArrayOf(
@@ -167,7 +167,7 @@ open class GenPagesPersonalSwitchPhoneIndex : BasePage {
                                                     )),
                                                     createVNode(_component_x_form_item, utsMapOf("rule" to unref(vaildPhones), "field" to "newPhoneNumber", "label" to "新手机号", "required" to true, "labelWidth" to "150"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                                                         return utsArrayOf(
-                                                            createVNode(_component_x_input, utsMapOf("color" to "transparent", "modelValue" to unref(reqData).newPhoneNumber, "onUpdate:modelValue" to fun(`$event`: String){
+                                                            createVNode(_component_x_input, utsMapOf("type" to "number", "color" to "transparent", "modelValue" to unref(reqData).newPhoneNumber, "onUpdate:modelValue" to fun(`$event`: String){
                                                                 unref(reqData).newPhoneNumber = `$event`
                                                             }
                                                             , "align" to "right", "font-size" to "30rpx", "placeholder" to "请输入新手机号"), null, 8, utsArrayOf(

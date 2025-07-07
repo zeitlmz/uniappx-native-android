@@ -95,11 +95,11 @@ open class JgUtil {
             JPushInterface.stopPush(UTSAndroid.getAppContext())
         }
         fun resumePush(): Unit {
-            console.log("stopPush 开启推送")
+            console.log("resumePush 开启推送")
             JPushInterface.resumePush(UTSAndroid.getAppContext())
         }
         fun isPushStopped(): Boolean {
-            console.log("stopPush 开启推送")
+            console.log("isPushStopped 开启推送")
             return JPushInterface.isPushStopped(UTSAndroid.getAppContext())
         }
         fun setPrivacyAuth(isAuth: Boolean): Unit {

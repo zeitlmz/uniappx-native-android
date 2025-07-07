@@ -339,6 +339,11 @@ open class GenUniModulesTmxUiComponentsXFormItemXFormItem : VueComponent {
         }
         )
     }
+    open var clearValid = ::gen_clearValid_fn
+    open fun gen_clearValid_fn() {
+        this.isError = false
+        this.first = true
+    }
     open var getVaildStatus = ::gen_getVaildStatus_fn
     open fun gen_getVaildStatus_fn(kVal: Any?): FORM_SUBMIT_OBJECT {
         if (!this._required) {

@@ -63,10 +63,14 @@ open class GenPagesHomeHadSettled : VueComponent {
             val tabs = utsArrayOf(
                 TABS_ITEM_INFO(title = "首页")
             )
+            val nowDate = ref<String>(formatDate(Date(), "yyyy-MM-dd"))
             val isInit = ref(false)
             val currentSwiper = ref<Number>(0)
             val onTabChange = fun(_: TABS_ITEM, index: Number){
                 currentSwiper.value = index
+            }
+            val checkTimeBefore = fun(date1: String): Boolean {
+                return isTimeBefore(date1, nowDate.value)
             }
             val queryDate = ref<String>("")
             val dateRange = ref(utsArrayOf<String>("", ""))
@@ -394,6 +398,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                     clearInterval(anmiInter)
                 }
                 anmiInter = setInterval(fun(){
+                    nowDate.value = formatDate(Date(), "yyyy-MM-dd")
                     if (currentDeg.value == "0deg") {
                         currentDeg.value = "360deg"
                     } else {
@@ -899,6 +904,31 @@ open class GenPagesHomeHadSettled : VueComponent {
                                                                 )),
                                                                 if (isTrue(order.status == 0 && order.typeOfBoarding == 2)) {
                                                                     createElementVNode("view", utsMapOf("key" to 0, "class" to "btn-group"), utsArrayOf(
+                                                                        if (isTrue(order.status == 0 && checkTimeBefore(order.departureDate))) {
+                                                                            createVNode(_component_mc_primary_button, utsMapOf("key" to 0, "margin-right" to "10px", "onClick" to fun(){
+                                                                                handleStartPickup(order)
+                                                                            }), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                                                return utsArrayOf(
+                                                                                    "出发接驾"
+                                                                                )
+                                                                            }), "_" to 2), 1032, utsArrayOf(
+                                                                                "onClick"
+                                                                            ))
+                                                                        } else {
+                                                                            if (isTrue(order.status == 1 && checkTimeBefore(order.departureDate))) {
+                                                                                createVNode(_component_mc_primary_button, utsMapOf("key" to 1, "margin-right" to "10px", "onClick" to fun(){
+                                                                                    handleCancelPickup(order)
+                                                                                }), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                                                    return utsArrayOf(
+                                                                                        "取消接驾"
+                                                                                    )
+                                                                                }), "_" to 2), 1032, utsArrayOf(
+                                                                                    "onClick"
+                                                                                ))
+                                                                            } else {
+                                                                                createCommentVNode("v-if", true)
+                                                                            }
+                                                                        },
                                                                         createVNode(_component_mc_primary_button, utsMapOf("onClick" to fun(){
                                                                             handleScanBoard(order)
                                                                         }), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {

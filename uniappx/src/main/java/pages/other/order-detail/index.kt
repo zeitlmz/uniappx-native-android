@@ -1477,7 +1477,9 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
     open fun gen_routeLoveClick_fn(option: RouteStrategyOption) {
         this.routeStrategy = option.code
         this.routeStrategyStr = option.name
-        this.calcRoute()
+        if (this.orderParams["orderStatus"] != "0" || this.orderData.orderItems.length > 1) {
+            this.calcRoute()
+        }
         setTimeout(fun(){
             this.showRouteStrategyOptions = false
         }
@@ -1491,9 +1493,6 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
     }
     open var routeLoveBtnClick = ::gen_routeLoveBtnClick_fn
     open fun gen_routeLoveBtnClick_fn() {
-        if (this.orderData.driverStatus < 0) {
-            return
-        }
         this.showRouteStrategyOptions = !this.showRouteStrategyOptions
     }
     open var openTrip = ::gen_openTrip_fn

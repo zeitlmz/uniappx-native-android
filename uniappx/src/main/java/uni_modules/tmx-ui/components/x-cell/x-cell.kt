@@ -112,7 +112,10 @@ open class GenUniModulesTmxUiComponentsXCellXCell : VueComponent {
                     ),
                     renderSlot(_ctx.`$slots`, "right"),
                     if (isTrue(_ctx._allAttr.url != "" || _ctx._allAttr.link)) {
-                        createVNode(_component_x_icon, utsMapOf("key" to 0, "color" to "#bfbfbf", "font-size" to "20", "name" to "arrow-right-s-line"))
+                        createVNode(_component_x_icon, utsMapOf("key" to 0, "dark-color" to _ctx.linkDarkColor, "color" to _ctx.linkColor, "font-size" to "20", "name" to "arrow-right-s-line"), null, 8, utsArrayOf(
+                            "dark-color",
+                            "color"
+                        ))
                     } else {
                         createCommentVNode("v-if", true)
                     }
@@ -143,6 +146,8 @@ open class GenUniModulesTmxUiComponentsXCellXCell : VueComponent {
     open var bottomBorderInsert: Boolean by `$props`
     open var bottomBorderColor: String by `$props`
     open var link: Boolean by `$props`
+    open var linkColor: String by `$props`
+    open var linkDarkColor: String by `$props`
     open var url: String by `$props`
     open var card: Boolean by `$props`
     open var round: String by `$props`
@@ -314,12 +319,12 @@ open class GenUniModulesTmxUiComponentsXCellXCell : VueComponent {
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("cellHover" to padStyleMapOf(utsMapOf("opacity" to 0.9)), "xCell" to padStyleMapOf(utsMapOf("paddingTop" to 12, "paddingRight" to 0, "paddingBottom" to 12, "paddingLeft" to 0, "display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center")), "xCellWrap" to padStyleMapOf(utsMapOf("flex" to 1, "display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center", "height" to "100%", "paddingTop" to 12, "paddingRight" to 0, "paddingBottom" to 12, "paddingLeft" to 0)), "title" to padStyleMapOf(utsMapOf("lines" to 2, "textOverflow" to "ellipsis", "flex" to 1, "flexShrink" to 0)), "desc" to padStyleMapOf(utsMapOf("fontSize" to 12, "paddingTop" to 2)), "xCellAvatar" to padStyleMapOf(utsMapOf("marginRight" to 10, "display" to "flex", "flexDirection" to "column", "justifyContent" to "center", "alignItems" to "center", "flexShrink" to 0, "overflow" to "hidden")), "center" to padStyleMapOf(utsMapOf("flex" to 1)), "xcellRight" to padStyleMapOf(utsMapOf("paddingLeft" to 16, "flexDirection" to "row", "justifyContent" to "flex-end", "alignItems" to "center")), "rightLabel" to padStyleMapOf(utsMapOf("lines" to 1, "textOverflow" to "ellipsis", "fontSize" to 12, "textAlign" to "right")))
+                return utsMapOf("cellHover" to padStyleMapOf(utsMapOf("opacity" to 0.9)), "xCell" to padStyleMapOf(utsMapOf("paddingTop" to 12, "paddingRight" to 0, "paddingBottom" to 12, "paddingLeft" to 0, "display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center")), "xCellWrap" to padStyleMapOf(utsMapOf("flex" to 1, "display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center", "height" to "100%", "paddingTop" to 12, "paddingRight" to 0, "paddingBottom" to 12, "paddingLeft" to 0)), "title" to padStyleMapOf(utsMapOf("lines" to 2, "textOverflow" to "ellipsis", "flex" to 1, "flexShrink" to 0, "lineHeight" to 1.7)), "desc" to padStyleMapOf(utsMapOf("fontSize" to 12, "paddingTop" to 2)), "xCellAvatar" to padStyleMapOf(utsMapOf("marginRight" to 10, "display" to "flex", "flexDirection" to "column", "justifyContent" to "center", "alignItems" to "center", "flexShrink" to 0, "overflow" to "hidden")), "center" to padStyleMapOf(utsMapOf("flex" to 1)), "xcellRight" to padStyleMapOf(utsMapOf("paddingLeft" to 16, "flexDirection" to "row", "justifyContent" to "flex-end", "alignItems" to "center")), "rightLabel" to padStyleMapOf(utsMapOf("lines" to 1, "textOverflow" to "ellipsis", "fontSize" to 12, "textAlign" to "right")))
             }
         var inheritAttrs = true
         var inject: Map<String, Map<String, Any?>> = utsMapOf()
         var emits: Map<String, Any?> = utsMapOf("click" to null)
-        var props = normalizePropsOptions(utsMapOf("icon" to utsMapOf("type" to "String", "default" to ""), "avatarRound" to utsMapOf("type" to "String", "default" to "8"), "color" to utsMapOf("type" to "String", "default" to "white"), "darkColor" to utsMapOf("type" to "String", "default" to ""), "iconColor" to utsMapOf("type" to "String", "default" to ""), "title" to utsMapOf("type" to "String", "default" to "标题"), "titleColor" to utsMapOf("type" to "String", "default" to "black"), "darkTitleColor" to utsMapOf("type" to "String", "default" to "white"), "titleSize" to utsMapOf("type" to "String", "default" to "16"), "iconSize" to utsMapOf("type" to "String", "default" to "24"), "label" to utsMapOf("type" to "String", "default" to ""), "labelColor" to utsMapOf("type" to "String", "default" to "#bfbfbf"), "labelSize" to utsMapOf("type" to "String", "default" to "13"), "desc" to utsMapOf("type" to "String", "default" to ""), "showBottomBorder" to utsMapOf("type" to "Boolean", "default" to true), "bottomBorderInsert" to utsMapOf("type" to "Boolean", "default" to false), "bottomBorderColor" to utsMapOf("type" to "String", "default" to ""), "link" to utsMapOf("type" to "Boolean", "default" to true), "url" to utsMapOf("type" to "String", "default" to ""), "card" to utsMapOf("type" to "Boolean", "default" to true), "round" to utsMapOf("type" to "String", "default" to ""), "leftSize" to utsMapOf("type" to "String", "default" to "32"), "minHeight" to utsMapOf("type" to "String", "default" to "55"), "disabled" to utsMapOf("type" to "Boolean", "default" to false), "padding" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
+        var props = normalizePropsOptions(utsMapOf("icon" to utsMapOf("type" to "String", "default" to ""), "avatarRound" to utsMapOf("type" to "String", "default" to "8"), "color" to utsMapOf("type" to "String", "default" to "white"), "darkColor" to utsMapOf("type" to "String", "default" to ""), "iconColor" to utsMapOf("type" to "String", "default" to ""), "title" to utsMapOf("type" to "String", "default" to "标题"), "titleColor" to utsMapOf("type" to "String", "default" to "black"), "darkTitleColor" to utsMapOf("type" to "String", "default" to "white"), "titleSize" to utsMapOf("type" to "String", "default" to "16"), "iconSize" to utsMapOf("type" to "String", "default" to "24"), "label" to utsMapOf("type" to "String", "default" to ""), "labelColor" to utsMapOf("type" to "String", "default" to "#bfbfbf"), "labelSize" to utsMapOf("type" to "String", "default" to "13"), "desc" to utsMapOf("type" to "String", "default" to ""), "showBottomBorder" to utsMapOf("type" to "Boolean", "default" to true), "bottomBorderInsert" to utsMapOf("type" to "Boolean", "default" to false), "bottomBorderColor" to utsMapOf("type" to "String", "default" to ""), "link" to utsMapOf("type" to "Boolean", "default" to true), "linkColor" to utsMapOf("type" to "String", "default" to "#bfbfbf"), "linkDarkColor" to utsMapOf("type" to "String", "default" to "#bfbfbf"), "url" to utsMapOf("type" to "String", "default" to ""), "card" to utsMapOf("type" to "Boolean", "default" to true), "round" to utsMapOf("type" to "String", "default" to ""), "leftSize" to utsMapOf("type" to "String", "default" to "32"), "minHeight" to utsMapOf("type" to "String", "default" to "55"), "disabled" to utsMapOf("type" to "Boolean", "default" to false), "padding" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
             return utsArrayOf<String>("12", "0")
         }
         ), "margin" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
@@ -345,6 +350,8 @@ open class GenUniModulesTmxUiComponentsXCellXCell : VueComponent {
             "bottomBorderInsert",
             "bottomBorderColor",
             "link",
+            "linkColor",
+            "linkDarkColor",
             "url",
             "card",
             "round",

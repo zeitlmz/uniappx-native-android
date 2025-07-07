@@ -409,7 +409,7 @@ fun _createToastView(context: Context, decorView: ViewGroup, opts: XTOAST_TYPE?)
         var ani = contentWrapDiv.animate() as ViewPropertyAnimator
         ani.alpha(s1).scaleX(s1).scaleY(s1).setDuration(300).setInterpolator(AccelerateDecelerateInterpolator()).start()
     }
-     catch (e: Throwable) {}
+    catch (e: Throwable) {}
     if (config.duration == 0) {
         return maskerDom
     }
@@ -417,7 +417,7 @@ fun _createToastView(context: Context, decorView: ViewGroup, opts: XTOAST_TYPE?)
         tid = null
         __hideToast__(dialogModal)
     }
-    , (config.duration + 300).toInt())
+        , (config.duration + 300).toInt())
     return maskerDom
 }
 fun _showToast_(opts: XTOAST_TYPE?) {

@@ -161,7 +161,11 @@ open class GenUniModulesTmxUiComponentsXIconXIcon : VueComponent {
             return (sizeNumber * xConfig.fontScale).toString(10) + getUnit(fontSize)
         }
         ), "_color" to computed<String>(fun(): String {
-            var color = this.color
+            var color = if (this.color == "") {
+                "black"
+            } else {
+                this.color
+            }
             if (xConfig.dark == "dark") {
                 if (this.darkColor != "") {
                     color = this.darkColor!!
@@ -169,7 +173,7 @@ open class GenUniModulesTmxUiComponentsXIconXIcon : VueComponent {
                 }
                 return setTextColorLightByDark(color)
             }
-            return getDefaultColor(this.color)
+            return getDefaultColor(color)
         }
         ), "_spin" to computed<Boolean>(fun(): Boolean {
             return this.spin

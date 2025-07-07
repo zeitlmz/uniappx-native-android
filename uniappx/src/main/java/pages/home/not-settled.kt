@@ -559,7 +559,7 @@ open class GenPagesHomeNotSettled : VueComponent {
                                                 createVNode(_component_x_input, utsMapOf("modelValue" to unref(phone), "onUpdate:modelValue" to fun(`$event`: String){
                                                     trySetRefValue(phone, `$event`)
                                                 }
-                                                , "placeholder" to "请输入手机号", "maxlength" to 11, "class" to "phone-field"), null, 8, utsArrayOf(
+                                                , "placeholder" to "请输入手机号", "maxlength" to 11, "class" to "phone-field", "type" to "number"), null, 8, utsArrayOf(
                                                     "modelValue"
                                                 ))
                                             )),
@@ -658,14 +658,14 @@ open class GenPagesHomeNotSettled : VueComponent {
                             createElementVNode("scroll-view", utsMapOf("style" to normalizeStyle(utsMapOf("height" to "600rpx", "margin" to "30rpx 0 10rpx 0", "padding" to "0 30rpx", "box-sizing" to "border-box"))), utsArrayOf(
                                 createElementVNode("text", utsMapOf("class" to "text-row"), "您在使用每橙车主服务前，请认真阅读并充分理解相关用户服务协议、软件使用协议及个人信息处理规则(隐私协议)。"),
                                 createElementVNode("text", utsMapOf("class" to "text-row"), "当您点击同意相关条款，并开始使用产品或服务，即表示您已经理解并同意该条款，该条款将构成对您具有法律约束力的文件。个人信息处理规则(隐私协议)主要包含以下内容:"),
-                                createElementVNode("text", utsMapOf("class" to "text-row"), "个人信息(包括手机号码、位置、订单信息、行程信息、OAID等)的收集使用规则及设备权限的调用情况。"),
+                                createElementVNode("text", utsMapOf("class" to "text-row"), "个人信息(1.注册用户手机号码、2.驾驶员及车辆资格审核信息、3.位置信息、4.订单信息、5.收款时间，金额，渠道、6.OAID)"),
                                 createElementVNode("text", utsMapOf("class" to "text-row"), "权限调用目的说明：每橙车主希望获取您的存储权限用于必要的信息配置存储；"),
                                 createElementVNode("text", utsMapOf("class" to "text-row"), "相机权限：用于注册中的资料上传；位置权限：用于基于定位的订单匹配和导航、路程规划；"),
                                 createElementVNode("text", utsMapOf("class" to "text-row"), "麦克风权限：用于行程中声音获取、行程录音;"),
                                 createElementVNode("text", utsMapOf("class" to "text-row"), "电话权限：用于获取设备信息，防控运营风险; 通讯录权限(非必要权限)，用于添加紧急联系；"),
                                 createElementVNode("text", utsMapOf("class" to "text-row"), "软件安装列表、MAC地址、ANDROID ID、设备应用权限（应用包名、版本号和运行状态）、设备相关信息（设备厂商、设备型号、设备内存、操作系统版本、推送SDK版本、设备归属地（国家或地区）、SIM卡运营商名称、当前网络类型、WiFi状态）、通知栏设置信息、推送消息内容，"),
                                 createElementVNode("text", utsMapOf("class" to "text-row"), "用于手机终端推送消息时使用。"),
-                                createElementVNode("text", utsMapOf("class" to "text-row"), "您确认本弹窗并不会直接开启相关权限，我们会就具体权限开启另行征得您的同意。")
+                                createElementVNode("text", utsMapOf("class" to "text-row"), "您确认本弹窗并不会直接开启相关权限，我们会就具体权限开启另行征得您的同意。权限开启后，您还可以随时通过设备设置关闭权限。")
                             ), 4)
                         )
                     }

@@ -57,6 +57,13 @@ open class GenUniModulesTmxUiComponentsXFormXForm : VueComponent {
         set(value) {
             setRefValue(this.`$exposed`, "valid", value)
         }
+    open var clearValid: () -> Unit
+        get() {
+            return unref(this.`$exposed`["clearValid"]) as () -> Unit
+        }
+        set(value) {
+            setRefValue(this.`$exposed`, "clearValid", value)
+        }
     open var submit: () -> FORM_SUBMIT_RESULT
         get() {
             return unref(this.`$exposed`["submit"]) as () -> FORM_SUBMIT_RESULT
@@ -284,6 +291,12 @@ open class GenUniModulesTmxUiComponentsXFormXForm : VueComponent {
             }
             , "valid" to fun(keys: UTSArray<String>): FORM_SUBMIT_RESULT {
                 return _valid(keys)
+            }
+            , "clearValid" to fun() {
+                list.value.forEach(fun(el: FORM_ITEM){
+                    el.ele.clearValid()
+                }
+                )
             }
             , "submit" to fun(): FORM_SUBMIT_RESULT {
                 return _valid(utsArrayOf<String>())

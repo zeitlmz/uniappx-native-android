@@ -26,7 +26,7 @@ fun vibrator(duriation: Number): Boolean {
             return false
         }
     }
-     catch (e: Throwable) {
+    catch (e: Throwable) {
         console.error(e)
     }
     return false

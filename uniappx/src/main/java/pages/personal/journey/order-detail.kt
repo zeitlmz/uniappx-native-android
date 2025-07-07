@@ -125,7 +125,7 @@ open class GenPagesPersonalJourneyOrderDetail : BasePage {
                                 createCommentVNode("v-if", true)
                             }
                             ,
-                            createVNode(_component_x_swiper, utsMapOf("modelValue" to 0, "height" to ("" + (unref(screenHeight) - unref(statusBarHeight) - 20) + " + ''"), "space" to 10, "model" to "spaceOnly", "spaceOffset" to 5, "autoPlay" to false, "damping" to 1, "vertical" to false, "dotSize" to "10", "dotColor" to "rgba(188, 188, 188, 0.5)", "dotActiveColor" to "rgba(188, 188, 188, 0.5)"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                            createVNode(_component_x_swiper, utsMapOf("modelValue" to 0, "height" to ("" + (unref(screenHeight) - unref(statusBarHeight) - 20)), "space" to 10, "model" to "spaceOnly", "spaceOffset" to 5, "autoPlay" to false, "damping" to 1, "vertical" to false, "dotSize" to "10", "dotColor" to "rgba(188, 188, 188, 0.5)", "dotActiveColor" to "rgba(188, 188, 188, 0.5)"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                                 return utsArrayOf(
                                     createElementVNode(Fragment, null, RenderHelpers.renderList(unref(orderDetail), fun(item, index, __index, _cached): Any {
                                         return createVNode(_component_x_swiper_item, utsMapOf("order" to index, "key" to index, "dotOffset" to "3"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
@@ -134,7 +134,7 @@ open class GenPagesPersonalJourneyOrderDetail : BasePage {
                                                     createElementVNode("image", utsMapOf("class" to "order-card-back-image", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-order-rounded-rectangle.png")), null, 8, utsArrayOf(
                                                         "src"
                                                     )),
-                                                    createVNode(_component_x_sheet, utsMapOf("height" to "550", "color" to "transparent"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                    createVNode(_component_x_sheet, utsMapOf("height" to "650", "color" to "transparent"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                                                         return utsArrayOf(
                                                             createElementVNode("view", utsMapOf("class" to "order-header", "style" to normalizeStyle(utsMapOf("flex-direction" to "row", "justify-content" to "space-between", "margin-top" to "10px"))), utsArrayOf(
                                                                 createElementVNode("view", utsMapOf("class" to "order-status"), utsArrayOf(
@@ -149,7 +149,7 @@ open class GenPagesPersonalJourneyOrderDetail : BasePage {
                                                                     ))
                                                                 )),
                                                                 createElementVNode("view", utsMapOf("class" to "order-price"), utsArrayOf(
-                                                                    createElementVNode("text", utsMapOf("class" to "tag-text"), "￥" + toDisplayString(item.originalPrice ?: "0"), 1)
+                                                                    createElementVNode("text", utsMapOf("class" to "tag-text"), "￥" + toDisplayString(item.driverFinalProfit ?: "0"), 1)
                                                                 ))
                                                             ), 4),
                                                             createElementVNode("view", utsMapOf("class" to "order-body"), utsArrayOf(
@@ -209,6 +209,14 @@ open class GenPagesPersonalJourneyOrderDetail : BasePage {
                                                                 createElementVNode("view", utsMapOf("class" to "body-item mt--5"), utsArrayOf(
                                                                     createElementVNode("text", utsMapOf("class" to "tag-text"), "订单金额："),
                                                                     createElementVNode("text", utsMapOf("class" to "divider color-red text-weight-b"), "￥" + toDisplayString(item.originalPrice ?: 0), 1)
+                                                                )),
+                                                                createElementVNode("view", utsMapOf("class" to "body-item"), utsArrayOf(
+                                                                    createElementVNode("text", utsMapOf("class" to "tag-text"), "平台抽佣比例："),
+                                                                    createElementVNode("text", utsMapOf("class" to "divider color-red text-weight-b"), toDisplayString(transPercentage(item.platformCommissionRate) ?: 0), 1)
+                                                                )),
+                                                                createElementVNode("view", utsMapOf("class" to "body-item"), utsArrayOf(
+                                                                    createElementVNode("text", utsMapOf("class" to "tag-text"), "平台抽佣金额："),
+                                                                    createElementVNode("text", utsMapOf("class" to "divider color-red text-weight-b"), "-￥" + toDisplayString(item.platformCommissionAmount ?: 0), 1)
                                                                 )),
                                                                 createElementVNode("view", utsMapOf("class" to "body-item"), utsArrayOf(
                                                                     createElementVNode("text", utsMapOf("class" to "tag-text"), "结算比例："),

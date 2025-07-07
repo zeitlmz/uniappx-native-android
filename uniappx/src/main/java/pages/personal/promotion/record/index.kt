@@ -56,7 +56,7 @@ open class GenPagesPersonalPromotionRecordIndex : BasePage {
             val isfresh = ref<Boolean>(false)
             val bottomFresh = ref<Boolean>(false)
             var page: Number = 1
-            var limit: Number = 7
+            var limit: Number = 15
             val hisQuery = fun(){
                 getPromotionRecords(page, limit).then(fun(res: Response){
                     if (res.data != null && res.code == 200) {
@@ -121,7 +121,7 @@ open class GenPagesPersonalPromotionRecordIndex : BasePage {
                                         , "show-scrollbar" to false, "onScrollDirection" to onScrollDirection, "model-bottom-status" to unref(bottomFresh), "onUpdate:modelBottomStatus" to fun(`$event`: Boolean){
                                             trySetRefValue(bottomFresh, `$event`)
                                         }
-                                        , "onRefresh" to topLoad, "onBottomRefresh" to bottomLoad, "height" to ((unref(screenHeight) - unref(globalData).safeAreaBottom - unref(statusBarHeight)) + "px")), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                        , "onRefresh" to topLoad, "onBottomRefresh" to bottomLoad, "height" to ((unref(screenHeight) - unref(globalData).safeAreaBottom - unref(statusBarHeight) - 100) + "px")), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                                             return utsArrayOf(
                                                 createElementVNode(Fragment, null, RenderHelpers.renderList(unref(detailList), fun(item, index, __index, _cached): Any {
                                                     return createElementVNode("view", utsMapOf("class" to "order-item", "style" to normalizeStyle("margin-bottom: 20rpx;height:70px;width: " + (unref(screenWidth) - 30) + "; \n							background-color: #ffffff; border-radius: 20rpx; padding: 20rpx;"), "key" to index), utsArrayOf(

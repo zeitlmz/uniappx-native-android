@@ -189,7 +189,7 @@ open class GenComponentsMcDatePickerIndex : VueComponent {
         var props = normalizePropsOptions(utsMapOf("modelValue" to utsMapOf("type" to "String", "default" to ""), "show" to utsMapOf("type" to "Boolean", "default" to false), "startDate" to utsMapOf("type" to "String", "default" to "2015-01-01"), "endDate" to utsMapOf("type" to "String", "default" to formatDate(Date(), "yyyy-MM-dd")), "disabledDays" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
             return utsArrayOf()
         }
-        ), "minDate" to utsMapOf("type" to "String", "default" to ""), "format" to utsMapOf("type" to "String", "default" to "yyyy-MM-dd"), "dateStyle" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<xCalendarDateStyle_type> {
+        ), "minDate" to utsMapOf("type" to "String", "default" to ""), "format" to utsMapOf("type" to "String", "default" to "YYYY-MM-DD"), "dateStyle" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<xCalendarDateStyle_type> {
             return utsArrayOf()
         }
         )))

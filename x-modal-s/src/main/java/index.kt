@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
+import android.os.Build
 import android.os.Bundle
 import android.text.Html
 import android.text.Spannable
@@ -71,6 +72,7 @@ open class X_MODAL_TYPE (
     open var titleColor: String? = null,
     open var contentColor: String? = null,
     open var isSplitBtn: Boolean? = true,
+    open var lineColor: String? = null,
     open var contentBgColor: String? = null,
     open var maskBgColor: String? = null,
     open var confirm: (() -> Unit)? = null,
@@ -108,6 +110,8 @@ open class X_MODAL_TYPE_PRIVATE (
     open var confirmColor: String,
     @JsonNotNull
     open var linkFontColor: String,
+    @JsonNotNull
+    open var lineColor: String,
     @JsonNotNull
     open var radius: Number,
     @JsonNotNull
@@ -186,7 +190,7 @@ fun hexToRgb(sColors: String): RGBA? {
     }
     return null
 }
-val defaultConfig = X_MODAL_TYPE_PRIVATE(title = "提醒", content = "", contentAlign = "center", cancelText = "取消", cancelColor = "#333", cancelBgColor = "#f5f5f5", confirmText = "确认", confirmBgColor = "#0579FF", confirmColor = "#FFF", titleColor = "#000000", contentColor = "#333333", linkFontColor = "rgb(5, 121, 255)", radius = 16, confirmIcon = "", cancelIcon = "", isSplitBtn = true, contentBgColor = "#fff", maskBgColor = "rgba(0,0,0,0.6)", confirm = fun(){}, cancel = fun(){}, close = fun(){}, clickLink = fun(href: String){}, isBlurMask = true, height = 80, width = 320, clickMaskClose = true, showCancel = true)
+val defaultConfig = X_MODAL_TYPE_PRIVATE(title = "提醒", content = "", contentAlign = "center", cancelText = "取消", cancelColor = "#333", cancelBgColor = "#f5f5f5", confirmText = "确认", confirmBgColor = "#0579FF", confirmColor = "#FFF", titleColor = "#000000", contentColor = "#333333", lineColor = "transparent", linkFontColor = "rgb(5, 121, 255)", radius = 16, confirmIcon = "", cancelIcon = "", isSplitBtn = true, contentBgColor = "#fff", maskBgColor = "rgba(0,0,0,0.6)", confirm = fun(){}, cancel = fun(){}, close = fun(){}, clickLink = fun(href: String){}, isBlurMask = true, height = 80, width = 320, clickMaskClose = true, showCancel = true)
 val configCover = fun(opts: X_MODAL_TYPE): X_MODAL_TYPE_PRIVATE {
     var title = if (opts.title == null) {
         defaultConfig.title
@@ -303,6 +307,11 @@ val configCover = fun(opts: X_MODAL_TYPE): X_MODAL_TYPE_PRIVATE {
     } else {
         opts.linkFontColor!!
     }
+    var lineColor = if (opts.lineColor == null) {
+        defaultConfig.lineColor
+    } else {
+        opts.lineColor!!
+    }
     var clickMaskClose = if (opts.clickMaskClose == null) {
         defaultConfig.clickMaskClose
     } else {
@@ -323,7 +332,7 @@ val configCover = fun(opts: X_MODAL_TYPE): X_MODAL_TYPE_PRIVATE {
     } else {
         opts.isSplitBtn!!
     }
-    return X_MODAL_TYPE_PRIVATE(title = title, content = content, cancelText = cancelText, cancelBgColor = cancelBgColor, cancelColor = cancelColor, confirmText = confirmText, confirmBgColor = confirmBgColor, confirmColor = confirmColor, linkFontColor = linkFontColor, radius = radius, confirmIcon = confirmIcon, cancelIcon = cancelIcon, isSplitBtn = isSplitBtn, contentBgColor = contentBgColor, maskBgColor = maskBgColor, confirm = confirm, cancel = cancel, close = close, clickLink = clickLink, isBlurMask = isBlurMask, height = height, width = width, clickMaskClose = clickMaskClose, showCancel = showCancel, titleColor = titleColor, contentColor = contentColor, contentAlign = contentAlign)
+    return X_MODAL_TYPE_PRIVATE(title = title, content = content, cancelText = cancelText, cancelBgColor = cancelBgColor, cancelColor = cancelColor, confirmText = confirmText, confirmBgColor = confirmBgColor, confirmColor = confirmColor, linkFontColor = linkFontColor, lineColor = lineColor, radius = radius, confirmIcon = confirmIcon, cancelIcon = cancelIcon, isSplitBtn = isSplitBtn, contentBgColor = contentBgColor, maskBgColor = maskBgColor, confirm = confirm, cancel = cancel, close = close, clickLink = clickLink, isBlurMask = isBlurMask, height = height, width = width, clickMaskClose = clickMaskClose, showCancel = showCancel, titleColor = titleColor, contentColor = contentColor, contentAlign = contentAlign)
 }
 var masker: RelativeLayout? = null
 var contentDom: LinearLayout? = null
@@ -380,7 +389,7 @@ fun close(call: () -> Unit, isClose: Boolean) {
             try {
                 var s0 = 0.toFloat()
                 var s1 = 0.toFloat()
-                val maskAni = mk.animate() as ViewPropertyAnimator
+                var maskAni = mk.animate() as ViewPropertyAnimator
                 maskAni.alpha(s1).setDuration(300).setInterpolator(AccelerateDecelerateInterpolator()).start()
                 if (contentDom != null) {
                     var ani = contentDom!!.animate() as ViewPropertyAnimator
@@ -388,10 +397,18 @@ fun close(call: () -> Unit, isClose: Boolean) {
                     tid = setTimeout(fun() {
                         isClsoing = false
                         dialogModal?.dismiss()
+                        mk = null
+                        contentDom = null
+                        masker = null
+                        dialogModal = null
                     }, 300)
                 } else {
                     isClsoing = false
                     dialogModal?.dismiss()
+                    mk = null
+                    contentDom = null
+                    masker = null
+                    dialogModal = null
                 }
             }
             catch (e: Throwable) {}
@@ -404,7 +421,10 @@ fun rgbToColorNumber(rgba: RGBA): Int {
     return Color.argb((rgba.a * 255).toInt(), rgba!!.r.toInt(), rgba!!.g.toInt(), rgba!!.b.toInt())
 }
 fun _clickLinksRender(contextText: TextView, config: X_MODAL_TYPE_PRIVATE) {
-    val spanned = Html.fromHtml(config.content, Html.FROM_HTML_MODE_LEGACY)
+    var spanned = Html.fromHtml(config.content)
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        spanned = Html.fromHtml(config.content, Html.FROM_HTML_MODE_LEGACY)
+    }
     val spannableString = SpannableString(spanned)
     fun addLinksClick() {
         val urlSpans = spanned.getSpans(0, spanned.length, URLSpan::class.java)
@@ -494,15 +514,27 @@ fun _createModalView(context: Context, decorView: ViewGroup, opts: X_MODAL_TYPE)
     contextText.setTextColor(contentColorColorRgb)
     _clickLinksRender(contextText, config)
     var contentPadding = px2dp(16).toInt()
-    contextText.setPadding(contentPadding, 0, contentPadding, 0)
+    contextText.setPadding(contentPadding, 0, contentPadding, contentPadding)
+    val lineColor = rgbToColorNumber(hexToRgb(if (config.lineColor == "transparent") {
+        "rgba(255,255,255,0)"
+    } else {
+        config.lineColor
+    }
+    )!!)
+    var borderBottomView = View(context)
+    borderBottomView.setLayoutParams(LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1))
+    borderBottomView.setBackgroundColor(lineColor)
+    var borderRightView = View(context)
+    borderRightView.setLayoutParams(LinearLayout.LayoutParams(1, ViewGroup.LayoutParams.MATCH_PARENT))
+    borderRightView.setBackgroundColor(lineColor)
     var footerDiv = LinearLayout(context)
     footerDiv.setOrientation(LinearLayout.HORIZONTAL)
     footerDiv.setLayoutParams(LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT))
     var footerDivPadding = px2dp(16).toInt()
     if (config.isSplitBtn) {
-        footerDiv.setPadding(footerDivPadding, footerDivPadding, contentPadding, footerDivPadding)
+        footerDiv.setPadding(footerDivPadding, 0, contentPadding, footerDivPadding)
     } else {
-        footerDiv.setPadding(0, footerDivPadding, 0, 0)
+        footerDiv.setPadding(0, 0, 0, 0)
     }
     var btnheight = px2dp(50).toInt()
     var cancelBtnBG = GradientDrawable()
@@ -618,6 +650,9 @@ fun _createModalView(context: Context, decorView: ViewGroup, opts: X_MODAL_TYPE)
     confirmDiv.setOnTouchListener(MaskerDomClickListsner("confirm"))
     if (config.showCancel) {
         footerDiv.addView(cancelDiv)
+        if (!config.isSplitBtn) {
+            footerDiv.addView(borderRightView)
+        }
     }
     if (config.isSplitBtn && config.showCancel) {
         footerDiv.addView(spaceDiv)
@@ -626,6 +661,9 @@ fun _createModalView(context: Context, decorView: ViewGroup, opts: X_MODAL_TYPE)
     content.addView(contextText)
     container.addView(titleDiv)
     container.addView(content)
+    if (!config.isSplitBtn) {
+        container.addView(borderBottomView)
+    }
     container.addView(footerDiv)
     maskerDom.addView(container)
     decorView.addView(maskerDom!!)

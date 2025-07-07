@@ -201,7 +201,7 @@ open class GenUniModulesTmxUiComponentsXNavbarXNavbar : VueComponent {
             )
             val backGo = fun(){
                 uni_navigateBack(NavigateBackOptions(fail = fun(_) {
-                    uni_reLaunch(ReLaunchOptions(url = "/pages/index/index"))
+                    uni_reLaunch(ReLaunchOptions(url = props.backErrorPath))
                 }
                 ))
             }

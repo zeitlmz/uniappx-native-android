@@ -14,463 +14,510 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
-import io.dcloud.uniapp.extapi.createSelectorQuery as uni_createSelectorQuery
 open class GenUniModulesTmxUiComponentsXCalendarViewXCalendarView : VueComponent {
-    constructor(__ins: ComponentInternalInstance) : super(__ins) {
-        onMounted(fun() {
-            if (this.modelValue != "") {
-                this.nowDate = xDate(this.modelValue)
-                this.selectedDate = this.nowDate.format("YYYY-MM-DD")
-                this.nowYear = this.nowDate.getYear()
-            }
-            this.list = this.getDefaultBoxListData()
-        }
-        , __ins)
-        this.`$watch`(fun(): Any? {
-            return this.modelValue
-        }
-        , fun(newVal: String) {
-            if (newVal == "") {
-                this.selectedDate = ""
-            } else if (xDate(newVal).isBetweenOf(this.nowDate, "=", "m")) {
-                this.selectedDate = xDate(newVal).format("YYYY-MM-DD")
-            } else {
-                this.nowDate = xDate(newVal)
-                this.selectedDate = this.nowDate.format("YYYY-MM-DD")
-                this.list = this.setDataListBySiperIndex(newVal)
-            }
-            this.nowYear = this.nowDate.getYear()
-        }
-        )
-    }
-    @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
-    override fun `$render`(): Any? {
-        val _ctx = this
-        val _cache = this.`$`.renderCache
-        val _component_x_text = resolveEasyComponent("x-text", GenUniModulesTmxUiComponentsXTextXTextClass)
-        val _component_x_icon = resolveEasyComponent("x-icon", GenUniModulesTmxUiComponentsXIconXIconClass)
-        val _component_calendar = resolveComponent("calendar")
-        val _component_x_stepper = resolveEasyComponent("x-stepper", GenUniModulesTmxUiComponentsXStepperXStepperClass)
-        return createElementVNode("view", utsMapOf("class" to "xCalendar"), utsArrayOf(
-            if (isTrue(!_ctx._hideHeader)) {
-                createElementVNode("view", utsMapOf("key" to 0, "style" to normalizeStyle(utsMapOf("display" to "flex", "flex-direction" to "row", "justify-content" to "space-between", "align-items" to "center", "height" to "40px"))), utsArrayOf(
-                    createElementVNode("view", utsMapOf("onClick" to fun(){
-                        _ctx.showYear(true)
-                    }, "style" to normalizeStyle(utsMapOf("flex" to "1", "display" to "flex", "flex-direction" to "row", "justify-content" to "flex-start", "align-items" to "center"))), utsArrayOf(
-                        createVNode(_component_x_text, utsMapOf("color" to "#333", "font-size" to "16", "class" to "xCalendarNowSelecTtitle"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                            return utsArrayOf(
-                                toDisplayString(_ctx._nowDateLable)
-                            )
-                        }), "_" to 1)),
-                        createVNode(_component_x_icon, utsMapOf("font-size" to "24", "name" to "arrow-down-s-fill"))
-                    ), 12, utsArrayOf(
-                        "onClick"
-                    )),
-                    createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("display" to "flex", "flex-direction" to "row", "justify-content" to "center", "align-items" to "center", "height" to "100%"))), utsArrayOf(
-                        createElementVNode("view", utsMapOf("onClick" to _ctx.setNowDate, "class" to "headerItemXcalendar", "hover-class" to "hoverOpacity"), utsArrayOf(
-                            createVNode(_component_x_text, utsMapOf("color" to "#333", "font-size" to "16"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                return utsArrayOf(
-                                    "本日"
-                                )
-                            }), "_" to 1))
-                        ), 8, utsArrayOf(
-                            "onClick"
-                        )),
-                        createElementVNode("view", utsMapOf("onClick" to _ctx.clearDate, "class" to "headerItemXcalendar", "hover-class" to "hoverOpacity"), utsArrayOf(
-                            createVNode(_component_x_text, utsMapOf("color" to "#333", "font-size" to "16"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                return utsArrayOf(
-                                    "清空"
-                                )
-                            }), "_" to 1))
-                        ), 8, utsArrayOf(
-                            "onClick"
-                        ))
-                    ), 4)
-                ), 4)
-            } else {
-                createCommentVNode("v-if", true)
-            }
-            ,
-            createElementVNode("view", utsMapOf("class" to "xCalendarViewHeader"), utsArrayOf(
-                createElementVNode(Fragment, null, RenderHelpers.renderList(7, fun(item, index, __index, _cached): Any {
-                    return createElementVNode("view", utsMapOf("class" to "xCalendarViewDate", "key" to index), utsArrayOf(
-                        createVNode(_component_x_text, utsMapOf("color" to "#333", "font-size" to "14"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                            return utsArrayOf(
-                                toDisplayString(_ctx.weeksCn[index]!!)
-                            )
-                        }
-                        ), "_" to 2), 1024)
-                    ))
-                }
-                ), 64)
-            )),
-            if (isTrue(!_ctx._disabledSwiper)) {
-                createElementVNode("swiper", utsMapOf("key" to 1, "current" to _ctx.swiperCuureindex, "vertical" to _ctx._vertical, "circular" to true, "autoplay" to false, "onChange" to _ctx.swiperChange, "style" to normalizeStyle(utsMapOf("height" to (_ctx.caleBodySize.height + "px")))), utsArrayOf(
-                    createElementVNode(Fragment, null, RenderHelpers.renderList(_ctx.list, fun(item, index, __index, _cached): Any {
-                        return createElementVNode("swiper-item", utsMapOf("key" to index, "style" to normalizeStyle(utsMapOf("height" to (_ctx.caleBodySize.height + "px")))), utsArrayOf(
-                            createVNode(_component_calendar, utsMapOf("disabled" to _ctx._disabled, "disabledDays" to _ctx.disabledDays, "startDate" to _ctx.startDate, "endDate" to _ctx.endDate, "dateStyle" to _ctx.dateStyle, "ref_for" to true, "ref" to "calendar", "onChange" to fun(`$event`: Any){
-                                _ctx.dateChange(`$event` as String, index)
-                            }, "modelValue" to _ctx.selectedDate, "date" to item), null, 8, utsArrayOf(
-                                "disabled",
-                                "disabledDays",
-                                "startDate",
-                                "endDate",
-                                "dateStyle",
-                                "onChange",
-                                "modelValue",
-                                "date"
-                            ))
-                        ), 4)
-                    }), 128)
-                ), 44, utsArrayOf(
-                    "current",
-                    "vertical",
-                    "onChange"
-                ))
-            } else {
-                createCommentVNode("v-if", true)
-            }
-            ,
-            if (isTrue(_ctx._disabledSwiper && _ctx.list.length > 0)) {
-                createElementVNode("view", utsMapOf("key" to 2), utsArrayOf(
-                    createVNode(_component_calendar, utsMapOf("disabled" to _ctx._disabled, "disabledDays" to _ctx.disabledDays, "startDate" to _ctx.startDate, "endDate" to _ctx.endDate, "dateStyle" to _ctx.dateStyle, "ref" to "calendar", "onChange" to fun(`$event`: Any){
-                        _ctx.dateChange(`$event` as String, 0)
-                    }, "modelValue" to _ctx.selectedDate, "date" to _ctx.list[0]), null, 8, utsArrayOf(
-                        "disabled",
-                        "disabledDays",
-                        "startDate",
-                        "endDate",
-                        "dateStyle",
-                        "onChange",
-                        "modelValue",
-                        "date"
-                    ))
-                ))
-            } else {
-                createCommentVNode("v-if", true)
-            }
-            ,
-            if (isTrue(!_ctx._hideHeader)) {
-                createElementVNode("view", utsMapOf("key" to 3, "style" to normalizeStyle(utsMapOf("display" to "flex", "flex-direction" to "row", "justify-content" to "center", "align-items" to "center", "height" to "40px"))), utsArrayOf(
-                    createVNode(_component_x_text, utsMapOf("color" to "#707070", "font-size" to "14", "class" to "xCalendarNowSelecTtitle"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                        return utsArrayOf(
-                            toDisplayString(if (_ctx.selectedDate != "") {
-                                "您已选择: " + _ctx.selectedDate
-                            } else {
-                                "未选择日期"
-                            })
-                        )
-                    }), "_" to 1))
-                ), 4)
-            } else {
-                createCommentVNode("v-if", true)
-            }
-            ,
-            createElementVNode("view", utsMapOf("class" to "xCalendarSetBox", "style" to normalizeStyle(utsMapOf("opacity" to if (_ctx.isShowYearAndMonthBox) {
-                "1"
-            } else {
-                "0"
-            }
-            , "width" to if (_ctx.isShowYearAndMonthBox) {
-                (_ctx.fullyeBox.width + "px")
-            } else {
-                "0px"
-            }
-            , "height" to if (_ctx.isShowYearAndMonthBox) {
-                (_ctx.fullyeBox.height + "px")
-            } else {
-                "0px"
-            }
-            , "backgroundColor" to _ctx._isMonthBgcolor))), utsArrayOf(
-                createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("display" to "flex", "flex-direction" to "row", "justify-content" to "space-between", "align-items" to "center", "height" to "60px"))), utsArrayOf(
-                    createElementVNode("view", utsMapOf("onClick" to fun(){
-                        _ctx.showYear(false)
-                    }
-                    , "style" to normalizeStyle(utsMapOf("flex" to "1", "display" to "flex", "flex-direction" to "row", "justify-content" to "flex-start", "align-items" to "center"))), utsArrayOf(
-                        createVNode(_component_x_text, utsMapOf("color" to _ctx._color, "font-size" to "16", "class" to "xCalendarNowSelecTtitle"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                            return utsArrayOf(
-                                toDisplayString(_ctx._nowDateLable)
-                            )
-                        }
-                        ), "_" to 1), 8, utsArrayOf(
-                            "color"
-                        )),
-                        createVNode(_component_x_icon, utsMapOf("color" to _ctx._color, "font-size" to "24", "name" to "arrow-up-s-fill"), null, 8, utsArrayOf(
-                            "color"
-                        ))
-                    ), 12, utsArrayOf(
-                        "onClick"
-                    )),
-                    createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("display" to "flex", "flex-direction" to "row", "justify-content" to "center", "align-items" to "center"))), utsArrayOf(
-                        createVNode(_component_x_stepper, utsMapOf("onChange" to _ctx.yearChange, "width" to "170", "btn-width" to "50", "height" to "40", "modelValue" to _ctx.nowYear, "onUpdate:modelValue" to fun(`$event`: Number){
-                            _ctx.nowYear = `$event`
-                        }
-                        , "min" to _ctx._startDate.getYear(), "max" to _ctx._endDate.getYear()), null, 8, utsArrayOf(
-                            "onChange",
-                            "modelValue",
-                            "onUpdate:modelValue",
-                            "min",
-                            "max"
-                        ))
-                    ), 4)
-                ), 4),
-                createElementVNode("view", utsMapOf("class" to "xCalendarSetBoxMonth"), utsArrayOf(
-                    createElementVNode(Fragment, null, RenderHelpers.renderList(12, fun(item, index, __index, _cached): Any {
-                        return createElementVNode("view", utsMapOf("onClick" to fun(){
-                            _ctx.setMonth(index)
-                        }
-                        , "style" to normalizeStyle(utsMapOf("backgroundColor" to if (_ctx.nowMonth == item) {
-                            _ctx._color
-                        } else {
-                            "transparent"
-                        }
-                        )), "class" to "xCalendarSetBoxMonthItem", "key" to index), utsArrayOf(
-                            createVNode(_component_x_text, utsMapOf("color" to if (_ctx.nowMonth == item) {
-                                "white"
-                            } else {
-                                "#333"
-                            }
-                            , "fontSize" to "18"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                return utsArrayOf(
-                                    toDisplayString(item) + "月"
-                                )
-                            }
-                            ), "_" to 2), 1032, utsArrayOf(
-                                "color"
-                            ))
-                        ), 12, utsArrayOf(
-                            "onClick"
-                        ))
-                    }
-                    ), 64)
-                ))
-            ), 4)
-        ))
-    }
+    constructor(__ins: ComponentInternalInstance) : super(__ins) {}
     open var modelValue: String by `$props`
+    open var model: String by `$props`
     open var disabledDays: UTSArray<String> by `$props`
+    open var disabled: Boolean by `$props`
+    open var vertical: Boolean by `$props`
     open var startDate: String by `$props`
     open var endDate: String by `$props`
     open var dateStyle: UTSArray<xCalendarDateStyle_type> by `$props`
     open var format: String by `$props`
     open var color: String by `$props`
-    open var hideHeader: Boolean by `$props`
-    open var disabledSwiper: Boolean by `$props`
-    open var disabled: Boolean by `$props`
-    open var vertical: Boolean by `$props`
-    open var nowDate: xDate by `$data`
-    open var selectedDate: String by `$data`
-    open var weeksCn: UTSArray<String> by `$data`
-    open var bodyHeight: Any? by `$data`
-    open var tid: Number by `$data`
-    open var caleBodySize: BODY_SIZE_TYPE by `$data`
-    open var xCalendarViewObj: xCalendarView? by `$data`
-    open var isShowYearAndMonthBox: Boolean by `$data`
-    open var boxWidth: Number by `$data`
-    open var boxHeight: Number by `$data`
-    open var swiperCuureindex: Number by `$data`
-    open var list: UTSArray<String> by `$data`
-    open var fullyeBox: BODY_SIZE_TYPE by `$data`
-    open var nowYear: Number by `$data`
-    open var _nowDateValue: String by `$data`
-    open var _vertical: Boolean by `$data`
-    open var _hideHeader: Boolean by `$data`
-    open var _disabledSwiper: Boolean by `$data`
-    open var _disabled: Boolean by `$data`
-    open var _nowDateLable: String by `$data`
-    open var nowMonth: Number by `$data`
-    open var _startDate: xDate by `$data`
-    open var _endDate: xDate by `$data`
-    open var _color: String by `$data`
-    open var _isMonthBgcolor: String by `$data`
-    @Suppress("USELESS_CAST")
-    override fun data(): Map<String, Any?> {
-        return utsMapOf("nowDate" to xDate(), "selectedDate" to "", "weeksCn" to utsArrayOf(
-            "周一",
-            "周二",
-            "周三",
-            "周四",
-            "周五",
-            "周六",
-            "周日"
-        ), "bodyHeight" to (300.toString(10) + "px"), "tid" to 0, "caleBodySize" to BODY_SIZE_TYPE(height = 300, width = 0), "xCalendarViewObj" to null as xCalendarView?, "isShowYearAndMonthBox" to false, "boxWidth" to 0, "boxHeight" to 350, "swiperCuureindex" to 0, "list" to utsArrayOf<String>(), "fullyeBox" to BODY_SIZE_TYPE(height = 0, width = 0), "nowYear" to 0, "_nowDateValue" to computed<String>(fun(): String {
-            return this.nowDate.format("YYYY-MM-DD")
+    open var fontColor: String by `$props`
+    open var fontDarkColor: String by `$props`
+    open var activeFontColor: String by `$props`
+    open var rangColor: String by `$props`
+    open var rangFontColor: String by `$props`
+    open var headBgColor: String by `$props`
+    open var headFontColor: String by `$props`
+    open var headStyle: String by `$props`
+    open var renderOnly: Boolean by `$props`
+    open var next: () -> Unit
+        get() {
+            return unref(this.`$exposed`["next"]) as () -> Unit
         }
-        ), "_vertical" to computed<Boolean>(fun(): Boolean {
-            return this.vertical
+        set(value) {
+            setRefValue(this.`$exposed`, "next", value)
         }
-        ), "_hideHeader" to computed<Boolean>(fun(): Boolean {
-            return this.hideHeader
+    open var prev: () -> Unit
+        get() {
+            return unref(this.`$exposed`["prev"]) as () -> Unit
         }
-        ), "_disabledSwiper" to computed<Boolean>(fun(): Boolean {
-            return this.disabledSwiper
+        set(value) {
+            setRefValue(this.`$exposed`, "prev", value)
         }
-        ), "_disabled" to computed<Boolean>(fun(): Boolean {
-            return this.disabled
+    open var setCurrentMonth: () -> Unit
+        get() {
+            return unref(this.`$exposed`["setCurrentMonth"]) as () -> Unit
         }
-        ), "_nowDateLable" to computed<String>(fun(): String {
-            if (this.swiperCuureindex > this.list.length - 1) {
-                return ""
-            }
-            var date = this.list[this.swiperCuureindex]
-            return xDate(date).format("YYYY年MM月")
+        set(value) {
+            setRefValue(this.`$exposed`, "setCurrentMonth", value)
         }
-        ), "nowMonth" to computed<Number>(fun(): Number {
-            return this.nowDate.getMonth() + 1
+    open var clear: () -> Unit
+        get() {
+            return unref(this.`$exposed`["clear"]) as () -> Unit
         }
-        ), "_startDate" to computed<xDate>(fun(): xDate {
-            return xDate(this.startDate)
+        set(value) {
+            setRefValue(this.`$exposed`, "clear", value)
         }
-        ), "_endDate" to computed<xDate>(fun(): xDate {
-            return xDate(this.endDate)
-        }
-        ), "_color" to computed<String>(fun(): String {
-            if (this.color == "") {
-                return getDefaultColor(xConfig.color)
-            }
-            return getDefaultColor(this.color)
-        }
-        ), "_isMonthBgcolor" to computed<String>(fun(): String {
-            if (xConfig.dark == "dark") {
-                return xConfig.sheetDarkColor
-            }
-            return "#ffffff"
-        }
-        ))
-    }
-    open var getDefaultBoxListData = ::gen_getDefaultBoxListData_fn
-    open fun gen_getDefaultBoxListData_fn(): UTSArray<String> {
-        var xd = this.nowDate.getClone().format("YYYY-MM") + "-01"
-        var start = this.nowDate.getClone().subtraction(1, "m").format("YYYY-MM") + "-01"
-        var end = this.nowDate.getClone().add(1, "m").format("YYYY-MM") + "-01"
-        return utsArrayOf(
-            xd,
-            end,
-            start
-        )
-    }
-    open var setDataListBySiperIndex = ::gen_setDataListBySiperIndex_fn
-    open fun gen_setDataListBySiperIndex_fn(date: String): UTSArray<String> {
-        var index = this.swiperCuureindex
-        var currentData = xDate(date)
-        var xd = currentData.getClone().format("YYYY-MM") + "-01"
-        var start = currentData.getClone().subtraction(1, "m").format("YYYY-MM") + "-01"
-        var end = currentData.getClone().add(1, "m").format("YYYY-MM") + "-01"
-        var datas = utsArrayOf(
-            end,
-            start,
-            xd
-        )
-        if (index == 0) {
-            datas = utsArrayOf(
-                xd,
-                end,
-                start
-            )
-        } else if (index == 1) {
-            datas = utsArrayOf(
-                start,
-                xd,
-                end
-            )
-        }
-        return datas
-    }
-    open var getlistDataByNowdate = ::gen_getlistDataByNowdate_fn
-    open fun gen_getlistDataByNowdate_fn(index: Number): UTSArray<String> {
-        var currentData = xDate(this.list[index])
-        var xd = currentData.getClone().format("YYYY-MM") + "-01"
-        var start = currentData.getClone().subtraction(1, "m").format("YYYY-MM") + "-01"
-        var end = currentData.getClone().add(1, "m").format("YYYY-MM") + "-01"
-        var currswilistdata = this.list[index]
-        var datas = utsArrayOf(
-            end,
-            start,
-            xd
-        )
-        if (index == 0 && currswilistdata == xd) {
-            datas = utsArrayOf(
-                xd,
-                end,
-                start
-            )
-        } else if (index == 1 && currswilistdata == xd) {
-            datas = utsArrayOf(
-                start,
-                xd,
-                end
-            )
-        }
-        return datas
-    }
-    open var swiperChange = ::gen_swiperChange_fn
-    open fun gen_swiperChange_fn(evt: UniSwiperChangeEvent) {
-        var index = evt.detail.current
-        this.swiperCuureindex = index
-        this.list = this.getlistDataByNowdate(index)
-    }
-    open var dateChange = ::gen_dateChange_fn
-    open fun gen_dateChange_fn(date: String, index: Number) {
-        if (date == "") {
-            this.selectedDate = ""
-        } else {
-            this.selectedDate = xDate(date).format("YYYY-MM-DD")
-        }
-        this.updateEvents()
-        this.`$emit`("click", this.selectedDate)
-    }
-    open var setNowDate = ::gen_setNowDate_fn
-    open fun gen_setNowDate_fn() {
-        this.nowDate = xDate()
-        this.selectedDate = this.nowDate.format("YYYY-MM-DD")
-        this.list = this.getDefaultBoxListData()
-        this.swiperCuureindex = 0
-        this.nowYear = this.nowDate.getYear()
-        this.updateEvents()
-    }
-    open var clearDate = ::gen_clearDate_fn
-    open fun gen_clearDate_fn() {
-        this.selectedDate = ""
-        this.updateEvents()
-    }
-    open var showYear = ::gen_showYear_fn
-    open fun gen_showYear_fn(show: Boolean) {
-        var t = this
-        uni_createSelectorQuery().`in`(this).select(".xCalendar").boundingClientRect().exec(fun(result){
-            var node = result[0]!! as NodeInfo
-            t.fullyeBox.width = node.width!!
-            t.fullyeBox.height = node.height!!
-            t.isShowYearAndMonthBox = show
-        }
-        )
-    }
-    open var updateEvents = ::gen_updateEvents_fn
-    open fun gen_updateEvents_fn() {
-        var formatdate = this.selectedDate
-        this.`$emit`("update:modelValue", formatdate)
-        this.`$emit`("change", formatdate)
-    }
-    open var yearChange = ::gen_yearChange_fn
-    open fun gen_yearChange_fn(year: Number) {
-        var dtx = this.nowDate.getClone().setDateOf(year, "y").format("YYYY-MM-DD")
-        this.nowDate = xDate(dtx)
-        this.selectedDate = this.nowDate.format("YYYY-MM-DD")
-        this.list = this.setDataListBySiperIndex(this.selectedDate)
-        this.updateEvents()
-        this.`$emit`("currentChange", this.selectedDate)
-    }
-    open var setMonth = ::gen_setMonth_fn
-    open fun gen_setMonth_fn(index: Number) {
-        var dtx = this.nowDate.getClone().setDateOf(index, "m").format("YYYY-MM-DD")
-        this.nowDate = xDate(dtx)
-        this.selectedDate = this.nowDate.format("YYYY-MM-DD")
-        this.list = this.setDataListBySiperIndex(this.selectedDate)
-        this.updateEvents()
-        this.isShowYearAndMonthBox = false
-        this.nowYear = this.nowDate.getYear()
-        this.`$emit`("currentChange", this.selectedDate)
-    }
     companion object {
+        @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
+        var setup: (__props: GenUniModulesTmxUiComponentsXCalendarViewXCalendarView, _arg1: SetupContext) -> Any? = fun(__props, ref1): Any? {
+            var __expose = ref1.expose
+            val __ins = getCurrentInstance()!!
+            val _ctx = __ins.proxy as GenUniModulesTmxUiComponentsXCalendarViewXCalendarView
+            val _cache = __ins.renderCache
+            val calendar = xCalendar()
+            fun emit(event: String, vararg do_not_transform_spread: Any?) {
+                __ins.emit(event, *do_not_transform_spread)
+            }
+            val props = __props
+            val weeksCn = utsArrayOf(
+                "周一",
+                "周二",
+                "周三",
+                "周四",
+                "周五",
+                "周六",
+                "周日"
+            )
+            val _headBgColor = computed(fun(): String {
+                return getDefaultColor(props.headBgColor)
+            }
+            )
+            val _headFontColor = computed(fun(): String {
+                if (props.headFontColor == "") {
+                    return "#333333"
+                }
+                return getDefaultColor(props.headFontColor)
+            }
+            )
+            val _modelValue = ref(props.modelValue)
+            val _currentDate = ref(xDate(props.modelValue).format("YYYY-MM-DD"))
+            val _currentDateSwipersIndex = ref(0)
+            val _currentDateSwipers = ref(utsArrayOf<String>())
+            val _currentDateLabel = computed(fun(): String {
+                var ars = _currentDate.value.split("-")
+                return "" + ars[0] + "\u5E74" + ars[1] + "\u6708"
+            }
+            )
+            val _currentYear = ref(xDate(props.modelValue).getYear())
+            var _modelValueDate = computed(fun(): Date {
+                if (_modelValue.value == "") {
+                    return Date(_currentDate.value.replace(UTSRegExp("-", "g"), "/"))
+                }
+                return Date(_modelValue.value.replace(UTSRegExp("-", "g"), "/"))
+            }
+            )
+            val _tipsText = computed(fun(): String {
+                return if (_modelValue.value != "") {
+                    "\u5DF2\u9009\u62E9"
+                } else {
+                    "未选择日期"
+                }
+            }
+            )
+            val _monthBgColor = computed(fun(): String {
+                return if (xConfig.dark == "dark") {
+                    xConfig.sheetDarkColor
+                } else {
+                    "#ffffff"
+                }
+            }
+            )
+            val _color = computed(fun(): String {
+                return if (props.color == "") {
+                    getDefaultColor(xConfig.color)
+                } else {
+                    getDefaultColor(props.color)
+                }
+            }
+            )
+            val showPanel = ref(false)
+            fun gen_dateClick_fn(item: xDateArrayItemType) {
+                val isInselected = calendar.isInCurrente(Date(item.date.date), _modelValueDate.value)
+                emit("click", item.date.date)
+                if (props.disabled) {
+                    return
+                }
+                var dates = _modelValue.value
+                if (isInselected) {
+                    dates = ""
+                } else {
+                    dates = item.date.date
+                }
+                _modelValue.value = dates
+                val nowFormat = xDate(_modelValue.value).format(props.format)
+                emit("update:modelValue", nowFormat)
+                emit("change", nowFormat)
+            }
+            val dateClick = ::gen_dateClick_fn
+            fun gen_getSwiperListCurrentDates_fn(nowCurrentDate: String): UTSArray<String> {
+                var index = _currentDateSwipersIndex.value
+                var currentData = xDate(nowCurrentDate)
+                var xd = currentData.getClone().setDateOf(1, "d").format("YYYY-MM-DD")
+                var start = currentData.getClone().setDateOf(1, "d").subtraction(1, "m").format("YYYY-MM-DD")
+                var end = currentData.getClone().setDateOf(1, "d").add(1, "m").format("YYYY-MM-DD")
+                var datas = utsArrayOf(
+                    xd,
+                    end,
+                    start
+                )
+                if (_currentDateSwipers.value.length == 0) {
+                    return datas
+                }
+                if (index == 0) {
+                    datas = utsArrayOf(
+                        xd,
+                        end,
+                        start
+                    )
+                } else if (index == 1) {
+                    datas = utsArrayOf(
+                        start,
+                        xd,
+                        end
+                    )
+                } else if (index == 2) {
+                    datas = utsArrayOf(
+                        end,
+                        start,
+                        xd
+                    )
+                }
+                return datas
+            }
+            val getSwiperListCurrentDates = ::gen_getSwiperListCurrentDates_fn
+            fun gen_clear_fn() {
+                if (_modelValue.value == "") {
+                    return
+                }
+                _modelValue.value = ""
+                emit("update:modelValue", _modelValue.value)
+                emit("change", _modelValue.value)
+            }
+            val clear = ::gen_clear_fn
+            fun gen_nowMonth_fn() {
+                var nowdate = xDate()
+                _currentDate.value = nowdate.format("YYYY-MM-DD")
+                _currentYear.value = nowdate.getYear()
+                _currentDateSwipers.value = getSwiperListCurrentDates(_currentDate.value)
+                emit("currentChange", _currentDate.value)
+                emit("update:currentDate", _currentDate.value)
+            }
+            val nowMonth = ::gen_nowMonth_fn
+            fun gen_stepperChangeYear_fn(eyear: Number) {
+                var nowdate = xDate(_currentDate.value)
+                nowdate.setDateOf(eyear, "y")
+                _currentDate.value = nowdate.format("YYYY-MM-DD")
+                _currentDateSwipers.value = getSwiperListCurrentDates(_currentDate.value)
+                emit("currentChange", _currentDate.value)
+                emit("update:currentDate", _currentDate.value)
+            }
+            val stepperChangeYear = ::gen_stepperChangeYear_fn
+            fun gen_changeMonth_fn(eyear: Number) {
+                var nowdate = xDate(_currentDate.value)
+                nowdate.setDateOf(eyear, "m")
+                _currentDate.value = nowdate.format("YYYY-MM-DD")
+                _currentYear.value = nowdate.getYear()
+                showPanel.value = false
+                emit("currentChange", _currentDate.value)
+                emit("update:currentDate", _currentDate.value)
+                _currentDateSwipers.value = getSwiperListCurrentDates(_currentDate.value)
+            }
+            val changeMonth = ::gen_changeMonth_fn
+            fun gen_nextMonth_fn() {
+                var nowdate = xDate(_currentDate.value)
+                nowdate.add(1, "m")
+                _currentDate.value = nowdate.format("YYYY-MM-DD")
+                _currentYear.value = nowdate.getYear()
+                _currentDateSwipers.value = getSwiperListCurrentDates(_currentDate.value)
+                emit("currentChange", _currentDate.value)
+                emit("update:currentDate", _currentDate.value)
+            }
+            val nextMonth = ::gen_nextMonth_fn
+            fun gen_prevMonth_fn() {
+                var nowdate = xDate(_currentDate.value)
+                nowdate.subtraction(1, "m")
+                _currentDate.value = nowdate.format("YYYY-MM-DD")
+                _currentYear.value = nowdate.getYear()
+                _currentDateSwipers.value = getSwiperListCurrentDates(_currentDate.value)
+                emit("currentChange", _currentDate.value)
+                emit("update:currentDate", _currentDate.value)
+            }
+            val prevMonth = ::gen_prevMonth_fn
+            fun gen_swiperChange_fn(evt: UniSwiperChangeEvent) {
+                _currentDateSwipersIndex.value = evt.detail.current
+                nextTick(fun(){
+                    _currentDate.value = _currentDateSwipers.value[evt.detail.current]
+                    _currentDateSwipers.value = getSwiperListCurrentDates(_currentDate.value)
+                    var nowdate = xDate(_currentDate.value)
+                    _currentYear.value = nowdate.getYear()
+                    emit("currentChange", _currentDate.value)
+                    emit("update:currentDate", _currentDate.value)
+                }
+                )
+            }
+            val swiperChange = ::gen_swiperChange_fn
+            watch(utsArrayOf(
+                fun(): String {
+                    return props.modelValue
+                }
+            ), fun(){
+                var nowdate = xDate(props.modelValue).setDateOf(1, "d")
+                _modelValue.value = props.modelValue
+                if (props.modelValue != "") {
+                    var nowcurrentDate = nowdate
+                    if (nowcurrentDate.format("YYYY-MM-DD") == _currentDate.value) {
+                        return
+                    }
+                    _currentDate.value = nowcurrentDate.format("YYYY-MM-DD")
+                    _currentYear.value = nowcurrentDate.getYear()
+                    _currentDateSwipersIndex.value = 0
+                    _currentDateSwipers.value = getSwiperListCurrentDates(_currentDate.value)
+                }
+            }
+            )
+            onMounted(fun(){
+                if (props.modelValue != "") {
+                    var nowdate = xDate(props.modelValue)
+                    _currentDate.value = nowdate.format("YYYY-MM-DD")
+                    _currentYear.value = nowdate.getYear()
+                }
+                nextTick(fun(){
+                    _currentDateSwipers.value = getSwiperListCurrentDates(_currentDate.value)
+                    emit("update:currentDate", _currentDate.value)
+                }
+                )
+            }
+            )
+            fun gen_getmonth_fn(item: String): Number {
+                var vls = item.split("-")
+                return parseInt(vls[1])
+            }
+            val getmonth = ::gen_getmonth_fn
+            __expose(utsMapOf("next" to fun() {
+                nextMonth()
+            }
+            , "prev" to fun() {
+                prevMonth()
+            }
+            , "setCurrentMonth" to fun() {
+                nowMonth()
+            }
+            , "clear" to fun() {
+                clear()
+            }
+            ))
+            return fun(): Any? {
+                val _component_x_text = resolveEasyComponent("x-text", GenUniModulesTmxUiComponentsXTextXTextClass)
+                val _component_x_icon = resolveEasyComponent("x-icon", GenUniModulesTmxUiComponentsXIconXIconClass)
+                val _component_x_stepper = resolveEasyComponent("x-stepper", GenUniModulesTmxUiComponentsXStepperXStepperClass)
+                return createElementVNode("view", utsMapOf("class" to "xCalendarView"), utsArrayOf(
+                    renderSlot(_ctx.`$slots`, "header", UTSJSONObject(), fun(): UTSArray<Any> {
+                        return utsArrayOf(
+                            createElementVNode("view", utsMapOf("class" to normalizeClass(utsArrayOf(
+                                "xCalendarViewDataHeaderWrap",
+                                utsArrayOf(
+                                    if (unref(showPanel)) {
+                                        "xCalendarViewMonthOff"
+                                    } else {
+                                        "xCalendarViewMonthOn"
+                                    }
+                                )
+                            )), "style" to normalizeStyle(utsArrayOf(
+                                utsMapOf("backgroundColor" to unref(_headBgColor)),
+                                _ctx.headStyle
+                            ))), utsArrayOf(
+                                createElementVNode("view", utsMapOf("class" to "xCalendarViewHeader", "style" to normalizeStyle(utsMapOf("padding" to "0 12px"))), utsArrayOf(
+                                    createElementVNode("view", utsMapOf("onClick" to fun(){
+                                        showPanel.value = !unref(showPanel)
+                                    }
+                                    , "class" to "xCalendarViewHeaderLeft"), utsArrayOf(
+                                        createVNode(_component_x_text, utsMapOf("color" to unref(_headFontColor), "font-size" to "21"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                            return utsArrayOf(
+                                                toDisplayString(unref(_currentDateLabel))
+                                            )
+                                        }
+                                        ), "_" to 1), 8, utsArrayOf(
+                                            "color"
+                                        )),
+                                        createVNode(_component_x_icon, utsMapOf("color" to unref(_headFontColor), "font-size" to "21", "name" to "arrow-down-s-fill"), null, 8, utsArrayOf(
+                                            "color"
+                                        ))
+                                    ), 8, utsArrayOf(
+                                        "onClick"
+                                    )),
+                                    createElementVNode("view", utsMapOf("class" to "xCalendarViewHeaderRight"), utsArrayOf(
+                                        createVNode(_component_x_text, utsMapOf("onClick" to clear, "color" to unref(_headFontColor), "style" to normalizeStyle(utsMapOf("padding" to "10px 20px"))), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                            return utsArrayOf(
+                                                "清空"
+                                            )
+                                        }
+                                        ), "_" to 1), 8, utsArrayOf(
+                                            "color",
+                                            "style"
+                                        )),
+                                        createVNode(_component_x_text, utsMapOf("onClick" to nowMonth, "color" to unref(_headFontColor), "style" to normalizeStyle(utsMapOf("padding" to "10px 0px"))), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                            return utsArrayOf(
+                                                "本月"
+                                            )
+                                        }
+                                        ), "_" to 1), 8, utsArrayOf(
+                                            "color",
+                                            "style"
+                                        ))
+                                    ))
+                                ), 4),
+                                createElementVNode("view", utsMapOf("class" to "xCalendarViewDataHeader"), utsArrayOf(
+                                    createElementVNode(Fragment, null, RenderHelpers.renderList(7, fun(item, index, __index, _cached): Any {
+                                        return createElementVNode("view", utsMapOf("class" to "xCalendarViewDataHeaderItem", "key" to item), utsArrayOf(
+                                            createVNode(_component_x_text, utsMapOf("color" to unref(_headFontColor), "font-size" to "12"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                return utsArrayOf(
+                                                    toDisplayString(weeksCn[index])
+                                                )
+                                            }
+                                            ), "_" to 2), 1032, utsArrayOf(
+                                                "color"
+                                            ))
+                                        ))
+                                    }
+                                    ), 64)
+                                ))
+                            ), 6)
+                        )
+                    }
+                    ),
+                    createElementVNode("view", utsMapOf("class" to "xCalendarViewSpace")),
+                    createElementVNode("view", utsMapOf("class" to normalizeClass(utsArrayOf(
+                        utsArrayOf(
+                            if (unref(showPanel)) {
+                                "xCalendarViewMonthOff"
+                            } else {
+                                "xCalendarViewMonthOn"
+                            }
+                        ),
+                        "xCalendarViewWrap"
+                    ))), utsArrayOf(
+                        if (unref(_currentDateSwipers).length > 0) {
+                            createElementVNode("swiper", utsMapOf("key" to 0, "vertical" to props.vertical, "onChange" to swiperChange, "current" to unref(_currentDateSwipersIndex), "circular" to true, "style" to normalizeStyle(utsMapOf("width" to "100%", "height" to "100%"))), utsArrayOf(
+                                createElementVNode(Fragment, null, RenderHelpers.renderList(unref(_currentDateSwipers), fun(item, index, __index, _cached): Any {
+                                    return createElementVNode("swiper-item", utsMapOf("key" to index, "style" to normalizeStyle(utsMapOf("width" to "100%", "height" to "100%"))), utsArrayOf(
+                                        createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("width" to "100%", "height" to "100%", "position" to "relative"))), utsArrayOf(
+                                            createElementVNode("view", utsMapOf("class" to "xCalendarViewContentBox"), utsArrayOf(
+                                                if (isTrue(index == unref(_currentDateSwipersIndex) || !props.renderOnly)) {
+                                                    createVNode(unref(GenUniModulesTmxUiComponentsXCalendarViewCalendarMultipleClass), utsMapOf("key" to 0, "onClick" to dateClick, "currentDate" to item, "modelValue" to props.modelValue, "model" to props.model, "disabledDays" to props.disabledDays, "startDate" to props.startDate, "endDate" to props.endDate, "dateStyle" to props.dateStyle, "format" to props.format, "color" to props.color, "fontColor" to props.fontColor, "fontDarkColor" to props.fontDarkColor, "activeFontColor" to props.activeFontColor, "rangColor" to props.rangColor, "rangFontColor" to props.rangFontColor), null, 8, utsArrayOf(
+                                                        "currentDate",
+                                                        "modelValue",
+                                                        "model",
+                                                        "disabledDays",
+                                                        "startDate",
+                                                        "endDate",
+                                                        "dateStyle",
+                                                        "format",
+                                                        "color",
+                                                        "fontColor",
+                                                        "fontDarkColor",
+                                                        "activeFontColor",
+                                                        "rangColor",
+                                                        "rangFontColor"
+                                                    ))
+                                                } else {
+                                                    createCommentVNode("v-if", true)
+                                                }
+                                            )),
+                                            createElementVNode("view", utsMapOf("class" to "xCalendarViewNum"), utsArrayOf(
+                                                createElementVNode("text", utsMapOf("class" to "xCalendarViewNumText"), toDisplayString(getmonth(item)), 1)
+                                            ))
+                                        ), 4)
+                                    ), 4)
+                                }), 128)
+                            ), 44, utsArrayOf(
+                                "vertical",
+                                "current"
+                            ))
+                        } else {
+                            createCommentVNode("v-if", true)
+                        }
+                    ), 2),
+                    createElementVNode("view", utsMapOf("class" to "xCalendarViewSpace")),
+                    renderSlot(_ctx.`$slots`, "footer", UTSJSONObject(), fun(): UTSArray<Any> {
+                        return utsArrayOf(
+                            createElementVNode("view", utsMapOf("class" to "xCalendarViewFooter"), utsArrayOf(
+                                createVNode(_component_x_text, utsMapOf("color" to "#707070", "font-size" to "14"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                    return utsArrayOf(
+                                        toDisplayString(unref(_tipsText))
+                                    )
+                                }
+                                ), "_" to 1))
+                            ))
+                        )
+                    }
+                    ),
+                    createElementVNode("view", utsMapOf("class" to normalizeClass(utsArrayOf(
+                        utsArrayOf(
+                            if (unref(showPanel)) {
+                                "xCalendarViewMonthOn"
+                            } else {
+                                "xCalendarViewMonthOff"
+                            }
+                        ),
+                        "xCalendarViewMonth"
+                    )), "style" to normalizeStyle(utsMapOf("backgroundColor" to unref(_monthBgColor)))), utsArrayOf(
+                        createElementVNode("view", utsMapOf("class" to "xCalendarViewHeader", "style" to normalizeStyle(utsMapOf("padding" to "0 12px"))), utsArrayOf(
+                            createElementVNode("view", utsMapOf("onClick" to fun(){
+                                showPanel.value = !unref(showPanel)
+                            }
+                            , "class" to "xCalendarViewHeaderLeft"), utsArrayOf(
+                                createVNode(_component_x_text, utsMapOf("color" to unref(_color), "font-size" to "21"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                    return utsArrayOf(
+                                        toDisplayString(unref(_currentDateLabel))
+                                    )
+                                }
+                                ), "_" to 1), 8, utsArrayOf(
+                                    "color"
+                                )),
+                                createVNode(_component_x_icon, utsMapOf("color" to unref(_color), "font-size" to "21", "name" to "arrow-up-s-fill"), null, 8, utsArrayOf(
+                                    "color"
+                                ))
+                            ), 8, utsArrayOf(
+                                "onClick"
+                            )),
+                            createElementVNode("view", utsMapOf("class" to "xCalendarViewHeaderRight"), utsArrayOf(
+                                createVNode(_component_x_stepper, utsMapOf("onChange" to stepperChangeYear, "modelValue" to unref(_currentYear), "onUpdate:modelValue" to fun(`$event`: Number){
+                                    trySetRefValue(_currentYear, `$event`)
+                                }
+                                , "min" to 1900, "max" to 5000, "width" to "120"), null, 8, utsArrayOf(
+                                    "modelValue"
+                                ))
+                            ))
+                        ), 4),
+                        createElementVNode("view", utsMapOf("class" to "xCalendarViewMonthWrap", "style" to normalizeStyle(utsMapOf("flex" to "1"))), utsArrayOf(
+                            createElementVNode(Fragment, null, RenderHelpers.renderList(12, fun(item, index, __index, _cached): Any {
+                                return createElementVNode("view", utsMapOf("onClick" to fun(){
+                                    changeMonth(index)
+                                }
+                                , "class" to "xCalendarViewMonthItem", "key" to index), utsArrayOf(
+                                    createVNode(_component_x_text, utsMapOf("font-size" to "18"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                        return utsArrayOf(
+                                            toDisplayString(item) + "月"
+                                        )
+                                    }
+                                    ), "_" to 2), 1024)
+                                ), 8, utsArrayOf(
+                                    "onClick"
+                                ))
+                            }
+                            ), 64)
+                        ), 4)
+                    ), 6)
+                ))
+            }
+        }
+        var name = "xCalendarMultiple"
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
             normalizeCssStyles(utsArrayOf(
                 styles0
@@ -478,31 +525,33 @@ open class GenUniModulesTmxUiComponentsXCalendarViewXCalendarView : VueComponent
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xCalendar" to padStyleMapOf(utsMapOf("display" to "flex", "position" to "relative")), "xCalendarSetBoxMonthItem" to padStyleMapOf(utsMapOf("width" to "33.33%", "height" to "25%", "display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center", "borderTopLeftRadius" to 10, "borderTopRightRadius" to 10, "borderBottomRightRadius" to 10, "borderBottomLeftRadius" to 10)), "xCalendarSetBoxMonth" to padStyleMapOf(utsMapOf("flex" to 1, "display" to "flex", "flexDirection" to "row", "flexWrap" to "wrap")), "xCalendarSetBox" to padStyleMapOf(utsMapOf("position" to "absolute", "display" to "flex", "flexDirection" to "column", "transitionProperty" to "width,height,opacity", "transitionDuration" to "0.2s", "transitionTimingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)")), "xCalendarNowSelecTtitle" to padStyleMapOf(utsMapOf("fontSize" to 16, "fontWeight" to "bold", "paddingLeft" to 10)), "headerItemXcalendar" to padStyleMapOf(utsMapOf("paddingTop" to 0, "paddingRight" to 16, "paddingBottom" to 0, "paddingLeft" to 16, "height" to "100%", "display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center")), "xCalendarViewHeader" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row")), "xCalendarViewDate" to padStyleMapOf(utsMapOf("width" to "14.28%", "height" to 40, "display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center")), "@TRANSITION" to utsMapOf("xCalendarSetBox" to utsMapOf("property" to "width,height,opacity", "duration" to "0.2s", "timingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)")))
+                return utsMapOf("xCalendarViewMonth" to utsMapOf("" to utsMapOf("position" to "absolute", "zIndex" to 3, "left" to 0, "top" to 0, "width" to "100%", "height" to "100%", "display" to "flex", "flexDirection" to "column", "transitionProperty" to "transform,opacity", "transitionTimingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)", "transitionDuration" to "0.3s"), ".xCalendarViewMonthOff" to utsMapOf("pointerEvents" to "none", "opacity" to 0, "transform" to "scale(0, 0)"), ".xCalendarViewMonthOn" to utsMapOf("pointerEvents" to "auto", "opacity" to 1, "transform" to "scale(1, 1)")), "xCalendarViewMonthWrap" to utsMapOf(".xCalendarViewMonth " to utsMapOf("display" to "flex", "flexDirection" to "row", "flexWrap" to "wrap")), "xCalendarViewMonthItem" to utsMapOf(".xCalendarViewMonth .xCalendarViewMonthWrap " to utsMapOf("width" to "33.3333%", "height" to "25%", "display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center")), "xCalendarViewWrap" to utsMapOf("" to utsMapOf("transitionProperty" to "transform,opacity", "transitionTimingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)", "transitionDuration" to "0.3s", "position" to "relative", "width" to "100%", "flex" to 1), ".xCalendarViewMonthOff" to utsMapOf("pointerEvents" to "none", "opacity" to 0, "transform" to "scale(2, 2)"), ".xCalendarViewMonthOn" to utsMapOf("pointerEvents" to "auto", "opacity" to 1, "transform" to "scale(1, 1)")), "xCalendarViewContentBox" to utsMapOf(".xCalendarViewWrap " to utsMapOf("position" to "absolute", "left" to 0, "top" to 0, "width" to "100%", "height" to "100%", "zIndex" to 3)), "xCalendarViewNum" to utsMapOf(".xCalendarViewWrap " to utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center", "width" to "100%", "height" to "100%")), "xCalendarViewNumText" to utsMapOf(".xCalendarViewWrap .xCalendarViewNum " to utsMapOf("fontSize" to 200, "color" to "rgba(125,125,125,0.1)", "fontWeight" to "bold")), "xCalendarViewDataHeaderWrap" to utsMapOf("" to utsMapOf("transitionProperty" to "transform,opacity", "transitionTimingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)", "transitionDuration" to "0.3s"), ".xCalendarViewMonthOff" to utsMapOf("pointerEvents" to "none", "opacity" to 0), ".xCalendarViewMonthOn" to utsMapOf("pointerEvents" to "auto", "opacity" to 1)), "xCalendarViewSpace" to padStyleMapOf(utsMapOf("height" to 5)), "xCalendarViewHeader" to padStyleMapOf(utsMapOf("height" to 50, "display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center")), "xCalendarViewHeaderLeft" to utsMapOf(".xCalendarViewHeader " to utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-start", "alignItems" to "center")), "xCalendarViewHeaderRight" to utsMapOf(".xCalendarViewHeader " to utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-end", "alignItems" to "center")), "xCalendarViewDataHeader" to padStyleMapOf(utsMapOf("height" to 40, "display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center")), "xCalendarViewDataHeaderItem" to utsMapOf(".xCalendarViewDataHeader " to utsMapOf("width" to "14.285%", "display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center")), "xCalendarView" to padStyleMapOf(utsMapOf("position" to "relative", "display" to "flex", "flexDirection" to "column", "minHeight" to 440)), "xCalendarViewFooter" to padStyleMapOf(utsMapOf("height" to 40, "display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center")), "@TRANSITION" to utsMapOf("xCalendarViewMonth" to utsMapOf("property" to "transform,opacity", "timingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)", "duration" to "0.3s"), "xCalendarViewWrap" to utsMapOf("property" to "transform,opacity", "timingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)", "duration" to "0.3s"), "xCalendarViewDataHeaderWrap" to utsMapOf("property" to "transform,opacity", "timingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)", "duration" to "0.3s")))
             }
         var inheritAttrs = true
         var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("change" to null, "click" to null, "currentChange" to null, "update:modelValue" to null)
-        var props = normalizePropsOptions(utsMapOf("modelValue" to utsMapOf("type" to "String", "default" to ""), "disabledDays" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf<String>()
-        }
-        ), "startDate" to utsMapOf("type" to "String", "default" to "2020-1-1"), "endDate" to utsMapOf("type" to "String", "default" to "2040-12-31"), "dateStyle" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<xCalendarDateStyle_type> {
-            return utsArrayOf<xCalendarDateStyle_type>()
-        }
-        ), "format" to utsMapOf("type" to "String", "default" to "YYYY-MM-DD"), "color" to utsMapOf("type" to "String", "default" to ""), "hideHeader" to utsMapOf("type" to "Boolean", "default" to false), "disabledSwiper" to utsMapOf("type" to "Boolean", "default" to false), "disabled" to utsMapOf("type" to "Boolean", "default" to false), "vertical" to utsMapOf("type" to "Boolean", "default" to false)))
+        var emits: Map<String, Any?> = utsMapOf("change" to null, "click" to null, "currentChange" to null, "update:modelValue" to null, "update:currentDate" to null)
+        var props = normalizePropsOptions(utsMapOf("modelValue" to utsMapOf("type" to "String", "required" to true, "default" to ""), "model" to utsMapOf("type" to "String", "required" to true, "default" to "day"), "disabledDays" to utsMapOf("type" to "Array", "required" to true, "default" to utsArrayOf<String>()), "disabled" to utsMapOf("type" to "Boolean", "required" to true, "default" to false), "vertical" to utsMapOf("type" to "Boolean", "required" to true, "default" to false), "startDate" to utsMapOf("type" to "String", "required" to true, "default" to "1900-1-1"), "endDate" to utsMapOf("type" to "String", "required" to true, "default" to "2100-1-1"), "dateStyle" to utsMapOf("type" to "Array", "required" to true, "default" to utsArrayOf<xCalendarDateStyle_type>()), "format" to utsMapOf("type" to "String", "required" to true, "default" to "YYYY-MM-DD"), "color" to utsMapOf("type" to "String", "required" to true, "default" to ""), "fontColor" to utsMapOf("type" to "String", "required" to true, "default" to "#333333"), "fontDarkColor" to utsMapOf("type" to "String", "required" to true, "default" to "#ffffff"), "activeFontColor" to utsMapOf("type" to "String", "required" to true, "default" to "#ffffff"), "rangColor" to utsMapOf("type" to "String", "required" to true, "default" to ""), "rangFontColor" to utsMapOf("type" to "String", "required" to true, "default" to ""), "headBgColor" to utsMapOf("type" to "String", "required" to true, "default" to "transparent"), "headFontColor" to utsMapOf("type" to "String", "required" to true, "default" to ""), "headStyle" to utsMapOf("type" to "String", "required" to true, "default" to ""), "renderOnly" to utsMapOf("type" to "Boolean", "required" to true, "default" to true)))
         var propsNeedCastKeys = utsArrayOf(
             "modelValue",
+            "model",
             "disabledDays",
+            "disabled",
+            "vertical",
             "startDate",
             "endDate",
             "dateStyle",
             "format",
             "color",
-            "hideHeader",
-            "disabledSwiper",
-            "disabled",
-            "vertical"
+            "fontColor",
+            "fontDarkColor",
+            "activeFontColor",
+            "rangColor",
+            "rangFontColor",
+            "headBgColor",
+            "headFontColor",
+            "headStyle",
+            "renderOnly"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf("calendar" to GenUniModulesTmxUiComponentsXCalendarViewCalenderClass)
+        var components: Map<String, CreateVueComponent> = utsMapOf()
     }
 }

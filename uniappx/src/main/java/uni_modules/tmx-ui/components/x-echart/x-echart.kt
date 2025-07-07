@@ -150,7 +150,7 @@ open class GenUniModulesTmxUiComponentsXEchartXEchart : VueComponent {
     open var drawer = ::gen_drawer_fn
     open fun gen_drawer_fn() {
         if (!this.realLoaded) {
-            uni_showToast(ShowToastOptions(title = "未初始化完成", icon = "none"))
+            uni_showToast(ShowToastOptions(title = "加载中...", icon = "none"))
             return
         }
         this.eventJsCall("chart_setOption", "'" + this._options + "'")
@@ -158,7 +158,7 @@ open class GenUniModulesTmxUiComponentsXEchartXEchart : VueComponent {
     open var setOptions = ::gen_setOptions_fn
     open fun gen_setOptions_fn(opts: Any) {
         if (!this.realLoaded) {
-            uni_showToast(ShowToastOptions(title = "未初始化完成", icon = "none"))
+            uni_showToast(ShowToastOptions(title = "加载中...", icon = "none"))
             return
         }
         this.eventJsCall("chart_setOption", "'" + opts as String + "'")

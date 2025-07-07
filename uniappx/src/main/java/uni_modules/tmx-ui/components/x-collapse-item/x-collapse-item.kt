@@ -14,7 +14,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
-import io.dcloud.uniapp.extapi.createSelectorQuery as uni_createSelectorQuery
 open class GenUniModulesTmxUiComponentsXCollapseItemXCollapseItem : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {
         onMounted(fun() {
@@ -247,7 +246,7 @@ open class GenUniModulesTmxUiComponentsXCollapseItemXCollapseItem : VueComponent
     }
     open var itemClick = ::gen_itemClick_fn
     open fun gen_itemClick_fn() {
-        this.`$emit`("click", this.name)
+        this.`$emit`("click", this.name, !this.opened)
         if (!this._disabled) {
             var parent: XCollapseComponentPublicInstance? = null
             try {
@@ -261,13 +260,17 @@ open class GenUniModulesTmxUiComponentsXCollapseItemXCollapseItem : VueComponent
     }
     open var getNodes = ::gen_getNodes_fn
     open fun gen_getNodes_fn() {
-        uni_createSelectorQuery().`in`(this).select(".xCollapseItemContent").boundingClientRect().exec(fun(ret){
-            var nodeinfo = ret[0] as NodeInfo
-            this.itemHeight = nodeinfo.height!!
-            if (this._isActive) {
-                this.open()
+        var _this = this
+        var ele = this.`$refs`["xCollapseItemContent"] as UniElement?
+        if (ele == null) {
+            return
+        }
+        ele.getBoundingClientRectAsync()?.then(fun(rect: DOMRect){
+            _this.itemHeight = rect.height
+            if (_this._isActive) {
+                _this.open()
             } else {
-                this.close()
+                _this.close()
             }
         }
         )
@@ -292,7 +295,7 @@ open class GenUniModulesTmxUiComponentsXCollapseItemXCollapseItem : VueComponent
             }
         var inheritAttrs = true
         var inject: Map<String, Map<String, Any?>> = utsMapOf("xCollapseDefaultName" to utsMapOf("type" to "Array", "default" to utsArrayOf<String>()))
-        var emits: Map<String, Any?> = utsMapOf()
+        var emits: Map<String, Any?> = utsMapOf("click" to null)
         var props = normalizePropsOptions(utsMapOf("name" to utsMapOf("type" to "String", "default" to "", "required" to true), "showBottomLine" to utsMapOf("type" to "Boolean", "default" to true), "disabled" to utsMapOf("type" to "Boolean", "default" to false), "titleFontSize" to utsMapOf("type" to "String", "default" to "16px"), "titleColor" to utsMapOf("type" to "String", "default" to "#333333"), "darkTitleColor" to utsMapOf("type" to "String", "default" to ""), "activeColor" to utsMapOf("type" to "String", "default" to ""), "color" to utsMapOf("type" to "String", "default" to "white"), "darkColor" to utsMapOf("type" to "String", "default" to ""), "leftIcon" to utsMapOf("type" to "String", "default" to ""), "title" to utsMapOf("type" to "String", "default" to ""), "titleHeight" to utsMapOf("type" to "String", "default" to "55"), "titleLines" to utsMapOf("type" to "Number", "default" to 1)))
         var propsNeedCastKeys = utsArrayOf(
             "name",

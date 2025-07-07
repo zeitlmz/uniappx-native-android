@@ -87,6 +87,13 @@ open class GenUniModulesTmxUiComponentsXDrawerXDrawer : VueComponent {
                     utsMapOf("backgroundColor" to _ctx.overflayBgColor, "width" to "100%", "top" to (_ctx.windtop + "px"), "height" to _ctx.__height, "zIndex" to _ctx.zIndex, "transition-timing-function" to _ctx._animationFun),
                     _ctx._customStyle
                 ))), utsArrayOf(
+                    if (isTrue(_ctx.showOverflay && _ctx._position == "bottom" && !_ctx.actioning)) {
+                        createElementVNode("view", utsMapOf("key" to 0), utsArrayOf(
+                            renderSlot(_ctx.`$slots`, "contentTop")
+                        ))
+                    } else {
+                        createCommentVNode("v-if", true)
+                    },
                     createElementVNode("view", utsMapOf("onTransitionend" to _ctx.onEnd, "onClick" to withModifiers(fun(){}, utsArrayOf(
                         "stop"
                     )), "ref" to "xDrawerWrapContent", "class" to normalizeClass(utsArrayOf(
@@ -99,23 +106,28 @@ open class GenUniModulesTmxUiComponentsXDrawerXDrawer : VueComponent {
                             },
                             "xDrawerWrapContent_" + _ctx._position
                         )
-                    )), "onTouchstart" to _ctx.mStart, "onTouchmove" to _ctx.mMove, "onTouchend" to _ctx.mEnd, "id" to _ctx.wrapId, "style" to normalizeStyle(utsMapOf("width" to if (_ctx._position == "left" || _ctx._position == "right") {
-                        _ctx._size
-                    } else {
-                        "100%"
-                    }, "height" to if (_ctx._position == "left" || _ctx._position == "right") {
-                        "100%"
-                    } else {
-                        _ctx._size
-                    }, "borderRadius" to _ctx._round, "maxHeight" to if (_ctx._maxHeight != "") {
-                        _ctx._maxHeight
-                    } else {
-                        "100%"
-                    }, "transition-timing-function" to _ctx._animationFun, "backgroundColor" to _ctx._bgColor))), utsArrayOf(
+                    )), "onTouchstart" to _ctx.mStart, "onTouchmove" to _ctx.mMove, "onTouchend" to _ctx.mEnd, "id" to _ctx.wrapId, "style" to normalizeStyle(utsArrayOf(
+                        utsMapOf("width" to if (_ctx._position == "left" || _ctx._position == "right") {
+                            _ctx._size
+                        } else {
+                            "100%"
+                        }, "height" to if (_ctx._position == "left" || _ctx._position == "right") {
+                            "100%"
+                        } else {
+                            _ctx._size
+                        }, "borderRadius" to _ctx._round, "maxHeight" to if (_ctx._maxHeight != "") {
+                            _ctx._maxHeight
+                        } else {
+                            "100%"
+                        }, "transition-timing-function" to _ctx._animationFun, "backgroundColor" to _ctx._bgColor),
+                        _ctx.customWrapStyle
+                    ))), utsArrayOf(
                         if (isTrue(_ctx._showClose)) {
                             createElementVNode("view", utsMapOf("key" to 0, "class" to "xDrawerXclose"), utsArrayOf(
-                                createVNode(_component_x_icon, utsMapOf("onClick" to _ctx.cancelEvt, "color" to "#dcdcdc", "font-size" to "24px", "name" to _ctx._closeIcon), null, 8, utsArrayOf(
+                                createVNode(_component_x_icon, utsMapOf("onClick" to _ctx.cancelEvt, "color" to _ctx.closeColor, "dark-color" to _ctx.closeDarkColor, "font-size" to "24px", "name" to _ctx._closeIcon), null, 8, utsArrayOf(
                                     "onClick",
+                                    "color",
+                                    "dark-color",
                                     "name"
                                 ))
                             ))
@@ -227,6 +239,7 @@ open class GenUniModulesTmxUiComponentsXDrawerXDrawer : VueComponent {
         ))
     }
     open var customStyle: String by `$props`
+    open var customWrapStyle: String by `$props`
     open var title: String by `$props`
     open var showFooter: Boolean by `$props`
     open var showTitle: Boolean by `$props`
@@ -256,6 +269,8 @@ open class GenUniModulesTmxUiComponentsXDrawerXDrawer : VueComponent {
     open var disabledConfirm: Boolean by `$props`
     open var btnColor: String by `$props`
     open var beforeClose: callbackType by `$props`
+    open var closeColor: String by `$props`
+    open var closeDarkColor: String by `$props`
     open var _width: Number by `$data`
     open var _height: Number by `$data`
     open var showOverflay: Boolean by `$data`
@@ -283,6 +298,7 @@ open class GenUniModulesTmxUiComponentsXDrawerXDrawer : VueComponent {
     open var _disabledConfirm: Boolean by `$data`
     open var _lazy: Boolean by `$data`
     open var _customStyle: String by `$data`
+    open var _customWrapStyle: String by `$data`
     open var _show: Boolean by `$data`
     open var _widthCoverCenter: Boolean by `$data`
     open var _showClose: Boolean by `$data`
@@ -317,6 +333,9 @@ open class GenUniModulesTmxUiComponentsXDrawerXDrawer : VueComponent {
         }
         ), "_customStyle" to computed<String>(fun(): String {
             return this.customStyle
+        }
+        ), "_customWrapStyle" to computed<String>(fun(): String {
+            return this.customWrapStyle
         }
         ), "_show" to computed<Boolean>(fun(): Boolean {
             return this.show
@@ -656,17 +675,18 @@ open class GenUniModulesTmxUiComponentsXDrawerXDrawer : VueComponent {
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xDrawerContent" to padStyleMapOf(utsMapOf("position" to "relative")), "xDrawerFooter" to padStyleMapOf(utsMapOf("width" to "100%", "paddingTop" to 0, "paddingRight" to 16, "paddingBottom" to 0, "paddingLeft" to 16)), "xDrawerXclose" to padStyleMapOf(utsMapOf("position" to "absolute", "right" to 16, "top" to 9, "zIndex" to 100)), "xDrawerTitleBox" to padStyleMapOf(utsMapOf("height" to 50, "display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "center")), "xDrawertitleBox" to padStyleMapOf(utsMapOf("maxWidth" to 175, "overflow" to "hidden", "lines" to 1, "textOverflow" to "ellipsis")), "xDrawerWrap_bottom" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "column", "justifyContent" to "flex-end")), "xDrawerWrap_top" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "column", "justifyContent" to "flex-start")), "xDrawerWrap_left" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-start")), "xDrawerWrap_right" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-end")), "xDrawerWrapContent" to padStyleMapOf(utsMapOf("transitionDuration" to "350ms", "transitionProperty" to "transform", "display" to "flex", "flexDirection" to "column", "position" to "relative")), "xDrawerWrapContentMinwidth" to padStyleMapOf(utsMapOf("maxWidth" to 500)), "xDrawerWrapContentMinwidthWrapDir" to padStyleMapOf(utsMapOf("alignItems" to "center")), "xDrawerWrapContent_bottom" to padStyleMapOf(utsMapOf("transform" to "translate(0%, 100%)")), "xDrawerWrapContent_top" to padStyleMapOf(utsMapOf("transform" to "translate(0%, -100%)")), "xDrawerWrapContent_left" to padStyleMapOf(utsMapOf("transform" to "translate(-100%, 0%)")), "xDrawerWrapContent_right" to padStyleMapOf(utsMapOf("transform" to "translate(100%, 0%)")), "xDrawerWrap" to padStyleMapOf(utsMapOf("opacity" to 0, "position" to "fixed", "left" to 0, "top" to 0, "transitionDuration" to "350ms", "transitionProperty" to "opacity")), "@TRANSITION" to utsMapOf("xDrawerWrapContent" to utsMapOf("duration" to "350ms", "property" to "transform"), "xDrawerWrap" to utsMapOf("duration" to "350ms", "property" to "opacity")))
+                return utsMapOf("xDrawerContent" to padStyleMapOf(utsMapOf("position" to "relative")), "xDrawerFooter" to padStyleMapOf(utsMapOf("width" to "100%", "paddingTop" to 0, "paddingRight" to 16, "paddingBottom" to 0, "paddingLeft" to 16)), "xDrawerXclose" to padStyleMapOf(utsMapOf("position" to "absolute", "right" to 16, "top" to 9, "zIndex" to 100)), "xDrawerXcloseOutter" to padStyleMapOf(utsMapOf("paddingRight" to 16)), "xDrawerTitleBox" to padStyleMapOf(utsMapOf("height" to 50, "display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "center")), "xDrawertitleBox" to padStyleMapOf(utsMapOf("maxWidth" to 175, "overflow" to "hidden", "lines" to 1, "textOverflow" to "ellipsis")), "xDrawerWrap_bottom" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "column", "justifyContent" to "flex-end")), "xDrawerWrap_top" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "column", "justifyContent" to "flex-start")), "xDrawerWrap_left" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-start")), "xDrawerWrap_right" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-end")), "xDrawerWrapContent" to padStyleMapOf(utsMapOf("transitionDuration" to "350ms", "transitionProperty" to "transform", "display" to "flex", "flexDirection" to "column", "position" to "relative")), "xDrawerWrapContentMinwidth" to padStyleMapOf(utsMapOf("maxWidth" to 500)), "xDrawerWrapContentMinwidthWrapDir" to padStyleMapOf(utsMapOf("alignItems" to "center")), "xDrawerWrapContent_bottom" to padStyleMapOf(utsMapOf("transform" to "translate(0%, 100%)")), "xDrawerWrapContent_top" to padStyleMapOf(utsMapOf("transform" to "translate(0%, -100%)")), "xDrawerWrapContent_left" to padStyleMapOf(utsMapOf("transform" to "translate(-100%, 0%)")), "xDrawerWrapContent_right" to padStyleMapOf(utsMapOf("transform" to "translate(100%, 0%)")), "xDrawerWrap" to padStyleMapOf(utsMapOf("opacity" to 0, "position" to "fixed", "left" to 0, "top" to 0, "transitionDuration" to "350ms", "transitionProperty" to "opacity")), "@TRANSITION" to utsMapOf("xDrawerWrapContent" to utsMapOf("duration" to "350ms", "property" to "transform"), "xDrawerWrap" to utsMapOf("duration" to "350ms", "property" to "opacity")))
             }
         var inheritAttrs = true
         var inject: Map<String, Map<String, Any?>> = utsMapOf()
         var emits: Map<String, Any?> = utsMapOf("click" to null, "close" to null, "open" to null, "beforeOpen" to null, "beforeClose" to null, "update:show" to null, "cancel" to null, "confirm" to null)
-        var props = normalizePropsOptions(utsMapOf("customStyle" to utsMapOf("type" to "String", "default" to ""), "title" to utsMapOf("type" to "String", "default" to "标题"), "showFooter" to utsMapOf("type" to "Boolean", "default" to false), "showTitle" to utsMapOf("type" to "Boolean", "default" to true), "showClose" to utsMapOf("type" to "Boolean", "default" to false), "overlayClick" to utsMapOf("type" to "Boolean", "default" to true), "show" to utsMapOf("type" to "Boolean", "default" to false), "showCancel" to utsMapOf("type" to "Boolean", "default" to true), "cancelText" to utsMapOf("type" to "String", "default" to "取消"), "confirmText" to utsMapOf("type" to "String", "default" to "确认"), "duration" to utsMapOf("type" to "Number", "default" to 300), "watiDuration" to utsMapOf("type" to "Number", "default" to 120), "position" to utsMapOf("type" to "String", "default" to "bottom"), "round" to utsMapOf("type" to "String", "default" to ""), "size" to utsMapOf("type" to "String", "default" to "50%"), "maxHeight" to utsMapOf("type" to "String", "default" to ""), "bgColor" to utsMapOf("type" to "String", "default" to "white"), "darkBgColor" to utsMapOf("type" to "String", "default" to ""), "overflayBgColor" to utsMapOf("type" to "String", "default" to "rgba(0, 0, 0, 0.4)"), "disabledScroll" to utsMapOf("type" to "Boolean", "default" to false), "contentMargin" to utsMapOf("type" to "String", "default" to "16"), "widthCoverCenter" to utsMapOf("type" to "Boolean", "default" to false), "swiperLenClose" to utsMapOf("type" to "Number", "default" to 0), "offsetTop" to utsMapOf("type" to "String", "default" to "0"), "offsetBottom" to utsMapOf("type" to "String", "default" to "0"), "zIndex" to utsMapOf("type" to "Number", "default" to 1100), "lazy" to utsMapOf("type" to "Boolean", "default" to false), "disabledConfirm" to utsMapOf("type" to "Boolean", "default" to false), "btnColor" to utsMapOf("type" to "String", "default" to ""), "beforeClose" to utsMapOf("type" to "Function", "default" to fun(): UTSPromise<Boolean> {
+        var props = normalizePropsOptions(utsMapOf("customStyle" to utsMapOf("type" to "String", "default" to ""), "customWrapStyle" to utsMapOf("type" to "String", "default" to ""), "title" to utsMapOf("type" to "String", "default" to "标题"), "showFooter" to utsMapOf("type" to "Boolean", "default" to false), "showTitle" to utsMapOf("type" to "Boolean", "default" to true), "showClose" to utsMapOf("type" to "Boolean", "default" to false), "overlayClick" to utsMapOf("type" to "Boolean", "default" to true), "show" to utsMapOf("type" to "Boolean", "default" to false), "showCancel" to utsMapOf("type" to "Boolean", "default" to true), "cancelText" to utsMapOf("type" to "String", "default" to "取消"), "confirmText" to utsMapOf("type" to "String", "default" to "确认"), "duration" to utsMapOf("type" to "Number", "default" to 300), "watiDuration" to utsMapOf("type" to "Number", "default" to 120), "position" to utsMapOf("type" to "String", "default" to "bottom"), "round" to utsMapOf("type" to "String", "default" to ""), "size" to utsMapOf("type" to "String", "default" to "50%"), "maxHeight" to utsMapOf("type" to "String", "default" to ""), "bgColor" to utsMapOf("type" to "String", "default" to "white"), "darkBgColor" to utsMapOf("type" to "String", "default" to ""), "overflayBgColor" to utsMapOf("type" to "String", "default" to "rgba(0, 0, 0, 0.4)"), "disabledScroll" to utsMapOf("type" to "Boolean", "default" to false), "contentMargin" to utsMapOf("type" to "String", "default" to "16"), "widthCoverCenter" to utsMapOf("type" to "Boolean", "default" to false), "swiperLenClose" to utsMapOf("type" to "Number", "default" to 0), "offsetTop" to utsMapOf("type" to "String", "default" to "0"), "offsetBottom" to utsMapOf("type" to "String", "default" to "0"), "zIndex" to utsMapOf("type" to "Number", "default" to 1100), "lazy" to utsMapOf("type" to "Boolean", "default" to false), "disabledConfirm" to utsMapOf("type" to "Boolean", "default" to false), "btnColor" to utsMapOf("type" to "String", "default" to ""), "beforeClose" to utsMapOf("type" to "Function", "default" to fun(): UTSPromise<Boolean> {
             return UTSPromise.resolve(true)
         }
-        )))
+        ), "closeColor" to utsMapOf("type" to "String", "default" to "#e6e6e6"), "closeDarkColor" to utsMapOf("type" to "String", "default" to "#545454")))
         var propsNeedCastKeys = utsArrayOf(
             "customStyle",
+            "customWrapStyle",
             "title",
             "showFooter",
             "showTitle",
@@ -695,7 +715,9 @@ open class GenUniModulesTmxUiComponentsXDrawerXDrawer : VueComponent {
             "lazy",
             "disabledConfirm",
             "btnColor",
-            "beforeClose"
+            "beforeClose",
+            "closeColor",
+            "closeDarkColor"
         )
         var components: Map<String, CreateVueComponent> = utsMapOf()
     }

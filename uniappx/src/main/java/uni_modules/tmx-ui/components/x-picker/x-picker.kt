@@ -80,7 +80,7 @@ open class GenUniModulesTmxUiComponentsXPickerXPicker : VueComponent {
             ), 8, utsArrayOf(
                 "onClick"
             )),
-            createVNode(_component_x_drawer, utsMapOf("lazy" to _ctx._lazyContent, "cancel-text" to _ctx.cancelText, "confirm-text" to _ctx.confirmText, "onOpen" to _ctx.onOpen, "zIndex" to _ctx.zIndex, "widthCoverCenter" to true, "disabledScroll" to true, "max-height" to "80%", "size" to "450", "title" to _ctx.title, "onClose" to _ctx.onClose, "onConfirm" to _ctx.onConfirm, "onCancel" to _ctx.onCancel, "showFooter" to true, "show" to _ctx.show, "onUpdate:show" to fun(`$event`: Boolean){
+            createVNode(_component_x_drawer, utsMapOf("customWrapStyle" to _ctx.customWrapStyle, "lazy" to _ctx._lazyContent, "cancel-text" to _ctx.cancelText, "confirm-text" to _ctx.confirmText, "onOpen" to _ctx.onOpen, "zIndex" to _ctx.zIndex, "widthCoverCenter" to _ctx.widthCoverCenter, "disabledScroll" to true, "max-height" to "80%", "size" to "450", "title" to _ctx.title, "onClose" to _ctx.onClose, "onConfirm" to _ctx.onConfirm, "onCancel" to _ctx.onCancel, "showFooter" to true, "show" to _ctx.show, "onUpdate:show" to fun(`$event`: Boolean){
                 _ctx.show = `$event`
             }
             , "show-close" to _ctx.showClose), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
@@ -104,11 +104,13 @@ open class GenUniModulesTmxUiComponentsXPickerXPicker : VueComponent {
                 )
             }
             ), "_" to 1), 8, utsArrayOf(
+                "customWrapStyle",
                 "lazy",
                 "cancel-text",
                 "confirm-text",
                 "onOpen",
                 "zIndex",
+                "widthCoverCenter",
                 "title",
                 "onClose",
                 "onConfirm",
@@ -133,6 +135,8 @@ open class GenUniModulesTmxUiComponentsXPickerXPicker : VueComponent {
     open var zIndex: Number by `$props`
     open var showClose: Boolean by `$props`
     open var disabled: Boolean by `$props`
+    open var widthCoverCenter: Boolean by `$props`
+    open var customWrapStyle: String by `$props`
     open var show: Boolean by `$data`
     open var nowValue: UTSArray<String> by `$data`
     open var modelStrValue: String by `$data`
@@ -330,7 +334,7 @@ open class GenUniModulesTmxUiComponentsXPickerXPicker : VueComponent {
         ), "modelStr" to utsMapOf("type" to "String", "default" to ""), "modelShow" to utsMapOf("type" to "Boolean", "default" to false), "title" to utsMapOf("type" to "String", "default" to "请选择"), "cancelText" to utsMapOf("type" to "String", "default" to "取消"), "confirmText" to utsMapOf("type" to "String", "default" to "确认"), "lazyContent" to utsMapOf("type" to "Boolean", "default" to true), "cellUnits" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
             return utsArrayOf<String>()
         }
-        ), "unitsFontSize" to utsMapOf("type" to "String", "default" to "12"), "modelStrJoin" to utsMapOf("type" to "String", "default" to ","), "zIndex" to utsMapOf("type" to "Number", "default" to 1100), "showClose" to utsMapOf("type" to "Boolean", "default" to false), "disabled" to utsMapOf("type" to "Boolean", "default" to false)))
+        ), "unitsFontSize" to utsMapOf("type" to "String", "default" to "12"), "modelStrJoin" to utsMapOf("type" to "String", "default" to ","), "zIndex" to utsMapOf("type" to "Number", "default" to 1100), "showClose" to utsMapOf("type" to "Boolean", "default" to false), "disabled" to utsMapOf("type" to "Boolean", "default" to false), "widthCoverCenter" to utsMapOf("type" to "Boolean", "default" to false), "customWrapStyle" to utsMapOf("type" to "String", "default" to "")))
         var propsNeedCastKeys = utsArrayOf(
             "list",
             "modelValue",
@@ -345,7 +349,9 @@ open class GenUniModulesTmxUiComponentsXPickerXPicker : VueComponent {
             "modelStrJoin",
             "zIndex",
             "showClose",
-            "disabled"
+            "disabled",
+            "widthCoverCenter",
+            "customWrapStyle"
         )
         var components: Map<String, CreateVueComponent> = utsMapOf()
     }

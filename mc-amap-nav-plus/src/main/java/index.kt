@@ -2,6 +2,7 @@
 package uts.sdk.modules.mcAmapNavPlus
 import android.content.pm.ActivityInfo
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -135,6 +136,16 @@ open class MapOption (
     open var naviInfoUpdateCb: ((data: String) -> Unit)? = null,
     open var arriveCb: (() -> Unit)? = null,
 ) : UTSObject()
+fun loadImageFromAssets(fname: String): Bitmap? {
+    var bitmap: Bitmap? = null
+    try {
+        var assetManager = UTSAndroid.getAppContext()!!.getAssets()
+        var inputStream = assetManager.open(fname)
+        bitmap = BitmapFactory.decodeStream(inputStream)
+    }
+    catch (e: Throwable) {}
+    return bitmap
+}
 open class PlatformUtils {
     constructor(){}
     open fun setScreenOrientation(type: Number) {
@@ -658,7 +669,7 @@ open class NativeMap {
             }
             )
             console.log("途经点数据：", wayPoints)
-            val mStartPoi = NaviPoi("出发地", LatLng(navOption.startLat.toDouble(), navOption.startLng.toDouble()), navOption.startPoiId)
+            val mStartPoi = NaviPoi("出发地", LatLng(navOption.startLat.toDouble(), navOption.startLng.toDouble()), "")
             this.mAMapNavi?.calculateDriveRoute(mStartPoi, mEndPoi, wayPoints, navOption.calcStrategy.toInt())
         }
     }
@@ -676,13 +687,13 @@ open class NativeMap {
             MapStore.mapView = mapView
         }
         this.element?.bindAndroidView(mapView!!)
-        this.aMap = mapView?.getMap()!! as AMap
+        this.aMap = mapView.getMap()!! as AMap
         this.aMap?.setMapType(4)
         this.aMap?.setTrafficEnabled(true)
         this.aMap?.setMyLocationEnabled(this.options?.selfLocation ?: false)
         val myLocationStyle = MyLocationStyle()
+        myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromBitmap(loadImageFromAssets("self-car.png")))
         myLocationStyle.strokeColor(Color.argb(0, 0, 0, 0))
-        myLocationStyle.radiusFillColor(Color.argb(0, 0, 0, 0))
         myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE_NO_CENTER)
         this.aMap?.setMyLocationStyle(myLocationStyle)
         val mUiSettings = this.aMap?.getUiSettings()
@@ -817,10 +828,10 @@ open class NativeNavi {
         mapNaviView.getViewOptions().setMapStyle(MapStyle.DAY, "")
         mapNaviView.getViewOptions().setTrafficLayerEnabled(true)
         mapNaviView.getViewOptions().setLaneInfoShow(true)
-        mapNaviView?.setShowTrafficLightView(true)
-        mapNaviView?.setShowDriveCongestion(true)
-        mapNaviView?.setTrafficLightsVisible(true)
-        mapNaviView?.setAMapNaviViewListener(this.mNaviViewListener!!)
+        mapNaviView.setShowTrafficLightView(true)
+        mapNaviView.setShowDriveCongestion(true)
+        mapNaviView.setTrafficLightsVisible(true)
+        mapNaviView.setAMapNaviViewListener(this.mNaviViewListener!!)
         this.aMap = mapNaviView?.getMap()
         this.element?.bindAndroidView(mapNaviView!!)
     }

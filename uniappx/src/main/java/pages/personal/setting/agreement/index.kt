@@ -53,22 +53,22 @@ open class GenPagesPersonalSettingAgreementIndex : BasePage {
             val agreementDetail = fun(agreementType: Number){
                 router.push("/pages/personal/setting/agreement/detail/index?agreementType=" + agreementType)
             }
-            val menuList = utsArrayOf<MenuItem1>(MenuItem1(title = "软件使用协议", showArrow = true, click = fun(){
+            val menuList = utsArrayOf<MenuItem2>(MenuItem2(title = "软件使用协议", showArrow = true, click = fun(){
                 agreementDetail(1)
             }
-            ), MenuItem1(title = "用户服务协议", showArrow = true, click = fun(){
+            ), MenuItem2(title = "用户服务协议", showArrow = true, click = fun(){
                 agreementDetail(2)
             }
-            ), MenuItem1(title = "录音录像信息处理协议", showArrow = true, click = fun(){
+            ), MenuItem2(title = "录音录像信息处理协议", showArrow = true, click = fun(){
                 agreementDetail(3)
             }
-            ), MenuItem1(title = "个人信息处理规则(隐私协议)", showArrow = true, click = fun(){
+            ), MenuItem2(title = "个人信息处理规则(隐私协议)", showArrow = true, click = fun(){
                 agreementDetail(4)
             }
-            ), MenuItem1(title = "收集信息第三方SDK清单", showArrow = true, click = fun(){
+            ), MenuItem2(title = "收集信息第三方SDK清单", showArrow = true, click = fun(){
                 agreementDetail(5)
             }
-            ), MenuItem1(title = "Android系统权限调用", showArrow = true, click = fun(){
+            ), MenuItem2(title = "Android系统权限调用", showArrow = true, click = fun(){
                 agreementDetail(7)
             }
             ))

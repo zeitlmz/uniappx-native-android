@@ -96,15 +96,22 @@ open class GenUniModulesTmxUiComponentsXTabsXTabs : VueComponent {
                                             createElementVNode("view", utsMapOf("key" to index, "style" to normalizeStyle(utsMapOf("paddingLeft" to _ctx.titlePadding, "paddingRight" to _ctx.titlePadding))), utsArrayOf(
                                                 renderSlot(_ctx.`$slots`, "default", GenUniModulesTmxUiComponentsXTabsXTabsSlotDataDefault(item = item, active = (_ctx.nowActiveId == item.id)), fun(): UTSArray<Any> {
                                                     return utsArrayOf(
-                                                        createElementVNode("text", utsMapOf("class" to "xTabsWrapText", "style" to normalizeStyle(utsMapOf("fontSize" to if (_ctx.nowActiveId == item.id) {
-                                                            _ctx._activeFontSize
-                                                        } else {
-                                                            _ctx._fontSize
-                                                        }, "color" to if (_ctx.nowActiveId == item.id) {
-                                                            _ctx._activeTitleColor
-                                                        } else {
-                                                            _ctx._titleColor
-                                                        }))), toDisplayString(item.title), 5)
+                                                        createElementVNode("text", utsMapOf("class" to "xTabsWrapText", "style" to normalizeStyle(utsArrayOf(
+                                                            utsMapOf("fontSize" to if (_ctx.nowActiveId == item.id) {
+                                                                _ctx._activeFontSize
+                                                            } else {
+                                                                _ctx._fontSize
+                                                            }, "color" to if (_ctx.nowActiveId == item.id) {
+                                                                _ctx._activeTitleColor
+                                                            } else {
+                                                                _ctx._titleColor
+                                                            }),
+                                                            if (_ctx.nowActiveId == item.id) {
+                                                                _ctx._textActiveStyle
+                                                            } else {
+                                                                _ctx._textStyle
+                                                            }
+                                                        ))), toDisplayString(item.title), 5)
                                                     )
                                                 })
                                             ), 4)
@@ -187,6 +194,8 @@ open class GenUniModulesTmxUiComponentsXTabsXTabs : VueComponent {
     open var isItemCenter: Boolean by `$props`
     open var itemActiveStyle: String by `$props`
     open var itemStyle: String by `$props`
+    open var textActiveStyle: String by `$props`
+    open var textStyle: String by `$props`
     open var nowActiveId: String by `$data`
     open var id: String by `$data`
     open var lineLeft: Number by `$data`
@@ -204,6 +213,8 @@ open class GenUniModulesTmxUiComponentsXTabsXTabs : VueComponent {
     open var tabasItemCenter: Boolean by `$data`
     open var _itemActiveStyle: String by `$data`
     open var _itemStyle: String by `$data`
+    open var _textActiveStyle: String by `$data`
+    open var _textStyle: String by `$data`
     open var _showLine: Boolean by `$data`
     open var _lineFull: Boolean by `$data`
     open var _fontSize: String by `$data`
@@ -225,6 +236,12 @@ open class GenUniModulesTmxUiComponentsXTabsXTabs : VueComponent {
         }
         ), "_itemStyle" to computed<String>(fun(): String {
             return this.itemStyle
+        }
+        ), "_textActiveStyle" to computed<String>(fun(): String {
+            return this.textActiveStyle
+        }
+        ), "_textStyle" to computed<String>(fun(): String {
+            return this.textStyle
         }
         ), "_showLine" to computed<Boolean>(fun(): Boolean {
             return this.showLine
@@ -412,16 +429,12 @@ open class GenUniModulesTmxUiComponentsXTabsXTabs : VueComponent {
                     _this.first = false
                     var totalNowWidths = totalNowWidth + (allItems[nowNndex].width!! - _this.activeLineWidth) / 2
                     _this.totalWidth = totalWidth
-                    _this.lineLeft = totalNowWidths
                     if (!_this._lineFull) {
-                        clearTimeout(_this.tid2)
-                        _this.tid2 = setTimeout(fun() {
-                            _this.activeLineWidth = realTargetlinewidth
-                            var etotalNowWidth = totalNowWidth + (allItems[nowNndex].width!! - realTargetlinewidth) / 2
-                            _this.totalWidth = totalWidth
-                            _this.lineLeft = etotalNowWidth
-                        }
-                        , 100)
+                        _this.activeLineWidth = realTargetlinewidth
+                        var etotalNowWidth = totalNowWidth + (allItems[nowNndex].width!! - realTargetlinewidth) / 2
+                        _this.lineLeft = etotalNowWidth
+                    } else {
+                        _this.lineLeft = totalNowWidths
                     }
                     var idnex = Math.max(0, nowNndex)
                     _this.scrollNowPosId = allItems[idnex].id!!
@@ -484,7 +497,7 @@ open class GenUniModulesTmxUiComponentsXTabsXTabs : VueComponent {
         ), "lineHeight" to utsMapOf("type" to "String", "default" to "2px"), "lineFull" to utsMapOf("type" to "Boolean", "default" to false), "showLine" to utsMapOf("type" to "Boolean", "default" to true), "list" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<TABS_ITEM_INFO> {
             return utsArrayOf<TABS_ITEM_INFO>()
         }
-        ), "modelValue" to utsMapOf("type" to "String", "default" to "0"), "fontSize" to utsMapOf("type" to "String", "default" to "16"), "activeFontSize" to utsMapOf("type" to "String", "default" to "16"), "itemWidth" to utsMapOf("type" to "String", "default" to "auto"), "titlePadding" to utsMapOf("type" to "String", "default" to "12px"), "isItemCenter" to utsMapOf("type" to "Boolean", "default" to false), "itemActiveStyle" to utsMapOf("type" to "String", "default" to ""), "itemStyle" to utsMapOf("type" to "String", "default" to "")))
+        ), "modelValue" to utsMapOf("type" to "String", "default" to "0"), "fontSize" to utsMapOf("type" to "String", "default" to "16"), "activeFontSize" to utsMapOf("type" to "String", "default" to "16"), "itemWidth" to utsMapOf("type" to "String", "default" to "auto"), "titlePadding" to utsMapOf("type" to "String", "default" to "12px"), "isItemCenter" to utsMapOf("type" to "Boolean", "default" to false), "itemActiveStyle" to utsMapOf("type" to "String", "default" to ""), "itemStyle" to utsMapOf("type" to "String", "default" to ""), "textActiveStyle" to utsMapOf("type" to "String", "default" to ""), "textStyle" to utsMapOf("type" to "String", "default" to "")))
         var propsNeedCastKeys = utsArrayOf(
             "round",
             "width",
@@ -507,7 +520,9 @@ open class GenUniModulesTmxUiComponentsXTabsXTabs : VueComponent {
             "titlePadding",
             "isItemCenter",
             "itemActiveStyle",
-            "itemStyle"
+            "itemStyle",
+            "textActiveStyle",
+            "textStyle"
         )
         var components: Map<String, CreateVueComponent> = utsMapOf("tabsItem" to GenUniModulesTmxUiComponentsXTabsTabsItemClass)
     }

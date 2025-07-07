@@ -64,11 +64,20 @@ open class GenPagesPersonalSettingAgreementDetailIndex : BasePage {
                 return html.replace(UTSRegExp("&lt;", "g"), "<").replace(UTSRegExp("&gt;", "g"), ">").replace(UTSRegExp("&quot;", "g"), "\"").replace(UTSRegExp("&#39;", "g"), "'").replace(UTSRegExp("&amp;", "g"), "&")
             }
             val escapeHtml = ::gen_escapeHtml_fn
+            fun gen_removePreTags_fn(html: String): String {
+                val preStartRegex = UTSRegExp("^\\s*<pre\\s+[^>]*class\\s*=\\s*[\"'][^\"']*[\"'][^>]*>\\s*", "im")
+                val preEndRegex = UTSRegExp("\\s*<\\/pre>\\s*\$", "im")
+                var result = html.replace(preStartRegex, "")
+                result = result.replace(preEndRegex, "")
+                return result
+            }
+            val removePreTags = ::gen_removePreTags_fn
             val agreementDetail = fun(agreementType: String){
                 getLatestAgreementContent(agreementType).then(fun(res: Response){
                     if (res.code == 200) {
                         val content = res.data as String
                         contentHtml.value = escapeHtml(content)
+                        contentHtml.value = removePreTags(contentHtml.value)
                     } else {
                         showTips(res.msg, "error")
                     }

@@ -39,4 +39,8 @@ dependencies {
     implementation 'cn.jiguang.sdk.plugin:meizu:5.6.0'
     implementation 'cn.jiguang.sdk.plugin:vivo:5.6.0'
     implementation 'cn.jiguang.sdk.plugin:oppo:5.6.0'
+    implementation 'cn.jiguang.sdk.plugin:honor:5.6.0'
+    implementation 'com.google.code.gson:gson:2.6.2'
+    implementation 'commons-codec:commons-codec:1.6'
+    implementation 'androidx.annotation:annotation:1.1.0'
 }

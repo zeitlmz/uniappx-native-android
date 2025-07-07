@@ -60,15 +60,32 @@ open class GenPagesOtherCarManageBindIndex : BasePage {
             var scrollDirection = "down"
             val bindVehicleList = ref(utsArrayOf<CarInfo1>())
             val parentAcitveTab = ref<String>("1")
+            var page: Number = 1
+            var limit: Number = 5
             val queryBindVehicleList = fun(){
                 showLoading(XLOADINGS_TYPE(title = "加载中..."))
-                getBindOtherVehicleList().then(fun(res: Response){
+                getBindOtherVehicleList(page, limit).then(fun(res: Response){
                     hideXloading()
-                    bindVehicleList.value = JSON.parseArray<CarInfo1>(JSON.stringify(res.data)) ?: utsArrayOf()
+                    val result = res.data as UTSJSONObject
+                    val totalRes = result.getNumber("total") ?: 0
+                    val records = result.getArray("records")
+                    var dataList = utsArrayOf<CarInfo1>()
+                    if (records != null && records.length > 0) {
+                        records.forEach(fun(item){
+                            val itemJson = JSON.parse<CarInfo1>(JSON.stringify(item)) as CarInfo1
+                            dataList.push(itemJson)
+                        })
+                    } else {
+                        if (totalRes <= 0) {
+                            bindVehicleList.value = dataList
+                        }
+                    }
                     if (scrollDirection == "down") {
                         isfresh.value = false
+                        bindVehicleList.value = dataList
                     } else {
                         bottomFresh.value = false
+                        bindVehicleList.value = bindVehicleList.value.concat(dataList)
                     }
                 }
                 )
@@ -76,11 +93,13 @@ open class GenPagesOtherCarManageBindIndex : BasePage {
             val topLoad = fun(){
                 console.log("下拉刷新")
                 scrollDirection = "down"
+                page = 1
                 queryBindVehicleList()
             }
             val bottomLoad = fun(){
                 console.log("触底刷新")
                 scrollDirection = "up"
+                page++
                 queryBindVehicleList()
             }
             val toBind = fun(item: CarInfo1){

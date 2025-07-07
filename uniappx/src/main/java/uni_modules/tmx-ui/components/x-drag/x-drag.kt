@@ -53,11 +53,11 @@ open class GenUniModulesTmxUiComponentsXDragXDrag : VueComponent {
     open var domlist: UTSArray<CHILDREN_INFO> by `$data`
     open var backckList: UTSArray<String> by `$data`
     open var oldList: UTSArray<UTSJSONObject> by `$data`
+    open var activeIndex: Number by `$data`
+    open var targetIndex: Number by `$data`
     open var cellHeight: Number by `$data`
     open var cellWidth: Number by `$data`
     open var isMoveing: Boolean by `$data`
-    open var activeIndex: Number by `$data`
-    open var targetIndex: Number by `$data`
     open var _x: Number by `$data`
     open var _y: Number by `$data`
     open var tid: Number by `$data`
@@ -65,13 +65,14 @@ open class GenUniModulesTmxUiComponentsXDragXDrag : VueComponent {
     open var oragie_y: Number by `$data`
     open var scrollDiffTopJuli: Number by `$data`
     open var tid2: Number by `$data`
+    open var oldStartXy: POSITION by `$data`
     open var xdragRect: XDRAG_DOMRECT by `$data`
     open var _rows: Number by `$data`
     open var _cols: Number by `$data`
     open var _totalHeight: Number by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("domlist" to utsArrayOf<CHILDREN_INFO>(), "backckList" to utsArrayOf<String>(), "oldList" to utsArrayOf<UTSJSONObject>(), "cellHeight" to 0, "cellWidth" to 0, "isMoveing" to false, "activeIndex" to -1, "targetIndex" to -1, "_x" to 0, "_y" to 0, "tid" to 0, "oragie_x" to 0, "oragie_y" to 0, "scrollDiffTopJuli" to 0, "tid2" to 12, "xdragRect" to XDRAG_DOMRECT(width = 0, height = 0, left = 0, top = 0, right = 0, bottom = 0), "_rows" to computed<Number>(fun(): Number {
+        return utsMapOf("domlist" to utsArrayOf<CHILDREN_INFO>(), "backckList" to utsArrayOf<String>(), "oldList" to utsArrayOf<UTSJSONObject>(), "activeIndex" to -1, "targetIndex" to -1, "cellHeight" to 0, "cellWidth" to 0, "isMoveing" to false, "_x" to 0, "_y" to 0, "tid" to 0, "oragie_x" to 0, "oragie_y" to 0, "scrollDiffTopJuli" to 0, "tid2" to 12, "oldStartXy" to POSITION(col = 0, row = 0, index = 0), "xdragRect" to XDRAG_DOMRECT(width = 0, height = 0, left = 0, top = 0, right = 0, bottom = 0), "_rows" to computed<Number>(fun(): Number {
             var row = Math.ceil(this.domlist.length / this.col)
             return row
         }
@@ -162,8 +163,10 @@ open class GenUniModulesTmxUiComponentsXDragXDrag : VueComponent {
         )
         var x = evt.x
         var y = evt.y
-        this.activeIndex = this.coverXy(x, y).index
+        val startPos = this.coverXy(x, y)
+        this.activeIndex = startPos.index
         this.targetIndex = this.activeIndex
+        this.oldStartXy = startPos
         var childrenIndex = this.domlist.findIndex(fun(el): Boolean {
             return el.id == this.backckList[this.activeIndex]
         }
@@ -217,19 +220,21 @@ open class GenUniModulesTmxUiComponentsXDragXDrag : VueComponent {
         childrenEle!!.setStylSetProperty("left", offsetX.toString(10) + "px")
         childrenEle!!.setStylSetProperty("transition-duration", "0s")
         childrenEle!!.setStylSetProperty("z-index", "5")
-        var targetIndex = t.coverXy(x, y).index
+        var target = t.coverXy(x, y)
+        var targetIndex = target.index
         var targetChildren = t.domlist[targetIndex]!!
         if (targetChildren.disabled) {
             return
         }
+        if (targetIndex == t.activeIndex) {
+            return
+        }
+        this.oldStartXy = target
         var backChildrent = t.backckList.slice(0)[t.activeIndex]
         var backTargChildren = t.backckList.slice(0)[targetIndex]
         t.targetIndex = targetIndex
         var backChildrent_model = t.oldList.slice(0)[t.activeIndex]
         var backTargChildren_model = t.oldList.slice(0)[t.targetIndex]
-        if (targetIndex == t.activeIndex) {
-            return
-        }
         t.backckList.splice(t.activeIndex, 1, backTargChildren)
         t.backckList.splice(t.targetIndex, 1, backChildrent)
         t.oldList.splice(t.activeIndex, 1, backTargChildren_model)
@@ -269,6 +274,10 @@ open class GenUniModulesTmxUiComponentsXDragXDrag : VueComponent {
         var children = t.domlist[childrenIndex]!!
         var childrenEle = children!!.ele
         var result = t.coverXy(x, y)
+        var targetChildren = t.domlist[result.index]!!
+        if (targetChildren.disabled) {
+            result = this.oldStartXy
+        }
         var col = result.col
         var row = result.row
         childrenEle!!.setStylSetProperty("top", (this.cellHeight * row) + "px")
@@ -289,7 +298,7 @@ open class GenUniModulesTmxUiComponentsXDragXDrag : VueComponent {
                 i++
             }
         }
-        this.`$emit`("change", this.oldList.slice(0))
+        this.`$emit`("change", JSON.parseArray<UTSJSONObject>(JSON.stringify(this.oldList)!!)!!)
     }
     open var mStart = ::gen_mStart_fn
     open fun gen_mStart_fn(evt: UniTouchEvent) {

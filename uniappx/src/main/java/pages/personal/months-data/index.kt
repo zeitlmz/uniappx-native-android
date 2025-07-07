@@ -53,13 +53,11 @@ open class GenPagesPersonalMonthsDataIndex : BasePage {
             val globalData = inject("globalData") as GlobalDataType
             val bgSrc = resBaseUrl + "/static/icons/icon-order-detail-back.png"
             val bgImg = ref<String>(bgSrc)
-            val incomeDate = ref<String>(formatDate(Date(), "yyyy-MM"))
-            val rewardDate = ref<String>(formatDate(Date(), "yyyy-MM"))
-            val fineDate = ref<String>(formatDate(Date(), "yyyy-MM"))
+            val currentDate = ref<String>(formatDate(Date(), "yyyy-MM"))
+            val summaryData = ref<SummaryData>(SummaryData(orderRankNumber = 0, outCarDays = 0, revenueAmount = "0", realTotalIncome = "0", realCompleteOrderIncome = "0", realDefaultOrderIncome = "0", completeOrderCount = 0, complainCount = 0, tripCount = 0, activityReward = "0"))
             val oninit = fun(){}
             val xAxisData = getDaysInMonth(Date().getFullYear(), Date().getMonth() + 1)
-            console.log("xAxisData=", xAxisData)
-            val initOpts = fun(optData: OptionsData): UTSJSONObject {
+            val initOpts = fun(optData: OptionsData, type: String): UTSJSONObject {
                 return object : UTSJSONObject() {
                     var tooltip = object : UTSJSONObject() {
                         var trigger = "axis"
@@ -81,12 +79,21 @@ open class GenPagesPersonalMonthsDataIndex : BasePage {
                     }
                     var yAxis = object : UTSJSONObject() {
                         var type = "value"
-                        var name = "（元）"
+                        var name = if (type == "income") {
+                            "（元）"
+                        } else {
+                            ""
+                        }
                     }
                     var grid = object : UTSJSONObject() {
                         var top = "30rpx"
                         var left = "33rpx"
-                        var right = "8rpx"
+                        var right = (if (optData.xAxisDataVal.length > 30 || optData.xAxisDataVal.length == 28) {
+                            35
+                        } else {
+                            20
+                        }
+                        ) + "rpx"
                         var height = "100rpx"
                     }
                     var series = utsArrayOf(
@@ -128,11 +135,9 @@ open class GenPagesPersonalMonthsDataIndex : BasePage {
                 }
             }
             val incomeOptData = OptionsData(colorStr = "rgba(54, 153, 255, 1)", gradientColor = "rgba(54, 153, 255, 0)", xAxisDataVal = utsArrayOf(), seriesData = utsArrayOf())
-            val incomeOpts = ref<String>(JSON.stringify(initOpts(incomeOptData)))
-            val rewardOptData = OptionsData(colorStr = "rgba(93, 166, 83, 1)", gradientColor = "rgba(93, 166, 83, 0)", xAxisDataVal = utsArrayOf(), seriesData = utsArrayOf())
-            val rewardOpts = ref<String>(JSON.stringify(initOpts(rewardOptData)))
-            val fineOptData = OptionsData(colorStr = "rgba(214, 118, 55, 1)", gradientColor = "rgba(214, 118, 55, 0)", xAxisDataVal = utsArrayOf(), seriesData = utsArrayOf())
-            val fineOpts = ref<String>(JSON.stringify(initOpts(fineOptData)))
+            val incomeOpts = ref<String>(JSON.stringify(initOpts(incomeOptData, "income")))
+            val completeOrderOptData = OptionsData(colorStr = "rgba(93, 166, 83, 1)", gradientColor = "rgba(93, 166, 83, 0)", xAxisDataVal = utsArrayOf(), seriesData = utsArrayOf())
+            val completeOrderOpts = ref<String>(JSON.stringify(initOpts(completeOrderOptData, "ordernum")))
             val getDate = fun(reassignedDate: String): String {
                 var date = reassignedDate
                 if (date == null || date == "") {
@@ -140,9 +145,17 @@ open class GenPagesPersonalMonthsDataIndex : BasePage {
                 }
                 return date.substring(0, 7)
             }
+            val querySummaryData = fun(){
+                getDriverMonthDataSummary(currentDate.value).then(fun(res: Response){
+                    if (res.data != null && res.code == 200) {
+                        val data = res.data as UTSJSONObject
+                        summaryData.value = JSON.parseObject<SummaryData>(JSON.stringify(data))!!
+                    }
+                }
+                )
+            }
             val queryIncome = fun(){
-                console.log("queryIncome date = ", incomeDate.value)
-                getDriverIncomeLineChart(getDate(incomeDate.value)).then(fun(res: Response){
+                getDriverIncomeLineChart(getDate(currentDate.value)).then(fun(res: Response){
                     if (res.data != null) {
                         val xAxisDataVal: UTSArray<String> = utsArrayOf()
                         val seriesData: UTSArray<Number> = utsArrayOf()
@@ -166,13 +179,13 @@ open class GenPagesPersonalMonthsDataIndex : BasePage {
                         )
                         incomeOptData.xAxisDataVal = xAxisDataVal
                         incomeOptData.seriesData = seriesData
-                        incomeOpts.value = JSON.stringify(initOpts(incomeOptData))
+                        incomeOpts.value = JSON.stringify(initOpts(incomeOptData, "income"))
                     }
                 }
                 )
             }
-            val queryReward = fun(){
-                getDriverRewardLineChart(rewardDate.value).then(fun(res: Response){
+            val queryCompleteOrder = fun(){
+                getDriverCompleteOrderLineChart(currentDate.value).then(fun(res: Response){
                     if (res.data != null) {
                         val xAxisDataVal: UTSArray<String> = utsArrayOf()
                         val seriesData: UTSArray<Number> = utsArrayOf()
@@ -194,47 +207,20 @@ open class GenPagesPersonalMonthsDataIndex : BasePage {
                             )
                         }
                         )
-                        rewardOptData.xAxisDataVal = xAxisDataVal
-                        rewardOptData.seriesData = seriesData
-                        rewardOpts.value = JSON.stringify(initOpts(rewardOptData))
+                        completeOrderOptData.xAxisDataVal = xAxisDataVal
+                        completeOrderOptData.seriesData = seriesData
+                        completeOrderOpts.value = JSON.stringify(initOpts(completeOrderOptData, "ordernum"))
                     }
                 }
                 )
             }
-            val queryFine = fun(){
-                getDriverFineLineChart(fineDate.value).then(fun(res: Response){
-                    if (res.data != null) {
-                        val xAxisDataVal: UTSArray<String> = utsArrayOf()
-                        val seriesData: UTSArray<Number> = utsArrayOf()
-                        val resData = res.data as UTSArray<UTSJSONObject>
-                        resData.forEach(fun(item){
-                            val name = item.getString("name")
-                            val value = item.getString("value")
-                            xAxisDataVal.add(if (name != null && name != "") {
-                                name
-                            } else {
-                                ""
-                            }
-                            )
-                            seriesData.add(if (value != null) {
-                                parseFloat(value)
-                            } else {
-                                0
-                            }
-                            )
-                        }
-                        )
-                        fineOptData.xAxisDataVal = xAxisDataVal
-                        fineOptData.seriesData = seriesData
-                        fineOpts.value = JSON.stringify(initOpts(fineOptData))
-                    }
-                }
-                )
+            val queryAllData = fun(){
+                querySummaryData()
+                queryIncome()
+                queryCompleteOrder()
             }
             val init = fun(){
-                queryIncome()
-                queryReward()
-                queryFine()
+                queryAllData()
                 setTimeout(fun(){
                     bgImg.value = bgSrc
                 }
@@ -246,10 +232,11 @@ open class GenPagesPersonalMonthsDataIndex : BasePage {
             )
             return fun(): Any? {
                 val _component_mc_date_picker_selector = resolveEasyComponent("mc-date-picker-selector", GenComponentsMcDatePickerSelectorIndexClass)
-                val _component_x_echart = resolveEasyComponent("x-echart", GenUniModulesTmxUiComponentsXEchartXEchartClass)
+                val _component_x_divider = resolveEasyComponent("x-divider", GenUniModulesTmxUiComponentsXDividerXDividerClass)
                 val _component_x_sheet = resolveEasyComponent("x-sheet", GenUniModulesTmxUiComponentsXSheetXSheetClass)
+                val _component_x_echart = resolveEasyComponent("x-echart", GenUniModulesTmxUiComponentsXEchartXEchartClass)
                 val _component_mc_base_container = resolveEasyComponent("mc-base-container", GenComponentsMcBaseContainerIndexClass)
-                return createVNode(_component_mc_base_container, utsMapOf("showStatusBarPlaceholder" to false, "scroll" to true, "show-navbar" to true, "navbarIsPlace" to false, "static-transparent" to true, "title" to "订单数据", "title-color" to "#ffffff"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                return createVNode(_component_mc_base_container, utsMapOf("showStatusBarPlaceholder" to false, "scroll" to true, "show-navbar" to true, "navbarIsPlace" to false, "static-transparent" to true, "title" to "月度数据", "title-color" to "#ffffff"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                     return utsArrayOf(
                         createElementVNode("view", utsMapOf("style" to normalizeStyle("width:100%;height: " + unref(statusBarHeight) + "px;")), null, 4),
                         createElementVNode("view", utsMapOf("class" to "home-bg", "height" to ("" + (unref(screenHeight) + unref(statusBarHeight) + unref(globalData).safeAreaBottom + 20 + 100) + "px")), utsArrayOf(
@@ -259,141 +246,196 @@ open class GenPagesPersonalMonthsDataIndex : BasePage {
                         ), 8, utsArrayOf(
                             "height"
                         )),
-                        createElementVNode("view", utsMapOf("class" to "container", "style" to normalizeStyle("height: " + (unref(screenHeight) + unref(statusBarHeight) + unref(globalData).safeAreaBottom + 10) + "px;")), utsArrayOf(
-                            createElementVNode("view", utsMapOf("class" to "data-list"), utsArrayOf(
-                                createElementVNode("view", utsMapOf("class" to "data-item", "style" to normalizeStyle("width: " + (unref(screenWidth) + 150) + "px; ")), utsArrayOf(
-                                    createElementVNode("view", utsMapOf("class" to "data-item-header", "style" to normalizeStyle(utsMapOf("flex-direction" to "row", "justify-content" to "space-between"))), utsArrayOf(
-                                        createElementVNode("view", utsMapOf("class" to "header-left"), utsArrayOf(
-                                            createElementVNode("view", utsMapOf("class" to "lines")),
-                                            createElementVNode("text", utsMapOf("class" to "text"), "营业收入")
-                                        )),
-                                        createElementVNode("view", utsMapOf("class" to "right-box"), utsArrayOf(
-                                            createVNode(_component_mc_date_picker_selector, utsMapOf("modelValue" to unref(incomeDate), "onUpdate:modelValue" to fun(`$event`: String){
-                                                trySetRefValue(incomeDate, `$event`)
+                        createElementVNode("view", utsMapOf("class" to "container", "style" to normalizeStyle("height: " + (unref(screenHeight) + unref(statusBarHeight) + unref(globalData).safeAreaBottom + 100) + "px;")), utsArrayOf(
+                            createElementVNode("view", utsMapOf("class" to "date-picker-container"), utsArrayOf(
+                                createVNode(_component_mc_date_picker_selector, utsMapOf("modelValue" to unref(currentDate), "onUpdate:modelValue" to fun(`$event`: String){
+                                    trySetRefValue(currentDate, `$event`)
+                                }
+                                , "onChange" to fun(){
+                                    queryAllData()
+                                }
+                                ), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                    return utsArrayOf(
+                                        createElementVNode("view", utsMapOf("class" to "date-picker-content"), utsArrayOf(
+                                            createElementVNode("text", utsMapOf("class" to "date-text"), toDisplayString(if (unref(currentDate) != "") {
+                                                unref(currentDate)
+                                            } else {
+                                                "选择月份"
                                             }
-                                            , "onChange" to fun(){
-                                                queryIncome()
-                                            }
-                                            ), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                                return utsArrayOf(
-                                                    createElementVNode("view", utsMapOf("style" to normalizeStyle("width: " + (unref(screenWidth) - 115) + "px; flex-direction: row;")), utsArrayOf(
-                                                        createElementVNode("text", utsMapOf("class" to "text"), toDisplayString(if (unref(incomeDate) != "") {
-                                                            unref(incomeDate)
-                                                        } else {
-                                                            "选择月份"
-                                                        }
-                                                        ), 1),
-                                                        createElementVNode("image", utsMapOf("class" to "icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-date.png")), null, 8, utsArrayOf(
-                                                            "src"
-                                                        ))
-                                                    ), 4)
-                                                )
-                                            }
-                                            ), "_" to 1), 8, utsArrayOf(
-                                                "modelValue",
-                                                "onChange"
+                                            ), 1),
+                                            createElementVNode("image", utsMapOf("class" to "date-icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-date.png")), null, 8, utsArrayOf(
+                                                "src"
                                             ))
                                         ))
-                                    ), 4),
+                                    )
+                                }
+                                ), "_" to 1), 8, utsArrayOf(
+                                    "modelValue",
+                                    "onChange"
+                                ))
+                            )),
+                            createElementVNode("view", utsMapOf("class" to "data-list"), utsArrayOf(
+                                createElementVNode("view", utsMapOf("class" to "data-item", "style" to normalizeStyle("width: " + (unref(screenWidth) + 150) + "px;")), utsArrayOf(
+                                    createElementVNode("view", utsMapOf("class" to "data-item-header"), utsArrayOf(
+                                        createElementVNode("view", utsMapOf("class" to "header-left"), utsArrayOf(
+                                            createElementVNode("view", utsMapOf("class" to "lines")),
+                                            createElementVNode("text", utsMapOf("class" to "text"), "月度数据汇总")
+                                        ))
+                                    )),
+                                    createElementVNode("view", utsMapOf("class" to "data-item-body", "style" to normalizeStyle(utsMapOf("height" to "490rpx", "flex-direction" to "column"))), utsArrayOf(
+                                        createVNode(_component_x_sheet, utsMapOf("dark-color" to "#dcdcdc", "style" to normalizeStyle(utsMapOf("height" to "100%", "width" to "100%"))), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                            return utsArrayOf(
+                                                createElementVNode("view", utsMapOf("class" to "summary-body", "style" to normalizeStyle(utsMapOf("height" to "490rpx", "flex-direction" to "column", "margin-left" to "-35px", "z-index" to "1"))), utsArrayOf(
+                                                    createElementVNode("view", utsMapOf("class" to "top-bg", "style" to normalizeStyle(utsMapOf("width" to "100%"))), null, 4),
+                                                    createElementVNode("view", utsMapOf("class" to "summary-row", "style" to normalizeStyle(utsMapOf("flex-direction" to "row", "width" to "100%", "background-color" to "transparent"))), utsArrayOf(
+                                                        createElementVNode("view", utsMapOf("class" to "summary-item", "style" to normalizeStyle(utsMapOf("flex-direction" to "row"))), utsArrayOf(
+                                                            createElementVNode("image", utsMapOf("style" to normalizeStyle(utsMapOf("width" to "60rpx", "height" to "60rpx")), "src" to "/static/icons/icon-month-data-rank.png"), null, 4),
+                                                            createElementVNode("view", utsMapOf("class" to "ml-5"), utsArrayOf(
+                                                                createElementVNode("text", utsMapOf("class" to "item-label", "style" to normalizeStyle(utsMapOf("font-size" to "26rpx", "font-weight" to "500"))), "单量排行", 4),
+                                                                createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("flex-direction" to "row", "align-items" to "center"))), utsArrayOf(
+                                                                    createElementVNode("view", null, utsArrayOf(
+                                                                        createElementVNode("text", utsMapOf("class" to "item-value", "style" to normalizeStyle(utsMapOf("font-size" to "34rpx", "font-weight" to "bold", "color" to "#5D7AB6"))), toDisplayString(unref(summaryData).orderRankNumber), 5)
+                                                                    )),
+                                                                    createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("margin-top" to "7rpx"))), utsArrayOf(
+                                                                        createElementVNode("text", utsMapOf("class" to "item-value", "style" to normalizeStyle(utsMapOf("font-size" to "20rpx", "font-weight" to "bold", "color" to "#5D7AB6"))), "名", 4)
+                                                                    ), 4)
+                                                                ), 4)
+                                                            ))
+                                                        ), 4),
+                                                        createElementVNode("view", utsMapOf("class" to "summary-item", "style" to normalizeStyle(utsMapOf("margin-left" to "130rpx", "flex-direction" to "row"))), utsArrayOf(
+                                                            createElementVNode("image", utsMapOf("style" to normalizeStyle(utsMapOf("width" to "60rpx", "height" to "60rpx")), "src" to "/static/icons/icon-month-data-order.png"), null, 4),
+                                                            createElementVNode("view", utsMapOf("class" to "ml-5"), utsArrayOf(
+                                                                createElementVNode("text", utsMapOf("class" to "item-label", "style" to normalizeStyle(utsMapOf("font-size" to "26rpx", "font-weight" to "500"))), "完单量/投诉量", 4),
+                                                                createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("flex-direction" to "row", "align-items" to "center"))), utsArrayOf(
+                                                                    createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("flex-direction" to "row"))), utsArrayOf(
+                                                                        createElementVNode("text", utsMapOf("class" to "item-value", "style" to normalizeStyle(utsMapOf("font-size" to "34rpx", "font-weight" to "bold", "color" to "#5D7AB6"))), toDisplayString(unref(summaryData).completeOrderCount) + "/", 5),
+                                                                        createElementVNode("text", utsMapOf("class" to "item-value", "style" to normalizeStyle(utsMapOf("font-size" to "34rpx", "font-weight" to "bold", "color" to "red"))), toDisplayString(unref(summaryData).complainCount), 5)
+                                                                    ), 4),
+                                                                    createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("margin-top" to "7rpx"))), utsArrayOf(
+                                                                        createElementVNode("text", utsMapOf("class" to "item-value", "style" to normalizeStyle(utsMapOf("font-size" to "20rpx", "font-weight" to "bold", "color" to "#5D7AB6"))), "单", 4)
+                                                                    ), 4)
+                                                                ), 4)
+                                                            ))
+                                                        ), 4)
+                                                    ), 4),
+                                                    createElementVNode("view", utsMapOf("class" to "summary-row", "style" to normalizeStyle(utsMapOf("flex-direction" to "row", "width" to "100%", "background-color" to "transparent"))), utsArrayOf(
+                                                        createElementVNode("view", utsMapOf("class" to "summary-item", "style" to normalizeStyle(utsMapOf("flex-direction" to "row"))), utsArrayOf(
+                                                            createElementVNode("image", utsMapOf("style" to normalizeStyle(utsMapOf("width" to "60rpx", "height" to "60rpx")), "src" to "/static/icons/icon-month-data-order.png"), null, 4),
+                                                            createElementVNode("view", utsMapOf("class" to "ml-5"), utsArrayOf(
+                                                                createElementVNode("text", utsMapOf("class" to "item-label", "style" to normalizeStyle(utsMapOf("font-size" to "26rpx", "font-weight" to "500"))), "出车天数", 4),
+                                                                createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("flex-direction" to "row", "align-items" to "center"))), utsArrayOf(
+                                                                    createElementVNode("view", null, utsArrayOf(
+                                                                        createElementVNode("text", utsMapOf("class" to "item-value", "style" to normalizeStyle(utsMapOf("font-size" to "34rpx", "font-weight" to "bold", "color" to "#5D7AB6"))), toDisplayString(unref(summaryData).outCarDays), 5)
+                                                                    )),
+                                                                    createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("margin-top" to "7rpx"))), utsArrayOf(
+                                                                        createElementVNode("text", utsMapOf("class" to "item-value", "style" to normalizeStyle(utsMapOf("font-size" to "20rpx", "font-weight" to "bold", "color" to "#5D7AB6"))), "天", 4)
+                                                                    ), 4)
+                                                                ), 4)
+                                                            ))
+                                                        ), 4),
+                                                        createElementVNode("view", utsMapOf("class" to "summary-item", "style" to normalizeStyle(utsMapOf("margin-left" to "130rpx", "flex-direction" to "row"))), utsArrayOf(
+                                                            createElementVNode("image", utsMapOf("style" to normalizeStyle(utsMapOf("width" to "60rpx", "height" to "60rpx")), "src" to "/static/icons/icon-month-data-order.png"), null, 4),
+                                                            createElementVNode("view", utsMapOf("class" to "ml-5"), utsArrayOf(
+                                                                createElementVNode("text", utsMapOf("class" to "item-label", "style" to normalizeStyle(utsMapOf("font-size" to "26rpx", "font-weight" to "500"))), "出车趟数", 4),
+                                                                createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("flex-direction" to "row", "align-items" to "center"))), utsArrayOf(
+                                                                    createElementVNode("view", null, utsArrayOf(
+                                                                        createElementVNode("text", utsMapOf("class" to "item-value", "style" to normalizeStyle(utsMapOf("font-size" to "34rpx", "font-weight" to "bold", "color" to "#5D7AB6"))), toDisplayString(unref(summaryData).tripCount), 5)
+                                                                    )),
+                                                                    createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("margin-top" to "7rpx"))), utsArrayOf(
+                                                                        createElementVNode("text", utsMapOf("class" to "item-value", "style" to normalizeStyle(utsMapOf("font-size" to "20rpx", "font-weight" to "bold", "color" to "#5D7AB6"))), "趟", 4)
+                                                                    ), 4)
+                                                                ), 4)
+                                                            ))
+                                                        ), 4)
+                                                    ), 4),
+                                                    createVNode(_component_x_divider, utsMapOf("lineWidth" to "0.5", "color" to "#BECEEC")),
+                                                    createElementVNode("view", utsMapOf("class" to "summary-row", "style" to normalizeStyle(utsMapOf("background-color" to "transparent", "flex-direction" to "row", "justify-content" to "space-between", "margin-lef" to "-15rpx"))), utsArrayOf(
+                                                        createElementVNode("view", utsMapOf("class" to "summary-item", "style" to normalizeStyle(utsMapOf("flex-direction" to "column"))), utsArrayOf(
+                                                            createElementVNode("text", utsMapOf("class" to "item-label", "style" to normalizeStyle(utsMapOf("text-align" to "center", "font-size" to "26rpx", "font-weight" to "500"))), "营业流水", 4),
+                                                            createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("flex-direction" to "row", "align-items" to "center", "justify-content" to "center"))), utsArrayOf(
+                                                                createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("align-items" to "center"))), utsArrayOf(
+                                                                    createElementVNode("text", utsMapOf("class" to "item-value", "style" to normalizeStyle(utsMapOf("font-size" to "34rpx", "font-weight" to "bold", "color" to "#5D7AB6"))), toDisplayString(unref(summaryData).revenueAmount), 5)
+                                                                ), 4),
+                                                                createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("margin-top" to "7rpx"))), utsArrayOf(
+                                                                    createElementVNode("text", utsMapOf("class" to "item-value", "style" to normalizeStyle(utsMapOf("font-size" to "20rpx", "font-weight" to "bold", "color" to "#5D7AB6"))), "元", 4)
+                                                                ), 4)
+                                                            ), 4)
+                                                        ), 4),
+                                                        createElementVNode("view", utsMapOf("class" to "summary-item", "style" to normalizeStyle(utsMapOf("flex-direction" to "column"))), utsArrayOf(
+                                                            createElementVNode("text", utsMapOf("class" to "item-label", "style" to normalizeStyle(utsMapOf("text-align" to "center", "font-size" to "26rpx", "font-weight" to "500"))), "实际收入", 4),
+                                                            createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("flex-direction" to "row", "align-items" to "center", "justify-content" to "center"))), utsArrayOf(
+                                                                createElementVNode("view", null, utsArrayOf(
+                                                                    createElementVNode("text", utsMapOf("class" to "item-value", "style" to normalizeStyle(utsMapOf("text-align" to "center", "font-size" to "34rpx", "font-weight" to "bold", "color" to "#5D7AB6"))), toDisplayString(unref(summaryData).realTotalIncome), 5)
+                                                                )),
+                                                                createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("margin-top" to "7rpx"))), utsArrayOf(
+                                                                    createElementVNode("text", utsMapOf("class" to "item-value", "style" to normalizeStyle(utsMapOf("text-align" to "center", "font-size" to "20rpx", "font-weight" to "bold", "color" to "#5D7AB6"))), "元", 4)
+                                                                ), 4)
+                                                            ), 4),
+                                                            createElementVNode("view", utsMapOf("class" to "footer-triangle", "style" to normalizeStyle(utsMapOf("text-align" to "center", "margin-left" to "17rpx"))), null, 4)
+                                                        ), 4),
+                                                        createElementVNode("view", utsMapOf("class" to "summary-item", "style" to normalizeStyle(utsMapOf("flex-direction" to "column"))), utsArrayOf(
+                                                            createElementVNode("text", utsMapOf("class" to "item-label", "style" to normalizeStyle(utsMapOf("text-align" to "center", "font-size" to "26rpx", "font-weight" to "500"))), "活动奖励", 4),
+                                                            createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("flex-direction" to "row", "align-items" to "center", "justify-content" to "center"))), utsArrayOf(
+                                                                createElementVNode("view", null, utsArrayOf(
+                                                                    createElementVNode("text", utsMapOf("class" to "item-value", "style" to normalizeStyle(utsMapOf("font-size" to "34rpx", "font-weight" to "bold", "color" to "#5D7AB6"))), toDisplayString(unref(summaryData).activityReward), 5)
+                                                                )),
+                                                                createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("margin-top" to "7rpx"))), utsArrayOf(
+                                                                    createElementVNode("text", utsMapOf("class" to "item-value", "style" to normalizeStyle(utsMapOf("font-size" to "20rpx", "font-weight" to "bold", "color" to "#5D7AB6"))), "元", 4)
+                                                                ), 4)
+                                                            ), 4)
+                                                        ), 4)
+                                                    ), 4),
+                                                    createElementVNode("view", utsMapOf("class" to "summary-footer", "style" to normalizeStyle(utsMapOf("height" to "70rpx", "margin-top" to "-30rpx"))), utsArrayOf(
+                                                        createElementVNode("view", utsMapOf("class" to "footer-item", "style" to normalizeStyle(utsMapOf("flex-direction" to "row", "justify-content" to "center"))), utsArrayOf(
+                                                            createElementVNode("text", utsMapOf("class" to "footer-value"), "完单收益 " + toDisplayString(" " + unref(summaryData).realCompleteOrderIncome) + "元 + 违约金收益 " + toDisplayString(" " + unref(summaryData).realDefaultOrderIncome) + "元", 1)
+                                                        ), 4)
+                                                    ), 4)
+                                                ), 4)
+                                            )
+                                        }
+                                        ), "_" to 1), 8, utsArrayOf(
+                                            "style"
+                                        ))
+                                    ), 4)
+                                ), 4),
+                                createElementVNode("view", utsMapOf("class" to "data-item", "style" to normalizeStyle("width: " + (unref(screenWidth) + 150) + "px; ")), utsArrayOf(
+                                    createElementVNode("view", utsMapOf("class" to "data-item-header"), utsArrayOf(
+                                        createElementVNode("view", utsMapOf("class" to "header-left"), utsArrayOf(
+                                            createElementVNode("view", utsMapOf("class" to "lines")),
+                                            createElementVNode("text", utsMapOf("class" to "text"), "实际收入")
+                                        ))
+                                    )),
                                     createElementVNode("view", utsMapOf("class" to "data-item-body"), utsArrayOf(
-                                        createVNode(_component_x_sheet, utsMapOf("dark-color" to "#dcdcdc", "height" to "400rpx"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                        createVNode(_component_x_sheet, utsMapOf("dark-color" to "#dcdcdc", "height" to "400rpx", "style" to normalizeStyle(utsMapOf("width" to "100%"))), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                                             return utsArrayOf(
                                                 createVNode(_component_x_echart, utsMapOf("onInit" to oninit, "opts" to unref(incomeOpts)), null, 8, utsArrayOf(
                                                     "opts"
                                                 ))
                                             )
                                         }
-                                        ), "_" to 1))
+                                        ), "_" to 1), 8, utsArrayOf(
+                                            "style"
+                                        ))
                                     ))
                                 ), 4),
                                 createElementVNode("view", utsMapOf("class" to "data-item", "style" to normalizeStyle("width: " + (unref(screenWidth) + 150) + "px;")), utsArrayOf(
-                                    createElementVNode("view", utsMapOf("class" to "data-item-header", "style" to normalizeStyle(utsMapOf("flex-direction" to "row", "justify-content" to "space-between"))), utsArrayOf(
+                                    createElementVNode("view", utsMapOf("class" to "data-item-header"), utsArrayOf(
                                         createElementVNode("view", utsMapOf("class" to "header-left"), utsArrayOf(
                                             createElementVNode("view", utsMapOf("class" to "lines")),
-                                            createElementVNode("text", utsMapOf("class" to "text"), "活动奖励")
-                                        )),
-                                        createElementVNode("view", utsMapOf("class" to "right-box"), utsArrayOf(
-                                            createVNode(_component_mc_date_picker_selector, utsMapOf("modelValue" to unref(rewardDate), "onUpdate:modelValue" to fun(`$event`: String){
-                                                trySetRefValue(rewardDate, `$event`)
-                                            }
-                                            , "onChange" to fun(){
-                                                queryReward()
-                                            }
-                                            ), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                                return utsArrayOf(
-                                                    createElementVNode("view", utsMapOf("style" to normalizeStyle("width: " + (unref(screenWidth) - 115) + "px; flex-direction: row;")), utsArrayOf(
-                                                        createElementVNode("text", utsMapOf("class" to "text"), toDisplayString(if (unref(rewardDate) != "") {
-                                                            unref(rewardDate)
-                                                        } else {
-                                                            "请选择月份"
-                                                        }
-                                                        ), 1),
-                                                        createElementVNode("image", utsMapOf("class" to "icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-date.png")), null, 8, utsArrayOf(
-                                                            "src"
-                                                        ))
-                                                    ), 4)
-                                                )
-                                            }
-                                            ), "_" to 1), 8, utsArrayOf(
-                                                "modelValue",
-                                                "onChange"
-                                            ))
+                                            createElementVNode("text", utsMapOf("class" to "text"), "完单数量")
                                         ))
-                                    ), 4),
+                                    )),
                                     createElementVNode("view", utsMapOf("class" to "data-item-body"), utsArrayOf(
-                                        createVNode(_component_x_sheet, utsMapOf("dark-color" to "#dcdcdc", "height" to "400rpx"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                        createVNode(_component_x_sheet, utsMapOf("dark-color" to "#dcdcdc", "height" to "400rpx", "style" to normalizeStyle(utsMapOf("width" to "100%"))), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                                             return utsArrayOf(
-                                                createVNode(_component_x_echart, utsMapOf("onInit" to oninit, "opts" to unref(rewardOpts)), null, 8, utsArrayOf(
+                                                createVNode(_component_x_echart, utsMapOf("onInit" to oninit, "opts" to unref(completeOrderOpts)), null, 8, utsArrayOf(
                                                     "opts"
                                                 ))
                                             )
                                         }
-                                        ), "_" to 1))
-                                    ))
-                                ), 4),
-                                createElementVNode("view", utsMapOf("class" to "data-item", "style" to normalizeStyle("width: " + (unref(screenWidth) + 150) + "px;")), utsArrayOf(
-                                    createElementVNode("view", utsMapOf("class" to "data-item-header", "style" to normalizeStyle(utsMapOf("flex-direction" to "row", "justify-content" to "space-between"))), utsArrayOf(
-                                        createElementVNode("view", utsMapOf("class" to "header-left"), utsArrayOf(
-                                            createElementVNode("view", utsMapOf("class" to "lines")),
-                                            createElementVNode("text", utsMapOf("class" to "text"), "违规罚款")
-                                        )),
-                                        createElementVNode("view", utsMapOf("class" to "right-box"), utsArrayOf(
-                                            createVNode(_component_mc_date_picker_selector, utsMapOf("modelValue" to unref(fineDate), "onUpdate:modelValue" to fun(`$event`: String){
-                                                trySetRefValue(fineDate, `$event`)
-                                            }
-                                            , "onChange" to fun(){
-                                                queryFine()
-                                            }
-                                            ), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                                return utsArrayOf(
-                                                    createElementVNode("view", utsMapOf("style" to normalizeStyle("width: " + (unref(screenWidth) - 115) + "px; flex-direction: row;")), utsArrayOf(
-                                                        createElementVNode("text", utsMapOf("class" to "text"), toDisplayString(if (unref(fineDate) != "") {
-                                                            unref(fineDate)
-                                                        } else {
-                                                            "请选择月份"
-                                                        }
-                                                        ), 1),
-                                                        createElementVNode("image", utsMapOf("class" to "icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-date.png")), null, 8, utsArrayOf(
-                                                            "src"
-                                                        ))
-                                                    ), 4)
-                                                )
-                                            }
-                                            ), "_" to 1), 8, utsArrayOf(
-                                                "modelValue",
-                                                "onChange"
-                                            ))
+                                        ), "_" to 1), 8, utsArrayOf(
+                                            "style"
                                         ))
-                                    ), 4),
-                                    createElementVNode("view", utsMapOf("class" to "data-item-body"), utsArrayOf(
-                                        createVNode(_component_x_sheet, utsMapOf("dark-color" to "#dcdcdc", "height" to "400rpx"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                            return utsArrayOf(
-                                                createVNode(_component_x_echart, utsMapOf("onInit" to oninit, "opts" to unref(fineOpts)), null, 8, utsArrayOf(
-                                                    "opts"
-                                                ))
-                                            )
-                                        }
-                                        ), "_" to 1))
                                     ))
                                 ), 4)
                             ))
@@ -412,7 +454,7 @@ open class GenPagesPersonalMonthsDataIndex : BasePage {
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("container" to padStyleMapOf(utsMapOf("width" to "100%", "position" to "relative", "paddingTop" to "10rpx", "paddingRight" to 0, "paddingBottom" to "10rpx", "paddingLeft" to 0, "marginTop" to 20, "height" to "100%")), "home-bg" to padStyleMapOf(utsMapOf("position" to "absolute", "top" to 0, "left" to 0, "width" to "100%", "zIndex" to -1, "overflow" to "hidden", "height" to "100%")), "bg-image" to utsMapOf(".home-bg " to utsMapOf("width" to "100%", "height" to "100%", "position" to "absolute", "top" to 0, "left" to 0)), "data-list" to padStyleMapOf(utsMapOf("marginTop" to "80rpx", "width" to "100%", "flex" to 1)), "data-item" to utsMapOf(".data-list " to utsMapOf("width" to "100%", "marginBottom" to "35rpx", "marginLeft" to "25rpx")), "data-item-header" to utsMapOf(".data-list .data-item " to utsMapOf("width" to "100%", "display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "paddingTop" to 0, "paddingRight" to "30rpx", "paddingBottom" to 0, "paddingLeft" to "30rpx", "marginBottom" to "19rpx")), "header-left" to utsMapOf(".data-list .data-item .data-item-header " to utsMapOf("flexDirection" to "row")), "lines" to utsMapOf(".data-list .data-item .data-item-header .header-left " to utsMapOf("width" to "8rpx", "height" to "37rpx", "backgroundImage" to "none", "backgroundColor" to "#F5F7FA", "borderTopLeftRadius" to "4rpx", "borderTopRightRadius" to "4rpx", "borderBottomRightRadius" to "4rpx", "borderBottomLeftRadius" to "4rpx")), "text" to utsMapOf(".data-list .data-item .data-item-header .header-left " to utsMapOf("fontSize" to "36rpx", "color" to "#F5F7FA", "marginLeft" to "22rpx", "fontWeight" to "bold"), ".data-list .data-item .data-item-header .right-box " to utsMapOf("fontWeight" to "bold", "fontSize" to "36rpx", "color" to "#F5F7FA")), "right-box" to utsMapOf(".data-list .data-item .data-item-header " to utsMapOf("flexDirection" to "row", "marginRight" to 10)), "icon" to utsMapOf(".data-list .data-item .data-item-header .right-box " to utsMapOf("width" to 15, "height" to 15, "marginTop" to 5, "marginRight" to 6, "marginBottom" to 5, "marginLeft" to 6, "backgroundColor" to "#F5F7FA")), "data-item-body" to utsMapOf(".data-list .data-item " to utsMapOf("width" to "700rpx", "height" to "400rpx")))
+                return utsMapOf("container" to padStyleMapOf(utsMapOf("width" to "100%", "position" to "relative", "paddingTop" to "10rpx", "paddingRight" to 0, "paddingBottom" to "10rpx", "paddingLeft" to 0, "marginTop" to 20, "height" to "100%", "flexDirection" to "column", "alignItems" to "center")), "home-bg" to padStyleMapOf(utsMapOf("position" to "absolute", "top" to 0, "left" to 0, "width" to "100%", "zIndex" to -1, "overflow" to "hidden", "height" to "100%")), "bg-image" to utsMapOf(".home-bg " to utsMapOf("width" to "100%", "height" to "100%", "position" to "absolute", "top" to 0, "left" to 0)), "date-picker-container" to padStyleMapOf(utsMapOf("marginTop" to "50rpx", "marginBottom" to "30rpx", "width" to "690rpx", "borderTopLeftRadius" to "31rpx", "borderTopRightRadius" to "31rpx", "borderBottomRightRadius" to "31rpx", "borderBottomLeftRadius" to "31rpx", "backgroundColor" to "#809BD0")), "date-picker-content" to utsMapOf(".date-picker-container " to utsMapOf("flexDirection" to "row", "alignItems" to "center", "flexWrap" to "wrap", "justifyContent" to "space-between", "backgroundColor" to "rgba(255,255,255,0.1)", "borderTopLeftRadius" to "8rpx", "borderTopRightRadius" to "8rpx", "borderBottomRightRadius" to "8rpx", "borderBottomLeftRadius" to "8rpx", "paddingTop" to "15rpx", "paddingRight" to "20rpx", "paddingBottom" to "15rpx", "paddingLeft" to "20rpx")), "date-text" to utsMapOf(".date-picker-container .date-picker-content " to utsMapOf("color" to "#F5F7FA", "fontSize" to "32rpx", "fontWeight" to "bold")), "date-icon" to utsMapOf(".date-picker-container .date-picker-content " to utsMapOf("width" to "32rpx", "height" to "32rpx", "marginLeft" to "20rpx")), "top-bg" to utsMapOf(".summary-body " to utsMapOf("position" to "absolute", "height" to "90%", "zIndex" to -100, "width" to "100%", "top" to 0, "left" to 0, "backgroundImage" to "linear-gradient(to bottom, #FFFFFF, #D4E2FC)")), "summary-row" to padStyleMapOf(utsMapOf("paddingTop" to "30rpx", "paddingRight" to "40rpx", "paddingBottom" to "30rpx", "paddingLeft" to "40rpx", "marginTop" to 0, "marginRight" to "40rpx", "marginBottom" to 0, "marginLeft" to "40rpx", "backgroundColor" to "#FFFFFF", "borderTopLeftRadius" to "16rpx", "borderTopRightRadius" to "16rpx", "borderBottomRightRadius" to "16rpx", "borderBottomLeftRadius" to "16rpx")), "summary-footer" to padStyleMapOf(utsMapOf("width" to "100%", "height" to "80rpx", "backgroundColor" to "#85A5E4", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "center", "borderBottomLeftRadius" to "16rpx", "borderBottomRightRadius" to "16rpx")), "footer-item" to utsMapOf(".summary-footer " to utsMapOf("flexDirection" to "column", "alignItems" to "center", "marginBottom" to "5rpx")), "footer-label" to utsMapOf(".summary-footer .footer-item " to utsMapOf("fontSize" to "26rpx", "color" to "rgba(255,255,255,0.7)", "marginBottom" to "4rpx")), "footer-value" to utsMapOf(".summary-footer .footer-item " to utsMapOf("fontSize" to "28rpx", "color" to "rgba(255,255,255,0.7)", "fontWeight" to "bold")), "footer-triangle" to padStyleMapOf(utsMapOf("width" to 0, "height" to 0, "borderLeftWidth" to "33rpx", "borderLeftStyle" to "solid", "borderLeftColor" to "rgba(0,0,0,0)", "borderRightWidth" to "33rpx", "borderRightStyle" to "solid", "borderRightColor" to "rgba(0,0,0,0)", "borderBottomWidth" to "33rpx", "borderBottomStyle" to "solid", "borderBottomColor" to "#85A5E4")), "data-list" to padStyleMapOf(utsMapOf("marginTop" to "20rpx", "width" to "100%", "flex" to 1)), "data-item" to utsMapOf(".data-list " to utsMapOf("width" to "100%", "marginBottom" to "35rpx", "marginLeft" to "13.5rpx")), "data-item-header" to utsMapOf(".data-list .data-item " to utsMapOf("width" to "100%", "display" to "flex", "flexDirection" to "row", "alignItems" to "center", "paddingTop" to 0, "paddingRight" to "30rpx", "paddingBottom" to 0, "paddingLeft" to "30rpx", "marginBottom" to "19rpx")), "header-left" to utsMapOf(".data-list .data-item .data-item-header " to utsMapOf("flexDirection" to "row", "alignItems" to "center")), "lines" to utsMapOf(".data-list .data-item .data-item-header .header-left " to utsMapOf("width" to "8rpx", "height" to "37rpx", "backgroundImage" to "none", "backgroundColor" to "#F5F7FA", "borderTopLeftRadius" to "4rpx", "borderTopRightRadius" to "4rpx", "borderBottomRightRadius" to "4rpx", "borderBottomLeftRadius" to "4rpx")), "text" to utsMapOf(".data-list .data-item .data-item-header .header-left " to utsMapOf("fontSize" to "36rpx", "color" to "#F5F7FA", "marginLeft" to "22rpx", "fontWeight" to "bold")), "data-item-body" to utsMapOf(".data-list .data-item " to utsMapOf("width" to "700rpx", "height" to "400rpx", "borderTopLeftRadius" to "16rpx", "borderTopRightRadius" to "16rpx", "borderBottomRightRadius" to "16rpx", "borderBottomLeftRadius" to "16rpx", "overflow" to "hidden")))
             }
         var inheritAttrs = true
         var inject: Map<String, Map<String, Any?>> = utsMapOf()

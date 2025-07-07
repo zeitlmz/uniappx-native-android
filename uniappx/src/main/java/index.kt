@@ -2,6 +2,7 @@
 package uni.UNI511F0A5
 import android.content.pm.ActivityInfo
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -75,6 +76,9 @@ import uts.sdk.modules.kuxRouter.UseAddInterceptorOptions
 import uts.sdk.modules.xLoadingS.XLOADINGS_TYPE
 import uts.sdk.modules.xTipsS.XTIPS_TYPE
 import uts.sdk.modules.xToastS.XTOAST_TYPE
+import uts.sdk.modules.mcPermissionRequest.checkGrantedCamera
+import uts.sdk.modules.mcPermissionRequest.checkGrantedLocation
+import uts.sdk.modules.mcPermissionRequest.checkGrantedPhoto
 import uts.sdk.modules.mcAmapNavPlus.checkLocationPermission
 import uts.sdk.modules.mcAmapNavPlus.init
 import io.dcloud.uniapp.extapi.chooseImage as uni_chooseImage
@@ -88,7 +92,6 @@ import io.dcloud.uniapp.extapi.exit as uni_exit
 import io.dcloud.uniapp.extapi.getAppBaseInfo as uni_getAppBaseInfo
 import io.dcloud.uniapp.extapi.getStorageSync as uni_getStorageSync
 import io.dcloud.uniapp.extapi.getSystemInfoSync as uni_getSystemInfoSync
-import io.dcloud.uniapp.extapi.getWindowInfo as uni_getWindowInfo
 import io.dcloud.uniapp.extapi.hideLoading as uni_hideLoading
 import uts.sdk.modules.xLoadingS.hideXloading
 import uts.sdk.modules.xLoadingS.showLoading
@@ -1831,6 +1834,20 @@ open class FORM_SUBMIT_RESULT (
     open var key: String,
     @JsonNotNull
     open var formData: UTSArray<FORM_SUBMIT_OBJECT>,
+) : UTSObject()
+open class CASCADER_TREE_ITEM (
+    @JsonNotNull
+    open var id: String,
+    @JsonNotNull
+    open var title: String,
+    @JsonNotNull
+    open var children: UTSArray<CASCADER_TREE_ITEM>,
+    @JsonNotNull
+    open var disabled: Boolean = false,
+    @JsonNotNull
+    open var selected: UTSArray<String>,
+    @JsonNotNull
+    open var checked: Boolean = false,
 ) : UTSObject()
 open class XANIMATE_OPIONS (
     open var ele: String? = null,
@@ -5252,44 +5269,19 @@ fun rpx2px(n: Number, _w: Number = 750): Number {
     return r
 }
 fun checkIsCssUnit(str: Any, unit: String): String {
-    var screenWidth = uni_getWindowInfo().windowWidth
-    var base: Number = 0
-    var baseUnit = if (unit == "") {
-        xConfig.unit
+    if (UTSAndroid.`typeof`(str) != "string") {
+        return (str as Number).toString(10) + unit
+    }
+    var s = str as String
+    if (s.indexOf("px") > -1 || s.indexOf("%") > -1 || s.indexOf("auto") > -1 || s.indexOf("vw") > -1 || s.indexOf("vh") > -1) {
+        return s
+    }
+    return s + (if (unit == "") {
+        "px"
     } else {
         unit
     }
-    if (UTSAndroid.`typeof`(str) != "string") {
-        base = str as Number
-    } else if (UTSAndroid.`typeof`(str) == "string") {
-        var s = str as String
-        if (s.indexOf("px") > -1 || s.indexOf("rpx") > -1 || s.indexOf("%") > -1 || s.indexOf("auto") > -1 || s.indexOf("vw") > -1 || s.indexOf("rem") > -1 || s.indexOf("em") > -1 || s.indexOf("in") > -1 || s.indexOf("vh") > -1) {
-            return s
-        }
-        base = parseFloat(s)
-        base = if (isNaN(base)) {
-            0
-        } else {
-            base
-        }
-    }
-    if (baseUnit == "rpx") {
-        var baseDesize = Math.max(xConfig.designSize, 375)
-        var baseMaxWidth = Math.max(xConfig.maximumCalculatedSize, 375)
-        var origSize: Number = 375
-        var ratio = 1 - baseDesize / origSize
-        var maxRatio = screenWidth / baseMaxWidth
-        var baseSize = base - (ratio * base)
-        if (maxRatio >= 1) {
-            base = baseSize
-        } else {
-            val calcRatio = Math.max(screenWidth / baseDesize, 1)
-            base = calcRatio * baseSize
-        }
-        var baseunitReal = "px"
-        return base + baseunitReal
-    }
-    return base + baseUnit
+    )
 }
 fun fillArrayCssValue(kVal: UTSArray<String>): UTSArray<String> {
     var ar: UTSArray<String> = kVal.map(fun(el: String): String {
@@ -6668,6 +6660,10 @@ fun createDate(dateStrs: String): Date {
     var hour = result.getHours()
     var minute = result.getMinutes()
     var second = result.getSeconds()
+    result.setSeconds(59)
+    result.setMinutes(59)
+    result.setHours(59)
+    result.setDate(1)
     if (regxyymmddhhmmss.test(dateStr)) {
         val match = dateStr.match(regxyymmddhhmmss)!!
         year = parseInt(match[1] as String)
@@ -6705,9 +6701,9 @@ fun createDate(dateStrs: String): Date {
     result.setSeconds(second)
     result.setMinutes(minute)
     result.setHours(hour)
-    result.setDate(day)
-    result.setMonth(month)
     result.setFullYear(year)
+    result.setMonth(month)
+    result.setDate(day)
     return result
 }
 open class xDate {
@@ -9054,7 +9050,8 @@ open class xUploadMedia {
         )
     }
 }
-val xui = definePlugin(VuePlugin(install = fun(app: VueApp) {
+val xui = definePlugin(VuePlugin(install = fun(app: VueApp, config: Any?) {
+    setConfig(config)
     var darkModel = getDarkMode()
     if (isCustomTheme()) {
         xConfig.dark = darkModel
@@ -9164,11 +9161,11 @@ val isLocationReject = fun(): Boolean {
     return true
 }
 val isLocationAgree = fun(): Boolean {
-    val v = uni_getStorageSync(locationKey)
-    if (v == null || v != (locationKey + "agree")) {
-        return false
+    val granted = checkGrantedLocation()
+    if (!granted) {
+        setLocationGrantStatus("reject")
     }
-    return true
+    return granted
 }
 val photoAgreeKey = "photoAgreeKey"
 val removePhotoAgreeStatus = fun(){
@@ -9178,11 +9175,7 @@ val setPhotoAgreeStatus = fun(){
     uni_setStorageSync(photoAgreeKey, "photoAgree")
 }
 val getPhotoAgreeStatus = fun(): Boolean {
-    val v = uni_getStorageSync(photoAgreeKey)
-    if (v == null || v != "photoAgree") {
-        return false
-    }
-    return true
+    return checkGrantedCamera() || checkGrantedPhoto()
 }
 open class WebSocketSendMessage (
     @JsonNotNull
@@ -9691,6 +9684,11 @@ val pages = utsArrayOf(
         var enablePullDownRefresh = false
         var navigationStyle = "custom"
     }),
+    PageItem(path = "/pages/personal/setting/grant-manage/index", name = "PagesPersonalSettingGrantManageIndex", needLogin = false, meta = UTSJSONObject(), query = UTSJSONObject(), data = UTSJSONObject(), style = object : UTSJSONObject() {
+        var navigationBarTitleText = "权限管理"
+        var enablePullDownRefresh = false
+        var navigationStyle = "custom"
+    }),
     PageItem(path = "/pages/personal/setting/account-safe/account-cancellation/index", name = "PagesPersonalSettingAccountSafeAccountCancellationIndex", needLogin = false, meta = UTSJSONObject(), query = UTSJSONObject(), data = UTSJSONObject(), style = object : UTSJSONObject() {
         var navigationBarTitleText = "账号注销提示"
         var enablePullDownRefresh = false
@@ -9951,6 +9949,16 @@ open class MapOption (
     open var naviInfoUpdateCb: ((data: String) -> Unit)? = null,
     open var arriveCb: (() -> Unit)? = null,
 ) : UTSObject()
+fun loadImageFromAssets(fname: String): Bitmap? {
+    var bitmap: Bitmap? = null
+    try {
+        var assetManager = UTSAndroid.getAppContext()!!.getAssets()
+        var inputStream = assetManager.open(fname)
+        bitmap = BitmapFactory.decodeStream(inputStream)
+    }
+     catch (e: Throwable) {}
+    return bitmap
+}
 open class PlatformUtils {
     constructor(){}
     open fun setScreenOrientation(type: Number) {
@@ -10422,7 +10430,7 @@ open class NativeMap {
             }
             )
             console.log("途经点数据：", wayPoints)
-            val mStartPoi = NaviPoi("出发地", LatLng(navOption.startLat.toDouble(), navOption.startLng.toDouble()), navOption.startPoiId)
+            val mStartPoi = NaviPoi("出发地", LatLng(navOption.startLat.toDouble(), navOption.startLng.toDouble()), "")
             this.mAMapNavi?.calculateDriveRoute(mStartPoi, mEndPoi, wayPoints, navOption.calcStrategy.toInt())
         }
     }
@@ -10440,13 +10448,13 @@ open class NativeMap {
             MapStore.mapView = mapView
         }
         this.element?.bindAndroidView(mapView!!)
-        this.aMap = mapView?.getMap()!! as AMap
+        this.aMap = mapView.getMap()!! as AMap
         this.aMap?.setMapType(4)
         this.aMap?.setTrafficEnabled(true)
         this.aMap?.setMyLocationEnabled(this.options?.selfLocation ?: false)
         val myLocationStyle = MyLocationStyle()
+        myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromBitmap(loadImageFromAssets("self-car.png")))
         myLocationStyle.strokeColor(Color.argb(0, 0, 0, 0))
-        myLocationStyle.radiusFillColor(Color.argb(0, 0, 0, 0))
         myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE_NO_CENTER)
         this.aMap?.setMyLocationStyle(myLocationStyle)
         val mUiSettings = this.aMap?.getUiSettings()
@@ -10581,10 +10589,10 @@ open class NativeNavi {
         mapNaviView.getViewOptions().setMapStyle(MapStyle.DAY, "")
         mapNaviView.getViewOptions().setTrafficLayerEnabled(true)
         mapNaviView.getViewOptions().setLaneInfoShow(true)
-        mapNaviView?.setShowTrafficLightView(true)
-        mapNaviView?.setShowDriveCongestion(true)
-        mapNaviView?.setTrafficLightsVisible(true)
-        mapNaviView?.setAMapNaviViewListener(this.mNaviViewListener!!)
+        mapNaviView.setShowTrafficLightView(true)
+        mapNaviView.setShowDriveCongestion(true)
+        mapNaviView.setTrafficLightsVisible(true)
+        mapNaviView.setAMapNaviViewListener(this.mNaviViewListener!!)
         this.aMap = mapNaviView?.getMap()
         this.element?.bindAndroidView(mapNaviView!!)
     }
@@ -14271,230 +14279,65 @@ fun getMissingDates(dateList: UTSArray<String>): UTSArray<String> {
     }
     return missingDates
 }
-open class xDateArrayItem (
+fun normalizeTimeString(timeStr: String): String {
+    val trimmedStr = timeStr.trim()
+    if (trimmedStr.length === 10) {
+        return trimmedStr + " 00:00:00"
+    }
+    if (trimmedStr.length === 16) {
+        return trimmedStr + ":00"
+    }
+    return trimmedStr
+}
+fun compareTimeStrings(timeStr1: String, timeStr2: String): Number {
+    if (timeStr1 == null || timeStr2 == null) {
+        throw UTSError("时间字符串不能为空")
+    }
+    val normalizedTime1 = normalizeTimeString(timeStr1)
+    val normalizedTime2 = normalizeTimeString(timeStr2)
+    val formattedTime1 = formatDateStr(normalizedTime1)
+    val formattedTime2 = formatDateStr(normalizedTime2)
+    val date1 = Date(formattedTime1)
+    val date2 = Date(formattedTime2)
+    if (isNaN(date1.getTime()) || isNaN(date2.getTime())) {
+        throw UTSError("无效的时间字符串格式")
+    }
+    val timestamp1 = date1.getTime()
+    val timestamp2 = date2.getTime()
+    if (timestamp1 < timestamp2) {
+        return -1
+    } else if (timestamp1 > timestamp2) {
+        return 1
+    } else {
+        return 0
+    }
+}
+fun isTimeBefore(timeStr1: String, timeStr2: String): Boolean {
+    return compareTimeStrings(timeStr1, timeStr2) === -1
+}
+val GenUniModulesTmxUiComponentsXStepperXStepperClass = CreateVueComponent(GenUniModulesTmxUiComponentsXStepperXStepper::class.java, fun(): VueComponentOptions {
+    return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXStepperXStepper.inheritAttrs, inject = GenUniModulesTmxUiComponentsXStepperXStepper.inject, props = GenUniModulesTmxUiComponentsXStepperXStepper.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXStepperXStepper.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXStepperXStepper.emits, components = GenUniModulesTmxUiComponentsXStepperXStepper.components, styles = GenUniModulesTmxUiComponentsXStepperXStepper.styles)
+}
+, fun(instance, renderer): GenUniModulesTmxUiComponentsXStepperXStepper {
+    return GenUniModulesTmxUiComponentsXStepperXStepper(instance)
+}
+)
+open class xDateArrayItemType (
     @JsonNotNull
     open var date: xDateDayInfoType,
     @JsonNotNull
-    open var isDisabled: Boolean = false,
+    open var disabled: Boolean = false,
     @JsonNotNull
-    open var isInCureentMonth: Boolean = false,
+    open var inCurrentMonth: Boolean = false,
     @JsonNotNull
-    open var isSelected: Boolean = false,
+    open var inRange: Boolean = false,
+    @JsonNotNull
+    open var isInstart: Boolean = false,
+    @JsonNotNull
+    open var isInEnd: Boolean = false,
     @JsonNotNull
     open var style: dateStyleType,
-) : UTSReactiveObject() {
-    override fun __v_create(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): UTSReactiveObject {
-        return xDateArrayItemReactiveObject(this, __v_isReadonly, __v_isShallow, __v_skip)
-    }
-}
-open class xDateArrayItemReactiveObject : xDateArrayItem, IUTSReactive<xDateArrayItem> {
-    override var __v_raw: xDateArrayItem
-    override var __v_isReadonly: Boolean
-    override var __v_isShallow: Boolean
-    override var __v_skip: Boolean
-    constructor(__v_raw: xDateArrayItem, __v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean) : super(date = __v_raw.date, isDisabled = __v_raw.isDisabled, isInCureentMonth = __v_raw.isInCureentMonth, isSelected = __v_raw.isSelected, style = __v_raw.style) {
-        this.__v_raw = __v_raw
-        this.__v_isReadonly = __v_isReadonly
-        this.__v_isShallow = __v_isShallow
-        this.__v_skip = __v_skip
-    }
-    override fun __v_clone(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): xDateArrayItemReactiveObject {
-        return xDateArrayItemReactiveObject(this.__v_raw, __v_isReadonly, __v_isShallow, __v_skip)
-    }
-    override var date: xDateDayInfoType
-        get() {
-            return trackReactiveGet(__v_raw, "date", __v_raw.date, this.__v_isReadonly, this.__v_isShallow)
-        }
-        set(value) {
-            if (!this.__v_canSet("date")) {
-                return
-            }
-            val oldValue = __v_raw.date
-            __v_raw.date = value
-            triggerReactiveSet(__v_raw, "date", oldValue, value)
-        }
-    override var isDisabled: Boolean
-        get() {
-            return trackReactiveGet(__v_raw, "isDisabled", __v_raw.isDisabled, this.__v_isReadonly, this.__v_isShallow)
-        }
-        set(value) {
-            if (!this.__v_canSet("isDisabled")) {
-                return
-            }
-            val oldValue = __v_raw.isDisabled
-            __v_raw.isDisabled = value
-            triggerReactiveSet(__v_raw, "isDisabled", oldValue, value)
-        }
-    override var isInCureentMonth: Boolean
-        get() {
-            return trackReactiveGet(__v_raw, "isInCureentMonth", __v_raw.isInCureentMonth, this.__v_isReadonly, this.__v_isShallow)
-        }
-        set(value) {
-            if (!this.__v_canSet("isInCureentMonth")) {
-                return
-            }
-            val oldValue = __v_raw.isInCureentMonth
-            __v_raw.isInCureentMonth = value
-            triggerReactiveSet(__v_raw, "isInCureentMonth", oldValue, value)
-        }
-    override var isSelected: Boolean
-        get() {
-            return trackReactiveGet(__v_raw, "isSelected", __v_raw.isSelected, this.__v_isReadonly, this.__v_isShallow)
-        }
-        set(value) {
-            if (!this.__v_canSet("isSelected")) {
-                return
-            }
-            val oldValue = __v_raw.isSelected
-            __v_raw.isSelected = value
-            triggerReactiveSet(__v_raw, "isSelected", oldValue, value)
-        }
-    override var style: dateStyleType
-        get() {
-            return trackReactiveGet(__v_raw, "style", __v_raw.style, this.__v_isReadonly, this.__v_isShallow)
-        }
-        set(value) {
-            if (!this.__v_canSet("style")) {
-                return
-            }
-            val oldValue = __v_raw.style
-            __v_raw.style = value
-            triggerReactiveSet(__v_raw, "style", oldValue, value)
-        }
-}
-open class xCalendarDateStyle_real_type (
-    @JsonNotNull
-    open var dot: Boolean = false,
-    @JsonNotNull
-    open var dotColor: String,
-    @JsonNotNull
-    open var dotLabelColor: String,
-    @JsonNotNull
-    open var dotLabel: String,
-    @JsonNotNull
-    open var label: String,
-    @JsonNotNull
-    open var color: String,
-    @JsonNotNull
-    open var fontColor: String,
-    @JsonNotNull
-    open var date: String,
-) : UTSReactiveObject() {
-    override fun __v_create(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): UTSReactiveObject {
-        return xCalendarDateStyle_real_typeReactiveObject(this, __v_isReadonly, __v_isShallow, __v_skip)
-    }
-}
-open class xCalendarDateStyle_real_typeReactiveObject : xCalendarDateStyle_real_type, IUTSReactive<xCalendarDateStyle_real_type> {
-    override var __v_raw: xCalendarDateStyle_real_type
-    override var __v_isReadonly: Boolean
-    override var __v_isShallow: Boolean
-    override var __v_skip: Boolean
-    constructor(__v_raw: xCalendarDateStyle_real_type, __v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean) : super(dot = __v_raw.dot, dotColor = __v_raw.dotColor, dotLabelColor = __v_raw.dotLabelColor, dotLabel = __v_raw.dotLabel, label = __v_raw.label, color = __v_raw.color, fontColor = __v_raw.fontColor, date = __v_raw.date) {
-        this.__v_raw = __v_raw
-        this.__v_isReadonly = __v_isReadonly
-        this.__v_isShallow = __v_isShallow
-        this.__v_skip = __v_skip
-    }
-    override fun __v_clone(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): xCalendarDateStyle_real_typeReactiveObject {
-        return xCalendarDateStyle_real_typeReactiveObject(this.__v_raw, __v_isReadonly, __v_isShallow, __v_skip)
-    }
-    override var dot: Boolean
-        get() {
-            return trackReactiveGet(__v_raw, "dot", __v_raw.dot, this.__v_isReadonly, this.__v_isShallow)
-        }
-        set(value) {
-            if (!this.__v_canSet("dot")) {
-                return
-            }
-            val oldValue = __v_raw.dot
-            __v_raw.dot = value
-            triggerReactiveSet(__v_raw, "dot", oldValue, value)
-        }
-    override var dotColor: String
-        get() {
-            return trackReactiveGet(__v_raw, "dotColor", __v_raw.dotColor, this.__v_isReadonly, this.__v_isShallow)
-        }
-        set(value) {
-            if (!this.__v_canSet("dotColor")) {
-                return
-            }
-            val oldValue = __v_raw.dotColor
-            __v_raw.dotColor = value
-            triggerReactiveSet(__v_raw, "dotColor", oldValue, value)
-        }
-    override var dotLabelColor: String
-        get() {
-            return trackReactiveGet(__v_raw, "dotLabelColor", __v_raw.dotLabelColor, this.__v_isReadonly, this.__v_isShallow)
-        }
-        set(value) {
-            if (!this.__v_canSet("dotLabelColor")) {
-                return
-            }
-            val oldValue = __v_raw.dotLabelColor
-            __v_raw.dotLabelColor = value
-            triggerReactiveSet(__v_raw, "dotLabelColor", oldValue, value)
-        }
-    override var dotLabel: String
-        get() {
-            return trackReactiveGet(__v_raw, "dotLabel", __v_raw.dotLabel, this.__v_isReadonly, this.__v_isShallow)
-        }
-        set(value) {
-            if (!this.__v_canSet("dotLabel")) {
-                return
-            }
-            val oldValue = __v_raw.dotLabel
-            __v_raw.dotLabel = value
-            triggerReactiveSet(__v_raw, "dotLabel", oldValue, value)
-        }
-    override var label: String
-        get() {
-            return trackReactiveGet(__v_raw, "label", __v_raw.label, this.__v_isReadonly, this.__v_isShallow)
-        }
-        set(value) {
-            if (!this.__v_canSet("label")) {
-                return
-            }
-            val oldValue = __v_raw.label
-            __v_raw.label = value
-            triggerReactiveSet(__v_raw, "label", oldValue, value)
-        }
-    override var color: String
-        get() {
-            return trackReactiveGet(__v_raw, "color", __v_raw.color, this.__v_isReadonly, this.__v_isShallow)
-        }
-        set(value) {
-            if (!this.__v_canSet("color")) {
-                return
-            }
-            val oldValue = __v_raw.color
-            __v_raw.color = value
-            triggerReactiveSet(__v_raw, "color", oldValue, value)
-        }
-    override var fontColor: String
-        get() {
-            return trackReactiveGet(__v_raw, "fontColor", __v_raw.fontColor, this.__v_isReadonly, this.__v_isShallow)
-        }
-        set(value) {
-            if (!this.__v_canSet("fontColor")) {
-                return
-            }
-            val oldValue = __v_raw.fontColor
-            __v_raw.fontColor = value
-            triggerReactiveSet(__v_raw, "fontColor", oldValue, value)
-        }
-    override var date: String
-        get() {
-            return trackReactiveGet(__v_raw, "date", __v_raw.date, this.__v_isReadonly, this.__v_isShallow)
-        }
-        set(value) {
-            if (!this.__v_canSet("date")) {
-                return
-            }
-            val oldValue = __v_raw.date
-            __v_raw.date = value
-            triggerReactiveSet(__v_raw, "date", oldValue, value)
-        }
-}
+) : UTSObject()
 open class dateStyleDot (
     @JsonNotNull
     open var dot: Boolean = false,
@@ -14504,74 +14347,7 @@ open class dateStyleDot (
     open var dotLabelColor: String,
     @JsonNotNull
     open var dotLabel: String,
-) : UTSReactiveObject() {
-    override fun __v_create(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): UTSReactiveObject {
-        return dateStyleDotReactiveObject(this, __v_isReadonly, __v_isShallow, __v_skip)
-    }
-}
-open class dateStyleDotReactiveObject : dateStyleDot, IUTSReactive<dateStyleDot> {
-    override var __v_raw: dateStyleDot
-    override var __v_isReadonly: Boolean
-    override var __v_isShallow: Boolean
-    override var __v_skip: Boolean
-    constructor(__v_raw: dateStyleDot, __v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean) : super(dot = __v_raw.dot, dotColor = __v_raw.dotColor, dotLabelColor = __v_raw.dotLabelColor, dotLabel = __v_raw.dotLabel) {
-        this.__v_raw = __v_raw
-        this.__v_isReadonly = __v_isReadonly
-        this.__v_isShallow = __v_isShallow
-        this.__v_skip = __v_skip
-    }
-    override fun __v_clone(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): dateStyleDotReactiveObject {
-        return dateStyleDotReactiveObject(this.__v_raw, __v_isReadonly, __v_isShallow, __v_skip)
-    }
-    override var dot: Boolean
-        get() {
-            return trackReactiveGet(__v_raw, "dot", __v_raw.dot, this.__v_isReadonly, this.__v_isShallow)
-        }
-        set(value) {
-            if (!this.__v_canSet("dot")) {
-                return
-            }
-            val oldValue = __v_raw.dot
-            __v_raw.dot = value
-            triggerReactiveSet(__v_raw, "dot", oldValue, value)
-        }
-    override var dotColor: String
-        get() {
-            return trackReactiveGet(__v_raw, "dotColor", __v_raw.dotColor, this.__v_isReadonly, this.__v_isShallow)
-        }
-        set(value) {
-            if (!this.__v_canSet("dotColor")) {
-                return
-            }
-            val oldValue = __v_raw.dotColor
-            __v_raw.dotColor = value
-            triggerReactiveSet(__v_raw, "dotColor", oldValue, value)
-        }
-    override var dotLabelColor: String
-        get() {
-            return trackReactiveGet(__v_raw, "dotLabelColor", __v_raw.dotLabelColor, this.__v_isReadonly, this.__v_isShallow)
-        }
-        set(value) {
-            if (!this.__v_canSet("dotLabelColor")) {
-                return
-            }
-            val oldValue = __v_raw.dotLabelColor
-            __v_raw.dotLabelColor = value
-            triggerReactiveSet(__v_raw, "dotLabelColor", oldValue, value)
-        }
-    override var dotLabel: String
-        get() {
-            return trackReactiveGet(__v_raw, "dotLabel", __v_raw.dotLabel, this.__v_isReadonly, this.__v_isShallow)
-        }
-        set(value) {
-            if (!this.__v_canSet("dotLabel")) {
-                return
-            }
-            val oldValue = __v_raw.dotLabel
-            __v_raw.dotLabel = value
-            triggerReactiveSet(__v_raw, "dotLabel", oldValue, value)
-        }
-}
+) : UTSObject()
 open class dateStyleBg (
     @JsonNotNull
     open var label: String,
@@ -14581,487 +14357,390 @@ open class dateStyleBg (
     open var backgroundColor: String,
     @JsonNotNull
     open var opacity: Number,
-) : UTSReactiveObject() {
-    override fun __v_create(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): UTSReactiveObject {
-        return dateStyleBgReactiveObject(this, __v_isReadonly, __v_isShallow, __v_skip)
-    }
-}
-open class dateStyleBgReactiveObject : dateStyleBg, IUTSReactive<dateStyleBg> {
-    override var __v_raw: dateStyleBg
-    override var __v_isReadonly: Boolean
-    override var __v_isShallow: Boolean
-    override var __v_skip: Boolean
-    constructor(__v_raw: dateStyleBg, __v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean) : super(label = __v_raw.label, fontColor = __v_raw.fontColor, backgroundColor = __v_raw.backgroundColor, opacity = __v_raw.opacity) {
-        this.__v_raw = __v_raw
-        this.__v_isReadonly = __v_isReadonly
-        this.__v_isShallow = __v_isShallow
-        this.__v_skip = __v_skip
-    }
-    override fun __v_clone(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): dateStyleBgReactiveObject {
-        return dateStyleBgReactiveObject(this.__v_raw, __v_isReadonly, __v_isShallow, __v_skip)
-    }
-    override var label: String
-        get() {
-            return trackReactiveGet(__v_raw, "label", __v_raw.label, this.__v_isReadonly, this.__v_isShallow)
-        }
-        set(value) {
-            if (!this.__v_canSet("label")) {
-                return
-            }
-            val oldValue = __v_raw.label
-            __v_raw.label = value
-            triggerReactiveSet(__v_raw, "label", oldValue, value)
-        }
-    override var fontColor: String
-        get() {
-            return trackReactiveGet(__v_raw, "fontColor", __v_raw.fontColor, this.__v_isReadonly, this.__v_isShallow)
-        }
-        set(value) {
-            if (!this.__v_canSet("fontColor")) {
-                return
-            }
-            val oldValue = __v_raw.fontColor
-            __v_raw.fontColor = value
-            triggerReactiveSet(__v_raw, "fontColor", oldValue, value)
-        }
-    override var backgroundColor: String
-        get() {
-            return trackReactiveGet(__v_raw, "backgroundColor", __v_raw.backgroundColor, this.__v_isReadonly, this.__v_isShallow)
-        }
-        set(value) {
-            if (!this.__v_canSet("backgroundColor")) {
-                return
-            }
-            val oldValue = __v_raw.backgroundColor
-            __v_raw.backgroundColor = value
-            triggerReactiveSet(__v_raw, "backgroundColor", oldValue, value)
-        }
-    override var opacity: Number
-        get() {
-            return trackReactiveGet(__v_raw, "opacity", __v_raw.opacity, this.__v_isReadonly, this.__v_isShallow)
-        }
-        set(value) {
-            if (!this.__v_canSet("opacity")) {
-                return
-            }
-            val oldValue = __v_raw.opacity
-            __v_raw.opacity = value
-            triggerReactiveSet(__v_raw, "opacity", oldValue, value)
-        }
-}
+) : UTSObject()
 open class dateStyleType (
     @JsonNotNull
     open var dot: dateStyleDot,
     @JsonNotNull
     open var dstyle: dateStyleBg,
-) : UTSReactiveObject() {
-    override fun __v_create(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): UTSReactiveObject {
-        return dateStyleTypeReactiveObject(this, __v_isReadonly, __v_isShallow, __v_skip)
-    }
-}
-open class dateStyleTypeReactiveObject : dateStyleType, IUTSReactive<dateStyleType> {
-    override var __v_raw: dateStyleType
-    override var __v_isReadonly: Boolean
-    override var __v_isShallow: Boolean
-    override var __v_skip: Boolean
-    constructor(__v_raw: dateStyleType, __v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean) : super(dot = __v_raw.dot, dstyle = __v_raw.dstyle) {
-        this.__v_raw = __v_raw
-        this.__v_isReadonly = __v_isReadonly
-        this.__v_isShallow = __v_isShallow
-        this.__v_skip = __v_skip
-    }
-    override fun __v_clone(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): dateStyleTypeReactiveObject {
-        return dateStyleTypeReactiveObject(this.__v_raw, __v_isReadonly, __v_isShallow, __v_skip)
-    }
-    override var dot: dateStyleDot
-        get() {
-            return trackReactiveGet(__v_raw, "dot", __v_raw.dot, this.__v_isReadonly, this.__v_isShallow)
-        }
-        set(value) {
-            if (!this.__v_canSet("dot")) {
-                return
-            }
-            val oldValue = __v_raw.dot
-            __v_raw.dot = value
-            triggerReactiveSet(__v_raw, "dot", oldValue, value)
-        }
-    override var dstyle: dateStyleBg
-        get() {
-            return trackReactiveGet(__v_raw, "dstyle", __v_raw.dstyle, this.__v_isReadonly, this.__v_isShallow)
-        }
-        set(value) {
-            if (!this.__v_canSet("dstyle")) {
-                return
-            }
-            val oldValue = __v_raw.dstyle
-            __v_raw.dstyle = value
-            triggerReactiveSet(__v_raw, "dstyle", oldValue, value)
-        }
-}
-open class BODY_SIZE_TYPE (
-    @JsonNotNull
-    open var width: Number,
-    @JsonNotNull
-    open var height: Number,
-) : UTSReactiveObject() {
-    override fun __v_create(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): UTSReactiveObject {
-        return BODY_SIZE_TYPEReactiveObject(this, __v_isReadonly, __v_isShallow, __v_skip)
-    }
-}
-open class BODY_SIZE_TYPEReactiveObject : BODY_SIZE_TYPE, IUTSReactive<BODY_SIZE_TYPE> {
-    override var __v_raw: BODY_SIZE_TYPE
-    override var __v_isReadonly: Boolean
-    override var __v_isShallow: Boolean
-    override var __v_skip: Boolean
-    constructor(__v_raw: BODY_SIZE_TYPE, __v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean) : super(width = __v_raw.width, height = __v_raw.height) {
-        this.__v_raw = __v_raw
-        this.__v_isReadonly = __v_isReadonly
-        this.__v_isShallow = __v_isShallow
-        this.__v_skip = __v_skip
-    }
-    override fun __v_clone(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): BODY_SIZE_TYPEReactiveObject {
-        return BODY_SIZE_TYPEReactiveObject(this.__v_raw, __v_isReadonly, __v_isShallow, __v_skip)
-    }
-    override var width: Number
-        get() {
-            return trackReactiveGet(__v_raw, "width", __v_raw.width, this.__v_isReadonly, this.__v_isShallow)
-        }
-        set(value) {
-            if (!this.__v_canSet("width")) {
-                return
-            }
-            val oldValue = __v_raw.width
-            __v_raw.width = value
-            triggerReactiveSet(__v_raw, "width", oldValue, value)
-        }
-    override var height: Number
-        get() {
-            return trackReactiveGet(__v_raw, "height", __v_raw.height, this.__v_isReadonly, this.__v_isShallow)
-        }
-        set(value) {
-            if (!this.__v_canSet("height")) {
-                return
-            }
-            val oldValue = __v_raw.height
-            __v_raw.height = value
-            triggerReactiveSet(__v_raw, "height", oldValue, value)
-        }
-}
-open class xCalendarViewUpdateType (
-    @JsonNotNull
-    open var ar: UTSArray<xDateArrayItem>,
-    @JsonNotNull
-    open var disabledDays: UTSArray<String>,
-    open var selectedDate: xDate? = null,
-    @JsonNotNull
-    open var nowDate: xDate,
-    @JsonNotNull
-    open var start: xDate,
-    @JsonNotNull
-    open var end: xDate,
+) : UTSObject()
+typealias xCalendarMode = String
+open class xCalendarArgs (
     @JsonNotNull
     open var color: String,
     @JsonNotNull
-    open var dateStyle: UTSArray<xCalendarDateStyle_real_type>,
-) : UTSReactiveObject() {
-    override fun __v_create(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): UTSReactiveObject {
-        return xCalendarViewUpdateTypeReactiveObject(this, __v_isReadonly, __v_isShallow, __v_skip)
+    open var fontColor: String,
+    @JsonNotNull
+    open var activeFontColor: String,
+    @JsonNotNull
+    open var rangColor: String,
+    @JsonNotNull
+    open var rangFontColor: String,
+) : UTSObject()
+open class xCalendar {
+    open var date: xDate
+    open var calendar: UTSArray<xDateArrayItemType> = utsArrayOf()
+    constructor(currentDate: Any? = null){
+        this.date = xDate(currentDate)
     }
-}
-open class xCalendarViewUpdateTypeReactiveObject : xCalendarViewUpdateType, IUTSReactive<xCalendarViewUpdateType> {
-    override var __v_raw: xCalendarViewUpdateType
-    override var __v_isReadonly: Boolean
-    override var __v_isShallow: Boolean
-    override var __v_skip: Boolean
-    constructor(__v_raw: xCalendarViewUpdateType, __v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean) : super(ar = __v_raw.ar, disabledDays = __v_raw.disabledDays, selectedDate = __v_raw.selectedDate, nowDate = __v_raw.nowDate, start = __v_raw.start, end = __v_raw.end, color = __v_raw.color, dateStyle = __v_raw.dateStyle) {
-        this.__v_raw = __v_raw
-        this.__v_isReadonly = __v_isReadonly
-        this.__v_isShallow = __v_isShallow
-        this.__v_skip = __v_skip
+    open fun isInCurrentMonth(current: Date, target: Date): Boolean {
+        var y1 = current.getFullYear()
+        var m1 = current.getMonth()
+        var y2 = target.getFullYear()
+        var m2 = target.getMonth()
+        return y1 == y2 && m1 == m2
     }
-    override fun __v_clone(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): xCalendarViewUpdateTypeReactiveObject {
-        return xCalendarViewUpdateTypeReactiveObject(this.__v_raw, __v_isReadonly, __v_isShallow, __v_skip)
-    }
-    override var ar: UTSArray<xDateArrayItem>
-        get() {
-            return trackReactiveGet(__v_raw, "ar", __v_raw.ar, this.__v_isReadonly, this.__v_isShallow)
-        }
-        set(value) {
-            if (!this.__v_canSet("ar")) {
-                return
-            }
-            val oldValue = __v_raw.ar
-            __v_raw.ar = value
-            triggerReactiveSet(__v_raw, "ar", oldValue, value)
-        }
-    override var disabledDays: UTSArray<String>
-        get() {
-            return trackReactiveGet(__v_raw, "disabledDays", __v_raw.disabledDays, this.__v_isReadonly, this.__v_isShallow)
-        }
-        set(value) {
-            if (!this.__v_canSet("disabledDays")) {
-                return
-            }
-            val oldValue = __v_raw.disabledDays
-            __v_raw.disabledDays = value
-            triggerReactiveSet(__v_raw, "disabledDays", oldValue, value)
-        }
-    override var selectedDate: xDate?
-        get() {
-            return trackReactiveGet(__v_raw, "selectedDate", __v_raw.selectedDate, this.__v_isReadonly, this.__v_isShallow)
-        }
-        set(value) {
-            if (!this.__v_canSet("selectedDate")) {
-                return
-            }
-            val oldValue = __v_raw.selectedDate
-            __v_raw.selectedDate = value
-            triggerReactiveSet(__v_raw, "selectedDate", oldValue, value)
-        }
-    override var nowDate: xDate
-        get() {
-            return trackReactiveGet(__v_raw, "nowDate", __v_raw.nowDate, this.__v_isReadonly, this.__v_isShallow)
-        }
-        set(value) {
-            if (!this.__v_canSet("nowDate")) {
-                return
-            }
-            val oldValue = __v_raw.nowDate
-            __v_raw.nowDate = value
-            triggerReactiveSet(__v_raw, "nowDate", oldValue, value)
-        }
-    override var start: xDate
-        get() {
-            return trackReactiveGet(__v_raw, "start", __v_raw.start, this.__v_isReadonly, this.__v_isShallow)
-        }
-        set(value) {
-            if (!this.__v_canSet("start")) {
-                return
-            }
-            val oldValue = __v_raw.start
-            __v_raw.start = value
-            triggerReactiveSet(__v_raw, "start", oldValue, value)
-        }
-    override var end: xDate
-        get() {
-            return trackReactiveGet(__v_raw, "end", __v_raw.end, this.__v_isReadonly, this.__v_isShallow)
-        }
-        set(value) {
-            if (!this.__v_canSet("end")) {
-                return
-            }
-            val oldValue = __v_raw.end
-            __v_raw.end = value
-            triggerReactiveSet(__v_raw, "end", oldValue, value)
-        }
-    override var color: String
-        get() {
-            return trackReactiveGet(__v_raw, "color", __v_raw.color, this.__v_isReadonly, this.__v_isShallow)
-        }
-        set(value) {
-            if (!this.__v_canSet("color")) {
-                return
-            }
-            val oldValue = __v_raw.color
-            __v_raw.color = value
-            triggerReactiveSet(__v_raw, "color", oldValue, value)
-        }
-    override var dateStyle: UTSArray<xCalendarDateStyle_real_type>
-        get() {
-            return trackReactiveGet(__v_raw, "dateStyle", __v_raw.dateStyle, this.__v_isReadonly, this.__v_isShallow)
-        }
-        set(value) {
-            if (!this.__v_canSet("dateStyle")) {
-                return
-            }
-            val oldValue = __v_raw.dateStyle
-            __v_raw.dateStyle = value
-            triggerReactiveSet(__v_raw, "dateStyle", oldValue, value)
-        }
-}
-open class xCalendarView {
-    open var el: UniElement
-    open var ctx: DrawableContext
-    open var grid_width: Number = 0
-    open var grid_height: Number = 50
-    open var cellHeight: Number = 45
-    open var boxsize: BODY_SIZE_TYPE
-    open var opts = xCalendarViewUpdateType(ar = utsArrayOf<xDateArrayItem>(), disabledDays = utsArrayOf<String>(), selectedDate = null, nowDate = xDate(), start = xDate(), end = xDate(), color = "red", dateStyle = utsArrayOf<xCalendarDateStyle_real_type>())
-    constructor(el: UniElement, size: BODY_SIZE_TYPE){
-        this.el = el!!
-        this.ctx = this.el.getDrawableContext()!!
-        this.grid_width = parseFloat((size.width / 7).toFixed(2))
-        this.boxsize = size
-    }
-    open fun updateNowDateArrays(ar: xCalendarViewUpdateType) {
-        this.opts = ar
-    }
-    open fun isSelected(date: xDateDayInfoType): Boolean {
-        if (this.opts.selectedDate == null) {
+    open fun isInpanel(current: Any): Boolean {
+        console.log(this.calendar)
+        if (this.calendar.length == 0) {
             return false
         }
-        return this.opts.selectedDate!!.isBetweenOf(xDate(date.date), "=", "d")
+        var s = xDate(this.calendar[0].date.date)
+        var e = xDate(this.calendar[this.calendar.length - 1].date.date)
+        var c = xDate(current)
+        return c.getTime("d") <= e.getTime("d") && c.getTime("d") >= s.getTime("d")
     }
-    open fun isInCureentMonth(date: xDateDayInfoType): Boolean {
-        var cureentDate = xDate(date.date)
-        var start = this.opts.nowDate.getDateStartOf("m")
-        var end = this.opts.nowDate.getDateEndOf("m")
-        return cureentDate.isBetween(start, end, "d")
-    }
-    open fun isDot(date: dateStyleType): Boolean {
-        if (date.dot.dotLabel == "" && date.dot.dot) {
-            return true
+    open fun isInRangeDate(current: Date, targets: UTSArray<Date>, mode: xCalendarMode): Boolean {
+        var y1 = current.getFullYear()
+        var m1 = current.getMonth()
+        var d1 = current.getDate()
+        if (mode == "day") {
+            run {
+                var i: Number = 0
+                while(i < targets.length){
+                    var target = targets[i]
+                    var y2 = target.getFullYear()
+                    var m2 = target.getMonth()
+                    var d2 = target.getDate()
+                    if (y1 == y2 && m1 == m2 && d1 == d2) {
+                        return true
+                    }
+                    i++
+                }
+            }
+        } else if (mode == "range") {
+            if (targets.length < 2) {
+                return false
+            }
+            var start = targets[0]
+            var end = targets[targets.length - 1]
+            return current.getTime() > start.getTime() && current.getTime() < end.getTime()
         }
         return false
     }
-    open fun isDisabled(date: xDateDayInfoType): Boolean {
-        var ds = this.opts.disabledDays as UTSArray<String>
-        var pass = false
-        var start = this.opts.start
-        var end = this.opts.end
-        var now = xDate(date.date)
+    open fun isInRangeDateByIndex(current: Date, targets: UTSArray<Date>, mode: xCalendarMode): Number {
+        var y1 = current.getFullYear()
+        var m1 = current.getMonth()
+        var d1 = current.getDate()
+        if (mode == "day") {
+            run {
+                var i: Number = 0
+                while(i < targets.length){
+                    var target = targets[i]
+                    var y2 = target.getFullYear()
+                    var m2 = target.getMonth()
+                    var d2 = target.getDate()
+                    if (y1 == y2 && m1 == m2 && d1 == d2) {
+                        return i
+                    }
+                    i++
+                }
+            }
+        } else if (mode == "range") {
+            if (targets.length < 2) {
+                return -1
+            }
+            var start = targets[0]
+            var end = targets[targets.length - 1]
+            if (current.getTime() > start.getTime() && current.getTime() < end.getTime()) {
+                return -1
+            }
+            if (current.getTime() == start.getTime()) {
+                return 0
+            }
+            if (current.getTime() == end.getTime()) {
+                return 1
+            }
+        }
+        return -1
+    }
+    open fun isInCurrente(current: Date, targets: Date): Boolean {
+        return targets.getTime() == current.getTime()
+    }
+    open fun isDisabled(current: Date, start: Date?, end: Date?, targets: UTSArray<Date>): Boolean {
+        var y1 = current.getFullYear()
+        var m1 = current.getMonth()
+        var d1 = current.getDate()
+        var disabled = false
         run {
             var i: Number = 0
-            while(i < ds.length){
-                if (xDate(ds[i]).isBetweenOf(now, "=", "d")) {
-                    pass = true
+            while(i < targets.length){
+                var target = targets[i]
+                var y2 = target.getFullYear()
+                var m2 = target.getMonth()
+                var d2 = target.getDate()
+                if (y1 == y2 && m1 == m2 && d1 == d2) {
+                    disabled = true
                     break
                 }
                 i++
             }
         }
-        if (!pass) {
-            pass = !now.isBetween(start, end, "d", "[]")
+        if (start != null) {
+            disabled = start.getTime() > current.getTime()
         }
-        return pass
+        if (end != null) {
+            disabled = end.getTime() < current.getTime()
+        }
+        return disabled
     }
-    open fun _isDark(): Boolean {
-        return xConfig.dark == "dark"
+    open fun isInStart(current: Date, targets: UTSArray<Date>): Boolean {
+        if (targets.length == 0) {
+            return false
+        }
+        return targets[0].getTime() == current.getTime()
     }
-    open fun drawer() {
-        this.drawerBg()
-        this.drawerLabelAndDot()
+    open fun isInEnd(current: Date, targets: UTSArray<Date>): Boolean {
+        if (targets.length < 2) {
+            return false
+        }
+        return targets[targets.length - 1].getTime() == current.getTime()
     }
-    open fun drawerBg() {
-        val ctx = this.ctx
+    open fun diffDays(start: Date, end: Date): Number {
+        return end.getTime() - start.getTime()
+    }
+    open fun getDateStyle(current: Date, defaultStyle: xCalendarArgs, disabled: Boolean, inMonth: Boolean, inRange: Boolean, isInStart: Boolean, isInEnd: Boolean, dateStyle: UTSArray<xCalendarDateStyle_type>, mode: xCalendarMode): dateStyleType {
+        var nowdatestyleIndex = dateStyle.findIndex(fun(d: xCalendarDateStyle_type): Boolean {
+            return Date(d.date.replace(UTSRegExp("-", "g"), "/")).getTime() == current.getTime()
+        }
+        )
+        var item: xCalendarDateStyle_type? = if (nowdatestyleIndex == -1) {
+            null
+        } else {
+            dateStyle[nowdatestyleIndex]
+        }
+        val label = (item?.label ?: "") as String
+        var fontColor = (item?.fontColor ?: defaultStyle.fontColor) as String
+        fontColor = if (inRange) {
+            defaultStyle.activeFontColor
+        } else {
+            if (inRange) {
+                defaultStyle.rangFontColor
+            } else {
+                fontColor
+            }
+        }
+        var bgColor = (item?.color ?: "transparent") as String
+        bgColor = if (inRange) {
+            defaultStyle.color
+        } else {
+            if (inRange) {
+                defaultStyle.rangColor
+            } else {
+                bgColor
+            }
+        }
+        val bgstyle = dateStyleBg(label = label, fontColor = fontColor, backgroundColor = bgColor, opacity = if (disabled || !inMonth) {
+            0.5
+        } else {
+            1
+        }
+        )
+        val dotstyle = dateStyleDot(dot = item?.dot ?: false, dotColor = item?.dotColor ?: defaultStyle.color, dotLabelColor = item?.dotLabelColor ?: "#ffffff", dotLabel = item?.dotLabel ?: "")
+        return dateStyleType(dot = dotstyle, dstyle = bgstyle)
+    }
+    open fun getCalendar(mode: xCalendarMode, currentDate: Any? = null, selectedDate: String, start: Date?, end: Date?, defaultStyle: xCalendarArgs, dateStyle: UTSArray<xCalendarDateStyle_type> = utsArrayOf(), disabledDays: UTSArray<String> = utsArrayOf(), isPadding: Boolean = true): UTSArray<xDateArrayItemType> {
+        val nowCutime = Date.now()
+        var nowdate = if (currentDate == null) {
+            this.date
+        } else {
+            xDate(currentDate)
+        }
+         as xDate
+        val dateAr = nowdate.getDaysOf("m")
+        var dates = utsArrayOf<xDateDayInfoType>()
+        if (isPadding) {
+            val beforeNum = dateAr[0].week - 1
+            val beforeDates = xDate(dateAr[0].date).getDaysOfNum(beforeNum, "before")
+            dates = beforeDates.concat(dateAr)
+            if (dates.length < 42) {
+                var lastWeek = xDate(dates[dates.length - 1].date).getDaysOfNum(42 - dates.length, "after")
+                dates = dates.concat(lastWeek)
+            }
+        } else {
+            dates = dateAr
+        }
+        var selectedTargets = if (selectedDate == "") {
+            Date()
+        } else {
+            Date(selectedDate.replace(UTSRegExp("-", "g"), "/"))
+        }
+        var disabledDaysAs = disabledDays.map(fun(d: String): Date {
+            return Date(d.replace(UTSRegExp("-", "g"), "/"))
+        }
+        )
+        val current = nowdate.date
+        val list = utsArrayOf<xDateArrayItemType>()
+        run {
+            var i: Number = 0
+            while(i < dates.length){
+                var item = dates[i]
+                var checkDate = Date(item.date)
+                val inmonth = this.isInCurrentMonth(checkDate, current)
+                val inRange = this.isInCurrente(checkDate, selectedTargets)
+                val disabled = this.isDisabled(checkDate, start, end, disabledDaysAs)
+                val isInstart = false
+                val isInEnd = false
+                val astyle = this.getDateStyle(checkDate, defaultStyle, disabled, inmonth, inRange, isInstart, isInEnd, dateStyle, mode)
+                list.push(xDateArrayItemType(date = item, disabled = disabled, inCurrentMonth = inmonth, inRange = inRange, isInstart = isInstart, isInEnd = isInEnd, style = astyle))
+                i++
+            }
+        }
+        this.calendar = list
+        return list
+    }
+}
+open class calendarDraw {
+    open var ele: UniElement? = null
+    open var proxy: Any? = null
+    open var cellHeight: Number = 50
+    open var sapce: Number = 5
+    open var model: xCalendarMode = "day"
+    open var _fontSize: String = checkIsCssUnit("16", xConfig.unit)
+    constructor(target: UniElement?, proxyx: Any?){
+        this.ele = target
+        this.proxy = proxyx
+    }
+    open fun showLabel(item: xDateArrayItemType): String {
+        if (item.isInstart && item.isInEnd && this.model == "range") {
+            return "本日"
+        }
+        if (item.isInstart && !item.isInEnd && this.model == "range") {
+            return "开始"
+        }
+        if (!item.isInstart && item.isInEnd && this.model == "range") {
+            return "结束"
+        }
+        return ""
+    }
+    open fun getColor(color: String, alpha: Number): String {
+        if (alpha == 1) {
+            return color
+        }
+        var rgba = hexToRgb(getDefaultColor(color))
+        return "rgba(" + rgba.getNumber("r") + "," + rgba.getNumber("g") + "," + rgba.getNumber("b") + "," + alpha + ")"
+    }
+    open fun _draw(element: UniElement, Grect: DOMRect, list: UTSArray<UTSArray<xDateArrayItemType>>) {
+        val ctx = element.getDrawableContext()!!
         ctx.reset()
         ctx.fillStyle = "transparent"
-        ctx.fillRect(0, 0, this.boxsize.width, this.boxsize.height)
+        ctx.fillRect(0, 0, Grect.width, Grect.height)
         ctx.textAlign = "center"
-        var line: Number = 0
+        val _realCellWidth = Grect.width / 7
+        val _h = Math.min(_realCellWidth, 50) - this.sapce * 2
         run {
             var i: Number = 0
-            while(i < this.opts.ar.length){
-                var item = this.opts.ar[i]
-                var dstyle = item.style
-                var col = i % 7
-                if (col === 0 && i > 0) {
-                    line = line + 1
-                }
-                var xy_x = this.grid_width * col + this.grid_width / 2
-                var xy_y = this.grid_height * line + this.grid_height / 2
-                if (dstyle.dstyle.backgroundColor != "transparent" && item.isInCureentMonth) {
-                    ctx.fillStyle = dstyle.dstyle.backgroundColor
-                    ctx.beginPath()
-                    ctx.arc(xy_x, xy_y, this.cellHeight / 2, 0, Math.PI * 2)
-                    ctx.closePath()
-                    ctx.fill()
-                } else {
-                    ctx.fillStyle = "transparent"
-                    ctx.beginPath()
-                    ctx.arc(xy_x, xy_y, this.cellHeight / 2, 0, Math.PI * 2)
-                    ctx.closePath()
-                    ctx.fill()
-                }
-                i++
-            }
-        }
-        ctx.update()
-    }
-    open fun drawerLabelAndDot() {
-        val ctx = this.ctx
-        ctx.textAlign = "center"
-        var line: Number = 0
-        run {
-            var i: Number = 0
-            while(i < this.opts.ar.length){
-                var item = this.opts.ar[i]
-                var dstyle = item.style
-                var col = i % 7
-                if (col === 0 && i > 0) {
-                    line = line + 1
-                }
-                var x = this.grid_width * col + this.grid_width / 2
-                var y = this.grid_height * line + this.grid_height / 2 + 5
-                y = this.grid_height * line + this.grid_height / 2 + 3
-                if (dstyle.dot.dot && item.isInCureentMonth) {
-                    if (this.isDot(dstyle)) {
-                        var lastx = this.grid_width * col + this.grid_width / 2 + this.cellHeight / 2
-                        var lasty = this.grid_height * line + 5
-                        ctx.fillStyle = dstyle.dot.dotColor
-                        ctx.beginPath()
-                        ctx.arc(lastx, lasty, 4, 0, Math.PI * 2)
-                        ctx.closePath()
-                        ctx.fill()
-                    } else {
-                        var lastx = this.grid_width * col + this.grid_width / 2 + this.cellHeight / 2 - 5
-                        var lasty = this.grid_height * line + 10
-                        ctx.fillStyle = dstyle.dot.dotColor
-                        ctx.beginPath()
-                        ctx.arc(lastx, lasty, 10, 0, Math.PI * 2)
-                        ctx.closePath()
-                        ctx.fill()
-                        ctx.font = "10px"
-                        ctx.fillStyle = dstyle.dot.dotLabelColor
-                        ctx.fillText(dstyle.dot.dotLabel, lastx, lasty + 3)
+            while(i < list.length){
+                val children = list[i]
+                run {
+                    var col: Number = 0
+                    while(col < children.length){
+                        var item = children[col]
+                        var dstyle = item.style
+                        var xy_x = _realCellWidth * col + _realCellWidth / 2
+                        var xy_y = this.cellHeight * i + this.cellHeight / 2
+                        ctx.fillStyle = this.getColor(dstyle.dstyle.backgroundColor, if ((item.disabled || !item.inCurrentMonth) && !item.isInstart && !item.isInEnd) {
+                            0.3
+                        } else {
+                            1
+                        }
+                        )
+                        if (dstyle.dstyle.backgroundColor != "transparent") {
+                            ctx.beginPath()
+                            ctx.arc(xy_x, xy_y, _h / 2, 0, Math.PI * 2)
+                            ctx.closePath()
+                            ctx.fill()
+                        }
+                        if (dstyle.dot.dot) {
+                            if (dstyle.dot.dotLabel == "") {
+                                var lastx = _realCellWidth * col + _realCellWidth / 2 + this.cellHeight / 2
+                                var lasty = _realCellWidth * i + 5
+                                ctx.fillStyle = dstyle.dot.dotColor
+                                ctx.beginPath()
+                                ctx.arc(lastx, lasty, 4, 0, Math.PI * 2)
+                                ctx.closePath()
+                                ctx.fill()
+                            } else {
+                                var lastx = _realCellWidth * col + _realCellWidth / 2 + this.cellHeight / 2 - 5
+                                var lasty = _realCellWidth * i + 10
+                                ctx.fillStyle = dstyle.dot.dotColor
+                                ctx.beginPath()
+                                ctx.arc(lastx, lasty, 10, 0, Math.PI * 2)
+                                ctx.closePath()
+                                ctx.fill()
+                                ctx.font = "10px"
+                                ctx.fillStyle = dstyle.dot.dotLabelColor
+                                ctx.fillText(dstyle.dot.dotLabel, lastx, lasty + 3)
+                            }
+                        }
+                        val text = item.date.day.toString(10)
+                        ctx.fillStyle = this.getColor(dstyle.dstyle.fontColor, if ((item.disabled || !item.inCurrentMonth)) {
+                            0.7
+                        } else {
+                            1
+                        }
+                        )
+                        ctx.font = this._fontSize
+                        val _t_x = _realCellWidth * col + _realCellWidth / 2
+                        var _t_y = this.cellHeight * i + this.cellHeight / 2 + 2
+                        ctx.fillText(text, _t_x, _t_y)
+                        var label = this.showLabel(item)
+                        label = if (label == "") {
+                            dstyle.dstyle.label
+                        } else {
+                            label
+                        }
+                        if (label != "") {
+                            var labely = this.cellHeight * i + this.cellHeight - 9
+                            labely = this.cellHeight * i + this.cellHeight - 12
+                            ctx.font = "8px"
+                            ctx.fillText(label, _t_x, labely)
+                        }
+                        col++
                     }
                 }
-                ctx.font = "16"
-                ctx.fillStyle = dstyle.dstyle.fontColor
-                ctx.fillText(item.date.day.toString(10), x, y)
-                if (dstyle.dstyle.label != "" && item.isInCureentMonth) {
-                    var labely = this.grid_height * line + this.grid_height - 9
-                    labely = this.grid_height * line + this.grid_height - 10
-                    ctx.font = "10px"
-                    ctx.fillText(dstyle.dstyle.label, x, labely)
-                }
                 i++
             }
         }
         ctx.update()
     }
-    open fun clickEnd(posX: Number, posY: Number): xDateArrayItem {
-        var evtbody = this.el.getBoundingClientRect()
-        var x = posX - evtbody.left
-        var y = posY - evtbody.top
-        var col = Math.floor(x / this.grid_width)
-        var line = Math.floor(y / this.grid_height)
-        var index = col + line * 7
-        if (index >= this.opts.ar.length - 1) {
-            index = this.opts.ar.length - 1
+    open fun draw(list: UTSArray<UTSArray<xDateArrayItemType>>, modelv: xCalendarMode = "day") {
+        var _this = this
+        _this.model = modelv
+        this.ele?.getBoundingClientRectAsync()?.then(fun(rect: DOMRect){
+            _this._draw(_this.ele!!, rect, list)
         }
-        if (index <= 0) {
-            index = 0
+        )?.`catch`(fun(er){
+            console.error(er)
         }
-        return this.opts.ar[index]
+        )
     }
 }
-val GenUniModulesTmxUiComponentsXCalendarViewCalenderClass = CreateVueComponent(GenUniModulesTmxUiComponentsXCalendarViewCalender::class.java, fun(): VueComponentOptions {
-    return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXCalendarViewCalender.inheritAttrs, inject = GenUniModulesTmxUiComponentsXCalendarViewCalender.inject, props = GenUniModulesTmxUiComponentsXCalendarViewCalender.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXCalendarViewCalender.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXCalendarViewCalender.emits, components = GenUniModulesTmxUiComponentsXCalendarViewCalender.components, styles = GenUniModulesTmxUiComponentsXCalendarViewCalender.styles)
+val GenUniModulesTmxUiComponentsXCalendarViewCalendarMultipleClass = CreateVueComponent(GenUniModulesTmxUiComponentsXCalendarViewCalendarMultiple::class.java, fun(): VueComponentOptions {
+    return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXCalendarViewCalendarMultiple.inheritAttrs, inject = GenUniModulesTmxUiComponentsXCalendarViewCalendarMultiple.inject, props = GenUniModulesTmxUiComponentsXCalendarViewCalendarMultiple.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXCalendarViewCalendarMultiple.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXCalendarViewCalendarMultiple.emits, components = GenUniModulesTmxUiComponentsXCalendarViewCalendarMultiple.components, styles = GenUniModulesTmxUiComponentsXCalendarViewCalendarMultiple.styles, setup = fun(props: ComponentPublicInstance): Any? {
+        return GenUniModulesTmxUiComponentsXCalendarViewCalendarMultiple.setup(props as GenUniModulesTmxUiComponentsXCalendarViewCalendarMultiple)
+    }
+    )
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXCalendarViewCalender {
-    return GenUniModulesTmxUiComponentsXCalendarViewCalender(instance)
-}
-)
-val GenUniModulesTmxUiComponentsXStepperXStepperClass = CreateVueComponent(GenUniModulesTmxUiComponentsXStepperXStepper::class.java, fun(): VueComponentOptions {
-    return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXStepperXStepper.inheritAttrs, inject = GenUniModulesTmxUiComponentsXStepperXStepper.inject, props = GenUniModulesTmxUiComponentsXStepperXStepper.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXStepperXStepper.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXStepperXStepper.emits, components = GenUniModulesTmxUiComponentsXStepperXStepper.components, styles = GenUniModulesTmxUiComponentsXStepperXStepper.styles)
-}
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXStepperXStepper {
-    return GenUniModulesTmxUiComponentsXStepperXStepper(instance)
+, fun(instance, renderer): GenUniModulesTmxUiComponentsXCalendarViewCalendarMultiple {
+    return GenUniModulesTmxUiComponentsXCalendarViewCalendarMultiple(instance)
 }
 )
 val GenUniModulesTmxUiComponentsXCalendarViewXCalendarViewClass = CreateVueComponent(GenUniModulesTmxUiComponentsXCalendarViewXCalendarView::class.java, fun(): VueComponentOptions {
-    return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXCalendarViewXCalendarView.inheritAttrs, inject = GenUniModulesTmxUiComponentsXCalendarViewXCalendarView.inject, props = GenUniModulesTmxUiComponentsXCalendarViewXCalendarView.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXCalendarViewXCalendarView.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXCalendarViewXCalendarView.emits, components = GenUniModulesTmxUiComponentsXCalendarViewXCalendarView.components, styles = GenUniModulesTmxUiComponentsXCalendarViewXCalendarView.styles)
+    return VueComponentOptions(type = "component", name = GenUniModulesTmxUiComponentsXCalendarViewXCalendarView.name, inheritAttrs = GenUniModulesTmxUiComponentsXCalendarViewXCalendarView.inheritAttrs, inject = GenUniModulesTmxUiComponentsXCalendarViewXCalendarView.inject, props = GenUniModulesTmxUiComponentsXCalendarViewXCalendarView.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXCalendarViewXCalendarView.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXCalendarViewXCalendarView.emits, components = GenUniModulesTmxUiComponentsXCalendarViewXCalendarView.components, styles = GenUniModulesTmxUiComponentsXCalendarViewXCalendarView.styles, setup = fun(props: ComponentPublicInstance, ctx: SetupContext): Any? {
+        return GenUniModulesTmxUiComponentsXCalendarViewXCalendarView.setup(props as GenUniModulesTmxUiComponentsXCalendarViewXCalendarView, ctx)
+    }
+    )
 }
 , fun(instance, renderer): GenUniModulesTmxUiComponentsXCalendarViewXCalendarView {
     return GenUniModulesTmxUiComponentsXCalendarViewXCalendarView(instance)
@@ -17076,6 +16755,9 @@ open class McAudio {
             }
         }
         fun play(url: String, loop: Boolean) {
+            if (this.audio != null && !this.audio!!.paused && this.audio!!.src == url) {
+                return
+            }
             this.distroy()
             this.audio = uni_createInnerAudioContext()
             if (this.audio != null) {
@@ -17122,8 +16804,12 @@ val GenPagesHomeHadSettledClass = CreateVueComponent(GenPagesHomeHadSettled::cla
     return GenPagesHomeHadSettled(instance)
 }
 )
+typealias FindParentCall = (parent: VueComponent?) -> VueComponent?
 val GenUniModulesTmxUiComponentsXInputXInputClass = CreateVueComponent(GenUniModulesTmxUiComponentsXInputXInput::class.java, fun(): VueComponentOptions {
-    return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXInputXInput.inheritAttrs, inject = GenUniModulesTmxUiComponentsXInputXInput.inject, props = GenUniModulesTmxUiComponentsXInputXInput.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXInputXInput.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXInputXInput.emits, components = GenUniModulesTmxUiComponentsXInputXInput.components, styles = GenUniModulesTmxUiComponentsXInputXInput.styles)
+    return VueComponentOptions(type = "component", name = GenUniModulesTmxUiComponentsXInputXInput.name, inheritAttrs = GenUniModulesTmxUiComponentsXInputXInput.inheritAttrs, inject = GenUniModulesTmxUiComponentsXInputXInput.inject, props = GenUniModulesTmxUiComponentsXInputXInput.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXInputXInput.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXInputXInput.emits, components = GenUniModulesTmxUiComponentsXInputXInput.components, styles = GenUniModulesTmxUiComponentsXInputXInput.styles, setup = fun(props: ComponentPublicInstance): Any? {
+        return GenUniModulesTmxUiComponentsXInputXInput.setup(props as GenUniModulesTmxUiComponentsXInputXInput)
+    }
+    )
 }
 , fun(instance, renderer): GenUniModulesTmxUiComponentsXInputXInput {
     return GenUniModulesTmxUiComponentsXInputXInput(instance)
@@ -18072,11 +17758,11 @@ val getTodayOrderAmount = fun(): UTSPromise<Response> {
 val getDriverIncomeLineChart = fun(date: String): UTSPromise<Response> {
     return httpGet("/mcpt-car/app/car/order/getDriverIncomeLineChart?yearMonth=" + date, UTSJSONObject())
 }
-val getDriverRewardLineChart = fun(date: String): UTSPromise<Response> {
-    return httpGet("/mcpt-car/app/car/order/getDriverRewardLineChart?yearMonth=" + date, UTSJSONObject())
+val getDriverMonthDataSummary = fun(date: String): UTSPromise<Response> {
+    return httpGet("/mcpt-car/app/car/order/getDriverMonthDataSummary?yearMonth=" + date, UTSJSONObject())
 }
-val getDriverFineLineChart = fun(date: String): UTSPromise<Response> {
-    return httpGet("/mcpt-car/app/car/order/getDriverFineLineChart?yearMonth=" + date, UTSJSONObject())
+val getDriverCompleteOrderLineChart = fun(date: String): UTSPromise<Response> {
+    return httpGet("/mcpt-car/app/car/order/getDriverCompleteOrderLineChart?yearMonth=" + date, UTSJSONObject())
 }
 val getOrderIntercityHistory = fun(date: String): UTSPromise<Response> {
     return httpGet("/mcpt-car/app/car/order/getOrderIntercityHistory?date=" + date, UTSJSONObject())
@@ -18346,6 +18032,80 @@ val GenPagesPersonalSettingAccountSafeIndexClass = CreateVueComponent(GenPagesPe
 }
 , fun(instance, renderer): GenPagesPersonalSettingAccountSafeIndex {
     return GenPagesPersonalSettingAccountSafeIndex(instance, renderer)
+}
+)
+open class MenuItem1 (
+    @JsonNotNull
+    open var title: String,
+    @JsonNotNull
+    open var desc: String,
+    @JsonNotNull
+    open var granted: Boolean = false,
+    open var click: () -> Unit,
+) : UTSReactiveObject() {
+    override fun __v_create(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): UTSReactiveObject {
+        return MenuItem1ReactiveObject(this, __v_isReadonly, __v_isShallow, __v_skip)
+    }
+}
+open class MenuItem1ReactiveObject : MenuItem1, IUTSReactive<MenuItem1> {
+    override var __v_raw: MenuItem1
+    override var __v_isReadonly: Boolean
+    override var __v_isShallow: Boolean
+    override var __v_skip: Boolean
+    constructor(__v_raw: MenuItem1, __v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean) : super(title = __v_raw.title, desc = __v_raw.desc, granted = __v_raw.granted, click = __v_raw.click) {
+        this.__v_raw = __v_raw
+        this.__v_isReadonly = __v_isReadonly
+        this.__v_isShallow = __v_isShallow
+        this.__v_skip = __v_skip
+    }
+    override fun __v_clone(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): MenuItem1ReactiveObject {
+        return MenuItem1ReactiveObject(this.__v_raw, __v_isReadonly, __v_isShallow, __v_skip)
+    }
+    override var title: String
+        get() {
+            return trackReactiveGet(__v_raw, "title", __v_raw.title, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("title")) {
+                return
+            }
+            val oldValue = __v_raw.title
+            __v_raw.title = value
+            triggerReactiveSet(__v_raw, "title", oldValue, value)
+        }
+    override var desc: String
+        get() {
+            return trackReactiveGet(__v_raw, "desc", __v_raw.desc, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("desc")) {
+                return
+            }
+            val oldValue = __v_raw.desc
+            __v_raw.desc = value
+            triggerReactiveSet(__v_raw, "desc", oldValue, value)
+        }
+    override var granted: Boolean
+        get() {
+            return trackReactiveGet(__v_raw, "granted", __v_raw.granted, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("granted")) {
+                return
+            }
+            val oldValue = __v_raw.granted
+            __v_raw.granted = value
+            triggerReactiveSet(__v_raw, "granted", oldValue, value)
+        }
+}
+val GenPagesPersonalSettingGrantManageIndexClass = CreateVueComponent(GenPagesPersonalSettingGrantManageIndex::class.java, fun(): VueComponentOptions {
+    return VueComponentOptions(type = "page", name = "", inheritAttrs = GenPagesPersonalSettingGrantManageIndex.inheritAttrs, inject = GenPagesPersonalSettingGrantManageIndex.inject, props = GenPagesPersonalSettingGrantManageIndex.props, propsNeedCastKeys = GenPagesPersonalSettingGrantManageIndex.propsNeedCastKeys, emits = GenPagesPersonalSettingGrantManageIndex.emits, components = GenPagesPersonalSettingGrantManageIndex.components, styles = GenPagesPersonalSettingGrantManageIndex.styles, setup = fun(props: ComponentPublicInstance): Any? {
+        return GenPagesPersonalSettingGrantManageIndex.setup(props as GenPagesPersonalSettingGrantManageIndex)
+    }
+    )
+}
+, fun(instance, renderer): GenPagesPersonalSettingGrantManageIndex {
+    return GenPagesPersonalSettingGrantManageIndex(instance, renderer)
 }
 )
 val GenPagesPersonalSettingAccountSafeAccountCancellationIndexClass = CreateVueComponent(GenPagesPersonalSettingAccountSafeAccountCancellationIndex::class.java, fun(): VueComponentOptions {
@@ -20081,8 +19841,8 @@ val getEnteringVehicleList = fun(): UTSPromise<Response> {
 val getBindVehicleList = fun(): UTSPromise<Response> {
     return httpGet("/mcpt-car/app/carVehicle/getBindVehicleList", UTSJSONObject())
 }
-val getBindOtherVehicleList = fun(): UTSPromise<Response> {
-    return httpGet("/mcpt-car/app/carVehicle/getBindOtherVehicleList", UTSJSONObject())
+val getBindOtherVehicleList = fun(page: Number, limit: Number): UTSPromise<Response> {
+    return httpGet("/mcpt-car/app/carVehicle/getBindOtherVehicleList?page=" + page + "&limit=" + limit, UTSJSONObject())
 }
 val getCarVehicleInfoDetail = fun(vehicleId: String): UTSPromise<Response> {
     return httpGet("/mcpt-car/app/carVehicle/getCarVehicleInfoDetail?vehicleId=" + vehicleId, UTSJSONObject())
@@ -21328,6 +21088,7 @@ open class NODE_INFOReactiveObject : NODE_INFO, IUTSReactive<NODE_INFO> {
             triggerReactiveSet(__v_raw, "top", oldValue, value)
         }
 }
+typealias xPopopverPosType = String
 val GenUniModulesTmxUiComponentsXPopoverXPopoverClass = CreateVueComponent(GenUniModulesTmxUiComponentsXPopoverXPopover::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXPopoverXPopover.inheritAttrs, inject = GenUniModulesTmxUiComponentsXPopoverXPopover.inject, props = GenUniModulesTmxUiComponentsXPopoverXPopover.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXPopoverXPopover.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXPopoverXPopover.emits, components = GenUniModulesTmxUiComponentsXPopoverXPopover.components, styles = GenUniModulesTmxUiComponentsXPopoverXPopover.styles)
 }
@@ -21461,7 +21222,62 @@ open class POSITION (
     open var row: Number,
     @JsonNotNull
     open var index: Number,
-) : UTSObject()
+) : UTSReactiveObject() {
+    override fun __v_create(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): UTSReactiveObject {
+        return POSITIONReactiveObject(this, __v_isReadonly, __v_isShallow, __v_skip)
+    }
+}
+open class POSITIONReactiveObject : POSITION, IUTSReactive<POSITION> {
+    override var __v_raw: POSITION
+    override var __v_isReadonly: Boolean
+    override var __v_isShallow: Boolean
+    override var __v_skip: Boolean
+    constructor(__v_raw: POSITION, __v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean) : super(col = __v_raw.col, row = __v_raw.row, index = __v_raw.index) {
+        this.__v_raw = __v_raw
+        this.__v_isReadonly = __v_isReadonly
+        this.__v_isShallow = __v_isShallow
+        this.__v_skip = __v_skip
+    }
+    override fun __v_clone(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): POSITIONReactiveObject {
+        return POSITIONReactiveObject(this.__v_raw, __v_isReadonly, __v_isShallow, __v_skip)
+    }
+    override var col: Number
+        get() {
+            return trackReactiveGet(__v_raw, "col", __v_raw.col, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("col")) {
+                return
+            }
+            val oldValue = __v_raw.col
+            __v_raw.col = value
+            triggerReactiveSet(__v_raw, "col", oldValue, value)
+        }
+    override var row: Number
+        get() {
+            return trackReactiveGet(__v_raw, "row", __v_raw.row, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("row")) {
+                return
+            }
+            val oldValue = __v_raw.row
+            __v_raw.row = value
+            triggerReactiveSet(__v_raw, "row", oldValue, value)
+        }
+    override var index: Number
+        get() {
+            return trackReactiveGet(__v_raw, "index", __v_raw.index, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("index")) {
+                return
+            }
+            val oldValue = __v_raw.index
+            __v_raw.index = value
+            triggerReactiveSet(__v_raw, "index", oldValue, value)
+        }
+}
 open class POSITION_XY (
     @JsonNotNull
     open var x: Number,
@@ -22564,7 +22380,7 @@ open class ORDER_DETAIL_INFO (
     @JsonNotNull
     open var originalPrice: String,
     @JsonNotNull
-    open var driverFinalProfit: Number,
+    open var driverFinalProfit: String,
     @JsonNotNull
     open var driverServiceFee: String,
     @JsonNotNull
@@ -22603,6 +22419,10 @@ open class ORDER_DETAIL_INFO (
     open var driverFinishedOrderRewards: String,
     @JsonNotNull
     open var driverCumulativeFinishedOrderRewards: String,
+    @JsonNotNull
+    open var platformCommissionRate: String,
+    @JsonNotNull
+    open var platformCommissionAmount: String,
 ) : UTSReactiveObject() {
     override fun __v_create(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): UTSReactiveObject {
         return ORDER_DETAIL_INFOReactiveObject(this, __v_isReadonly, __v_isShallow, __v_skip)
@@ -22613,7 +22433,7 @@ open class ORDER_DETAIL_INFOReactiveObject : ORDER_DETAIL_INFO, IUTSReactive<ORD
     override var __v_isReadonly: Boolean
     override var __v_isShallow: Boolean
     override var __v_skip: Boolean
-    constructor(__v_raw: ORDER_DETAIL_INFO, __v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean) : super(status = __v_raw.status, originalPrice = __v_raw.originalPrice, driverFinalProfit = __v_raw.driverFinalProfit, driverServiceFee = __v_raw.driverServiceFee, id = __v_raw.id, vehiclePlateNo = __v_raw.vehiclePlateNo, startAddress = __v_raw.startAddress, boardingTime = __v_raw.boardingTime, endAddress = __v_raw.endAddress, completeTime = __v_raw.completeTime, remark = __v_raw.remark, cancelType = __v_raw.cancelType, cancelReason = __v_raw.cancelReason, orderSourceType = __v_raw.orderSourceType, defaultDeduction = __v_raw.defaultDeduction, driverChargingValue = __v_raw.driverChargingValue, startCityName = __v_raw.startCityName, startDistrictName = __v_raw.startDistrictName, endCityName = __v_raw.endCityName, endDistrictName = __v_raw.endDistrictName, carrierAmount = __v_raw.carrierAmount, driverFinishedOrderRewards = __v_raw.driverFinishedOrderRewards, driverCumulativeFinishedOrderRewards = __v_raw.driverCumulativeFinishedOrderRewards) {
+    constructor(__v_raw: ORDER_DETAIL_INFO, __v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean) : super(status = __v_raw.status, originalPrice = __v_raw.originalPrice, driverFinalProfit = __v_raw.driverFinalProfit, driverServiceFee = __v_raw.driverServiceFee, id = __v_raw.id, vehiclePlateNo = __v_raw.vehiclePlateNo, startAddress = __v_raw.startAddress, boardingTime = __v_raw.boardingTime, endAddress = __v_raw.endAddress, completeTime = __v_raw.completeTime, remark = __v_raw.remark, cancelType = __v_raw.cancelType, cancelReason = __v_raw.cancelReason, orderSourceType = __v_raw.orderSourceType, defaultDeduction = __v_raw.defaultDeduction, driverChargingValue = __v_raw.driverChargingValue, startCityName = __v_raw.startCityName, startDistrictName = __v_raw.startDistrictName, endCityName = __v_raw.endCityName, endDistrictName = __v_raw.endDistrictName, carrierAmount = __v_raw.carrierAmount, driverFinishedOrderRewards = __v_raw.driverFinishedOrderRewards, driverCumulativeFinishedOrderRewards = __v_raw.driverCumulativeFinishedOrderRewards, platformCommissionRate = __v_raw.platformCommissionRate, platformCommissionAmount = __v_raw.platformCommissionAmount) {
         this.__v_raw = __v_raw
         this.__v_isReadonly = __v_isReadonly
         this.__v_isShallow = __v_isShallow
@@ -22646,7 +22466,7 @@ open class ORDER_DETAIL_INFOReactiveObject : ORDER_DETAIL_INFO, IUTSReactive<ORD
             __v_raw.originalPrice = value
             triggerReactiveSet(__v_raw, "originalPrice", oldValue, value)
         }
-    override var driverFinalProfit: Number
+    override var driverFinalProfit: String
         get() {
             return trackReactiveGet(__v_raw, "driverFinalProfit", __v_raw.driverFinalProfit, this.__v_isReadonly, this.__v_isShallow)
         }
@@ -22898,6 +22718,30 @@ open class ORDER_DETAIL_INFOReactiveObject : ORDER_DETAIL_INFO, IUTSReactive<ORD
             __v_raw.driverCumulativeFinishedOrderRewards = value
             triggerReactiveSet(__v_raw, "driverCumulativeFinishedOrderRewards", oldValue, value)
         }
+    override var platformCommissionRate: String
+        get() {
+            return trackReactiveGet(__v_raw, "platformCommissionRate", __v_raw.platformCommissionRate, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("platformCommissionRate")) {
+                return
+            }
+            val oldValue = __v_raw.platformCommissionRate
+            __v_raw.platformCommissionRate = value
+            triggerReactiveSet(__v_raw, "platformCommissionRate", oldValue, value)
+        }
+    override var platformCommissionAmount: String
+        get() {
+            return trackReactiveGet(__v_raw, "platformCommissionAmount", __v_raw.platformCommissionAmount, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("platformCommissionAmount")) {
+                return
+            }
+            val oldValue = __v_raw.platformCommissionAmount
+            __v_raw.platformCommissionAmount = value
+            triggerReactiveSet(__v_raw, "platformCommissionAmount", oldValue, value)
+        }
 }
 val GenPagesPersonalJourneyOrderDetailClass = CreateVueComponent(GenPagesPersonalJourneyOrderDetail::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "page", name = "", inheritAttrs = GenPagesPersonalJourneyOrderDetail.inheritAttrs, inject = GenPagesPersonalJourneyOrderDetail.inject, props = GenPagesPersonalJourneyOrderDetail.props, propsNeedCastKeys = GenPagesPersonalJourneyOrderDetail.propsNeedCastKeys, emits = GenPagesPersonalJourneyOrderDetail.emits, components = GenPagesPersonalJourneyOrderDetail.components, styles = GenPagesPersonalJourneyOrderDetail.styles, setup = fun(props: ComponentPublicInstance): Any? {
@@ -22917,6 +22761,167 @@ val GenUniModulesTmxUiComponentsXEchartXEchartClass = CreateVueComponent(GenUniM
     return GenUniModulesTmxUiComponentsXEchartXEchart(instance)
 }
 )
+open class SummaryData (
+    @JsonNotNull
+    open var orderRankNumber: Number,
+    @JsonNotNull
+    open var outCarDays: Number,
+    @JsonNotNull
+    open var revenueAmount: String,
+    @JsonNotNull
+    open var realTotalIncome: String,
+    @JsonNotNull
+    open var realCompleteOrderIncome: String,
+    @JsonNotNull
+    open var realDefaultOrderIncome: String,
+    @JsonNotNull
+    open var completeOrderCount: Number,
+    @JsonNotNull
+    open var complainCount: Number,
+    @JsonNotNull
+    open var tripCount: Number,
+    @JsonNotNull
+    open var activityReward: String,
+) : UTSReactiveObject() {
+    override fun __v_create(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): UTSReactiveObject {
+        return SummaryDataReactiveObject(this, __v_isReadonly, __v_isShallow, __v_skip)
+    }
+}
+open class SummaryDataReactiveObject : SummaryData, IUTSReactive<SummaryData> {
+    override var __v_raw: SummaryData
+    override var __v_isReadonly: Boolean
+    override var __v_isShallow: Boolean
+    override var __v_skip: Boolean
+    constructor(__v_raw: SummaryData, __v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean) : super(orderRankNumber = __v_raw.orderRankNumber, outCarDays = __v_raw.outCarDays, revenueAmount = __v_raw.revenueAmount, realTotalIncome = __v_raw.realTotalIncome, realCompleteOrderIncome = __v_raw.realCompleteOrderIncome, realDefaultOrderIncome = __v_raw.realDefaultOrderIncome, completeOrderCount = __v_raw.completeOrderCount, complainCount = __v_raw.complainCount, tripCount = __v_raw.tripCount, activityReward = __v_raw.activityReward) {
+        this.__v_raw = __v_raw
+        this.__v_isReadonly = __v_isReadonly
+        this.__v_isShallow = __v_isShallow
+        this.__v_skip = __v_skip
+    }
+    override fun __v_clone(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): SummaryDataReactiveObject {
+        return SummaryDataReactiveObject(this.__v_raw, __v_isReadonly, __v_isShallow, __v_skip)
+    }
+    override var orderRankNumber: Number
+        get() {
+            return trackReactiveGet(__v_raw, "orderRankNumber", __v_raw.orderRankNumber, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("orderRankNumber")) {
+                return
+            }
+            val oldValue = __v_raw.orderRankNumber
+            __v_raw.orderRankNumber = value
+            triggerReactiveSet(__v_raw, "orderRankNumber", oldValue, value)
+        }
+    override var outCarDays: Number
+        get() {
+            return trackReactiveGet(__v_raw, "outCarDays", __v_raw.outCarDays, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("outCarDays")) {
+                return
+            }
+            val oldValue = __v_raw.outCarDays
+            __v_raw.outCarDays = value
+            triggerReactiveSet(__v_raw, "outCarDays", oldValue, value)
+        }
+    override var revenueAmount: String
+        get() {
+            return trackReactiveGet(__v_raw, "revenueAmount", __v_raw.revenueAmount, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("revenueAmount")) {
+                return
+            }
+            val oldValue = __v_raw.revenueAmount
+            __v_raw.revenueAmount = value
+            triggerReactiveSet(__v_raw, "revenueAmount", oldValue, value)
+        }
+    override var realTotalIncome: String
+        get() {
+            return trackReactiveGet(__v_raw, "realTotalIncome", __v_raw.realTotalIncome, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("realTotalIncome")) {
+                return
+            }
+            val oldValue = __v_raw.realTotalIncome
+            __v_raw.realTotalIncome = value
+            triggerReactiveSet(__v_raw, "realTotalIncome", oldValue, value)
+        }
+    override var realCompleteOrderIncome: String
+        get() {
+            return trackReactiveGet(__v_raw, "realCompleteOrderIncome", __v_raw.realCompleteOrderIncome, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("realCompleteOrderIncome")) {
+                return
+            }
+            val oldValue = __v_raw.realCompleteOrderIncome
+            __v_raw.realCompleteOrderIncome = value
+            triggerReactiveSet(__v_raw, "realCompleteOrderIncome", oldValue, value)
+        }
+    override var realDefaultOrderIncome: String
+        get() {
+            return trackReactiveGet(__v_raw, "realDefaultOrderIncome", __v_raw.realDefaultOrderIncome, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("realDefaultOrderIncome")) {
+                return
+            }
+            val oldValue = __v_raw.realDefaultOrderIncome
+            __v_raw.realDefaultOrderIncome = value
+            triggerReactiveSet(__v_raw, "realDefaultOrderIncome", oldValue, value)
+        }
+    override var completeOrderCount: Number
+        get() {
+            return trackReactiveGet(__v_raw, "completeOrderCount", __v_raw.completeOrderCount, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("completeOrderCount")) {
+                return
+            }
+            val oldValue = __v_raw.completeOrderCount
+            __v_raw.completeOrderCount = value
+            triggerReactiveSet(__v_raw, "completeOrderCount", oldValue, value)
+        }
+    override var complainCount: Number
+        get() {
+            return trackReactiveGet(__v_raw, "complainCount", __v_raw.complainCount, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("complainCount")) {
+                return
+            }
+            val oldValue = __v_raw.complainCount
+            __v_raw.complainCount = value
+            triggerReactiveSet(__v_raw, "complainCount", oldValue, value)
+        }
+    override var tripCount: Number
+        get() {
+            return trackReactiveGet(__v_raw, "tripCount", __v_raw.tripCount, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("tripCount")) {
+                return
+            }
+            val oldValue = __v_raw.tripCount
+            __v_raw.tripCount = value
+            triggerReactiveSet(__v_raw, "tripCount", oldValue, value)
+        }
+    override var activityReward: String
+        get() {
+            return trackReactiveGet(__v_raw, "activityReward", __v_raw.activityReward, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("activityReward")) {
+                return
+            }
+            val oldValue = __v_raw.activityReward
+            __v_raw.activityReward = value
+            triggerReactiveSet(__v_raw, "activityReward", oldValue, value)
+        }
+}
 open class OptionsData (
     @JsonNotNull
     open var colorStr: String,
@@ -23798,7 +23803,7 @@ val GenPagesPersonalPromotionRecordIndexClass = CreateVueComponent(GenPagesPerso
     return GenPagesPersonalPromotionRecordIndex(instance, renderer)
 }
 )
-open class MenuItem1 (
+open class MenuItem2 (
     @JsonNotNull
     open var showArrow: Boolean = false,
     @JsonNotNull
@@ -23866,8 +23871,8 @@ fun main(app: IApp) {
 open class UniAppConfig : io.dcloud.uniapp.appframe.AppConfig {
     override var name: String = "每橙车主"
     override var appid: String = "__UNI__511F0A5"
-    override var versionName: String = "4.0.3"
-    override var versionCode: String = "403"
+    override var versionName: String = "4.0.5"
+    override var versionCode: String = "405"
     override var uniCompilerVersion: String = "4.66"
     override var defaultAppTheme: String = "light"
     constructor() : super() {}
@@ -23878,6 +23883,7 @@ fun definePageRoutes() {
     __uniRoutes.push(UniPageRoute(path = "pages/personal/index", component = GenPagesPersonalIndexClass, meta = UniPageMeta(isQuit = false), style = utsMapOf("navigationBarTitleText" to "个人信息", "enablePullDownRefresh" to false, "navigationStyle" to "custom")))
     __uniRoutes.push(UniPageRoute(path = "pages/personal/setting/index", component = GenPagesPersonalSettingIndexClass, meta = UniPageMeta(isQuit = false), style = utsMapOf("navigationBarTitleText" to "系统设置", "enablePullDownRefresh" to false, "navigationStyle" to "custom")))
     __uniRoutes.push(UniPageRoute(path = "pages/personal/setting/account-safe/index", component = GenPagesPersonalSettingAccountSafeIndexClass, meta = UniPageMeta(isQuit = false), style = utsMapOf("navigationBarTitleText" to "账号与安全", "enablePullDownRefresh" to false, "navigationStyle" to "custom")))
+    __uniRoutes.push(UniPageRoute(path = "pages/personal/setting/grant-manage/index", component = GenPagesPersonalSettingGrantManageIndexClass, meta = UniPageMeta(isQuit = false), style = utsMapOf("navigationBarTitleText" to "权限管理", "enablePullDownRefresh" to false, "navigationStyle" to "custom")))
     __uniRoutes.push(UniPageRoute(path = "pages/personal/setting/account-safe/account-cancellation/index", component = GenPagesPersonalSettingAccountSafeAccountCancellationIndexClass, meta = UniPageMeta(isQuit = false), style = utsMapOf("navigationBarTitleText" to "账号注销提示", "enablePullDownRefresh" to false, "navigationStyle" to "custom")))
     __uniRoutes.push(UniPageRoute(path = "pages/personal/setting/emergency-contact/index", component = GenPagesPersonalSettingEmergencyContactIndexClass, meta = UniPageMeta(isQuit = false), style = utsMapOf("navigationBarTitleText" to "紧急联系人", "enablePullDownRefresh" to false, "navigationStyle" to "custom")))
     __uniRoutes.push(UniPageRoute(path = "pages/personal/setting/about-us/index", component = GenPagesPersonalSettingAboutUsIndexClass, meta = UniPageMeta(isQuit = false), style = utsMapOf("navigationBarTitleText" to "关于我们", "enablePullDownRefresh" to false, "navigationStyle" to "custom")))

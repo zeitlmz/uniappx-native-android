@@ -37,6 +37,7 @@ open class GenUniModulesTmxUiComponentsXModalXModal : VueComponent {
                 this.xani = null
             }
             clearTimeout(this.tid)
+            clearTimeout(this.tid2)
         }
         , __ins)
         this.`$watch`(fun(): Any? {
@@ -65,7 +66,7 @@ open class GenUniModulesTmxUiComponentsXModalXModal : VueComponent {
                 "onClick"
             )),
             if (isTrue(_ctx.showOverflay)) {
-                createElementVNode("view", utsMapOf("key" to 0, "onClick" to _ctx.onClickOverflowy, "onTouchmove" to _ctx.maskerMove, "ref" to "xDrawerWrap", "onTransitionend" to _ctx.onEnd, "id" to _ctx.id, "class" to "xDrawerWrap xDrawerWrap_center", "style" to normalizeStyle(utsArrayOf(
+                createElementVNode("view", utsMapOf("key" to 0, "onClick" to _ctx.onClickOverflowy, "onTouchmove" to _ctx.maskerMove, "ref" to "xDrawerWrap", "id" to _ctx.id, "class" to "xDrawerWrap xDrawerWrap_center", "style" to normalizeStyle(utsArrayOf(
                     utsMapOf("top" to (_ctx.windtop + "px"), "zIndex" to _ctx.zIndex, "width" to "100%", "height" to _ctx.__height, "transition-timing-function" to _ctx._animationFun),
                     _ctx._customStyle
                 ))), utsArrayOf(
@@ -75,12 +76,14 @@ open class GenUniModulesTmxUiComponentsXModalXModal : VueComponent {
                         _ctx._maxHeight
                     } else {
                         "100%"
-                    }, "backgroundColor" to _ctx._bgColor, "transition-timing-function" to _ctx._animationFun))), utsArrayOf(
+                    }, "backgroundColor" to _ctx._bgColor, "transition-timing-function" to "cubic-bezier(0.07, 0.82, 0.17, 1.20)"))), utsArrayOf(
                         createElementVNode("view", utsMapOf("ref" to "xModalWrapBox", "class" to "xModalWrapBox", "style" to normalizeStyle(utsMapOf("borderRadius" to _ctx._round))), utsArrayOf(
                             createElementVNode("view", utsMapOf("class" to "xDrawerXclose"), utsArrayOf(
                                 if (isTrue(_ctx._showClose)) {
-                                    createVNode(_component_x_icon, utsMapOf("key" to 0, "onClick" to _ctx.closeAlert, "color" to "#dcdcdc", "font-size" to "21", "name" to _ctx._closeIcon), null, 8, utsArrayOf(
+                                    createVNode(_component_x_icon, utsMapOf("key" to 0, "onClick" to _ctx.closeAlert, "color" to _ctx.closeColor, "dark-color" to _ctx.closeDarkColor, "font-size" to "21", "name" to _ctx._closeIcon), null, 8, utsArrayOf(
                                         "onClick",
+                                        "color",
+                                        "dark-color",
                                         "name"
                                     ))
                                 } else {
@@ -162,7 +165,6 @@ open class GenUniModulesTmxUiComponentsXModalXModal : VueComponent {
                 ), 44, utsArrayOf(
                     "onClick",
                     "onTouchmove",
-                    "onTransitionend",
                     "id"
                 ))
             } else {
@@ -193,6 +195,8 @@ open class GenUniModulesTmxUiComponentsXModalXModal : VueComponent {
     open var contentPadding: String by `$props`
     open var btnColor: String by `$props`
     open var beforeClose: callbackType1 by `$props`
+    open var closeColor: String by `$props`
+    open var closeDarkColor: String by `$props`
     open var _width: Number by `$data`
     open var _height: Number by `$data`
     open var showOverflay: Boolean by `$data`
@@ -204,6 +208,7 @@ open class GenUniModulesTmxUiComponentsXModalXModal : VueComponent {
     open var wrapId: Any? by `$data`
     open var first: Boolean by `$data`
     open var tid: Number by `$data`
+    open var tid2: Number by `$data`
     open var windtop: Number by `$data`
     open var xani: xAnimate? by `$data`
     open var isOpenedDefault: Boolean by `$data`
@@ -231,7 +236,7 @@ open class GenUniModulesTmxUiComponentsXModalXModal : VueComponent {
     open var _closeIcon: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("_width" to 0, "_height" to 0, "showOverflay" to false, "element" to null as UniElement?, "elementWrap" to null as UniElement?, "actioning" to false, "status" to "", "id" to ("xModal" + getUid()), "wrapId" to ("xModal" + getUid()), "first" to true, "tid" to 0, "windtop" to 0, "xani" to null as xAnimate?, "isOpenedDefault" to false, "isLoading" to false, "_customStyle" to computed<String>(fun(): String {
+        return utsMapOf("_width" to 0, "_height" to 0, "showOverflay" to false, "element" to null as UniElement?, "elementWrap" to null as UniElement?, "actioning" to false, "status" to "", "id" to ("xModal" + getUid()), "wrapId" to ("xModal" + getUid()), "first" to true, "tid" to 0, "tid2" to 34, "windtop" to 0, "xani" to null as xAnimate?, "isOpenedDefault" to false, "isLoading" to false, "_customStyle" to computed<String>(fun(): String {
             return this.customStyle
         }
         ), "_show" to computed<Boolean>(fun(): Boolean {
@@ -271,7 +276,7 @@ open class GenUniModulesTmxUiComponentsXModalXModal : VueComponent {
             return checkIsCssUnit(this.maxHeight, xConfig.unit)
         }
         ), "_contentPadding" to computed<String>(fun(): String {
-            return checkIsCssUnit(this.contentPadding, xConfig.unit)
+            return "0px " + checkIsCssUnit(this.contentPadding, xConfig.unit)
         }
         ), "_showCancel" to computed<Boolean>(fun(): Boolean {
             return this.showCancel
@@ -362,7 +367,6 @@ open class GenUniModulesTmxUiComponentsXModalXModal : VueComponent {
         if (this.status == "close") {
             return
         }
-        this.actioning = true
         this.status = "close"
         this.`$emit`("beforeClose")
         this.setStyleAni()
@@ -376,7 +380,6 @@ open class GenUniModulesTmxUiComponentsXModalXModal : VueComponent {
             return
         }
         this.showOverflay = true
-        this.actioning = true
         this.status = "open"
         this.`$emit`("beforeOpen")
         this.setStyleAni()
@@ -399,6 +402,7 @@ open class GenUniModulesTmxUiComponentsXModalXModal : VueComponent {
                 t.element!!.style.setProperty("opacity", "1")
                 t.elementWrap!!.style.setProperty("transform", "scale(1)")
                 t.elementWrap!!.style.setProperty("opacity", "1")
+                t.onEnd()
             }, watiDuration)
         } else if (t.status == "close") {
             t.element!!.style.setProperty("transition-duration", t._duration.toString(10) + "ms")
@@ -406,6 +410,7 @@ open class GenUniModulesTmxUiComponentsXModalXModal : VueComponent {
             t.element!!.style.setProperty("opacity", 0)
             t.elementWrap!!.style.setProperty("transform", "scale(0.64)")
             t.elementWrap!!.style.setProperty("opacity", 0)
+            t.onEnd()
         }
     }
     open var openDrawer = ::gen_openDrawer_fn
@@ -414,13 +419,30 @@ open class GenUniModulesTmxUiComponentsXModalXModal : VueComponent {
     }
     open var onEnd = ::gen_onEnd_fn
     open fun gen_onEnd_fn() {
-        this.actioning = false
-        if (this.status == "close") {
-            this.showOverflay = false
-            this.`$emit`("close")
-            this.`$emit`("update:show", false)
-        } else {
-            this.`$emit`("open")
+        val _this = this
+        try {
+            if (_this.actioning) {
+                return
+            }
+            _this.actioning = true
+            this.tid2 = setTimeout(fun() {
+                if (_this.status == "close") {
+                    _this.showOverflay = false
+                    _this.`$emit`("close")
+                    _this.`$emit`("update:show", false)
+                } else {
+                    _this.`$emit`("open")
+                }
+                nextTick(fun(){
+                    _this.actioning = false
+                }
+                )
+            }
+            , _this._duration + 5)
+        }
+         catch (e: Throwable) {
+            console.error("动画结束执行出现意外。", e)
+            _this.showOverflay = false
         }
     }
     open var maskerMove = ::gen_maskerMove_fn
@@ -433,7 +455,7 @@ open class GenUniModulesTmxUiComponentsXModalXModal : VueComponent {
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xModalWrapBox" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "column", "height" to "100%", "width" to "100%", "position" to "relative")), "xDrawerFooter" to padStyleMapOf(utsMapOf("width" to "100%", "paddingTop" to 16, "paddingRight" to 16, "paddingBottom" to 16, "paddingLeft" to 16, "flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center", "display" to "flex")), "xDrawerXclose" to padStyleMapOf(utsMapOf("position" to "absolute", "right" to 12, "top" to 6, "zIndex" to 100)), "xDrawertitleBoxTitle" to padStyleMapOf(utsMapOf("fontSize" to 16)), "xDrawerTitleBox" to padStyleMapOf(utsMapOf("height" to 60, "display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "center")), "xDrawertitleBox" to padStyleMapOf(utsMapOf("maxWidth" to 350, "overflow" to "hidden", "lines" to 1, "textOverflow" to "ellipsis", "fontSize" to 14)), "xDrawerWrap_center" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "column", "justifyContent" to "center", "alignItems" to "center")), "xDrawerWrapContent" to padStyleMapOf(utsMapOf("transitionDuration" to "350ms", "transitionProperty" to "transform,opacity", "display" to "flex", "flexDirection" to "column")), "xDrawerWrapContent_center" to padStyleMapOf(utsMapOf("transform" to "scale(0.64)", "opacity" to 0)), "xDrawerWrap" to padStyleMapOf(utsMapOf("backgroundImage" to "none", "backgroundColor" to "rgba(0,0,0,0.4)", "opacity" to 0, "position" to "fixed", "left" to 0, "top" to 0, "transitionDuration" to "350ms", "transitionProperty" to "opacity")), "@TRANSITION" to utsMapOf("xDrawerWrapContent" to utsMapOf("duration" to "350ms", "property" to "transform,opacity"), "xDrawerWrap" to utsMapOf("duration" to "350ms", "property" to "opacity")))
+                return utsMapOf("xModalWrapBox" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "column", "height" to "100%", "width" to "100%", "position" to "relative")), "xDrawerFooter" to padStyleMapOf(utsMapOf("width" to "100%", "paddingTop" to 20, "paddingRight" to 16, "paddingBottom" to 16, "paddingLeft" to 16, "flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center", "display" to "flex")), "xDrawerXclose" to padStyleMapOf(utsMapOf("position" to "absolute", "right" to 12, "top" to 6, "zIndex" to 100)), "xDrawertitleBoxTitle" to padStyleMapOf(utsMapOf("fontSize" to 16)), "xDrawerTitleBox" to padStyleMapOf(utsMapOf("height" to 60, "display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "center")), "xDrawertitleBox" to padStyleMapOf(utsMapOf("maxWidth" to 350, "overflow" to "hidden", "lines" to 1, "textOverflow" to "ellipsis", "fontSize" to 14)), "xDrawerWrap_center" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "column", "justifyContent" to "center", "alignItems" to "center")), "xDrawerWrapContent" to padStyleMapOf(utsMapOf("transitionDuration" to "350ms", "transitionProperty" to "transform,opacity", "display" to "flex", "flexDirection" to "column")), "xDrawerWrapContent_center" to padStyleMapOf(utsMapOf("transform" to "scale(0.64)", "opacity" to 0)), "xDrawerWrap" to padStyleMapOf(utsMapOf("backgroundImage" to "none", "backgroundColor" to "rgba(0,0,0,0.4)", "opacity" to 0, "position" to "fixed", "left" to 0, "top" to 0, "transitionDuration" to "350ms", "transitionProperty" to "opacity")), "@TRANSITION" to utsMapOf("xDrawerWrapContent" to utsMapOf("duration" to "350ms", "property" to "transform,opacity"), "xDrawerWrap" to utsMapOf("duration" to "350ms", "property" to "opacity")))
             }
         var inheritAttrs = true
         var inject: Map<String, Map<String, Any?>> = utsMapOf()
@@ -441,7 +463,7 @@ open class GenUniModulesTmxUiComponentsXModalXModal : VueComponent {
         var props = normalizePropsOptions(utsMapOf("customStyle" to utsMapOf("type" to "String", "default" to ""), "title" to utsMapOf("type" to "String", "default" to "标题"), "showFooter" to utsMapOf("type" to "Boolean", "default" to true), "showTitle" to utsMapOf("type" to "Boolean", "default" to true), "showClose" to utsMapOf("type" to "Boolean", "default" to false), "showCancel" to utsMapOf("type" to "Boolean", "default" to true), "overlayClick" to utsMapOf("type" to "Boolean", "default" to true), "show" to utsMapOf("type" to "Boolean", "default" to false), "duration" to utsMapOf("type" to "Number", "default" to 300), "watiDuration" to utsMapOf("type" to "Number", "default" to 120), "cancelText" to utsMapOf("type" to "String", "default" to "取消"), "confirmText" to utsMapOf("type" to "String", "default" to "确认"), "round" to utsMapOf("type" to "String", "default" to ""), "width" to utsMapOf("type" to "String", "default" to "84%"), "height" to utsMapOf("type" to "String", "default" to "240px"), "maxHeight" to utsMapOf("type" to "String", "default" to "80%"), "disabledScroll" to utsMapOf("type" to "Boolean", "default" to false), "bgColor" to utsMapOf("type" to "String", "default" to "white"), "darkBgColor" to utsMapOf("type" to "String", "default" to ""), "zIndex" to utsMapOf("type" to "String", "default" to "1105"), "contentPadding" to utsMapOf("type" to "String", "default" to "16"), "btnColor" to utsMapOf("type" to "String", "default" to ""), "beforeClose" to utsMapOf("type" to "Function", "default" to fun(): UTSPromise<Boolean> {
             return UTSPromise.resolve(true)
         }
-        )))
+        ), "closeColor" to utsMapOf("type" to "String", "default" to "#e6e6e6"), "closeDarkColor" to utsMapOf("type" to "String", "default" to "#545454")))
         var propsNeedCastKeys = utsArrayOf(
             "customStyle",
             "title",
@@ -465,7 +487,9 @@ open class GenUniModulesTmxUiComponentsXModalXModal : VueComponent {
             "zIndex",
             "contentPadding",
             "btnColor",
-            "beforeClose"
+            "beforeClose",
+            "closeColor",
+            "closeDarkColor"
         )
         var components: Map<String, CreateVueComponent> = utsMapOf()
     }

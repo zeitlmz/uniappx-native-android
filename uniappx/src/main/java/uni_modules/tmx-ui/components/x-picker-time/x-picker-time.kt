@@ -60,7 +60,7 @@ open class GenUniModulesTmxUiComponentsXPickerTimeXPickerTime : VueComponent {
             ), 8, utsArrayOf(
                 "onClick"
             )),
-            createVNode(_component_x_drawer, utsMapOf("cancel-text" to _ctx.cancelText, "confirm-text" to _ctx.confirmText, "zIndex" to _ctx.zIndex, "widthCoverCenter" to true, "disabledScroll" to true, "title" to _ctx.title, "onClose" to _ctx.onClose, "onConfirm" to _ctx.onConfirm, "onCancel" to _ctx.onCancel, "showFooter" to true, "show" to _ctx.show, "onUpdate:show" to fun(`$event`: Boolean){
+            createVNode(_component_x_drawer, utsMapOf("cancel-text" to _ctx.cancelText, "confirm-text" to _ctx.confirmText, "zIndex" to _ctx.zIndex, "widthCoverCenter" to _ctx.widthCoverCenter, "disabledScroll" to true, "title" to _ctx.title, "onClose" to _ctx.onClose, "onConfirm" to _ctx.onConfirm, "onCancel" to _ctx.onCancel, "showFooter" to true, "show" to _ctx.show, "onUpdate:show" to fun(`$event`: Boolean){
                 _ctx.show = `$event`
             }
             , "show-close" to _ctx.showClose, "size" to "410px"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
@@ -90,6 +90,7 @@ open class GenUniModulesTmxUiComponentsXPickerTimeXPickerTime : VueComponent {
                 "cancel-text",
                 "confirm-text",
                 "zIndex",
+                "widthCoverCenter",
                 "title",
                 "onClose",
                 "onConfirm",
@@ -114,6 +115,7 @@ open class GenUniModulesTmxUiComponentsXPickerTimeXPickerTime : VueComponent {
     open var zIndex: Number by `$props`
     open var showClose: Boolean by `$props`
     open var disabled: Boolean by `$props`
+    open var widthCoverCenter: Boolean by `$props`
     open var default_year: Number by `$data`
     open var default_month: Number by `$data`
     open var default_date: Number by `$data`
@@ -485,7 +487,7 @@ open class GenUniModulesTmxUiComponentsXPickerTimeXPickerTime : VueComponent {
         var props = normalizePropsOptions(utsMapOf("modelValue" to utsMapOf("type" to "String", "default" to ""), "modelStr" to utsMapOf("type" to "String", "default" to ""), "modelShow" to utsMapOf("type" to "Boolean", "default" to false), "title" to utsMapOf("type" to "String", "default" to "请选择时间"), "cancelText" to utsMapOf("type" to "String", "default" to "取消"), "confirmText" to utsMapOf("type" to "String", "default" to "确认"), "start" to utsMapOf("type" to "String", "default" to ""), "end" to utsMapOf("type" to "String", "default" to ""), "type" to utsMapOf("type" to "String", "default" to "second"), "format" to utsMapOf("type" to "String", "default" to "hh:mm:ss"), "cellUnits" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
             return utsArrayOf<String>("年", "月", "日", "小时", "分钟", "秒数")
         }
-        ), "zIndex" to utsMapOf("type" to "Number", "default" to 1100), "showClose" to utsMapOf("type" to "Boolean", "default" to false), "disabled" to utsMapOf("type" to "Boolean", "default" to false)))
+        ), "zIndex" to utsMapOf("type" to "Number", "default" to 1100), "showClose" to utsMapOf("type" to "Boolean", "default" to false), "disabled" to utsMapOf("type" to "Boolean", "default" to false), "widthCoverCenter" to utsMapOf("type" to "Boolean", "default" to false)))
         var propsNeedCastKeys = utsArrayOf(
             "modelValue",
             "modelStr",
@@ -500,7 +502,8 @@ open class GenUniModulesTmxUiComponentsXPickerTimeXPickerTime : VueComponent {
             "cellUnits",
             "zIndex",
             "showClose",
-            "disabled"
+            "disabled",
+            "widthCoverCenter"
         )
         var components: Map<String, CreateVueComponent> = utsMapOf()
     }

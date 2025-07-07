@@ -248,6 +248,7 @@ open class GenUniModulesTmxUiComponentsXPullRefreshXPullRefresh : VueComponent {
                 this.pullDy
             }
             strNumber = Math.min(this.pullHeight, strNumber)
+            strNumber = strNumber / 2
             return strNumber.toString(10) + "px"
         }
         ))

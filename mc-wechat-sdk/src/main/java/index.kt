@@ -99,7 +99,7 @@ open class WeChatShare {
             console.log("req=", req)
             this.mWXApi.sendReq(req)
         }
-         catch (err: Throwable) {
+        catch (err: Throwable) {
             console.error(err)
         }
     }
@@ -129,33 +129,33 @@ open class WeChatShare {
     }
     open var downloadImgByPath = fun(imageBitmapPath: String): UTSPromise<Unit> {
         return wrapUTSPromise(suspend {
-                uni_downloadFile(DownloadFileOptions(url = imageBitmapPath, success = fun(downloadResult){
-                    console.log("downloadResult=", downloadResult)
-                    if (downloadResult.statusCode == 200) {
-                        this.convertImgPathToBitmap(downloadResult.tempFilePath).then(fun(resBit: Bitmap?){
-                            this.imageBitmap = resBit
-                        })
-                    } else {
-                        console.error("图片下载失败")
-                    }
+            uni_downloadFile(DownloadFileOptions(url = imageBitmapPath, success = fun(downloadResult){
+                console.log("downloadResult=", downloadResult)
+                if (downloadResult.statusCode == 200) {
+                    this.convertImgPathToBitmap(downloadResult.tempFilePath).then(fun(resBit: Bitmap?){
+                        this.imageBitmap = resBit
+                    })
+                } else {
+                    console.error("图片下载失败")
                 }
+            }
                 , fail = fun(_){
                     console.error("图片下载失败")
                 }
-                ))
+            ))
         })
     }
     open var convertImgPathToBitmap = fun(filePath: String): UTSPromise<Bitmap?> {
         return wrapUTSPromise(suspend w@{
-                try {
-                    val bitmap = BitmapFactory.decodeFile(filePath)
-                    console.log("转换小程序封面图片成功，Bitmap宽高:", bitmap.getWidth(), "x", bitmap.getHeight())
-                    return@w bitmap
-                }
-                 catch (error: Throwable) {
-                    console.error("转换图片地址到Bitmap失败:", error)
-                    return@w null
-                }
+            try {
+                val bitmap = BitmapFactory.decodeFile(filePath)
+                console.log("转换小程序封面图片成功，Bitmap宽高:", bitmap.getWidth(), "x", bitmap.getHeight())
+                return@w bitmap
+            }
+            catch (error: Throwable) {
+                console.error("转换图片地址到Bitmap失败:", error)
+                return@w null
+            }
         })
     }
     companion object {
