@@ -692,7 +692,7 @@ open class NativeMap {
         this.aMap?.setTrafficEnabled(true)
         this.aMap?.setMyLocationEnabled(this.options?.selfLocation ?: false)
         val myLocationStyle = MyLocationStyle()
-        myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromBitmap(loadImageFromAssets("self-car.png")))
+//        myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromBitmap(loadImageFromAssets("self-car.png")))
         myLocationStyle.strokeColor(Color.argb(0, 0, 0, 0))
         myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE_NO_CENTER)
         this.aMap?.setMyLocationStyle(myLocationStyle)
