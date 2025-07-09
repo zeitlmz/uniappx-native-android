@@ -223,6 +223,10 @@ open class GenPagesPersonalJourneyOrderDetail : BasePage {
                                                                     createElementVNode("text", utsMapOf("class" to "divider color-red text-weight-b"), toDisplayString(transPercentage(item.driverChargingValue)), 1)
                                                                 )),
                                                                 createElementVNode("view", utsMapOf("class" to "body-item"), utsArrayOf(
+                                                                    createElementVNode("text", utsMapOf("class" to "tag-text"), "分成金额："),
+                                                                    createElementVNode("text", utsMapOf("class" to "divider color-red text-weight-b"), "￥" + toDisplayString(item.driverAmount), 1)
+                                                                )),
+                                                                createElementVNode("view", utsMapOf("class" to "body-item"), utsArrayOf(
                                                                     createElementVNode("text", utsMapOf("class" to "tag-text"), "信息费："),
                                                                     createElementVNode("text", utsMapOf("class" to "divider color-red text-weight-b"), "-￥" + toDisplayString(item.driverServiceFee ?: 0), 1)
                                                                 )),

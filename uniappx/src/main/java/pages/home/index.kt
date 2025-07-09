@@ -132,11 +132,16 @@ open class GenPagesHomeIndex : BasePage {
             }
             )
             return fun(): Any? {
-                return if (isTrue(unref(globalData).isLogin && unref(globalData).entryStatus == unref(auditApproveStatus))) {
-                    createVNode(unref(GenPagesHomeHadSettledClass), utsMapOf("key" to 0, "ref_key" to "pageRef", "ref" to pageRef), null, 512)
-                } else {
-                    createVNode(unref(GenPagesHomeNotSettledClass), utsMapOf("key" to 1, "onCheckHasEntry" to checkHasEntry))
-                }
+                val _component_mc_env_tag = resolveEasyComponent("mc-env-tag", GenComponentsMcEnvTagIndexClass)
+                return createElementVNode(Fragment, null, utsArrayOf(
+                    if (isTrue(unref(globalData).isLogin && unref(globalData).entryStatus == unref(auditApproveStatus))) {
+                        createVNode(unref(GenPagesHomeHadSettledClass), utsMapOf("key" to 0, "ref_key" to "pageRef", "ref" to pageRef), null, 512)
+                    } else {
+                        createVNode(unref(GenPagesHomeNotSettledClass), utsMapOf("key" to 1, "onCheckHasEntry" to checkHasEntry))
+                    }
+                    ,
+                    createVNode(_component_mc_env_tag)
+                ), 64)
             }
         }
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {

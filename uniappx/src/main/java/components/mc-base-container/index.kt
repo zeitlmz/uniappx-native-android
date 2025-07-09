@@ -38,6 +38,7 @@ open class GenComponentsMcBaseContainerIndex : VueComponent {
             val _cache = __ins.renderCache
             return fun(): Any? {
                 val _component_x_navbar = resolveEasyComponent("x-navbar", GenUniModulesTmxUiComponentsXNavbarXNavbarClass)
+                val _component_mc_env_tag = resolveEasyComponent("mc-env-tag", GenComponentsMcEnvTagIndexClass)
                 return createElementVNode(Fragment, null, utsArrayOf(
                     if (isTrue(_ctx.showNavbar)) {
                         createVNode(_component_x_navbar, utsMapOf("key" to 0, "title" to _ctx.title, "title-color" to _ctx.titleColor, "title-font-size" to "18", "isPlace" to _ctx.navbarIsPlace, "height" to _ctx.navbarHeight, "showNavBack" to _ctx.showNavBack, "linear-gradient" to _ctx.linearGradient, "linear-active-gradient" to _ctx.linearActiveGradient, "staticTransparent" to _ctx.staticTransparent), utsMapOf("left" to withSlotCtx(fun(): UTSArray<Any> {
@@ -85,7 +86,8 @@ open class GenComponentsMcBaseContainerIndex : VueComponent {
                         ), 4)
                     ), 12, utsArrayOf(
                         "direction"
-                    ))
+                    )),
+                    createVNode(_component_mc_env_tag)
                 ), 64)
             }
         }
