@@ -287,7 +287,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                                 createVNode(_component_x_switch, utsMapOf("modelValue" to _ctx.isSmartPlanning, "onUpdate:modelValue" to fun(`$event`: Boolean){
                                     _ctx.isSmartPlanning = `$event`
                                 }
-                                    , "disabled" to (_ctx.orderData.orderCount <= 1), "size" to "small", "onChange" to _ctx.onPlanningChange, "color" to "#D1B27A"), null, 8, utsArrayOf(
+                                    , "disabled" to (_ctx.orderData.orderCount <= 2), "size" to "small", "onChange" to _ctx.onPlanningChange, "color" to "#D1B27A"), null, 8, utsArrayOf(
                                     "modelValue",
                                     "onUpdate:modelValue",
                                     "disabled",
@@ -1050,7 +1050,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                     createElementVNode("text", utsMapOf("class" to "ai-desc-title"), "智能规划介绍"),
                     createElementVNode("view", utsMapOf("class" to "desc"), utsArrayOf(
                         createElementVNode("text", utsMapOf("class" to "pb-10"), "关闭智能规划: 订单以下单时间默认排序，司机可手动拖拽修改顺序。"),
-                        createElementVNode("text", null, "开启智能规划: 订单会根据最优路线排序，司机不可手动修改，该模式可有效节省行程和出行时间。")
+                        createElementVNode("text", null, "开启智能规划: 订单会根据最优路线排序，司机不可手动修改，该模式可有效节省行程和出行时间，订单数量大于2可开启。")
                     ))
                 )
             }
