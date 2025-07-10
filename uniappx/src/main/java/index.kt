@@ -9145,7 +9145,7 @@ val setPhotoAgreeStatus = fun(){
 val getPhotoAgreeStatus = fun(): Boolean {
     return uni_getStorageSync(photoAgreeKey) == "photoAgree"
 }
-var isPre = true
+var isPre = false
 var baseUrl = "https://testenv.mctwlx.com/srv"
 var wsBaseUrl = "wss://testenv.mctwlx.com/ws/mcpt-engine-driverWs/driverWs"
 open class WebSocketSendMessage (
