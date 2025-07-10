@@ -95,7 +95,7 @@ open class GenPagesOtherTripPlanIndex : BasePage {
                 )
             }
             val toShare = fun(item: TripPlanInfo){
-                val itemId = item.id as Number
+                val itemId = item.id as String
                 val startDate = item.startDate as String
                 val linesGroupName = item.linesGroupName
                 val curDate = date.value.date
@@ -123,7 +123,7 @@ open class GenPagesOtherTripPlanIndex : BasePage {
                 }
                 ))
             }
-            val getServiceOperationSetting = fun(){
+            val refreshServiceOperationSetting = fun(){
                 getServiceOperationSetting().then(fun(res: Response){
                     if (res.code == 200 && res.data != null) {
                         val data = res.data as UTSJSONObject
@@ -137,7 +137,7 @@ open class GenPagesOtherTripPlanIndex : BasePage {
                 console.log("下拉刷新")
                 scrollDirection = "down"
                 toQueryLinesDistrictToCityList(date.value.date)
-                getServiceOperationSetting()
+                refreshServiceOperationSetting()
             }
             val bottomLoad = fun(){
                 console.log("触底刷新")
@@ -149,7 +149,7 @@ open class GenPagesOtherTripPlanIndex : BasePage {
             }
             onReady(fun(){
                 init()
-                getServiceOperationSetting()
+                refreshServiceOperationSetting()
             }
             )
             return fun(): Any? {

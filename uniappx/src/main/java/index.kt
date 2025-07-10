@@ -9253,7 +9253,6 @@ open class WebSocketClient {
                 } else {
                     console.log("WebSocket心跳回应:", message)
                 }
-
                 this.onMessage?.invoke(message)
                 this.callBackMap.get(message.type)?.invoke(message.content)
                 val callback = this.callBackOnceMap.get(message.type)
@@ -9416,13 +9415,13 @@ val clearAuth = fun(){
     JgUtil.stopPush()
 }
 val runBlock3 = run {
-//    if (isPre) {
-//        baseUrl = "https://www.mctwlx.com/pre-srv"
-//        wsBaseUrl = "wss://www.mctwlx.com/pre-ws/mcpt-engine-driverWs/driverWs"
-//    } else if (isRelease) {
-//        baseUrl = "https://www.mctwlx.com/srv"
-//        wsBaseUrl = "wss://www.mctwlx.com/ws/mcpt-engine-driverWs/driverWs"
-//    }
+    if (isPre) {
+        baseUrl = "https://www.mctwlx.com/pre-srv"
+        wsBaseUrl = "wss://www.mctwlx.com/pre-ws/mcpt-engine-driverWs/driverWs"
+    } else if (isRelease) {
+        baseUrl = "https://www.mctwlx.com/srv"
+        wsBaseUrl = "wss://www.mctwlx.com/ws/mcpt-engine-driverWs/driverWs"
+    }
 }
 val resBaseUrl = "https://prod.resource.mctwlx.com/car/app-resources/driver"
 val miniProgramCover = resBaseUrl + "/static/images/img-self-share-reward.png"
@@ -14186,32 +14185,32 @@ val getTimePlusRange = fun(date: Date, condition: String): UTSArray<Date> {
     var startDate: Date
     var endDate: Date
     when (condition) {
-        "one-day" ->
+        "one-day" -> 
             {
                 startDate = date
                 endDate = Date(date.getTime() + 86400000)
             }
-        "one-month" ->
+        "one-month" -> 
             {
                 startDate = date
                 endDate = Date(date.getTime() + 2505600000)
             }
-        "three-months" ->
+        "three-months" -> 
             {
                 startDate = date
                 endDate = Date(date.getTime() + 7689600000)
             }
-        "one-year" ->
+        "one-year" -> 
             {
                 startDate = date
                 endDate = Date(date.getTime() + 31449600000)
             }
-        "one-week" ->
+        "one-week" -> 
             {
                 startDate = date
                 endDate = Date(date.getTime() + 518400000)
             }
-        else ->
+        else -> 
             {
                 startDate = date
                 endDate = Date(date.getTime() + 518400000)
@@ -14244,17 +14243,17 @@ val formatDateStr = fun(dateStr: String): String {
 fun addTime(dateStr: String, num: Number, unit: String): String {
     val date = Date(formatDateStr(dateStr))
     when (unit) {
-        "year" ->
+        "year" -> 
             date.setFullYear(date.getFullYear() + num)
-        "month" ->
+        "month" -> 
             date.setMonth(date.getMonth() + num)
-        "day" ->
+        "day" -> 
             date.setDate(date.getDate() + num)
-        "hour" ->
+        "hour" -> 
             date.setHours(date.getHours() + num)
-        "minute" ->
+        "minute" -> 
             date.setMinutes(date.getMinutes() + num)
-        "second" ->
+        "second" -> 
             date.setSeconds(date.getSeconds() + num)
     }
     val year = date.getFullYear()
@@ -18881,6 +18880,9 @@ val upsertDriverPlan = fun(param: UTSJSONObject): UTSPromise<Response> {
 }
 val delDriverPlan = fun(param: UTSJSONObject): UTSPromise<Response> {
     return httpPost("/mcpt-car/app/car/driverPlan/delDriverPlan", param)
+}
+val getServiceOperationTime = fun(): UTSPromise<Response> {
+    return httpGet("/mcpt-car/app/car/driverPlan/getServiceOperationTime", UTSJSONObject())
 }
 val GenPagesOtherScanOrderIndexClass = CreateVueComponent(GenPagesOtherScanOrderIndex::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "page", name = "", inheritAttrs = GenPagesOtherScanOrderIndex.inheritAttrs, inject = GenPagesOtherScanOrderIndex.inject, props = GenPagesOtherScanOrderIndex.props, propsNeedCastKeys = GenPagesOtherScanOrderIndex.propsNeedCastKeys, emits = GenPagesOtherScanOrderIndex.emits, components = GenPagesOtherScanOrderIndex.components, styles = GenPagesOtherScanOrderIndex.styles, setup = fun(props: ComponentPublicInstance): Any? {

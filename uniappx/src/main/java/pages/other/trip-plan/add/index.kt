@@ -16,8 +16,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.`$emit` as uni__emit
 import uts.sdk.modules.xLoadingS.XLOADINGS_TYPE
+import uts.sdk.modules.xModalS.X_MODAL_TYPE
 import uts.sdk.modules.xLoadingS.hideXloading
 import uts.sdk.modules.xLoadingS.showLoading
+import uts.sdk.modules.xModalS.showModal
 import uts.sdk.modules.uniKuxrouter.useKuxRouter as uni_useKuxRouter
 open class GenPagesOtherTripPlanAddIndex : BasePage {
     constructor(__ins: ComponentInternalInstance, __renderer: String?) : super(__ins, __renderer) {
@@ -75,6 +77,8 @@ open class GenPagesOtherTripPlanAddIndex : BasePage {
             val conflictTripPlanInfo = ref<TripPlanInfo?>(null)
             val autoHeight = ref(screenHeight)
             val title = ref("添加")
+            val operationStartTime = ref("")
+            val operationEndTime = ref("")
             var dirverQueryPage: Number = 1
             val dirverQueryLimit: Number = 20
             var scrollDirection = "down"
@@ -287,6 +291,7 @@ open class GenPagesOtherTripPlanAddIndex : BasePage {
                     showToast("请选择行程发车时间", "error")
                     return
                 }
+                planGoTime.value = planGoTime.value.substring(0, 5) + ":00"
                 if (seletCarId.value.length < 1) {
                     showToast("请选择关联车辆", "error")
                     return
@@ -356,7 +361,7 @@ open class GenPagesOtherTripPlanAddIndex : BasePage {
                         showToast("保存成功", "success")
                         router.push("/pages/other/trip-plan/index")
                     } else {
-                        showToast(res.msg, "error")
+                        showToast("保存失败", "error")
                         val tripPlanInfoList = JSON.parse<UTSArray<TripPlanInfo>>(JSON.stringify(res.data)) as UTSArray<TripPlanInfo>
                         if (tripPlanInfoList != null && tripPlanInfoList.length > 0) {
                             conflictTripPlanInfo.value = tripPlanInfoList[0]
@@ -371,6 +376,20 @@ open class GenPagesOtherTripPlanAddIndex : BasePage {
                     hideXloading()
                 }
                 )
+            }
+            val toDel = fun(){
+                showModal(X_MODAL_TYPE(title = "温馨提示", content = "\u786E\u8BA4\u8981\u5220\u9664\u51B2\u7A81\u7684\u884C\u7A0B\u8BA1\u5212\u5417\uFF1F", confirmText = "确认", confirmBgColor = globalData.theme.primaryColor, showCancel = true, confirm = fun(){
+                    console.log("todel==", conflictTripPlanInfo.value)
+                    delDriverPlan(JSON.parse<UTSJSONObject>(JSON.stringify(conflictTripPlanInfo.value))!!).then(fun(res: Response){
+                        if (res.code == 200) {
+                            showToast("操作成功", "success")
+                            conflictTripPlanInfo.value = null
+                            conflictStatus.value = false
+                        }
+                    }
+                    )
+                }
+                ))
             }
             val cancel = fun(){
                 router.push("/pages/other/trip-plan/index")
@@ -431,6 +450,15 @@ open class GenPagesOtherTripPlanAddIndex : BasePage {
                     title.value = "编辑"
                     initShow(planId.value, selectDate.value)
                 }
+                getServiceOperationTime().then(fun(res: Response){
+                    console.log("getServiceOperationTime res ==", res)
+                    if (res.code == 200) {
+                        val resData = res.data as UTSJSONObject
+                        operationStartTime.value = resData.getString("operationStartTime")!!
+                        operationEndTime.value = resData.getString("operationEndTime")!!
+                    }
+                }
+                )
             }
             )
             return fun(): Any? {
@@ -544,7 +572,7 @@ open class GenPagesOtherTripPlanAddIndex : BasePage {
                                     , "model-str" to planGoTimeStr.value, "onUpdate:modelStr" to fun(`$event`: String){
                                         planGoTimeStr.value = `$event`
                                     }
-                                    , "format" to "hh:mm"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                    , "format" to "hh:mm", "start" to operationStartTime.value, "end" to operationEndTime.value, "steps" to 10), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                                         return utsArrayOf(
                                             createElementVNode("view", utsMapOf("class" to "form-item"), utsArrayOf(
                                                 createElementVNode("text", utsMapOf("class" to "left-box"), "发车时间"),
@@ -568,7 +596,9 @@ open class GenPagesOtherTripPlanAddIndex : BasePage {
                                         "modelValue",
                                         "onUpdate:modelValue",
                                         "model-str",
-                                        "onUpdate:modelStr"
+                                        "onUpdate:modelStr",
+                                        "start",
+                                        "end"
                                     ))
                                 )
                             }
@@ -742,7 +772,7 @@ open class GenPagesOtherTripPlanAddIndex : BasePage {
                                                 return utsArrayOf(
                                                     createElementVNode("view", utsMapOf("class" to "card-title flex-row flex-row-center-between"), utsArrayOf(
                                                         createElementVNode("text", utsMapOf("class" to "title-border", "style" to normalizeStyle("font-weight: bold;font-size:30rpx;color: " + unref(globalData).theme.primaryColor + ";")), toDisplayString(conflictTripPlanInfo.value?.id), 5),
-                                                        createElementVNode("image", utsMapOf("class" to "icon", "style" to normalizeStyle(utsMapOf("width" to "30rpx", "height" to "30rpx")), "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-sub-filled.png"), "mode" to "widthFix"), null, 12, utsArrayOf(
+                                                        createElementVNode("image", utsMapOf("class" to "icon", "style" to normalizeStyle(utsMapOf("width" to "30rpx", "height" to "30rpx")), "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-sub-filled.png"), "mode" to "widthFix", "onClick" to toDel), null, 12, utsArrayOf(
                                                             "src"
                                                         ))
                                                     )),
