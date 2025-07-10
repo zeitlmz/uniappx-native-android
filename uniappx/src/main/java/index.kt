@@ -908,6 +908,23 @@ open class ServiceOrderPermissionReactiveObject : ServiceOrderPermission, IUTSRe
             triggerReactiveSet(__v_raw, "enableCallRecording", oldValue, value)
         }
 }
+open class MessageOption (
+    @JsonNotNull
+    open var icon: String,
+    @JsonNotNull
+    open var color: String,
+) : UTSObject()
+open class Message (
+    @JsonNotNull
+    open var success: MessageOption,
+    @JsonNotNull
+    open var warning: MessageOption,
+    @JsonNotNull
+    open var error: MessageOption,
+    @JsonNotNull
+    open var info: MessageOption,
+) : UTSObject()
+val MessageOptions = Message(success = MessageOption(icon = "success", color = "green"), warning = MessageOption(icon = "info", color = "#ff8900"), error = MessageOption(icon = "error", color = "red"), info = MessageOption(icon = "info", color = "#ff8900"))
 val MessageType: UTSJSONObject = object : UTSJSONObject() {
     var WARNING: Number = -1
     var NOT_AUTH: Number = -2
@@ -932,76 +949,6 @@ val MessageType: UTSJSONObject = object : UTSJSONObject() {
     var TRIP_REPORT: Number = 18
     var WS_PING: Number = 1000
 }
-val systemInfo = uni_getSystemInfoSync()
-val appInfo = uni_getAppBaseInfo(null)
-val appVersion = systemInfo.appVersion
-val osName = systemInfo.osName
-val screenHeight = systemInfo.screenHeight
-val screenWidth = systemInfo.screenWidth
-val statusBarHeight = systemInfo.statusBarHeight
-val isIOS = osName === "ios"
-val isPre = true
-val isRelease = "production" === "production"
-var baseUrl = "https://testenv.mctwlx.com/srv"
-var wsBaseUrl = "wss://testenv.mctwlx.com/ws/mcpt-engine-driverWs/driverWs"
-val runBlock2 = run {
-    if (isPre) {
-        baseUrl = "https://www.mctwlx.com/pre-srv"
-        wsBaseUrl = "wss://www.mctwlx.com/pre-ws/mcpt-engine-driverWs/driverWs"
-    } else if (isRelease) {
-        baseUrl = "https://www.mctwlx.com/srv"
-        wsBaseUrl = "wss://www.mctwlx.com/ws/mcpt-engine-driverWs/driverWs"
-    }
-}
-val resBaseUrl = "https://prod.resource.mctwlx.com/car/app-resources/driver"
-val miniProgramCover = resBaseUrl + "/static/images/img-self-share-reward.png"
-val mapBaseUrl = "https://restapi.amap.com"
-val MAP_CONFIG: UTSJSONObject = object : UTSJSONObject() {
-    var naviKey = "cbf6616bec1568640586c283495febad"
-    var key = "8642fe88d002537cbd0cd71738e4feea"
-}
-val CUSTOMER_PHONE = "03516329000"
-val GRANTPLATFORM_GROUP = "3"
-open class MessageOption (
-    @JsonNotNull
-    open var icon: String,
-    @JsonNotNull
-    open var color: String,
-) : UTSObject()
-open class Message (
-    @JsonNotNull
-    open var success: MessageOption,
-    @JsonNotNull
-    open var warning: MessageOption,
-    @JsonNotNull
-    open var error: MessageOption,
-    @JsonNotNull
-    open var info: MessageOption,
-) : UTSObject()
-val MessageOptions = Message(success = MessageOption(icon = "success", color = "green"), warning = MessageOption(icon = "info", color = "#ff8900"), error = MessageOption(icon = "error", color = "red"), info = MessageOption(icon = "info", color = "#ff8900"))
-val showToast = fun(title: String, type: String){
-    vibrator(100)
-    val messageOption = MessageOptions[type] as MessageOption
-    showXToast(XTOAST_TYPE(title = title, iconCode = messageOption?.icon, iconColor = messageOption?.color, titleColor = messageOption?.color, duration = 1000))
-}
-val showTips = fun(title: String, type: String){
-    val messageOption = MessageOptions[type] as MessageOption
-    vibrator(100)
-    showXTips(XTIPS_TYPE(title = title, iconCode = messageOption?.icon, iconColor = messageOption?.color, titleColor = messageOption?.color, position = "bottom", offset = screenHeight / 1.8))
-}
-val TOKEN_HEADER = "MC-CLIENT-TOKEN"
-val TOKEN_KEY = "mcIntercityCarToken" + (if (isRelease) {
-    ""
-} else {
-    "Dev"
-}
-)
-val USER_INFO_KEY = "mcIntercityCarAppUserInfo" + (if (isRelease) {
-    ""
-} else {
-    "Dev"
-}
-)
 typealias NAVIGATE_TYPE = String
 open class CHECKBOX_ITEM_INFO (
     @JsonNotNull
@@ -9114,17 +9061,39 @@ val setTheme = fun(theme: String){
 val getTheme = fun(): Theme {
     return themes[currentTheme] as Theme
 }
-val runBlock3 = run {
+val runBlock2 = run {
     setTheme(currentTheme)
 }
+val TOKEN_HEADER = "MC-CLIENT-TOKEN"
+val systemInfo = uni_getSystemInfoSync()
 val ENTRYSTATUS_KEY = "ENTRYSTATUS_CACHE_KEY"
 val privacyKey = "privacyAgreeKey"
+val appInfo = uni_getAppBaseInfo(null)
+val appVersion = systemInfo.appVersion
+val osName = systemInfo.osName
+val screenHeight = systemInfo.screenHeight
+val screenWidth = systemInfo.screenWidth
+val statusBarHeight = systemInfo.statusBarHeight
+val isIOS = osName === "ios"
+val isRelease = "production" === "production"
+val TOKEN_KEY = "mcIntercityCarToken" + (if (isRelease) {
+    ""
+} else {
+    "Dev"
+}
+)
 val setToken = fun(userInfo: Any){
     uni_setStorageSync(TOKEN_KEY, userInfo)
 }
 val getToken = fun(): Any? {
     return uni_getStorageSync(TOKEN_KEY)
 }
+val USER_INFO_KEY = "mcIntercityCarAppUserInfo" + (if (isRelease) {
+    ""
+} else {
+    "Dev"
+}
+)
 val getCacheUserInfo = fun(): UTSJSONObject? {
     val userInfo = uni_getStorageSync(USER_INFO_KEY)
     if (userInfo != null) {
@@ -9176,6 +9145,13 @@ val setPhotoAgreeStatus = fun(){
 val getPhotoAgreeStatus = fun(): Boolean {
     return uni_getStorageSync(photoAgreeKey) == "photoAgree"
 }
+var isPre = if (uni_getStorageSync("localEnv") == "isPre") {
+    true
+} else {
+    false
+}
+var baseUrl = "https://testenv.mctwlx.com/srv"
+var wsBaseUrl = "wss://testenv.mctwlx.com/ws/mcpt-engine-driverWs/driverWs"
 open class WebSocketSendMessage (
     @JsonNotNull
     open var type: Number,
@@ -9441,6 +9417,44 @@ val clearAuth = fun(){
     uni_removeStorageSync(USER_INFO_KEY)
     uni_removeStorageSync(ENTRYSTATUS_KEY)
     JgUtil.stopPush()
+}
+val runBlock3 = run {
+    if (isPre) {
+        baseUrl = "https://www.mctwlx.com/pre-srv"
+        wsBaseUrl = "wss://www.mctwlx.com/pre-ws/mcpt-engine-driverWs/driverWs"
+    } else if (isRelease) {
+        baseUrl = "https://www.mctwlx.com/srv"
+        wsBaseUrl = "wss://www.mctwlx.com/ws/mcpt-engine-driverWs/driverWs"
+    }
+}
+val changeEnv = fun(){
+    isPre = !isPre
+    uni_setStorageSync("localEnv", if (isPre) {
+        "isPre"
+    } else {
+        "notPre"
+    }
+    )
+    clearAuth()
+}
+val resBaseUrl = "https://prod.resource.mctwlx.com/car/app-resources/driver"
+val miniProgramCover = resBaseUrl + "/static/images/img-self-share-reward.png"
+val mapBaseUrl = "https://restapi.amap.com"
+val MAP_CONFIG: UTSJSONObject = object : UTSJSONObject() {
+    var naviKey = "cbf6616bec1568640586c283495febad"
+    var key = "8642fe88d002537cbd0cd71738e4feea"
+}
+val CUSTOMER_PHONE = "03516329000"
+val GRANTPLATFORM_GROUP = "3"
+val showToast = fun(title: String, type: String){
+    vibrator(100)
+    val messageOption = MessageOptions[type] as MessageOption
+    showXToast(XTOAST_TYPE(title = title, iconCode = messageOption?.icon, iconColor = messageOption?.color, titleColor = messageOption?.color, duration = 1000))
+}
+val showTips = fun(title: String, type: String){
+    val messageOption = MessageOptions[type] as MessageOption
+    vibrator(100)
+    showXTips(XTIPS_TYPE(title = title, iconCode = messageOption?.icon, iconColor = messageOption?.color, titleColor = messageOption?.color, position = "bottom", offset = screenHeight / 1.8))
 }
 val runBlock4 = run {
     JgUtil.setPrivacyAuth(false)
