@@ -14,10 +14,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
-import uts.sdk.modules.xModalS.X_MODAL_TYPE
-import io.dcloud.uniapp.extapi.exit as uni_exit
-import uts.sdk.modules.xModalS.showModal
-import uts.sdk.modules.xVibrateS.vibrator
 open class GenComponentsMcEnvTagIndex : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {}
     companion object {
@@ -39,17 +35,7 @@ open class GenComponentsMcEnvTagIndex : VueComponent {
             }
             val globalData = inject("globalData") as GlobalDataType
             val onChangeEnv = fun(){
-                vibrator(100)
-                showModal(X_MODAL_TYPE(title = "温馨提示", content = "\u786E\u8BA4\u5207\u6362\u5230" + (if (isPre) {
-                    "开发"
-                } else {
-                    "预生产"
-                }
-                ) + "\u73AF\u5883\uFF1F", confirmText = "确认", confirmBgColor = globalData.theme.primaryColor, confirm = fun(){
-                    changeEnv()
-                    uni_exit(null)
-                }
-                ))
+                return
             }
             return fun(): Any? {
                 return if (isTrue(unref(showTag))) {

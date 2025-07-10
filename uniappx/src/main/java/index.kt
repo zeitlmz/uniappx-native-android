@@ -9075,8 +9075,7 @@ val screenHeight = systemInfo.screenHeight
 val screenWidth = systemInfo.screenWidth
 val statusBarHeight = systemInfo.statusBarHeight
 val isIOS = osName === "ios"
-//val isRelease = "production" === "production"
-val isRelease = false
+val isRelease = "production" === "production"
 val TOKEN_KEY = "mcIntercityCarToken" + (if (isRelease) {
     ""
 } else {
@@ -9146,11 +9145,7 @@ val setPhotoAgreeStatus = fun(){
 val getPhotoAgreeStatus = fun(): Boolean {
     return uni_getStorageSync(photoAgreeKey) == "photoAgree"
 }
-var isPre = if (uni_getStorageSync("localEnv") == "isPre") {
-    true
-} else {
-    false
-}
+var isPre = true
 var baseUrl = "https://testenv.mctwlx.com/srv"
 var wsBaseUrl = "wss://testenv.mctwlx.com/ws/mcpt-engine-driverWs/driverWs"
 open class WebSocketSendMessage (
@@ -9258,6 +9253,7 @@ open class WebSocketClient {
                 } else {
                     console.log("WebSocket心跳回应:", message)
                 }
+
                 this.onMessage?.invoke(message)
                 this.callBackMap.get(message.type)?.invoke(message.content)
                 val callback = this.callBackOnceMap.get(message.type)
@@ -9420,23 +9416,13 @@ val clearAuth = fun(){
     JgUtil.stopPush()
 }
 val runBlock3 = run {
-    if (isPre) {
-        baseUrl = "https://www.mctwlx.com/pre-srv"
-        wsBaseUrl = "wss://www.mctwlx.com/pre-ws/mcpt-engine-driverWs/driverWs"
-    } else if (isRelease) {
-        baseUrl = "https://www.mctwlx.com/srv"
-        wsBaseUrl = "wss://www.mctwlx.com/ws/mcpt-engine-driverWs/driverWs"
-    }
-}
-val changeEnv = fun(){
-    isPre = !isPre
-    uni_setStorageSync("localEnv", if (isPre) {
-        "isPre"
-    } else {
-        "notPre"
-    }
-    )
-    clearAuth()
+//    if (isPre) {
+//        baseUrl = "https://www.mctwlx.com/pre-srv"
+//        wsBaseUrl = "wss://www.mctwlx.com/pre-ws/mcpt-engine-driverWs/driverWs"
+//    } else if (isRelease) {
+//        baseUrl = "https://www.mctwlx.com/srv"
+//        wsBaseUrl = "wss://www.mctwlx.com/ws/mcpt-engine-driverWs/driverWs"
+//    }
 }
 val resBaseUrl = "https://prod.resource.mctwlx.com/car/app-resources/driver"
 val miniProgramCover = resBaseUrl + "/static/images/img-self-share-reward.png"
@@ -14200,32 +14186,32 @@ val getTimePlusRange = fun(date: Date, condition: String): UTSArray<Date> {
     var startDate: Date
     var endDate: Date
     when (condition) {
-        "one-day" -> 
+        "one-day" ->
             {
                 startDate = date
                 endDate = Date(date.getTime() + 86400000)
             }
-        "one-month" -> 
+        "one-month" ->
             {
                 startDate = date
                 endDate = Date(date.getTime() + 2505600000)
             }
-        "three-months" -> 
+        "three-months" ->
             {
                 startDate = date
                 endDate = Date(date.getTime() + 7689600000)
             }
-        "one-year" -> 
+        "one-year" ->
             {
                 startDate = date
                 endDate = Date(date.getTime() + 31449600000)
             }
-        "one-week" -> 
+        "one-week" ->
             {
                 startDate = date
                 endDate = Date(date.getTime() + 518400000)
             }
-        else -> 
+        else ->
             {
                 startDate = date
                 endDate = Date(date.getTime() + 518400000)
@@ -14258,17 +14244,17 @@ val formatDateStr = fun(dateStr: String): String {
 fun addTime(dateStr: String, num: Number, unit: String): String {
     val date = Date(formatDateStr(dateStr))
     when (unit) {
-        "year" -> 
+        "year" ->
             date.setFullYear(date.getFullYear() + num)
-        "month" -> 
+        "month" ->
             date.setMonth(date.getMonth() + num)
-        "day" -> 
+        "day" ->
             date.setDate(date.getDate() + num)
-        "hour" -> 
+        "hour" ->
             date.setHours(date.getHours() + num)
-        "minute" -> 
+        "minute" ->
             date.setMinutes(date.getMinutes() + num)
-        "second" -> 
+        "second" ->
             date.setSeconds(date.getSeconds() + num)
     }
     val year = date.getFullYear()

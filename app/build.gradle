@@ -135,7 +135,7 @@ dependencies {
 //    testImplementation 'junit:junit:4.13.2'
 //    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
 //    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.14'
+//    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.14'
     implementation project(':uniappx')
     implementation fileTree(include: ['*.aar', '*.jar'], dir: '../uniappx/libs')
 //    implementation "com.squareup.okhttp3:okhttp:3.12.12"
@@ -154,14 +154,5 @@ dependencies {
     implementation project(':x-tips-s')
     implementation project(':x-toast-s')
     implementation project(':x-vibrate-s')
-//    implementation 'com.squareup.okhttp3:okhttp:3.12.12'
-//    implementation 'com.github.bumptech.glide:glide:4.9.0'
-//    implementation 'androidx.recyclerview:recyclerview:1.0.0'
-//    implementation 'com.google.android.exoplayer:exoplayer-core:2.18.0'
-//    implementation 'androidx.activity:activity-ktx:1.9.2'
-//    implementation 'androidx.camera:camera-core:1.4.1'
-//    implementation 'androidx.camera:camera-camera2:1.4.1'
-//    implementation 'androidx.camera:camera-lifecycle:1.4.1'
-//    implementation 'androidx.camera:camera-view:1.4.1'
-//    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.18.0'
 }
