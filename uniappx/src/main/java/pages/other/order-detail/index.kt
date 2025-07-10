@@ -36,30 +36,30 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
         onPageScroll(fun(e: OnPageScrollOptions) {
             xProvitae.scrollTop = e.scrollTop
         }
-        , __ins)
+            , __ins)
         onResize(fun(_: OnResizeOptions) {
             uni__emit("onResize", fun() {})
         }
-        , __ins)
+            , __ins)
         onLoad(fun(_: OnLoadOptions) {}, __ins)
         onPageHide(fun() {
             uni__emit("onHide", fun() {})
         }
-        , __ins)
+            , __ins)
         onReady(fun() {
             uni__emit("onReady", fun() {})
             xProvitae.pageReady = true
         }
-        , __ins)
+            , __ins)
         onPageShow(fun() {
             uni__emit("onShow", fun() {})
         }
-        , __ins)
+            , __ins)
         onReady(fun() {
             this.initEvt(true)
             console.log("onReady")
         }
-        , __ins)
+            , __ins)
         onLoad(fun(query: OnLoadOptions) {
             console.log("query:", query)
             this.orderParams = query
@@ -81,7 +81,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
             this.getServiceConfig()
             this.updateToday()
         }
-        , __ins)
+            , __ins)
         onBeforeUnmount(fun() {
             val mapView = (this.`$refs`["mapView"] as McAmapComponentPublicInstance)
             mapView?.destroy()
@@ -98,7 +98,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
             ws?.off(MessageType["VALID_PHONE"] as Number)
             hideXloading()
         }
-        , __ins)
+            , __ins)
     }
     @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
     override fun `$render`(): Any? {
@@ -170,12 +170,12 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                                 return createElementVNode("text", utsMapOf("key" to item.code, "onClick" to fun(){
                                     _ctx.routeLoveClick(item)
                                 }
-                                , "class" to "radio-card mr-7", "style" to normalizeStyle("" + (if (_ctx.routeStrategy == item.code) {
-                                    "font-weight: bold;color: " + _ctx.globalData.theme.primaryColor + ";"
-                                } else {
-                                    ""
-                                }
-                                ))), toDisplayString(item.name), 13, utsArrayOf(
+                                    , "class" to "radio-card mr-7", "style" to normalizeStyle("" + (if (_ctx.routeStrategy == item.code) {
+                                        "font-weight: bold;color: " + _ctx.globalData.theme.primaryColor + ";"
+                                    } else {
+                                        ""
+                                    }
+                                            ))), toDisplayString(item.name), 13, utsArrayOf(
                                     "onClick"
                                 ))
                             }
@@ -186,12 +186,12 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                                 return createElementVNode("text", utsMapOf("key" to item.code, "onClick" to fun(){
                                     _ctx.routeLoveClick(item)
                                 }
-                                , "class" to "radio-card mr-7", "style" to normalizeStyle("" + (if (_ctx.routeStrategy == item.code) {
-                                    "font-weight: bold;color: " + _ctx.globalData.theme.primaryColor + ";"
-                                } else {
-                                    ""
-                                }
-                                ))), toDisplayString(item.name), 13, utsArrayOf(
+                                    , "class" to "radio-card mr-7", "style" to normalizeStyle("" + (if (_ctx.routeStrategy == item.code) {
+                                        "font-weight: bold;color: " + _ctx.globalData.theme.primaryColor + ";"
+                                    } else {
+                                        ""
+                                    }
+                                            ))), toDisplayString(item.name), 13, utsArrayOf(
                                     "onClick"
                                 ))
                             }
@@ -224,7 +224,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                     } else {
                         "#ffffff"
                     }
-                    ))), utsArrayOf(
+                            ))), utsArrayOf(
                         withDirectives(createElementVNode("view", utsMapOf("class" to "flex-row-center-between", "onClick" to _ctx.viewOrders, "style" to normalizeStyle("height:40rpx;margin-bottom: 20rpx;background-color: " + _ctx.globalData.theme.primaryLinearColors[0] + ";")), utsArrayOf(
                             createElementVNode("image", utsMapOf("style" to normalizeStyle(utsMapOf("height" to "27rpx", "width" to "27rpx", "margin-top" to "6rpx")), "src" to ("" + _ctx.resBaseUrl + "/static/icons/icon-tow-arrow-down-outline.png"), "mode" to "widthFix"), null, 12, utsArrayOf(
                                 "src"
@@ -274,20 +274,20 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                                 createElementVNode("image", utsMapOf("onClick" to fun(){
                                     _ctx.showAiDescModal = true
                                 }
-                                , "class" to "planning-icon", "src" to ("" + _ctx.resBaseUrl + "/static/icons/icon-tips-outline-small.png")), null, 8, utsArrayOf(
+                                    , "class" to "planning-icon", "src" to ("" + _ctx.resBaseUrl + "/static/icons/icon-tips-outline-small.png")), null, 8, utsArrayOf(
                                     "onClick",
                                     "src"
                                 )),
                                 createElementVNode("text", utsMapOf("onClick" to fun(){
                                     _ctx.showAiDescModal = true
                                 }
-                                , "class" to "text"), "智能规划", 8, utsArrayOf(
+                                    , "class" to "text"), "智能规划", 8, utsArrayOf(
                                     "onClick"
                                 )),
                                 createVNode(_component_x_switch, utsMapOf("modelValue" to _ctx.isSmartPlanning, "onUpdate:modelValue" to fun(`$event`: Boolean){
                                     _ctx.isSmartPlanning = `$event`
                                 }
-                                , "disabled" to (_ctx.orderData.orderCount <= 1), "size" to "small", "onChange" to _ctx.onPlanningChange, "color" to "#D1B27A"), null, 8, utsArrayOf(
+                                    , "disabled" to (_ctx.orderData.orderCount <= 1), "size" to "small", "onChange" to _ctx.onPlanningChange, "color" to "#D1B27A"), null, 8, utsArrayOf(
                                     "modelValue",
                                     "onUpdate:modelValue",
                                     "disabled",
@@ -342,7 +342,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                                 } else {
                                     ""
                                 }
-                                )), "onClick" to fun(){
+                                        )), "onClick" to fun(){
                                     _ctx.selectRoute(route)
                                 }
                                 ), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
@@ -353,7 +353,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                                             } else {
                                                 ""
                                             }
-                                            ))), "线路" + toDisplayString(index + 1), 5),
+                                                    ))), "线路" + toDisplayString(index + 1), 5),
                                             createElementVNode("view", utsMapOf("class" to "traffic-light"), utsArrayOf(
                                                 createElementVNode("image", utsMapOf("class" to "light-icon", "src" to if (_ctx.selectedRoute.routeId === route.routeId) {
                                                     "" + _ctx.resBaseUrl + "/static/icons/icon-traffic-white-outline-small.png"
@@ -368,7 +368,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                                                 } else {
                                                     ""
                                                 }
-                                                ))), toDisplayString(route.lights), 5)
+                                                        ))), toDisplayString(route.lights), 5)
                                             ))
                                         )),
                                         createElementVNode("text", utsMapOf("class" to "route-time", "style" to normalizeStyle("" + (if (_ctx.selectedRoute.routeId === route.routeId) {
@@ -376,13 +376,13 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                                         } else {
                                             ""
                                         }
-                                        ))), toDisplayString(route.time), 5),
+                                                ))), toDisplayString(route.time), 5),
                                         createElementVNode("text", utsMapOf("class" to "route-distance", "style" to normalizeStyle("" + (if (_ctx.selectedRoute.routeId === route.routeId) {
                                             "color: #ffffff;"
                                         } else {
                                             ""
                                         }
-                                        ))), toDisplayString(route.distance), 5)
+                                                ))), toDisplayString(route.distance), 5)
                                     )
                                 }
                                 ), "_" to 2), 1032, utsArrayOf(
@@ -893,15 +893,15 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
             createVNode(_component_x_modal, utsMapOf("show" to _ctx.showValidModal, "onUpdate:show" to fun(`$event`: Boolean){
                 _ctx.showValidModal = `$event`
             }
-            , "show-close" to "", "onClose" to _ctx.modalClose, "height" to "300rpx", "z-index" to "100", "title" to "请输入乘客手机尾号", "show-footer" to false, "overlayClick" to false), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                , "show-close" to "", "onClose" to _ctx.modalClose, "height" to "300rpx", "z-index" to "100", "title" to "请输入乘客手机尾号", "show-footer" to false, "overlayClick" to false), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                 return utsArrayOf(
                     createVNode(_component_x_code_input, utsMapOf("auto-focus" to "", "place-shape" to "line", "onClick" to fun(){
                         _ctx.showKey = true
                     }
-                    , "onConfirm" to _ctx.validPhoneConfirm, "modelValue" to _ctx.phoneSuffix, "onUpdate:modelValue" to fun(`$event`: String){
-                        _ctx.phoneSuffix = `$event`
-                    }
-                    , "useSysKeyborad" to false, "skin" to "fill"), null, 8, utsArrayOf(
+                        , "onConfirm" to _ctx.validPhoneConfirm, "modelValue" to _ctx.phoneSuffix, "onUpdate:modelValue" to fun(`$event`: String){
+                            _ctx.phoneSuffix = `$event`
+                        }
+                        , "useSysKeyborad" to false, "skin" to "fill"), null, 8, utsArrayOf(
                         "onClick",
                         "onConfirm",
                         "modelValue",
@@ -917,9 +917,9 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
             createVNode(_component_x_keyboard_number, utsMapOf("mode" to "password", "max-len" to 4, "btn-color" to "white", "digit" to false, "modelShow" to _ctx.showKey, "onUpdate:modelShow" to fun(`$event`: Boolean){
                 _ctx.showKey = `$event`
             }
-            , "modelValue" to _ctx.phoneSuffix, "onUpdate:modelValue" to fun(`$event`: String){
-                _ctx.phoneSuffix = `$event`
-            }
+                , "modelValue" to _ctx.phoneSuffix, "onUpdate:modelValue" to fun(`$event`: String){
+                    _ctx.phoneSuffix = `$event`
+                }
             ), null, 8, utsArrayOf(
                 "modelShow",
                 "onUpdate:modelShow",
@@ -929,12 +929,12 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
             createVNode(_component_x_modal, utsMapOf("show" to _ctx.showCancelModal, "onUpdate:show" to fun(`$event`: Boolean){
                 _ctx.showCancelModal = `$event`
             }
-            , "show-close" to "", "onClose" to _ctx.modalCancelClose, "height" to if (_ctx.isLiquidatedDamages) {
-                "690rpx"
-            } else {
-                "550rpx"
-            }
-            , "z-index" to "100", "title" to ("\u53D6\u6D88" + _ctx.orderNo + "\u53F7\u8BA2\u5355"), "show-footer" to false, "overlayClick" to false), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                , "show-close" to "", "onClose" to _ctx.modalCancelClose, "height" to if (_ctx.isLiquidatedDamages) {
+                    "690rpx"
+                } else {
+                    "550rpx"
+                }
+                , "z-index" to "100", "title" to ("\u53D6\u6D88" + _ctx.orderNo + "\u53F7\u8BA2\u5355"), "show-footer" to false, "overlayClick" to false), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                 return utsArrayOf(
                     if (isTrue(_ctx.isLiquidatedDamages)) {
                         createElementVNode("view", utsMapOf("key" to 0, "class" to "pb-15 flex-row flex-row-center-center"), utsArrayOf(
@@ -948,7 +948,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                     createVNode(_component_x_input, utsMapOf("type" to "textarea", "auto-focus" to "", "modelValue" to _ctx.cancelReason, "onUpdate:modelValue" to fun(`$event`: String){
                         _ctx.cancelReason = `$event`
                     }
-                    , "height" to "200rpx", "maxlength" to 50, "showChartCount" to "", "placeholder" to "请输入取消原因"), null, 8, utsArrayOf(
+                        , "height" to "200rpx", "maxlength" to 50, "showChartCount" to "", "placeholder" to "请输入取消原因"), null, 8, utsArrayOf(
                         "modelValue",
                         "onUpdate:modelValue"
                     )),
@@ -1042,10 +1042,10 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
             createVNode(_component_x_modal, utsMapOf("show" to _ctx.showAiDescModal, "onUpdate:show" to fun(`$event`: Boolean){
                 _ctx.showAiDescModal = `$event`
             }
-            , "bgColor" to "#ECF1F8", "show-cancel" to false, "confirm-text" to "知道了", "onConfirm" to fun(){
-                _ctx.showAiDescModal = false
-            }
-            , "show-title" to false, "height" to "520rpx"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                , "bgColor" to "#ECF1F8", "show-cancel" to false, "confirm-text" to "知道了", "onConfirm" to fun(){
+                    _ctx.showAiDescModal = false
+                }
+                , "show-title" to false, "height" to "520rpx"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                 return utsArrayOf(
                     createElementVNode("text", utsMapOf("class" to "ai-desc-title"), "智能规划介绍"),
                     createElementVNode("view", utsMapOf("class" to "desc"), utsArrayOf(
@@ -1066,7 +1066,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
             createVNode(_component_x_modal, utsMapOf("show" to _ctx.showAgreeLocationModal, "onUpdate:show" to fun(`$event`: Boolean){
                 _ctx.showAgreeLocationModal = `$event`
             }
-            , "bgColor" to "#ECF1F8", "cancel-text" to "拒绝", "overlay-click" to false, "onCancel" to _ctx.locationAgreeCancel, "confirm-text" to "同意", "onConfirm" to _ctx.locationAgreeConfirm, "show-title" to false, "height" to "500rpx"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                , "bgColor" to "#ECF1F8", "cancel-text" to "拒绝", "overlay-click" to false, "onCancel" to _ctx.locationAgreeCancel, "confirm-text" to "同意", "onConfirm" to _ctx.locationAgreeConfirm, "show-title" to false, "height" to "500rpx"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                 return utsArrayOf(
                     createElementVNode("text", utsMapOf("class" to "location-agree-title"), "定位权限获取申请"),
                     createElementVNode("view", utsMapOf("class" to "desc"), utsArrayOf(
@@ -1179,7 +1179,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
         setTimeout(fun(){
             showXToast(XTOAST_TYPE(title = "您已拒绝定位获取权限，将无法进行后面的业务", iconCode = "info", iconColor = "#ff8900", duration = 2500))
         }
-        , 250)
+            , 250)
     }
     open var locationAgreeConfirm = ::gen_locationAgreeConfirm_fn
     open fun gen_locationAgreeConfirm_fn() {
@@ -1214,7 +1214,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                 this.updateToday()
             }
         }
-        , 3000)
+            , 3000)
     }
     open var initEvt = ::gen_initEvt_fn
     open fun gen_initEvt_fn(canCalcRoute: Boolean) {
@@ -1237,7 +1237,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                 setTimeout(fun(){
                     (that.`$refs`["seatViewer"] as McSeatViewerComponentPublicInstance)?.show()
                 }
-                , 100)
+                    , 100)
             }
         }
         )
@@ -1294,7 +1294,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                     )
                     mapView?.setMarkers(markers)
                 }
-                , 10)
+                    , 10)
             }
             uni__emit("onSendData", JSON.stringify(that.orderData))
             console.log("订单详情数据：", that.orderData)
@@ -1360,7 +1360,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
         setTimeout(fun(){
             mapView?.changeRouteById(this.routes[0].routeId)
         }
-        , 10)
+            , 10)
     }
     open var startNavigation = ::gen_startNavigation_fn
     open fun gen_startNavigation_fn(isEmulator: Boolean) {
@@ -1411,10 +1411,10 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
             this.globalData.carSetting.routeStrategy = json?.getString("routeStrategy") ?: "OVERALL_OPTIMAL"
             this.queryOrderDetail(true, false)
         }
-        , fun(data){
-            this.isSmartPlanning = false
-            console.log("this.isSmartPlanning = ", this.isSmartPlanning)
-        }
+            , fun(data){
+                this.isSmartPlanning = false
+                console.log("this.isSmartPlanning = ", this.isSmartPlanning)
+            }
         )
     }
     open var selectRoute = ::gen_selectRoute_fn
@@ -1466,7 +1466,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
         setTimeout(fun(){
             this.selectRoute(this.selectedRoute)
         }
-        , 100)
+            , 100)
     }
     open var routeLoveClick = ::gen_routeLoveClick_fn
     open fun gen_routeLoveClick_fn(option: RouteStrategyOption) {
@@ -1478,7 +1478,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
         setTimeout(fun(){
             this.showRouteStrategyOptions = false
         }
-        , 50)
+            , 50)
         ws?.sendAndOn(WebSocketSendMessage(type = MessageType["QUERY_CAR_SETTING"] as Number, content = object : UTSJSONObject() {
             var routeStrategy = option.code
         }), fun(data){
@@ -1548,7 +1548,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
             this.phoneSuffix = ""
             this.orderId = ""
         }
-        , 100)
+            , 100)
     }
     open var handleStartPickup = ::gen_handleStartPickup_fn
     open fun gen_handleStartPickup_fn() {
@@ -1570,9 +1570,9 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
             }
             )
         }
-        , fun(data){
-            hideXloading()
-        }
+            , fun(data){
+                hideXloading()
+            }
         )
     }
     open var validPhoneConfirm = ::gen_validPhoneConfirm_fn
@@ -1593,9 +1593,9 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
             that.orderId = ""
             that.orderIndex = 0
         }
-        , fun(data){
-            hideXloading()
-        }
+            , fun(data){
+                hideXloading()
+            }
         )
     }
     open var toSelectPlan = ::gen_toSelectPlan_fn
@@ -1623,14 +1623,14 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                             }
                             ))
                         }
-                        , 250)
+                            , 250)
                     }
                 }
                 hideXloading()
             }
-            , fun(data){
-                hideXloading()
-            }
+                , fun(data){
+                    hideXloading()
+                }
             )
         }
         ))
@@ -1648,9 +1648,9 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                 that.orderData.driverStatus = 3
                 that.finishOrder(orderId, sortNum)
             }
-            , fun(data){
-                hideXloading()
-            }
+                , fun(data){
+                    hideXloading()
+                }
             )
         }
     }
@@ -1712,9 +1712,9 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                 }
             }
         }
-        , fun(data){
-            hideXloading()
-        }
+            , fun(data){
+                hideXloading()
+            }
         )
     }
     open var onOrderAdd = ::gen_onOrderAdd_fn
@@ -1731,7 +1731,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                     }
                     ))
                 }
-                , 250)
+                    , 250)
                 McAudio.play("/static/audio/new-order.mp3", false)
             }
         }
@@ -1751,7 +1751,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                     }
                     ))
                 }
-                , 250)
+                    , 250)
             }
         }
         )
@@ -1783,6 +1783,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
         ws?.on(MessageType["ORDER_CANCEL"] as Number, fun(data){
             val res = JSON.parse<OrderCancelResponse>(data)
             console.log("您有一个订单已被取消：", res)
+            hideXloading()
             if (res?.summaryId == that.orderParams["summaryId"]) {
                 if (res?.backIndex ?: false) {
                     setTimeout(fun() {
@@ -1797,7 +1798,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                         }
                         ))
                     }
-                    , 250)
+                        , 250)
                 }
                 McAudio.play("/static/audio/order-cancel.mp3", false)
             }
@@ -1809,10 +1810,10 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
         uni_makePhoneCall(MakePhoneCallOptions(phoneNumber = phone, success = fun(result: MakePhoneCallSuccess){
             console.log("拨打电话成功")
         }
-        , fail = fun(_err){
-            console.log("拨打电话失败", _err)
-            showToast("拨打电话失败", "error")
-        }
+            , fail = fun(_err){
+                console.log("拨打电话失败", _err)
+                showToast("拨打电话失败", "error")
+            }
         ))
     }
     open var onDragSortchange = ::gen_onDragSortchange_fn
@@ -1840,10 +1841,10 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
             that.queryOrderDetail(true, false)
             hideXloading()
         }
-        , fun(data){
-            that.queryOrderDetail(false, false)
-            hideXloading()
-        }
+            , fun(data){
+                that.queryOrderDetail(false, false)
+                hideXloading()
+            }
         )
     }
     companion object {
