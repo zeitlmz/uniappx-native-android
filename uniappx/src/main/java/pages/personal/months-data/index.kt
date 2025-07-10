@@ -140,77 +140,74 @@ open class GenPagesPersonalMonthsDataIndex : BasePage {
             val completeOrderOpts = ref<String>(JSON.stringify(initOpts(completeOrderOptData, "ordernum")))
             val getDate = fun(reassignedDate: String): String {
                 var date = reassignedDate
-                if (date == null || date == "") {
+                if (date == "") {
                     date = formatDate(Date(), "yyyy-MM")
                 }
                 return date.substring(0, 7)
             }
             val querySummaryData = fun(){
                 getDriverMonthDataSummary(currentDate.value).then(fun(res: Response){
-                    if (res.data != null && res.code == 200) {
+                    if (res.code == 200) {
                         val data = res.data as UTSJSONObject
                         summaryData.value = JSON.parseObject<SummaryData>(JSON.stringify(data))!!
+                        console.log("summaryData===", summaryData.value)
                     }
                 }
                 )
             }
             val queryIncome = fun(){
                 getDriverIncomeLineChart(getDate(currentDate.value)).then(fun(res: Response){
-                    if (res.data != null) {
-                        val xAxisDataVal: UTSArray<String> = utsArrayOf()
-                        val seriesData: UTSArray<Number> = utsArrayOf()
-                        val resData = res.data as UTSArray<UTSJSONObject>
-                        resData.forEach(fun(item){
-                            val name = item.getString("name")
-                            val value = item.getString("value")
-                            xAxisDataVal.add(if (name != null && name != "") {
-                                name
-                            } else {
-                                ""
-                            }
-                            )
-                            seriesData.add(if (value != null) {
-                                parseFloat(value)
-                            } else {
-                                0
-                            }
-                            )
+                    val xAxisDataVal: UTSArray<String> = utsArrayOf()
+                    val seriesData: UTSArray<Number> = utsArrayOf()
+                    val resData = res.data as UTSArray<UTSJSONObject>
+                    resData.forEach(fun(item){
+                        val name = item.getString("name")
+                        val value = item.getString("value")
+                        xAxisDataVal.add(if (name != null && name != "") {
+                            name
+                        } else {
+                            ""
                         }
                         )
-                        incomeOptData.xAxisDataVal = xAxisDataVal
-                        incomeOptData.seriesData = seriesData
-                        incomeOpts.value = JSON.stringify(initOpts(incomeOptData, "income"))
+                        seriesData.add(if (value != null) {
+                            parseFloat(value)
+                        } else {
+                            0
+                        }
+                        )
                     }
+                    )
+                    incomeOptData.xAxisDataVal = xAxisDataVal
+                    incomeOptData.seriesData = seriesData
+                    incomeOpts.value = JSON.stringify(initOpts(incomeOptData, "income"))
                 }
                 )
             }
             val queryCompleteOrder = fun(){
                 getDriverCompleteOrderLineChart(currentDate.value).then(fun(res: Response){
-                    if (res.data != null) {
-                        val xAxisDataVal: UTSArray<String> = utsArrayOf()
-                        val seriesData: UTSArray<Number> = utsArrayOf()
-                        val resData = res.data as UTSArray<UTSJSONObject>
-                        resData.forEach(fun(item){
-                            val name = item.getString("name")
-                            val value = item.getString("value")
-                            xAxisDataVal.add(if (name != null && name != "") {
-                                name
-                            } else {
-                                ""
-                            }
-                            )
-                            seriesData.add(if (value != null) {
-                                parseFloat(value)
-                            } else {
-                                0
-                            }
-                            )
+                    val xAxisDataVal: UTSArray<String> = utsArrayOf()
+                    val seriesData: UTSArray<Number> = utsArrayOf()
+                    val resData = res.data as UTSArray<UTSJSONObject>
+                    resData.forEach(fun(item){
+                        val name = item.getString("name")
+                        val value = item.getString("value")
+                        xAxisDataVal.add(if (name != null && name != "") {
+                            name
+                        } else {
+                            ""
                         }
                         )
-                        completeOrderOptData.xAxisDataVal = xAxisDataVal
-                        completeOrderOptData.seriesData = seriesData
-                        completeOrderOpts.value = JSON.stringify(initOpts(completeOrderOptData, "ordernum"))
+                        seriesData.add(if (value != null) {
+                            parseFloat(value)
+                        } else {
+                            0
+                        }
+                        )
                     }
+                    )
+                    completeOrderOptData.xAxisDataVal = xAxisDataVal
+                    completeOrderOptData.seriesData = seriesData
+                    completeOrderOpts.value = JSON.stringify(initOpts(completeOrderOptData, "ordernum"))
                 }
                 )
             }
@@ -291,7 +288,7 @@ open class GenPagesPersonalMonthsDataIndex : BasePage {
                                                         createElementVNode("view", utsMapOf("class" to "summary-item", "style" to normalizeStyle(utsMapOf("flex-direction" to "row"))), utsArrayOf(
                                                             createElementVNode("image", utsMapOf("style" to normalizeStyle(utsMapOf("width" to "60rpx", "height" to "60rpx")), "src" to "/static/icons/icon-month-data-rank.png"), null, 4),
                                                             createElementVNode("view", utsMapOf("class" to "ml-5"), utsArrayOf(
-                                                                createElementVNode("text", utsMapOf("class" to "item-label", "style" to normalizeStyle(utsMapOf("font-size" to "26rpx", "font-weight" to "500"))), "单量排行", 4),
+                                                                createElementVNode("text", utsMapOf("class" to "item-label", "style" to normalizeStyle(utsMapOf("font-size" to "26rpx", "font-weight" to "bold"))), "单量排行", 4),
                                                                 createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("flex-direction" to "row", "align-items" to "center"))), utsArrayOf(
                                                                     createElementVNode("view", null, utsArrayOf(
                                                                         createElementVNode("text", utsMapOf("class" to "item-value", "style" to normalizeStyle(utsMapOf("font-size" to "34rpx", "font-weight" to "bold", "color" to "#5D7AB6"))), toDisplayString(unref(summaryData).orderRankNumber), 5)
@@ -305,7 +302,7 @@ open class GenPagesPersonalMonthsDataIndex : BasePage {
                                                         createElementVNode("view", utsMapOf("class" to "summary-item", "style" to normalizeStyle(utsMapOf("margin-left" to "130rpx", "flex-direction" to "row"))), utsArrayOf(
                                                             createElementVNode("image", utsMapOf("style" to normalizeStyle(utsMapOf("width" to "60rpx", "height" to "60rpx")), "src" to "/static/icons/icon-month-data-order.png"), null, 4),
                                                             createElementVNode("view", utsMapOf("class" to "ml-5"), utsArrayOf(
-                                                                createElementVNode("text", utsMapOf("class" to "item-label", "style" to normalizeStyle(utsMapOf("font-size" to "26rpx", "font-weight" to "500"))), "完单量/投诉量", 4),
+                                                                createElementVNode("text", utsMapOf("class" to "item-label", "style" to normalizeStyle(utsMapOf("font-size" to "26rpx", "font-weight" to "bold"))), "完单量/投诉量", 4),
                                                                 createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("flex-direction" to "row", "align-items" to "center"))), utsArrayOf(
                                                                     createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("flex-direction" to "row"))), utsArrayOf(
                                                                         createElementVNode("text", utsMapOf("class" to "item-value", "style" to normalizeStyle(utsMapOf("font-size" to "34rpx", "font-weight" to "bold", "color" to "#5D7AB6"))), toDisplayString(unref(summaryData).completeOrderCount) + "/", 5),
@@ -322,7 +319,7 @@ open class GenPagesPersonalMonthsDataIndex : BasePage {
                                                         createElementVNode("view", utsMapOf("class" to "summary-item", "style" to normalizeStyle(utsMapOf("flex-direction" to "row"))), utsArrayOf(
                                                             createElementVNode("image", utsMapOf("style" to normalizeStyle(utsMapOf("width" to "60rpx", "height" to "60rpx")), "src" to "/static/icons/icon-month-data-order.png"), null, 4),
                                                             createElementVNode("view", utsMapOf("class" to "ml-5"), utsArrayOf(
-                                                                createElementVNode("text", utsMapOf("class" to "item-label", "style" to normalizeStyle(utsMapOf("font-size" to "26rpx", "font-weight" to "500"))), "出车天数", 4),
+                                                                createElementVNode("text", utsMapOf("class" to "item-label", "style" to normalizeStyle(utsMapOf("font-size" to "26rpx", "font-weight" to "bold"))), "出车天数", 4),
                                                                 createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("flex-direction" to "row", "align-items" to "center"))), utsArrayOf(
                                                                     createElementVNode("view", null, utsArrayOf(
                                                                         createElementVNode("text", utsMapOf("class" to "item-value", "style" to normalizeStyle(utsMapOf("font-size" to "34rpx", "font-weight" to "bold", "color" to "#5D7AB6"))), toDisplayString(unref(summaryData).outCarDays), 5)
@@ -336,7 +333,7 @@ open class GenPagesPersonalMonthsDataIndex : BasePage {
                                                         createElementVNode("view", utsMapOf("class" to "summary-item", "style" to normalizeStyle(utsMapOf("margin-left" to "130rpx", "flex-direction" to "row"))), utsArrayOf(
                                                             createElementVNode("image", utsMapOf("style" to normalizeStyle(utsMapOf("width" to "60rpx", "height" to "60rpx")), "src" to "/static/icons/icon-month-data-order.png"), null, 4),
                                                             createElementVNode("view", utsMapOf("class" to "ml-5"), utsArrayOf(
-                                                                createElementVNode("text", utsMapOf("class" to "item-label", "style" to normalizeStyle(utsMapOf("font-size" to "26rpx", "font-weight" to "500"))), "出车趟数", 4),
+                                                                createElementVNode("text", utsMapOf("class" to "item-label", "style" to normalizeStyle(utsMapOf("font-size" to "26rpx", "font-weight" to "bold"))), "出车趟数", 4),
                                                                 createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("flex-direction" to "row", "align-items" to "center"))), utsArrayOf(
                                                                     createElementVNode("view", null, utsArrayOf(
                                                                         createElementVNode("text", utsMapOf("class" to "item-value", "style" to normalizeStyle(utsMapOf("font-size" to "34rpx", "font-weight" to "bold", "color" to "#5D7AB6"))), toDisplayString(unref(summaryData).tripCount), 5)
@@ -349,9 +346,9 @@ open class GenPagesPersonalMonthsDataIndex : BasePage {
                                                         ), 4)
                                                     ), 4),
                                                     createVNode(_component_x_divider, utsMapOf("lineWidth" to "0.5", "color" to "#BECEEC")),
-                                                    createElementVNode("view", utsMapOf("class" to "summary-row", "style" to normalizeStyle(utsMapOf("background-color" to "transparent", "flex-direction" to "row", "justify-content" to "space-between", "margin-lef" to "-15rpx"))), utsArrayOf(
+                                                    createElementVNode("view", utsMapOf("class" to "summary-row", "style" to normalizeStyle(utsMapOf("background-color" to "transparent", "flex-direction" to "row", "justify-content" to "space-between"))), utsArrayOf(
                                                         createElementVNode("view", utsMapOf("class" to "summary-item", "style" to normalizeStyle(utsMapOf("flex-direction" to "column"))), utsArrayOf(
-                                                            createElementVNode("text", utsMapOf("class" to "item-label", "style" to normalizeStyle(utsMapOf("text-align" to "center", "font-size" to "26rpx", "font-weight" to "500"))), "营业流水", 4),
+                                                            createElementVNode("text", utsMapOf("class" to "item-label", "style" to normalizeStyle(utsMapOf("text-align" to "center", "font-size" to "26rpx", "font-weight" to "bold"))), "营业流水", 4),
                                                             createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("flex-direction" to "row", "align-items" to "center", "justify-content" to "center"))), utsArrayOf(
                                                                 createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("align-items" to "center"))), utsArrayOf(
                                                                     createElementVNode("text", utsMapOf("class" to "item-value", "style" to normalizeStyle(utsMapOf("font-size" to "34rpx", "font-weight" to "bold", "color" to "#5D7AB6"))), toDisplayString(unref(summaryData).revenueAmount), 5)
@@ -362,7 +359,7 @@ open class GenPagesPersonalMonthsDataIndex : BasePage {
                                                             ), 4)
                                                         ), 4),
                                                         createElementVNode("view", utsMapOf("class" to "summary-item", "style" to normalizeStyle(utsMapOf("flex-direction" to "column"))), utsArrayOf(
-                                                            createElementVNode("text", utsMapOf("class" to "item-label", "style" to normalizeStyle(utsMapOf("text-align" to "center", "font-size" to "26rpx", "font-weight" to "500"))), "实际收入", 4),
+                                                            createElementVNode("text", utsMapOf("class" to "item-label", "style" to normalizeStyle(utsMapOf("text-align" to "center", "font-size" to "26rpx", "font-weight" to "bold"))), "实际收入", 4),
                                                             createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("flex-direction" to "row", "align-items" to "center", "justify-content" to "center"))), utsArrayOf(
                                                                 createElementVNode("view", null, utsArrayOf(
                                                                     createElementVNode("text", utsMapOf("class" to "item-value", "style" to normalizeStyle(utsMapOf("text-align" to "center", "font-size" to "34rpx", "font-weight" to "bold", "color" to "#5D7AB6"))), toDisplayString(unref(summaryData).realTotalIncome), 5)
@@ -374,7 +371,7 @@ open class GenPagesPersonalMonthsDataIndex : BasePage {
                                                             createElementVNode("view", utsMapOf("class" to "footer-triangle", "style" to normalizeStyle(utsMapOf("text-align" to "center", "margin-left" to "17rpx"))), null, 4)
                                                         ), 4),
                                                         createElementVNode("view", utsMapOf("class" to "summary-item", "style" to normalizeStyle(utsMapOf("flex-direction" to "column"))), utsArrayOf(
-                                                            createElementVNode("text", utsMapOf("class" to "item-label", "style" to normalizeStyle(utsMapOf("text-align" to "center", "font-size" to "26rpx", "font-weight" to "500"))), "活动奖励", 4),
+                                                            createElementVNode("text", utsMapOf("class" to "item-label", "style" to normalizeStyle(utsMapOf("text-align" to "center", "font-size" to "26rpx", "font-weight" to "bold"))), "活动奖励", 4),
                                                             createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("flex-direction" to "row", "align-items" to "center", "justify-content" to "center"))), utsArrayOf(
                                                                 createElementVNode("view", null, utsArrayOf(
                                                                     createElementVNode("text", utsMapOf("class" to "item-value", "style" to normalizeStyle(utsMapOf("font-size" to "34rpx", "font-weight" to "bold", "color" to "#5D7AB6"))), toDisplayString(unref(summaryData).activityReward), 5)

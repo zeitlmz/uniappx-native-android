@@ -362,10 +362,8 @@ open class GenPagesHomeHadSettled : VueComponent {
                 )
                 ws?.on(MessageType["ORDER_CANCEL"] as Number, fun(data){
                     console.log("您有一个订单已被取消：", data)
-                    showModal(X_MODAL_TYPE(title = "温馨提示", content = "\u60A8\u6709\u4E00\u4E2A\u8BA2\u5355\u5DF2\u88AB\u53D6\u6D88", confirmText = "知道了", confirmBgColor = globalData.theme.primaryColor, showCancel = false, confirm = fun(){
-                        orderQuery()
-                    }
-                    ))
+                    orderQuery()
+                    showModal(X_MODAL_TYPE(title = "温馨提示", content = "\u60A8\u6709\u4E00\u4E2A\u8BA2\u5355\u5DF2\u88AB\u53D6\u6D88", confirmText = "知道了", confirmBgColor = globalData.theme.primaryColor, showCancel = false))
                     McAudio.play("/static/audio/order-cancel.mp3", false)
                 }
                 )

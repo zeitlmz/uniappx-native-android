@@ -9075,7 +9075,8 @@ val screenHeight = systemInfo.screenHeight
 val screenWidth = systemInfo.screenWidth
 val statusBarHeight = systemInfo.statusBarHeight
 val isIOS = osName === "ios"
-val isRelease = "production" === "production"
+//val isRelease = "production" === "production"
+val isRelease = false
 val TOKEN_KEY = "mcIntercityCarToken" + (if (isRelease) {
     ""
 } else {
@@ -9764,6 +9765,11 @@ val pages = utsArrayOf(
     }),
     PageItem(path = "/pages/other/trip-plan/add/index", name = "PagesOtherTripPlanAddIndex", needLogin = false, meta = UTSJSONObject(), query = UTSJSONObject(), data = UTSJSONObject(), style = object : UTSJSONObject() {
         var navigationBarTitleText = "添加行程"
+        var enablePullDownRefresh = false
+        var navigationStyle = "custom"
+    }),
+    PageItem(path = "/pages/other/trip-plan/detail/index", name = "PagesOtherTripPlanDetailIndex", needLogin = false, meta = UTSJSONObject(), query = UTSJSONObject(), data = UTSJSONObject(), style = object : UTSJSONObject() {
+        var navigationBarTitleText = "行程详情"
         var enablePullDownRefresh = false
         var navigationStyle = "custom"
     }),
@@ -14239,8 +14245,39 @@ val getTimePlusRangeFormat = fun(date: Date, condition: String, pattern: String)
         formatDate(endDate, pattern)
     )
 }
+val daysBetweenDays = fun(date1: Date, date2: Date): Number {
+    if (!(date1 is Date) || !(date2 is Date)) {
+        throw UTSError("两个日期必须是Date对象")
+    }
+    val oneDayInMilliseconds: Number = 86400000
+    return Math.ceil(Math.abs(date1.getTime() - date2.getTime()) / oneDayInMilliseconds)
+}
 val formatDateStr = fun(dateStr: String): String {
     return dateStr.replace(UTSRegExp("-", "g"), "/")
+}
+fun addTime(dateStr: String, num: Number, unit: String): String {
+    val date = Date(formatDateStr(dateStr))
+    when (unit) {
+        "year" -> 
+            date.setFullYear(date.getFullYear() + num)
+        "month" -> 
+            date.setMonth(date.getMonth() + num)
+        "day" -> 
+            date.setDate(date.getDate() + num)
+        "hour" -> 
+            date.setHours(date.getHours() + num)
+        "minute" -> 
+            date.setMinutes(date.getMinutes() + num)
+        "second" -> 
+            date.setSeconds(date.getSeconds() + num)
+    }
+    val year = date.getFullYear()
+    val month = ((date.getMonth() + 1) + "").padStart(2, "0")
+    val day = (date.getDate() + "").padStart(2, "0")
+    val hour = (date.getHours() + "").padStart(2, "0")
+    val minute = (date.getMinutes() + "").padStart(2, "0")
+    val second = (date.getSeconds() + "").padStart(2, "0")
+    return "" + year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second
 }
 val formatDuration = fun(reassignedSeconds: Number): String {
     var seconds = reassignedSeconds
@@ -18260,11 +18297,11 @@ val GenPagesOtherCarSettingIndexClass = CreateVueComponent(GenPagesOtherCarSetti
 )
 open class TripPlanInfo (
     @JsonNotNull
-    open var driverId: Number,
+    open var driverId: String,
     @JsonNotNull
-    open var id: Number,
+    open var id: String,
     @JsonNotNull
-    open var serviceId: Number,
+    open var serviceId: String,
     @JsonNotNull
     open var startCityCode: String,
     @JsonNotNull
@@ -18288,7 +18325,7 @@ open class TripPlanInfo (
     @JsonNotNull
     open var linesGroupName: String,
     @JsonNotNull
-    open var linesIdList: UTSArray<Number>,
+    open var linesIdList: UTSArray<String>,
     @JsonNotNull
     open var driveInfo: TripPlanDriveInfo,
     @JsonNotNull
@@ -18316,7 +18353,7 @@ open class TripPlanInfoReactiveObject : TripPlanInfo, IUTSReactive<TripPlanInfo>
     override fun __v_clone(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): TripPlanInfoReactiveObject {
         return TripPlanInfoReactiveObject(this.__v_raw, __v_isReadonly, __v_isShallow, __v_skip)
     }
-    override var driverId: Number
+    override var driverId: String
         get() {
             return trackReactiveGet(__v_raw, "driverId", __v_raw.driverId, this.__v_isReadonly, this.__v_isShallow)
         }
@@ -18328,7 +18365,7 @@ open class TripPlanInfoReactiveObject : TripPlanInfo, IUTSReactive<TripPlanInfo>
             __v_raw.driverId = value
             triggerReactiveSet(__v_raw, "driverId", oldValue, value)
         }
-    override var id: Number
+    override var id: String
         get() {
             return trackReactiveGet(__v_raw, "id", __v_raw.id, this.__v_isReadonly, this.__v_isShallow)
         }
@@ -18340,7 +18377,7 @@ open class TripPlanInfoReactiveObject : TripPlanInfo, IUTSReactive<TripPlanInfo>
             __v_raw.id = value
             triggerReactiveSet(__v_raw, "id", oldValue, value)
         }
-    override var serviceId: Number
+    override var serviceId: String
         get() {
             return trackReactiveGet(__v_raw, "serviceId", __v_raw.serviceId, this.__v_isReadonly, this.__v_isShallow)
         }
@@ -18484,7 +18521,7 @@ open class TripPlanInfoReactiveObject : TripPlanInfo, IUTSReactive<TripPlanInfo>
             __v_raw.linesGroupName = value
             triggerReactiveSet(__v_raw, "linesGroupName", oldValue, value)
         }
-    override var linesIdList: UTSArray<Number>
+    override var linesIdList: UTSArray<String>
         get() {
             return trackReactiveGet(__v_raw, "linesIdList", __v_raw.linesIdList, this.__v_isReadonly, this.__v_isShallow)
         }
@@ -18547,7 +18584,7 @@ open class TripPlanInfoReactiveObject : TripPlanInfo, IUTSReactive<TripPlanInfo>
 }
 open class TripPlanDriveInfo (
     @JsonNotNull
-    open var id: Number,
+    open var id: String,
     @JsonNotNull
     open var vehiclePlateNo: String,
     @JsonNotNull
@@ -18560,6 +18597,8 @@ open class TripPlanDriveInfo (
     open var vehicleNature: Number,
     @JsonNotNull
     open var vehicleRatifiedPeople: Number,
+    @JsonNotNull
+    open var vehicleQualificationGroupName: String,
 ) : UTSReactiveObject() {
     override fun __v_create(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): UTSReactiveObject {
         return TripPlanDriveInfoReactiveObject(this, __v_isReadonly, __v_isShallow, __v_skip)
@@ -18570,7 +18609,7 @@ open class TripPlanDriveInfoReactiveObject : TripPlanDriveInfo, IUTSReactive<Tri
     override var __v_isReadonly: Boolean
     override var __v_isShallow: Boolean
     override var __v_skip: Boolean
-    constructor(__v_raw: TripPlanDriveInfo, __v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean) : super(id = __v_raw.id, vehiclePlateNo = __v_raw.vehiclePlateNo, vehicleModel = __v_raw.vehicleModel, vehicleColor = __v_raw.vehicleColor, carType = __v_raw.carType, vehicleNature = __v_raw.vehicleNature, vehicleRatifiedPeople = __v_raw.vehicleRatifiedPeople) {
+    constructor(__v_raw: TripPlanDriveInfo, __v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean) : super(id = __v_raw.id, vehiclePlateNo = __v_raw.vehiclePlateNo, vehicleModel = __v_raw.vehicleModel, vehicleColor = __v_raw.vehicleColor, carType = __v_raw.carType, vehicleNature = __v_raw.vehicleNature, vehicleRatifiedPeople = __v_raw.vehicleRatifiedPeople, vehicleQualificationGroupName = __v_raw.vehicleQualificationGroupName) {
         this.__v_raw = __v_raw
         this.__v_isReadonly = __v_isReadonly
         this.__v_isShallow = __v_isShallow
@@ -18579,7 +18618,7 @@ open class TripPlanDriveInfoReactiveObject : TripPlanDriveInfo, IUTSReactive<Tri
     override fun __v_clone(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): TripPlanDriveInfoReactiveObject {
         return TripPlanDriveInfoReactiveObject(this.__v_raw, __v_isReadonly, __v_isShallow, __v_skip)
     }
-    override var id: Number
+    override var id: String
         get() {
             return trackReactiveGet(__v_raw, "id", __v_raw.id, this.__v_isReadonly, this.__v_isShallow)
         }
@@ -18662,6 +18701,18 @@ open class TripPlanDriveInfoReactiveObject : TripPlanDriveInfo, IUTSReactive<Tri
             val oldValue = __v_raw.vehicleRatifiedPeople
             __v_raw.vehicleRatifiedPeople = value
             triggerReactiveSet(__v_raw, "vehicleRatifiedPeople", oldValue, value)
+        }
+    override var vehicleQualificationGroupName: String
+        get() {
+            return trackReactiveGet(__v_raw, "vehicleQualificationGroupName", __v_raw.vehicleQualificationGroupName, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("vehicleQualificationGroupName")) {
+                return
+            }
+            val oldValue = __v_raw.vehicleQualificationGroupName
+            __v_raw.vehicleQualificationGroupName = value
+            triggerReactiveSet(__v_raw, "vehicleQualificationGroupName", oldValue, value)
         }
 }
 open class TripPlanTagInfo (
@@ -18832,6 +18883,18 @@ val refreshSeatTemplate = fun(seatKey: String): UTSPromise<Response> {
 }
 val generateOfflinePaymentQRCode = fun(planId: String, date: String): UTSPromise<Response> {
     return httpGet("/mcpt-car/app/car/order/generateOfflinePaymentQRCode?planId=" + planId + "&date=" + date, UTSJSONObject())
+}
+val getDriverRelationVehicleList = fun(page: Number, limit: Number): UTSPromise<Response> {
+    return httpGet("/mcpt-car/app/car/driverPlan/getDriverRelationVehicleList?page=" + page + "&limit=" + limit, UTSJSONObject())
+}
+val getDriverBindLinesTree = fun(): UTSPromise<Response> {
+    return httpGet("/mcpt-car/app/car/driverPlan/getDriverBindLinesTree", UTSJSONObject())
+}
+val upsertDriverPlan = fun(param: UTSJSONObject): UTSPromise<Response> {
+    return httpPost("/mcpt-car/app/car/driverPlan/upsertDriverPlan", param)
+}
+val delDriverPlan = fun(param: UTSJSONObject): UTSPromise<Response> {
+    return httpPost("/mcpt-car/app/car/driverPlan/delDriverPlan", param)
 }
 val GenPagesOtherScanOrderIndexClass = CreateVueComponent(GenPagesOtherScanOrderIndex::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "page", name = "", inheritAttrs = GenPagesOtherScanOrderIndex.inheritAttrs, inject = GenPagesOtherScanOrderIndex.inject, props = GenPagesOtherScanOrderIndex.props, propsNeedCastKeys = GenPagesOtherScanOrderIndex.propsNeedCastKeys, emits = GenPagesOtherScanOrderIndex.emits, components = GenPagesOtherScanOrderIndex.components, styles = GenPagesOtherScanOrderIndex.styles, setup = fun(props: ComponentPublicInstance): Any? {
@@ -20618,6 +20681,213 @@ val GenUniModulesTmxUiComponentsXPickerTimeXPickerTimeClass = CreateVueComponent
     return GenUniModulesTmxUiComponentsXPickerTimeXPickerTime(instance)
 }
 )
+fun findParentIds(nodes: UTSArray<UTSJSONObject>, targetId: String, idkey: String): UTSArray<String> {
+    run {
+        var i: Number = 0
+        while(i < nodes.length){
+            var node = nodes[i] as UTSJSONObject
+            if (node.getString(idkey) == targetId) {
+                return utsArrayOf<String>(node.getString(idkey!!)!!)
+            }
+            if (node.getArray("children") != null) {
+                var children = node.getArray("children") as UTSArray<UTSJSONObject>?
+                children = if (children == null) {
+                    (utsArrayOf<UTSJSONObject>())
+                } else {
+                    children!!
+                }
+                if (children.length > 0) {
+                    var childResult = findParentIds(children as UTSArray<UTSJSONObject>, targetId, idkey)
+                    if (childResult.length > 0) {
+                        return childResult.concat(utsArrayOf<String>(node.getString(idkey!!)!!)) as UTSArray<String>
+                    }
+                }
+            }
+            i++
+        }
+    }
+    return utsArrayOf<String>()
+}
+fun flatChildrensId(list: UTSJSONObject, idkey: String): UTSArray<String> {
+    var seleds = utsArrayOf<String>()
+    var nodes = list.getArray("children") as UTSArray<UTSJSONObject>?
+    nodes = if (nodes == null) {
+        (utsArrayOf<UTSJSONObject>())
+    } else {
+        nodes!!
+    }
+    if (nodes.length == 0) {
+        return seleds
+    }
+    run {
+        var i: Number = 0
+        while(i < nodes.length){
+            var node = nodes[i] as UTSJSONObject
+            var disabled = node.getBoolean("disabled")
+            disabled = if (disabled == null) {
+                false
+            } else {
+                disabled!!
+            }
+            if (!disabled) {
+                seleds.push(node.getString(idkey!!)!!)
+            }
+            var childResult = flatChildrensId(node, idkey)
+            seleds = seleds.concat(childResult)
+            i++
+        }
+    }
+    return seleds
+}
+fun setChildrenByid(nodesess: UTSArray<UTSJSONObject>, targetId: String, idkey: String, targetChildren: UTSArray<UTSJSONObject>): UTSArray<UTSJSONObject> {
+    var nodes = nodesess
+    fun setlist(nodes: UTSArray<UTSJSONObject>) {
+        run {
+            var i: Number = 0
+            while(i < nodes.length){
+                var node = nodes[i] as UTSJSONObject
+                if (node.getString(idkey) == targetId) {
+                    nodes[i].set("children", targetChildren)
+                    break
+                }
+                if (node.getArray("children") != null) {
+                    var children = node.getArray("children") as UTSArray<UTSJSONObject>?
+                    if (children != null) {
+                        setlist(children!!)
+                    }
+                }
+                i++
+            }
+        }
+    }
+    setlist(nodes)
+    return nodes
+}
+fun findParentNode(tree: UTSArray<UTSJSONObject>, targetId: String, idkey: String, parent: UTSJSONObject? = null): UTSJSONObject? {
+    run {
+        var i: Number = 0
+        while(i < tree.length){
+            val node = tree[i]
+            if (node.getString(idkey) == targetId) {
+                return parent
+            }
+            var children = node.getArray("children") as UTSArray<UTSJSONObject>?
+            if (children != null) {
+                val parent = findParentNode(children!!, targetId, idkey, node)
+                if (parent != null) {
+                    return parent
+                }
+            }
+            i++
+        }
+    }
+    return null
+}
+fun getAllParentIds(nodes: UTSArray<UTSJSONObject>, idkey: String): UTSArray<String> {
+    var parentIds = utsArrayOf<String>()
+    fun traverseTree(nodeList: UTSArray<UTSJSONObject>) {
+        run {
+            var i: Number = 0
+            while(i < nodeList.length){
+                var node = nodeList[i] as UTSJSONObject
+                var children = node.getArray("children") as UTSArray<UTSJSONObject>?
+                if (children != null && children.length > 0) {
+                    parentIds.push(node.getString(idkey!!)!!)
+                    traverseTree(children!!)
+                }
+                i++
+            }
+        }
+    }
+    traverseTree(nodes)
+    return parentIds
+}
+fun findNodeIndeterminate(nodes: UTSArray<UTSJSONObject>, targetIds: UTSArray<String>, idkey: String): UTSArray<String> {
+    var indeterminateIds = utsArrayOf<String>()
+    fun traverseTree(nodeList: UTSArray<UTSJSONObject>) {
+        run {
+            var i: Number = 0
+            while(i < nodeList.length){
+                var node = nodeList[i] as UTSJSONObject
+                var nodeId = node.getString(idkey!!)!!
+                var children = node.getArray("children") as UTSArray<UTSJSONObject>?
+                var currentNodeSelected = targetIds.includes(nodeId)
+                if (currentNodeSelected) {
+                    i++
+                    continue
+                }
+                if (children != null && children.length > 0) {
+                    var childrenIds = flatChildrensId(node, idkey)
+                    var hasSelected = childrenIds.some(fun(id: String): Boolean {
+                        return targetIds.includes(id)
+                    }
+                    )
+                    if (hasSelected) {
+                        indeterminateIds.push(nodeId)
+                    }
+                    traverseTree(children!!)
+                }
+                i++
+            }
+        }
+    }
+    traverseTree(nodes)
+    return indeterminateIds
+}
+typealias callbackType2 = (id: String) -> UTSPromise<UTSArray<UTSJSONObject>>
+val GenUniModulesTmxUiComponentsXTreeItemXTreeItemClass = CreateVueComponent(GenUniModulesTmxUiComponentsXTreeItemXTreeItem::class.java, fun(): VueComponentOptions {
+    return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXTreeItemXTreeItem.inheritAttrs, inject = GenUniModulesTmxUiComponentsXTreeItemXTreeItem.inject, props = GenUniModulesTmxUiComponentsXTreeItemXTreeItem.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXTreeItemXTreeItem.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXTreeItemXTreeItem.emits, components = GenUniModulesTmxUiComponentsXTreeItemXTreeItem.components, styles = GenUniModulesTmxUiComponentsXTreeItemXTreeItem.styles)
+}
+, fun(instance, renderer): GenUniModulesTmxUiComponentsXTreeItemXTreeItem {
+    return GenUniModulesTmxUiComponentsXTreeItemXTreeItem(instance)
+}
+)
+typealias callbackType3 = (id: String) -> UTSPromise<UTSArray<UTSJSONObject>>
+val GenUniModulesTmxUiComponentsXTreeXTreeClass = CreateVueComponent(GenUniModulesTmxUiComponentsXTreeXTree::class.java, fun(): VueComponentOptions {
+    return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXTreeXTree.inheritAttrs, inject = GenUniModulesTmxUiComponentsXTreeXTree.inject, props = GenUniModulesTmxUiComponentsXTreeXTree.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXTreeXTree.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXTreeXTree.emits, components = GenUniModulesTmxUiComponentsXTreeXTree.components, styles = GenUniModulesTmxUiComponentsXTreeXTree.styles)
+}
+, fun(instance, renderer): GenUniModulesTmxUiComponentsXTreeXTree {
+    return GenUniModulesTmxUiComponentsXTreeXTree(instance)
+}
+)
+open class DriverBindDistrictLines1 (
+    @JsonNotNull
+    open var linesId: String,
+    @JsonNotNull
+    open var nodeName: String,
+    @JsonNotNull
+    open var children: UTSArray<DriverBindDistrictLines1>,
+) : UTSObject()
+open class TripPlanDriveInfo1 (
+    @JsonNotNull
+    open var id: String,
+    @JsonNotNull
+    open var vehiclePlateNo: String,
+    @JsonNotNull
+    open var vehicleModel: String,
+    @JsonNotNull
+    open var vehicleColor: String,
+    @JsonNotNull
+    open var carType: String,
+    @JsonNotNull
+    open var vehicleNature: Number,
+    @JsonNotNull
+    open var vehicleRatifiedPeople: Number,
+    @JsonNotNull
+    open var templateData: String,
+    @JsonNotNull
+    open var vehicleQualificationGroupName: String,
+) : UTSObject()
+val GenPagesOtherTripPlanAddIndexClass = CreateVueComponent(GenPagesOtherTripPlanAddIndex::class.java, fun(): VueComponentOptions {
+    return VueComponentOptions(type = "page", name = "", inheritAttrs = GenPagesOtherTripPlanAddIndex.inheritAttrs, inject = GenPagesOtherTripPlanAddIndex.inject, props = GenPagesOtherTripPlanAddIndex.props, propsNeedCastKeys = GenPagesOtherTripPlanAddIndex.propsNeedCastKeys, emits = GenPagesOtherTripPlanAddIndex.emits, components = GenPagesOtherTripPlanAddIndex.components, styles = GenPagesOtherTripPlanAddIndex.styles, setup = fun(props: ComponentPublicInstance): Any? {
+        return GenPagesOtherTripPlanAddIndex.setup(props as GenPagesOtherTripPlanAddIndex)
+    }
+    )
+}
+, fun(instance, renderer): GenPagesOtherTripPlanAddIndex {
+    return GenPagesOtherTripPlanAddIndex(instance, renderer)
+}
+)
 val GenComponentsMcSeatSelectIndexClass = CreateVueComponent(GenComponentsMcSeatSelectIndex::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenComponentsMcSeatSelectIndex.inheritAttrs, inject = GenComponentsMcSeatSelectIndex.inject, props = GenComponentsMcSeatSelectIndex.props, propsNeedCastKeys = GenComponentsMcSeatSelectIndex.propsNeedCastKeys, emits = GenComponentsMcSeatSelectIndex.emits, components = GenComponentsMcSeatSelectIndex.components, styles = GenComponentsMcSeatSelectIndex.styles, setup = fun(props: ComponentPublicInstance, ctx: SetupContext): Any? {
         return GenComponentsMcSeatSelectIndex.setup(props as GenComponentsMcSeatSelectIndex, ctx)
@@ -20629,7 +20899,7 @@ val GenComponentsMcSeatSelectIndexClass = CreateVueComponent(GenComponentsMcSeat
 }
 )
 typealias McSeatSelectComponentPublicInstance = GenComponentsMcSeatSelectIndex
-open class DriverBindDistrictLines1 (
+open class DriverBindDistrictLines2 (
     @JsonNotNull
     open var startCityCode: String,
     @JsonNotNull
@@ -20648,24 +20918,26 @@ open class DriverBindDistrictLines1 (
     open var endDistrictName: String,
     @JsonNotNull
     open var status: Number,
+    open var nodeName: String? = null,
+    open var linesId: String? = null,
 ) : UTSReactiveObject() {
     override fun __v_create(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): UTSReactiveObject {
-        return DriverBindDistrictLines1ReactiveObject(this, __v_isReadonly, __v_isShallow, __v_skip)
+        return DriverBindDistrictLines2ReactiveObject(this, __v_isReadonly, __v_isShallow, __v_skip)
     }
 }
-open class DriverBindDistrictLines1ReactiveObject : DriverBindDistrictLines1, IUTSReactive<DriverBindDistrictLines1> {
-    override var __v_raw: DriverBindDistrictLines1
+open class DriverBindDistrictLines2ReactiveObject : DriverBindDistrictLines2, IUTSReactive<DriverBindDistrictLines2> {
+    override var __v_raw: DriverBindDistrictLines2
     override var __v_isReadonly: Boolean
     override var __v_isShallow: Boolean
     override var __v_skip: Boolean
-    constructor(__v_raw: DriverBindDistrictLines1, __v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean) : super(startCityCode = __v_raw.startCityCode, startCityName = __v_raw.startCityName, endCityCode = __v_raw.endCityCode, endCityName = __v_raw.endCityName, startDistrictCode = __v_raw.startDistrictCode, startDistrictName = __v_raw.startDistrictName, endDistrictCode = __v_raw.endDistrictCode, endDistrictName = __v_raw.endDistrictName, status = __v_raw.status) {
+    constructor(__v_raw: DriverBindDistrictLines2, __v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean) : super(startCityCode = __v_raw.startCityCode, startCityName = __v_raw.startCityName, endCityCode = __v_raw.endCityCode, endCityName = __v_raw.endCityName, startDistrictCode = __v_raw.startDistrictCode, startDistrictName = __v_raw.startDistrictName, endDistrictCode = __v_raw.endDistrictCode, endDistrictName = __v_raw.endDistrictName, status = __v_raw.status, nodeName = __v_raw.nodeName, linesId = __v_raw.linesId) {
         this.__v_raw = __v_raw
         this.__v_isReadonly = __v_isReadonly
         this.__v_isShallow = __v_isShallow
         this.__v_skip = __v_skip
     }
-    override fun __v_clone(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): DriverBindDistrictLines1ReactiveObject {
-        return DriverBindDistrictLines1ReactiveObject(this.__v_raw, __v_isReadonly, __v_isShallow, __v_skip)
+    override fun __v_clone(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): DriverBindDistrictLines2ReactiveObject {
+        return DriverBindDistrictLines2ReactiveObject(this.__v_raw, __v_isReadonly, __v_isShallow, __v_skip)
     }
     override var startCityCode: String
         get() {
@@ -20775,15 +21047,39 @@ open class DriverBindDistrictLines1ReactiveObject : DriverBindDistrictLines1, IU
             __v_raw.status = value
             triggerReactiveSet(__v_raw, "status", oldValue, value)
         }
+    override var nodeName: String?
+        get() {
+            return trackReactiveGet(__v_raw, "nodeName", __v_raw.nodeName, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("nodeName")) {
+                return
+            }
+            val oldValue = __v_raw.nodeName
+            __v_raw.nodeName = value
+            triggerReactiveSet(__v_raw, "nodeName", oldValue, value)
+        }
+    override var linesId: String?
+        get() {
+            return trackReactiveGet(__v_raw, "linesId", __v_raw.linesId, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("linesId")) {
+                return
+            }
+            val oldValue = __v_raw.linesId
+            __v_raw.linesId = value
+            triggerReactiveSet(__v_raw, "linesId", oldValue, value)
+        }
 }
-val GenPagesOtherTripPlanAddIndexClass = CreateVueComponent(GenPagesOtherTripPlanAddIndex::class.java, fun(): VueComponentOptions {
-    return VueComponentOptions(type = "page", name = "", inheritAttrs = GenPagesOtherTripPlanAddIndex.inheritAttrs, inject = GenPagesOtherTripPlanAddIndex.inject, props = GenPagesOtherTripPlanAddIndex.props, propsNeedCastKeys = GenPagesOtherTripPlanAddIndex.propsNeedCastKeys, emits = GenPagesOtherTripPlanAddIndex.emits, components = GenPagesOtherTripPlanAddIndex.components, styles = GenPagesOtherTripPlanAddIndex.styles, setup = fun(props: ComponentPublicInstance): Any? {
-        return GenPagesOtherTripPlanAddIndex.setup(props as GenPagesOtherTripPlanAddIndex)
+val GenPagesOtherTripPlanDetailIndexClass = CreateVueComponent(GenPagesOtherTripPlanDetailIndex::class.java, fun(): VueComponentOptions {
+    return VueComponentOptions(type = "page", name = "", inheritAttrs = GenPagesOtherTripPlanDetailIndex.inheritAttrs, inject = GenPagesOtherTripPlanDetailIndex.inject, props = GenPagesOtherTripPlanDetailIndex.props, propsNeedCastKeys = GenPagesOtherTripPlanDetailIndex.propsNeedCastKeys, emits = GenPagesOtherTripPlanDetailIndex.emits, components = GenPagesOtherTripPlanDetailIndex.components, styles = GenPagesOtherTripPlanDetailIndex.styles, setup = fun(props: ComponentPublicInstance): Any? {
+        return GenPagesOtherTripPlanDetailIndex.setup(props as GenPagesOtherTripPlanDetailIndex)
     }
     )
 }
-, fun(instance, renderer): GenPagesOtherTripPlanAddIndex {
-    return GenPagesOtherTripPlanAddIndex(instance, renderer)
+, fun(instance, renderer): GenPagesOtherTripPlanDetailIndex {
+    return GenPagesOtherTripPlanDetailIndex(instance, renderer)
 }
 )
 val GenPagesOtherTripPlanSelectPlanIndexClass = CreateVueComponent(GenPagesOtherTripPlanSelectPlanIndex::class.java, fun(): VueComponentOptions {
@@ -23955,6 +24251,7 @@ fun definePageRoutes() {
     __uniRoutes.push(UniPageRoute(path = "pages/other/line-manage/add-line/index", component = GenPagesOtherLineManageAddLineIndexClass, meta = UniPageMeta(isQuit = false), style = utsMapOf("navigationBarTitleText" to "添加线路", "enablePullDownRefresh" to false, "navigationStyle" to "custom")))
     __uniRoutes.push(UniPageRoute(path = "pages/other/trip-plan/index", component = GenPagesOtherTripPlanIndexClass, meta = UniPageMeta(isQuit = false), style = utsMapOf("navigationBarTitleText" to "行程计划", "enablePullDownRefresh" to false, "navigationStyle" to "custom")))
     __uniRoutes.push(UniPageRoute(path = "pages/other/trip-plan/add/index", component = GenPagesOtherTripPlanAddIndexClass, meta = UniPageMeta(isQuit = false), style = utsMapOf("navigationBarTitleText" to "添加行程", "enablePullDownRefresh" to false, "navigationStyle" to "custom")))
+    __uniRoutes.push(UniPageRoute(path = "pages/other/trip-plan/detail/index", component = GenPagesOtherTripPlanDetailIndexClass, meta = UniPageMeta(isQuit = false), style = utsMapOf("navigationBarTitleText" to "行程详情", "enablePullDownRefresh" to false, "navigationStyle" to "custom")))
     __uniRoutes.push(UniPageRoute(path = "pages/other/trip-plan/select-plan/index", component = GenPagesOtherTripPlanSelectPlanIndexClass, meta = UniPageMeta(isQuit = false), style = utsMapOf("navigationBarTitleText" to "改派选择计划日期", "enablePullDownRefresh" to false, "navigationStyle" to "custom")))
     __uniRoutes.push(UniPageRoute(path = "pages/other/order-detail/index", component = GenPagesOtherOrderDetailIndexClass, meta = UniPageMeta(isQuit = false), style = utsMapOf("navigationBarTitleText" to "订单详情", "enablePullDownRefresh" to false, "navigationStyle" to "custom")))
     __uniRoutes.push(UniPageRoute(path = "pages/other/order-detail/navi", component = GenPagesOtherOrderDetailNaviClass, meta = UniPageMeta(isQuit = false), style = utsMapOf("navigationBarTitleText" to "订单导航", "enablePullDownRefresh" to false, "navigationStyle" to "custom")))

@@ -15,8 +15,10 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.`$emit` as uni__emit
+import uts.sdk.modules.xModalS.X_MODAL_TYPE
 import uts.sdk.modules.mcAmapNavPlus.checkLocationPermission
 import uts.sdk.modules.mcAmapNavPlus.init
+import uts.sdk.modules.xModalS.showModal
 import uts.sdk.modules.uniKuxrouter.useKuxRouter as uni_useKuxRouter
 open class GenPagesOtherTripPlanIndex : BasePage {
     constructor(__ins: ComponentInternalInstance, __renderer: String?) : super(__ins, __renderer) {
@@ -51,6 +53,7 @@ open class GenPagesOtherTripPlanIndex : BasePage {
             val _cache = __ins.renderCache
             val globalData = inject("globalData") as GlobalDataType
             val router = uni_useKuxRouter()
+            val allowDriverUpsertDriverPlan = ref(false)
             val isfresh = ref<Boolean>(false)
             val bottomFresh = ref<Boolean>(false)
             var scrollDirection = "down"
@@ -99,10 +102,42 @@ open class GenPagesOtherTripPlanIndex : BasePage {
                 val xcTime = curDate + " " + item.startTime
                 router.push("/pages/other/scan-order/index?planId=" + itemId + "&date=" + curDate + "&linesGroupName=" + linesGroupName + "&xcTime=" + xcTime)
             }
+            val toAdd = fun(){
+                router.push("/pages/other/trip-plan/add/index?date=" + date.value.date)
+            }
+            val toEdit = fun(item: TripPlanInfo){
+                val itemId = item.id
+                val curDate = date.value.date
+                router.push("/pages/other/trip-plan/add/index?id=" + itemId + "&date=" + curDate)
+            }
+            val toDel = fun(item: TripPlanInfo){
+                showModal(X_MODAL_TYPE(title = "温馨提示", content = "\u786E\u8BA4\u8981\u5220\u9664\u8BE5\u884C\u7A0B\u8BA1\u5212\u5417\uFF1F", confirmText = "确认", confirmBgColor = globalData.theme.primaryColor, showCancel = true, confirm = fun(){
+                    console.log("todel==", item)
+                    delDriverPlan(JSON.parse<UTSJSONObject>(JSON.stringify(item))!!).then(fun(res: Response){
+                        if (res.code == 200) {
+                            showToast("操作成功", "success")
+                            init()
+                        }
+                    }
+                    )
+                }
+                ))
+            }
+            val getServiceOperationSetting = fun(){
+                getServiceOperationSetting().then(fun(res: Response){
+                    if (res.code == 200 && res.data != null) {
+                        val data = res.data as UTSJSONObject
+                        console.log("getServiceOperationSetting data", data)
+                        allowDriverUpsertDriverPlan.value = data["allowDriverUpsertDriverPlan"] as Boolean
+                    }
+                }
+                )
+            }
             val topLoad = fun(){
                 console.log("下拉刷新")
                 scrollDirection = "down"
                 toQueryLinesDistrictToCityList(date.value.date)
+                getServiceOperationSetting()
             }
             val bottomLoad = fun(){
                 console.log("触底刷新")
@@ -110,10 +145,11 @@ open class GenPagesOtherTripPlanIndex : BasePage {
                 toQueryLinesDistrictToCityList(date.value.date)
             }
             val toDetail = fun(item: TripPlanInfo){
-                router.push("/pages/other/trip-plan/add/index?id=" + item.id + "&date=" + date.value.date)
+                router.push("/pages/other/trip-plan/detail/index?id=" + item.id + "&date=" + date.value.date)
             }
             onReady(fun(){
                 init()
+                getServiceOperationSetting()
             }
             )
             return fun(): Any? {
@@ -123,6 +159,7 @@ open class GenPagesOtherTripPlanIndex : BasePage {
                 val _component_x_empty = resolveEasyComponent("x-empty", GenUniModulesTmxUiComponentsXEmptyXEmptyClass)
                 val _component_x_pull_refresh = resolveEasyComponent("x-pull-refresh", GenUniModulesTmxUiComponentsXPullRefreshXPullRefreshClass)
                 val _component_template = resolveComponent("template")
+                val _component_mc_primary_button = resolveEasyComponent("mc-primary-button", GenComponentsMcPrimaryButtonIndexClass)
                 val _component_mc_base_container = resolveEasyComponent("mc-base-container", GenComponentsMcBaseContainerIndexClass)
                 return createVNode(_component_mc_base_container, utsMapOf("title" to "行程计划", "showStatusBarPlaceholder" to false, "title-color" to "#ffffff", "navbar-is-place" to false, "staticTransparent" to true), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                     return utsArrayOf(
@@ -178,7 +215,7 @@ open class GenPagesOtherTripPlanIndex : BasePage {
                         ), 4),
                         createVNode(_component_template, null, utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                             return utsArrayOf(
-                                createVNode(_component_x_pull_refresh, utsMapOf("height" to ("" + (unref(screenHeight) - unref(statusBarHeight) - 210 - unref(globalData).safeAreaBottom) + "px"), "pullHeight" to 30, "disabled-bottom" to true, "show-scrollbar" to false, "modelValue" to unref(isfresh), "onUpdate:modelValue" to fun(`$event`: Boolean){
+                                createVNode(_component_x_pull_refresh, utsMapOf("height" to ("" + (unref(screenHeight) - unref(statusBarHeight) - 210 - unref(globalData).safeAreaBottom - 30) + "px"), "pullHeight" to 30, "disabled-bottom" to true, "show-scrollbar" to false, "modelValue" to unref(isfresh), "onUpdate:modelValue" to fun(`$event`: Boolean){
                                     trySetRefValue(isfresh, `$event`)
                                 }
                                 , "model-bottom-status" to unref(bottomFresh), "onUpdate:modelBottomStatus" to fun(`$event`: Boolean){
@@ -236,7 +273,40 @@ open class GenPagesOtherTripPlanIndex : BasePage {
                                                             }
                                                             ), "_" to 2), 1032, utsArrayOf(
                                                                 "onClick"
-                                                            ))
+                                                            )),
+                                                            if (isTrue(unref(allowDriverUpsertDriverPlan))) {
+                                                                createVNode(_component_mc_active_animation, utsMapOf("key" to 0, "class" to "btn border-r-1", "onClick" to fun(){
+                                                                    toEdit(item)
+                                                                }), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                                    return utsArrayOf(
+                                                                        createElementVNode("image", utsMapOf("class" to "icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-edit-outline.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
+                                                                            "src"
+                                                                        )),
+                                                                        createElementVNode("text", utsMapOf("class" to "text", "style" to normalizeStyle("color: " + unref(globalData).theme.primaryColor + ";")), "编辑", 4)
+                                                                    )
+                                                                }), "_" to 2), 1032, utsArrayOf(
+                                                                    "onClick"
+                                                                ))
+                                                            } else {
+                                                                createCommentVNode("v-if", true)
+                                                            }
+                                                            ,
+                                                            if (isTrue(unref(allowDriverUpsertDriverPlan))) {
+                                                                createVNode(_component_mc_active_animation, utsMapOf("key" to 1, "class" to "btn border-r-1", "onClick" to fun(){
+                                                                    toDel(item)
+                                                                }), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                                    return utsArrayOf(
+                                                                        createElementVNode("image", utsMapOf("class" to "icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-delete-outline.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
+                                                                            "src"
+                                                                        )),
+                                                                        createElementVNode("text", utsMapOf("class" to "text", "style" to normalizeStyle("color: " + unref(globalData).theme.primaryColor + ";")), "删除", 4)
+                                                                    )
+                                                                }), "_" to 2), 1032, utsArrayOf(
+                                                                    "onClick"
+                                                                ))
+                                                            } else {
+                                                                createCommentVNode("v-if", true)
+                                                            }
                                                         ))
                                                     ))
                                                 )
@@ -258,7 +328,18 @@ open class GenPagesOtherTripPlanIndex : BasePage {
                                 ))
                             )
                         }
-                        ), "_" to 1))
+                        ), "_" to 1)),
+                        if (isTrue(unref(allowDriverUpsertDriverPlan))) {
+                            createElementVNode("view", utsMapOf("key" to 0, "class" to "btn-group-panel", "style" to normalizeStyle("padding-bottom: " + (unref(globalData).safeAreaBottom + 15) + "px;")), utsArrayOf(
+                                createVNode(_component_mc_primary_button, utsMapOf("height" to "45px", "onClick" to toAdd), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                    return utsArrayOf(
+                                        "添加计划"
+                                    )
+                                }), "_" to 1))
+                            ), 4)
+                        } else {
+                            createCommentVNode("v-if", true)
+                        }
                     )
                 }
                 ), "_" to 1))
@@ -273,7 +354,7 @@ open class GenPagesOtherTripPlanIndex : BasePage {
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("top-date-selector" to padStyleMapOf(utsMapOf("position" to "relative", "flexDirection" to "row", "alignItems" to "center")), "date-item" to utsMapOf(".top-date-selector " to utsMapOf("alignItems" to "center", "justifyContent" to "center", "paddingTop" to "20rpx", "paddingRight" to "12rpx", "paddingBottom" to "20rpx", "paddingLeft" to "12rpx"), ".top-date-selector .actived" to utsMapOf("backgroundColor" to "#FFFFFF", "borderTopLeftRadius" to "11rpx", "borderTopRightRadius" to "11rpx", "borderBottomRightRadius" to "11rpx", "borderBottomLeftRadius" to "11rpx")), "week-name" to utsMapOf(".top-date-selector .date-item " to utsMapOf("fontWeight" to "bold", "fontSize" to "24rpx", "color" to "#FFFFFF")), "date-value" to utsMapOf(".top-date-selector .date-item " to utsMapOf("fontWeight" to "bold", "fontSize" to "28rpx", "color" to "#FFFFFF"), ".top-date-selector .date-item .actived" to utsMapOf("color" to "#4F6A9F")), "more-date" to utsMapOf(".top-date-selector " to utsMapOf("paddingTop" to "10rpx", "paddingRight" to "25rpx", "paddingBottom" to "10rpx", "paddingLeft" to "25rpx", "alignItems" to "center", "boxShadow" to "-5rpx 0 1rpx 0 rgba(0, 0, 0, 0.1)")), "icon" to utsMapOf(".top-date-selector .more-date " to utsMapOf("width" to "16rpx", "height" to "10rpx"), ".setting-item .top-box .time " to utsMapOf("width" to "22rpx", "height" to "22rpx", "marginRight" to "10rpx"), ".setting-item .route-info .group-name " to utsMapOf("width" to "210rpx", "height" to "24rpx"), ".setting-item .btn-group .btn " to utsMapOf("width" to "30rpx", "height" to "32rpx")), "text" to utsMapOf(".top-date-selector .more-date " to utsMapOf("fontWeight" to "bold", "fontSize" to "28rpx", "color" to "#FFFFFF"), ".setting-item .btn-group .btn " to utsMapOf("paddingLeft" to "16rpx", "fontWeight" to "bold", "fontSize" to "32rpx", "color" to "#536FA5")), "top-box" to utsMapOf(".setting-item " to utsMapOf("paddingTop" to "20rpx", "paddingRight" to "20rpx", "paddingBottom" to "36rpx", "paddingLeft" to "20rpx")), "time" to utsMapOf(".setting-item .top-box " to utsMapOf("flexDirection" to "row", "alignItems" to "center")), "value" to utsMapOf(".setting-item .top-box .time " to utsMapOf("fontWeight" to "bold", "fontSize" to "28rpx", "color" to "#000000")), "route-info" to utsMapOf(".setting-item " to utsMapOf("marginTop" to 0, "marginRight" to "30rpx", "marginBottom" to 0, "marginLeft" to "30rpx", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "center", "paddingBottom" to "30rpx", "borderBottomWidth" to "1rpx", "borderBottomStyle" to "solid", "borderBottomColor" to "#DADADA")), "start-address" to utsMapOf(".setting-item .route-info " to utsMapOf("fontWeight" to "bold", "fontSize" to "36rpx", "color" to "#000000", "paddingRight" to "20rpx")), "end-address" to utsMapOf(".setting-item .route-info " to utsMapOf("fontWeight" to "bold", "fontSize" to "36rpx", "color" to "#000000", "paddingLeft" to "20rpx")), "group-name" to utsMapOf(".setting-item .route-info " to utsMapOf("alignItems" to "center")), "name" to utsMapOf(".setting-item .route-info .group-name " to utsMapOf("fontWeight" to "bold", "fontSize" to "26rpx", "color" to "#5672AB", "paddingBottom" to "6rpx")), "btn-group" to utsMapOf(".setting-item " to utsMapOf("flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center", "paddingTop" to "25rpx", "paddingRight" to 0, "paddingBottom" to "25rpx", "paddingLeft" to 0)), "border-r-1" to utsMapOf(".setting-item .btn-group " to utsMapOf("borderRightWidth" to "1rpx", "borderRightStyle" to "solid", "borderRightColor" to "#DADADA")), "btn" to utsMapOf(".setting-item .btn-group " to utsMapOf("flex" to 1, "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "center")), "bottom-panel" to padStyleMapOf(utsMapOf("position" to "fixed", "left" to 0, "right" to 0, "paddingTop" to "30rpx", "paddingRight" to "30rpx", "paddingBottom" to "30rpx", "paddingLeft" to "30rpx", "flexDirection" to "row")))
+                return utsMapOf("top-date-selector" to padStyleMapOf(utsMapOf("position" to "relative", "flexDirection" to "row", "alignItems" to "center")), "date-item" to utsMapOf(".top-date-selector " to utsMapOf("alignItems" to "center", "justifyContent" to "center", "paddingTop" to "20rpx", "paddingRight" to "12rpx", "paddingBottom" to "20rpx", "paddingLeft" to "12rpx"), ".top-date-selector .actived" to utsMapOf("backgroundColor" to "#FFFFFF", "borderTopLeftRadius" to "11rpx", "borderTopRightRadius" to "11rpx", "borderBottomRightRadius" to "11rpx", "borderBottomLeftRadius" to "11rpx")), "week-name" to utsMapOf(".top-date-selector .date-item " to utsMapOf("fontWeight" to "bold", "fontSize" to "24rpx", "color" to "#FFFFFF")), "date-value" to utsMapOf(".top-date-selector .date-item " to utsMapOf("fontWeight" to "bold", "fontSize" to "28rpx", "color" to "#FFFFFF"), ".top-date-selector .date-item .actived" to utsMapOf("color" to "#4F6A9F")), "more-date" to utsMapOf(".top-date-selector " to utsMapOf("paddingTop" to "10rpx", "paddingRight" to "25rpx", "paddingBottom" to "10rpx", "paddingLeft" to "25rpx", "alignItems" to "center", "boxShadow" to "-5rpx 0 1rpx 0 rgba(0, 0, 0, 0.1)")), "icon" to utsMapOf(".top-date-selector .more-date " to utsMapOf("width" to "16rpx", "height" to "10rpx"), ".setting-item .top-box .time " to utsMapOf("width" to "22rpx", "height" to "22rpx", "marginRight" to "10rpx"), ".setting-item .route-info .group-name " to utsMapOf("width" to "210rpx", "height" to "24rpx"), ".setting-item .btn-group .btn " to utsMapOf("width" to "30rpx", "height" to "32rpx")), "text" to utsMapOf(".top-date-selector .more-date " to utsMapOf("fontWeight" to "bold", "fontSize" to "28rpx", "color" to "#FFFFFF"), ".setting-item .btn-group .btn " to utsMapOf("paddingLeft" to "16rpx", "fontWeight" to "bold", "fontSize" to "32rpx", "color" to "#536FA5")), "top-box" to utsMapOf(".setting-item " to utsMapOf("paddingTop" to "20rpx", "paddingRight" to "20rpx", "paddingBottom" to "36rpx", "paddingLeft" to "20rpx")), "time" to utsMapOf(".setting-item .top-box " to utsMapOf("flexDirection" to "row", "alignItems" to "center")), "value" to utsMapOf(".setting-item .top-box .time " to utsMapOf("fontWeight" to "bold", "fontSize" to "28rpx", "color" to "#000000")), "route-info" to utsMapOf(".setting-item " to utsMapOf("marginTop" to 0, "marginRight" to "30rpx", "marginBottom" to 0, "marginLeft" to "30rpx", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "center", "paddingBottom" to "30rpx", "borderBottomWidth" to "1rpx", "borderBottomStyle" to "solid", "borderBottomColor" to "#DADADA")), "start-address" to utsMapOf(".setting-item .route-info " to utsMapOf("fontWeight" to "bold", "fontSize" to "36rpx", "color" to "#000000", "paddingRight" to "20rpx")), "end-address" to utsMapOf(".setting-item .route-info " to utsMapOf("fontWeight" to "bold", "fontSize" to "36rpx", "color" to "#000000", "paddingLeft" to "20rpx")), "group-name" to utsMapOf(".setting-item .route-info " to utsMapOf("alignItems" to "center")), "name" to utsMapOf(".setting-item .route-info .group-name " to utsMapOf("fontWeight" to "bold", "fontSize" to "26rpx", "color" to "#5672AB", "paddingBottom" to "6rpx")), "btn-group" to utsMapOf(".setting-item " to utsMapOf("flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center", "paddingTop" to "25rpx", "paddingRight" to 0, "paddingBottom" to "25rpx", "paddingLeft" to 0)), "border-r-1" to utsMapOf(".setting-item .btn-group " to utsMapOf("borderRightWidth" to "1rpx", "borderRightStyle" to "solid", "borderRightColor" to "#DADADA")), "btn" to utsMapOf(".setting-item .btn-group " to utsMapOf("flex" to 1, "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "center")), "bottom-panel" to padStyleMapOf(utsMapOf("position" to "fixed", "left" to 0, "right" to 0, "paddingTop" to "30rpx", "paddingRight" to "30rpx", "paddingBottom" to "30rpx", "paddingLeft" to "30rpx", "flexDirection" to "row")), "btn-group-panel" to padStyleMapOf(utsMapOf("width" to "100%", "backgroundColor" to "#ffffff", "position" to "fixed", "bottom" to 0, "left" to 0, "right" to 0, "paddingTop" to 15, "paddingLeft" to 15, "paddingRight" to 15, "flexDirection" to "row", "justifyContent" to "space-between")))
             }
         var inheritAttrs = true
         var inject: Map<String, Map<String, Any?>> = utsMapOf()
