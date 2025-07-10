@@ -152,6 +152,10 @@ open class GenPagesOtherTripPlanIndex : BasePage {
                 refreshServiceOperationSetting()
             }
             )
+            onPageShow(fun(){
+                init()
+            }
+            )
             return fun(): Any? {
                 val _component_mc_date_picker = resolveEasyComponent("mc-date-picker", GenComponentsMcDatePickerIndexClass)
                 val _component_mc_active_animation = resolveEasyComponent("mc-active-animation", GenComponentsMcActiveAnimationIndexClass)

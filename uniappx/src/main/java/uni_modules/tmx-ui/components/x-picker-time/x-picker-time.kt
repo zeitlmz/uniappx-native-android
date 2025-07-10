@@ -116,6 +116,7 @@ open class GenUniModulesTmxUiComponentsXPickerTimeXPickerTime : VueComponent {
     open var showClose: Boolean by `$props`
     open var disabled: Boolean by `$props`
     open var widthCoverCenter: Boolean by `$props`
+    open var steps: Number by `$props`
     open var default_year: Number by `$data`
     open var default_month: Number by `$data`
     open var default_date: Number by `$data`
@@ -185,6 +186,7 @@ open class GenUniModulesTmxUiComponentsXPickerTimeXPickerTime : VueComponent {
         this.nowValue = stp.value
         this.nowValueStr = stp.str
         this.dateList = this.getTimeTreeByStartAndEnd(this._start_date, this._end_date)
+        console.log("defaultModelvalue===", this.dateList)
         if (showStr) {
             this.`$emit`("update:modelStr", this.formatTimeDate())
         }
@@ -274,6 +276,11 @@ open class GenUniModulesTmxUiComponentsXPickerTimeXPickerTime : VueComponent {
                     var i = s
                     while(i <= n){
                         minutes.push(PICKER_ITEM_INFO(id = i.toString(10), title = _this.indexToHex(i)))
+                        if (this.steps > 0) {
+                            i += (this.steps - 1)
+                        } else {
+                            console.warn("steps[", this.steps, "]设置无效")
+                        }
                         i++
                     }
                 }
@@ -487,7 +494,7 @@ open class GenUniModulesTmxUiComponentsXPickerTimeXPickerTime : VueComponent {
         var props = normalizePropsOptions(utsMapOf("modelValue" to utsMapOf("type" to "String", "default" to ""), "modelStr" to utsMapOf("type" to "String", "default" to ""), "modelShow" to utsMapOf("type" to "Boolean", "default" to false), "title" to utsMapOf("type" to "String", "default" to "请选择时间"), "cancelText" to utsMapOf("type" to "String", "default" to "取消"), "confirmText" to utsMapOf("type" to "String", "default" to "确认"), "start" to utsMapOf("type" to "String", "default" to ""), "end" to utsMapOf("type" to "String", "default" to ""), "type" to utsMapOf("type" to "String", "default" to "second"), "format" to utsMapOf("type" to "String", "default" to "hh:mm:ss"), "cellUnits" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
             return utsArrayOf<String>("年", "月", "日", "小时", "分钟", "秒数")
         }
-        ), "zIndex" to utsMapOf("type" to "Number", "default" to 1100), "showClose" to utsMapOf("type" to "Boolean", "default" to false), "disabled" to utsMapOf("type" to "Boolean", "default" to false), "widthCoverCenter" to utsMapOf("type" to "Boolean", "default" to false)))
+        ), "zIndex" to utsMapOf("type" to "Number", "default" to 1100), "showClose" to utsMapOf("type" to "Boolean", "default" to false), "disabled" to utsMapOf("type" to "Boolean", "default" to false), "widthCoverCenter" to utsMapOf("type" to "Boolean", "default" to false), "steps" to utsMapOf("type" to "Number", "default" to 0)))
         var propsNeedCastKeys = utsArrayOf(
             "modelValue",
             "modelStr",
@@ -503,7 +510,8 @@ open class GenUniModulesTmxUiComponentsXPickerTimeXPickerTime : VueComponent {
             "zIndex",
             "showClose",
             "disabled",
-            "widthCoverCenter"
+            "widthCoverCenter",
+            "steps"
         )
         var components: Map<String, CreateVueComponent> = utsMapOf()
     }
