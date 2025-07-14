@@ -112,7 +112,6 @@ open class GenUniModulesMcAmapNavPlusComponentsMcAmapMcAmap : VueComponent {
                     emit("arrived")
                 }
                 , calcSuccessCb = fun(data){
-                    console.log("calcSuccess:", data)
                     emit("calcSuccess", data)
                 }
                 , naviInfoUpdateCb = fun(data){

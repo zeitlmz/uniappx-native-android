@@ -665,7 +665,8 @@ open class GenPagesHomeNotSettled : VueComponent {
                                 createElementVNode("text", utsMapOf("class" to "text-row"), "电话权限：用于获取设备信息，防控运营风险; 通讯录权限(非必要权限)，用于添加紧急联系；"),
                                 createElementVNode("text", utsMapOf("class" to "text-row"), "软件安装列表、MAC地址、ANDROID ID、设备应用权限（应用包名、版本号和运行状态）、设备相关信息（设备厂商、设备型号、设备内存、操作系统版本、推送SDK版本、设备归属地（国家或地区）、SIM卡运营商名称、当前网络类型、WiFi状态）、通知栏设置信息、推送消息内容，"),
                                 createElementVNode("text", utsMapOf("class" to "text-row"), "用于手机终端推送消息时使用。"),
-                                createElementVNode("text", utsMapOf("class" to "text-row"), "您确认本弹窗并不会直接开启相关权限，我们会就具体权限开启另行征得您的同意。权限开启后，您还可以随时通过设备设置关闭权限。")
+                                createElementVNode("text", utsMapOf("class" to "text-row"), "您确认本弹窗并不会直接开启相关权限，我们会就具体权限开启另行征得您的同意。权限开启后，您还可以随时通过设备设置关闭权限。"),
+                                createElementVNode("text", utsMapOf("class" to "text-row"), "本APP提供了隐私政策授权撤回的功能，具体路径:个人中心-设置-账户与安全-撤回同意隐私政策。")
                             ), 4)
                         )
                     }

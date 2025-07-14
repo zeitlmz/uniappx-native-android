@@ -21,6 +21,7 @@ import uts.sdk.modules.xModalS.X_MODAL_TYPE
 import uts.sdk.modules.xLoadingS.hideXloading
 import uts.sdk.modules.xLoadingS.showLoading
 import io.dcloud.uniapp.extapi.makePhoneCall as uni_makePhoneCall
+import io.dcloud.uniapp.extapi.navigateBack as uni_navigateBack
 import io.dcloud.uniapp.extapi.reLaunch as uni_reLaunch
 import uts.sdk.modules.xModalS.showModal
 import uts.sdk.modules.uniKuxrouter.useKuxRouter as uni_useKuxRouter
@@ -462,7 +463,8 @@ open class GenPagesOtherOrderDetailNavi : BasePage {
                         }))
                     }, 250)
                 } else {
-                    uni__emit("queryOrderDetail", false)
+                    uni__emit("queryOrderDetail", true)
+                    uni_navigateBack(NavigateBackOptions(delta = 1))
                 }
             }
         }

@@ -395,6 +395,7 @@ open class GenPagesOtherTripPlanAddIndex : BasePage {
                 router.push("/pages/other/trip-plan/index")
             }
             val initShow = fun(planId: String, date: String){
+                showLoading(XLOADINGS_TYPE(title = "加载中..."))
                 searchDriverPlanByPlanId(planId).then(fun(res: Response){
                     if (res.code == 200) {
                         val planData = JSON.parseObject<UTSJSONObject>(JSON.stringify(res.data)) ?: UTSJSONObject()
@@ -434,6 +435,12 @@ open class GenPagesOtherTripPlanAddIndex : BasePage {
                         ).concat(linesIds.value))
                     }
                 }
+                ).`catch`(fun(){
+                    showToast("服务繁忙，请稍后再试", "error")
+                }
+                ).`finally`(fun(){
+                    hideXloading()
+                }
                 )
             }
             onLoad(fun(options){
@@ -450,6 +457,7 @@ open class GenPagesOtherTripPlanAddIndex : BasePage {
                     title.value = "编辑"
                     initShow(planId.value, selectDate.value)
                 }
+                showLoading(XLOADINGS_TYPE(title = "加载中..."))
                 getServiceOperationTime().then(fun(res: Response){
                     console.log("getServiceOperationTime res ==", res)
                     if (res.code == 200) {
@@ -457,6 +465,12 @@ open class GenPagesOtherTripPlanAddIndex : BasePage {
                         operationStartTime.value = resData.getString("operationStartTime")!!
                         operationEndTime.value = resData.getString("operationEndTime")!!
                     }
+                }
+                ).`catch`(fun(){
+                    showToast("服务繁忙，请稍后再试", "error")
+                }
+                ).`finally`(fun(){
+                    hideXloading()
                 }
                 )
             }
