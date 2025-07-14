@@ -704,7 +704,8 @@ open class GenPagesDriverJoinIndex : BasePage {
                                 createElementVNode("text", utsMapOf("class" to "pb-10"), "2、拍摄/选取驾驶证主/副页照片：用于驾驶员驾驶资格的审核。"),
                                 createElementVNode("text", utsMapOf("class" to "pb-10"), "3、拍摄/选取驾驶员网约/客运从业资质照片：用于驾驶员从业资质的审核。"),
                                 createElementVNode("text", utsMapOf("class" to "pb-10"), "相机使用/媒体访问权限是在相机拍摄或相册选取照片时各自申请。"),
-                                createElementVNode("text", null, "如果您拒绝我们获取您的上述所有信息，将导致您无法提交审核信息。")
+                                createElementVNode("text", null, "如果您拒绝我们获取您的上述所有信息，将导致您无法提交审核信息。"),
+                                createElementVNode("text", utsMapOf("style" to normalizeStyle(utsMapOf("color" to "red"))), "本APP提供了撤回系统权限的功能，具体路径:个人中心(登录后点击右上角)-设置-账户与安全-权限管理。", 4)
                             ))
                         )
                     }

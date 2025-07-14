@@ -325,7 +325,8 @@ open class GenPagesPersonalPromotionIndex : BasePage {
                             createElementVNode("text", utsMapOf("class" to "photo-agree-title"), "媒体访问权限申请"),
                             createElementVNode("view", utsMapOf("class" to "desc"), utsArrayOf(
                                 createElementVNode("text", utsMapOf("class" to "pb-10"), "我们获取您手机的媒体访问权限是用于保存推广海报到本地相册。"),
-                                createElementVNode("text", null, "如果您拒绝我们获取您的上述权限，将导致您无法保存推广海报到本地相册。")
+                                createElementVNode("text", null, "如果您拒绝我们获取您的上述权限，将导致您无法保存推广海报到本地相册。"),
+                                createElementVNode("text", utsMapOf("style" to normalizeStyle(utsMapOf("color" to "red"))), "本APP提供了撤回系统权限的功能，具体路径:个人中心(登录后点击右上角)-设置-账户与安全-权限管理。", 4)
                             ))
                         )
                     }

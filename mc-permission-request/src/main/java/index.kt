@@ -11,6 +11,9 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import androidx.core.content.ContextCompat
 import io.dcloud.uniapp.*
 import io.dcloud.uniapp.extapi.*
@@ -141,7 +144,9 @@ fun requestNotificationPermission(): Unit {
 }
 fun showPermissionDialog(activity: Activity, brand: String): Unit {
     val builder = AlertDialog.Builder(activity)
-    builder.setTitle("需要通知权限").setMessage("请允许通知权限，以便及时接收重要消息").setPositiveButton("去开启", fun(dialog: DialogInterface, which: Number){
+    val spannableMessage = SpannableString("请允许通知权限，以便及时接收重要消息。\n本APP提供了撤回系统权限的功能，具体路径:个人中心(登录后点击右上角)-设置-账户与安全-权限管理。")
+    spannableMessage.setSpan(ForegroundColorSpan(Color.RED), 19, spannableMessage.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+    builder.setTitle("需要通知权限").setMessage(spannableMessage).setPositiveButton("去开启", fun(dialog: DialogInterface, which: Number){
         goToNotificationSettings(activity, brand)
     }
     ).setNegativeButton("取消", fun(dialog: DialogInterface, which: Number){}).setCancelable(false)
