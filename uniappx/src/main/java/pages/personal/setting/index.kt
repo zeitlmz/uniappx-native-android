@@ -54,8 +54,8 @@ open class GenPagesPersonalSettingIndex : BasePage {
             val globalData = inject("globalData") as GlobalDataType
             val router = uni_useKuxRouter()
             val showRouteLove = ref(false)
-            val menuList = utsArrayOf<MenuItem>(MenuItem(title = "账号与安全", showArrow = true, click = fun(){
-                console.log("进入账户安全")
+            val menuList = utsArrayOf<MenuItem>(MenuItem(title = "账户与安全", showArrow = true, click = fun(){
+                console.log("进入账户与安全")
                 router.push("/pages/personal/setting/account-safe/index")
             }
             ), MenuItem(title = "紧急联系人", showArrow = true, click = fun(){

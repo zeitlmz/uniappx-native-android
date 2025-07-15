@@ -72,7 +72,7 @@ open class GenPagesPersonalSettingAccountSafeIndex : BasePage {
                 val _component_mc_active_animation = resolveEasyComponent("mc-active-animation", GenComponentsMcActiveAnimationIndexClass)
                 val _component_x_sheet = resolveEasyComponent("x-sheet", GenUniModulesTmxUiComponentsXSheetXSheetClass)
                 val _component_mc_base_container = resolveEasyComponent("mc-base-container", GenComponentsMcBaseContainerIndexClass)
-                return createVNode(_component_mc_base_container, utsMapOf("title" to "账号与安全"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                return createVNode(_component_mc_base_container, utsMapOf("title" to "账户与安全"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                     return utsArrayOf(
                         createVNode(_component_x_sheet, utsMapOf("margin" to utsArrayOf(
                             "15"
