@@ -15,13 +15,13 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.`$emit` as uni__emit
+import io.dcloud.uniapp.extapi.`$off` as uni__off
 import io.dcloud.uniapp.extapi.`$on` as uni__on
 import uts.sdk.modules.xLoadingS.XLOADINGS_TYPE
 import uts.sdk.modules.xModalS.X_MODAL_TYPE
 import uts.sdk.modules.xLoadingS.hideXloading
 import uts.sdk.modules.xLoadingS.showLoading
 import io.dcloud.uniapp.extapi.makePhoneCall as uni_makePhoneCall
-import io.dcloud.uniapp.extapi.navigateBack as uni_navigateBack
 import io.dcloud.uniapp.extapi.reLaunch as uni_reLaunch
 import uts.sdk.modules.xModalS.showModal
 import uts.sdk.modules.uniKuxrouter.useKuxRouter as uni_useKuxRouter
@@ -51,10 +51,6 @@ open class GenPagesOtherOrderDetailNavi : BasePage {
         }
         , __ins)
         onReady(fun() {
-            this.onOrderAdd()
-            this.onOrderAllFinish()
-            this.onOneOrderFinish()
-            this.onOrderCancel()
             this.setMarker()
             onBackPress(fun(options: OnBackPressOptions): Boolean? {
                 if (this.canBack) {
@@ -70,37 +66,15 @@ open class GenPagesOtherOrderDetailNavi : BasePage {
         }
         , __ins)
         onLoad(fun(query: OnLoadOptions) {
-            val that = this
             console.log("query:", query)
-            that.orderParams = JSON.parse<UTSJSONObject>(JSON.stringify(query)) ?: UTSJSONObject()
-            uni__on("onSendData", fun(data: String){
-                console.log("onSendData:", data)
-                that.orderData = JSON.parse<OrderSummary1>(data) as OrderSummary1
-                that.setMarker()
-                that.showPanel = true
-            }
-            )
-            uni__on("syncNavInfo", fun(data: String){
-                val dataObj = JSON.parse<UTSJSONObject>(data)
-                that.viaDistance = dataObj?.getString("distance") ?: "0公里"
-                that.viaTime = dataObj?.getString("time") ?: "0分钟"
-            }
-            )
+            this.orderParams = JSON.parse<UTSJSONObject>(JSON.stringify(query)) ?: UTSJSONObject()
+            uni__on("onSendData", this.onSendData)
+            uni__on("syncNavInfo", this.syncNavInfo)
         }
         , __ins)
         onBeforeUnmount(fun() {
-            val naviView = (this.`$refs`["naviView"] as McAmapNavComponentPublicInstance)
-            naviView?.destroy()
-            ws1?.off(MessageType["ARRIVED_TRIP"] as Number)
-            ws1?.off(MessageType["OPEN_TRIP"] as Number)
-            ws1?.off(MessageType["ORDER_FINISH"] as Number)
-            ws1?.off(MessageType["ORDER_ADD"] as Number)
-            ws1?.off(MessageType["BIG_ORDER_FINISH"] as Number)
-            ws1?.off(MessageType["ORDER_SORT"] as Number)
-            ws1?.off(MessageType["ORDER_CANCEL"] as Number)
-            ws1?.off(MessageType["BEFORE_CHECK"] as Number)
-            ws1?.off(MessageType["ORDER_FINISH"] as Number)
-            ws1?.off(MessageType["VALID_PHONE"] as Number)
+            uni__off("syncNavInfo", this.syncNavInfo)
+            uni__off("onSendData", this.onSendData)
             hideXloading()
         }
         , __ins)
@@ -264,6 +238,19 @@ open class GenPagesOtherOrderDetailNavi : BasePage {
     override fun data(): Map<String, Any?> {
         return utsMapOf("resBaseUrl" to uni.UNI511F0A5.resBaseUrl, "currentIndex" to 0, "showValidModal" to false, "showKey" to false, "phoneSuffix" to "", "showPanel" to false, "canBack" to false, "orderParams" to UTSJSONObject(), "orderData" to OrderSummary1(orderCount = 0, driverStatus = -2, seatSelectTemplates = utsArrayOf(), orderItems = utsArrayOf(), orderChains = utsArrayOf(), orderRoute = OrderRoute(routeStrategy = "", routeStartPoint = "", routeWaypoints = utsArrayOf(), routeEndPoint = "", routeWaypointsPoiIds = utsArrayOf<String>(), routeStartPoiId = "", routeEndPoiId = "")), "screenWidth" to uni.UNI511F0A5.screenWidth as Number, "screenHeight" to uni.UNI511F0A5.screenHeight as Number, "statusBarHeight" to uni.UNI511F0A5.statusBarHeight as Number, "viaDistance" to "0公里", "viaTime" to "0分钟")
     }
+    open var syncNavInfo = ::gen_syncNavInfo_fn
+    open fun gen_syncNavInfo_fn(data: String) {
+        val dataObj = JSON.parse<UTSJSONObject>(data)
+        this.viaDistance = dataObj?.getString("distance") ?: "0公里"
+        this.viaTime = dataObj?.getString("time") ?: "0分钟"
+    }
+    open var onSendData = ::gen_onSendData_fn
+    open fun gen_onSendData_fn(data: String) {
+        console.log("onSendData:", data)
+        this.orderData = JSON.parse<OrderSummary1>(data) as OrderSummary1
+        this.setMarker()
+        this.showPanel = true
+    }
     open var setMarker = ::gen_setMarker_fn
     open fun gen_setMarker_fn() {
         val naviView = (this.`$refs`["naviView"] as McAmapNavComponentPublicInstance)
@@ -341,7 +328,7 @@ open class GenPagesOtherOrderDetailNavi : BasePage {
             if (that.orderData.orderChains.length == 1) {
                 that.navQuit(true)
             } else {
-                uni__emit("queryOrderDetail", false)
+                uni__emit("queryOrderDetail", true)
             }
         }
         , fun(data){
@@ -464,7 +451,6 @@ open class GenPagesOtherOrderDetailNavi : BasePage {
                     }, 250)
                 } else {
                     uni__emit("queryOrderDetail", true)
-                    uni_navigateBack(NavigateBackOptions(delta = 1))
                 }
             }
         }

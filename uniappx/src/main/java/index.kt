@@ -9419,8 +9419,8 @@ val runBlock3 = run {
         baseUrl = "https://www.mctwlx.com/pre-srv"
         wsBaseUrl = "wss://www.mctwlx.com/pre-ws/mcpt-engine-driverWs/driverWs"
     } else if (isRelease) {
-        baseUrl = "https://www.mctwlx.com/srv"
-        wsBaseUrl = "wss://www.mctwlx.com/ws/mcpt-engine-driverWs/driverWs"
+//        baseUrl = "https://www.mctwlx.com/srv"
+//        wsBaseUrl = "wss://www.mctwlx.com/ws/mcpt-engine-driverWs/driverWs"
     }
 }
 val resBaseUrl = "https://prod.resource.mctwlx.com/car/app-resources/driver"
@@ -10566,7 +10566,6 @@ open class NativeNavi {
         this.element = null
         this.quitCb = null
         MapStore.mapNaviView?.setAMapNaviViewListener(null)
-        console.log("destroy-navi:", this.mAMapNavi)
     }
     open fun addMarkers(markers: UTSArray<MarkerOption>) {
         val markerOptionsList: UTSArray<MarkerOptions> = utsArrayOf()
@@ -21436,7 +21435,7 @@ open class CHILDREN_INFO (
     @JsonNotNull
     open var disabled: Boolean = false,
     @JsonNotNull
-    open var ele: XDragItemComponentPublicInstance,
+    open var ele: XDragItemMcComponentPublicInstance,
 ) : UTSReactiveObject() {
     override fun __v_create(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): UTSReactiveObject {
         return CHILDREN_INFOReactiveObject(this, __v_isReadonly, __v_isShallow, __v_skip)
@@ -21516,7 +21515,7 @@ open class CHILDREN_INFOReactiveObject : CHILDREN_INFO, IUTSReactive<CHILDREN_IN
             __v_raw.disabled = value
             triggerReactiveSet(__v_raw, "disabled", oldValue, value)
         }
-    override var ele: XDragItemComponentPublicInstance
+    override var ele: XDragItemMcComponentPublicInstance
         get() {
             return trackReactiveGet(__v_raw, "ele", __v_raw.ele, this.__v_isReadonly, this.__v_isShallow)
         }
@@ -21529,14 +21528,14 @@ open class CHILDREN_INFOReactiveObject : CHILDREN_INFO, IUTSReactive<CHILDREN_IN
             triggerReactiveSet(__v_raw, "ele", oldValue, value)
         }
 }
-val GenUniModulesTmxUiComponentsXDragItemXDragItemClass = CreateVueComponent(GenUniModulesTmxUiComponentsXDragItemXDragItem::class.java, fun(): VueComponentOptions {
-    return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXDragItemXDragItem.inheritAttrs, inject = GenUniModulesTmxUiComponentsXDragItemXDragItem.inject, props = GenUniModulesTmxUiComponentsXDragItemXDragItem.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXDragItemXDragItem.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXDragItemXDragItem.emits, components = GenUniModulesTmxUiComponentsXDragItemXDragItem.components, styles = GenUniModulesTmxUiComponentsXDragItemXDragItem.styles)
+val GenUniModulesTmxUiComponentsXDragItemMcXDragItemMcClass = CreateVueComponent(GenUniModulesTmxUiComponentsXDragItemMcXDragItemMc::class.java, fun(): VueComponentOptions {
+    return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXDragItemMcXDragItemMc.inheritAttrs, inject = GenUniModulesTmxUiComponentsXDragItemMcXDragItemMc.inject, props = GenUniModulesTmxUiComponentsXDragItemMcXDragItemMc.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXDragItemMcXDragItemMc.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXDragItemMcXDragItemMc.emits, components = GenUniModulesTmxUiComponentsXDragItemMcXDragItemMc.components, styles = GenUniModulesTmxUiComponentsXDragItemMcXDragItemMc.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXDragItemXDragItem {
-    return GenUniModulesTmxUiComponentsXDragItemXDragItem(instance)
+, fun(instance, renderer): GenUniModulesTmxUiComponentsXDragItemMcXDragItemMc {
+    return GenUniModulesTmxUiComponentsXDragItemMcXDragItemMc(instance)
 }
 )
-typealias XDragItemComponentPublicInstance = GenUniModulesTmxUiComponentsXDragItemXDragItem
+typealias XDragItemMcComponentPublicInstance = GenUniModulesTmxUiComponentsXDragItemMcXDragItemMc
 open class CHILDREN_SIZE (
     @JsonNotNull
     open var width: Number,
@@ -21717,14 +21716,15 @@ open class XDRAG_DOMRECTReactiveObject : XDRAG_DOMRECT, IUTSReactive<XDRAG_DOMRE
             triggerReactiveSet(__v_raw, "bottom", oldValue, value)
         }
 }
-val GenUniModulesTmxUiComponentsXDragXDragClass = CreateVueComponent(GenUniModulesTmxUiComponentsXDragXDrag::class.java, fun(): VueComponentOptions {
-    return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXDragXDrag.inheritAttrs, inject = GenUniModulesTmxUiComponentsXDragXDrag.inject, props = GenUniModulesTmxUiComponentsXDragXDrag.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXDragXDrag.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXDragXDrag.emits, components = GenUniModulesTmxUiComponentsXDragXDrag.components, styles = GenUniModulesTmxUiComponentsXDragXDrag.styles)
+var timer1: Number = 0
+val GenUniModulesTmxUiComponentsXDragMcXDragMcClass = CreateVueComponent(GenUniModulesTmxUiComponentsXDragMcXDragMc::class.java, fun(): VueComponentOptions {
+    return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXDragMcXDragMc.inheritAttrs, inject = GenUniModulesTmxUiComponentsXDragMcXDragMc.inject, props = GenUniModulesTmxUiComponentsXDragMcXDragMc.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXDragMcXDragMc.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXDragMcXDragMc.emits, components = GenUniModulesTmxUiComponentsXDragMcXDragMc.components, styles = GenUniModulesTmxUiComponentsXDragMcXDragMc.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXDragXDrag {
-    return GenUniModulesTmxUiComponentsXDragXDrag(instance)
+, fun(instance, renderer): GenUniModulesTmxUiComponentsXDragMcXDragMc {
+    return GenUniModulesTmxUiComponentsXDragMcXDragMc(instance)
 }
 )
-typealias XDragComponentPublicInstance = GenUniModulesTmxUiComponentsXDragXDrag
+typealias XDragMcComponentPublicInstance = GenUniModulesTmxUiComponentsXDragMcXDragMc
 open class GenUniModulesTmxUiComponentsXRadioXRadioSlotDataLabel (
     @JsonNotNull
     open var checked: Boolean = false,

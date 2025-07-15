@@ -291,7 +291,12 @@ open class GenPagesPersonalMonthsDataIndex : BasePage {
                                                                 createElementVNode("text", utsMapOf("class" to "item-label", "style" to normalizeStyle(utsMapOf("font-size" to "26rpx", "font-weight" to "bold"))), "单量排行", 4),
                                                                 createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("flex-direction" to "row", "align-items" to "center"))), utsArrayOf(
                                                                     createElementVNode("view", null, utsArrayOf(
-                                                                        createElementVNode("text", utsMapOf("class" to "item-value", "style" to normalizeStyle(utsMapOf("font-size" to "34rpx", "font-weight" to "bold", "color" to "#5D7AB6"))), toDisplayString(unref(summaryData).orderRankNumber), 5)
+                                                                        createElementVNode("text", utsMapOf("class" to "item-value", "style" to normalizeStyle(utsMapOf("font-size" to "34rpx", "font-weight" to "bold", "color" to "#5D7AB6"))), toDisplayString(if (unref(summaryData).orderRankNumber < 1) {
+                                                                            "-"
+                                                                        } else {
+                                                                            unref(summaryData).orderRankNumber
+                                                                        }
+                                                                        ), 5)
                                                                     )),
                                                                     createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("margin-top" to "7rpx"))), utsArrayOf(
                                                                         createElementVNode("text", utsMapOf("class" to "item-value", "style" to normalizeStyle(utsMapOf("font-size" to "20rpx", "font-weight" to "bold", "color" to "#5D7AB6"))), "名", 4)
@@ -333,14 +338,11 @@ open class GenPagesPersonalMonthsDataIndex : BasePage {
                                                         createElementVNode("view", utsMapOf("class" to "summary-item", "style" to normalizeStyle(utsMapOf("margin-left" to "130rpx", "flex-direction" to "row"))), utsArrayOf(
                                                             createElementVNode("image", utsMapOf("style" to normalizeStyle(utsMapOf("width" to "60rpx", "height" to "60rpx")), "src" to "/static/icons/icon-month-data-order.png"), null, 4),
                                                             createElementVNode("view", utsMapOf("class" to "ml-5"), utsArrayOf(
-                                                                createElementVNode("text", utsMapOf("class" to "item-label", "style" to normalizeStyle(utsMapOf("font-size" to "26rpx", "font-weight" to "bold"))), "出车趟数", 4),
+                                                                createElementVNode("text", utsMapOf("class" to "item-label", "style" to normalizeStyle(utsMapOf("font-size" to "26rpx", "font-weight" to "bold"))), "班次", 4),
                                                                 createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("flex-direction" to "row", "align-items" to "center"))), utsArrayOf(
                                                                     createElementVNode("view", null, utsArrayOf(
                                                                         createElementVNode("text", utsMapOf("class" to "item-value", "style" to normalizeStyle(utsMapOf("font-size" to "34rpx", "font-weight" to "bold", "color" to "#5D7AB6"))), toDisplayString(unref(summaryData).tripCount), 5)
-                                                                    )),
-                                                                    createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("margin-top" to "7rpx"))), utsArrayOf(
-                                                                        createElementVNode("text", utsMapOf("class" to "item-value", "style" to normalizeStyle(utsMapOf("font-size" to "20rpx", "font-weight" to "bold", "color" to "#5D7AB6"))), "趟", 4)
-                                                                    ), 4)
+                                                                    ))
                                                                 ), 4)
                                                             ))
                                                         ), 4)

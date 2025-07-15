@@ -2,7 +2,6 @@
 package uts.sdk.modules.mcAmapNavPlus
 import android.content.pm.ActivityInfo
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -136,16 +135,6 @@ open class MapOption (
     open var naviInfoUpdateCb: ((data: String) -> Unit)? = null,
     open var arriveCb: (() -> Unit)? = null,
 ) : UTSObject()
-fun loadImageFromAssets(fname: String): Bitmap? {
-    var bitmap: Bitmap? = null
-    try {
-        var assetManager = UTSAndroid.getAppContext()!!.getAssets()
-        var inputStream = assetManager.open(fname)
-        bitmap = BitmapFactory.decodeStream(inputStream)
-    }
-    catch (e: Throwable) {}
-    return bitmap
-}
 open class PlatformUtils {
     constructor(){}
     open fun setScreenOrientation(type: Number) {
@@ -692,9 +681,9 @@ open class NativeMap {
         this.aMap?.setTrafficEnabled(true)
         this.aMap?.setMyLocationEnabled(this.options?.selfLocation ?: false)
         val myLocationStyle = MyLocationStyle()
-//        myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromBitmap(loadImageFromAssets("self-car.png")))
+        myLocationStyle.radiusFillColor(Color.argb(0, 0, 0, 0))
         myLocationStyle.strokeColor(Color.argb(0, 0, 0, 0))
-        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE_NO_CENTER)
+        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE)
         this.aMap?.setMyLocationStyle(myLocationStyle)
         val mUiSettings = this.aMap?.getUiSettings()
         mUiSettings?.setMyLocationButtonEnabled(this.options?.showLocationBtn ?: false)
@@ -780,7 +769,6 @@ open class NativeNavi {
         this.element = null
         this.quitCb = null
         MapStore.mapNaviView?.setAMapNaviViewListener(null)
-        console.log("destroy-navi:", this.mAMapNavi)
     }
     open fun addMarkers(markers: UTSArray<MarkerOption>) {
         val markerOptionsList: UTSArray<MarkerOptions> = utsArrayOf()

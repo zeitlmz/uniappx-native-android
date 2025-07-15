@@ -16,10 +16,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.getWindowInfo as uni_getWindowInfo
 import uts.sdk.modules.xVibrateS.vibrator
-open class GenUniModulesTmxUiComponentsXDragXDrag : VueComponent {
+open class GenUniModulesTmxUiComponentsXDragMcXDragMc : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {
-        provide("XDRAGE_HEIGHT", checkIsCssUnit(this.itemHeight, xConfig.unit))
-        provide("XDRAGE_COL", this.col)
         provide("XDRAGE_MAX_LEN", this.list.length)
         onMounted(fun() {
             this.oldList = this.list.slice(0)
@@ -35,9 +33,9 @@ open class GenUniModulesTmxUiComponentsXDragXDrag : VueComponent {
     override fun `$render`(): Any? {
         val _ctx = this
         val _cache = this.`$`.renderCache
-        return createElementVNode("view", utsMapOf("class" to "xDrag", "ref" to "xDrag", "onLongpress" to _ctx.mStart, "onTouchmove" to withModifiers(_ctx.mMove, utsArrayOf(
+        return createElementVNode("view", utsMapOf("class" to "xDragMc", "ref" to "xDragMc", "onLongpress" to _ctx.mStart, "onTouchmove" to withModifiers(_ctx.mMove, utsArrayOf(
             "stop"
-        )), "onTouchend" to _ctx.mEnd, "onTouchcancel" to _ctx.mEnd, "style" to normalizeStyle(utsMapOf("height" to (_ctx._totalHeight + "px")))), utsArrayOf(
+        )), "onTouchend" to _ctx.mEnd, "onTouchcancel" to _ctx.mEnd, "style" to normalizeStyle(utsMapOf("height" to (_ctx.totalHeight + "px")))), utsArrayOf(
             renderSlot(_ctx.`$slots`, "default")
         ), 44, utsArrayOf(
             "onLongpress",
@@ -46,7 +44,6 @@ open class GenUniModulesTmxUiComponentsXDragXDrag : VueComponent {
             "onTouchcancel"
         ))
     }
-    open var itemHeight: String by `$props`
     open var col: Number by `$props`
     open var list: UTSArray<UTSJSONObject> by `$props`
     open var scrollDiff: Number by `$props`
@@ -55,6 +52,7 @@ open class GenUniModulesTmxUiComponentsXDragXDrag : VueComponent {
     open var oldList: UTSArray<UTSJSONObject> by `$data`
     open var activeIndex: Number by `$data`
     open var targetIndex: Number by `$data`
+    open var totalHeight: Number by `$data`
     open var cellHeight: Number by `$data`
     open var cellWidth: Number by `$data`
     open var isMoveing: Boolean by `$data`
@@ -67,27 +65,24 @@ open class GenUniModulesTmxUiComponentsXDragXDrag : VueComponent {
     open var tid2: Number by `$data`
     open var oldStartXy: POSITION by `$data`
     open var xdragRect: XDRAG_DOMRECT by `$data`
-    open var _rows: Number by `$data`
-    open var _cols: Number by `$data`
-    open var _totalHeight: Number by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("domlist" to utsArrayOf<CHILDREN_INFO>(), "backckList" to utsArrayOf<String>(), "oldList" to utsArrayOf<UTSJSONObject>(), "activeIndex" to -1, "targetIndex" to -1, "cellHeight" to 0, "cellWidth" to 0, "isMoveing" to false, "_x" to 0, "_y" to 0, "tid" to 0, "oragie_x" to 0, "oragie_y" to 0, "scrollDiffTopJuli" to 0, "tid2" to 12, "oldStartXy" to POSITION(col = 0, row = 0, index = 0), "xdragRect" to XDRAG_DOMRECT(width = 0, height = 0, left = 0, top = 0, right = 0, bottom = 0), "_rows" to computed<Number>(fun(): Number {
-            var row = Math.ceil(this.domlist.length / this.col)
-            return row
-        }
-        ), "_cols" to computed<Number>(fun(): Number {
-            return this.col
-        }
-        ), "_totalHeight" to computed<Number>(fun(): Number {
-            return this._rows * this.cellHeight
-        }
-        ))
+        return utsMapOf("domlist" to utsArrayOf<CHILDREN_INFO>(), "backckList" to utsArrayOf<String>(), "oldList" to utsArrayOf<UTSJSONObject>(), "activeIndex" to -1, "targetIndex" to -1, "totalHeight" to 600, "cellHeight" to 0, "cellWidth" to 0, "isMoveing" to false, "_x" to 0, "_y" to 0, "tid" to 0, "oragie_x" to 0, "oragie_y" to 0, "scrollDiffTopJuli" to 0, "tid2" to 12, "oldStartXy" to POSITION(col = 0, row = 0, index = 0), "xdragRect" to XDRAG_DOMRECT(width = 0, height = 0, left = 0, top = 0, right = 0, bottom = 0))
     }
     open var updataResize = ::gen_updataResize_fn
     open fun gen_updataResize_fn(resize: CHILDREN_SIZE) {
         this.cellHeight = resize.height
         this.cellWidth = resize.width
+    }
+    open var updateHeight = ::gen_updateHeight_fn
+    open fun gen_updateHeight_fn() {
+        this.totalHeight = this.domlist.map(fun(kVal: CHILDREN_INFO, idx: Number, arr: UTSArray<CHILDREN_INFO>): Number {
+            return kVal.node.height
+        }
+        ).reduce(fun(max, num): Number {
+            return max + num
+        }
+        , 0)
     }
     open var addItem = ::gen_addItem_fn
     open fun gen_addItem_fn(item: CHILDREN_INFO) {
@@ -100,8 +95,13 @@ open class GenUniModulesTmxUiComponentsXDragXDrag : VueComponent {
         } else {
             this.domlist.push(item)
         }
-        this.cellHeight = item.node.height!!
-        this.cellWidth = item.node.width!!
+        if (timer1 > 0) {
+            clearTimeout(timer1)
+        }
+        timer1 = setTimeout(fun(){
+            this.updateHeight()
+        }
+        , 50)
     }
     open var delItem = ::gen_delItem_fn
     open fun gen_delItem_fn(id: String) {
@@ -121,35 +121,57 @@ open class GenUniModulesTmxUiComponentsXDragXDrag : VueComponent {
         }
         return originalIndex + 1
     }
-    open var getLastMaxCol = ::gen_getLastMaxCol_fn
-    open fun gen_getLastMaxCol_fn(): Number {
-        val totalRows = Math.ceil(this.domlist.length / this.col)
-        val lastRowColumns = this.domlist.length % this.col
-        return if (lastRowColumns === 0) {
-            this.col
-        } else {
-            lastRowColumns
+    open var getTopOffsetByIndex = ::gen_getTopOffsetByIndex_fn
+    open fun gen_getTopOffsetByIndex_fn(index: Number): Number {
+        var totalTop: Number = 0
+        var sortedList = this.domlist.slice().sort(fun(a, b): Number {
+            return a.index - b.index
         }
+        )
+        run {
+            var i: Number = 0
+            while(i < index && i < sortedList.length){
+                totalTop += sortedList[i].node.height
+                i++
+            }
+        }
+        return totalTop
     }
-    open var coverXy = ::gen_coverXy_fn
-    open fun gen_coverXy_fn(x: Number, y: Number): POSITION {
-        var maxRow = Math.floor((this.domlist.length - 1) / this.col)
-        var lastMacCol = this.getLastMaxCol()
-        var el = this.`$refs`["xDrag"] as UniElement
+    open fun coverXy(x: Number, y: Number, forInsertion: Boolean = true): POSITION {
+        var el = this.`$refs`["xDragMc"] as UniElement
         var bounce = this.xdragRect
         bounce = this.getByAppDomRect(el)
-        var row = Math.floor((y - bounce.top!!) / this.cellHeight)
-        var col = Math.floor((x - bounce.left!!) / this.cellWidth)
-        row = Math.min(Math.max(0, row), maxRow)
-        col = Math.min(Math.max(0, col), this.col - 1)
-        var index = (row + 1) * this.col - (this.col - col)
-        col = if (maxRow == row) {
-            Math.min(lastMacCol - 1, col)
-        } else {
-            col
+        var relativeY = y - bounce.top!!
+        var index: Number = 0
+        var currentTop: Number = 0
+        var sortedList = this.domlist.slice().sort(fun(a, b): Number {
+            return a.index - b.index
+        }
+        )
+        run {
+            var i: Number = 0
+            while(i < sortedList.length){
+                var itemHeight = sortedList[i].node.height
+                var nextTop = currentTop + itemHeight
+                if (forInsertion) {
+                    if (relativeY <= currentTop + itemHeight / 2) {
+                        index = i
+                        break
+                    }
+                    currentTop = nextTop
+                    index = i + 1
+                } else {
+                    if (relativeY >= currentTop && relativeY < nextTop) {
+                        index = i
+                        break
+                    }
+                    currentTop = nextTop
+                }
+                i++
+            }
         }
         index = Math.min(Math.max(0, index), this.domlist.length - 1)
-        return POSITION(row = row, col = col, index = index)
+        return POSITION(row = index, col = 1, index = index)
     }
     open var eventTransformer_start = ::gen_eventTransformer_start_fn
     open fun gen_eventTransformer_start_fn(evt: POSITION_XY) {
@@ -163,7 +185,7 @@ open class GenUniModulesTmxUiComponentsXDragXDrag : VueComponent {
         )
         var x = evt.x
         var y = evt.y
-        val startPos = this.coverXy(x, y)
+        val startPos = this.coverXy(x, y, false)
         this.activeIndex = startPos.index
         this.targetIndex = this.activeIndex
         this.oldStartXy = startPos
@@ -204,7 +226,7 @@ open class GenUniModulesTmxUiComponentsXDragXDrag : VueComponent {
         }
         var x = evt.x
         var y = evt.y
-        var el = this.`$refs`["xDrag"] as UniElement
+        var el = this.`$refs`["xDragMc"] as UniElement
         var childrenIndex = t.domlist.findIndex(fun(el): Boolean {
             return el.id == t.backckList[t.activeIndex]
         }
@@ -254,6 +276,12 @@ open class GenUniModulesTmxUiComponentsXDragXDrag : VueComponent {
                 i++
             }
         }
+        t.domlist.forEach(fun(el, index){
+            if (index != childrenIndex) {
+                el!!.ele.updatePos()
+            }
+        }
+        )
         t.activeIndex = t.targetIndex
     }
     open var eventTransformer_end = ::gen_eventTransformer_end_fn
@@ -280,7 +308,8 @@ open class GenUniModulesTmxUiComponentsXDragXDrag : VueComponent {
         }
         var col = result.col
         var row = result.row
-        childrenEle!!.setStylSetProperty("top", (this.cellHeight * row) + "px")
+        var topOffset = this.getTopOffsetByIndex(result.index)
+        childrenEle!!.setStylSetProperty("top", topOffset + "px")
         childrenEle!!.setStylSetProperty("left", (this.cellWidth * col) + "px")
         t.domlist.sort(fun(ela, elb): Number {
             return ela.index - elb.index
@@ -298,6 +327,12 @@ open class GenUniModulesTmxUiComponentsXDragXDrag : VueComponent {
                 i++
             }
         }
+        t.domlist.forEach(fun(el, index){
+            if (index != childrenIndex) {
+                el!!.ele.updatePos()
+            }
+        }
+        )
         this.`$emit`("change", JSON.parseArray<UTSJSONObject>(JSON.stringify(this.oldList)!!)!!)
     }
     open var mStart = ::gen_mStart_fn
@@ -306,7 +341,7 @@ open class GenUniModulesTmxUiComponentsXDragXDrag : VueComponent {
         var y = evt.changedTouches[0].clientY
         this.oragie_x = x
         this.oragie_y = y
-        var tempActiveIndex = this.coverXy(x, y).index
+        var tempActiveIndex = this.coverXy(x, y, false).index
         if (tempActiveIndex == -1) {
             return
         }
@@ -343,7 +378,7 @@ open class GenUniModulesTmxUiComponentsXDragXDrag : VueComponent {
         evt.preventDefault()
         evt.stopPropagation()
         this.eventTransformer_move(POSITION_XY(x = x, y = y))
-        var el = this.`$refs`["xDrag"] as UniElement
+        var el = this.`$refs`["xDragMc"] as UniElement
         var bounce = this.xdragRect
         bounce = this.getByAppDomRect(el)
         var maxheight = uni_getWindowInfo().windowHeight
@@ -382,17 +417,16 @@ open class GenUniModulesTmxUiComponentsXDragXDrag : VueComponent {
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xDrag" to padStyleMapOf(utsMapOf("position" to "relative")))
+                return utsMapOf("xDragMc" to padStyleMapOf(utsMapOf("position" to "relative")))
             }
         var inheritAttrs = true
         var inject: Map<String, Map<String, Any?>> = utsMapOf()
         var emits: Map<String, Any?> = utsMapOf("change" to null, "move" to null, "end" to null, "start" to null)
-        var props = normalizePropsOptions(utsMapOf("itemHeight" to utsMapOf("type" to "String", "default" to "50"), "col" to utsMapOf("type" to "Number", "default" to 1), "list" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<UTSJSONObject> {
+        var props = normalizePropsOptions(utsMapOf("col" to utsMapOf("type" to "Number", "default" to 1), "list" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<UTSJSONObject> {
             return utsArrayOf<UTSJSONObject>()
         }
         , "required" to true), "scrollDiff" to utsMapOf("type" to "Number", "default" to 25)))
         var propsNeedCastKeys = utsArrayOf(
-            "itemHeight",
             "col",
             "list",
             "scrollDiff"

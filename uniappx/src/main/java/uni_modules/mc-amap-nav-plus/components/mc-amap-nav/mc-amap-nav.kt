@@ -105,6 +105,14 @@ open class GenUniModulesMcAmapNavPlusComponentsMcAmapNavMcAmapNav : VueComponent
                 navi?.destroy()
                 navi = null
             }
+            onUnmounted(fun(){
+                destroy()
+            }
+            )
+            onMounted(fun(){
+                console.log("导航组件挂载=====")
+            }
+            )
             __expose(utsMapOf("stopNavi" to stopNavi, "setShowMode" to setShowMode, "destroy" to destroy, "playTTS" to playTTS, "addMarkers" to addMarkers, "setMarkers" to setMarkers, "removeMarkers" to removeMarkers))
             return fun(): Any? {
                 return createElementVNode("native-view", utsMapOf("style" to normalizeStyle(utsMapOf("width" to "100%", "height" to "100%")), "onInit" to onViewInit), null, 36)
