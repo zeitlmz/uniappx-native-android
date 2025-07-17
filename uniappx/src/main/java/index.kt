@@ -9415,13 +9415,13 @@ val clearAuth = fun(){
     JgUtil.stopPush()
 }
 val runBlock3 = run {
-//    if (isPre) {
-//        baseUrl = "https://www.mctwlx.com/pre-srv"
-//        wsBaseUrl = "wss://www.mctwlx.com/pre-ws/mcpt-engine-driverWs/driverWs"
-//    } else if (isRelease) {
-//        baseUrl = "https://www.mctwlx.com/srv"
-//        wsBaseUrl = "wss://www.mctwlx.com/ws/mcpt-engine-driverWs/driverWs"
-//    }
+    if (isPre) {
+        baseUrl = "https://www.mctwlx.com/pre-srv"
+        wsBaseUrl = "wss://www.mctwlx.com/pre-ws/mcpt-engine-driverWs/driverWs"
+    } else if (isRelease) {
+        baseUrl = "https://www.mctwlx.com/srv"
+        wsBaseUrl = "wss://www.mctwlx.com/ws/mcpt-engine-driverWs/driverWs"
+    }
 }
 val resBaseUrl = "https://prod.resource.mctwlx.com/car/app-resources/driver"
 val miniProgramCover = resBaseUrl + "/static/images/img-self-share-reward.png"
