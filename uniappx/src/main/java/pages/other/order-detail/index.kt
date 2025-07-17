@@ -1,5 +1,5 @@
 @file:Suppress("UNCHECKED_CAST", "USELESS_CAST", "INAPPLICABLE_JVM_NAME", "UNUSED_ANONYMOUS_PARAMETER", "NAME_SHADOWING", "UNNECESSARY_NOT_NULL_ASSERTION")
-package uni.UNI511F0A5
+package uni.UNI09580B7
 import io.dcloud.uniapp.*
 import io.dcloud.uniapp.extapi.*
 import io.dcloud.uniapp.framework.*
@@ -81,6 +81,10 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                 this.queryOrderDetail(canCalcRoute, canCalcRoute)
             }
             )
+            uni__on("showModalTip", fun(text: String){
+                this.showModalTip(text)
+            }
+            )
             this.getServiceConfig()
             this.updateToday()
         }
@@ -89,6 +93,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
             val mapView = (this.`$refs`["mapView"] as McAmapComponentPublicInstance)
             mapView?.destroy()
             uni__off("queryOrderDetail", null)
+            uni__off("showModalTip", null)
             ws?.off(MessageType["ARRIVED_TRIP"] as Number)
             ws?.off(MessageType["OPEN_TRIP"] as Number)
             ws?.off(MessageType["ORDER_FINISH"] as Number)
@@ -1135,7 +1140,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
     open var isCurrentDay: Boolean by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("isSendMode" to false, "showAgreeLocationModal" to false, "showAiDescModal" to false, "today" to formatDate(Date(), "yyyy-MM-dd"), "currentChooseSeat" to utsArrayOf<ChooseSeat>(), "seatSelectTemplates" to utsArrayOf<SeatSelectTemplate>(), "resBaseUrl" to uni.UNI511F0A5.resBaseUrl, "orderNo" to 1, "orderIndex" to 0, "orderId" to "", "showValidModal" to false, "showKey" to false, "phoneSuffix" to "", "showCancelModal" to false, "cancelReason" to "", "driverCancelResponsibility" to "false", "isLiquidatedDamages" to false, "defaultDeduction" to "", "orderParams" to UTSJSONObject(), "sortList" to utsArrayOf<UTSJSONObject>(), "orderData" to OrderSummary1(orderCount = 0, driverStatus = -2, seatSelectTemplates = utsArrayOf(), orderItems = utsArrayOf(), orderChains = utsArrayOf(), orderRoute = OrderRoute(routeStrategy = "", routeStartPoint = "", routeWaypoints = utsArrayOf(), routeEndPoint = "", routeWaypointsPoiIds = utsArrayOf<String>(), routeStartPoiId = "", routeEndPoiId = "")), "screenWidth" to uni.UNI511F0A5.screenWidth as Number, "screenHeight" to uni.UNI511F0A5.screenHeight as Number, "statusBarHeight" to uni.UNI511F0A5.statusBarHeight as Number, "isSmartPlanning" to true, "selectedRoute" to RouteSimpleInfo(routeId = -1, time = "", distance = "", lights = 0, paths = ""), "showOrderList" to false, "orderList" to utsArrayOf<Any>(), "routes" to utsArrayOf<RouteSimpleInfo>(), "isDx" to false, "showRouteStrategyOptions" to false, "routeStrategyMap" to object : UTSJSONObject() {
+        return utsMapOf("isSendMode" to false, "showAgreeLocationModal" to false, "showAiDescModal" to false, "today" to formatDate(Date(), "yyyy-MM-dd"), "currentChooseSeat" to utsArrayOf<ChooseSeat>(), "seatSelectTemplates" to utsArrayOf<SeatSelectTemplate>(), "resBaseUrl" to uni.UNI09580B7.resBaseUrl, "orderNo" to 1, "orderIndex" to 0, "orderId" to "", "showValidModal" to false, "showKey" to false, "phoneSuffix" to "", "showCancelModal" to false, "cancelReason" to "", "driverCancelResponsibility" to "false", "isLiquidatedDamages" to false, "defaultDeduction" to "", "orderParams" to UTSJSONObject(), "sortList" to utsArrayOf<UTSJSONObject>(), "orderData" to OrderSummary1(orderCount = 0, driverStatus = -2, seatSelectTemplates = utsArrayOf(), orderItems = utsArrayOf(), orderChains = utsArrayOf(), orderRoute = OrderRoute(routeStrategy = "", routeStartPoint = "", routeWaypoints = utsArrayOf(), routeEndPoint = "", routeWaypointsPoiIds = utsArrayOf<String>(), routeStartPoiId = "", routeEndPoiId = "")), "screenWidth" to uni.UNI09580B7.screenWidth as Number, "screenHeight" to uni.UNI09580B7.screenHeight as Number, "statusBarHeight" to uni.UNI09580B7.statusBarHeight as Number, "isSmartPlanning" to true, "selectedRoute" to RouteSimpleInfo(routeId = -1, time = "", distance = "", lights = 0, paths = ""), "showOrderList" to false, "orderList" to utsArrayOf<Any>(), "routes" to utsArrayOf<RouteSimpleInfo>(), "isDx" to false, "showRouteStrategyOptions" to false, "routeStrategyMap" to object : UTSJSONObject() {
             var OVERALL_OPTIMAL: Number = 10
             var FASTEST: Number = 0
             var CHARGE_LESS: Number = 14
@@ -1193,7 +1198,6 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                 setLocationGrantStatus("agree")
                 uni__emit("startLocation", true)
                 this.queryOrderDetail(true, false)
-                this.initLocation()
             } else {
                 this.locationAgreeCancel()
             }
@@ -1222,7 +1226,6 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
     }
     open var initEvt = ::gen_initEvt_fn
     open fun gen_initEvt_fn() {
-        this.initLocation()
         this.setContentHeight()
         this.onOrderAdd()
         this.onOrderAllFinish()
@@ -1280,6 +1283,12 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
             that.sortList = utsArrayOf<UTSJSONObject>()
             if (res.orderItems.length > 0) {
                 setTimeout(fun(){
+                    val boundsPoints = utsArrayOf(
+                        utsArrayOf(
+                            that.globalData.position.latitude,
+                            that.globalData.position.longitude
+                        )
+                    ) as UTSArray<UTSArray<Number>>
                     var isSendMode = true
                     if (res.orderItems.filter(fun(item: OrderItem, idx: Number, arr: UTSArray<OrderItem>): Boolean {
                         return item.status < 3
@@ -1300,10 +1309,12 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                             return UTSNumber.from(item)
                         }
                         )
+                        boundsPoints.push(pointArr)
                         return MarkerOption(latitude = pointArr[0], longitude = pointArr[1], color = item.pointColor, desc = item.pointName, icon = "")
                     }
                     )
                     mapView?.setMarkers(markers)
+                    mapView?.setBounds(boundsPoints)
                 }
                 , 10)
             }
@@ -1727,6 +1738,23 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
         }
         )
     }
+    open var showModalTip = ::gen_showModalTip_fn
+    open fun gen_showModalTip_fn(text: String) {
+        setTimeout(fun() {
+            showModal(X_MODAL_TYPE(title = "温馨提示", content = "" + text + ",\u5F53\u524D\u5DF2\u91CD\u65B0\u89C4\u5212\u8DEF\u5F84\uFF0C\u5982\u679C\u8981\u81EA\u5B9A\u4E49\u9009\u62E9\u89C4\u5212\u7B56\u7565\uFF0C\u8BF7\u70B9\u51FB\u8FD4\u56DE\u6309\u94AE\u3002", confirmText = "继续", confirmBgColor = this.globalData.theme.primaryColor, cancelText = "返回", cancel = fun() {
+                val pages = getCurrentPages()
+                val currentPage = pages[pages.length - 1]
+                if (currentPage.route == "pages/other/order-detail/navi") {
+                    uni__emit("backPage", null)
+                }
+            }
+            , close = fun(){
+                this.queryOrderDetail(true, false)
+            }
+            ))
+        }
+        , 250)
+    }
     open var onOrderAdd = ::gen_onOrderAdd_fn
     open fun gen_onOrderAdd_fn() {
         val that = this
@@ -1735,13 +1763,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
             hideXloading()
             val res = JSON.parse<OrderAddResponse>(data)
             if (res?.summaryId == that.orderParams["summaryId"]) {
-                setTimeout(fun() {
-                    showModal(X_MODAL_TYPE(title = "温馨提示", content = "\u60A8\u6536\u5230\u4E00\u7B14\u65B0\u7684\u8BA2\u5355", confirmText = "知道了", confirmBgColor = this.globalData.theme.primaryColor, showCancel = false, close = fun(){
-                        that.queryOrderDetail(true, false)
-                    }
-                    ))
-                }
-                , 250)
+                that.showModalTip("您收到一笔新的订单")
                 McAudio.play("/static/audio/new-order.mp3", false)
             }
         }
@@ -1802,13 +1824,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                         }))
                     }, 250)
                 } else {
-                    setTimeout(fun() {
-                        showModal(X_MODAL_TYPE(title = "温馨提示", content = "\u60A8\u6709\u4E00\u4E2A\u8BA2\u5355\u5DF2\u88AB\u53D6\u6D88", confirmText = "知道了", confirmBgColor = this.globalData.theme.primaryColor, showCancel = false, close = fun(){
-                            that.queryOrderDetail(true, false)
-                        }
-                        ))
-                    }
-                    , 250)
+                    that.showModalTip("您有一个订单已被取消")
                 }
                 McAudio.play("/static/audio/order-cancel.mp3", false)
             }

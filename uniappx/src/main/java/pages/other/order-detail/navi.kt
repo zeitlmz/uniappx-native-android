@@ -1,5 +1,5 @@
 @file:Suppress("UNCHECKED_CAST", "USELESS_CAST", "INAPPLICABLE_JVM_NAME", "UNUSED_ANONYMOUS_PARAMETER", "NAME_SHADOWING", "UNNECESSARY_NOT_NULL_ASSERTION")
-package uni.UNI511F0A5
+package uni.UNI09580B7
 import io.dcloud.uniapp.*
 import io.dcloud.uniapp.extapi.*
 import io.dcloud.uniapp.framework.*
@@ -22,6 +22,7 @@ import uts.sdk.modules.xModalS.X_MODAL_TYPE
 import uts.sdk.modules.xLoadingS.hideXloading
 import uts.sdk.modules.xLoadingS.showLoading
 import io.dcloud.uniapp.extapi.makePhoneCall as uni_makePhoneCall
+import io.dcloud.uniapp.extapi.navigateBack as uni_navigateBack
 import io.dcloud.uniapp.extapi.reLaunch as uni_reLaunch
 import uts.sdk.modules.xModalS.showModal
 import uts.sdk.modules.uniKuxrouter.useKuxRouter as uni_useKuxRouter
@@ -70,11 +71,13 @@ open class GenPagesOtherOrderDetailNavi : BasePage {
             this.orderParams = JSON.parse<UTSJSONObject>(JSON.stringify(query)) ?: UTSJSONObject()
             uni__on("onSendData", this.onSendData)
             uni__on("syncNavInfo", this.syncNavInfo)
+            uni__on("backPage", this.backPage)
         }
         , __ins)
         onBeforeUnmount(fun() {
             uni__off("syncNavInfo", this.syncNavInfo)
             uni__off("onSendData", this.onSendData)
+            uni__off("backPage", this.backPage)
             hideXloading()
         }
         , __ins)
@@ -236,7 +239,12 @@ open class GenPagesOtherOrderDetailNavi : BasePage {
     open var viaTime: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("resBaseUrl" to uni.UNI511F0A5.resBaseUrl, "currentIndex" to 0, "showValidModal" to false, "showKey" to false, "phoneSuffix" to "", "showPanel" to false, "canBack" to false, "orderParams" to UTSJSONObject(), "orderData" to OrderSummary1(orderCount = 0, driverStatus = -2, seatSelectTemplates = utsArrayOf(), orderItems = utsArrayOf(), orderChains = utsArrayOf(), orderRoute = OrderRoute(routeStrategy = "", routeStartPoint = "", routeWaypoints = utsArrayOf(), routeEndPoint = "", routeWaypointsPoiIds = utsArrayOf<String>(), routeStartPoiId = "", routeEndPoiId = "")), "screenWidth" to uni.UNI511F0A5.screenWidth as Number, "screenHeight" to uni.UNI511F0A5.screenHeight as Number, "statusBarHeight" to uni.UNI511F0A5.statusBarHeight as Number, "viaDistance" to "0公里", "viaTime" to "0分钟")
+        return utsMapOf("resBaseUrl" to uni.UNI09580B7.resBaseUrl, "currentIndex" to 0, "showValidModal" to false, "showKey" to false, "phoneSuffix" to "", "showPanel" to false, "canBack" to false, "orderParams" to UTSJSONObject(), "orderData" to OrderSummary1(orderCount = 0, driverStatus = -2, seatSelectTemplates = utsArrayOf(), orderItems = utsArrayOf(), orderChains = utsArrayOf(), orderRoute = OrderRoute(routeStrategy = "", routeStartPoint = "", routeWaypoints = utsArrayOf(), routeEndPoint = "", routeWaypointsPoiIds = utsArrayOf<String>(), routeStartPoiId = "", routeEndPoiId = "")), "screenWidth" to uni.UNI09580B7.screenWidth as Number, "screenHeight" to uni.UNI09580B7.screenHeight as Number, "statusBarHeight" to uni.UNI09580B7.statusBarHeight as Number, "viaDistance" to "0公里", "viaTime" to "0分钟")
+    }
+    open var backPage = ::gen_backPage_fn
+    open fun gen_backPage_fn() {
+        this.canBack = true
+        uni_navigateBack(NavigateBackOptions(delta = 1))
     }
     open var syncNavInfo = ::gen_syncNavInfo_fn
     open fun gen_syncNavInfo_fn(data: String) {
@@ -328,7 +336,7 @@ open class GenPagesOtherOrderDetailNavi : BasePage {
             if (that.orderData.orderChains.length == 1) {
                 that.navQuit(true)
             } else {
-                uni__emit("queryOrderDetail", true)
+                uni__emit("showModalTip", "验证乘客手机号成功")
             }
         }
         , fun(data){
@@ -372,7 +380,7 @@ open class GenPagesOtherOrderDetailNavi : BasePage {
             ws1?.sendAndOnErr(WebSocketSendMessage(type = MessageType["ORDER_FINISH"] as Number, content = order.orderId), fun(data){
                 console.log("完成订单：", data)
                 if (that.orderData.orderChains.length > 1) {
-                    uni__emit("queryOrderDetail", false)
+                    uni__emit("showModalTip", order.pointName + "已完成")
                 } else {
                     val res = JSON.parse<OrderFinishResponse>(data)
                     if (res?.allOfOrderCompleted ?: false) {

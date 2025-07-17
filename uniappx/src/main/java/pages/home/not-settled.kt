@@ -1,5 +1,5 @@
 @file:Suppress("UNCHECKED_CAST", "USELESS_CAST", "INAPPLICABLE_JVM_NAME", "UNUSED_ANONYMOUS_PARAMETER", "NAME_SHADOWING", "UNNECESSARY_NOT_NULL_ASSERTION")
-package uni.UNI511F0A5
+package uni.UNI09580B7
 import io.dcloud.uniapp.*
 import io.dcloud.uniapp.extapi.*
 import io.dcloud.uniapp.framework.*
@@ -173,6 +173,7 @@ open class GenPagesHomeNotSettled : VueComponent {
                     app.globalData.jg = jg
                 }
             }
+            val wxLogin = fun(){}
             val openNotifiPerm = fun(){
                 requestNotificationPermission()
             }
@@ -600,6 +601,11 @@ open class GenPagesHomeNotSettled : VueComponent {
                                             createElementVNode("button", utsMapOf("class" to "login-btn transition", "onClick" to onLogin), "登录/注册"),
                                             createElementVNode("view", utsMapOf("class" to "other-login-options"), utsArrayOf(
                                                 createElementVNode("text", utsMapOf("class" to "old-phone", "onClick" to onOldPhoneLogin), "旧手机号不在使用")
+                                            )),
+                                            createElementVNode("view", utsMapOf("class" to "wechat-login", "onClick" to wxLogin), utsArrayOf(
+                                                createElementVNode("image", utsMapOf("class" to "wechat-icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-wechat.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
+                                                    "src"
+                                                ))
                                             ))
                                         ))
                                     ))

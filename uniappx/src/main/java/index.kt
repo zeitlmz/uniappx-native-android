@@ -1,5 +1,5 @@
 @file:Suppress("UNCHECKED_CAST", "USELESS_CAST", "INAPPLICABLE_JVM_NAME", "UNUSED_ANONYMOUS_PARAMETER", "NAME_SHADOWING", "UNNECESSARY_NOT_NULL_ASSERTION")
-package uni.UNI511F0A5
+package uni.UNI09580B7
 import android.content.pm.ActivityInfo
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -9019,14 +9019,14 @@ val xui = definePlugin(VuePlugin(install = fun(app: VueApp, config: Any?) {
 ))
 open class xStore {
     companion object {
-        var xConfig = uni.UNI511F0A5.xConfig
-        var setConfig = uni.UNI511F0A5.setConfig
-        var getDarkModel = uni.UNI511F0A5.getDarkModel
-        var setDarkModel = uni.UNI511F0A5.setDarkModel
-        var getThemePrimary = uni.UNI511F0A5.getThemePrimary
-        var setThemePrimary = uni.UNI511F0A5.setThemePrimary
-        var xProvitae = uni.UNI511F0A5.xProvitae
-        var xTabbarConfig = uni.UNI511F0A5.xTabbarConfig
+        var xConfig = uni.UNI09580B7.xConfig
+        var setConfig = uni.UNI09580B7.setConfig
+        var getDarkModel = uni.UNI09580B7.getDarkModel
+        var setDarkModel = uni.UNI09580B7.setDarkModel
+        var getThemePrimary = uni.UNI09580B7.getThemePrimary
+        var setThemePrimary = uni.UNI09580B7.setThemePrimary
+        var xProvitae = uni.UNI09580B7.xProvitae
+        var xTabbarConfig = uni.UNI09580B7.xTabbarConfig
     }
 }
 open class Themes (
@@ -9419,8 +9419,8 @@ val runBlock3 = run {
         baseUrl = "https://www.mctwlx.com/pre-srv"
         wsBaseUrl = "wss://www.mctwlx.com/pre-ws/mcpt-engine-driverWs/driverWs"
     } else if (isRelease) {
-//        baseUrl = "https://www.mctwlx.com/srv"
-//        wsBaseUrl = "wss://www.mctwlx.com/ws/mcpt-engine-driverWs/driverWs"
+        baseUrl = "https://www.mctwlx.com/srv"
+        wsBaseUrl = "wss://www.mctwlx.com/ws/mcpt-engine-driverWs/driverWs"
     }
 }
 val resBaseUrl = "https://prod.resource.mctwlx.com/car/app-resources/driver"
@@ -10327,6 +10327,17 @@ open class NativeMap {
     open fun playTTS(text: String, forcePlay: Boolean) {
         this.mAMapNavi?.playTTS(text, forcePlay)
     }
+    open fun setBounds(points: UTSArray<UTSArray<Number>>) {
+        val boundsBuilder = LatLngBounds.Builder()
+        if (points != null) {
+            points.forEach(fun(coord: UTSArray<Number>){
+                boundsBuilder.include(LatLng(coord[0].toDouble(), coord[1].toDouble()))
+            }
+            )
+        }
+        val bounds = boundsBuilder.build()
+        this.aMap?.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 150))
+    }
     open fun changeRouteById(routeId: Number) {
         this.mAMapNavi?.selectRouteId(routeId.toInt())
         run {
@@ -10350,7 +10361,7 @@ open class NativeMap {
                     }
                     val bounds = boundsBuilder.build()
                     arrowVisible = false
-                    this.aMap?.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 120))
+                    this.aMap?.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 150))
                 }
                 routeOverlay?.setArrowOnRoute(arrowVisible)
                 routeOverlay?.setTransparency(transparency.toFloat())
@@ -10444,12 +10455,12 @@ open class NativeMap {
             carInfo.setRestriction(true)
             this.mAMapNavi?.setCarInfo(carInfo)
         }
-        val mEndPoi = NaviPoi("目的地", LatLng(navOption.endLat.toDouble(), navOption.endLng.toDouble()), navOption.endPoiId)
+        val mEndPoi = NaviPoi("目的地", LatLng(navOption.endLat.toDouble(), navOption.endLng.toDouble()), "")
         if (this.mAMapNavi != null) {
             val wayPoints: MutableList<NaviPoi> = UTSArray()
             var idx: Number = 0
             navOption.wayPoints.forEach(fun(point: UTSArray<Number>){
-                val wayPoi = NaviPoi(idx + "", LatLng(point[0].toDouble(), point[1].toDouble()), navOption.poiIds[idx])
+                val wayPoi = NaviPoi(idx + "", LatLng(point[0].toDouble(), point[1].toDouble()), "")
                 wayPoints.add(wayPoi)
                 idx++
             }
@@ -24212,7 +24223,7 @@ fun main(app: IApp) {
 }
 open class UniAppConfig : io.dcloud.uniapp.appframe.AppConfig {
     override var name: String = "每橙车主"
-    override var appid: String = "__UNI__511F0A5"
+    override var appid: String = "__UNI__09580B7"
     override var versionName: String = "4.0.5"
     override var versionCode: String = "405"
     override var uniCompilerVersion: String = "4.66"

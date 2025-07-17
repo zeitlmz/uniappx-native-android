@@ -1,5 +1,5 @@
 @file:Suppress("UNCHECKED_CAST", "USELESS_CAST", "INAPPLICABLE_JVM_NAME", "UNUSED_ANONYMOUS_PARAMETER", "NAME_SHADOWING", "UNNECESSARY_NOT_NULL_ASSERTION")
-package uni.UNI511F0A5
+package uni.UNI09580B7
 import io.dcloud.uniapp.*
 import io.dcloud.uniapp.extapi.*
 import io.dcloud.uniapp.framework.*
@@ -95,6 +95,13 @@ open class GenUniModulesMcAmapNavPlusComponentsMcAmapMcAmap : VueComponent {
         set(value) {
             setRefValue(this.`$exposed`, "removeMarkers", value)
         }
+    open var setBounds: (bounds: UTSArray<UTSArray<Number>>) -> Unit
+        get() {
+            return unref(this.`$exposed`["setBounds"]) as (bounds: UTSArray<UTSArray<Number>>) -> Unit
+        }
+        set(value) {
+            setRefValue(this.`$exposed`, "setBounds", value)
+        }
     companion object {
         @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
         var setup: (__props: GenUniModulesMcAmapNavPlusComponentsMcAmapMcAmap, _arg1: SetupContext) -> Any? = fun(__props, ref1): Any? {
@@ -141,6 +148,9 @@ open class GenUniModulesMcAmapNavPlusComponentsMcAmapMcAmap : VueComponent {
                 removeMarkers()
                 addMarkers(markers)
             }
+            val setBounds = fun(bounds: UTSArray<UTSArray<Number>>){
+                mapView?.setBounds(bounds)
+            }
             val startNavi = fun(routeId: Number, isEmulator: Boolean){
                 mapView?.startNavi(routeId, isEmulator)
             }
@@ -155,7 +165,7 @@ open class GenUniModulesMcAmapNavPlusComponentsMcAmapMcAmap : VueComponent {
                 mapView = null
                 console.log("destroy-mapView:", mapView)
             }
-            __expose(utsMapOf("startAwaysLocation" to startAwaysLocation, "stopAwaysLocation" to stopAwaysLocation, "getLocation" to getLocation, "calculate" to calculate, "destroy" to destroy, "changeRouteById" to changeRouteById, "playTTS" to playTTS, "startNavi" to startNavi, "addMarkers" to addMarkers, "setMarkers" to setMarkers, "removeMarkers" to removeMarkers))
+            __expose(utsMapOf("startAwaysLocation" to startAwaysLocation, "stopAwaysLocation" to stopAwaysLocation, "getLocation" to getLocation, "calculate" to calculate, "destroy" to destroy, "changeRouteById" to changeRouteById, "playTTS" to playTTS, "startNavi" to startNavi, "addMarkers" to addMarkers, "setMarkers" to setMarkers, "removeMarkers" to removeMarkers, "setBounds" to setBounds))
             return fun(): Any? {
                 return createElementVNode("view", utsMapOf("class" to "map-view-box"), utsArrayOf(
                     createElementVNode("native-view", utsMapOf("style" to normalizeStyle(utsMapOf("width" to "100%", "height" to "100%")), "onInit" to onViewInit), null, 36),

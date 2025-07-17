@@ -530,6 +530,17 @@ open class NativeMap {
     open fun playTTS(text: String, forcePlay: Boolean) {
         this.mAMapNavi?.playTTS(text, forcePlay)
     }
+    open fun setBounds(points: UTSArray<UTSArray<Number>>) {
+        val boundsBuilder = LatLngBounds.Builder()
+        if (points != null) {
+            points.forEach(fun(coord: UTSArray<Number>){
+                boundsBuilder.include(LatLng(coord[0].toDouble(), coord[1].toDouble()))
+            }
+            )
+        }
+        val bounds = boundsBuilder.build()
+        this.aMap?.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 150))
+    }
     open fun changeRouteById(routeId: Number) {
         this.mAMapNavi?.selectRouteId(routeId.toInt())
         run {
@@ -553,7 +564,7 @@ open class NativeMap {
                     }
                     val bounds = boundsBuilder.build()
                     arrowVisible = false
-                    this.aMap?.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 120))
+                    this.aMap?.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 150))
                 }
                 routeOverlay?.setArrowOnRoute(arrowVisible)
                 routeOverlay?.setTransparency(transparency.toFloat())
@@ -647,12 +658,12 @@ open class NativeMap {
             carInfo.setRestriction(true)
             this.mAMapNavi?.setCarInfo(carInfo)
         }
-        val mEndPoi = NaviPoi("目的地", LatLng(navOption.endLat.toDouble(), navOption.endLng.toDouble()), navOption.endPoiId)
+        val mEndPoi = NaviPoi("目的地", LatLng(navOption.endLat.toDouble(), navOption.endLng.toDouble()), "")
         if (this.mAMapNavi != null) {
             val wayPoints: MutableList<NaviPoi> = UTSArray()
             var idx: Number = 0
             navOption.wayPoints.forEach(fun(point: UTSArray<Number>){
-                val wayPoi = NaviPoi(idx + "", LatLng(point[0].toDouble(), point[1].toDouble()), navOption.poiIds[idx])
+                val wayPoi = NaviPoi(idx + "", LatLng(point[0].toDouble(), point[1].toDouble()), "")
                 wayPoints.add(wayPoi)
                 idx++
             }
