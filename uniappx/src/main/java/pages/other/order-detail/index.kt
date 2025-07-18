@@ -55,12 +55,10 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
             uni__emit("onShow", fun() {})
         }
         , __ins)
-        onReady(fun() {
-            this.queryOrderDetail(true, false)
-        }
-        , __ins)
         onPageShow(fun() {
+            console.log("onShow====")
             this.initEvt()
+            this.queryOrderDetail(true, this.orderParams["orderStatus"] != "0")
         }
         , __ins)
         onLoad(fun(query: OnLoadOptions) {
@@ -1251,6 +1249,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
     }
     open var queryOrderDetail = ::gen_queryOrderDetail_fn
     open fun gen_queryOrderDetail_fn(canCalcRoute: Boolean, forceCalc: Boolean) {
+        console.log("forceCalc===", forceCalc)
         val that = this
         var queryType: Number = 0
         if (that.orderParams["orderStatus"] != "0") {
@@ -1398,6 +1397,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
         if (that.routes.length <= 0) {
             return showTips("暂无路线规划，无法开启导航", "warning")
         }
+        this.syncRoutePaths(true)
         (this.`$refs`["mapView"] as McAmapComponentPublicInstance)?.startNavi(this.selectedRoute.routeId, isEmulator)
         uni_navigateTo(NavigateToOptions(url = "/pages/other/order-detail/navi?planId=" + this.orderParams["planId"] + "&summaryId=" + this.orderParams["summaryId"], success = fun(res){
             uni__emit("onSendData", JSON.stringify(that.orderData))
@@ -1610,8 +1610,8 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
             var phoneLastFour = that.phoneSuffix
             var orderId = that.orderId
         })), fun(data){
-            console.log("到达上车点：", data)
-            that.queryOrderDetail(that.orderIndex == that.orderData.orderItems.length - 1, false)
+            console.log("验证乘客手机号成功：", data)
+            that.queryOrderDetail(true, true)
             hideXloading()
             vibrator(100)
             that.showValidModal = false
@@ -1763,13 +1763,12 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
             , confirmBgColor = this.globalData.theme.primaryColor, cancelText = "返回", showCancel = isNaviPage, cancel = fun() {
                 if (isNaviPage) {
                     uni__emit("backPage", null)
+                } else {
+                    setTimeout(fun(){
+                        this.queryOrderDetail(true, true)
+                    }
+                    , 250)
                 }
-            }
-            , close = fun(){
-                setTimeout(fun(){
-                    this.queryOrderDetail(true, true)
-                }
-                , 250)
             }
             ))
         }

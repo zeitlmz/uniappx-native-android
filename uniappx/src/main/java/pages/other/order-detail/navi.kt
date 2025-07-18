@@ -277,7 +277,6 @@ open class GenPagesOtherOrderDetailNavi : BasePage {
         vibrator(100)
         this.canBack = true
         uni_useKuxRouter().back(-1)
-        uni__emit("queryOrderDetail", canCalcRoute)
     }
     open var tryArrived = ::gen_tryArrived_fn
     open fun gen_tryArrived_fn() {
