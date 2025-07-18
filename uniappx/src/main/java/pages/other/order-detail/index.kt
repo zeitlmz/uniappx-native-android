@@ -1132,6 +1132,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
     open var viaTime: String by `$data`
     open var mapContentHeight: Number by `$data`
     open var serviceConfig: ServiceOrderPermission by `$data`
+    open var pointBounds: UTSArray<UTSArray<Number>> by `$data`
     open var cardHeight: Number by `$data`
     open var cardShowHeight: Number by `$data`
     open var pullViewHeight: Number by `$data`
@@ -1145,7 +1146,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
             var FASTEST: Number = 0
             var CHARGE_LESS: Number = 14
             var DONT_HIGH_SPEED: Number = 13
-        }, "routeStrategyOptions" to utsArrayOf<RouteStrategyOption>(RouteStrategyOption(code = "OVERALL_OPTIMAL", name = "综合最优"), RouteStrategyOption(code = "FASTEST", name = "速度优先"), RouteStrategyOption(code = "CHARGE_LESS", name = "少收费"), RouteStrategyOption(code = "DONT_HIGH_SPEED", name = "不走高速")), "routeStrategy" to "OVERALL_OPTIMAL", "routeStrategyStr" to "综合最优", "tripingViewHeight" to 200, "viaDistance" to "0公里", "viaTime" to "0分钟", "mapContentHeight" to 0, "serviceConfig" to ServiceOrderPermission(allocateSeatModel = false, allowSubmitOrderNoCar = false, allowDriverCloseTakeOrder = false, allowDriverCancelOrder = false, enableNumberPrivacy = false, enableCallRecording = false), "cardHeight" to computed<Number>(fun(): Number {
+        }, "routeStrategyOptions" to utsArrayOf<RouteStrategyOption>(RouteStrategyOption(code = "OVERALL_OPTIMAL", name = "综合最优"), RouteStrategyOption(code = "FASTEST", name = "速度优先"), RouteStrategyOption(code = "CHARGE_LESS", name = "少收费"), RouteStrategyOption(code = "DONT_HIGH_SPEED", name = "不走高速")), "routeStrategy" to "OVERALL_OPTIMAL", "routeStrategyStr" to "综合最优", "tripingViewHeight" to 200, "viaDistance" to "0公里", "viaTime" to "0分钟", "mapContentHeight" to 0, "serviceConfig" to ServiceOrderPermission(allocateSeatModel = false, allowSubmitOrderNoCar = false, allowDriverCloseTakeOrder = false, allowDriverCancelOrder = false, enableNumberPrivacy = false, enableCallRecording = false), "pointBounds" to utsArrayOf<UTSArray<Number>>(), "cardHeight" to computed<Number>(fun(): Number {
             return if (this.isDx) {
                 400
             } else {
@@ -1314,6 +1315,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                     }
                     )
                     mapView?.setMarkers(markers)
+                    that.pointBounds = boundsPoints
                     mapView?.setBounds(boundsPoints)
                 }
                 , 10)
@@ -1485,7 +1487,11 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
         }
         setTimeout(fun(){
             val mapView = this.`$refs`["mapView"] as McAmapComponentPublicInstance
-            mapView?.changeRouteById(this.selectedRoute.routeId)
+            if (this.selectedRoute.routeId == -1) {
+                mapView?.setBounds(this.pointBounds)
+            } else {
+                mapView?.changeRouteById(this.selectedRoute.routeId)
+            }
         }
         , 100)
     }

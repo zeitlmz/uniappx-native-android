@@ -144,7 +144,7 @@ fun requestNotificationPermission(): Unit {
 }
 fun showPermissionDialog(activity: Activity, brand: String): Unit {
     val builder = AlertDialog.Builder(activity)
-    val spannableMessage = SpannableString("请允许通知权限，以便及时接收重要消息。\n本APP提供了撤回系统权限的功能，具体路径:个人中心(登录后点击右上角)-设置-账户与安全-权限管理。")
+    val spannableMessage = SpannableString("请允许通知权限，以便及时接收重要消息。\n本APP提供了撤回系统权限的功能，具体路径:登录后点击右上角(已入驻是头像图标)-设置图标-账户与安全-权限管理。")
     spannableMessage.setSpan(ForegroundColorSpan(Color.RED), 19, spannableMessage.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
     builder.setTitle("需要通知权限").setMessage(spannableMessage).setPositiveButton("去开启", fun(dialog: DialogInterface, which: Number){
         goToNotificationSettings(activity, brand)

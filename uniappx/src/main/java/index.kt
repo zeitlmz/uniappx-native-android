@@ -2,6 +2,7 @@
 package uni.UNI09580B7
 import android.content.pm.ActivityInfo
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -9415,13 +9416,13 @@ val clearAuth = fun(){
     JgUtil.stopPush()
 }
 val runBlock3 = run {
-    if (isPre) {
-        baseUrl = "https://www.mctwlx.com/pre-srv"
-        wsBaseUrl = "wss://www.mctwlx.com/pre-ws/mcpt-engine-driverWs/driverWs"
-    } else if (isRelease) {
-        baseUrl = "https://www.mctwlx.com/srv"
-        wsBaseUrl = "wss://www.mctwlx.com/ws/mcpt-engine-driverWs/driverWs"
-    }
+//    if (isPre) {
+//        baseUrl = "https://www.mctwlx.com/pre-srv"
+//        wsBaseUrl = "wss://www.mctwlx.com/pre-ws/mcpt-engine-driverWs/driverWs"
+//    } else if (isRelease) {
+//        baseUrl = "https://www.mctwlx.com/srv"
+//        wsBaseUrl = "wss://www.mctwlx.com/ws/mcpt-engine-driverWs/driverWs"
+//    }
 }
 val resBaseUrl = "https://prod.resource.mctwlx.com/car/app-resources/driver"
 val miniProgramCover = resBaseUrl + "/static/images/img-self-share-reward.png"
@@ -9984,6 +9985,16 @@ open class MapOption (
     open var naviInfoUpdateCb: ((data: String) -> Unit)? = null,
     open var arriveCb: (() -> Unit)? = null,
 ) : UTSObject()
+fun loadImageFromAssets(fname: String): Bitmap? {
+    var bitmap: Bitmap? = null
+    try {
+        var assetManager = UTSAndroid.getAppContext()!!.getAssets()
+        var inputStream = assetManager.open(fname)
+        bitmap = BitmapFactory.decodeStream(inputStream)
+    }
+     catch (e: Throwable) {}
+    return bitmap
+}
 open class PlatformUtils {
     constructor(){}
     open fun setScreenOrientation(type: Number) {
@@ -10489,6 +10500,7 @@ open class NativeMap {
         this.aMap?.setTrafficEnabled(true)
         this.aMap?.setMyLocationEnabled(this.options?.selfLocation ?: false)
         val myLocationStyle = MyLocationStyle()
+        myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromBitmap(loadImageFromAssets("self-car.png")))
         myLocationStyle.radiusFillColor(Color.argb(0, 0, 0, 0))
         myLocationStyle.strokeColor(Color.argb(0, 0, 0, 0))
         myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE)
@@ -18078,6 +18090,8 @@ open class MenuItem (
     @JsonNotNull
     open var title: String,
     open var value: String? = null,
+    @JsonNotNull
+    open var isHide: Boolean = false,
     open var click: () -> Unit,
 ) : UTSObject()
 val GenPagesPersonalSettingIndexClass = CreateVueComponent(GenPagesPersonalSettingIndex::class.java, fun(): VueComponentOptions {

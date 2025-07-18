@@ -54,11 +54,11 @@ open class GenPagesPersonalSettingIndex : BasePage {
             val globalData = inject("globalData") as GlobalDataType
             val router = uni_useKuxRouter()
             val showRouteLove = ref(false)
-            val menuList = utsArrayOf<MenuItem>(MenuItem(title = "账户与安全", showArrow = true, click = fun(){
+            val menuList = utsArrayOf<MenuItem>(MenuItem(title = "账户与安全", showArrow = true, isHide = !globalData.isLogin, click = fun(){
                 console.log("进入账户与安全")
                 router.push("/pages/personal/setting/account-safe/index")
             }
-            ), MenuItem(title = "紧急联系人", showArrow = true, click = fun(){
+            ), MenuItem(title = "紧急联系人", showArrow = true, isHide = globalData.entryStatus != AUDIT_APPROVE, click = fun(){
                 router.push("/pages/personal/setting/emergency-contact/index")
             }
             ), MenuItem(title = "权限管理", showArrow = true, click = fun(){
@@ -77,6 +77,7 @@ open class GenPagesPersonalSettingIndex : BasePage {
             val handleLogout = fun(){
                 showModal(X_MODAL_TYPE(title = "温馨提示", content = "确认要退出登录", confirmText = "知道了", clickMaskClose = false, confirmBgColor = globalData.theme.primaryColor, confirm = fun(){
                     logout().then(fun(res: Response){
+                        globalData.entryStatus = 0
                         if (res.code == 200) {
                             clearAuth()
                             router.push("/pages/home/index")
@@ -98,62 +99,67 @@ open class GenPagesPersonalSettingIndex : BasePage {
                     createVNode(_component_mc_base_container, utsMapOf("title" to "设置"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                         return utsArrayOf(
                             createElementVNode(Fragment, null, RenderHelpers.renderList(menuList, fun(menu, index, __index, _cached): Any {
-                                return createVNode(_component_mc_active_animation, utsMapOf("key" to menu.title), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                    return utsArrayOf(
-                                        createVNode(_component_x_sheet, utsMapOf("margin" to utsArrayOf(
-                                            "15",
-                                            if (index > 0) {
-                                                "0"
-                                            } else {
-                                                "15"
-                                            }
-                                            ,
-                                            "15",
-                                            "15"
-                                        ), "padding" to utsArrayOf(
-                                            "20"
-                                        ), "onClick" to menu.click), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                return createElementVNode(Fragment, utsMapOf("key" to menu.title), utsArrayOf(
+                                    if (isTrue(!menu.isHide ?: true)) {
+                                        createVNode(_component_mc_active_animation, utsMapOf("key" to 0), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                                             return utsArrayOf(
-                                                createElementVNode("view", utsMapOf("class" to "setting-item"), utsArrayOf(
-                                                    createElementVNode("text", utsMapOf("class" to "name"), toDisplayString(menu.title), 1),
-                                                    createElementVNode("view", utsMapOf("class" to "flex-row"), utsArrayOf(
-                                                        if (menu.value != null) {
-                                                            createElementVNode("text", utsMapOf("key" to 0, "class" to "value"), toDisplayString(menu.value), 1)
-                                                        } else {
-                                                            createCommentVNode("v-if", true)
-                                                        }
-                                                        ,
-                                                        if (isTrue(menu.showArrow)) {
-                                                            createElementVNode("image", utsMapOf("key" to 1, "class" to "icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-arrow-right-line-samll.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
-                                                                "src"
+                                                createVNode(_component_x_sheet, utsMapOf("margin" to utsArrayOf(
+                                                    "15",
+                                                    "15",
+                                                    "15",
+                                                    if (index == menuList.length - 1) {
+                                                        "15"
+                                                    } else {
+                                                        "0"
+                                                    }
+                                                ), "padding" to utsArrayOf(
+                                                    "20"
+                                                ), "onClick" to menu.click), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                    return utsArrayOf(
+                                                        createElementVNode("view", utsMapOf("class" to "setting-item"), utsArrayOf(
+                                                            createElementVNode("text", utsMapOf("class" to "name"), toDisplayString(menu.title), 1),
+                                                            createElementVNode("view", utsMapOf("class" to "flex-row"), utsArrayOf(
+                                                                if (menu.value != null) {
+                                                                    createElementVNode("text", utsMapOf("key" to 0, "class" to "value"), toDisplayString(menu.value), 1)
+                                                                } else {
+                                                                    createCommentVNode("v-if", true)
+                                                                },
+                                                                if (isTrue(menu.showArrow)) {
+                                                                    createElementVNode("image", utsMapOf("key" to 1, "class" to "icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-arrow-right-line-samll.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
+                                                                        "src"
+                                                                    ))
+                                                                } else {
+                                                                    createCommentVNode("v-if", true)
+                                                                }
                                                             ))
-                                                        } else {
-                                                            createCommentVNode("v-if", true)
-                                                        }
-                                                    ))
+                                                        ))
+                                                    )
+                                                }), "_" to 2), 1032, utsArrayOf(
+                                                    "margin",
+                                                    "onClick"
                                                 ))
                                             )
-                                        }
-                                        ), "_" to 2), 1032, utsArrayOf(
-                                            "margin",
-                                            "onClick"
-                                        ))
-                                    )
-                                }
-                                ), "_" to 2), 1024)
+                                        }), "_" to 2), 1024)
+                                    } else {
+                                        createCommentVNode("v-if", true)
+                                    }
+                                ), 64)
                             }
                             ), 64)
                         )
                     }
                     ), "_" to 1)),
-                    createElementVNode("view", utsMapOf("class" to "bottom-panel flex-row"), utsArrayOf(
-                        createVNode(_component_mc_primary_button, utsMapOf("height" to "100rpx", "onClick" to handleLogout), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                            return utsArrayOf(
-                                "退出登录"
-                            )
-                        }
-                        ), "_" to 1))
-                    ))
+                    if (isTrue(unref(globalData).isLogin)) {
+                        createElementVNode("view", utsMapOf("key" to 0, "class" to "bottom-panel flex-row"), utsArrayOf(
+                            createVNode(_component_mc_primary_button, utsMapOf("height" to "100rpx", "onClick" to handleLogout), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                return utsArrayOf(
+                                    "退出登录"
+                                )
+                            }), "_" to 1))
+                        ))
+                    } else {
+                        createCommentVNode("v-if", true)
+                    }
                 ), 64)
             }
         }

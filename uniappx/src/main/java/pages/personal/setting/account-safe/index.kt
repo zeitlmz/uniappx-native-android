@@ -74,34 +74,37 @@ open class GenPagesPersonalSettingAccountSafeIndex : BasePage {
                 val _component_mc_base_container = resolveEasyComponent("mc-base-container", GenComponentsMcBaseContainerIndexClass)
                 return createVNode(_component_mc_base_container, utsMapOf("title" to "账户与安全"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                     return utsArrayOf(
-                        createVNode(_component_x_sheet, utsMapOf("margin" to utsArrayOf(
-                            "15"
-                        ), "padding" to utsArrayOf(
-                            "20",
-                            "15",
-                            "20",
-                            "25"
-                        )), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                            return utsArrayOf(
-                                createVNode(_component_mc_active_animation, utsMapOf("class" to "setting-item", "onClick" to toSecondaryPassword), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                    return utsArrayOf(
-                                        createElementVNode("view", utsMapOf("class" to "setting-header"), utsArrayOf(
-                                            createElementVNode("text", utsMapOf("class" to "label"), "二级密码"),
-                                            if (isTrue(unref(secondPasswordStatus))) {
-                                                createElementVNode("text", utsMapOf("key" to 0, "class" to "label", "style" to normalizeStyle(utsMapOf("color" to "seagreen"))), "已设置", 4)
-                                            } else {
-                                                createElementVNode("text", utsMapOf("key" to 1, "class" to "label", "style" to normalizeStyle(utsMapOf("color" to "red"))), "未设置", 4)
-                                            }
-                                        )),
-                                        createElementVNode("view", utsMapOf("class" to "desc"), utsArrayOf(
-                                            createElementVNode("text", utsMapOf("class" to "text"), "可用于更换手机号、提现")
-                                        ))
-                                    )
-                                }
-                                ), "_" to 1))
-                            )
+                        if (unref(globalData).entryStatus == unref(AUDIT_APPROVE)) {
+                            createVNode(_component_x_sheet, utsMapOf("key" to 0, "margin" to utsArrayOf(
+                                "15"
+                            ), "padding" to utsArrayOf(
+                                "20",
+                                "15",
+                                "20",
+                                "25"
+                            )), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                return utsArrayOf(
+                                    createVNode(_component_mc_active_animation, utsMapOf("class" to "setting-item", "onClick" to toSecondaryPassword), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                        return utsArrayOf(
+                                            createElementVNode("view", utsMapOf("class" to "setting-header"), utsArrayOf(
+                                                createElementVNode("text", utsMapOf("class" to "label"), "二级密码"),
+                                                if (isTrue(unref(secondPasswordStatus))) {
+                                                    createElementVNode("text", utsMapOf("key" to 0, "class" to "label", "style" to normalizeStyle(utsMapOf("color" to "seagreen"))), "已设置", 4)
+                                                } else {
+                                                    createElementVNode("text", utsMapOf("key" to 1, "class" to "label", "style" to normalizeStyle(utsMapOf("color" to "red"))), "未设置", 4)
+                                                }
+                                            )),
+                                            createElementVNode("view", utsMapOf("class" to "desc"), utsArrayOf(
+                                                createElementVNode("text", utsMapOf("class" to "text"), "可用于更换手机号、提现")
+                                            ))
+                                        )
+                                    }), "_" to 1))
+                                )
+                            }), "_" to 1))
+                        } else {
+                            createCommentVNode("v-if", true)
                         }
-                        ), "_" to 1)),
+                        ,
                         createVNode(_component_x_sheet, utsMapOf("margin" to utsArrayOf(
                             "15"
                         ), "padding" to utsArrayOf(
