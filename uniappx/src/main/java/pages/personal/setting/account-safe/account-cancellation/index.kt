@@ -62,6 +62,7 @@ open class GenPagesPersonalSettingAccountSafeAccountCancellationIndex : BasePage
                         var loginAccount = curUser?.getString("account")
                     }
                     closeAccount(param).then(fun(res: Response){
+                        globalData.entryStatus = 0
                         if (res.code == 200) {
                             clearAuth()
                             showToast1(XTOAST_TYPE(title = "注销成功", iconCode = "success", iconColor = "green", titleColor = "green"))

@@ -1746,16 +1746,30 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
     }
     open var showModalTip = ::gen_showModalTip_fn
     open fun gen_showModalTip_fn(text: String) {
+        val pages = getCurrentPages()
+        val currentPage = pages[pages.length - 1]
+        val isNaviPage = currentPage.route == "pages/other/order-detail/navi"
         setTimeout(fun() {
-            showModal(X_MODAL_TYPE(title = "温馨提示", content = "" + text + ",\u5F53\u524D\u5DF2\u91CD\u65B0\u89C4\u5212\u8DEF\u5F84\uFF0C\u5982\u679C\u8981\u81EA\u5B9A\u4E49\u9009\u62E9\u89C4\u5212\u7B56\u7565\uFF0C\u8BF7\u70B9\u51FB\u8FD4\u56DE\u6309\u94AE\u3002", confirmText = "继续", confirmBgColor = this.globalData.theme.primaryColor, cancelText = "返回", cancel = fun() {
-                val pages = getCurrentPages()
-                val currentPage = pages[pages.length - 1]
-                if (currentPage.route == "pages/other/order-detail/navi") {
+            showModal(X_MODAL_TYPE(title = "温馨提示", content = if (isNaviPage) {
+                "" + text + ",\u5F53\u524D\u5DF2\u91CD\u65B0\u89C4\u5212\u8DEF\u5F84\uFF0C\u5982\u679C\u8981\u81EA\u5B9A\u4E49\u9009\u62E9\u89C4\u5212\u7B56\u7565\uFF0C\u8BF7\u70B9\u51FB\u8FD4\u56DE\u6309\u94AE\u3002"
+            } else {
+                text
+            }
+            , confirmText = if (isNaviPage) {
+                "继续"
+            } else {
+                "知道了"
+            }
+            , confirmBgColor = this.globalData.theme.primaryColor, cancelText = "返回", showCancel = isNaviPage, cancel = fun() {
+                if (isNaviPage) {
                     uni__emit("backPage", null)
                 }
             }
             , close = fun(){
-                this.queryOrderDetail(true, false)
+                setTimeout(fun(){
+                    this.queryOrderDetail(true, true)
+                }
+                , 250)
             }
             ))
         }

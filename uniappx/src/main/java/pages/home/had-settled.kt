@@ -76,25 +76,6 @@ open class GenPagesHomeHadSettled : VueComponent {
             val dateRange = ref(utsArrayOf<String>("", ""))
             val disabledDates = ref(utsArrayOf<String>())
             val hadGetWeather = ref<WeatherData>(WeatherData(province = "", city = "", adcode = "", weather = "", temperature = "", winddirection = "", windpower = "", humidity = "", reporttime = "", temperature_float = 0, humidity_float = 0))
-            val onLocation = fun(location: String){
-                val locationInfo = JSON.parse<LocationInfo>(location)
-                if (locationInfo != null) {
-                    globalData.position = locationInfo
-                    if (ws.getIsConnected()) {
-                        ws?.send(WebSocketSendMessage(type = MessageType["LOCATION_SYNC"] as Number, content = object : UTSJSONObject() {
-                            var region = locationInfo?.adcode ?: ""
-                            var location = (locationInfo?.longitude?.toString(10) ?: "0") + "," + (locationInfo?.latitude?.toString(10) ?: "0")
-                            var locationAddress = locationInfo?.address ?: ""
-                        }))
-                    }
-                    if (hadGetWeather.value.temperature == "" && globalData.position.adcode != "" && globalData.position.adcode != null) {
-                        getWeather(globalData.position.adcode).then(fun(res: UTSJSONObject){
-                            hadGetWeather.value = res.getArray<WeatherData>("lives")?.get(0) as WeatherData
-                        }
-                        )
-                    }
-                }
-            }
             val advList = utsArrayOf(
                 ADV_ITEM(image = "/static/images/adv-driver-join-2.png", click = fun(index: Number){
                     console.log(index)
@@ -320,6 +301,26 @@ open class GenPagesHomeHadSettled : VueComponent {
                     hideXloading()
                 }
                 )
+            }
+            val onLocation = fun(location: String){
+                val locationInfo = JSON.parse<LocationInfo>(location)
+                if (locationInfo != null) {
+                    globalData.position = locationInfo
+                    if (ws.getIsConnected()) {
+                        ws?.send(WebSocketSendMessage(type = MessageType["LOCATION_SYNC"] as Number, content = object : UTSJSONObject() {
+                            var region = locationInfo?.adcode ?: ""
+                            var location = (locationInfo?.longitude?.toString(10) ?: "0") + "," + (locationInfo?.latitude?.toString(10) ?: "0")
+                            var locationAddress = locationInfo?.address ?: ""
+                        }))
+                    }
+                    if (hadGetWeather.value.temperature == "" && globalData.position.adcode != "" && globalData.position.adcode != null) {
+                        getWeather(globalData.position.adcode).then(fun(res: UTSJSONObject){
+                            orderQuery()
+                            hadGetWeather.value = res.getArray<WeatherData>("lives")?.get(0) as WeatherData
+                        }
+                        )
+                    }
+                }
             }
             val initWs = fun(){
                 ws.setOpenCallback(fun(){

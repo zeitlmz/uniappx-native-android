@@ -561,7 +561,6 @@ open class NativeMap {
                 val routeOverlay: RouteOverLay? = this.routeOverlays?.valueAt(i)
                 var transparency: Number = 0.4
                 var zIndex: Int = -2
-                var arrowVisible = true
                 if (id == routeId.toInt()) {
                     transparency = 1
                     zIndex = -1
@@ -574,10 +573,8 @@ open class NativeMap {
                         )
                     }
                     val bounds = boundsBuilder.build()
-                    arrowVisible = false
                     this.aMap?.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 150))
                 }
-                routeOverlay?.setArrowOnRoute(arrowVisible)
                 routeOverlay?.setTransparency(transparency.toFloat())
                 routeOverlay?.setZindex(zIndex)
                 i++
@@ -587,7 +584,13 @@ open class NativeMap {
     open fun drawRoutes(routeId: Number, path: AMapNaviPath) {
         val routeOverLay: RouteOverLay = RouteOverLay(this.aMap!!, path, UTSAndroid.getUniActivity()!!)
         routeOverLay.setTrafficLine(true)
-        routeOverLay.setArrowOnRoute(true)
+        routeOverLay.showForbiddenMarker(true)
+        routeOverLay.showStartMarker(false)
+        routeOverLay.showViaMarker(false)
+        routeOverLay.showEndMarker(false)
+        routeOverLay.showRouteStart(false)
+        routeOverLay.showRouteEnd(false)
+        routeOverLay.setLightsVisible(false)
         routeOverLay.setPassRouteVisible(true)
         routeOverLay.setZindex(-2)
         val transparency: Number = 0.4
@@ -706,7 +709,7 @@ open class NativeMap {
         myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromBitmap(loadImageFromAssets("self-car.png")))
         myLocationStyle.radiusFillColor(Color.argb(0, 0, 0, 0))
         myLocationStyle.strokeColor(Color.argb(0, 0, 0, 0))
-        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE)
+        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_FOLLOW_NO_CENTER)
         this.aMap?.setMyLocationStyle(myLocationStyle)
         val mUiSettings = this.aMap?.getUiSettings()
         mUiSettings?.setMyLocationButtonEnabled(this.options?.showLocationBtn ?: false)
@@ -738,7 +741,7 @@ open class NativeMap {
                 this.options?.arriveCb?.invoke()
             }
             , fun(){
-                this.routeData?.clear()
+                this.clearRoute()
             }
             , fun(data: NaviInfo){
                 val arr: UTSArray<UTSJSONObject> = utsArrayOf()
@@ -826,22 +829,25 @@ open class NativeNavi {
         )
         this.mAMapNavi = AMapNavi.getInstance(activity!!) as AMapNavi
         val naviMapViewOption: AMapNaviViewOptions = AMapNaviViewOptions()
-        naviMapViewOption.setSettingMenuEnabled(false)
         var mapNaviView = MapStore.mapNaviView
         if (mapNaviView == null) {
             console.log("创建mapNaviView地图了=======")
-            mapNaviView = AMapNaviView(activity, naviMapViewOption)
+            mapNaviView = AMapNaviView(activity)
             mapNaviView?.onCreate(Bundle())
             MapStore.mapNaviView = mapNaviView
         }
-        mapNaviView.getViewOptions().setAutoDisplayOverview(true)
         mapNaviView.getViewOptions().setSettingMenuEnabled(false)
+        mapNaviView.getViewOptions().setShowCameraDistance(true)
+        mapNaviView.getViewOptions().setRouteListButtonShow(true)
+        mapNaviView.getViewOptions().setAutoDisplayOverview(true)
+        mapNaviView.getViewOptions().setSecondActionVisible(true)
         mapNaviView.getViewOptions().setMapStyle(MapStyle.DAY, "")
         mapNaviView.getViewOptions().setTrafficLayerEnabled(true)
         mapNaviView.getViewOptions().setLaneInfoShow(true)
         mapNaviView.setShowTrafficLightView(true)
         mapNaviView.setShowDriveCongestion(true)
         mapNaviView.setTrafficLightsVisible(true)
+        mapNaviView.setRouteMarkerVisible(false, true, true, false, false)
         mapNaviView.setAMapNaviViewListener(this.mNaviViewListener!!)
         this.aMap = mapNaviView?.getMap()
         this.element?.bindAndroidView(mapNaviView!!)
