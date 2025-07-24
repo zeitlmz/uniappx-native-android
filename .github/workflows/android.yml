@@ -29,7 +29,7 @@ jobs:
           tr -d '\r' < gradlew > gradlew.fixed
           mv gradlew.fixed gradlew
           chmod +x gradlew
-      - name: Generate signed debug APK
+      - name: assembleRelease
         run: |
           ./gradlew assembleRelease
       #        env:
