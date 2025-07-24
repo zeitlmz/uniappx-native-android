@@ -40,9 +40,9 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: app-v4.0.5-64-release.apk
-          path: app/build/outputs/apk/64-32/release/app-v4.0.5-64-32-release.apk
+          path: app/build/outputs/apk/64-32/release
       - name: Upload-app/build/outputs/apk/64/release/app-v4.0.5-64-release.apk
         uses: actions/download-artifact@v4
         with:
           name: app-v4.0.5-64-32-release.apk
-          path: app/build/outputs/apk/64-32/release/app-v4.0.5-64-32-release.apk
+          path: app/build/outputs/apk/64-32/release
