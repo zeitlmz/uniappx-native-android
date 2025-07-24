@@ -31,7 +31,7 @@ jobs:
           chmod +x gradlew
       - name: assembleRelease
         run: |
-          ./gradlew assembleRelease
+          gradle app:assembleRelease
       #        env:
       #          ORG_GRADLE_PROJECT_DEBUG_STORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
       #          ORG_GRADLE_PROJECT_DEBUG_KEY_ALIAS: androiddebugkey
