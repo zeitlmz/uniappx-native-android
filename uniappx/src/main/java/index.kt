@@ -7,6 +7,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.os.Bundle
+import android.util.Log
 import android.util.SparseArray
 import android.view.Choreographer
 import android.view.Choreographer.FrameCallback
@@ -57,6 +58,7 @@ import io.dcloud.uniapp.framework.*
 import io.dcloud.uniapp.runtime.*
 import io.dcloud.uniapp.vue.*
 import io.dcloud.uniapp.vue.shared.*
+import io.dcloud.unicloud.*
 import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
@@ -90,18 +92,23 @@ import uts.sdk.modules.uniKuxrouter.createKuxRouter as uni_createKuxRouter
 import io.dcloud.uniapp.extapi.createSelectorQuery as uni_createSelectorQuery
 import io.dcloud.uniapp.extapi.exit as uni_exit
 import io.dcloud.uniapp.extapi.getAppBaseInfo as uni_getAppBaseInfo
+import io.dcloud.uniapp.extapi.getDeviceInfo as uni_getDeviceInfo
+import io.dcloud.uniapp.extapi.getPushClientId as uni_getPushClientId
 import io.dcloud.uniapp.extapi.getStorageSync as uni_getStorageSync
 import io.dcloud.uniapp.extapi.getSystemInfoSync as uni_getSystemInfoSync
 import io.dcloud.uniapp.extapi.hideLoading as uni_hideLoading
 import uts.sdk.modules.xLoadingS.hideXloading
 import uts.sdk.modules.xLoadingS.showLoading
 import io.dcloud.uniapp.extapi.loadFontFace as uni_loadFontFace
+import io.dcloud.uniapp.extapi.offPushMessage as uni_offPushMessage
 import io.dcloud.uniapp.extapi.onOsThemeChange as uni_onOsThemeChange
+import io.dcloud.uniapp.extapi.onPushMessage as uni_onPushMessage
 import uts.sdk.modules.mcPermissionRequest.permissionsRequest
 import uts.sdk.modules.mcPermissionRequest.requestNotificationPermission
 import io.dcloud.uniapp.extapi.removeStorageSync as uni_removeStorageSync
 import io.dcloud.uniapp.extapi.request as uni_request
 import io.dcloud.uniapp.extapi.rpx2px as uni_rpx2px
+import io.dcloud.uniapp.extapi.setAppBadgeNumber as uni_setAppBadgeNumber
 import io.dcloud.uniapp.extapi.setAppTheme as uni_setAppTheme
 import io.dcloud.uniapp.extapi.setStorageSync as uni_setStorageSync
 import io.dcloud.uniapp.extapi.showLoading as uni_showLoading
@@ -4656,19 +4663,19 @@ fun getLuminance(color: UTSJSONObject, type: String = "rgba"): Number {
     } else {
         ((rs + 0.055) / 1.055)
     }
-    , 2.4)
+        , 2.4)
     val gl = Math.pow(if (gs <= 0.03928) {
         gs / 12.92
     } else {
         ((gs + 0.055) / 1.055)
     }
-    , 2.4)
+        , 2.4)
     val bl = Math.pow(if (bs <= 0.03928) {
         bs / 12.92
     } else {
         ((bs + 0.055) / 1.055)
     }
-    , 2.4)
+        , 2.4)
     return 0.2126 * rl + 0.7152 * gl + 0.0722 * bl
 }
 fun colorAddDeepen(sColor: String): String {
@@ -5232,7 +5239,7 @@ fun checkIsCssUnit(str: Any, unit: String): String {
     } else {
         unit
     }
-    )
+            )
 }
 fun fillArrayCssValue(kVal: UTSArray<String>): UTSArray<String> {
     var ar: UTSArray<String> = kVal.map(fun(el: String): String {
@@ -5749,7 +5756,7 @@ open class xTween {
         val id = setTimeout(fun(){
             callback(currTime + timeToCall)
         }
-        , timeToCall)
+            , timeToCall)
         this.lastTime = currTime + timeToCall
         return handle
     }
@@ -5792,42 +5799,42 @@ open class xTween {
         } else {
             true
         }
-        , complete = if (opts?.complete != null) {
-            opts!!.complete!!
-        } else {
-            call
-        }
-        , enter = if (opts?.enter != null) {
-            opts!!.enter!!
-        } else {
-            call
-        }
-        , start = if (opts?.start != null) {
-            opts!!.start!!
-        } else {
-            call
-        }
-        , pause = if (opts?.pause != null) {
-            opts!!.pause!!
-        } else {
-            call
-        }
-        , loop = if (opts?.loop != null) {
-            opts!!.loop!!
-        } else {
-            1
-        }
-        , tyty = if (opts?.tyty != null) {
-            opts!!.tyty!!
-        } else {
-            false
-        }
-        , step = if (opts?.step != null) {
-            opts!!.step!!
-        } else {
-            1
-        }
-        , _finishLoop = 0, reverse = false))
+            , complete = if (opts?.complete != null) {
+                opts!!.complete!!
+            } else {
+                call
+            }
+            , enter = if (opts?.enter != null) {
+                opts!!.enter!!
+            } else {
+                call
+            }
+            , start = if (opts?.start != null) {
+                opts!!.start!!
+            } else {
+                call
+            }
+            , pause = if (opts?.pause != null) {
+                opts!!.pause!!
+            } else {
+                call
+            }
+            , loop = if (opts?.loop != null) {
+                opts!!.loop!!
+            } else {
+                1
+            }
+            , tyty = if (opts?.tyty != null) {
+                opts!!.tyty!!
+            } else {
+                false
+            }
+            , step = if (opts?.step != null) {
+                opts!!.step!!
+            } else {
+                1
+            }
+            , _finishLoop = 0, reverse = false))
         return uid
     }
     open fun removeAnimate(uid: String? = null): xTween {
@@ -6187,7 +6194,7 @@ val zhHans = xDateI18nType(weekdays = utsArrayOf(
         "下午"
     }
 }
-, relativeTime = xDateI18nTypeRelativeTime(future = "%s内", past = "%s前", s = "几秒", m = "1分钟", mm = "%d分钟", h = "1小时", hh = "%d小时", d = "1天", dd = "%d天", M = "1个月", MM = "%d个月", y = "1年", yy = "%d年"))
+    , relativeTime = xDateI18nTypeRelativeTime(future = "%s内", past = "%s前", s = "几秒", m = "1分钟", mm = "%d分钟", h = "1小时", hh = "%d小时", d = "1天", dd = "%d天", M = "1个月", MM = "%d个月", y = "1年", yy = "%d年"))
 val en = xDateI18nType(weekdays = utsArrayOf(
     "Sunday",
     "Monday",
@@ -6245,7 +6252,7 @@ val en = xDateI18nType(weekdays = utsArrayOf(
         }
     }
 }
-, relativeTime = xDateI18nTypeRelativeTime(future = "in %s", past = "%s ago", s = "a few seconds", m = "a minute", mm = "%d minutes", h = "an hour", hh = "%d hours", d = "a day", dd = "%d days", M = "a month", MM = "%d months", y = "a year", yy = "%d years"))
+    , relativeTime = xDateI18nTypeRelativeTime(future = "in %s", past = "%s ago", s = "a few seconds", m = "a minute", mm = "%d minutes", h = "an hour", hh = "%d hours", d = "a day", dd = "%d days", M = "a month", MM = "%d months", y = "a year", yy = "%d years"))
 val ja = xDateI18nType(weekdays = utsArrayOf(
     "日曜日",
     "月曜日",
@@ -6295,7 +6302,7 @@ val ja = xDateI18nType(weekdays = utsArrayOf(
         "午後"
     }
 }
-, relativeTime = xDateI18nTypeRelativeTime(future = "%s後", past = "%s前", s = "数秒", m = "1分", mm = "%d分", h = "1時間", hh = "%d時間", d = "1日", dd = "%d日", M = "1ヶ月", MM = "%dヶ月", y = "1年", yy = "%d年"))
+    , relativeTime = xDateI18nTypeRelativeTime(future = "%s後", past = "%s前", s = "数秒", m = "1分", mm = "%d分", h = "1時間", hh = "%d時間", d = "1日", dd = "%d日", M = "1ヶ月", MM = "%dヶ月", y = "1年", yy = "%d年"))
 val ko = xDateI18nType(weekdays = utsArrayOf(
     "일요일",
     "월요일",
@@ -6345,7 +6352,7 @@ val ko = xDateI18nType(weekdays = utsArrayOf(
         "오후"
     }
 }
-, relativeTime = xDateI18nTypeRelativeTime(future = "%s 후", past = "%s 전", s = "몇 초", m = "1분", mm = "%d분", h = "1시간", hh = "%d시간", d = "1일", dd = "%d일", M = "1개월", MM = "%d개월", y = "1년", yy = "%d년"))
+    , relativeTime = xDateI18nTypeRelativeTime(future = "%s 후", past = "%s 전", s = "몇 초", m = "1분", mm = "%d분", h = "1시간", hh = "%d시간", d = "1일", dd = "%d일", M = "1개월", MM = "%d개월", y = "1년", yy = "%d년"))
 val zhHant = xDateI18nType(weekdays = utsArrayOf(
     "星期日",
     "星期一",
@@ -6395,7 +6402,7 @@ val zhHant = xDateI18nType(weekdays = utsArrayOf(
         "下午"
     }
 }
-, relativeTime = xDateI18nTypeRelativeTime(future = "%s內", past = "%s前", s = "幾秒", m = "1分鐘", mm = "%d分鐘", h = "1小時", hh = "%d小時", d = "1天", dd = "%d天", M = "1個月", MM = "%d個月", y = "1年", yy = "%d年"))
+    , relativeTime = xDateI18nTypeRelativeTime(future = "%s內", past = "%s前", s = "幾秒", m = "1分鐘", mm = "%d分鐘", h = "1小時", hh = "%d小時", d = "1天", dd = "%d天", M = "1個月", MM = "%d個月", y = "1年", yy = "%d年"))
 val fr = xDateI18nType(weekdays = utsArrayOf(
     "dimanche",
     "lundi",
@@ -6441,7 +6448,7 @@ val fr = xDateI18nType(weekdays = utsArrayOf(
 ), meridiem = fun(hour: Number, minute: Number, isLowercase: Boolean): String {
     return ""
 }
-, relativeTime = xDateI18nTypeRelativeTime(future = "dans %s", past = "il y a %s", s = "quelques secondes", m = "une minute", mm = "%d minutes", h = "une heure", hh = "%d heures", d = "un jour", dd = "%d jours", M = "un mois", MM = "%d mois", y = "un an", yy = "%d ans"))
+    , relativeTime = xDateI18nTypeRelativeTime(future = "dans %s", past = "il y a %s", s = "quelques secondes", m = "une minute", mm = "%d minutes", h = "une heure", hh = "%d heures", d = "un jour", dd = "%d jours", M = "un mois", MM = "%d mois", y = "un an", yy = "%d ans"))
 val ru = xDateI18nType(weekdays = utsArrayOf(
     "воскресенье",
     "понедельник",
@@ -6487,7 +6494,7 @@ val ru = xDateI18nType(weekdays = utsArrayOf(
 ), meridiem = fun(hour: Number, minute: Number, isLowercase: Boolean): String {
     return ""
 }
-, relativeTime = xDateI18nTypeRelativeTime(future = "через %s", past = "%s назад", s = "несколько секунд", m = "минута", mm = "%d минут", h = "час", hh = "%d часов", d = "день", dd = "%d дней", M = "месяц", MM = "%d месяцев", y = "год", yy = "%d лет"))
+    , relativeTime = xDateI18nTypeRelativeTime(future = "через %s", past = "%s назад", s = "несколько секунд", m = "минута", mm = "%d минут", h = "час", hh = "%d часов", d = "день", dd = "%d дней", M = "месяц", MM = "%d месяцев", y = "год", yy = "%d лет"))
 val locales: Map<xDateLanguage, xDateI18nType> = Map(utsArrayOf(
     utsArrayOf(
         "zh-Hans",
@@ -6829,14 +6836,14 @@ open class xDate {
         } else {
             target.getDay()
         }
-        ))
+                ))
         var firstDayOfYear = Date(target.getFullYear(), 0, 1)
         firstDayOfYear.setDate(firstDayOfYear.getDate() - (if (firstDayOfYear.getDay() == 0) {
             7
         } else {
             firstDayOfYear.getDay()
         }
-        ))
+                ))
         return Math.ceil((((target.getTime() - firstDayOfYear.getTime()) / 86400000) + 1) / 7)
     }
     open fun getDateStartOf(d: String = "m"): xDate {
@@ -7167,7 +7174,7 @@ open class xDate {
                 str = bijiaodate.format(fmt)
             }
         }
-         catch (e: Throwable) {}
+        catch (e: Throwable) {}
         return str
     }
     open fun diffTime(target: Any, type: xDateTypeTime = "s"): Number {
@@ -7321,12 +7328,12 @@ open class xCacheManager {
         try {
             uni_setStorageSync("xCacheManager", this.cache)
         }
-         catch (error: Throwable) {
+        catch (error: Throwable) {
             this.pruneCache()
             try {
                 uni_setStorageSync("xCacheManager", this.cache)
             }
-             catch (e: Throwable) {
+            catch (e: Throwable) {
                 console.error("二次缓存设置失败")
             }
         }
@@ -7494,41 +7501,41 @@ open class xRequest {
         var p = utsArrayOf<Any>()
         fun customPromiseAll(evt: funType): UTSPromise<Any> {
             return wrapUTSPromise(suspend w@{
-                    if (i >= len) {
+                if (i >= len) {
+                    return@w UTSPromise.resolve(p)
+                }
+                var arg: Any = _this.selfOpts
+                if (_this.status != "auth" && _this.status != "before") {
+                    arg = _this.result as xRequestResult
+                }
+                var v = await(evt(arg))
+                if ((_this.status == "auth") && UTSAndroid.`typeof`(v) != "boolean") {
+                    v = true
+                }
+                if ((_this.status == "before") && UTSAndroid.`typeof`(v) != "boolean") {
+                    var beforeOpts = JSON.stringify(v)
+                    _this.setOptions(JSON.parse<xRequestOptions>(beforeOpts!!)!!)
+                    v = true
+                }
+                if ((_this.status == "before") && UTSAndroid.`typeof`(v) == "boolean") {
+                    var iabort = v as Boolean
+                    if (!iabort) {
+                        p.push(v as Boolean)
                         return@w UTSPromise.resolve(p)
                     }
-                    var arg: Any = _this.selfOpts
-                    if (_this.status != "auth" && _this.status != "before") {
-                        arg = _this.result as xRequestResult
-                    }
-                    var v = await(evt(arg))
-                    if ((_this.status == "auth") && UTSAndroid.`typeof`(v) != "boolean") {
-                        v = true
-                    }
-                    if ((_this.status == "before") && UTSAndroid.`typeof`(v) != "boolean") {
-                        var beforeOpts = JSON.stringify(v)
-                        _this.setOptions(JSON.parse<xRequestOptions>(beforeOpts!!)!!)
-                        v = true
-                    }
-                    if ((_this.status == "before") && UTSAndroid.`typeof`(v) == "boolean") {
-                        var iabort = v as Boolean
-                        if (!iabort) {
-                            p.push(v as Boolean)
-                            return@w UTSPromise.resolve(p)
-                        }
-                    }
-                    if ((_this.status == "after") && UTSAndroid.`typeof`(v) == "object") {
-                        _this.result = v as xRequestResult
-                    }
-                    if (_this.status == "success" || _this.status == "timeout" || _this.status == "error" || _this.status == "abort" || _this.status == "complete") {
-                        v = _this.result
-                    }
-                    i += 1
-                    p.push(v)
-                    if (i >= len) {
-                        return@w UTSPromise.resolve(p)
-                    }
-                    return@w await(customPromiseAll(lst[i]))
+                }
+                if ((_this.status == "after") && UTSAndroid.`typeof`(v) == "object") {
+                    _this.result = v as xRequestResult
+                }
+                if (_this.status == "success" || _this.status == "timeout" || _this.status == "error" || _this.status == "abort" || _this.status == "complete") {
+                    v = _this.result
+                }
+                i += 1
+                p.push(v)
+                if (i >= len) {
+                    return@w UTSPromise.resolve(p)
+                }
+                return@w await(customPromiseAll(lst[i]))
             })
         }
         return UTSPromise(fun(res, rej){
@@ -7575,155 +7582,155 @@ open class xRequest {
     }
     open fun request(opts: xRequestOptions? = null): UTSPromise<xRequestResult> {
         return wrapUTSPromise(suspend w@{
-                var _this = this
-                var _thisOpts = this.setOptions(opts)
-                var requestId = getUid1()
-                if (xRequestCall.dev) {
-                    xRequestCall.history.push(xRequestHistoryType(id = requestId, loading = true, loaded = false, status = "", time = Date.now(), api = _thisOpts.url, result = UTSJSONObject() as Any))
-                }
-                if (_thisOpts.showLoadToast) {
-                    uni_showLoading(ShowLoadingOptions(title = _thisOpts!!.loadToastText!!, mask = true))
-                }
-                val url = _thisOpts.hostUrl + _thisOpts.url
-                if (url == "" || _thisOpts.hostUrl == "") {
-                    this.status = "error"
-                    this._setDevReqStatus(requestId)
-                    await(this._callFun_build())
-                    console.warn("未填写请求接口")
-                    if (_thisOpts.showLoadToast) {
-                        uni_hideLoading()
-                    }
-                    if (_thisOpts.showErrorToast) {
-                        return@w UTSPromise<xRequestResult>(fun(tres, trej){
-                            uni_showToast(ShowToastOptions(title = "未填请求域名", icon = "error", mask = true, complete = fun(_) {
-                                trej(_this.result)
-                            }
-                            ))
-                        }
-                        )
-                    }
-                    return@w UTSPromise.reject(_this.result)
-                }
-                if (xRequestCall.authPass == false) {
-                    this.status = "auth"
-                    console.warn("授权失败，中断请求")
-                    this._setDevReqStatus(requestId)
-                    await(this._callFun_build())
-                    if (_thisOpts.showLoadToast) {
-                        uni_hideLoading()
-                    }
-                    return@w UTSPromise.reject(_thisOpts)
-                }
-                if (_thisOpts.useCache && (_thisOpts.method == "GET" || _thisOpts.method == "POST")) {
-                    val cachedResponse = this.cacheManager.get(_thisOpts)
-                    if (cachedResponse != null) {
-                        val cachedata = cachedResponse as UTSJSONObject
-                        val _cookies = cachedata.getArray<String>("cookies")
-                        val cacheResult = xRequestResult(data = cachedata.getAny("data"), statusCode = cachedata.getNumber("statusCode")!!, header = cachedata.getAny("header")!!, cookies = if (_cookies == null) {
-                            (utsArrayOf<String>())
-                        } else {
-                            _cookies!!
-                        }
-                        )
-                        if (_thisOpts.showLoadToast) {
-                            uni_hideLoading()
-                        }
-                        return@w UTSPromise.resolve(cacheResult)
-                    }
-                }
-                this.status = "before"
+            var _this = this
+            var _thisOpts = this.setOptions(opts)
+            var requestId = getUid1()
+            if (xRequestCall.dev) {
+                xRequestCall.history.push(xRequestHistoryType(id = requestId, loading = true, loaded = false, status = "", time = Date.now(), api = _thisOpts.url, result = UTSJSONObject() as Any))
+            }
+            if (_thisOpts.showLoadToast) {
+                uni_showLoading(ShowLoadingOptions(title = _thisOpts!!.loadToastText!!, mask = true))
+            }
+            val url = _thisOpts.hostUrl + _thisOpts.url
+            if (url == "" || _thisOpts.hostUrl == "") {
+                this.status = "error"
                 this._setDevReqStatus(requestId)
-                var jg2 = await(this._callFun_build())
-                var isAbor = (jg2 as UTSArray<Boolean>).some(fun(el): Boolean {
-                    return !el
+                await(this._callFun_build())
+                console.warn("未填写请求接口")
+                if (_thisOpts.showLoadToast) {
+                    uni_hideLoading()
                 }
-                )
-                if (isAbor) {
-                    console.warn("事件before中断了请求")
-                    this.status = "abort"
-                    this._setDevReqStatus(requestId)
-                    await(this._callFun_build())
+                if (_thisOpts.showErrorToast) {
+                    return@w UTSPromise<xRequestResult>(fun(tres, trej){
+                        uni_showToast(ShowToastOptions(title = "未填请求域名", icon = "error", mask = true, complete = fun(_) {
+                            trej(_this.result)
+                        }
+                        ))
+                    }
+                    )
+                }
+                return@w UTSPromise.reject(_this.result)
+            }
+            if (xRequestCall.authPass == false) {
+                this.status = "auth"
+                console.warn("授权失败，中断请求")
+                this._setDevReqStatus(requestId)
+                await(this._callFun_build())
+                if (_thisOpts.showLoadToast) {
+                    uni_hideLoading()
+                }
+                return@w UTSPromise.reject(_thisOpts)
+            }
+            if (_thisOpts.useCache && (_thisOpts.method == "GET" || _thisOpts.method == "POST")) {
+                val cachedResponse = this.cacheManager.get(_thisOpts)
+                if (cachedResponse != null) {
+                    val cachedata = cachedResponse as UTSJSONObject
+                    val _cookies = cachedata.getArray<String>("cookies")
+                    val cacheResult = xRequestResult(data = cachedata.getAny("data"), statusCode = cachedata.getNumber("statusCode")!!, header = cachedata.getAny("header")!!, cookies = if (_cookies == null) {
+                        (utsArrayOf<String>())
+                    } else {
+                        _cookies!!
+                    }
+                    )
                     if (_thisOpts.showLoadToast) {
                         uni_hideLoading()
                     }
-                    return@w UTSPromise.reject(this.result)
+                    return@w UTSPromise.resolve(cacheResult)
                 }
-                return@w UTSPromise(fun(res, rej){
-                    _this.reqtask = uni_request<Any>(RequestOptions(url = url, data = _thisOpts.data, header = _thisOpts.header, method = _thisOpts.method, timeout = _thisOpts.timeout, firstIpv4 = _thisOpts.firstIpv4, sslVerify = false, withCredentials = false, dataType = _thisOpts.dataType, responseType = _thisOpts.responseType, success = fun(rst) {
-                        _this.result = xRequestResult(data = rst.data, statusCode = rst.statusCode, header = rst.header, cookies = rst.cookies as UTSArray<String>)
-                        _this.status = "after"
-                        _this._setDevReqStatus(requestId)
-                        _this._callFun_build().then(fun(v){
-                            if (_thisOpts.successStatusCode != rst.statusCode) {
-                                _this.status = "error"
-                                _this.result.statusCode = rst.statusCode
-                                _this._setDevReqStatus(requestId)
-                                _this._callFun_build().then(fun(){
-                                    if (_thisOpts.showLoadToast) {
-                                        uni_hideLoading()
-                                    }
-                                    if (_thisOpts.showErrorToast) {
-                                        var msg = _thisOpts!!.errorToastText
-                                        msg = if (msg == "") {
-                                            ("服务器错误:" + rst.statusCode.toString(10))
-                                        } else {
-                                            msg
-                                        }
-                                        uni_showToast(ShowToastOptions(title = msg!!, mask = true, icon = "error", complete = fun(_) {
-                                            rej(_this.result)
-                                        }))
-                                    } else {
-                                        rej(_this.result)
-                                    }
-                                }
-                                )
-                                return
-                            }
-                            var jgtss = v as UTSArray<xRequestResult>
-                            var formartv = _this.result as xRequestResult
-                            if (jgtss.length > 0) {
-                                formartv = jgtss[jgtss.length - 1]
-                            }
-                            _this.result = formartv
-                            _this.status = "success"
+            }
+            this.status = "before"
+            this._setDevReqStatus(requestId)
+            var jg2 = await(this._callFun_build())
+            var isAbor = (jg2 as UTSArray<Boolean>).some(fun(el): Boolean {
+                return !el
+            }
+            )
+            if (isAbor) {
+                console.warn("事件before中断了请求")
+                this.status = "abort"
+                this._setDevReqStatus(requestId)
+                await(this._callFun_build())
+                if (_thisOpts.showLoadToast) {
+                    uni_hideLoading()
+                }
+                return@w UTSPromise.reject(this.result)
+            }
+            return@w UTSPromise(fun(res, rej){
+                _this.reqtask = uni_request<Any>(RequestOptions(url = url, data = _thisOpts.data, header = _thisOpts.header, method = _thisOpts.method, timeout = _thisOpts.timeout, firstIpv4 = _thisOpts.firstIpv4, sslVerify = false, withCredentials = false, dataType = _thisOpts.dataType, responseType = _thisOpts.responseType, success = fun(rst) {
+                    _this.result = xRequestResult(data = rst.data, statusCode = rst.statusCode, header = rst.header, cookies = rst.cookies as UTSArray<String>)
+                    _this.status = "after"
+                    _this._setDevReqStatus(requestId)
+                    _this._callFun_build().then(fun(v){
+                        if (_thisOpts.successStatusCode != rst.statusCode) {
+                            _this.status = "error"
+                            _this.result.statusCode = rst.statusCode
                             _this._setDevReqStatus(requestId)
                             _this._callFun_build().then(fun(){
                                 if (_thisOpts.showLoadToast) {
                                     uni_hideLoading()
                                 }
-                                _this.cacheManager.set(_thisOpts, _this.result)
-                                if (_thisOpts.showSuccessToast) {
-                                    var d = formartv.data
-                                    var msg = _thisOpts!!.successToastText
-                                    if (UTSAndroid.`typeof`(d) == "object" && d != null && !UTSArray.isArray(d) && msg == "") {
-                                        try {
-                                            var s = d as UTSJSONObject
-                                            msg = if (s.getString("msg") != null) {
-                                                s.getString("msg")!!
-                                            } else {
-                                                msg
-                                            }
-                                        }
-                                         catch (e: Throwable) {
-                                            console.error("服务没有返回msg字段")
-                                        }
-                                    }
+                                if (_thisOpts.showErrorToast) {
+                                    var msg = _thisOpts!!.errorToastText
                                     msg = if (msg == "") {
-                                        "操作成功"
+                                        ("服务器错误:" + rst.statusCode.toString(10))
                                     } else {
                                         msg
                                     }
-                                    uni_showToast(ShowToastOptions(title = msg!!, icon = "none", mask = true, complete = fun(_) {
-                                        res(_this.result)
+                                    uni_showToast(ShowToastOptions(title = msg!!, mask = true, icon = "error", complete = fun(_) {
+                                        rej(_this.result)
                                     }))
                                 } else {
-                                    res(_this.result)
+                                    rej(_this.result)
                                 }
                             }
                             )
+                            return
+                        }
+                        var jgtss = v as UTSArray<xRequestResult>
+                        var formartv = _this.result as xRequestResult
+                        if (jgtss.length > 0) {
+                            formartv = jgtss[jgtss.length - 1]
+                        }
+                        _this.result = formartv
+                        _this.status = "success"
+                        _this._setDevReqStatus(requestId)
+                        _this._callFun_build().then(fun(){
+                            if (_thisOpts.showLoadToast) {
+                                uni_hideLoading()
+                            }
+                            _this.cacheManager.set(_thisOpts, _this.result)
+                            if (_thisOpts.showSuccessToast) {
+                                var d = formartv.data
+                                var msg = _thisOpts!!.successToastText
+                                if (UTSAndroid.`typeof`(d) == "object" && d != null && !UTSArray.isArray(d) && msg == "") {
+                                    try {
+                                        var s = d as UTSJSONObject
+                                        msg = if (s.getString("msg") != null) {
+                                            s.getString("msg")!!
+                                        } else {
+                                            msg
+                                        }
+                                    }
+                                    catch (e: Throwable) {
+                                        console.error("服务没有返回msg字段")
+                                    }
+                                }
+                                msg = if (msg == "") {
+                                    "操作成功"
+                                } else {
+                                    msg
+                                }
+                                uni_showToast(ShowToastOptions(title = msg!!, icon = "none", mask = true, complete = fun(_) {
+                                    res(_this.result)
+                                }))
+                            } else {
+                                res(_this.result)
+                            }
                         }
                         )
                     }
+                    )
+                }
                     , fail = fun(er) {
                         if (er.errCode == 5) {
                             _this.status = "timeout"
@@ -7751,9 +7758,9 @@ open class xRequest {
                         _this._setDevReqStatus(requestId)
                         _this._callFun_build()
                     }
-                    ))
-                }
-                )
+                ))
+            }
+            )
         })
     }
     companion object {
@@ -8360,7 +8367,7 @@ open class xAnimate {
                                         } else {
                                             easeInt
                                         }
-                                        )
+                                                )
                                     }
                                     if (_this.element != null) {
                                         _this._setAttr(item.name, current, item.unit, progress, item)
@@ -8396,7 +8403,7 @@ open class xAnimate {
                                     } else {
                                         easeInt
                                     }
-                                    )
+                                            )
                                 }
                                 if (_this.element != null) {
                                     _this._setAttr(item.name, current, item.unit, progress, item)
@@ -8588,62 +8595,62 @@ open class xUploadMedia {
         } else {
             opts.count as Number
         }
-        , statusCode = if (opts.statusCode == null) {
-            this.config.statusCode
-        } else {
-            opts.statusCode as Number
-        }
-        , sourceType = if (opts.sourceType == null) {
-            this.config.sourceType
-        } else {
-            opts.sourceType as UTSArray<String>
-        }
-        , sizeType = if (opts.sizeType == null) {
-            this.config.sizeType
-        } else {
-            opts.sizeType as UTSArray<String>
-        }
-        , hostUrl = if (opts.hostUrl == null) {
-            this.config.hostUrl
-        } else {
-            opts.hostUrl as String
-        }
-        , name = if (opts.name == null) {
-            this.config.name
-        } else {
-            opts.name as String
-        }
-        , header = if (opts.header == null) {
-            this.config.header
-        } else {
-            opts.header as UTSJSONObject
-        }
-        , formData = if (opts.formData == null) {
-            this.config.formData
-        } else {
-            opts.formData as UTSJSONObject
-        }
-        , multipart = if (opts.multipart == null) {
-            this.config.multipart
-        } else {
-            opts.multipart as Boolean
-        }
-        , autoUpload = if (opts.autoUpload == null) {
-            this.config.autoUpload
-        } else {
-            opts.autoUpload as Boolean
-        }
-        , compress = if (opts.compress == null) {
-            this.config.compress
-        } else {
-            opts.compress as Boolean
-        }
-        , quality = if (opts.quality == null) {
-            this.config.quality
-        } else {
-            opts.quality as Number
-        }
-        , compressedHeight = opts.compressedHeight, compressedWidth = opts.compressedWidth)
+            , statusCode = if (opts.statusCode == null) {
+                this.config.statusCode
+            } else {
+                opts.statusCode as Number
+            }
+            , sourceType = if (opts.sourceType == null) {
+                this.config.sourceType
+            } else {
+                opts.sourceType as UTSArray<String>
+            }
+            , sizeType = if (opts.sizeType == null) {
+                this.config.sizeType
+            } else {
+                opts.sizeType as UTSArray<String>
+            }
+            , hostUrl = if (opts.hostUrl == null) {
+                this.config.hostUrl
+            } else {
+                opts.hostUrl as String
+            }
+            , name = if (opts.name == null) {
+                this.config.name
+            } else {
+                opts.name as String
+            }
+            , header = if (opts.header == null) {
+                this.config.header
+            } else {
+                opts.header as UTSJSONObject
+            }
+            , formData = if (opts.formData == null) {
+                this.config.formData
+            } else {
+                opts.formData as UTSJSONObject
+            }
+            , multipart = if (opts.multipart == null) {
+                this.config.multipart
+            } else {
+                opts.multipart as Boolean
+            }
+            , autoUpload = if (opts.autoUpload == null) {
+                this.config.autoUpload
+            } else {
+                opts.autoUpload as Boolean
+            }
+            , compress = if (opts.compress == null) {
+                this.config.compress
+            } else {
+                opts.compress as Boolean
+            }
+            , quality = if (opts.quality == null) {
+                this.config.quality
+            } else {
+                opts.quality as Number
+            }
+            , compressedHeight = opts.compressedHeight, compressedWidth = opts.compressedWidth)
         return this.config
     }
     open fun stop() {
@@ -8778,10 +8785,10 @@ open class xUploadMedia {
                     }
                 }
             }
-            , fail = fun(err){
-                this.chooseBefore(utsArrayOf<String>())
-                console.warn("xUploadMedia:", err)
-            }
+                , fail = fun(err){
+                    this.chooseBefore(utsArrayOf<String>())
+                    console.warn("xUploadMedia:", err)
+                }
             ))
         }
     }
@@ -8854,10 +8861,10 @@ open class xUploadMedia {
                     i += 1
                     compress()
                 }
-                , fail = fun(err){
-                    i += 1
-                    compress()
-                }
+                    , fail = fun(err){
+                        i += 1
+                        compress()
+                    }
                 ))
             }
             if (this.config.compress) {
@@ -8897,17 +8904,17 @@ open class xUploadMedia {
                 } else {
                     "待上传"
                 }
-                , status = el?.status ?: 2, path = name, progress = if (status == 2) {
-                    100
-                } else {
-                    0
-                }
-                , response = if (el.response == null) {
-                    ""
-                } else {
-                    el.response!! as String
-                }
-                , name = name.substring(name.lastIndexOf("/") + 1)))
+                    , status = el?.status ?: 2, path = name, progress = if (status == 2) {
+                        100
+                    } else {
+                        0
+                    }
+                    , response = if (el.response == null) {
+                        ""
+                    } else {
+                        el.response!! as String
+                    }
+                    , name = name.substring(name.lastIndexOf("/") + 1)))
                 ++i
             }
         }
@@ -8981,16 +8988,16 @@ open class xUploadMedia {
                 this.uploadFile()
                 this.myChangeSync(this.fileList)
             }
-            , fail = fun(err){
-                console.error("上传失败了,请检查配置:", err)
-                this.fileList[this.currentIndex].status = 3
-                this.fileList[this.currentIndex].statusText = "上传失败"
-                this.currentIndex += 1
-                this.uploadFile()
-            }
-            , complete = fun(_){
-                this.myChangeSync(this.fileList)
-            }
+                , fail = fun(err){
+                    console.error("上传失败了,请检查配置:", err)
+                    this.fileList[this.currentIndex].status = 3
+                    this.fileList[this.currentIndex].statusText = "上传失败"
+                    this.currentIndex += 1
+                    this.uploadFile()
+                }
+                , complete = fun(_){
+                    this.myChangeSync(this.fileList)
+                }
             ))
             this.uploadObj?.onProgressUpdate(fun(res){
                 this.fileList[this.currentIndex].progress = res.progress
@@ -9065,6 +9072,75 @@ val getTheme = fun(): Theme {
 val runBlock2 = run {
     setTheme(currentTheme)
 }
+val callCloudFunction = fun(methodName: String, param: UTSJSONObject){
+    console.log("callCloudFunction methodName=", methodName, ", param=", param)
+    uniCloud.callFunction(UniCloudCallFunctionOptions(name = methodName, data = param)).then(fun(res){
+        console.log("callFunction ", methodName, " res=", res)
+        Log.i("unipush", "callFunction 调用成功返回："+res)
+    }
+    ).`catch`(fun(err){
+        console.error("callFunction", methodName, "err=", err)
+        Log.i("unipush", "callFunction 调用异常返回："+err)
+    }
+    )
+}
+val getPushClientId = fun(userInfoId: String){
+    console.log("getPushClientId 开始获取, userInfoId=", userInfoId)
+    Log.i("unipush", "getPushClientId 开始获取, userInfoId"+userInfoId)
+    var pushClientId = ""
+    val deviceId = uni_getDeviceInfo(null)?.deviceId
+    uni_getPushClientId(GetPushClientIdOptions(success = fun(res: GetPushClientIdSuccess){
+        console.log("pushClientId====", res.cid)
+        pushClientId = res.cid
+        callCloudFunction("upsertUniIdInfo", object : UTSJSONObject() {
+            var device_id = deviceId
+            var user_id = userInfoId
+            var token_expired: Number = 3600
+            var push_clientid = pushClientId
+        })
+    }
+        , fail = fun(err: GetPushClientIdFail){
+            console.error("getPushClientId err=", err)
+            if (err.message.includes("uniPush is not enabled")) {
+                uni_showModal(ShowModalOptions(title = "获取cid失败", content = "当前项目未启用uni-push，检查manifest.json中的uni-push配置", showCancel = false))
+            } else if (err.message.includes("getPushClientId:fail register fail: {\"errorCode\":1,\"errorMsg\":\"\"}")) {
+                uni_showModal(ShowModalOptions(title = "获取cid失败", content = "当前项目未开通uni-push，开通文档：https://uniapp.dcloud.net.cn/unipush-v2.html#%E7%AC%AC%E4%B8%80%E6%AD%A5-%E5%BC%80%E9%80%9A", showCancel = false))
+            } else {
+                uni_showToast(ShowToastOptions(title = "\u83B7\u53D6cid\u5931\u8D25", icon = "error"))
+            }
+        }
+    ))
+}
+val setAlias = fun(userInfoId: String){
+    console.log("开始设置别名")
+    getPushClientId(userInfoId)
+}
+val setAppBadgeNumber = fun(num: Number){
+    console.log("开始设置角标数字：", num)
+    uni_setAppBadgeNumber(num, null)
+}
+val onPushMessage = fun(userInfoId: String?){
+    console.log("开始监听推送消息")
+    setAppBadgeNumber(0)
+    uni_onPushMessage(fun(res){
+        console.log("收到推送消息：", res)
+        if (res.type == "click") {
+            console.log("点击推送消息")
+            setAppBadgeNumber(0)
+        }
+    }
+    )
+    if (userInfoId != null) {
+        setAlias(userInfoId)
+    }
+}
+val offPushMessage = fun(){
+    console.log("开始关闭推送消息")
+    uni_offPushMessage(fun(res){
+        console.log("关闭推送消息：", res)
+    }
+    )
+}
 val TOKEN_HEADER = "MC-CLIENT-TOKEN"
 val systemInfo = uni_getSystemInfoSync()
 val ENTRYSTATUS_KEY = "ENTRYSTATUS_CACHE_KEY"
@@ -9082,7 +9158,7 @@ val TOKEN_KEY = "mcIntercityCarToken" + (if (isRelease) {
 } else {
     "Dev"
 }
-)
+        )
 val setToken = fun(userInfo: Any){
     uni_setStorageSync(TOKEN_KEY, userInfo)
 }
@@ -9094,7 +9170,7 @@ val USER_INFO_KEY = "mcIntercityCarAppUserInfo" + (if (isRelease) {
 } else {
     "Dev"
 }
-)
+        )
 val getCacheUserInfo = fun(): UTSJSONObject? {
     val userInfo = uni_getStorageSync(USER_INFO_KEY)
     if (userInfo != null) {
@@ -9224,9 +9300,9 @@ open class WebSocketClient {
         this.socketTask = uni_connectSocket(ConnectSocketOptions(url = this.url, success = fun(_){
             console.log("WebSocket连接创建成功-url:", this.url)
         }
-        , fail = fun(error){
-            console.error("WebSocket连接创建失败:", error)
-        }
+            , fail = fun(error){
+                console.error("WebSocket连接创建失败:", error)
+            }
         ))
         this.socketTask?.onOpen(fun(_result){
             console.log("WebSocket连接已打开")
@@ -9236,7 +9312,7 @@ open class WebSocketClient {
             setTimeout(fun(){
                 hideXloading()
             }
-            , 150)
+                , 150)
             if (this.heartbeat) {
                 this.startHeartbeat()
             }
@@ -9262,7 +9338,7 @@ open class WebSocketClient {
                     this.callBackOnceMap.`delete`(message.type)
                 }
             }
-             catch (e: Throwable) {
+            catch (e: Throwable) {
                 console.error("消息解析错误:", e)
             }
         }
@@ -9335,7 +9411,7 @@ open class WebSocketClient {
             }
             ))
         }
-         catch (e: Throwable) {
+        catch (e: Throwable) {
             console.error("消息发送失败:", e)
         }
     }
@@ -9352,11 +9428,11 @@ open class WebSocketClient {
             setTimeout(fun(){
                 showLoading(XLOADINGS_TYPE(title = "服务正在重连"))
             }
-            , 250)
+                , 250)
             this.reconnectId = setInterval(fun(){
                 this.connectSocket()
             }
-            , this.reconnectIntervalSecond)
+                , this.reconnectIntervalSecond)
         }
     }
     private fun startHeartbeat(): Unit {
@@ -9364,7 +9440,7 @@ open class WebSocketClient {
         this.heartbeatTimer = setInterval(fun(){
             this.send(WebSocketSendMessage(type = MessageType["WS_PING"] as Number, content = "ping"))
         }
-        , this.heartbeatInterval)
+            , this.heartbeatInterval)
     }
     private fun stopHeartbeat(): Unit {
         clearInterval(this.heartbeatTimer)
@@ -9414,8 +9490,9 @@ val clearAuth = fun(){
     uni_removeStorageSync(USER_INFO_KEY)
     uni_removeStorageSync(ENTRYSTATUS_KEY)
     JgUtil.stopPush()
+    offPushMessage()
 }
-val runBlock3 = run {
+//val runBlock3 = run {
 //    if (isPre) {
 //        baseUrl = "https://www.mctwlx.com/pre-srv"
 //        wsBaseUrl = "wss://www.mctwlx.com/pre-ws/mcpt-engine-driverWs/driverWs"
@@ -9423,7 +9500,7 @@ val runBlock3 = run {
 //        baseUrl = "https://www.mctwlx.com/srv"
 //        wsBaseUrl = "wss://www.mctwlx.com/ws/mcpt-engine-driverWs/driverWs"
 //    }
-}
+//}
 val resBaseUrl = "https://prod.resource.mctwlx.com/car/app-resources/driver"
 val miniProgramCover = resBaseUrl + "/static/images/img-self-share-reward.png"
 val mapBaseUrl = "https://restapi.amap.com"
@@ -9460,19 +9537,19 @@ open class GenApp : BaseApp {
                 uni_setStorageSync("loadedFontBytmx", "true")
                 console.log("global loadFontFace uni.ttf success===")
             }
-            , fail = fun(error) {
-                uni_setStorageSync("loadedFontBytmx", "")
-                console.warn("global loadFontFace uni.ttf fail--", error.errMsg)
-            }
+                , fail = fun(error) {
+                    uni_setStorageSync("loadedFontBytmx", "")
+                    console.warn("global loadFontFace uni.ttf fail--", error.errMsg)
+                }
             ))
         }
-        , __ins)
+            , __ins)
         onAppShow(fun(_: OnShowOptions) {
             if (getPrivacyStatus()) {
                 this.globalData.jg?.clearBadgeNumber()
             }
         }
-        , __ins)
+            , __ins)
         onAppHide(fun() {}, __ins)
         onLastPageBackPress(fun() {
             if (firstBackTime == 0) {
@@ -9486,7 +9563,7 @@ open class GenApp : BaseApp {
                 uni_exit(null)
             }
         }
-        , __ins)
+            , __ins)
         onExit(fun() {}, __ins)
     }
     open val globalData: GenGlobalData
@@ -9643,9 +9720,9 @@ open class GenApp : BaseApp {
 val GenAppClass = CreateVueAppComponent(GenApp::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "app", name = "", inheritAttrs = true, inject = Map(), props = Map(), propsNeedCastKeys = utsArrayOf(), emits = Map(), components = Map(), styles = GenApp.styles)
 }
-, fun(instance): GenApp {
-    return GenApp(instance)
-}
+    , fun(instance): GenApp {
+        return GenApp(instance)
+    }
 )
 typealias PagePath = String
 open class PageItem (
@@ -9878,6 +9955,11 @@ val pages = utsArrayOf(
         var navigationBarTitleText = "预览页面"
         var enablePullDownRefresh = false
         var navigationStyle = "custom"
+    }),
+    PageItem(path = "/pages/personal/setting/account-safe/account-bind/index", name = "PagesPersonalSettingAccountSafeAccountBindIndex", needLogin = false, meta = UTSJSONObject(), query = UTSJSONObject(), data = UTSJSONObject(), style = object : UTSJSONObject() {
+        var navigationBarTitleText = "账号绑定管理"
+        var enablePullDownRefresh = false
+        var navigationStyle = "custom"
     })
 ) as UTSArray<PageItem>
 var routes: UTSArray<RouteRecordNormalized> = utsArrayOf()
@@ -9912,9 +9994,9 @@ val GenComponentsMcEnvTagIndexClass = CreateVueComponent(GenComponentsMcEnvTagIn
     }
     )
 }
-, fun(instance, renderer): GenComponentsMcEnvTagIndex {
-    return GenComponentsMcEnvTagIndex(instance)
-}
+    , fun(instance, renderer): GenComponentsMcEnvTagIndex {
+        return GenComponentsMcEnvTagIndex(instance)
+    }
 )
 typealias SuccessCallback = (res: LocationResult) -> Unit
 open class AmapNavOption (
@@ -9992,7 +10074,7 @@ fun loadImageFromAssets(fname: String): Bitmap? {
         var inputStream = assetManager.open(fname)
         bitmap = BitmapFactory.decodeStream(inputStream)
     }
-     catch (e: Throwable) {}
+    catch (e: Throwable) {}
     return bitmap
 }
 open class PlatformUtils {
@@ -10028,9 +10110,9 @@ open class PlatformUtils {
                 callback(false, "用户拒绝了部分权限")
             }
         }
-        , fun(_: Boolean, _: UTSArray<String>) {
-            callback(false, "用户拒绝了部分权限")
-        }
+            , fun(_: Boolean, _: UTSArray<String>) {
+                callback(false, "用户拒绝了部分权限")
+            }
         )
     }
 }
@@ -10406,12 +10488,12 @@ open class NativeMap {
                 console.log("用户仅同意了 grantedList中的权限", grantedList)
             }
         }
-        , fun(doNotAskAgain: Boolean, grantedList: UTSArray<String>) {
-            console.log("用户拒绝了部分权限，仅允许了grantedList中的权限")
-            if (doNotAskAgain) {
-                console.log("用户拒绝了权限，并且选择不再询问")
+            , fun(doNotAskAgain: Boolean, grantedList: UTSArray<String>) {
+                console.log("用户拒绝了部分权限，仅允许了grantedList中的权限")
+                if (doNotAskAgain) {
+                    console.log("用户拒绝了权限，并且选择不再询问")
+                }
             }
-        }
         )
     }
     open fun getLocation(options: SingleLocationOptions, successCallback: SuccessCallback) {
@@ -10534,34 +10616,34 @@ open class NativeMap {
             )
             this.options?.calcSuccessCb?.invoke(JSON.stringify(data))
         }
-        , fun(){
-            this.options?.arriveCb?.invoke()
-        }
-        , fun(){
-            this.clearRoute()
-        }
-        , fun(data: NaviInfo){
-            val arr: UTSArray<UTSJSONObject> = utsArrayOf()
-            console.log("导航信息更新-sdk:", data)
-            data.getToViaInfo()?.forEach(fun(item: AMapNaviToViaInfo){
-                arr.push(object : UTSJSONObject() {
-                    var distance = item.getDistance()
-                    var time = item.getTime()
-                })
+            , fun(){
+                this.options?.arriveCb?.invoke()
             }
-            )
-            if (arr.length > 0) {
-                console.log("导航信息更新-多单:", data.getToViaInfo())
-            } else {
-                console.log("导航信息更新一单:", ReflectionUtil)
-                arr.push(object : UTSJSONObject() {
-                    var distance = ReflectionUtil.getProtectedField<Number>(data, "mRouteRemainDis")
-                    var time = ReflectionUtil.getProtectedField<Number>(data, "mRouteRemainTime")
-                })
+            , fun(){
+                this.clearRoute()
             }
-            console.log("导航信息-arr:", arr)
-            this.options?.naviInfoUpdateCb?.invoke(JSON.stringify(arr))
-        }
+            , fun(data: NaviInfo){
+                val arr: UTSArray<UTSJSONObject> = utsArrayOf()
+                console.log("导航信息更新-sdk:", data)
+                data.getToViaInfo()?.forEach(fun(item: AMapNaviToViaInfo){
+                    arr.push(object : UTSJSONObject() {
+                        var distance = item.getDistance()
+                        var time = item.getTime()
+                    })
+                }
+                )
+                if (arr.length > 0) {
+                    console.log("导航信息更新-多单:", data.getToViaInfo())
+                } else {
+                    console.log("导航信息更新一单:", ReflectionUtil)
+                    arr.push(object : UTSJSONObject() {
+                        var distance = ReflectionUtil.getProtectedField<Number>(data, "mRouteRemainDis")
+                        var time = ReflectionUtil.getProtectedField<Number>(data, "mRouteRemainTime")
+                    })
+                }
+                console.log("导航信息-arr:", arr)
+                this.options?.naviInfoUpdateCb?.invoke(JSON.stringify(arr))
+            }
         )
         this.mAMapNavi?.addAMapNaviListener(naviListener)
     }
@@ -10656,9 +10738,9 @@ val GenUniModulesMcAmapNavPlusComponentsMcAmapLocationMcAmapLocationClass = Crea
     }
     )
 }
-, fun(instance, renderer): GenUniModulesMcAmapNavPlusComponentsMcAmapLocationMcAmapLocation {
-    return GenUniModulesMcAmapNavPlusComponentsMcAmapLocationMcAmapLocation(instance)
-}
+    , fun(instance, renderer): GenUniModulesMcAmapNavPlusComponentsMcAmapLocationMcAmapLocation {
+        return GenUniModulesMcAmapNavPlusComponentsMcAmapLocationMcAmapLocation(instance)
+    }
 )
 open class POSITION_TYPE_XY (
     @JsonNotNull
@@ -10669,9 +10751,9 @@ open class POSITION_TYPE_XY (
 val GenUniModulesTmxUiComponentsXFloatButtonXFloatButtonClass = CreateVueComponent(GenUniModulesTmxUiComponentsXFloatButtonXFloatButton::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXFloatButtonXFloatButton.inheritAttrs, inject = GenUniModulesTmxUiComponentsXFloatButtonXFloatButton.inject, props = GenUniModulesTmxUiComponentsXFloatButtonXFloatButton.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXFloatButtonXFloatButton.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXFloatButtonXFloatButton.emits, components = GenUniModulesTmxUiComponentsXFloatButtonXFloatButton.components, styles = GenUniModulesTmxUiComponentsXFloatButtonXFloatButton.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXFloatButtonXFloatButton {
-    return GenUniModulesTmxUiComponentsXFloatButtonXFloatButton(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXFloatButtonXFloatButton {
+        return GenUniModulesTmxUiComponentsXFloatButtonXFloatButton(instance)
+    }
 )
 open class ITEMINFO (
     @JsonNotNull
@@ -10739,23 +10821,23 @@ open class ITEMINFOReactiveObject : ITEMINFO, IUTSReactive<ITEMINFO> {
 val GenUniModulesTmxUiComponentsXTextXTextClass = CreateVueComponent(GenUniModulesTmxUiComponentsXTextXText::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXTextXText.inheritAttrs, inject = GenUniModulesTmxUiComponentsXTextXText.inject, props = GenUniModulesTmxUiComponentsXTextXText.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXTextXText.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXTextXText.emits, components = GenUniModulesTmxUiComponentsXTextXText.components, styles = GenUniModulesTmxUiComponentsXTextXText.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXTextXText {
-    return GenUniModulesTmxUiComponentsXTextXText(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXTextXText {
+        return GenUniModulesTmxUiComponentsXTextXText(instance)
+    }
 )
 val GenUniModulesTmxUiComponentsXTabsTabsItemClass = CreateVueComponent(GenUniModulesTmxUiComponentsXTabsTabsItem::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXTabsTabsItem.inheritAttrs, inject = GenUniModulesTmxUiComponentsXTabsTabsItem.inject, props = GenUniModulesTmxUiComponentsXTabsTabsItem.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXTabsTabsItem.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXTabsTabsItem.emits, components = GenUniModulesTmxUiComponentsXTabsTabsItem.components, styles = GenUniModulesTmxUiComponentsXTabsTabsItem.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXTabsTabsItem {
-    return GenUniModulesTmxUiComponentsXTabsTabsItem(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXTabsTabsItem {
+        return GenUniModulesTmxUiComponentsXTabsTabsItem(instance)
+    }
 )
 val GenUniModulesTmxUiComponentsXBadgeXBadgeClass = CreateVueComponent(GenUniModulesTmxUiComponentsXBadgeXBadge::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXBadgeXBadge.inheritAttrs, inject = GenUniModulesTmxUiComponentsXBadgeXBadge.inject, props = GenUniModulesTmxUiComponentsXBadgeXBadge.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXBadgeXBadge.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXBadgeXBadge.emits, components = GenUniModulesTmxUiComponentsXBadgeXBadge.components, styles = GenUniModulesTmxUiComponentsXBadgeXBadge.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXBadgeXBadge {
-    return GenUniModulesTmxUiComponentsXBadgeXBadge(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXBadgeXBadge {
+        return GenUniModulesTmxUiComponentsXBadgeXBadge(instance)
+    }
 )
 open class GenUniModulesTmxUiComponentsXTabsXTabsSlotDataDefault (
     @JsonNotNull
@@ -10766,9 +10848,9 @@ open class GenUniModulesTmxUiComponentsXTabsXTabsSlotDataDefault (
 val GenUniModulesTmxUiComponentsXTabsXTabsClass = CreateVueComponent(GenUniModulesTmxUiComponentsXTabsXTabs::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXTabsXTabs.inheritAttrs, inject = GenUniModulesTmxUiComponentsXTabsXTabs.inject, props = GenUniModulesTmxUiComponentsXTabsXTabs.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXTabsXTabs.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXTabsXTabs.emits, components = GenUniModulesTmxUiComponentsXTabsXTabs.components, styles = GenUniModulesTmxUiComponentsXTabsXTabs.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXTabsXTabs {
-    return GenUniModulesTmxUiComponentsXTabsXTabs(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXTabsXTabs {
+        return GenUniModulesTmxUiComponentsXTabsXTabs(instance)
+    }
 )
 val GenComponentsMcActiveAnimationIndexClass = CreateVueComponent(GenComponentsMcActiveAnimationIndex::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenComponentsMcActiveAnimationIndex.inheritAttrs, inject = GenComponentsMcActiveAnimationIndex.inject, props = GenComponentsMcActiveAnimationIndex.props, propsNeedCastKeys = GenComponentsMcActiveAnimationIndex.propsNeedCastKeys, emits = GenComponentsMcActiveAnimationIndex.emits, components = GenComponentsMcActiveAnimationIndex.components, styles = GenComponentsMcActiveAnimationIndex.styles, setup = fun(props: ComponentPublicInstance): Any? {
@@ -10776,9 +10858,9 @@ val GenComponentsMcActiveAnimationIndexClass = CreateVueComponent(GenComponentsM
     }
     )
 }
-, fun(instance, renderer): GenComponentsMcActiveAnimationIndex {
-    return GenComponentsMcActiveAnimationIndex(instance)
-}
+    , fun(instance, renderer): GenComponentsMcActiveAnimationIndex {
+        return GenComponentsMcActiveAnimationIndex(instance)
+    }
 )
 val GenComponentsMcPrimaryButtonIndexClass = CreateVueComponent(GenComponentsMcPrimaryButtonIndex::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenComponentsMcPrimaryButtonIndex.inheritAttrs, inject = GenComponentsMcPrimaryButtonIndex.inject, props = GenComponentsMcPrimaryButtonIndex.props, propsNeedCastKeys = GenComponentsMcPrimaryButtonIndex.propsNeedCastKeys, emits = GenComponentsMcPrimaryButtonIndex.emits, components = GenComponentsMcPrimaryButtonIndex.components, styles = GenComponentsMcPrimaryButtonIndex.styles, setup = fun(props: ComponentPublicInstance): Any? {
@@ -10786,9 +10868,9 @@ val GenComponentsMcPrimaryButtonIndexClass = CreateVueComponent(GenComponentsMcP
     }
     )
 }
-, fun(instance, renderer): GenComponentsMcPrimaryButtonIndex {
-    return GenComponentsMcPrimaryButtonIndex(instance)
-}
+    , fun(instance, renderer): GenComponentsMcPrimaryButtonIndex {
+        return GenComponentsMcPrimaryButtonIndex(instance)
+    }
 )
 val GenComponentsMcPainButtonIndexClass = CreateVueComponent(GenComponentsMcPainButtonIndex::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenComponentsMcPainButtonIndex.inheritAttrs, inject = GenComponentsMcPainButtonIndex.inject, props = GenComponentsMcPainButtonIndex.props, propsNeedCastKeys = GenComponentsMcPainButtonIndex.propsNeedCastKeys, emits = GenComponentsMcPainButtonIndex.emits, components = GenComponentsMcPainButtonIndex.components, styles = GenComponentsMcPainButtonIndex.styles, setup = fun(props: ComponentPublicInstance): Any? {
@@ -10796,9 +10878,9 @@ val GenComponentsMcPainButtonIndexClass = CreateVueComponent(GenComponentsMcPain
     }
     )
 }
-, fun(instance, renderer): GenComponentsMcPainButtonIndex {
-    return GenComponentsMcPainButtonIndex(instance)
-}
+    , fun(instance, renderer): GenComponentsMcPainButtonIndex {
+        return GenComponentsMcPainButtonIndex(instance)
+    }
 )
 var fonts: UTSJSONObject = UTSJSONObject()
 val runBlock6 = run {
@@ -13866,16 +13948,16 @@ val runBlock6 = run {
 val GenUniModulesTmxUiComponentsXIconXIconClass = CreateVueComponent(GenUniModulesTmxUiComponentsXIconXIcon::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXIconXIcon.inheritAttrs, inject = GenUniModulesTmxUiComponentsXIconXIcon.inject, props = GenUniModulesTmxUiComponentsXIconXIcon.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXIconXIcon.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXIconXIcon.emits, components = GenUniModulesTmxUiComponentsXIconXIcon.components, styles = GenUniModulesTmxUiComponentsXIconXIcon.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXIconXIcon {
-    return GenUniModulesTmxUiComponentsXIconXIcon(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXIconXIcon {
+        return GenUniModulesTmxUiComponentsXIconXIcon(instance)
+    }
 )
 val GenUniModulesTmxUiComponentsXLoadingXLoadingClass = CreateVueComponent(GenUniModulesTmxUiComponentsXLoadingXLoading::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXLoadingXLoading.inheritAttrs, inject = GenUniModulesTmxUiComponentsXLoadingXLoading.inject, props = GenUniModulesTmxUiComponentsXLoadingXLoading.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXLoadingXLoading.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXLoadingXLoading.emits, components = GenUniModulesTmxUiComponentsXLoadingXLoading.components, styles = GenUniModulesTmxUiComponentsXLoadingXLoading.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXLoadingXLoading {
-    return GenUniModulesTmxUiComponentsXLoadingXLoading(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXLoadingXLoading {
+        return GenUniModulesTmxUiComponentsXLoadingXLoading(instance)
+    }
 )
 open class FORMITEM_R (
     @JsonNotNull
@@ -14050,9 +14132,9 @@ val GenUniModulesTmxUiComponentsXFormXFormClass = CreateVueComponent(GenUniModul
     }
     )
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXFormXForm {
-    return GenUniModulesTmxUiComponentsXFormXForm(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXFormXForm {
+        return GenUniModulesTmxUiComponentsXFormXForm(instance)
+    }
 )
 typealias XFormComponentPublicInstance = GenUniModulesTmxUiComponentsXFormXForm
 typealias FORM_VAILD_FUN = (`val`: Any?) -> Boolean
@@ -14072,9 +14154,9 @@ open class FORM_RULE_SELF (
 val GenUniModulesTmxUiComponentsXFormItemXFormItemClass = CreateVueComponent(GenUniModulesTmxUiComponentsXFormItemXFormItem::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = GenUniModulesTmxUiComponentsXFormItemXFormItem.name, inheritAttrs = GenUniModulesTmxUiComponentsXFormItemXFormItem.inheritAttrs, inject = GenUniModulesTmxUiComponentsXFormItemXFormItem.inject, props = GenUniModulesTmxUiComponentsXFormItemXFormItem.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXFormItemXFormItem.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXFormItemXFormItem.emits, components = GenUniModulesTmxUiComponentsXFormItemXFormItem.components, styles = GenUniModulesTmxUiComponentsXFormItemXFormItem.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXFormItemXFormItem {
-    return GenUniModulesTmxUiComponentsXFormItemXFormItem(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXFormItemXFormItem {
+        return GenUniModulesTmxUiComponentsXFormItemXFormItem(instance)
+    }
 )
 typealias XFormItemComponentPublicInstance = GenUniModulesTmxUiComponentsXFormItemXFormItem
 fun vaildBytType(kVal: Any?, rule: FORM_RULE_SELF): Boolean {
@@ -14177,16 +14259,16 @@ fun vaildBytType(kVal: Any?, rule: FORM_RULE_SELF): Boolean {
 val GenUniModulesTmxUiComponentsXButtonXButtonClass = CreateVueComponent(GenUniModulesTmxUiComponentsXButtonXButton::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXButtonXButton.inheritAttrs, inject = GenUniModulesTmxUiComponentsXButtonXButton.inject, props = GenUniModulesTmxUiComponentsXButtonXButton.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXButtonXButton.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXButtonXButton.emits, components = GenUniModulesTmxUiComponentsXButtonXButton.components, styles = GenUniModulesTmxUiComponentsXButtonXButton.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXButtonXButton {
-    return GenUniModulesTmxUiComponentsXButtonXButton(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXButtonXButton {
+        return GenUniModulesTmxUiComponentsXButtonXButton(instance)
+    }
 )
 val GenUniModulesTmxUiComponentsXEmptyXEmptyClass = CreateVueComponent(GenUniModulesTmxUiComponentsXEmptyXEmpty::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXEmptyXEmpty.inheritAttrs, inject = GenUniModulesTmxUiComponentsXEmptyXEmpty.inject, props = GenUniModulesTmxUiComponentsXEmptyXEmpty.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXEmptyXEmpty.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXEmptyXEmpty.emits, components = GenUniModulesTmxUiComponentsXEmptyXEmpty.components, styles = GenUniModulesTmxUiComponentsXEmptyXEmpty.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXEmptyXEmpty {
-    return GenUniModulesTmxUiComponentsXEmptyXEmpty(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXEmptyXEmpty {
+        return GenUniModulesTmxUiComponentsXEmptyXEmpty(instance)
+    }
 )
 val formatDate = fun(date: Date, reassignedPattern: String): String {
     var pattern = reassignedPattern
@@ -14213,36 +14295,36 @@ val getTimePlusRange = fun(date: Date, condition: String): UTSArray<Date> {
     var startDate: Date
     var endDate: Date
     when (condition) {
-        "one-day" -> 
-            {
-                startDate = date
-                endDate = Date(date.getTime() + 86400000)
-            }
-        "one-month" -> 
-            {
-                startDate = date
-                endDate = Date(date.getTime() + 2505600000)
-            }
-        "three-months" -> 
-            {
-                startDate = date
-                endDate = Date(date.getTime() + 7689600000)
-            }
-        "one-year" -> 
-            {
-                startDate = date
-                endDate = Date(date.getTime() + 31449600000)
-            }
-        "one-week" -> 
-            {
-                startDate = date
-                endDate = Date(date.getTime() + 518400000)
-            }
-        else -> 
-            {
-                startDate = date
-                endDate = Date(date.getTime() + 518400000)
-            }
+        "one-day" ->
+        {
+            startDate = date
+            endDate = Date(date.getTime() + 86400000)
+        }
+        "one-month" ->
+        {
+            startDate = date
+            endDate = Date(date.getTime() + 2505600000)
+        }
+        "three-months" ->
+        {
+            startDate = date
+            endDate = Date(date.getTime() + 7689600000)
+        }
+        "one-year" ->
+        {
+            startDate = date
+            endDate = Date(date.getTime() + 31449600000)
+        }
+        "one-week" ->
+        {
+            startDate = date
+            endDate = Date(date.getTime() + 518400000)
+        }
+        else ->
+        {
+            startDate = date
+            endDate = Date(date.getTime() + 518400000)
+        }
     }
     return utsArrayOf(
         startDate,
@@ -14271,17 +14353,17 @@ val formatDateStr = fun(dateStr: String): String {
 fun addTime(dateStr: String, num: Number, unit: String): String {
     val date = Date(formatDateStr(dateStr))
     when (unit) {
-        "year" -> 
+        "year" ->
             date.setFullYear(date.getFullYear() + num)
-        "month" -> 
+        "month" ->
             date.setMonth(date.getMonth() + num)
-        "day" -> 
+        "day" ->
             date.setDate(date.getDate() + num)
-        "hour" -> 
+        "hour" ->
             date.setHours(date.getHours() + num)
-        "minute" -> 
+        "minute" ->
             date.setMinutes(date.getMinutes() + num)
-        "second" -> 
+        "second" ->
             date.setSeconds(date.getSeconds() + num)
     }
     val year = date.getFullYear()
@@ -14402,9 +14484,9 @@ fun isTimeBefore(timeStr1: String, timeStr2: String): Boolean {
 val GenUniModulesTmxUiComponentsXStepperXStepperClass = CreateVueComponent(GenUniModulesTmxUiComponentsXStepperXStepper::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXStepperXStepper.inheritAttrs, inject = GenUniModulesTmxUiComponentsXStepperXStepper.inject, props = GenUniModulesTmxUiComponentsXStepperXStepper.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXStepperXStepper.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXStepperXStepper.emits, components = GenUniModulesTmxUiComponentsXStepperXStepper.components, styles = GenUniModulesTmxUiComponentsXStepperXStepper.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXStepperXStepper {
-    return GenUniModulesTmxUiComponentsXStepperXStepper(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXStepperXStepper {
+        return GenUniModulesTmxUiComponentsXStepperXStepper(instance)
+    }
 )
 open class xDateArrayItemType (
     @JsonNotNull
@@ -14640,7 +14722,7 @@ open class xCalendar {
         } else {
             xDate(currentDate)
         }
-         as xDate
+                as xDate
         val dateAr = nowdate.getDaysOf("m")
         var dates = utsArrayOf<xDateDayInfoType>()
         if (isPadding) {
@@ -14816,9 +14898,9 @@ val GenUniModulesTmxUiComponentsXCalendarViewCalendarMultipleClass = CreateVueCo
     }
     )
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXCalendarViewCalendarMultiple {
-    return GenUniModulesTmxUiComponentsXCalendarViewCalendarMultiple(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXCalendarViewCalendarMultiple {
+        return GenUniModulesTmxUiComponentsXCalendarViewCalendarMultiple(instance)
+    }
 )
 val GenUniModulesTmxUiComponentsXCalendarViewXCalendarViewClass = CreateVueComponent(GenUniModulesTmxUiComponentsXCalendarViewXCalendarView::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = GenUniModulesTmxUiComponentsXCalendarViewXCalendarView.name, inheritAttrs = GenUniModulesTmxUiComponentsXCalendarViewXCalendarView.inheritAttrs, inject = GenUniModulesTmxUiComponentsXCalendarViewXCalendarView.inject, props = GenUniModulesTmxUiComponentsXCalendarViewXCalendarView.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXCalendarViewXCalendarView.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXCalendarViewXCalendarView.emits, components = GenUniModulesTmxUiComponentsXCalendarViewXCalendarView.components, styles = GenUniModulesTmxUiComponentsXCalendarViewXCalendarView.styles, setup = fun(props: ComponentPublicInstance, ctx: SetupContext): Any? {
@@ -14826,16 +14908,16 @@ val GenUniModulesTmxUiComponentsXCalendarViewXCalendarViewClass = CreateVueCompo
     }
     )
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXCalendarViewXCalendarView {
-    return GenUniModulesTmxUiComponentsXCalendarViewXCalendarView(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXCalendarViewXCalendarView {
+        return GenUniModulesTmxUiComponentsXCalendarViewXCalendarView(instance)
+    }
 )
 val GenUniModulesTmxUiComponentsXSheetXSheetClass = CreateVueComponent(GenUniModulesTmxUiComponentsXSheetXSheet::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXSheetXSheet.inheritAttrs, inject = GenUniModulesTmxUiComponentsXSheetXSheet.inject, props = GenUniModulesTmxUiComponentsXSheetXSheet.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXSheetXSheet.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXSheetXSheet.emits, components = GenUniModulesTmxUiComponentsXSheetXSheet.components, styles = GenUniModulesTmxUiComponentsXSheetXSheet.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXSheetXSheet {
-    return GenUniModulesTmxUiComponentsXSheetXSheet(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXSheetXSheet {
+        return GenUniModulesTmxUiComponentsXSheetXSheet(instance)
+    }
 )
 typealias callbackType = () -> UTSPromise<Boolean>
 open class GenUniModulesTmxUiComponentsXDrawerXDrawerSlotDataTrigger (
@@ -14849,16 +14931,16 @@ open class GenUniModulesTmxUiComponentsXDrawerXDrawerSlotDataDefault (
 val GenUniModulesTmxUiComponentsXDrawerXDrawerClass = CreateVueComponent(GenUniModulesTmxUiComponentsXDrawerXDrawer::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXDrawerXDrawer.inheritAttrs, inject = GenUniModulesTmxUiComponentsXDrawerXDrawer.inject, props = GenUniModulesTmxUiComponentsXDrawerXDrawer.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXDrawerXDrawer.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXDrawerXDrawer.emits, components = GenUniModulesTmxUiComponentsXDrawerXDrawer.components, styles = GenUniModulesTmxUiComponentsXDrawerXDrawer.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXDrawerXDrawer {
-    return GenUniModulesTmxUiComponentsXDrawerXDrawer(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXDrawerXDrawer {
+        return GenUniModulesTmxUiComponentsXDrawerXDrawer(instance)
+    }
 )
 val GenComponentsMcDatePickerIndexClass = CreateVueComponent(GenComponentsMcDatePickerIndex::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenComponentsMcDatePickerIndex.inheritAttrs, inject = GenComponentsMcDatePickerIndex.inject, props = GenComponentsMcDatePickerIndex.props, propsNeedCastKeys = GenComponentsMcDatePickerIndex.propsNeedCastKeys, emits = GenComponentsMcDatePickerIndex.emits, components = GenComponentsMcDatePickerIndex.components, styles = GenComponentsMcDatePickerIndex.styles)
 }
-, fun(instance, renderer): GenComponentsMcDatePickerIndex {
-    return GenComponentsMcDatePickerIndex(instance)
-}
+    , fun(instance, renderer): GenComponentsMcDatePickerIndex {
+        return GenComponentsMcDatePickerIndex(instance)
+    }
 )
 typealias IMG_MODEL = String
 open class IMG_SIZE_INFO_PLACE (
@@ -14913,9 +14995,9 @@ open class IMG_SIZE_INFO_PLACEReactiveObject : IMG_SIZE_INFO_PLACE, IUTSReactive
 val GenUniModulesTmxUiComponentsXImageXImageClass = CreateVueComponent(GenUniModulesTmxUiComponentsXImageXImage::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXImageXImage.inheritAttrs, inject = GenUniModulesTmxUiComponentsXImageXImage.inject, props = GenUniModulesTmxUiComponentsXImageXImage.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXImageXImage.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXImageXImage.emits, components = GenUniModulesTmxUiComponentsXImageXImage.components, styles = GenUniModulesTmxUiComponentsXImageXImage.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXImageXImage {
-    return GenUniModulesTmxUiComponentsXImageXImage(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXImageXImage {
+        return GenUniModulesTmxUiComponentsXImageXImage(instance)
+    }
 )
 open class itemstyletype (
     @JsonNotNull
@@ -15061,9 +15143,9 @@ typealias DICR = String
 val GenUniModulesTmxUiComponentsXSwiperItemXSwiperItemClass = CreateVueComponent(GenUniModulesTmxUiComponentsXSwiperItemXSwiperItem::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXSwiperItemXSwiperItem.inheritAttrs, inject = GenUniModulesTmxUiComponentsXSwiperItemXSwiperItem.inject, props = GenUniModulesTmxUiComponentsXSwiperItemXSwiperItem.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXSwiperItemXSwiperItem.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXSwiperItemXSwiperItem.emits, components = GenUniModulesTmxUiComponentsXSwiperItemXSwiperItem.components, styles = GenUniModulesTmxUiComponentsXSwiperItemXSwiperItem.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXSwiperItemXSwiperItem {
-    return GenUniModulesTmxUiComponentsXSwiperItemXSwiperItem(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXSwiperItemXSwiperItem {
+        return GenUniModulesTmxUiComponentsXSwiperItemXSwiperItem(instance)
+    }
 )
 typealias XSwiperItemComponentPublicInstance = GenUniModulesTmxUiComponentsXSwiperItemXSwiperItem
 open class POSITON (
@@ -15179,18 +15261,18 @@ open class GenUniModulesTmxUiComponentsXSwiperXSwiperSlotDataDotV (
 val GenUniModulesTmxUiComponentsXSwiperXSwiperClass = CreateVueComponent(GenUniModulesTmxUiComponentsXSwiperXSwiper::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXSwiperXSwiper.inheritAttrs, inject = GenUniModulesTmxUiComponentsXSwiperXSwiper.inject, props = GenUniModulesTmxUiComponentsXSwiperXSwiper.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXSwiperXSwiper.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXSwiperXSwiper.emits, components = GenUniModulesTmxUiComponentsXSwiperXSwiper.components, styles = GenUniModulesTmxUiComponentsXSwiperXSwiper.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXSwiperXSwiper {
-    return GenUniModulesTmxUiComponentsXSwiperXSwiper(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXSwiperXSwiper {
+        return GenUniModulesTmxUiComponentsXSwiperXSwiper(instance)
+    }
 )
 typealias XSwiperComponentPublicInstance = GenUniModulesTmxUiComponentsXSwiperXSwiper
 typealias callbackType1 = () -> UTSPromise<Boolean>
 val GenUniModulesTmxUiComponentsXModalXModalClass = CreateVueComponent(GenUniModulesTmxUiComponentsXModalXModal::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXModalXModal.inheritAttrs, inject = GenUniModulesTmxUiComponentsXModalXModal.inject, props = GenUniModulesTmxUiComponentsXModalXModal.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXModalXModal.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXModalXModal.emits, components = GenUniModulesTmxUiComponentsXModalXModal.components, styles = GenUniModulesTmxUiComponentsXModalXModal.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXModalXModal {
-    return GenUniModulesTmxUiComponentsXModalXModal(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXModalXModal {
+        return GenUniModulesTmxUiComponentsXModalXModal(instance)
+    }
 )
 open class RequestConfig (
     @JsonNotNull
@@ -15233,25 +15315,25 @@ open class HttpService {
     }
     open fun request(url: String, config: RequestConfig): UTSPromise<Response> {
         return wrapUTSPromise(suspend w@{
-                val beforeConfig = await(this.interceptorManager.handleRequest(config))
-                if (!whiteUrlList.includes(url) && getToken() == null) {
-                    return@w UTSPromise.reject(object : UTSJSONObject() {
-                        var code: Number = -1
-                        var msg = "请登录后再试"
-                        var data = UTSJSONObject()
-                    })
+            val beforeConfig = await(this.interceptorManager.handleRequest(config))
+            if (!whiteUrlList.includes(url) && getToken() == null) {
+                return@w UTSPromise.reject(object : UTSJSONObject() {
+                    var code: Number = -1
+                    var msg = "请登录后再试"
+                    var data = UTSJSONObject()
+                })
+            }
+            val result = await(UTSPromise<Result>(fun(resolve, _reject){
+                if (this.loadingTimer > 0) {
+                    clearTimeout(this.loadingTimer)
                 }
-                val result = await(UTSPromise<Result>(fun(resolve, _reject){
-                    if (this.loadingTimer > 0) {
-                        clearTimeout(this.loadingTimer)
-                    }
-                    this.loadingTimer = setTimeout(fun(){
-                        showLoading(XLOADINGS_TYPE(title = "请求较慢，请稍等"))
-                    }
+                this.loadingTimer = setTimeout(fun(){
+                    showLoading(XLOADINGS_TYPE(title = "请求较慢，请稍等"))
+                }
                     , 5000)
-                    uni_request<Response>(RequestOptions(url = baseUrl + url, method = beforeConfig.method, header = beforeConfig.header, dataType = beforeConfig.dataType, data = beforeConfig.data, timeout = beforeConfig.timeout, sslVerify = beforeConfig.sslVerify, success = fun(res){
-                        resolve(Result(response = res))
-                    }
+                uni_request<Response>(RequestOptions(url = baseUrl + url, method = beforeConfig.method, header = beforeConfig.header, dataType = beforeConfig.dataType, data = beforeConfig.data, timeout = beforeConfig.timeout, sslVerify = beforeConfig.sslVerify, success = fun(res){
+                    resolve(Result(response = res))
+                }
                     , fail = fun(error){
                         resolve(Result(error = error))
                     }
@@ -15259,52 +15341,52 @@ open class HttpService {
                         clearTimeout(this.loadingTimer)
                         hideXloading()
                     }
-                    ))
-                }
                 ))
-                val error = result.error
-                val response = result.response
-                if (error != null) {
-                    await(this.interceptorManager.handleRequestError(error))
-                    return@w UTSPromise<Response>(fun(_, reject){
-                        return reject(object : UTSJSONObject() {
-                            var code = error.errCode
-                            var msg = error.errMsg
-                            var data = UTSJSONObject()
-                        })
-                    }
-                    )
+            }
+            ))
+            val error = result.error
+            val response = result.response
+            if (error != null) {
+                await(this.interceptorManager.handleRequestError(error))
+                return@w UTSPromise<Response>(fun(_, reject){
+                    return reject(object : UTSJSONObject() {
+                        var code = error.errCode
+                        var msg = error.errMsg
+                        var data = UTSJSONObject()
+                    })
                 }
-                if (response != null) {
-                    if (response.data?.code == 200) {
-                        val data = await(this.interceptorManager.handleResponse(response))!!.data
-                        return@w UTSPromise<Response>(fun(resolve, _reject){
-                            return resolve(if (data != null) {
-                                data
-                            } else {
-                                Response(code = 200, msg = response.data?.msg ?: "请求成功", data = UTSJSONObject())
-                            }
-                            )
+                )
+            }
+            if (response != null) {
+                if (response.data?.code == 200) {
+                    val data = await(this.interceptorManager.handleResponse(response))!!.data
+                    return@w UTSPromise<Response>(fun(resolve, _reject){
+                        return resolve(if (data != null) {
+                            data
+                        } else {
+                            Response(code = 200, msg = response.data?.msg ?: "请求成功", data = UTSJSONObject())
                         }
                         )
                     }
-                    val data = await(this.interceptorManager.handleResponseError(response))!!.data
-                    return@w UTSPromise.reject(if (data != null) {
-                        data
-                    } else {
-                        object : UTSJSONObject() {
-                            var code: Number = 500
-                            var msg = "系统繁忙"
-                            var data = UTSJSONObject()
-                        }
-                    }
                     )
                 }
-                return@w UTSPromise.reject(object : UTSJSONObject() {
-                    var code: Number = 500
-                    var msg = "系统繁忙"
-                    var data = UTSJSONObject()
-                })
+                val data = await(this.interceptorManager.handleResponseError(response))!!.data
+                return@w UTSPromise.reject(if (data != null) {
+                    data
+                } else {
+                    object : UTSJSONObject() {
+                        var code: Number = 500
+                        var msg = "系统繁忙"
+                        var data = UTSJSONObject()
+                    }
+                }
+                )
+            }
+            return@w UTSPromise.reject(object : UTSJSONObject() {
+                var code: Number = 500
+                var msg = "系统繁忙"
+                var data = UTSJSONObject()
+            })
         })
     }
 }
@@ -15314,25 +15396,25 @@ var timer: Number = 0
 val runBlock7 = run {
     httpService.use(RIInterceptor(requestInterceptor = fun(config: RequestConfig): UTSPromise<RequestConfig> {
         return wrapUTSPromise(suspend w@{
-                console.log("进入请求拦截器", config)
-                return@w config
+            console.log("进入请求拦截器", config)
+            return@w config
         })
     }
-    , responseInterceptor = fun(response): UTSPromise<RequestSuccess<Response>> {
-        return wrapUTSPromise(suspend w@{
+        , responseInterceptor = fun(response): UTSPromise<RequestSuccess<Response>> {
+            return wrapUTSPromise(suspend w@{
                 console.log("进入响应拦截器", response)
                 return@w response
-        })
-    }
-    , requestInterceptorError = fun(error: IUniError): UTSPromise<IUniError?> {
-        return wrapUTSPromise(suspend w@{
+            })
+        }
+        , requestInterceptorError = fun(error: IUniError): UTSPromise<IUniError?> {
+            return wrapUTSPromise(suspend w@{
                 console.log("网络错误了", error)
                 showTips1(XTIPS_TYPE(title = "网络错误", iconCode = "error", iconColor = "red", titleColor = "red", position = "bottom"))
                 return@w error
-        })
-    }
-    , responseInterceptorError = fun(response): UTSPromise<RequestSuccess<Response>?> {
-        return wrapUTSPromise(suspend w@{
+            })
+        }
+        , responseInterceptorError = fun(response): UTSPromise<RequestSuccess<Response>?> {
+            return wrapUTSPromise(suspend w@{
                 console.log("响应错误了,", response.data)
                 if (response.data?.code != 10000) {
                     showTips1(XTIPS_TYPE(title = response.data?.msg ?: "系统繁忙", iconCode = "error", iconColor = "red", titleColor = "red", position = "bottom"))
@@ -15345,30 +15427,30 @@ val runBlock7 = run {
                     timer = setTimeout(fun(){
                         uni_useKuxRouter().reLaunch("/pages/home/index")
                     }
-                    , 1500)
+                        , 1500)
                 }
                 return@w response
-        })
-    }
+            })
+        }
     ))
 }
 val httpExecute = fun(url: String, method: RequestMethod, data: UTSJSONObject): UTSPromise<Response> {
     return wrapUTSPromise(suspend w@{
-            val header: UTSJSONObject = object : UTSJSONObject() {
-                var `Content-Type` = "application/json"
+        val header: UTSJSONObject = object : UTSJSONObject() {
+            var `Content-Type` = "application/json"
+        }
+        val token = getToken()
+        if (token != null) {
+            header[TOKEN_HEADER] = token
+        }
+        val newData: UTSJSONObject = UTSJSONObject()
+        for(key in resolveUTSKeyIterator(data)){
+            if (data[key] != null) {
+                val element = data[key]
+                newData[key] = element
             }
-            val token = getToken()
-            if (token != null) {
-                header[TOKEN_HEADER] = token
-            }
-            val newData: UTSJSONObject = UTSJSONObject()
-            for(key in resolveUTSKeyIterator(data)){
-                if (data[key] != null) {
-                    val element = data[key]
-                    newData[key] = element
-                }
-            }
-            return@w httpService.request(url, RequestConfig(method = method, header = header, data = newData, dataType = "json", timeout = 10000, sslVerify = false))
+        }
+        return@w httpService.request(url, RequestConfig(method = method, header = header, data = newData, dataType = "json", timeout = 10000, sslVerify = false))
     })
 }
 val httpGet = fun(url: String, data: UTSJSONObject): UTSPromise<Response> {
@@ -15395,7 +15477,7 @@ val toUploadFile = fun(url: String, data: UTSJSONObject): UTSPromise<Response> {
                 reject(reps)
             }
         }
-        , fail = reject))
+            , fail = reject))
     }
     )
 }
@@ -15415,6 +15497,21 @@ val logout = fun(): UTSPromise<Response> {
         var grantPlatform: Number = 4
     })
 }
+val sendThirdLoginPhoneValid = fun(phone: String): UTSPromise<Response> {
+    return httpGet("/mcpt-system/auth/sendThirdLoginPhoneValid?phone=" + phone, UTSJSONObject())
+}
+val driverThirdLoginBindPhoneNumber = fun(phone: String, code: String): UTSPromise<Response> {
+    return httpPost("/mcpt-system/app/user/driverThirdLoginBindPhoneNumber?phoneNumber=" + phone + "&code=" + code, UTSJSONObject())
+}
+val getNotDesensitizedCurrentUser = fun(): UTSPromise<Response> {
+    return httpGet("/mcpt-system/auth/getNotDesensitizedCurrentUser", UTSJSONObject())
+}
+val driverThirdLoginInitDriverSession = fun(): UTSPromise<Response> {
+    return httpGet("/mcpt-system/app/user/driverThirdLoginInitDriverSession", UTSJSONObject())
+}
+val driverBindThirdLogin = fun(data: UTSJSONObject): UTSPromise<Response> {
+    return httpPost("/mcpt-system/app/user/driverBindThirdLogin", data)
+}
 val getWeather = fun(adcode: String): UTSPromise<UTSJSONObject> {
     val url = mapBaseUrl + ("/v3/weather/weatherInfo?key=" + MAP_CONFIG["key"] + "&city=" + adcode + "&extensions=base")
     console.log("天气接口：", url)
@@ -15423,9 +15520,9 @@ val getWeather = fun(adcode: String): UTSPromise<UTSJSONObject> {
             console.log("获取天气：", res.data)
             resolve(res.data ?: UTSJSONObject())
         }
-        , fail = fun(error){
-            console.log("获取天气失败：", error)
-        }
+            , fail = fun(error){
+                console.log("获取天气失败：", error)
+            }
         ))
     }
     )
@@ -16884,9 +16981,9 @@ val GenPagesHomeHadSettledClass = CreateVueComponent(GenPagesHomeHadSettled::cla
     }
     )
 }
-, fun(instance, renderer): GenPagesHomeHadSettled {
-    return GenPagesHomeHadSettled(instance)
-}
+    , fun(instance, renderer): GenPagesHomeHadSettled {
+        return GenPagesHomeHadSettled(instance)
+    }
 )
 typealias FindParentCall = (parent: VueComponent?) -> VueComponent?
 val GenUniModulesTmxUiComponentsXInputXInputClass = CreateVueComponent(GenUniModulesTmxUiComponentsXInputXInput::class.java, fun(): VueComponentOptions {
@@ -16895,9 +16992,9 @@ val GenUniModulesTmxUiComponentsXInputXInputClass = CreateVueComponent(GenUniMod
     }
     )
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXInputXInput {
-    return GenUniModulesTmxUiComponentsXInputXInput(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXInputXInput {
+        return GenUniModulesTmxUiComponentsXInputXInput(instance)
+    }
 )
 open class GenUniModulesTmxUiComponentsXCheckboxXCheckboxSlotDataLabel (
     @JsonNotNull
@@ -16971,25 +17068,25 @@ open class XCHECKBOX_LISTITEM_TYPEReactiveObject : XCHECKBOX_LISTITEM_TYPE, IUTS
 val GenUniModulesTmxUiComponentsXCheckboxXCheckboxClass = CreateVueComponent(GenUniModulesTmxUiComponentsXCheckboxXCheckbox::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXCheckboxXCheckbox.inheritAttrs, inject = GenUniModulesTmxUiComponentsXCheckboxXCheckbox.inject, props = GenUniModulesTmxUiComponentsXCheckboxXCheckbox.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXCheckboxXCheckbox.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXCheckboxXCheckbox.emits, components = GenUniModulesTmxUiComponentsXCheckboxXCheckbox.components, styles = GenUniModulesTmxUiComponentsXCheckboxXCheckbox.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXCheckboxXCheckbox {
-    return GenUniModulesTmxUiComponentsXCheckboxXCheckbox(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXCheckboxXCheckbox {
+        return GenUniModulesTmxUiComponentsXCheckboxXCheckbox(instance)
+    }
 )
 typealias XCheckboxComponentPublicInstance = GenUniModulesTmxUiComponentsXCheckboxXCheckbox
 val GenUniModulesTmxUiComponentsXCheckboxGroupXCheckboxGroupClass = CreateVueComponent(GenUniModulesTmxUiComponentsXCheckboxGroupXCheckboxGroup::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = GenUniModulesTmxUiComponentsXCheckboxGroupXCheckboxGroup.name, inheritAttrs = GenUniModulesTmxUiComponentsXCheckboxGroupXCheckboxGroup.inheritAttrs, inject = GenUniModulesTmxUiComponentsXCheckboxGroupXCheckboxGroup.inject, props = GenUniModulesTmxUiComponentsXCheckboxGroupXCheckboxGroup.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXCheckboxGroupXCheckboxGroup.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXCheckboxGroupXCheckboxGroup.emits, components = GenUniModulesTmxUiComponentsXCheckboxGroupXCheckboxGroup.components, styles = GenUniModulesTmxUiComponentsXCheckboxGroupXCheckboxGroup.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXCheckboxGroupXCheckboxGroup {
-    return GenUniModulesTmxUiComponentsXCheckboxGroupXCheckboxGroup(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXCheckboxGroupXCheckboxGroup {
+        return GenUniModulesTmxUiComponentsXCheckboxGroupXCheckboxGroup(instance)
+    }
 )
 typealias XCheckboxGroupComponentPublicInstance = GenUniModulesTmxUiComponentsXCheckboxGroupXCheckboxGroup
 val GenUniModulesTmxUiComponentsXActionModalXActionModalClass = CreateVueComponent(GenUniModulesTmxUiComponentsXActionModalXActionModal::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXActionModalXActionModal.inheritAttrs, inject = GenUniModulesTmxUiComponentsXActionModalXActionModal.inject, props = GenUniModulesTmxUiComponentsXActionModalXActionModal.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXActionModalXActionModal.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXActionModalXActionModal.emits, components = GenUniModulesTmxUiComponentsXActionModalXActionModal.components, styles = GenUniModulesTmxUiComponentsXActionModalXActionModal.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXActionModalXActionModal {
-    return GenUniModulesTmxUiComponentsXActionModalXActionModal(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXActionModalXActionModal {
+        return GenUniModulesTmxUiComponentsXActionModalXActionModal(instance)
+    }
 )
 val INIT: Number = 0
 val ENTERY: Number = 1
@@ -17023,9 +17120,9 @@ val GenPagesHomeNotSettledClass = CreateVueComponent(GenPagesHomeNotSettled::cla
     }
     )
 }
-, fun(instance, renderer): GenPagesHomeNotSettled {
-    return GenPagesHomeNotSettled(instance)
-}
+    , fun(instance, renderer): GenPagesHomeNotSettled {
+        return GenPagesHomeNotSettled(instance)
+    }
 )
 val getCarDriverInfoById = fun(): UTSPromise<Response> {
     return httpGet("/mcpt-car/app/car/driver/getCarDriverInfoById", UTSJSONObject())
@@ -17042,15 +17139,18 @@ val saveDriverInfo = fun(data: UTSJSONObject): UTSPromise<Response> {
 val closeAccount = fun(data: UTSJSONObject): UTSPromise<Response> {
     return httpPost("/mcpt-system/auth/closeAccount", data)
 }
+val getDriverThirdLoginInfo = fun(): UTSPromise<Response> {
+    return httpGet("/mcpt-system/app/user/getDriverThirdLoginInfo", UTSJSONObject())
+}
 val GenPagesHomeIndexClass = CreateVueComponent(GenPagesHomeIndex::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "page", name = "", inheritAttrs = GenPagesHomeIndex.inheritAttrs, inject = GenPagesHomeIndex.inject, props = GenPagesHomeIndex.props, propsNeedCastKeys = GenPagesHomeIndex.propsNeedCastKeys, emits = GenPagesHomeIndex.emits, components = GenPagesHomeIndex.components, styles = GenPagesHomeIndex.styles, setup = fun(props: ComponentPublicInstance): Any? {
         return GenPagesHomeIndex.setup(props as GenPagesHomeIndex)
     }
     )
 }
-, fun(instance, renderer): GenPagesHomeIndex {
-    return GenPagesHomeIndex(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesHomeIndex {
+        return GenPagesHomeIndex(instance, renderer)
+    }
 )
 open class X_PICKER_X_ITEM1 (
     @JsonNotNull
@@ -17065,23 +17165,23 @@ open class X_PICKER_X_ITEM1 (
 val GenUniModulesTmxUiComponentsXPickerItemXPickerItemClass = CreateVueComponent(GenUniModulesTmxUiComponentsXPickerItemXPickerItem::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXPickerItemXPickerItem.inheritAttrs, inject = GenUniModulesTmxUiComponentsXPickerItemXPickerItem.inject, props = GenUniModulesTmxUiComponentsXPickerItemXPickerItem.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXPickerItemXPickerItem.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXPickerItemXPickerItem.emits, components = GenUniModulesTmxUiComponentsXPickerItemXPickerItem.components, styles = GenUniModulesTmxUiComponentsXPickerItemXPickerItem.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXPickerItemXPickerItem {
-    return GenUniModulesTmxUiComponentsXPickerItemXPickerItem(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXPickerItemXPickerItem {
+        return GenUniModulesTmxUiComponentsXPickerItemXPickerItem(instance)
+    }
 )
 val GenUniModulesTmxUiComponentsXPickerViewXPickerViewClass = CreateVueComponent(GenUniModulesTmxUiComponentsXPickerViewXPickerView::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXPickerViewXPickerView.inheritAttrs, inject = GenUniModulesTmxUiComponentsXPickerViewXPickerView.inject, props = GenUniModulesTmxUiComponentsXPickerViewXPickerView.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXPickerViewXPickerView.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXPickerViewXPickerView.emits, components = GenUniModulesTmxUiComponentsXPickerViewXPickerView.components, styles = GenUniModulesTmxUiComponentsXPickerViewXPickerView.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXPickerViewXPickerView {
-    return GenUniModulesTmxUiComponentsXPickerViewXPickerView(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXPickerViewXPickerView {
+        return GenUniModulesTmxUiComponentsXPickerViewXPickerView(instance)
+    }
 )
 val GenUniModulesTmxUiComponentsXPickerXPickerClass = CreateVueComponent(GenUniModulesTmxUiComponentsXPickerXPicker::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXPickerXPicker.inheritAttrs, inject = GenUniModulesTmxUiComponentsXPickerXPicker.inject, props = GenUniModulesTmxUiComponentsXPickerXPicker.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXPickerXPicker.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXPickerXPicker.emits, components = GenUniModulesTmxUiComponentsXPickerXPicker.components, styles = GenUniModulesTmxUiComponentsXPickerXPicker.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXPickerXPicker {
-    return GenUniModulesTmxUiComponentsXPickerXPicker(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXPickerXPicker {
+        return GenUniModulesTmxUiComponentsXPickerXPicker(instance)
+    }
 )
 typealias XPULL_STATUS = String
 open class XSTATUS_OBJ_INFO (
@@ -17164,9 +17264,9 @@ open class XSTATUS_OBJ_INFOReactiveObject : XSTATUS_OBJ_INFO, IUTSReactive<XSTAT
 val GenUniModulesTmxUiComponentsXPullRefreshXPullRefreshClass = CreateVueComponent(GenUniModulesTmxUiComponentsXPullRefreshXPullRefresh::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXPullRefreshXPullRefresh.inheritAttrs, inject = GenUniModulesTmxUiComponentsXPullRefreshXPullRefresh.inject, props = GenUniModulesTmxUiComponentsXPullRefreshXPullRefresh.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXPullRefreshXPullRefresh.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXPullRefreshXPullRefresh.emits, components = GenUniModulesTmxUiComponentsXPullRefreshXPullRefresh.components, styles = GenUniModulesTmxUiComponentsXPullRefreshXPullRefresh.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXPullRefreshXPullRefresh {
-    return GenUniModulesTmxUiComponentsXPullRefreshXPullRefresh(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXPullRefreshXPullRefresh {
+        return GenUniModulesTmxUiComponentsXPullRefreshXPullRefresh(instance)
+    }
 )
 open class xPickerSelectedListyType (
     @JsonNotNull
@@ -17238,9 +17338,9 @@ open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelectedSlotDataIte
 val GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelectedClass = CreateVueComponent(GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected.inheritAttrs, inject = GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected.inject, props = GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected.emits, components = GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected.components, styles = GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected {
-    return GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected {
+        return GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected(instance)
+    }
 )
 val GenUniModulesTmxUiComponentsXNavbarXNavbarClass = CreateVueComponent(GenUniModulesTmxUiComponentsXNavbarXNavbar::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = GenUniModulesTmxUiComponentsXNavbarXNavbar.name, inheritAttrs = GenUniModulesTmxUiComponentsXNavbarXNavbar.inheritAttrs, inject = GenUniModulesTmxUiComponentsXNavbarXNavbar.inject, props = GenUniModulesTmxUiComponentsXNavbarXNavbar.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXNavbarXNavbar.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXNavbarXNavbar.emits, components = GenUniModulesTmxUiComponentsXNavbarXNavbar.components, styles = GenUniModulesTmxUiComponentsXNavbarXNavbar.styles, setup = fun(props: ComponentPublicInstance): Any? {
@@ -17248,9 +17348,9 @@ val GenUniModulesTmxUiComponentsXNavbarXNavbarClass = CreateVueComponent(GenUniM
     }
     )
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXNavbarXNavbar {
-    return GenUniModulesTmxUiComponentsXNavbarXNavbar(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXNavbarXNavbar {
+        return GenUniModulesTmxUiComponentsXNavbarXNavbar(instance)
+    }
 )
 val GenComponentsMcBaseContainerIndexClass = CreateVueComponent(GenComponentsMcBaseContainerIndex::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenComponentsMcBaseContainerIndex.inheritAttrs, inject = GenComponentsMcBaseContainerIndex.inject, props = GenComponentsMcBaseContainerIndex.props, propsNeedCastKeys = GenComponentsMcBaseContainerIndex.propsNeedCastKeys, emits = GenComponentsMcBaseContainerIndex.emits, components = GenComponentsMcBaseContainerIndex.components, styles = GenComponentsMcBaseContainerIndex.styles, setup = fun(props: ComponentPublicInstance): Any? {
@@ -17258,9 +17358,9 @@ val GenComponentsMcBaseContainerIndexClass = CreateVueComponent(GenComponentsMcB
     }
     )
 }
-, fun(instance, renderer): GenComponentsMcBaseContainerIndex {
-    return GenComponentsMcBaseContainerIndex(instance)
-}
+    , fun(instance, renderer): GenComponentsMcBaseContainerIndex {
+        return GenComponentsMcBaseContainerIndex(instance)
+    }
 )
 open class OrcData (
     @JsonNotNull
@@ -17272,28 +17372,28 @@ open class OrcData (
 ) : UTSObject()
 fun uploadFileSync(data: OrcData): UTSPromise<Response> {
     return wrapUTSPromise(suspend w@{
-            try {
-                return@w await(toUploadFile("/mcpt-system/qiniu/kodo/upload?platformName=" + data.platformName, object : UTSJSONObject() {
-                    var file = data.file
-                }))
-            }
-             catch (error: Throwable) {
-                console.error("uploadFileSync err:", error)
-                throw error
-            }
+        try {
+            return@w await(toUploadFile("/mcpt-system/qiniu/kodo/upload?platformName=" + data.platformName, object : UTSJSONObject() {
+                var file = data.file
+            }))
+        }
+        catch (error: Throwable) {
+            console.error("uploadFileSync err:", error)
+            throw error
+        }
     })
 }
 fun aliOcrSync(data: OrcData): UTSPromise<Response> {
     return wrapUTSPromise(suspend w@{
-            try {
-                return@w await(toUploadFile("/mcpt-system/ali/ocr?type=" + data.type + "&platformName=" + data.platformName, object : UTSJSONObject() {
-                    var file = data.file
-                }))
-            }
-             catch (error: Throwable) {
-                console.error("aliOcrSync err:", error)
-                throw error
-            }
+        try {
+            return@w await(toUploadFile("/mcpt-system/ali/ocr?type=" + data.type + "&platformName=" + data.platformName, object : UTSJSONObject() {
+                var file = data.file
+            }))
+        }
+        catch (error: Throwable) {
+            console.error("aliOcrSync err:", error)
+            throw error
+        }
     })
 }
 val getDriverLinesOpenCityList = fun(): UTSPromise<Response> {
@@ -17710,9 +17810,9 @@ val GenPagesDriverJoinIndexClass = CreateVueComponent(GenPagesDriverJoinIndex::c
     }
     )
 }
-, fun(instance, renderer): GenPagesDriverJoinIndex {
-    return GenPagesDriverJoinIndex(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesDriverJoinIndex {
+        return GenPagesDriverJoinIndex(instance, renderer)
+    }
 )
 open class dDrect (
     @JsonNotNull
@@ -17808,30 +17908,30 @@ open class dDrectReactiveObject : dDrect, IUTSReactive<dDrect> {
 val GenUniModulesTmxUiComponentsXRateXRateClass = CreateVueComponent(GenUniModulesTmxUiComponentsXRateXRate::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXRateXRate.inheritAttrs, inject = GenUniModulesTmxUiComponentsXRateXRate.inject, props = GenUniModulesTmxUiComponentsXRateXRate.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXRateXRate.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXRateXRate.emits, components = GenUniModulesTmxUiComponentsXRateXRate.components, styles = GenUniModulesTmxUiComponentsXRateXRate.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXRateXRate {
-    return GenUniModulesTmxUiComponentsXRateXRate(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXRateXRate {
+        return GenUniModulesTmxUiComponentsXRateXRate(instance)
+    }
 )
 val GenUniModulesTmxUiComponentsXSkeletonXSkeletonClass = CreateVueComponent(GenUniModulesTmxUiComponentsXSkeletonXSkeleton::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXSkeletonXSkeleton.inheritAttrs, inject = GenUniModulesTmxUiComponentsXSkeletonXSkeleton.inject, props = GenUniModulesTmxUiComponentsXSkeletonXSkeleton.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXSkeletonXSkeleton.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXSkeletonXSkeleton.emits, components = GenUniModulesTmxUiComponentsXSkeletonXSkeleton.components, styles = GenUniModulesTmxUiComponentsXSkeletonXSkeleton.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXSkeletonXSkeleton {
-    return GenUniModulesTmxUiComponentsXSkeletonXSkeleton(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXSkeletonXSkeleton {
+        return GenUniModulesTmxUiComponentsXSkeletonXSkeleton(instance)
+    }
 )
 val GenUniModulesTmxUiComponentsXCodeInputXCodeInputClass = CreateVueComponent(GenUniModulesTmxUiComponentsXCodeInputXCodeInput::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXCodeInputXCodeInput.inheritAttrs, inject = GenUniModulesTmxUiComponentsXCodeInputXCodeInput.inject, props = GenUniModulesTmxUiComponentsXCodeInputXCodeInput.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXCodeInputXCodeInput.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXCodeInputXCodeInput.emits, components = GenUniModulesTmxUiComponentsXCodeInputXCodeInput.components, styles = GenUniModulesTmxUiComponentsXCodeInputXCodeInput.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXCodeInputXCodeInput {
-    return GenUniModulesTmxUiComponentsXCodeInputXCodeInput(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXCodeInputXCodeInput {
+        return GenUniModulesTmxUiComponentsXCodeInputXCodeInput(instance)
+    }
 )
 val GenUniModulesTmxUiComponentsXKeyboardNumberXKeyboardNumberClass = CreateVueComponent(GenUniModulesTmxUiComponentsXKeyboardNumberXKeyboardNumber::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXKeyboardNumberXKeyboardNumber.inheritAttrs, inject = GenUniModulesTmxUiComponentsXKeyboardNumberXKeyboardNumber.inject, props = GenUniModulesTmxUiComponentsXKeyboardNumberXKeyboardNumber.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXKeyboardNumberXKeyboardNumber.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXKeyboardNumberXKeyboardNumber.emits, components = GenUniModulesTmxUiComponentsXKeyboardNumberXKeyboardNumber.components, styles = GenUniModulesTmxUiComponentsXKeyboardNumberXKeyboardNumber.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXKeyboardNumberXKeyboardNumber {
-    return GenUniModulesTmxUiComponentsXKeyboardNumberXKeyboardNumber(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXKeyboardNumberXKeyboardNumber {
+        return GenUniModulesTmxUiComponentsXKeyboardNumberXKeyboardNumber(instance)
+    }
 )
 val getDriverStarAndTotalIncome = fun(): UTSPromise<Response> {
     return httpGet("/mcpt-car/app/car/driver/getDriverStarAndTotalIncome", UTSJSONObject())
@@ -18086,9 +18186,9 @@ val GenPagesPersonalIndexClass = CreateVueComponent(GenPagesPersonalIndex::class
     }
     )
 }
-, fun(instance, renderer): GenPagesPersonalIndex {
-    return GenPagesPersonalIndex(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesPersonalIndex {
+        return GenPagesPersonalIndex(instance, renderer)
+    }
 )
 open class MenuItem (
     @JsonNotNull
@@ -18106,9 +18206,9 @@ val GenPagesPersonalSettingIndexClass = CreateVueComponent(GenPagesPersonalSetti
     }
     )
 }
-, fun(instance, renderer): GenPagesPersonalSettingIndex {
-    return GenPagesPersonalSettingIndex(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesPersonalSettingIndex {
+        return GenPagesPersonalSettingIndex(instance, renderer)
+    }
 )
 val GenPagesPersonalSettingAccountSafeIndexClass = CreateVueComponent(GenPagesPersonalSettingAccountSafeIndex::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "page", name = "", inheritAttrs = GenPagesPersonalSettingAccountSafeIndex.inheritAttrs, inject = GenPagesPersonalSettingAccountSafeIndex.inject, props = GenPagesPersonalSettingAccountSafeIndex.props, propsNeedCastKeys = GenPagesPersonalSettingAccountSafeIndex.propsNeedCastKeys, emits = GenPagesPersonalSettingAccountSafeIndex.emits, components = GenPagesPersonalSettingAccountSafeIndex.components, styles = GenPagesPersonalSettingAccountSafeIndex.styles, setup = fun(props: ComponentPublicInstance): Any? {
@@ -18116,9 +18216,9 @@ val GenPagesPersonalSettingAccountSafeIndexClass = CreateVueComponent(GenPagesPe
     }
     )
 }
-, fun(instance, renderer): GenPagesPersonalSettingAccountSafeIndex {
-    return GenPagesPersonalSettingAccountSafeIndex(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesPersonalSettingAccountSafeIndex {
+        return GenPagesPersonalSettingAccountSafeIndex(instance, renderer)
+    }
 )
 open class MenuItem1 (
     @JsonNotNull
@@ -18190,9 +18290,9 @@ val GenPagesPersonalSettingGrantManageIndexClass = CreateVueComponent(GenPagesPe
     }
     )
 }
-, fun(instance, renderer): GenPagesPersonalSettingGrantManageIndex {
-    return GenPagesPersonalSettingGrantManageIndex(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesPersonalSettingGrantManageIndex {
+        return GenPagesPersonalSettingGrantManageIndex(instance, renderer)
+    }
 )
 val GenPagesPersonalSettingAccountSafeRevokePrivacyIndexClass = CreateVueComponent(GenPagesPersonalSettingAccountSafeRevokePrivacyIndex::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "page", name = "", inheritAttrs = GenPagesPersonalSettingAccountSafeRevokePrivacyIndex.inheritAttrs, inject = GenPagesPersonalSettingAccountSafeRevokePrivacyIndex.inject, props = GenPagesPersonalSettingAccountSafeRevokePrivacyIndex.props, propsNeedCastKeys = GenPagesPersonalSettingAccountSafeRevokePrivacyIndex.propsNeedCastKeys, emits = GenPagesPersonalSettingAccountSafeRevokePrivacyIndex.emits, components = GenPagesPersonalSettingAccountSafeRevokePrivacyIndex.components, styles = GenPagesPersonalSettingAccountSafeRevokePrivacyIndex.styles, setup = fun(props: ComponentPublicInstance): Any? {
@@ -18200,9 +18300,9 @@ val GenPagesPersonalSettingAccountSafeRevokePrivacyIndexClass = CreateVueCompone
     }
     )
 }
-, fun(instance, renderer): GenPagesPersonalSettingAccountSafeRevokePrivacyIndex {
-    return GenPagesPersonalSettingAccountSafeRevokePrivacyIndex(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesPersonalSettingAccountSafeRevokePrivacyIndex {
+        return GenPagesPersonalSettingAccountSafeRevokePrivacyIndex(instance, renderer)
+    }
 )
 val GenPagesPersonalSettingAccountSafeAccountCancellationIndexClass = CreateVueComponent(GenPagesPersonalSettingAccountSafeAccountCancellationIndex::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "page", name = "", inheritAttrs = GenPagesPersonalSettingAccountSafeAccountCancellationIndex.inheritAttrs, inject = GenPagesPersonalSettingAccountSafeAccountCancellationIndex.inject, props = GenPagesPersonalSettingAccountSafeAccountCancellationIndex.props, propsNeedCastKeys = GenPagesPersonalSettingAccountSafeAccountCancellationIndex.propsNeedCastKeys, emits = GenPagesPersonalSettingAccountSafeAccountCancellationIndex.emits, components = GenPagesPersonalSettingAccountSafeAccountCancellationIndex.components, styles = GenPagesPersonalSettingAccountSafeAccountCancellationIndex.styles, setup = fun(props: ComponentPublicInstance): Any? {
@@ -18210,9 +18310,9 @@ val GenPagesPersonalSettingAccountSafeAccountCancellationIndexClass = CreateVueC
     }
     )
 }
-, fun(instance, renderer): GenPagesPersonalSettingAccountSafeAccountCancellationIndex {
-    return GenPagesPersonalSettingAccountSafeAccountCancellationIndex(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesPersonalSettingAccountSafeAccountCancellationIndex {
+        return GenPagesPersonalSettingAccountSafeAccountCancellationIndex(instance, renderer)
+    }
 )
 open class FormData1 (
     @JsonNotNull
@@ -18269,9 +18369,9 @@ val GenPagesPersonalSettingEmergencyContactIndexClass = CreateVueComponent(GenPa
     }
     )
 }
-, fun(instance, renderer): GenPagesPersonalSettingEmergencyContactIndex {
-    return GenPagesPersonalSettingEmergencyContactIndex(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesPersonalSettingEmergencyContactIndex {
+        return GenPagesPersonalSettingEmergencyContactIndex(instance, renderer)
+    }
 )
 val GenPagesPersonalSettingAboutUsIndexClass = CreateVueComponent(GenPagesPersonalSettingAboutUsIndex::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "page", name = "", inheritAttrs = GenPagesPersonalSettingAboutUsIndex.inheritAttrs, inject = GenPagesPersonalSettingAboutUsIndex.inject, props = GenPagesPersonalSettingAboutUsIndex.props, propsNeedCastKeys = GenPagesPersonalSettingAboutUsIndex.propsNeedCastKeys, emits = GenPagesPersonalSettingAboutUsIndex.emits, components = GenPagesPersonalSettingAboutUsIndex.components, styles = GenPagesPersonalSettingAboutUsIndex.styles, setup = fun(props: ComponentPublicInstance): Any? {
@@ -18279,9 +18379,9 @@ val GenPagesPersonalSettingAboutUsIndexClass = CreateVueComponent(GenPagesPerson
     }
     )
 }
-, fun(instance, renderer): GenPagesPersonalSettingAboutUsIndex {
-    return GenPagesPersonalSettingAboutUsIndex(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesPersonalSettingAboutUsIndex {
+        return GenPagesPersonalSettingAboutUsIndex(instance, renderer)
+    }
 )
 val GenPagesPersonalSettingContactUsIndexClass = CreateVueComponent(GenPagesPersonalSettingContactUsIndex::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "page", name = "", inheritAttrs = GenPagesPersonalSettingContactUsIndex.inheritAttrs, inject = GenPagesPersonalSettingContactUsIndex.inject, props = GenPagesPersonalSettingContactUsIndex.props, propsNeedCastKeys = GenPagesPersonalSettingContactUsIndex.propsNeedCastKeys, emits = GenPagesPersonalSettingContactUsIndex.emits, components = GenPagesPersonalSettingContactUsIndex.components, styles = GenPagesPersonalSettingContactUsIndex.styles, setup = fun(props: ComponentPublicInstance): Any? {
@@ -18289,16 +18389,16 @@ val GenPagesPersonalSettingContactUsIndexClass = CreateVueComponent(GenPagesPers
     }
     )
 }
-, fun(instance, renderer): GenPagesPersonalSettingContactUsIndex {
-    return GenPagesPersonalSettingContactUsIndex(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesPersonalSettingContactUsIndex {
+        return GenPagesPersonalSettingContactUsIndex(instance, renderer)
+    }
 )
 val GenUniModulesTmxUiComponentsXSwitchXSwitchClass = CreateVueComponent(GenUniModulesTmxUiComponentsXSwitchXSwitch::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXSwitchXSwitch.inheritAttrs, inject = GenUniModulesTmxUiComponentsXSwitchXSwitch.inject, props = GenUniModulesTmxUiComponentsXSwitchXSwitch.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXSwitchXSwitch.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXSwitchXSwitch.emits, components = GenUniModulesTmxUiComponentsXSwitchXSwitch.components, styles = GenUniModulesTmxUiComponentsXSwitchXSwitch.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXSwitchXSwitch {
-    return GenUniModulesTmxUiComponentsXSwitchXSwitch(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXSwitchXSwitch {
+        return GenUniModulesTmxUiComponentsXSwitchXSwitch(instance)
+    }
 )
 val GenPagesOtherCarSettingIndexClass = CreateVueComponent(GenPagesOtherCarSettingIndex::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "page", name = "", inheritAttrs = GenPagesOtherCarSettingIndex.inheritAttrs, inject = GenPagesOtherCarSettingIndex.inject, props = GenPagesOtherCarSettingIndex.props, propsNeedCastKeys = GenPagesOtherCarSettingIndex.propsNeedCastKeys, emits = GenPagesOtherCarSettingIndex.emits, components = GenPagesOtherCarSettingIndex.components, styles = GenPagesOtherCarSettingIndex.styles, setup = fun(props: ComponentPublicInstance): Any? {
@@ -18306,9 +18406,9 @@ val GenPagesOtherCarSettingIndexClass = CreateVueComponent(GenPagesOtherCarSetti
     }
     )
 }
-, fun(instance, renderer): GenPagesOtherCarSettingIndex {
-    return GenPagesOtherCarSettingIndex(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesOtherCarSettingIndex {
+        return GenPagesOtherCarSettingIndex(instance, renderer)
+    }
 )
 open class TripPlanInfo (
     @JsonNotNull
@@ -18920,9 +19020,9 @@ val GenPagesOtherScanOrderIndexClass = CreateVueComponent(GenPagesOtherScanOrder
     }
     )
 }
-, fun(instance, renderer): GenPagesOtherScanOrderIndex {
-    return GenPagesOtherScanOrderIndex(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesOtherScanOrderIndex {
+        return GenPagesOtherScanOrderIndex(instance, renderer)
+    }
 )
 open class CarInfo1 (
     @JsonNotNull
@@ -19987,16 +20087,16 @@ val GenPagesOtherCarManageIndexClass = CreateVueComponent(GenPagesOtherCarManage
     }
     )
 }
-, fun(instance, renderer): GenPagesOtherCarManageIndex {
-    return GenPagesOtherCarManageIndex(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesOtherCarManageIndex {
+        return GenPagesOtherCarManageIndex(instance, renderer)
+    }
 )
 val GenUniModulesTmxUiComponentsXDividerXDividerClass = CreateVueComponent(GenUniModulesTmxUiComponentsXDividerXDivider::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXDividerXDivider.inheritAttrs, inject = GenUniModulesTmxUiComponentsXDividerXDivider.inject, props = GenUniModulesTmxUiComponentsXDividerXDivider.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXDividerXDivider.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXDividerXDivider.emits, components = GenUniModulesTmxUiComponentsXDividerXDivider.components, styles = GenUniModulesTmxUiComponentsXDividerXDivider.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXDividerXDivider {
-    return GenUniModulesTmxUiComponentsXDividerXDivider(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXDividerXDivider {
+        return GenUniModulesTmxUiComponentsXDividerXDivider(instance)
+    }
 )
 open class CHIDREN_ITEM (
     @JsonNotNull
@@ -20050,17 +20150,17 @@ open class CHIDREN_ITEMReactiveObject : CHIDREN_ITEM, IUTSReactive<CHIDREN_ITEM>
 val GenUniModulesTmxUiComponentsXCollapseItemXCollapseItemClass = CreateVueComponent(GenUniModulesTmxUiComponentsXCollapseItemXCollapseItem::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXCollapseItemXCollapseItem.inheritAttrs, inject = GenUniModulesTmxUiComponentsXCollapseItemXCollapseItem.inject, props = GenUniModulesTmxUiComponentsXCollapseItemXCollapseItem.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXCollapseItemXCollapseItem.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXCollapseItemXCollapseItem.emits, components = GenUniModulesTmxUiComponentsXCollapseItemXCollapseItem.components, styles = GenUniModulesTmxUiComponentsXCollapseItemXCollapseItem.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXCollapseItemXCollapseItem {
-    return GenUniModulesTmxUiComponentsXCollapseItemXCollapseItem(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXCollapseItemXCollapseItem {
+        return GenUniModulesTmxUiComponentsXCollapseItemXCollapseItem(instance)
+    }
 )
 typealias XCollapseItemComponentPublicInstance = GenUniModulesTmxUiComponentsXCollapseItemXCollapseItem
 val GenUniModulesTmxUiComponentsXCollapseXCollapseClass = CreateVueComponent(GenUniModulesTmxUiComponentsXCollapseXCollapse::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXCollapseXCollapse.inheritAttrs, inject = GenUniModulesTmxUiComponentsXCollapseXCollapse.inject, props = GenUniModulesTmxUiComponentsXCollapseXCollapse.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXCollapseXCollapse.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXCollapseXCollapse.emits, components = GenUniModulesTmxUiComponentsXCollapseXCollapse.components, styles = GenUniModulesTmxUiComponentsXCollapseXCollapse.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXCollapseXCollapse {
-    return GenUniModulesTmxUiComponentsXCollapseXCollapse(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXCollapseXCollapse {
+        return GenUniModulesTmxUiComponentsXCollapseXCollapse(instance)
+    }
 )
 typealias XCollapseComponentPublicInstance = GenUniModulesTmxUiComponentsXCollapseXCollapse
 open class LinesAggCityInfo (
@@ -20589,9 +20689,9 @@ val GenPagesOtherLineManageIndexClass = CreateVueComponent(GenPagesOtherLineMana
     }
     )
 }
-, fun(instance, renderer): GenPagesOtherLineManageIndex {
-    return GenPagesOtherLineManageIndex(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesOtherLineManageIndex {
+        return GenPagesOtherLineManageIndex(instance, renderer)
+    }
 )
 val GenPagesOtherLineManageViewDistinctIndexClass = CreateVueComponent(GenPagesOtherLineManageViewDistinctIndex::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "page", name = "", inheritAttrs = GenPagesOtherLineManageViewDistinctIndex.inheritAttrs, inject = GenPagesOtherLineManageViewDistinctIndex.inject, props = GenPagesOtherLineManageViewDistinctIndex.props, propsNeedCastKeys = GenPagesOtherLineManageViewDistinctIndex.propsNeedCastKeys, emits = GenPagesOtherLineManageViewDistinctIndex.emits, components = GenPagesOtherLineManageViewDistinctIndex.components, styles = GenPagesOtherLineManageViewDistinctIndex.styles, setup = fun(props: ComponentPublicInstance): Any? {
@@ -20599,9 +20699,9 @@ val GenPagesOtherLineManageViewDistinctIndexClass = CreateVueComponent(GenPagesO
     }
     )
 }
-, fun(instance, renderer): GenPagesOtherLineManageViewDistinctIndex {
-    return GenPagesOtherLineManageViewDistinctIndex(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesOtherLineManageViewDistinctIndex {
+        return GenPagesOtherLineManageViewDistinctIndex(instance, renderer)
+    }
 )
 val GenPagesOtherLineManageAddLineIndexClass = CreateVueComponent(GenPagesOtherLineManageAddLineIndex::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "page", name = "", inheritAttrs = GenPagesOtherLineManageAddLineIndex.inheritAttrs, inject = GenPagesOtherLineManageAddLineIndex.inject, props = GenPagesOtherLineManageAddLineIndex.props, propsNeedCastKeys = GenPagesOtherLineManageAddLineIndex.propsNeedCastKeys, emits = GenPagesOtherLineManageAddLineIndex.emits, components = GenPagesOtherLineManageAddLineIndex.components, styles = GenPagesOtherLineManageAddLineIndex.styles, setup = fun(props: ComponentPublicInstance): Any? {
@@ -20609,9 +20709,9 @@ val GenPagesOtherLineManageAddLineIndexClass = CreateVueComponent(GenPagesOtherL
     }
     )
 }
-, fun(instance, renderer): GenPagesOtherLineManageAddLineIndex {
-    return GenPagesOtherLineManageAddLineIndex(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesOtherLineManageAddLineIndex {
+        return GenPagesOtherLineManageAddLineIndex(instance, renderer)
+    }
 )
 open class DateItem (
     @JsonNotNull
@@ -20682,9 +20782,9 @@ val GenPagesOtherTripPlanIndexClass = CreateVueComponent(GenPagesOtherTripPlanIn
     }
     )
 }
-, fun(instance, renderer): GenPagesOtherTripPlanIndex {
-    return GenPagesOtherTripPlanIndex(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesOtherTripPlanIndex {
+        return GenPagesOtherTripPlanIndex(instance, renderer)
+    }
 )
 open class coverValue (
     @JsonNotNull
@@ -20695,9 +20795,9 @@ open class coverValue (
 val GenUniModulesTmxUiComponentsXPickerTimeXPickerTimeClass = CreateVueComponent(GenUniModulesTmxUiComponentsXPickerTimeXPickerTime::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXPickerTimeXPickerTime.inheritAttrs, inject = GenUniModulesTmxUiComponentsXPickerTimeXPickerTime.inject, props = GenUniModulesTmxUiComponentsXPickerTimeXPickerTime.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXPickerTimeXPickerTime.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXPickerTimeXPickerTime.emits, components = GenUniModulesTmxUiComponentsXPickerTimeXPickerTime.components, styles = GenUniModulesTmxUiComponentsXPickerTimeXPickerTime.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXPickerTimeXPickerTime {
-    return GenUniModulesTmxUiComponentsXPickerTimeXPickerTime(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXPickerTimeXPickerTime {
+        return GenUniModulesTmxUiComponentsXPickerTimeXPickerTime(instance)
+    }
 )
 fun findParentIds(nodes: UTSArray<UTSJSONObject>, targetId: String, idkey: String): UTSArray<String> {
     run {
@@ -20856,17 +20956,17 @@ typealias callbackType2 = (id: String) -> UTSPromise<UTSArray<UTSJSONObject>>
 val GenUniModulesTmxUiComponentsXTreeItemXTreeItemClass = CreateVueComponent(GenUniModulesTmxUiComponentsXTreeItemXTreeItem::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXTreeItemXTreeItem.inheritAttrs, inject = GenUniModulesTmxUiComponentsXTreeItemXTreeItem.inject, props = GenUniModulesTmxUiComponentsXTreeItemXTreeItem.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXTreeItemXTreeItem.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXTreeItemXTreeItem.emits, components = GenUniModulesTmxUiComponentsXTreeItemXTreeItem.components, styles = GenUniModulesTmxUiComponentsXTreeItemXTreeItem.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXTreeItemXTreeItem {
-    return GenUniModulesTmxUiComponentsXTreeItemXTreeItem(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXTreeItemXTreeItem {
+        return GenUniModulesTmxUiComponentsXTreeItemXTreeItem(instance)
+    }
 )
 typealias callbackType3 = (id: String) -> UTSPromise<UTSArray<UTSJSONObject>>
 val GenUniModulesTmxUiComponentsXTreeXTreeClass = CreateVueComponent(GenUniModulesTmxUiComponentsXTreeXTree::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXTreeXTree.inheritAttrs, inject = GenUniModulesTmxUiComponentsXTreeXTree.inject, props = GenUniModulesTmxUiComponentsXTreeXTree.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXTreeXTree.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXTreeXTree.emits, components = GenUniModulesTmxUiComponentsXTreeXTree.components, styles = GenUniModulesTmxUiComponentsXTreeXTree.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXTreeXTree {
-    return GenUniModulesTmxUiComponentsXTreeXTree(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXTreeXTree {
+        return GenUniModulesTmxUiComponentsXTreeXTree(instance)
+    }
 )
 open class DriverBindDistrictLines1 (
     @JsonNotNull
@@ -20902,9 +21002,9 @@ val GenPagesOtherTripPlanAddIndexClass = CreateVueComponent(GenPagesOtherTripPla
     }
     )
 }
-, fun(instance, renderer): GenPagesOtherTripPlanAddIndex {
-    return GenPagesOtherTripPlanAddIndex(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesOtherTripPlanAddIndex {
+        return GenPagesOtherTripPlanAddIndex(instance, renderer)
+    }
 )
 val GenComponentsMcSeatSelectIndexClass = CreateVueComponent(GenComponentsMcSeatSelectIndex::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenComponentsMcSeatSelectIndex.inheritAttrs, inject = GenComponentsMcSeatSelectIndex.inject, props = GenComponentsMcSeatSelectIndex.props, propsNeedCastKeys = GenComponentsMcSeatSelectIndex.propsNeedCastKeys, emits = GenComponentsMcSeatSelectIndex.emits, components = GenComponentsMcSeatSelectIndex.components, styles = GenComponentsMcSeatSelectIndex.styles, setup = fun(props: ComponentPublicInstance, ctx: SetupContext): Any? {
@@ -20912,9 +21012,9 @@ val GenComponentsMcSeatSelectIndexClass = CreateVueComponent(GenComponentsMcSeat
     }
     )
 }
-, fun(instance, renderer): GenComponentsMcSeatSelectIndex {
-    return GenComponentsMcSeatSelectIndex(instance)
-}
+    , fun(instance, renderer): GenComponentsMcSeatSelectIndex {
+        return GenComponentsMcSeatSelectIndex(instance)
+    }
 )
 typealias McSeatSelectComponentPublicInstance = GenComponentsMcSeatSelectIndex
 open class DriverBindDistrictLines2 (
@@ -21096,9 +21196,9 @@ val GenPagesOtherTripPlanDetailIndexClass = CreateVueComponent(GenPagesOtherTrip
     }
     )
 }
-, fun(instance, renderer): GenPagesOtherTripPlanDetailIndex {
-    return GenPagesOtherTripPlanDetailIndex(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesOtherTripPlanDetailIndex {
+        return GenPagesOtherTripPlanDetailIndex(instance, renderer)
+    }
 )
 val GenPagesOtherTripPlanSelectPlanIndexClass = CreateVueComponent(GenPagesOtherTripPlanSelectPlanIndex::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "page", name = "", inheritAttrs = GenPagesOtherTripPlanSelectPlanIndex.inheritAttrs, inject = GenPagesOtherTripPlanSelectPlanIndex.inject, props = GenPagesOtherTripPlanSelectPlanIndex.props, propsNeedCastKeys = GenPagesOtherTripPlanSelectPlanIndex.propsNeedCastKeys, emits = GenPagesOtherTripPlanSelectPlanIndex.emits, components = GenPagesOtherTripPlanSelectPlanIndex.components, styles = GenPagesOtherTripPlanSelectPlanIndex.styles, setup = fun(props: ComponentPublicInstance): Any? {
@@ -21106,9 +21206,9 @@ val GenPagesOtherTripPlanSelectPlanIndexClass = CreateVueComponent(GenPagesOther
     }
     )
 }
-, fun(instance, renderer): GenPagesOtherTripPlanSelectPlanIndex {
-    return GenPagesOtherTripPlanSelectPlanIndex(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesOtherTripPlanSelectPlanIndex {
+        return GenPagesOtherTripPlanSelectPlanIndex(instance, renderer)
+    }
 )
 open class DistanceOption (
     open var alwaysShowKm: Boolean? = null,
@@ -21168,9 +21268,9 @@ val GenUniModulesMcAmapNavPlusComponentsMcAmapMcAmapClass = CreateVueComponent(G
     }
     )
 }
-, fun(instance, renderer): GenUniModulesMcAmapNavPlusComponentsMcAmapMcAmap {
-    return GenUniModulesMcAmapNavPlusComponentsMcAmapMcAmap(instance)
-}
+    , fun(instance, renderer): GenUniModulesMcAmapNavPlusComponentsMcAmapMcAmap {
+        return GenUniModulesMcAmapNavPlusComponentsMcAmapMcAmap(instance)
+    }
 )
 typealias McAmapComponentPublicInstance = GenUniModulesMcAmapNavPlusComponentsMcAmapMcAmap
 open class xCellItemType (
@@ -21337,9 +21437,9 @@ open class xCellItemTypeReactiveObject : xCellItemType, IUTSReactive<xCellItemTy
 val GenUniModulesTmxUiComponentsXCellXCellClass = CreateVueComponent(GenUniModulesTmxUiComponentsXCellXCell::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXCellXCell.inheritAttrs, inject = GenUniModulesTmxUiComponentsXCellXCell.inject, props = GenUniModulesTmxUiComponentsXCellXCell.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXCellXCell.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXCellXCell.emits, components = GenUniModulesTmxUiComponentsXCellXCell.components, styles = GenUniModulesTmxUiComponentsXCellXCell.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXCellXCell {
-    return GenUniModulesTmxUiComponentsXCellXCell(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXCellXCell {
+        return GenUniModulesTmxUiComponentsXCellXCell(instance)
+    }
 )
 open class NODE_INFO (
     @JsonNotNull
@@ -21450,9 +21550,9 @@ typealias xPopopverPosType = String
 val GenUniModulesTmxUiComponentsXPopoverXPopoverClass = CreateVueComponent(GenUniModulesTmxUiComponentsXPopoverXPopover::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXPopoverXPopover.inheritAttrs, inject = GenUniModulesTmxUiComponentsXPopoverXPopover.inject, props = GenUniModulesTmxUiComponentsXPopoverXPopover.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXPopoverXPopover.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXPopoverXPopover.emits, components = GenUniModulesTmxUiComponentsXPopoverXPopover.components, styles = GenUniModulesTmxUiComponentsXPopoverXPopover.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXPopoverXPopover {
-    return GenUniModulesTmxUiComponentsXPopoverXPopover(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXPopoverXPopover {
+        return GenUniModulesTmxUiComponentsXPopoverXPopover(instance)
+    }
 )
 open class CHILDREN_INFO (
     @JsonNotNull
@@ -21562,9 +21662,9 @@ open class CHILDREN_INFOReactiveObject : CHILDREN_INFO, IUTSReactive<CHILDREN_IN
 val GenUniModulesTmxUiComponentsXDragItemMcXDragItemMcClass = CreateVueComponent(GenUniModulesTmxUiComponentsXDragItemMcXDragItemMc::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXDragItemMcXDragItemMc.inheritAttrs, inject = GenUniModulesTmxUiComponentsXDragItemMcXDragItemMc.inject, props = GenUniModulesTmxUiComponentsXDragItemMcXDragItemMc.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXDragItemMcXDragItemMc.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXDragItemMcXDragItemMc.emits, components = GenUniModulesTmxUiComponentsXDragItemMcXDragItemMc.components, styles = GenUniModulesTmxUiComponentsXDragItemMcXDragItemMc.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXDragItemMcXDragItemMc {
-    return GenUniModulesTmxUiComponentsXDragItemMcXDragItemMc(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXDragItemMcXDragItemMc {
+        return GenUniModulesTmxUiComponentsXDragItemMcXDragItemMc(instance)
+    }
 )
 typealias XDragItemMcComponentPublicInstance = GenUniModulesTmxUiComponentsXDragItemMcXDragItemMc
 open class CHILDREN_SIZE (
@@ -21751,9 +21851,9 @@ var timer1: Number = 0
 val GenUniModulesTmxUiComponentsXDragMcXDragMcClass = CreateVueComponent(GenUniModulesTmxUiComponentsXDragMcXDragMc::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXDragMcXDragMc.inheritAttrs, inject = GenUniModulesTmxUiComponentsXDragMcXDragMc.inject, props = GenUniModulesTmxUiComponentsXDragMcXDragMc.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXDragMcXDragMc.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXDragMcXDragMc.emits, components = GenUniModulesTmxUiComponentsXDragMcXDragMc.components, styles = GenUniModulesTmxUiComponentsXDragMcXDragMc.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXDragMcXDragMc {
-    return GenUniModulesTmxUiComponentsXDragMcXDragMc(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXDragMcXDragMc {
+        return GenUniModulesTmxUiComponentsXDragMcXDragMc(instance)
+    }
 )
 typealias XDragMcComponentPublicInstance = GenUniModulesTmxUiComponentsXDragMcXDragMc
 open class GenUniModulesTmxUiComponentsXRadioXRadioSlotDataLabel (
@@ -21828,17 +21928,17 @@ open class XRADIO_LISTITEM_TYPEReactiveObject : XRADIO_LISTITEM_TYPE, IUTSReacti
 val GenUniModulesTmxUiComponentsXRadioXRadioClass = CreateVueComponent(GenUniModulesTmxUiComponentsXRadioXRadio::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXRadioXRadio.inheritAttrs, inject = GenUniModulesTmxUiComponentsXRadioXRadio.inject, props = GenUniModulesTmxUiComponentsXRadioXRadio.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXRadioXRadio.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXRadioXRadio.emits, components = GenUniModulesTmxUiComponentsXRadioXRadio.components, styles = GenUniModulesTmxUiComponentsXRadioXRadio.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXRadioXRadio {
-    return GenUniModulesTmxUiComponentsXRadioXRadio(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXRadioXRadio {
+        return GenUniModulesTmxUiComponentsXRadioXRadio(instance)
+    }
 )
 typealias XRadioComponentPublicInstance = GenUniModulesTmxUiComponentsXRadioXRadio
 val GenUniModulesTmxUiComponentsXRadioGroupXRadioGroupClass = CreateVueComponent(GenUniModulesTmxUiComponentsXRadioGroupXRadioGroup::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = GenUniModulesTmxUiComponentsXRadioGroupXRadioGroup.name, inheritAttrs = GenUniModulesTmxUiComponentsXRadioGroupXRadioGroup.inheritAttrs, inject = GenUniModulesTmxUiComponentsXRadioGroupXRadioGroup.inject, props = GenUniModulesTmxUiComponentsXRadioGroupXRadioGroup.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXRadioGroupXRadioGroup.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXRadioGroupXRadioGroup.emits, components = GenUniModulesTmxUiComponentsXRadioGroupXRadioGroup.components, styles = GenUniModulesTmxUiComponentsXRadioGroupXRadioGroup.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXRadioGroupXRadioGroup {
-    return GenUniModulesTmxUiComponentsXRadioGroupXRadioGroup(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXRadioGroupXRadioGroup {
+        return GenUniModulesTmxUiComponentsXRadioGroupXRadioGroup(instance)
+    }
 )
 typealias XRadioGroupComponentPublicInstance = GenUniModulesTmxUiComponentsXRadioGroupXRadioGroup
 val GenComponentsMcSeatViewerIndexClass = CreateVueComponent(GenComponentsMcSeatViewerIndex::class.java, fun(): VueComponentOptions {
@@ -21847,9 +21947,9 @@ val GenComponentsMcSeatViewerIndexClass = CreateVueComponent(GenComponentsMcSeat
     }
     )
 }
-, fun(instance, renderer): GenComponentsMcSeatViewerIndex {
-    return GenComponentsMcSeatViewerIndex(instance)
-}
+    , fun(instance, renderer): GenComponentsMcSeatViewerIndex {
+        return GenComponentsMcSeatViewerIndex(instance)
+    }
 )
 typealias McSeatViewerComponentPublicInstance = GenComponentsMcSeatViewerIndex
 val ws = Ws.ws
@@ -21947,9 +22047,9 @@ open class RouteSimpleInfoReactiveObject : RouteSimpleInfo, IUTSReactive<RouteSi
 val GenPagesOtherOrderDetailIndexClass = CreateVueComponent(GenPagesOtherOrderDetailIndex::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "page", name = "", inheritAttrs = GenPagesOtherOrderDetailIndex.inheritAttrs, inject = GenPagesOtherOrderDetailIndex.inject, props = GenPagesOtherOrderDetailIndex.props, propsNeedCastKeys = GenPagesOtherOrderDetailIndex.propsNeedCastKeys, emits = GenPagesOtherOrderDetailIndex.emits, components = GenPagesOtherOrderDetailIndex.components, styles = GenPagesOtherOrderDetailIndex.styles)
 }
-, fun(instance, renderer): GenPagesOtherOrderDetailIndex {
-    return GenPagesOtherOrderDetailIndex(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesOtherOrderDetailIndex {
+        return GenPagesOtherOrderDetailIndex(instance, renderer)
+    }
 )
 val GenUniModulesMcAmapNavPlusComponentsMcAmapNavMcAmapNavClass = CreateVueComponent(GenUniModulesMcAmapNavPlusComponentsMcAmapNavMcAmapNav::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesMcAmapNavPlusComponentsMcAmapNavMcAmapNav.inheritAttrs, inject = GenUniModulesMcAmapNavPlusComponentsMcAmapNavMcAmapNav.inject, props = GenUniModulesMcAmapNavPlusComponentsMcAmapNavMcAmapNav.props, propsNeedCastKeys = GenUniModulesMcAmapNavPlusComponentsMcAmapNavMcAmapNav.propsNeedCastKeys, emits = GenUniModulesMcAmapNavPlusComponentsMcAmapNavMcAmapNav.emits, components = GenUniModulesMcAmapNavPlusComponentsMcAmapNavMcAmapNav.components, styles = GenUniModulesMcAmapNavPlusComponentsMcAmapNavMcAmapNav.styles, setup = fun(props: ComponentPublicInstance, ctx: SetupContext): Any? {
@@ -21957,9 +22057,9 @@ val GenUniModulesMcAmapNavPlusComponentsMcAmapNavMcAmapNavClass = CreateVueCompo
     }
     )
 }
-, fun(instance, renderer): GenUniModulesMcAmapNavPlusComponentsMcAmapNavMcAmapNav {
-    return GenUniModulesMcAmapNavPlusComponentsMcAmapNavMcAmapNav(instance)
-}
+    , fun(instance, renderer): GenUniModulesMcAmapNavPlusComponentsMcAmapNavMcAmapNav {
+        return GenUniModulesMcAmapNavPlusComponentsMcAmapNavMcAmapNav(instance)
+    }
 )
 typealias McAmapNavComponentPublicInstance = GenUniModulesMcAmapNavPlusComponentsMcAmapNavMcAmapNav
 open class CHECKPOINT_XY (
@@ -22125,9 +22225,9 @@ open class GenUniModulesTmxUiComponentsXFingerXFingerSlotDataDefault (
 val GenUniModulesTmxUiComponentsXFingerXFingerClass = CreateVueComponent(GenUniModulesTmxUiComponentsXFingerXFinger::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXFingerXFinger.inheritAttrs, inject = GenUniModulesTmxUiComponentsXFingerXFinger.inject, props = GenUniModulesTmxUiComponentsXFingerXFinger.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXFingerXFinger.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXFingerXFinger.emits, components = GenUniModulesTmxUiComponentsXFingerXFinger.components, styles = GenUniModulesTmxUiComponentsXFingerXFinger.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXFingerXFinger {
-    return GenUniModulesTmxUiComponentsXFingerXFinger(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXFingerXFinger {
+        return GenUniModulesTmxUiComponentsXFingerXFinger(instance)
+    }
 )
 val GenComponentsMcDragVerifyIndexClass = CreateVueComponent(GenComponentsMcDragVerifyIndex::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenComponentsMcDragVerifyIndex.inheritAttrs, inject = GenComponentsMcDragVerifyIndex.inject, props = GenComponentsMcDragVerifyIndex.props, propsNeedCastKeys = GenComponentsMcDragVerifyIndex.propsNeedCastKeys, emits = GenComponentsMcDragVerifyIndex.emits, components = GenComponentsMcDragVerifyIndex.components, styles = GenComponentsMcDragVerifyIndex.styles, setup = fun(props: ComponentPublicInstance, ctx: SetupContext): Any? {
@@ -22135,18 +22235,18 @@ val GenComponentsMcDragVerifyIndexClass = CreateVueComponent(GenComponentsMcDrag
     }
     )
 }
-, fun(instance, renderer): GenComponentsMcDragVerifyIndex {
-    return GenComponentsMcDragVerifyIndex(instance)
-}
+    , fun(instance, renderer): GenComponentsMcDragVerifyIndex {
+        return GenComponentsMcDragVerifyIndex(instance)
+    }
 )
 typealias McDragVerifyComponentPublicInstance = GenComponentsMcDragVerifyIndex
 val ws1 = Ws.ws
 val GenPagesOtherOrderDetailNaviClass = CreateVueComponent(GenPagesOtherOrderDetailNavi::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "page", name = "", inheritAttrs = GenPagesOtherOrderDetailNavi.inheritAttrs, inject = GenPagesOtherOrderDetailNavi.inject, props = GenPagesOtherOrderDetailNavi.props, propsNeedCastKeys = GenPagesOtherOrderDetailNavi.propsNeedCastKeys, emits = GenPagesOtherOrderDetailNavi.emits, components = GenPagesOtherOrderDetailNavi.components, styles = GenPagesOtherOrderDetailNavi.styles)
 }
-, fun(instance, renderer): GenPagesOtherOrderDetailNavi {
-    return GenPagesOtherOrderDetailNavi(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesOtherOrderDetailNavi {
+        return GenPagesOtherOrderDetailNavi(instance, renderer)
+    }
 )
 open class coverValue1 (
     @JsonNotNull
@@ -22158,16 +22258,16 @@ typealias ModelType = String
 val GenUniModulesTmxUiComponentsXDateViewXDateViewClass = CreateVueComponent(GenUniModulesTmxUiComponentsXDateViewXDateView::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXDateViewXDateView.inheritAttrs, inject = GenUniModulesTmxUiComponentsXDateViewXDateView.inject, props = GenUniModulesTmxUiComponentsXDateViewXDateView.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXDateViewXDateView.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXDateViewXDateView.emits, components = GenUniModulesTmxUiComponentsXDateViewXDateView.components, styles = GenUniModulesTmxUiComponentsXDateViewXDateView.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXDateViewXDateView {
-    return GenUniModulesTmxUiComponentsXDateViewXDateView(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXDateViewXDateView {
+        return GenUniModulesTmxUiComponentsXDateViewXDateView(instance)
+    }
 )
 val GenComponentsMcDatePickerSelectorIndexClass = CreateVueComponent(GenComponentsMcDatePickerSelectorIndex::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenComponentsMcDatePickerSelectorIndex.inheritAttrs, inject = GenComponentsMcDatePickerSelectorIndex.inject, props = GenComponentsMcDatePickerSelectorIndex.props, propsNeedCastKeys = GenComponentsMcDatePickerSelectorIndex.propsNeedCastKeys, emits = GenComponentsMcDatePickerSelectorIndex.emits, components = GenComponentsMcDatePickerSelectorIndex.components, styles = GenComponentsMcDatePickerSelectorIndex.styles)
 }
-, fun(instance, renderer): GenComponentsMcDatePickerSelectorIndex {
-    return GenComponentsMcDatePickerSelectorIndex(instance)
-}
+    , fun(instance, renderer): GenComponentsMcDatePickerSelectorIndex {
+        return GenComponentsMcDatePickerSelectorIndex(instance)
+    }
 )
 open class BANK_CARD_INFO (
     @JsonNotNull
@@ -22473,9 +22573,9 @@ val GenPagesPersonalWalletIndexClass = CreateVueComponent(GenPagesPersonalWallet
     }
     )
 }
-, fun(instance, renderer): GenPagesPersonalWalletIndex {
-    return GenPagesPersonalWalletIndex(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesPersonalWalletIndex {
+        return GenPagesPersonalWalletIndex(instance, renderer)
+    }
 )
 val GenPagesPersonalWalletWithdrawClass = CreateVueComponent(GenPagesPersonalWalletWithdraw::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "page", name = "", inheritAttrs = GenPagesPersonalWalletWithdraw.inheritAttrs, inject = GenPagesPersonalWalletWithdraw.inject, props = GenPagesPersonalWalletWithdraw.props, propsNeedCastKeys = GenPagesPersonalWalletWithdraw.propsNeedCastKeys, emits = GenPagesPersonalWalletWithdraw.emits, components = GenPagesPersonalWalletWithdraw.components, styles = GenPagesPersonalWalletWithdraw.styles, setup = fun(props: ComponentPublicInstance): Any? {
@@ -22483,9 +22583,9 @@ val GenPagesPersonalWalletWithdrawClass = CreateVueComponent(GenPagesPersonalWal
     }
     )
 }
-, fun(instance, renderer): GenPagesPersonalWalletWithdraw {
-    return GenPagesPersonalWalletWithdraw(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesPersonalWalletWithdraw {
+        return GenPagesPersonalWalletWithdraw(instance, renderer)
+    }
 )
 val GenPagesPersonalWalletBankCardClass = CreateVueComponent(GenPagesPersonalWalletBankCard::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "page", name = "", inheritAttrs = GenPagesPersonalWalletBankCard.inheritAttrs, inject = GenPagesPersonalWalletBankCard.inject, props = GenPagesPersonalWalletBankCard.props, propsNeedCastKeys = GenPagesPersonalWalletBankCard.propsNeedCastKeys, emits = GenPagesPersonalWalletBankCard.emits, components = GenPagesPersonalWalletBankCard.components, styles = GenPagesPersonalWalletBankCard.styles, setup = fun(props: ComponentPublicInstance): Any? {
@@ -22493,9 +22593,9 @@ val GenPagesPersonalWalletBankCardClass = CreateVueComponent(GenPagesPersonalWal
     }
     )
 }
-, fun(instance, renderer): GenPagesPersonalWalletBankCard {
-    return GenPagesPersonalWalletBankCard(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesPersonalWalletBankCard {
+        return GenPagesPersonalWalletBankCard(instance, renderer)
+    }
 )
 val GenPagesPersonalWalletAddBankCardClass = CreateVueComponent(GenPagesPersonalWalletAddBankCard::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "page", name = "", inheritAttrs = GenPagesPersonalWalletAddBankCard.inheritAttrs, inject = GenPagesPersonalWalletAddBankCard.inject, props = GenPagesPersonalWalletAddBankCard.props, propsNeedCastKeys = GenPagesPersonalWalletAddBankCard.propsNeedCastKeys, emits = GenPagesPersonalWalletAddBankCard.emits, components = GenPagesPersonalWalletAddBankCard.components, styles = GenPagesPersonalWalletAddBankCard.styles, setup = fun(props: ComponentPublicInstance): Any? {
@@ -22503,9 +22603,9 @@ val GenPagesPersonalWalletAddBankCardClass = CreateVueComponent(GenPagesPersonal
     }
     )
 }
-, fun(instance, renderer): GenPagesPersonalWalletAddBankCard {
-    return GenPagesPersonalWalletAddBankCard(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesPersonalWalletAddBankCard {
+        return GenPagesPersonalWalletAddBankCard(instance, renderer)
+    }
 )
 open class ORDER_ITEM_INFO (
     @JsonNotNull
@@ -22660,9 +22760,9 @@ val GenPagesPersonalJourneyIndexClass = CreateVueComponent(GenPagesPersonalJourn
     }
     )
 }
-, fun(instance, renderer): GenPagesPersonalJourneyIndex {
-    return GenPagesPersonalJourneyIndex(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesPersonalJourneyIndex {
+        return GenPagesPersonalJourneyIndex(instance, renderer)
+    }
 )
 open class GenUniModulesTmxUiComponentsXStepsItemXStepsItemSlotDataDefault (
     @JsonNotNull
@@ -22720,17 +22820,17 @@ open class CHIDREN_ITEM1ReactiveObject : CHIDREN_ITEM1, IUTSReactive<CHIDREN_ITE
 val GenUniModulesTmxUiComponentsXStepsItemXStepsItemClass = CreateVueComponent(GenUniModulesTmxUiComponentsXStepsItemXStepsItem::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXStepsItemXStepsItem.inheritAttrs, inject = GenUniModulesTmxUiComponentsXStepsItemXStepsItem.inject, props = GenUniModulesTmxUiComponentsXStepsItemXStepsItem.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXStepsItemXStepsItem.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXStepsItemXStepsItem.emits, components = GenUniModulesTmxUiComponentsXStepsItemXStepsItem.components, styles = GenUniModulesTmxUiComponentsXStepsItemXStepsItem.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXStepsItemXStepsItem {
-    return GenUniModulesTmxUiComponentsXStepsItemXStepsItem(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXStepsItemXStepsItem {
+        return GenUniModulesTmxUiComponentsXStepsItemXStepsItem(instance)
+    }
 )
 typealias XStepsItemComponentPublicInstance = GenUniModulesTmxUiComponentsXStepsItemXStepsItem
 val GenUniModulesTmxUiComponentsXStepsXStepsClass = CreateVueComponent(GenUniModulesTmxUiComponentsXStepsXSteps::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXStepsXSteps.inheritAttrs, inject = GenUniModulesTmxUiComponentsXStepsXSteps.inject, props = GenUniModulesTmxUiComponentsXStepsXSteps.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXStepsXSteps.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXStepsXSteps.emits, components = GenUniModulesTmxUiComponentsXStepsXSteps.components, styles = GenUniModulesTmxUiComponentsXStepsXSteps.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXStepsXSteps {
-    return GenUniModulesTmxUiComponentsXStepsXSteps(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXStepsXSteps {
+        return GenUniModulesTmxUiComponentsXStepsXSteps(instance)
+    }
 )
 typealias XStepsComponentPublicInstance = GenUniModulesTmxUiComponentsXStepsXSteps
 open class ORDER_DETAIL_INFO (
@@ -23122,17 +23222,17 @@ val GenPagesPersonalJourneyOrderDetailClass = CreateVueComponent(GenPagesPersona
     }
     )
 }
-, fun(instance, renderer): GenPagesPersonalJourneyOrderDetail {
-    return GenPagesPersonalJourneyOrderDetail(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesPersonalJourneyOrderDetail {
+        return GenPagesPersonalJourneyOrderDetail(instance, renderer)
+    }
 )
 typealias eventsType = (data: Any) -> Unit
 val GenUniModulesTmxUiComponentsXEchartXEchartClass = CreateVueComponent(GenUniModulesTmxUiComponentsXEchartXEchart::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXEchartXEchart.inheritAttrs, inject = GenUniModulesTmxUiComponentsXEchartXEchart.inject, props = GenUniModulesTmxUiComponentsXEchartXEchart.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXEchartXEchart.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXEchartXEchart.emits, components = GenUniModulesTmxUiComponentsXEchartXEchart.components, styles = GenUniModulesTmxUiComponentsXEchartXEchart.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXEchartXEchart {
-    return GenUniModulesTmxUiComponentsXEchartXEchart(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXEchartXEchart {
+        return GenUniModulesTmxUiComponentsXEchartXEchart(instance)
+    }
 )
 open class SummaryData (
     @JsonNotNull
@@ -23311,9 +23411,9 @@ val GenPagesPersonalMonthsDataIndexClass = CreateVueComponent(GenPagesPersonalMo
     }
     )
 }
-, fun(instance, renderer): GenPagesPersonalMonthsDataIndex {
-    return GenPagesPersonalMonthsDataIndex(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesPersonalMonthsDataIndex {
+        return GenPagesPersonalMonthsDataIndex(instance, renderer)
+    }
 )
 open class TransactionItem1 (
     @JsonNotNull
@@ -23423,9 +23523,9 @@ val GenPagesPersonalIntegralIndexClass = CreateVueComponent(GenPagesPersonalInte
     }
     )
 }
-, fun(instance, renderer): GenPagesPersonalIntegralIndex {
-    return GenPagesPersonalIntegralIndex(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesPersonalIntegralIndex {
+        return GenPagesPersonalIntegralIndex(instance, renderer)
+    }
 )
 val GenPagesOtherSeatSelectIndexClass = CreateVueComponent(GenPagesOtherSeatSelectIndex::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "page", name = "", inheritAttrs = GenPagesOtherSeatSelectIndex.inheritAttrs, inject = GenPagesOtherSeatSelectIndex.inject, props = GenPagesOtherSeatSelectIndex.props, propsNeedCastKeys = GenPagesOtherSeatSelectIndex.propsNeedCastKeys, emits = GenPagesOtherSeatSelectIndex.emits, components = GenPagesOtherSeatSelectIndex.components, styles = GenPagesOtherSeatSelectIndex.styles, setup = fun(props: ComponentPublicInstance): Any? {
@@ -23433,9 +23533,9 @@ val GenPagesOtherSeatSelectIndexClass = CreateVueComponent(GenPagesOtherSeatSele
     }
     )
 }
-, fun(instance, renderer): GenPagesOtherSeatSelectIndex {
-    return GenPagesOtherSeatSelectIndex(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesOtherSeatSelectIndex {
+        return GenPagesOtherSeatSelectIndex(instance, renderer)
+    }
 )
 open class colorOption (
     @JsonNotNull
@@ -23542,9 +23642,9 @@ val GenPagesOtherCarManageAddIndexClass = CreateVueComponent(GenPagesOtherCarMan
     }
     )
 }
-, fun(instance, renderer): GenPagesOtherCarManageAddIndex {
-    return GenPagesOtherCarManageAddIndex(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesOtherCarManageAddIndex {
+        return GenPagesOtherCarManageAddIndex(instance, renderer)
+    }
 )
 val GenPagesOtherCarManageBindIndexClass = CreateVueComponent(GenPagesOtherCarManageBindIndex::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "page", name = "", inheritAttrs = GenPagesOtherCarManageBindIndex.inheritAttrs, inject = GenPagesOtherCarManageBindIndex.inject, props = GenPagesOtherCarManageBindIndex.props, propsNeedCastKeys = GenPagesOtherCarManageBindIndex.propsNeedCastKeys, emits = GenPagesOtherCarManageBindIndex.emits, components = GenPagesOtherCarManageBindIndex.components, styles = GenPagesOtherCarManageBindIndex.styles, setup = fun(props: ComponentPublicInstance): Any? {
@@ -23552,9 +23652,9 @@ val GenPagesOtherCarManageBindIndexClass = CreateVueComponent(GenPagesOtherCarMa
     }
     )
 }
-, fun(instance, renderer): GenPagesOtherCarManageBindIndex {
-    return GenPagesOtherCarManageBindIndex(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesOtherCarManageBindIndex {
+        return GenPagesOtherCarManageBindIndex(instance, renderer)
+    }
 )
 open class DriverInfo (
     @JsonNotNull
@@ -23778,9 +23878,9 @@ val GenPagesPersonalQualificationsIndexClass = CreateVueComponent(GenPagesPerson
     }
     )
 }
-, fun(instance, renderer): GenPagesPersonalQualificationsIndex {
-    return GenPagesPersonalQualificationsIndex(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesPersonalQualificationsIndex {
+        return GenPagesPersonalQualificationsIndex(instance, renderer)
+    }
 )
 val GenPagesPersonalQualificationsTradeIndexClass = CreateVueComponent(GenPagesPersonalQualificationsTradeIndex::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "page", name = "", inheritAttrs = GenPagesPersonalQualificationsTradeIndex.inheritAttrs, inject = GenPagesPersonalQualificationsTradeIndex.inject, props = GenPagesPersonalQualificationsTradeIndex.props, propsNeedCastKeys = GenPagesPersonalQualificationsTradeIndex.propsNeedCastKeys, emits = GenPagesPersonalQualificationsTradeIndex.emits, components = GenPagesPersonalQualificationsTradeIndex.components, styles = GenPagesPersonalQualificationsTradeIndex.styles, setup = fun(props: ComponentPublicInstance): Any? {
@@ -23788,9 +23888,9 @@ val GenPagesPersonalQualificationsTradeIndexClass = CreateVueComponent(GenPagesP
     }
     )
 }
-, fun(instance, renderer): GenPagesPersonalQualificationsTradeIndex {
-    return GenPagesPersonalQualificationsTradeIndex(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesPersonalQualificationsTradeIndex {
+        return GenPagesPersonalQualificationsTradeIndex(instance, renderer)
+    }
 )
 open class PHONE_INFO (
     @JsonNotNull
@@ -23861,9 +23961,9 @@ val GenPagesPersonalSwitchPhoneIndexClass = CreateVueComponent(GenPagesPersonalS
     }
     )
 }
-, fun(instance, renderer): GenPagesPersonalSwitchPhoneIndex {
-    return GenPagesPersonalSwitchPhoneIndex(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesPersonalSwitchPhoneIndex {
+        return GenPagesPersonalSwitchPhoneIndex(instance, renderer)
+    }
 )
 open class PHONE_INFO1 (
     @JsonNotNull
@@ -23934,9 +24034,9 @@ val GenPagesPersonalSettingAccountSafeSecondaryPasswordIndexClass = CreateVueCom
     }
     )
 }
-, fun(instance, renderer): GenPagesPersonalSettingAccountSafeSecondaryPasswordIndex {
-    return GenPagesPersonalSettingAccountSafeSecondaryPasswordIndex(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesPersonalSettingAccountSafeSecondaryPasswordIndex {
+        return GenPagesPersonalSettingAccountSafeSecondaryPasswordIndex(instance, renderer)
+    }
 )
 open class PHONE_INFO2 (
     @JsonNotNull
@@ -24021,16 +24121,16 @@ val GenPagesPersonalSwitchPhoneNoLoginIndexClass = CreateVueComponent(GenPagesPe
     }
     )
 }
-, fun(instance, renderer): GenPagesPersonalSwitchPhoneNoLoginIndex {
-    return GenPagesPersonalSwitchPhoneNoLoginIndex(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesPersonalSwitchPhoneNoLoginIndex {
+        return GenPagesPersonalSwitchPhoneNoLoginIndex(instance, renderer)
+    }
 )
 val GenUniModulesTmxUiComponentsXOverlayXOverlayClass = CreateVueComponent(GenUniModulesTmxUiComponentsXOverlayXOverlay::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXOverlayXOverlay.inheritAttrs, inject = GenUniModulesTmxUiComponentsXOverlayXOverlay.inject, props = GenUniModulesTmxUiComponentsXOverlayXOverlay.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXOverlayXOverlay.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXOverlayXOverlay.emits, components = GenUniModulesTmxUiComponentsXOverlayXOverlay.components, styles = GenUniModulesTmxUiComponentsXOverlayXOverlay.styles)
 }
-, fun(instance, renderer): GenUniModulesTmxUiComponentsXOverlayXOverlay {
-    return GenUniModulesTmxUiComponentsXOverlayXOverlay(instance)
-}
+    , fun(instance, renderer): GenUniModulesTmxUiComponentsXOverlayXOverlay {
+        return GenUniModulesTmxUiComponentsXOverlayXOverlay(instance)
+    }
 )
 val getPromotionReward = fun(): UTSPromise<Response> {
     return httpGet("/mcpt-system/app/promotion/getPromotionReward", UTSJSONObject())
@@ -24113,9 +24213,9 @@ val GenPagesPersonalPromotionIndexClass = CreateVueComponent(GenPagesPersonalPro
     }
     )
 }
-, fun(instance, renderer): GenPagesPersonalPromotionIndex {
-    return GenPagesPersonalPromotionIndex(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesPersonalPromotionIndex {
+        return GenPagesPersonalPromotionIndex(instance, renderer)
+    }
 )
 open class ITEM_INFO (
     @JsonNotNull
@@ -24172,9 +24272,9 @@ val GenPagesPersonalPromotionRecordIndexClass = CreateVueComponent(GenPagesPerso
     }
     )
 }
-, fun(instance, renderer): GenPagesPersonalPromotionRecordIndex {
-    return GenPagesPersonalPromotionRecordIndex(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesPersonalPromotionRecordIndex {
+        return GenPagesPersonalPromotionRecordIndex(instance, renderer)
+    }
 )
 open class MenuItem2 (
     @JsonNotNull
@@ -24190,9 +24290,9 @@ val GenPagesPersonalSettingAgreementIndexClass = CreateVueComponent(GenPagesPers
     }
     )
 }
-, fun(instance, renderer): GenPagesPersonalSettingAgreementIndex {
-    return GenPagesPersonalSettingAgreementIndex(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesPersonalSettingAgreementIndex {
+        return GenPagesPersonalSettingAgreementIndex(instance, renderer)
+    }
 )
 val getLatestAgreementContent = fun(agreementType: String): UTSPromise<Response> {
     console.log("agreementType=", agreementType)
@@ -24204,9 +24304,9 @@ val GenPagesPersonalSettingAgreementDetailIndexClass = CreateVueComponent(GenPag
     }
     )
 }
-, fun(instance, renderer): GenPagesPersonalSettingAgreementDetailIndex {
-    return GenPagesPersonalSettingAgreementDetailIndex(instance, renderer)
-}
+    , fun(instance, renderer): GenPagesPersonalSettingAgreementDetailIndex {
+        return GenPagesPersonalSettingAgreementDetailIndex(instance, renderer)
+    }
 )
 val GenPagesOtherWebViewIndexClass = CreateVueComponent(GenPagesOtherWebViewIndex::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "page", name = "", inheritAttrs = GenPagesOtherWebViewIndex.inheritAttrs, inject = GenPagesOtherWebViewIndex.inject, props = GenPagesOtherWebViewIndex.props, propsNeedCastKeys = GenPagesOtherWebViewIndex.propsNeedCastKeys, emits = GenPagesOtherWebViewIndex.emits, components = GenPagesOtherWebViewIndex.components, styles = GenPagesOtherWebViewIndex.styles, setup = fun(props: ComponentPublicInstance): Any? {
@@ -24214,9 +24314,111 @@ val GenPagesOtherWebViewIndexClass = CreateVueComponent(GenPagesOtherWebViewInde
     }
     )
 }
-, fun(instance, renderer): GenPagesOtherWebViewIndex {
-    return GenPagesOtherWebViewIndex(instance, renderer)
+    , fun(instance, renderer): GenPagesOtherWebViewIndex {
+        return GenPagesOtherWebViewIndex(instance, renderer)
+    }
+)
+open class MenuItem3 (
+    @JsonNotNull
+    open var showArrow: Boolean = false,
+    @JsonNotNull
+    open var title: String,
+    open var value: String? = null,
+    @JsonNotNull
+    open var icon: String,
+    @JsonNotNull
+    open var status: Boolean = false,
+    open var click: () -> Unit,
+) : UTSReactiveObject() {
+    override fun __v_create(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): UTSReactiveObject {
+        return MenuItem3ReactiveObject(this, __v_isReadonly, __v_isShallow, __v_skip)
+    }
 }
+open class MenuItem3ReactiveObject : MenuItem3, IUTSReactive<MenuItem3> {
+    override var __v_raw: MenuItem3
+    override var __v_isReadonly: Boolean
+    override var __v_isShallow: Boolean
+    override var __v_skip: Boolean
+    constructor(__v_raw: MenuItem3, __v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean) : super(showArrow = __v_raw.showArrow, title = __v_raw.title, value = __v_raw.value, icon = __v_raw.icon, status = __v_raw.status, click = __v_raw.click) {
+        this.__v_raw = __v_raw
+        this.__v_isReadonly = __v_isReadonly
+        this.__v_isShallow = __v_isShallow
+        this.__v_skip = __v_skip
+    }
+    override fun __v_clone(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): MenuItem3ReactiveObject {
+        return MenuItem3ReactiveObject(this.__v_raw, __v_isReadonly, __v_isShallow, __v_skip)
+    }
+    override var showArrow: Boolean
+        get() {
+            return trackReactiveGet(__v_raw, "showArrow", __v_raw.showArrow, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("showArrow")) {
+                return
+            }
+            val oldValue = __v_raw.showArrow
+            __v_raw.showArrow = value
+            triggerReactiveSet(__v_raw, "showArrow", oldValue, value)
+        }
+    override var title: String
+        get() {
+            return trackReactiveGet(__v_raw, "title", __v_raw.title, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("title")) {
+                return
+            }
+            val oldValue = __v_raw.title
+            __v_raw.title = value
+            triggerReactiveSet(__v_raw, "title", oldValue, value)
+        }
+    override var value: String?
+        get() {
+            return trackReactiveGet(__v_raw, "value", __v_raw.value, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("value")) {
+                return
+            }
+            val oldValue = __v_raw.value
+            __v_raw.value = value
+            triggerReactiveSet(__v_raw, "value", oldValue, value)
+        }
+    override var icon: String
+        get() {
+            return trackReactiveGet(__v_raw, "icon", __v_raw.icon, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("icon")) {
+                return
+            }
+            val oldValue = __v_raw.icon
+            __v_raw.icon = value
+            triggerReactiveSet(__v_raw, "icon", oldValue, value)
+        }
+    override var status: Boolean
+        get() {
+
+            return trackReactiveGet(__v_raw, "status", __v_raw.status, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("status")) {
+                return
+            }
+            val oldValue = __v_raw.status
+            __v_raw.status = value
+            triggerReactiveSet(__v_raw, "status", oldValue, value)
+        }
+}
+val GenPagesPersonalSettingAccountSafeAccountBindIndexClass = CreateVueComponent(GenPagesPersonalSettingAccountSafeAccountBindIndex::class.java, fun(): VueComponentOptions {
+    return VueComponentOptions(type = "page", name = "", inheritAttrs = GenPagesPersonalSettingAccountSafeAccountBindIndex.inheritAttrs, inject = GenPagesPersonalSettingAccountSafeAccountBindIndex.inject, props = GenPagesPersonalSettingAccountSafeAccountBindIndex.props, propsNeedCastKeys = GenPagesPersonalSettingAccountSafeAccountBindIndex.propsNeedCastKeys, emits = GenPagesPersonalSettingAccountSafeAccountBindIndex.emits, components = GenPagesPersonalSettingAccountSafeAccountBindIndex.components, styles = GenPagesPersonalSettingAccountSafeAccountBindIndex.styles, setup = fun(props: ComponentPublicInstance): Any? {
+        return GenPagesPersonalSettingAccountSafeAccountBindIndex.setup(props as GenPagesPersonalSettingAccountSafeAccountBindIndex)
+    }
+    )
+}
+    , fun(instance, renderer): GenPagesPersonalSettingAccountSafeAccountBindIndex {
+        return GenPagesPersonalSettingAccountSafeAccountBindIndex(instance, renderer)
+    }
 )
 fun createApp(): UTSJSONObject {
     val app = createSSRApp(GenAppClass)
@@ -24295,6 +24497,7 @@ fun definePageRoutes() {
     __uniRoutes.push(UniPageRoute(path = "pages/personal/setting/agreement/index", component = GenPagesPersonalSettingAgreementIndexClass, meta = UniPageMeta(isQuit = false), style = utsMapOf("navigationBarTitleText" to "协议管理", "enablePullDownRefresh" to false, "navigationStyle" to "custom")))
     __uniRoutes.push(UniPageRoute(path = "pages/personal/setting/agreement/detail/index", component = GenPagesPersonalSettingAgreementDetailIndexClass, meta = UniPageMeta(isQuit = false), style = utsMapOf("navigationBarTitleText" to "协议管理", "enablePullDownRefresh" to false, "navigationStyle" to "custom")))
     __uniRoutes.push(UniPageRoute(path = "pages/other/web-view/index", component = GenPagesOtherWebViewIndexClass, meta = UniPageMeta(isQuit = false), style = utsMapOf("navigationBarTitleText" to "预览页面", "enablePullDownRefresh" to false, "navigationStyle" to "custom")))
+    __uniRoutes.push(UniPageRoute(path = "pages/personal/setting/account-safe/account-bind/index", component = GenPagesPersonalSettingAccountSafeAccountBindIndexClass, meta = UniPageMeta(isQuit = false), style = utsMapOf("navigationBarTitleText" to "账号绑定管理", "enablePullDownRefresh" to false, "navigationStyle" to "custom")))
 }
 val __uniLaunchPage: Map<String, Any?> = utsMapOf("url" to "pages/home/index", "style" to utsMapOf("navigationBarTitleText" to "首页", "enablePullDownRefresh" to false, "navigationStyle" to "custom"))
 fun defineAppConfig() {
@@ -24308,6 +24511,14 @@ fun defineAppConfig() {
     __uniConfig.uniIdRouter = utsMapOf()
     __uniConfig.themeConfig = utsMapOf("light" to utsMapOf("navBgColor" to "#f5f5f5", "navTxtStyle" to "black", "backgroundColor" to "#f5f5f5", "backgroundTextStyle" to "#333333", "tabBgColor" to "#FFFFFF", "tabBorderStyle" to "#cccccc", "tabFontColor" to "#979797", "tabSelectedColor" to "#0073FF"), "dark" to utsMapOf("navBgColor" to "#000000", "navTxtStyle" to "white", "backgroundColor" to "#000000", "backgroundTextStyle" to "#ffffff", "tabBgColor" to "#000000", "tabBorderStyle" to "#222222", "tabFontColor" to "#d0d0d0", "tabSelectedColor" to "#0073FF"))
     __uniConfig.ready = true
+}
+open class UniCloudConfig : io.dcloud.unicloud.InternalUniCloudConfig {
+    override var isDev: Boolean = false
+    override var spaceList: String = "[{\"provider\":\"aliyun\",\"spaceName\":\"default\",\"spaceId\":\"mp-eb1c558b-e516-4288-b425-9cd912c7d0d2\",\"clientSecret\":\"A8lLuU/WCJBhc3308idYig==\",\"endpoint\":\"https://api.next.bspapp.com\"}]"
+    override var debuggerInfo: String? = null
+    override var secureNetworkEnable: Boolean = false
+    override var secureNetworkConfig: String? = ""
+    constructor() : super() {}
 }
 open class GenUniApp : UniAppImpl() {
     open val vm: GenApp?

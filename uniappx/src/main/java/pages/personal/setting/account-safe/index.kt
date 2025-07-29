@@ -6,6 +6,7 @@ import io.dcloud.uniapp.framework.*
 import io.dcloud.uniapp.runtime.*
 import io.dcloud.uniapp.vue.*
 import io.dcloud.uniapp.vue.shared.*
+import io.dcloud.unicloud.*
 import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
@@ -58,6 +59,9 @@ open class GenPagesPersonalSettingAccountSafeIndex : BasePage {
             }
             val toSecondaryPassword = fun(){
                 router.push("/pages/personal/setting/account-safe/secondary-password/index")
+            }
+            val toAccountBind = fun(){
+                router.push("/pages/personal/setting/account-safe/account-bind/index")
             }
             onReady(fun(){
                 checkUserSetSecondPassword().then(fun(res: Response){
@@ -114,10 +118,36 @@ open class GenPagesPersonalSettingAccountSafeIndex : BasePage {
                             "25"
                         )), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                             return utsArrayOf(
-                                createVNode(_component_mc_active_animation, utsMapOf("class" to "setting-item", "onClick" to toAccountCancellation), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                createVNode(_component_mc_active_animation, utsMapOf("class" to "setting-item", "onClick" to toAccountBind), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                                     return utsArrayOf(
                                         createElementVNode("view", utsMapOf("class" to "setting-header"), utsArrayOf(
-                                            createElementVNode("text", utsMapOf("class" to "label"), "永久注销账号"),
+                                            createElementVNode("text", utsMapOf("class" to "label"), "账号绑定管理"),
+                                            createElementVNode("image", utsMapOf("class" to "icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-arrow-right-line-samll.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
+                                                "src"
+                                            ))
+                                        )),
+                                        createElementVNode("view", utsMapOf("class" to "desc"), utsArrayOf(
+                                            createElementVNode("text", utsMapOf("class" to "text"), "绑定微信、支付宝等账号")
+                                        ))
+                                    )
+                                }
+                                ), "_" to 1))
+                            )
+                        }
+                        ), "_" to 1)),
+                        createVNode(_component_x_sheet, utsMapOf("margin" to utsArrayOf(
+                            "15"
+                        ), "padding" to utsArrayOf(
+                            "20",
+                            "15",
+                            "20",
+                            "25"
+                        )), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                            return utsArrayOf(
+                                createVNode(_component_mc_active_animation, utsMapOf("class" to "setting-item", "onClick" to toRevokePrivacy), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                    return utsArrayOf(
+                                        createElementVNode("view", utsMapOf("class" to "setting-header"), utsArrayOf(
+                                            createElementVNode("text", utsMapOf("class" to "label"), "撤回同意隐私政策"),
                                             createElementVNode("image", utsMapOf("class" to "icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-arrow-right-line-samll.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
                                                 "src"
                                             ))
@@ -140,10 +170,10 @@ open class GenPagesPersonalSettingAccountSafeIndex : BasePage {
                             "25"
                         )), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                             return utsArrayOf(
-                                createVNode(_component_mc_active_animation, utsMapOf("class" to "setting-item", "onClick" to toRevokePrivacy), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                createVNode(_component_mc_active_animation, utsMapOf("class" to "setting-item", "onClick" to toAccountCancellation), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                                     return utsArrayOf(
                                         createElementVNode("view", utsMapOf("class" to "setting-header"), utsArrayOf(
-                                            createElementVNode("text", utsMapOf("class" to "label"), "撤回同意隐私政策"),
+                                            createElementVNode("text", utsMapOf("class" to "label"), "永久注销账号"),
                                             createElementVNode("image", utsMapOf("class" to "icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-arrow-right-line-samll.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
                                                 "src"
                                             ))

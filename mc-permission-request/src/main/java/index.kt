@@ -21,6 +21,7 @@ import io.dcloud.uniapp.framework.*
 import io.dcloud.uniapp.runtime.*
 import io.dcloud.uniapp.vue.*
 import io.dcloud.uniapp.vue.shared.*
+import io.dcloud.unicloud.*
 import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
@@ -126,20 +127,14 @@ fun requestNotificationPermission(): Unit {
     if (Build.BRAND != null) {
         brand = Build.BRAND.toLowerCase()
     }
+    console.log("Build.VERSION===", Build.VERSION.SDK_INT)
     if (Build.VERSION.SDK_INT >= 33) {
         val permission = Manifest.permission.POST_NOTIFICATIONS
         if (ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED) {
-            uni_showToast(ShowToastOptions(title = "已获得通知权限", icon = "none"))
             console.log("已获得通知权限==============")
             return
         }
         showPermissionDialog(activity, brand)
-    } else {
-        if (brand == BRAND_XIAOMI || brand == BRAND_HUAWEI || brand == BRAND_VIVO || brand == BRAND_OPPO) {
-            showPermissionDialog(activity, brand)
-        } else {
-            uni_showToast(ShowToastOptions(title = "系统已自动授予通知权限", icon = "none"))
-        }
     }
 }
 fun showPermissionDialog(activity: Activity, brand: String): Unit {

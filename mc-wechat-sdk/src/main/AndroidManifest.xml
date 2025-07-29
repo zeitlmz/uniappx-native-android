@@ -5,4 +5,18 @@
         <package android:name="com.mc.driver.client"/>
         <!-- // 指定微信包名 -->
     </queries>
+    <application>
+        <activity
+            android:name="uts.sdk.modules.mcWechatSdk.WXEntryActivity"
+            android:exported="true"
+            android:taskAffinity="com.mc.driver.client"
+            android:launchMode="singleTask">
+        </activity>
+
+        <activity-alias
+            android:name="com.mc.driver.client.wxapi.WXEntryActivity"
+            android:exported="true"
+            android:targetActivity="uts.sdk.modules.mcWechatSdk.WXEntryActivity">
+        </activity-alias>
+    </application>
 </manifest>
