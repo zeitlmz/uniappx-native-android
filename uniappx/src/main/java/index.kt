@@ -9075,17 +9075,14 @@ val callCloudFunction = fun(methodName: String, param: UTSJSONObject){
     console.log("callCloudFunction methodName=", methodName, ", param=", param)
     uniCloud.callFunction(UniCloudCallFunctionOptions(name = methodName, data = param)).then(fun(res){
         console.log("callFunction ", methodName, " res=", res)
-        Log.i("unipush", "callFunction 调用成功返回："+res)
     }
     ).`catch`(fun(err){
         console.error("callFunction", methodName, "err=", err)
-        Log.i("unipush", "callFunction 调用异常返回："+err)
     }
     )
 }
 val getPushClientId = fun(userInfoId: String){
     console.log("getPushClientId 开始获取, userInfoId=", userInfoId)
-    Log.i("unipush", "getPushClientId 开始获取, userInfoId"+userInfoId)
     var pushClientId = ""
     val deviceId = uni_getDeviceInfo(null)?.deviceId
     uni_getPushClientId(GetPushClientIdOptions(success = fun(res: GetPushClientIdSuccess){
@@ -9491,15 +9488,15 @@ val clearAuth = fun(){
     JgUtil.stopPush()
     offPushMessage()
 }
-val runBlock3 = run {
-    if (isPre) {
-        baseUrl = "https://www.mctwlx.com/pre-srv"
-        wsBaseUrl = "wss://www.mctwlx.com/pre-ws/mcpt-engine-driverWs/driverWs"
-    } else if (isRelease) {
-        baseUrl = "https://www.mctwlx.com/srv"
-        wsBaseUrl = "wss://www.mctwlx.com/ws/mcpt-engine-driverWs/driverWs"
-    }
-}
+//val runBlock3 = run {
+//    if (isPre) {
+//        baseUrl = "https://www.mctwlx.com/pre-srv"
+//        wsBaseUrl = "wss://www.mctwlx.com/pre-ws/mcpt-engine-driverWs/driverWs"
+//    } else if (isRelease) {
+//        baseUrl = "https://www.mctwlx.com/srv"
+//        wsBaseUrl = "wss://www.mctwlx.com/ws/mcpt-engine-driverWs/driverWs"
+//    }
+//}
 val resBaseUrl = "https://prod.resource.mctwlx.com/car/app-resources/driver"
 val miniProgramCover = resBaseUrl + "/static/images/img-self-share-reward.png"
 val mapBaseUrl = "https://restapi.amap.com"
