@@ -23,29 +23,24 @@ open class GenComponentsMcEnvTagIndex : VueComponent {
             val __ins = getCurrentInstance()!!
             val _ctx = __ins.proxy as GenComponentsMcEnvTagIndex
             val _cache = __ins.renderCache
-            val showTag = ref(isPre || !isRelease)
+            val viewBaseUrl = fun(){
+                showTips(BaseApiStore.baseUrl, "success")
+            }
             val envs: Envs = Envs(dev = EnvOption(name = "dev", color = "#00c240", desc = "开发"), pre = EnvOption(name = "pre", color = "#c28b00", desc = "预生产"), prod = EnvOption(name = "test", color = "#cc182b", desc = "正式"))
-            val currentEnv: EnvOption = if (isPre) {
-                envs.pre
-            } else {
-                if (!isRelease) {
-                    envs.dev
-                } else {
-                    envs.prod
+            val currentEnv = computed(fun(): EnvOption {
+                var envOption = envs.dev
+                if (BaseApiStore.currentEnvType == 0) {
+                    envOption = envs.pre
+                } else if (BaseApiStore.currentEnvType == 1) {
+                    envOption = envs.pre
                 }
+                return envOption
             }
-            val globalData = inject("globalData") as GlobalDataType
-            val onChangeEnv = fun(){
-                return
-            }
+            )
             return fun(): Any? {
-                return if (isTrue(unref(showTag))) {
-                    createElementVNode("view", utsMapOf("key" to 0, "onClick" to onChangeEnv, "class" to "env-box", "style" to normalizeStyle("background-color: " + unref(currentEnv).color + ";")), utsArrayOf(
-                        createElementVNode("text", utsMapOf("class" to "text"), toDisplayString(unref(currentEnv).desc), 1)
-                    ), 4)
-                } else {
-                    createCommentVNode("v-if", true)
-                }
+                return createElementVNode("view", utsMapOf("class" to "env-box", "onClick" to viewBaseUrl, "style" to normalizeStyle("background-color: " + unref(currentEnv).color + ";")), utsArrayOf(
+                    createElementVNode("text", utsMapOf("class" to "text"), toDisplayString(unref(currentEnv).desc), 1)
+                ), 4)
             }
         }
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
