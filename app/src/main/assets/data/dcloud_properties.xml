@@ -1,0 +1,10 @@
+<properties>
+    <features>
+        <feature name="Push" value="io.dcloud.feature.aps.APSFeatureImpl">
+            <module name="unipush" value="io.dcloud.feature.unipush.GTPushService"/>
+        </feature>
+    </features>
+    <services>
+        <service name="push" value="io.dcloud.feature.aps.APSFeatureImpl"/>
+    </services>
+</properties>

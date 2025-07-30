@@ -78,10 +78,12 @@
         "pageOrientation": "auto"
       },
       "modules": {
+        "uni-makePhoneCall": {},
         "uni-event": {},
         "uni-createInnerAudioContext": {},
         "uni-getSystemInfo": {},
         "uni-media": {},
+        "uni-push": {},
         "uni-storage": {},
         "uni-theme": {},
         "uni-prompt": {},
@@ -90,11 +92,12 @@
         "uni-createWebviewContext": {},
         "uni-exit": {},
         "uni-network": {},
+        "uni-getDeviceInfo": {},
         "uni-getElementById": {},
         "uni-websocket": {},
         "uni-previewImage": {},
         "uni-openAppAuthorizeSetting": {},
-        "uni-makePhoneCall": {},
+        "uni-cloud-client": {},
         "uni-createRequestPermissionListener": {}
       }
     }

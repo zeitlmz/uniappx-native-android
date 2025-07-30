@@ -11,11 +11,19 @@ buildscript {
         google()
         mavenCentral()
         maven { url 'https://jitpack.io' }
+        // 个推的Maven仓地址。
+        maven {
+            url 'https://mvn.getui.com/nexus/content/repositories/releases'
+        }
+        // 配置HMS Core SDK的Maven仓地址。
+        maven {url 'https://developer.huawei.com/repo/'}
     }
 
     dependencies {
         classpath(files('plugins/uts-kotlin-compiler-plugin-0.0.1.jar'))
         classpath(files('plugins/uts-kotlin-gradle-plugin-0.0.1.jar'))
+        // 增加agcp配置。
+        classpath 'com.huawei.agconnect:agcp:1.6.0.300'
     }
 }
 

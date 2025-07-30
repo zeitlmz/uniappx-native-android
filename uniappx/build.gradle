@@ -2,6 +2,7 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'io.dcloud.uts.kotlin'
+    id 'com.huawei.agconnect'
 }
 
 android {
@@ -68,6 +69,7 @@ dependencies {
     implementation project(':mc-amap-nav-plus')
     implementation project(':mc-permission-request')
     implementation project(':mc-wechat-sdk')
+    implementation project(':mc-alipay-sdk')
     implementation project(':uni-kuxrouter')
     implementation project(':x-base642file-s')
     implementation project(':x-loading-s')

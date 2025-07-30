@@ -60,6 +60,33 @@ android {
 
 
         setProperty("archivesBaseName", "app-v${versionName}${ndk.abiFilters.join("-")}")
+
+        manifestPlaceholders = [
+                "GETUI_APPID": "xfosWv7ABP9AtboTmOeVt1",
+                "plus.unipush.appid" : "xfosWv7ABP9AtboTmOeVt1",
+                "PUSH_APPID": "xfosWv7ABP9AtboTmOeVt1",
+                "plus.unipush.appkey" : "gjaipCRT2H8cMWoyDyLOI1",
+                "plus.unipush.appsecret": "RfgHvLwRFb5MVBslPPgRn7",
+                "apk.applicationId":"com.mc.driver.client",
+                "dcloud_unipush_auto_notification": true,
+                // 厂商推送配置
+                //小米
+                "MIPUSH_APPID":"2882303761520415688",
+                "MIPUSH_APPKEY":"5162041542688",
+                //魅族
+                "MEIZUPUSH_APPID":"155549",
+                "MEIZUPUSH_APPKEY":"da823c2266bb43dfb1502c6ca8a6e4e2",
+                //OPPO
+                "OPPOPUSH_APPKEY":"b271982497f04d969fe5ca51fd5ef691",
+                "OPPOPUSH_APPSECRET":"6cff3eb5e88245f6926e817c0ce25577",
+                //华为
+                "com.huawei.hms.client.appid":"114305151",
+                //vivo
+                "com.vivo.push.app_id":"105905014",
+                "com.vivo.push.api_key":"dd0b59f9b328271e7727f39e0f59fe7e",
+                //荣耀
+                "com.hihonor.push.app_id":"104504852"
+        ]
     }
 
     flavorDimensions += "version"
@@ -162,6 +189,7 @@ dependencies {
     implementation project(':mc-amap-nav-plus')
     implementation project(':mc-permission-request')
     implementation project(':mc-wechat-sdk')
+    implementation project(':mc-alipay-sdk')
     implementation project(':uni-kuxrouter')
     implementation project(':x-base642file-s')
     implementation project(':x-loading-s')
@@ -171,4 +199,6 @@ dependencies {
     implementation project(':x-toast-s')
     implementation project(':x-vibrate-s')
     implementation 'com.google.android.exoplayer:exoplayer-core:2.18.0'
+    implementation('com.getui:gtsdk:3.3.7.0'){ exclude(group: 'com.getui') }  //个推SDK
+    implementation 'com.getui:gtc-dcloud:3.2.16.7'  //个推核心组件
 }

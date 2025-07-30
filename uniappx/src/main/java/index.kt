@@ -57,6 +57,7 @@ import io.dcloud.uniapp.framework.*
 import io.dcloud.uniapp.runtime.*
 import io.dcloud.uniapp.vue.*
 import io.dcloud.uniapp.vue.shared.*
+import io.dcloud.unicloud.*
 import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
@@ -90,18 +91,23 @@ import uts.sdk.modules.uniKuxrouter.createKuxRouter as uni_createKuxRouter
 import io.dcloud.uniapp.extapi.createSelectorQuery as uni_createSelectorQuery
 import io.dcloud.uniapp.extapi.exit as uni_exit
 import io.dcloud.uniapp.extapi.getAppBaseInfo as uni_getAppBaseInfo
+import io.dcloud.uniapp.extapi.getDeviceInfo as uni_getDeviceInfo
+import io.dcloud.uniapp.extapi.getPushClientId as uni_getPushClientId
 import io.dcloud.uniapp.extapi.getStorageSync as uni_getStorageSync
 import io.dcloud.uniapp.extapi.getSystemInfoSync as uni_getSystemInfoSync
 import io.dcloud.uniapp.extapi.hideLoading as uni_hideLoading
 import uts.sdk.modules.xLoadingS.hideXloading
 import uts.sdk.modules.xLoadingS.showLoading
 import io.dcloud.uniapp.extapi.loadFontFace as uni_loadFontFace
+import io.dcloud.uniapp.extapi.offPushMessage as uni_offPushMessage
 import io.dcloud.uniapp.extapi.onOsThemeChange as uni_onOsThemeChange
+import io.dcloud.uniapp.extapi.onPushMessage as uni_onPushMessage
 import uts.sdk.modules.mcPermissionRequest.permissionsRequest
 import uts.sdk.modules.mcPermissionRequest.requestNotificationPermission
 import io.dcloud.uniapp.extapi.removeStorageSync as uni_removeStorageSync
 import io.dcloud.uniapp.extapi.request as uni_request
 import io.dcloud.uniapp.extapi.rpx2px as uni_rpx2px
+import io.dcloud.uniapp.extapi.setAppBadgeNumber as uni_setAppBadgeNumber
 import io.dcloud.uniapp.extapi.setAppTheme as uni_setAppTheme
 import io.dcloud.uniapp.extapi.setStorageSync as uni_setStorageSync
 import io.dcloud.uniapp.extapi.showLoading as uni_showLoading
@@ -5792,42 +5798,42 @@ open class xTween {
         } else {
             true
         }
-        , complete = if (opts?.complete != null) {
-            opts!!.complete!!
-        } else {
-            call
-        }
-        , enter = if (opts?.enter != null) {
-            opts!!.enter!!
-        } else {
-            call
-        }
-        , start = if (opts?.start != null) {
-            opts!!.start!!
-        } else {
-            call
-        }
-        , pause = if (opts?.pause != null) {
-            opts!!.pause!!
-        } else {
-            call
-        }
-        , loop = if (opts?.loop != null) {
-            opts!!.loop!!
-        } else {
-            1
-        }
-        , tyty = if (opts?.tyty != null) {
-            opts!!.tyty!!
-        } else {
-            false
-        }
-        , step = if (opts?.step != null) {
-            opts!!.step!!
-        } else {
-            1
-        }
-        , _finishLoop = 0, reverse = false))
+            , complete = if (opts?.complete != null) {
+                opts!!.complete!!
+            } else {
+                call
+            }
+            , enter = if (opts?.enter != null) {
+                opts!!.enter!!
+            } else {
+                call
+            }
+            , start = if (opts?.start != null) {
+                opts!!.start!!
+            } else {
+                call
+            }
+            , pause = if (opts?.pause != null) {
+                opts!!.pause!!
+            } else {
+                call
+            }
+            , loop = if (opts?.loop != null) {
+                opts!!.loop!!
+            } else {
+                1
+            }
+            , tyty = if (opts?.tyty != null) {
+                opts!!.tyty!!
+            } else {
+                false
+            }
+            , step = if (opts?.step != null) {
+                opts!!.step!!
+            } else {
+                1
+            }
+            , _finishLoop = 0, reverse = false))
         return uid
     }
     open fun removeAnimate(uid: String? = null): xTween {
@@ -6187,7 +6193,7 @@ val zhHans = xDateI18nType(weekdays = utsArrayOf(
         "下午"
     }
 }
-, relativeTime = xDateI18nTypeRelativeTime(future = "%s内", past = "%s前", s = "几秒", m = "1分钟", mm = "%d分钟", h = "1小时", hh = "%d小时", d = "1天", dd = "%d天", M = "1个月", MM = "%d个月", y = "1年", yy = "%d年"))
+    , relativeTime = xDateI18nTypeRelativeTime(future = "%s内", past = "%s前", s = "几秒", m = "1分钟", mm = "%d分钟", h = "1小时", hh = "%d小时", d = "1天", dd = "%d天", M = "1个月", MM = "%d个月", y = "1年", yy = "%d年"))
 val en = xDateI18nType(weekdays = utsArrayOf(
     "Sunday",
     "Monday",
@@ -6245,7 +6251,7 @@ val en = xDateI18nType(weekdays = utsArrayOf(
         }
     }
 }
-, relativeTime = xDateI18nTypeRelativeTime(future = "in %s", past = "%s ago", s = "a few seconds", m = "a minute", mm = "%d minutes", h = "an hour", hh = "%d hours", d = "a day", dd = "%d days", M = "a month", MM = "%d months", y = "a year", yy = "%d years"))
+    , relativeTime = xDateI18nTypeRelativeTime(future = "in %s", past = "%s ago", s = "a few seconds", m = "a minute", mm = "%d minutes", h = "an hour", hh = "%d hours", d = "a day", dd = "%d days", M = "a month", MM = "%d months", y = "a year", yy = "%d years"))
 val ja = xDateI18nType(weekdays = utsArrayOf(
     "日曜日",
     "月曜日",
@@ -6295,7 +6301,7 @@ val ja = xDateI18nType(weekdays = utsArrayOf(
         "午後"
     }
 }
-, relativeTime = xDateI18nTypeRelativeTime(future = "%s後", past = "%s前", s = "数秒", m = "1分", mm = "%d分", h = "1時間", hh = "%d時間", d = "1日", dd = "%d日", M = "1ヶ月", MM = "%dヶ月", y = "1年", yy = "%d年"))
+    , relativeTime = xDateI18nTypeRelativeTime(future = "%s後", past = "%s前", s = "数秒", m = "1分", mm = "%d分", h = "1時間", hh = "%d時間", d = "1日", dd = "%d日", M = "1ヶ月", MM = "%dヶ月", y = "1年", yy = "%d年"))
 val ko = xDateI18nType(weekdays = utsArrayOf(
     "일요일",
     "월요일",
@@ -6345,7 +6351,7 @@ val ko = xDateI18nType(weekdays = utsArrayOf(
         "오후"
     }
 }
-, relativeTime = xDateI18nTypeRelativeTime(future = "%s 후", past = "%s 전", s = "몇 초", m = "1분", mm = "%d분", h = "1시간", hh = "%d시간", d = "1일", dd = "%d일", M = "1개월", MM = "%d개월", y = "1년", yy = "%d년"))
+    , relativeTime = xDateI18nTypeRelativeTime(future = "%s 후", past = "%s 전", s = "몇 초", m = "1분", mm = "%d분", h = "1시간", hh = "%d시간", d = "1일", dd = "%d일", M = "1개월", MM = "%d개월", y = "1년", yy = "%d년"))
 val zhHant = xDateI18nType(weekdays = utsArrayOf(
     "星期日",
     "星期一",
@@ -6395,7 +6401,7 @@ val zhHant = xDateI18nType(weekdays = utsArrayOf(
         "下午"
     }
 }
-, relativeTime = xDateI18nTypeRelativeTime(future = "%s內", past = "%s前", s = "幾秒", m = "1分鐘", mm = "%d分鐘", h = "1小時", hh = "%d小時", d = "1天", dd = "%d天", M = "1個月", MM = "%d個月", y = "1年", yy = "%d年"))
+    , relativeTime = xDateI18nTypeRelativeTime(future = "%s內", past = "%s前", s = "幾秒", m = "1分鐘", mm = "%d分鐘", h = "1小時", hh = "%d小時", d = "1天", dd = "%d天", M = "1個月", MM = "%d個月", y = "1年", yy = "%d年"))
 val fr = xDateI18nType(weekdays = utsArrayOf(
     "dimanche",
     "lundi",
@@ -6829,14 +6835,14 @@ open class xDate {
         } else {
             target.getDay()
         }
-        ))
+                ))
         var firstDayOfYear = Date(target.getFullYear(), 0, 1)
         firstDayOfYear.setDate(firstDayOfYear.getDate() - (if (firstDayOfYear.getDay() == 0) {
             7
         } else {
             firstDayOfYear.getDay()
         }
-        ))
+                ))
         return Math.ceil((((target.getTime() - firstDayOfYear.getTime()) / 86400000) + 1) / 7)
     }
     open fun getDateStartOf(d: String = "m"): xDate {
@@ -7494,41 +7500,41 @@ open class xRequest {
         var p = utsArrayOf<Any>()
         fun customPromiseAll(evt: funType): UTSPromise<Any> {
             return wrapUTSPromise(suspend w@{
-                    if (i >= len) {
+                if (i >= len) {
+                    return@w UTSPromise.resolve(p)
+                }
+                var arg: Any = _this.selfOpts
+                if (_this.status != "auth" && _this.status != "before") {
+                    arg = _this.result as xRequestResult
+                }
+                var v = await(evt(arg))
+                if ((_this.status == "auth") && UTSAndroid.`typeof`(v) != "boolean") {
+                    v = true
+                }
+                if ((_this.status == "before") && UTSAndroid.`typeof`(v) != "boolean") {
+                    var beforeOpts = JSON.stringify(v)
+                    _this.setOptions(JSON.parse<xRequestOptions>(beforeOpts!!)!!)
+                    v = true
+                }
+                if ((_this.status == "before") && UTSAndroid.`typeof`(v) == "boolean") {
+                    var iabort = v as Boolean
+                    if (!iabort) {
+                        p.push(v as Boolean)
                         return@w UTSPromise.resolve(p)
                     }
-                    var arg: Any = _this.selfOpts
-                    if (_this.status != "auth" && _this.status != "before") {
-                        arg = _this.result as xRequestResult
-                    }
-                    var v = await(evt(arg))
-                    if ((_this.status == "auth") && UTSAndroid.`typeof`(v) != "boolean") {
-                        v = true
-                    }
-                    if ((_this.status == "before") && UTSAndroid.`typeof`(v) != "boolean") {
-                        var beforeOpts = JSON.stringify(v)
-                        _this.setOptions(JSON.parse<xRequestOptions>(beforeOpts!!)!!)
-                        v = true
-                    }
-                    if ((_this.status == "before") && UTSAndroid.`typeof`(v) == "boolean") {
-                        var iabort = v as Boolean
-                        if (!iabort) {
-                            p.push(v as Boolean)
-                            return@w UTSPromise.resolve(p)
-                        }
-                    }
-                    if ((_this.status == "after") && UTSAndroid.`typeof`(v) == "object") {
-                        _this.result = v as xRequestResult
-                    }
-                    if (_this.status == "success" || _this.status == "timeout" || _this.status == "error" || _this.status == "abort" || _this.status == "complete") {
-                        v = _this.result
-                    }
-                    i += 1
-                    p.push(v)
-                    if (i >= len) {
-                        return@w UTSPromise.resolve(p)
-                    }
-                    return@w await(customPromiseAll(lst[i]))
+                }
+                if ((_this.status == "after") && UTSAndroid.`typeof`(v) == "object") {
+                    _this.result = v as xRequestResult
+                }
+                if (_this.status == "success" || _this.status == "timeout" || _this.status == "error" || _this.status == "abort" || _this.status == "complete") {
+                    v = _this.result
+                }
+                i += 1
+                p.push(v)
+                if (i >= len) {
+                    return@w UTSPromise.resolve(p)
+                }
+                return@w await(customPromiseAll(lst[i]))
             })
         }
         return UTSPromise(fun(res, rej){
@@ -7575,155 +7581,155 @@ open class xRequest {
     }
     open fun request(opts: xRequestOptions? = null): UTSPromise<xRequestResult> {
         return wrapUTSPromise(suspend w@{
-                var _this = this
-                var _thisOpts = this.setOptions(opts)
-                var requestId = getUid1()
-                if (xRequestCall.dev) {
-                    xRequestCall.history.push(xRequestHistoryType(id = requestId, loading = true, loaded = false, status = "", time = Date.now(), api = _thisOpts.url, result = UTSJSONObject() as Any))
-                }
-                if (_thisOpts.showLoadToast) {
-                    uni_showLoading(ShowLoadingOptions(title = _thisOpts!!.loadToastText!!, mask = true))
-                }
-                val url = _thisOpts.hostUrl + _thisOpts.url
-                if (url == "" || _thisOpts.hostUrl == "") {
-                    this.status = "error"
-                    this._setDevReqStatus(requestId)
-                    await(this._callFun_build())
-                    console.warn("未填写请求接口")
-                    if (_thisOpts.showLoadToast) {
-                        uni_hideLoading()
-                    }
-                    if (_thisOpts.showErrorToast) {
-                        return@w UTSPromise<xRequestResult>(fun(tres, trej){
-                            uni_showToast(ShowToastOptions(title = "未填请求域名", icon = "error", mask = true, complete = fun(_) {
-                                trej(_this.result)
-                            }
-                            ))
-                        }
-                        )
-                    }
-                    return@w UTSPromise.reject(_this.result)
-                }
-                if (xRequestCall.authPass == false) {
-                    this.status = "auth"
-                    console.warn("授权失败，中断请求")
-                    this._setDevReqStatus(requestId)
-                    await(this._callFun_build())
-                    if (_thisOpts.showLoadToast) {
-                        uni_hideLoading()
-                    }
-                    return@w UTSPromise.reject(_thisOpts)
-                }
-                if (_thisOpts.useCache && (_thisOpts.method == "GET" || _thisOpts.method == "POST")) {
-                    val cachedResponse = this.cacheManager.get(_thisOpts)
-                    if (cachedResponse != null) {
-                        val cachedata = cachedResponse as UTSJSONObject
-                        val _cookies = cachedata.getArray<String>("cookies")
-                        val cacheResult = xRequestResult(data = cachedata.getAny("data"), statusCode = cachedata.getNumber("statusCode")!!, header = cachedata.getAny("header")!!, cookies = if (_cookies == null) {
-                            (utsArrayOf<String>())
-                        } else {
-                            _cookies!!
-                        }
-                        )
-                        if (_thisOpts.showLoadToast) {
-                            uni_hideLoading()
-                        }
-                        return@w UTSPromise.resolve(cacheResult)
-                    }
-                }
-                this.status = "before"
+            var _this = this
+            var _thisOpts = this.setOptions(opts)
+            var requestId = getUid1()
+            if (xRequestCall.dev) {
+                xRequestCall.history.push(xRequestHistoryType(id = requestId, loading = true, loaded = false, status = "", time = Date.now(), api = _thisOpts.url, result = UTSJSONObject() as Any))
+            }
+            if (_thisOpts.showLoadToast) {
+                uni_showLoading(ShowLoadingOptions(title = _thisOpts!!.loadToastText!!, mask = true))
+            }
+            val url = _thisOpts.hostUrl + _thisOpts.url
+            if (url == "" || _thisOpts.hostUrl == "") {
+                this.status = "error"
                 this._setDevReqStatus(requestId)
-                var jg2 = await(this._callFun_build())
-                var isAbor = (jg2 as UTSArray<Boolean>).some(fun(el): Boolean {
-                    return !el
+                await(this._callFun_build())
+                console.warn("未填写请求接口")
+                if (_thisOpts.showLoadToast) {
+                    uni_hideLoading()
                 }
-                )
-                if (isAbor) {
-                    console.warn("事件before中断了请求")
-                    this.status = "abort"
-                    this._setDevReqStatus(requestId)
-                    await(this._callFun_build())
+                if (_thisOpts.showErrorToast) {
+                    return@w UTSPromise<xRequestResult>(fun(tres, trej){
+                        uni_showToast(ShowToastOptions(title = "未填请求域名", icon = "error", mask = true, complete = fun(_) {
+                            trej(_this.result)
+                        }
+                        ))
+                    }
+                    )
+                }
+                return@w UTSPromise.reject(_this.result)
+            }
+            if (xRequestCall.authPass == false) {
+                this.status = "auth"
+                console.warn("授权失败，中断请求")
+                this._setDevReqStatus(requestId)
+                await(this._callFun_build())
+                if (_thisOpts.showLoadToast) {
+                    uni_hideLoading()
+                }
+                return@w UTSPromise.reject(_thisOpts)
+            }
+            if (_thisOpts.useCache && (_thisOpts.method == "GET" || _thisOpts.method == "POST")) {
+                val cachedResponse = this.cacheManager.get(_thisOpts)
+                if (cachedResponse != null) {
+                    val cachedata = cachedResponse as UTSJSONObject
+                    val _cookies = cachedata.getArray<String>("cookies")
+                    val cacheResult = xRequestResult(data = cachedata.getAny("data"), statusCode = cachedata.getNumber("statusCode")!!, header = cachedata.getAny("header")!!, cookies = if (_cookies == null) {
+                        (utsArrayOf<String>())
+                    } else {
+                        _cookies!!
+                    }
+                    )
                     if (_thisOpts.showLoadToast) {
                         uni_hideLoading()
                     }
-                    return@w UTSPromise.reject(this.result)
+                    return@w UTSPromise.resolve(cacheResult)
                 }
-                return@w UTSPromise(fun(res, rej){
-                    _this.reqtask = uni_request<Any>(RequestOptions(url = url, data = _thisOpts.data, header = _thisOpts.header, method = _thisOpts.method, timeout = _thisOpts.timeout, firstIpv4 = _thisOpts.firstIpv4, sslVerify = false, withCredentials = false, dataType = _thisOpts.dataType, responseType = _thisOpts.responseType, success = fun(rst) {
-                        _this.result = xRequestResult(data = rst.data, statusCode = rst.statusCode, header = rst.header, cookies = rst.cookies as UTSArray<String>)
-                        _this.status = "after"
-                        _this._setDevReqStatus(requestId)
-                        _this._callFun_build().then(fun(v){
-                            if (_thisOpts.successStatusCode != rst.statusCode) {
-                                _this.status = "error"
-                                _this.result.statusCode = rst.statusCode
-                                _this._setDevReqStatus(requestId)
-                                _this._callFun_build().then(fun(){
-                                    if (_thisOpts.showLoadToast) {
-                                        uni_hideLoading()
-                                    }
-                                    if (_thisOpts.showErrorToast) {
-                                        var msg = _thisOpts!!.errorToastText
-                                        msg = if (msg == "") {
-                                            ("服务器错误:" + rst.statusCode.toString(10))
-                                        } else {
-                                            msg
-                                        }
-                                        uni_showToast(ShowToastOptions(title = msg!!, mask = true, icon = "error", complete = fun(_) {
-                                            rej(_this.result)
-                                        }))
-                                    } else {
-                                        rej(_this.result)
-                                    }
-                                }
-                                )
-                                return
-                            }
-                            var jgtss = v as UTSArray<xRequestResult>
-                            var formartv = _this.result as xRequestResult
-                            if (jgtss.length > 0) {
-                                formartv = jgtss[jgtss.length - 1]
-                            }
-                            _this.result = formartv
-                            _this.status = "success"
+            }
+            this.status = "before"
+            this._setDevReqStatus(requestId)
+            var jg2 = await(this._callFun_build())
+            var isAbor = (jg2 as UTSArray<Boolean>).some(fun(el): Boolean {
+                return !el
+            }
+            )
+            if (isAbor) {
+                console.warn("事件before中断了请求")
+                this.status = "abort"
+                this._setDevReqStatus(requestId)
+                await(this._callFun_build())
+                if (_thisOpts.showLoadToast) {
+                    uni_hideLoading()
+                }
+                return@w UTSPromise.reject(this.result)
+            }
+            return@w UTSPromise(fun(res, rej){
+                _this.reqtask = uni_request<Any>(RequestOptions(url = url, data = _thisOpts.data, header = _thisOpts.header, method = _thisOpts.method, timeout = _thisOpts.timeout, firstIpv4 = _thisOpts.firstIpv4, sslVerify = false, withCredentials = false, dataType = _thisOpts.dataType, responseType = _thisOpts.responseType, success = fun(rst) {
+                    _this.result = xRequestResult(data = rst.data, statusCode = rst.statusCode, header = rst.header, cookies = rst.cookies as UTSArray<String>)
+                    _this.status = "after"
+                    _this._setDevReqStatus(requestId)
+                    _this._callFun_build().then(fun(v){
+                        if (_thisOpts.successStatusCode != rst.statusCode) {
+                            _this.status = "error"
+                            _this.result.statusCode = rst.statusCode
                             _this._setDevReqStatus(requestId)
                             _this._callFun_build().then(fun(){
                                 if (_thisOpts.showLoadToast) {
                                     uni_hideLoading()
                                 }
-                                _this.cacheManager.set(_thisOpts, _this.result)
-                                if (_thisOpts.showSuccessToast) {
-                                    var d = formartv.data
-                                    var msg = _thisOpts!!.successToastText
-                                    if (UTSAndroid.`typeof`(d) == "object" && d != null && !UTSArray.isArray(d) && msg == "") {
-                                        try {
-                                            var s = d as UTSJSONObject
-                                            msg = if (s.getString("msg") != null) {
-                                                s.getString("msg")!!
-                                            } else {
-                                                msg
-                                            }
-                                        }
-                                         catch (e: Throwable) {
-                                            console.error("服务没有返回msg字段")
-                                        }
-                                    }
+                                if (_thisOpts.showErrorToast) {
+                                    var msg = _thisOpts!!.errorToastText
                                     msg = if (msg == "") {
-                                        "操作成功"
+                                        ("服务器错误:" + rst.statusCode.toString(10))
                                     } else {
                                         msg
                                     }
-                                    uni_showToast(ShowToastOptions(title = msg!!, icon = "none", mask = true, complete = fun(_) {
-                                        res(_this.result)
+                                    uni_showToast(ShowToastOptions(title = msg!!, mask = true, icon = "error", complete = fun(_) {
+                                        rej(_this.result)
                                     }))
                                 } else {
-                                    res(_this.result)
+                                    rej(_this.result)
                                 }
                             }
                             )
+                            return
+                        }
+                        var jgtss = v as UTSArray<xRequestResult>
+                        var formartv = _this.result as xRequestResult
+                        if (jgtss.length > 0) {
+                            formartv = jgtss[jgtss.length - 1]
+                        }
+                        _this.result = formartv
+                        _this.status = "success"
+                        _this._setDevReqStatus(requestId)
+                        _this._callFun_build().then(fun(){
+                            if (_thisOpts.showLoadToast) {
+                                uni_hideLoading()
+                            }
+                            _this.cacheManager.set(_thisOpts, _this.result)
+                            if (_thisOpts.showSuccessToast) {
+                                var d = formartv.data
+                                var msg = _thisOpts!!.successToastText
+                                if (UTSAndroid.`typeof`(d) == "object" && d != null && !UTSArray.isArray(d) && msg == "") {
+                                    try {
+                                        var s = d as UTSJSONObject
+                                        msg = if (s.getString("msg") != null) {
+                                            s.getString("msg")!!
+                                        } else {
+                                            msg
+                                        }
+                                    }
+                                    catch (e: Throwable) {
+                                        console.error("服务没有返回msg字段")
+                                    }
+                                }
+                                msg = if (msg == "") {
+                                    "操作成功"
+                                } else {
+                                    msg
+                                }
+                                uni_showToast(ShowToastOptions(title = msg!!, icon = "none", mask = true, complete = fun(_) {
+                                    res(_this.result)
+                                }))
+                            } else {
+                                res(_this.result)
+                            }
                         }
                         )
                     }
+                    )
+                }
                     , fail = fun(er) {
                         if (er.errCode == 5) {
                             _this.status = "timeout"
@@ -7751,9 +7757,9 @@ open class xRequest {
                         _this._setDevReqStatus(requestId)
                         _this._callFun_build()
                     }
-                    ))
-                }
-                )
+                ))
+            }
+            )
         })
     }
     companion object {
@@ -8360,7 +8366,7 @@ open class xAnimate {
                                         } else {
                                             easeInt
                                         }
-                                        )
+                                                )
                                     }
                                     if (_this.element != null) {
                                         _this._setAttr(item.name, current, item.unit, progress, item)
@@ -8396,7 +8402,7 @@ open class xAnimate {
                                     } else {
                                         easeInt
                                     }
-                                    )
+                                            )
                                 }
                                 if (_this.element != null) {
                                     _this._setAttr(item.name, current, item.unit, progress, item)
@@ -8778,10 +8784,10 @@ open class xUploadMedia {
                     }
                 }
             }
-            , fail = fun(err){
-                this.chooseBefore(utsArrayOf<String>())
-                console.warn("xUploadMedia:", err)
-            }
+                , fail = fun(err){
+                    this.chooseBefore(utsArrayOf<String>())
+                    console.warn("xUploadMedia:", err)
+                }
             ))
         }
     }
@@ -9064,6 +9070,75 @@ val getTheme = fun(): Theme {
 }
 val runBlock2 = run {
     setTheme(currentTheme)
+}
+val callCloudFunction = fun(methodName: String, param: UTSJSONObject){
+    console.log("callCloudFunction methodName=", methodName, ", param=", param)
+    uniCloud.callFunction(UniCloudCallFunctionOptions(name = methodName, data = param)).then(fun(res){
+        console.log("callFunction ", methodName, " res=", res)
+        Log.i("unipush", "callFunction 调用成功返回："+res)
+    }
+    ).`catch`(fun(err){
+        console.error("callFunction", methodName, "err=", err)
+        Log.i("unipush", "callFunction 调用异常返回："+err)
+    }
+    )
+}
+val getPushClientId = fun(userInfoId: String){
+    console.log("getPushClientId 开始获取, userInfoId=", userInfoId)
+    Log.i("unipush", "getPushClientId 开始获取, userInfoId"+userInfoId)
+    var pushClientId = ""
+    val deviceId = uni_getDeviceInfo(null)?.deviceId
+    uni_getPushClientId(GetPushClientIdOptions(success = fun(res: GetPushClientIdSuccess){
+        console.log("pushClientId====", res.cid)
+        pushClientId = res.cid
+        callCloudFunction("upsertUniIdInfo", object : UTSJSONObject() {
+            var device_id = deviceId
+            var user_id = userInfoId
+            var token_expired: Number = 3600
+            var push_clientid = pushClientId
+        })
+    }
+        , fail = fun(err: GetPushClientIdFail){
+            console.error("getPushClientId err=", err)
+            if (err.message.includes("uniPush is not enabled")) {
+                uni_showModal(ShowModalOptions(title = "获取cid失败", content = "当前项目未启用uni-push，检查manifest.json中的uni-push配置", showCancel = false))
+            } else if (err.message.includes("getPushClientId:fail register fail: {\"errorCode\":1,\"errorMsg\":\"\"}")) {
+                uni_showModal(ShowModalOptions(title = "获取cid失败", content = "当前项目未开通uni-push，开通文档：https://uniapp.dcloud.net.cn/unipush-v2.html#%E7%AC%AC%E4%B8%80%E6%AD%A5-%E5%BC%80%E9%80%9A", showCancel = false))
+            } else {
+                uni_showToast(ShowToastOptions(title = "\u83B7\u53D6cid\u5931\u8D25", icon = "error"))
+            }
+        }
+    ))
+}
+val setAlias = fun(userInfoId: String){
+    console.log("开始设置别名")
+    getPushClientId(userInfoId)
+}
+val setAppBadgeNumber = fun(num: Number){
+    console.log("开始设置角标数字：", num)
+    uni_setAppBadgeNumber(num, null)
+}
+val onPushMessage = fun(userInfoId: String?){
+    console.log("开始监听推送消息")
+    setAppBadgeNumber(0)
+    uni_onPushMessage(fun(res){
+        console.log("收到推送消息：", res)
+        if (res.type == "click") {
+            console.log("点击推送消息")
+            setAppBadgeNumber(0)
+        }
+    }
+    )
+    if (userInfoId != null) {
+        setAlias(userInfoId)
+    }
+}
+val offPushMessage = fun(){
+    console.log("开始关闭推送消息")
+    uni_offPushMessage(fun(res){
+        console.log("关闭推送消息：", res)
+    }
+    )
 }
 val TOKEN_HEADER = "MC-CLIENT-TOKEN"
 val systemInfo = uni_getSystemInfoSync()
@@ -9414,6 +9489,7 @@ val clearAuth = fun(){
     uni_removeStorageSync(USER_INFO_KEY)
     uni_removeStorageSync(ENTRYSTATUS_KEY)
     JgUtil.stopPush()
+    offPushMessage()
 }
 val runBlock3 = run {
     if (isPre) {
@@ -9878,6 +9954,11 @@ val pages = utsArrayOf(
         var navigationBarTitleText = "预览页面"
         var enablePullDownRefresh = false
         var navigationStyle = "custom"
+    }),
+    PageItem(path = "/pages/personal/setting/account-safe/account-bind/index", name = "PagesPersonalSettingAccountSafeAccountBindIndex", needLogin = false, meta = UTSJSONObject(), query = UTSJSONObject(), data = UTSJSONObject(), style = object : UTSJSONObject() {
+        var navigationBarTitleText = "账号绑定管理"
+        var enablePullDownRefresh = false
+        var navigationStyle = "custom"
     })
 ) as UTSArray<PageItem>
 var routes: UTSArray<RouteRecordNormalized> = utsArrayOf()
@@ -9992,7 +10073,7 @@ fun loadImageFromAssets(fname: String): Bitmap? {
         var inputStream = assetManager.open(fname)
         bitmap = BitmapFactory.decodeStream(inputStream)
     }
-     catch (e: Throwable) {}
+    catch (e: Throwable) {}
     return bitmap
 }
 open class PlatformUtils {
@@ -10028,9 +10109,9 @@ open class PlatformUtils {
                 callback(false, "用户拒绝了部分权限")
             }
         }
-        , fun(_: Boolean, _: UTSArray<String>) {
-            callback(false, "用户拒绝了部分权限")
-        }
+            , fun(_: Boolean, _: UTSArray<String>) {
+                callback(false, "用户拒绝了部分权限")
+            }
         )
     }
 }
@@ -15233,25 +15314,25 @@ open class HttpService {
     }
     open fun request(url: String, config: RequestConfig): UTSPromise<Response> {
         return wrapUTSPromise(suspend w@{
-                val beforeConfig = await(this.interceptorManager.handleRequest(config))
-                if (!whiteUrlList.includes(url) && getToken() == null) {
-                    return@w UTSPromise.reject(object : UTSJSONObject() {
-                        var code: Number = -1
-                        var msg = "请登录后再试"
-                        var data = UTSJSONObject()
-                    })
+            val beforeConfig = await(this.interceptorManager.handleRequest(config))
+            if (!whiteUrlList.includes(url) && getToken() == null) {
+                return@w UTSPromise.reject(object : UTSJSONObject() {
+                    var code: Number = -1
+                    var msg = "请登录后再试"
+                    var data = UTSJSONObject()
+                })
+            }
+            val result = await(UTSPromise<Result>(fun(resolve, _reject){
+                if (this.loadingTimer > 0) {
+                    clearTimeout(this.loadingTimer)
                 }
-                val result = await(UTSPromise<Result>(fun(resolve, _reject){
-                    if (this.loadingTimer > 0) {
-                        clearTimeout(this.loadingTimer)
-                    }
-                    this.loadingTimer = setTimeout(fun(){
-                        showLoading(XLOADINGS_TYPE(title = "请求较慢，请稍等"))
-                    }
+                this.loadingTimer = setTimeout(fun(){
+                    showLoading(XLOADINGS_TYPE(title = "请求较慢，请稍等"))
+                }
                     , 5000)
-                    uni_request<Response>(RequestOptions(url = baseUrl + url, method = beforeConfig.method, header = beforeConfig.header, dataType = beforeConfig.dataType, data = beforeConfig.data, timeout = beforeConfig.timeout, sslVerify = beforeConfig.sslVerify, success = fun(res){
-                        resolve(Result(response = res))
-                    }
+                uni_request<Response>(RequestOptions(url = baseUrl + url, method = beforeConfig.method, header = beforeConfig.header, dataType = beforeConfig.dataType, data = beforeConfig.data, timeout = beforeConfig.timeout, sslVerify = beforeConfig.sslVerify, success = fun(res){
+                    resolve(Result(response = res))
+                }
                     , fail = fun(error){
                         resolve(Result(error = error))
                     }
@@ -15259,52 +15340,52 @@ open class HttpService {
                         clearTimeout(this.loadingTimer)
                         hideXloading()
                     }
-                    ))
-                }
                 ))
-                val error = result.error
-                val response = result.response
-                if (error != null) {
-                    await(this.interceptorManager.handleRequestError(error))
-                    return@w UTSPromise<Response>(fun(_, reject){
-                        return reject(object : UTSJSONObject() {
-                            var code = error.errCode
-                            var msg = error.errMsg
-                            var data = UTSJSONObject()
-                        })
-                    }
-                    )
+            }
+            ))
+            val error = result.error
+            val response = result.response
+            if (error != null) {
+                await(this.interceptorManager.handleRequestError(error))
+                return@w UTSPromise<Response>(fun(_, reject){
+                    return reject(object : UTSJSONObject() {
+                        var code = error.errCode
+                        var msg = error.errMsg
+                        var data = UTSJSONObject()
+                    })
                 }
-                if (response != null) {
-                    if (response.data?.code == 200) {
-                        val data = await(this.interceptorManager.handleResponse(response))!!.data
-                        return@w UTSPromise<Response>(fun(resolve, _reject){
-                            return resolve(if (data != null) {
-                                data
-                            } else {
-                                Response(code = 200, msg = response.data?.msg ?: "请求成功", data = UTSJSONObject())
-                            }
-                            )
+                )
+            }
+            if (response != null) {
+                if (response.data?.code == 200) {
+                    val data = await(this.interceptorManager.handleResponse(response))!!.data
+                    return@w UTSPromise<Response>(fun(resolve, _reject){
+                        return resolve(if (data != null) {
+                            data
+                        } else {
+                            Response(code = 200, msg = response.data?.msg ?: "请求成功", data = UTSJSONObject())
                         }
                         )
                     }
-                    val data = await(this.interceptorManager.handleResponseError(response))!!.data
-                    return@w UTSPromise.reject(if (data != null) {
-                        data
-                    } else {
-                        object : UTSJSONObject() {
-                            var code: Number = 500
-                            var msg = "系统繁忙"
-                            var data = UTSJSONObject()
-                        }
-                    }
                     )
                 }
-                return@w UTSPromise.reject(object : UTSJSONObject() {
-                    var code: Number = 500
-                    var msg = "系统繁忙"
-                    var data = UTSJSONObject()
-                })
+                val data = await(this.interceptorManager.handleResponseError(response))!!.data
+                return@w UTSPromise.reject(if (data != null) {
+                    data
+                } else {
+                    object : UTSJSONObject() {
+                        var code: Number = 500
+                        var msg = "系统繁忙"
+                        var data = UTSJSONObject()
+                    }
+                }
+                )
+            }
+            return@w UTSPromise.reject(object : UTSJSONObject() {
+                var code: Number = 500
+                var msg = "系统繁忙"
+                var data = UTSJSONObject()
+            })
         })
     }
 }
@@ -15415,6 +15496,21 @@ val logout = fun(): UTSPromise<Response> {
         var grantPlatform: Number = 4
     })
 }
+val sendThirdLoginPhoneValid = fun(phone: String): UTSPromise<Response> {
+    return httpGet("/mcpt-system/auth/sendThirdLoginPhoneValid?phone=" + phone, UTSJSONObject())
+}
+val driverThirdLoginBindPhoneNumber = fun(phone: String, code: String): UTSPromise<Response> {
+    return httpPost("/mcpt-system/app/user/driverThirdLoginBindPhoneNumber?phoneNumber=" + phone + "&code=" + code, UTSJSONObject())
+}
+val getNotDesensitizedCurrentUser = fun(): UTSPromise<Response> {
+    return httpGet("/mcpt-system/auth/getNotDesensitizedCurrentUser", UTSJSONObject())
+}
+val driverThirdLoginInitDriverSession = fun(): UTSPromise<Response> {
+    return httpGet("/mcpt-system/app/user/driverThirdLoginInitDriverSession", UTSJSONObject())
+}
+val driverBindThirdLogin = fun(data: UTSJSONObject): UTSPromise<Response> {
+    return httpPost("/mcpt-system/app/user/driverBindThirdLogin", data)
+}
 val getWeather = fun(adcode: String): UTSPromise<UTSJSONObject> {
     val url = mapBaseUrl + ("/v3/weather/weatherInfo?key=" + MAP_CONFIG["key"] + "&city=" + adcode + "&extensions=base")
     console.log("天气接口：", url)
@@ -15423,9 +15519,9 @@ val getWeather = fun(adcode: String): UTSPromise<UTSJSONObject> {
             console.log("获取天气：", res.data)
             resolve(res.data ?: UTSJSONObject())
         }
-        , fail = fun(error){
-            console.log("获取天气失败：", error)
-        }
+            , fail = fun(error){
+                console.log("获取天气失败：", error)
+            }
         ))
     }
     )
@@ -17041,6 +17137,9 @@ val saveDriverInfo = fun(data: UTSJSONObject): UTSPromise<Response> {
 }
 val closeAccount = fun(data: UTSJSONObject): UTSPromise<Response> {
     return httpPost("/mcpt-system/auth/closeAccount", data)
+}
+val getDriverThirdLoginInfo = fun(): UTSPromise<Response> {
+    return httpGet("/mcpt-system/app/user/getDriverThirdLoginInfo", UTSJSONObject())
 }
 val GenPagesHomeIndexClass = CreateVueComponent(GenPagesHomeIndex::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "page", name = "", inheritAttrs = GenPagesHomeIndex.inheritAttrs, inject = GenPagesHomeIndex.inject, props = GenPagesHomeIndex.props, propsNeedCastKeys = GenPagesHomeIndex.propsNeedCastKeys, emits = GenPagesHomeIndex.emits, components = GenPagesHomeIndex.components, styles = GenPagesHomeIndex.styles, setup = fun(props: ComponentPublicInstance): Any? {
@@ -24218,6 +24317,108 @@ val GenPagesOtherWebViewIndexClass = CreateVueComponent(GenPagesOtherWebViewInde
     return GenPagesOtherWebViewIndex(instance, renderer)
 }
 )
+open class MenuItem3 (
+    @JsonNotNull
+    open var showArrow: Boolean = false,
+    @JsonNotNull
+    open var title: String,
+    open var value: String? = null,
+    @JsonNotNull
+    open var icon: String,
+    @JsonNotNull
+    open var status: Boolean = false,
+    open var click: () -> Unit,
+) : UTSReactiveObject() {
+    override fun __v_create(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): UTSReactiveObject {
+        return MenuItem3ReactiveObject(this, __v_isReadonly, __v_isShallow, __v_skip)
+    }
+}
+open class MenuItem3ReactiveObject : MenuItem3, IUTSReactive<MenuItem3> {
+    override var __v_raw: MenuItem3
+    override var __v_isReadonly: Boolean
+    override var __v_isShallow: Boolean
+    override var __v_skip: Boolean
+    constructor(__v_raw: MenuItem3, __v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean) : super(showArrow = __v_raw.showArrow, title = __v_raw.title, value = __v_raw.value, icon = __v_raw.icon, status = __v_raw.status, click = __v_raw.click) {
+        this.__v_raw = __v_raw
+        this.__v_isReadonly = __v_isReadonly
+        this.__v_isShallow = __v_isShallow
+        this.__v_skip = __v_skip
+    }
+    override fun __v_clone(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): MenuItem3ReactiveObject {
+        return MenuItem3ReactiveObject(this.__v_raw, __v_isReadonly, __v_isShallow, __v_skip)
+    }
+    override var showArrow: Boolean
+        get() {
+            return trackReactiveGet(__v_raw, "showArrow", __v_raw.showArrow, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("showArrow")) {
+                return
+            }
+            val oldValue = __v_raw.showArrow
+            __v_raw.showArrow = value
+            triggerReactiveSet(__v_raw, "showArrow", oldValue, value)
+        }
+    override var title: String
+        get() {
+            return trackReactiveGet(__v_raw, "title", __v_raw.title, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("title")) {
+                return
+            }
+            val oldValue = __v_raw.title
+            __v_raw.title = value
+            triggerReactiveSet(__v_raw, "title", oldValue, value)
+        }
+    override var value: String?
+        get() {
+            return trackReactiveGet(__v_raw, "value", __v_raw.value, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("value")) {
+                return
+            }
+            val oldValue = __v_raw.value
+            __v_raw.value = value
+            triggerReactiveSet(__v_raw, "value", oldValue, value)
+        }
+    override var icon: String
+        get() {
+            return trackReactiveGet(__v_raw, "icon", __v_raw.icon, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("icon")) {
+                return
+            }
+            val oldValue = __v_raw.icon
+            __v_raw.icon = value
+            triggerReactiveSet(__v_raw, "icon", oldValue, value)
+        }
+    override var status: Boolean
+        get() {
+
+            return trackReactiveGet(__v_raw, "status", __v_raw.status, this.__v_isReadonly, this.__v_isShallow)
+        }
+        set(value) {
+            if (!this.__v_canSet("status")) {
+                return
+            }
+            val oldValue = __v_raw.status
+            __v_raw.status = value
+            triggerReactiveSet(__v_raw, "status", oldValue, value)
+        }
+}
+val GenPagesPersonalSettingAccountSafeAccountBindIndexClass = CreateVueComponent(GenPagesPersonalSettingAccountSafeAccountBindIndex::class.java, fun(): VueComponentOptions {
+    return VueComponentOptions(type = "page", name = "", inheritAttrs = GenPagesPersonalSettingAccountSafeAccountBindIndex.inheritAttrs, inject = GenPagesPersonalSettingAccountSafeAccountBindIndex.inject, props = GenPagesPersonalSettingAccountSafeAccountBindIndex.props, propsNeedCastKeys = GenPagesPersonalSettingAccountSafeAccountBindIndex.propsNeedCastKeys, emits = GenPagesPersonalSettingAccountSafeAccountBindIndex.emits, components = GenPagesPersonalSettingAccountSafeAccountBindIndex.components, styles = GenPagesPersonalSettingAccountSafeAccountBindIndex.styles, setup = fun(props: ComponentPublicInstance): Any? {
+        return GenPagesPersonalSettingAccountSafeAccountBindIndex.setup(props as GenPagesPersonalSettingAccountSafeAccountBindIndex)
+    }
+    )
+}
+    , fun(instance, renderer): GenPagesPersonalSettingAccountSafeAccountBindIndex {
+        return GenPagesPersonalSettingAccountSafeAccountBindIndex(instance, renderer)
+    }
+)
 fun createApp(): UTSJSONObject {
     val app = createSSRApp(GenAppClass)
     app.use(xui, object : UTSJSONObject() {
@@ -24295,6 +24496,7 @@ fun definePageRoutes() {
     __uniRoutes.push(UniPageRoute(path = "pages/personal/setting/agreement/index", component = GenPagesPersonalSettingAgreementIndexClass, meta = UniPageMeta(isQuit = false), style = utsMapOf("navigationBarTitleText" to "协议管理", "enablePullDownRefresh" to false, "navigationStyle" to "custom")))
     __uniRoutes.push(UniPageRoute(path = "pages/personal/setting/agreement/detail/index", component = GenPagesPersonalSettingAgreementDetailIndexClass, meta = UniPageMeta(isQuit = false), style = utsMapOf("navigationBarTitleText" to "协议管理", "enablePullDownRefresh" to false, "navigationStyle" to "custom")))
     __uniRoutes.push(UniPageRoute(path = "pages/other/web-view/index", component = GenPagesOtherWebViewIndexClass, meta = UniPageMeta(isQuit = false), style = utsMapOf("navigationBarTitleText" to "预览页面", "enablePullDownRefresh" to false, "navigationStyle" to "custom")))
+    __uniRoutes.push(UniPageRoute(path = "pages/personal/setting/account-safe/account-bind/index", component = GenPagesPersonalSettingAccountSafeAccountBindIndexClass, meta = UniPageMeta(isQuit = false), style = utsMapOf("navigationBarTitleText" to "账号绑定管理", "enablePullDownRefresh" to false, "navigationStyle" to "custom")))
 }
 val __uniLaunchPage: Map<String, Any?> = utsMapOf("url" to "pages/home/index", "style" to utsMapOf("navigationBarTitleText" to "首页", "enablePullDownRefresh" to false, "navigationStyle" to "custom"))
 fun defineAppConfig() {
@@ -24308,6 +24510,14 @@ fun defineAppConfig() {
     __uniConfig.uniIdRouter = utsMapOf()
     __uniConfig.themeConfig = utsMapOf("light" to utsMapOf("navBgColor" to "#f5f5f5", "navTxtStyle" to "black", "backgroundColor" to "#f5f5f5", "backgroundTextStyle" to "#333333", "tabBgColor" to "#FFFFFF", "tabBorderStyle" to "#cccccc", "tabFontColor" to "#979797", "tabSelectedColor" to "#0073FF"), "dark" to utsMapOf("navBgColor" to "#000000", "navTxtStyle" to "white", "backgroundColor" to "#000000", "backgroundTextStyle" to "#ffffff", "tabBgColor" to "#000000", "tabBorderStyle" to "#222222", "tabFontColor" to "#d0d0d0", "tabSelectedColor" to "#0073FF"))
     __uniConfig.ready = true
+}
+open class UniCloudConfig : io.dcloud.unicloud.InternalUniCloudConfig {
+    override var isDev: Boolean = false
+    override var spaceList: String = "[{\"provider\":\"aliyun\",\"spaceName\":\"default\",\"spaceId\":\"mp-eb1c558b-e516-4288-b425-9cd912c7d0d2\",\"clientSecret\":\"A8lLuU/WCJBhc3308idYig==\",\"endpoint\":\"https://api.next.bspapp.com\"}]"
+    override var debuggerInfo: String? = null
+    override var secureNetworkEnable: Boolean = false
+    override var secureNetworkConfig: String? = ""
+    constructor() : super() {}
 }
 open class GenUniApp : UniAppImpl() {
     open val vm: GenApp?

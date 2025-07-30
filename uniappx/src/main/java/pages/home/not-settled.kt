@@ -6,6 +6,7 @@ import io.dcloud.uniapp.framework.*
 import io.dcloud.uniapp.runtime.*
 import io.dcloud.uniapp.vue.*
 import io.dcloud.uniapp.vue.shared.*
+import io.dcloud.unicloud.*
 import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
@@ -14,7 +15,13 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import uts.sdk.modules.mcAlipaySdk.AlipayLoginOptions
+import uts.sdk.modules.mcAlipaySdk.AlipayShare
+import uts.sdk.modules.mcAlipaySdk.AlipayLoginSuccess
 import uts.sdk.modules.jgJpush.JgUtil
+import uts.sdk.modules.mcWechatSdk.WeChatLoginOptions
+import uts.sdk.modules.mcWechatSdk.WeChatLoginSuccess
+import uts.sdk.modules.mcWechatSdk.WeChatShare
 import uts.sdk.modules.xLoadingS.XLOADINGS_TYPE
 import uts.sdk.modules.xModalS.X_MODAL_TYPE
 import uts.sdk.modules.mcAmapNavPlus.checkLocationPermission
@@ -56,6 +63,7 @@ open class GenPagesHomeNotSettled : VueComponent {
             val globalData = inject("globalData") as GlobalDataType
             val showPrivacyModal = ref(false)
             val loginTipsModal = ref<Boolean>(false)
+            val loginThridTipsModal = ref<Boolean>(false)
             val loginTips = ref<String>("")
             val acitveTab = ref<String>("0")
             val app = getApp()
@@ -95,6 +103,7 @@ open class GenPagesHomeNotSettled : VueComponent {
                 )
             )
             val showLogin = ref<Boolean>(false)
+            val showThridLogin = ref<Boolean>(false)
             val phone = ref<String>("")
             val code = ref<String>("")
             val countdown = ref<Number>(0)
@@ -145,24 +154,39 @@ open class GenPagesHomeNotSettled : VueComponent {
                     return
                 }
                 showLoading(XLOADINGS_TYPE(title = "验证码发送中"))
-                sendPhoneValid(phone.value).then(fun(){
-                    showTips("验证码发送成功", "success")
-                    countdown.value = 60
-                    var timer: Number = 0
-                    timer = setInterval(fun(){
-                        countdown.value--
-                        if (countdown.value <= 0) {
-                            clearInterval(timer)
+                if (showThridLogin.value) {
+                    sendThirdLoginPhoneValid(phone.value).then(fun(){
+                        showTips("验证码发送成功", "success")
+                        countdown.value = 60
+                        var timer: Number = 0
+                        timer = setInterval(fun(){
+                            countdown.value--
+                            if (countdown.value <= 0) {
+                                clearInterval(timer)
+                            }
+                        }, 1000)
+                    })
+                } else {
+                    sendPhoneValid(phone.value).then(fun(){
+                        showTips("验证码发送成功", "success")
+                        countdown.value = 60
+                        var timer: Number = 0
+                        timer = setInterval(fun(){
+                            countdown.value--
+                            if (countdown.value <= 0) {
+                                clearInterval(timer)
+                            }
                         }
+                        , 1000)
                     }
-                    , 1000)
+                    )
                 }
-                )
             }
             val initJg = fun(){
                 if (globalData.isLogin) {
                     val driverInfo = getCacheUserInfo()!!.getJSON("driverSessionInfo")
                     val driverId = driverInfo?.getString("driverId") ?: ""
+                    onPushMessage(driverId)
                     val jg = JgUtil()
                     jg.init()
                     jg.setAlias(driverId)
@@ -230,6 +254,116 @@ open class GenPagesHomeNotSettled : VueComponent {
                     return
                 }
                 loginRequest()
+            }
+            val refreshCurrentUser = fun(){
+                getNotDesensitizedCurrentUser().then(fun(res: Response){
+                    if (res.code == 200) {
+                        val data = res.data as UTSJSONObject
+                        val token = data.getString("token")
+                        if (token != null) {
+                            setToken(token)
+                            setCacheUserInfo(data)
+                            globalData.isLogin = true
+                            initJg()
+                        }
+                        showTips("登录成功", "success")
+                        showThridLogin.value = false
+                        emit("checkHasEntry")
+                        setTimeout(fun(){
+                            openNotifiPerm()
+                        }
+                        , 300)
+                    }
+                }
+                )
+            }
+            val initThirdLoginDriverSession = fun(){
+                console.log("initThirdLoginDriverSession===")
+                driverThirdLoginInitDriverSession().then(fun(userRes: Response){
+                    if (userRes.code == 200) {
+                        refreshCurrentUser()
+                    }
+                }
+                ).`catch`(fun(err: Any?){
+                    val errInfo = JSON.parse(JSON.stringify(err)) as UTSJSONObject
+                    if (errInfo.getNumber("code") == 10000) {
+                        loginThridTipsModal.value = true
+                        loginTips.value = errInfo.getString("msg") ?: ""
+                    }
+                }
+                )
+            }
+            val bindThridLogin = fun(){
+                if (phone.value.length != 11) {
+                    showTips("请输入正确的手机号", "error")
+                    return
+                }
+                if (code.value == "") {
+                    showTips("请输入验证码", "error")
+                    return
+                }
+                if (agreed.value != "1") {
+                    showTips("请阅读并同意用户协议和隐私政策", "warning")
+                    return
+                }
+                driverThirdLoginBindPhoneNumber(phone.value, code.value).then(fun(res: Response){
+                    if (res.code == 200) {
+                        initThirdLoginDriverSession()
+                    }
+                }
+                )
+            }
+            val handleThridSession = fun(res: Response){
+                val data = res.data as UTSJSONObject
+                val token = data.getString("token")
+                if (token != null) {
+                    setToken(token)
+                }
+                val userIdentityInfo = data.getJSON("userIdentity")
+                val identityInfoId = userIdentityInfo?.getString("identityInfoId")
+                if (identityInfoId == null || identityInfoId == "") {
+                    console.log("显示三方登录")
+                    showLogin.value = false
+                    setTimeout(fun(){
+                        showThridLogin.value = true
+                    }, 100)
+                } else {
+                    initThirdLoginDriverSession()
+                }
+            }
+            val wechatLogin = fun(){
+                WeChatShare.getInstance().login(WeChatLoginOptions(state = "mc-driver", success = fun(res: WeChatLoginSuccess){
+                    console.log("wechatLogin success=>", res)
+                    login(object : UTSJSONObject() {
+                        var loginAccount = res.code
+                        var grantPlatform: Number = 5
+                    }).then(fun(resData: Response){
+                        console.log("wechatLogin=", resData)
+                        handleThridSession(resData)
+                    }
+                    )
+                }
+                , fail = fun(err: Any){
+                    console.log("wechatLogin error=>", err)
+                }
+                ))
+            }
+            val alipayLogin = fun(){
+                AlipayShare.getInstance().login(AlipayLoginOptions(success = fun(res: AlipayLoginSuccess){
+                    console.log("alipayLogin success=>", res)
+                    login(object : UTSJSONObject() {
+                        var loginAccount = res.code
+                        var grantPlatform: Number = 12
+                    }).then(fun(resData: Response){
+                        console.log("alipayLogin resData=", resData)
+                        handleThridSession(resData)
+                    }
+                    )
+                }
+                , fail = fun(err: Any){
+                    console.log("alipayLogin error=>", err)
+                }
+                ))
             }
             val onShowAgreement = fun(){
                 router.push("/pages/personal/setting/agreement/detail/index?agreementType=2")
@@ -617,7 +751,95 @@ open class GenPagesHomeNotSettled : VueComponent {
                                             createElementVNode("button", utsMapOf("class" to "login-btn transition", "onClick" to onLogin), "登录/注册"),
                                             createElementVNode("view", utsMapOf("class" to "other-login-options"), utsArrayOf(
                                                 createElementVNode("text", utsMapOf("class" to "old-phone", "onClick" to onOldPhoneLogin), "旧手机号不在使用")
+                                            )),
+                                            createElementVNode("view", utsMapOf("class" to "wechat-login"), utsArrayOf(
+                                                createElementVNode("image", utsMapOf("class" to "wechat-icon", "onClick" to wechatLogin, "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-wechat.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
+                                                    "src"
+                                                )),
+                                                createElementVNode("image", utsMapOf("class" to "wechat-icon", "onClick" to alipayLogin, "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-alipay.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
+                                                    "src"
+                                                ))
                                             ))
+                                        ))
+                                    ))
+                                )
+                            }
+                            ), "_" to 1))
+                        )
+                    }
+                    ), "_" to 1), 8, utsArrayOf(
+                        "show"
+                    )),
+                    createVNode(_component_x_drawer, utsMapOf("content-margin" to "0px", "show" to unref(showThridLogin), "onUpdate:show" to fun(`$event`: Boolean){
+                        trySetRefValue(showThridLogin, `$event`)
+                    }
+                    , "bgColor" to "#ffffff", "show-title" to false, "size" to "500px"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                        return utsArrayOf(
+                            createVNode(_component_x_sheet, utsMapOf("margin" to utsArrayOf(
+                                "0"
+                            )), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                return utsArrayOf(
+                                    createElementVNode("view", utsMapOf("class" to "login-container"), utsArrayOf(
+                                        createElementVNode("view", utsMapOf("class" to "login-header"), utsArrayOf(
+                                            createElementVNode("text", utsMapOf("class" to "text-size-xl text-weight-b"), "绑定手机号码"),
+                                            createElementVNode("view", utsMapOf("class" to "login-tip"), utsArrayOf(
+                                                createElementVNode("image", utsMapOf("class" to "info-icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-info-outline-small.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
+                                                    "src"
+                                                )),
+                                                createElementVNode("text", utsMapOf("class" to "text-size-s text-color-warning"), "用户首次使用三方登录后需绑定手机号")
+                                            ))
+                                        )),
+                                        createElementVNode("view", utsMapOf("class" to "login-form"), utsArrayOf(
+                                            createElementVNode("view", utsMapOf("class" to "phone-input"), utsArrayOf(
+                                                createElementVNode("view", utsMapOf("class" to "country-code", "onClick" to onSelectCountry), utsArrayOf(
+                                                    createElementVNode("text", utsMapOf("class" to "prefix"), "+86"),
+                                                    createElementVNode("image", utsMapOf("class" to "arrow-down", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-arrow-down-filled-samll.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
+                                                        "src"
+                                                    ))
+                                                )),
+                                                createElementVNode("view", utsMapOf("class" to "divider")),
+                                                createVNode(_component_x_input, utsMapOf("modelValue" to unref(phone), "onUpdate:modelValue" to fun(`$event`: String){
+                                                    trySetRefValue(phone, `$event`)
+                                                }
+                                                , "placeholder" to "请输入手机号", "maxlength" to 11, "class" to "phone-field", "type" to "number"), null, 8, utsArrayOf(
+                                                    "modelValue"
+                                                ))
+                                            )),
+                                            createElementVNode("view", utsMapOf("class" to "code-input"), utsArrayOf(
+                                                createVNode(_component_x_input, utsMapOf("modelValue" to unref(code), "onUpdate:modelValue" to fun(`$event`: String){
+                                                    trySetRefValue(code, `$event`)
+                                                }
+                                                , "placeholder" to "请输入验证码", "maxlength" to 4, "type" to "number"), utsMapOf("inputRight" to withSlotCtx(fun(): UTSArray<Any> {
+                                                    return utsArrayOf(
+                                                        createElementVNode("text", utsMapOf("class" to "get-code-btn", "onClick" to onGetCode), toDisplayString(if (unref(countdown) > 0) {
+                                                            "" + unref(countdown) + "s\u540E\u91CD\u8BD5"
+                                                        } else {
+                                                            "获取验证码"
+                                                        }
+                                                        ), 1)
+                                                    )
+                                                }
+                                                ), "_" to 1), 8, utsArrayOf(
+                                                    "modelValue"
+                                                ))
+                                            ))
+                                        )),
+                                        createElementVNode("view", utsMapOf("class" to "login-footer"), utsArrayOf(
+                                            createElementVNode("view", utsMapOf("class" to "agreement"), utsArrayOf(
+                                                createElementVNode("view", utsMapOf("class" to "agreement-row"), utsArrayOf(
+                                                    createVNode(_component_x_checkbox, utsMapOf("modelValue" to unref(agreed), "onUpdate:modelValue" to fun(`$event`: String){
+                                                        trySetRefValue(agreed, `$event`)
+                                                    }
+                                                    , "size" to "18", "class" to "agreement-checkbox"), null, 8, utsArrayOf(
+                                                        "modelValue"
+                                                    )),
+                                                    createElementVNode("text", utsMapOf("class" to "checkbox-text"), "同意"),
+                                                    createElementVNode("text", utsMapOf("class" to "agreement-link", "onClick" to onShowAgreement), "《用户服务协议》"),
+                                                    createElementVNode("text", utsMapOf("class" to "agreement-text"), "和"),
+                                                    createElementVNode("text", utsMapOf("class" to "agreement-link", "onClick" to onShowPrivacy), "《司机端个人信息处理规则》")
+                                                ))
+                                            )),
+                                            createElementVNode("button", utsMapOf("class" to "login-btn transition", "onClick" to bindThridLogin), "提交")
                                         ))
                                     ))
                                 )
@@ -632,6 +854,17 @@ open class GenPagesHomeNotSettled : VueComponent {
                         trySetRefValue(loginTipsModal, `$event`)
                     }
                     , "title" to "温馨提示", "onConfirm" to loginRequest, "onCancel" to closeLoginModal), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                        return utsArrayOf(
+                            createElementVNode("text", utsMapOf("style" to normalizeStyle(utsMapOf("text-align" to "center"))), toDisplayString(unref(loginTips)), 5)
+                        )
+                    }
+                    ), "_" to 1), 8, utsArrayOf(
+                        "show"
+                    )),
+                    createVNode(_component_x_modal, utsMapOf("show" to unref(loginThridTipsModal), "onUpdate:show" to fun(`$event`: Boolean){
+                        trySetRefValue(loginThridTipsModal, `$event`)
+                    }
+                    , "title" to "温馨提示", "onConfirm" to initThirdLoginDriverSession, "onCancel" to onLogoutClick), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                         return utsArrayOf(
                             createElementVNode("text", utsMapOf("style" to normalizeStyle(utsMapOf("text-align" to "center"))), toDisplayString(unref(loginTips)), 5)
                         )
@@ -703,7 +936,7 @@ open class GenPagesHomeNotSettled : VueComponent {
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("text-row" to padStyleMapOf(utsMapOf("fontSize" to "32rpx", "paddingBottom" to "20rpx", "textIndent" to "30rpx")), "blod" to padStyleMapOf(utsMapOf("color" to "#FF0000")), "container" to padStyleMapOf(utsMapOf("width" to "100%", "position" to "relative", "paddingTop" to 0, "paddingRight" to 15, "paddingBottom" to 0, "paddingLeft" to 15)), "home-bg" to padStyleMapOf(utsMapOf("position" to "absolute", "top" to 0, "left" to 0, "width" to "100%", "zIndex" to -1)), "header" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center", "paddingLeft" to 30, "paddingTop" to 10)), "banner" to padStyleMapOf(utsMapOf("paddingTop" to 30, "paddingRight" to 0, "paddingBottom" to 30, "paddingLeft" to 0, "display" to "flex", "alignItems" to "center")), "banner-logo" to utsMapOf(".banner " to utsMapOf("width" to "80%")), "card" to padStyleMapOf(utsMapOf("width" to "100%", "backgroundColor" to "#ffffff", "boxShadow" to "0px 11px 35px 0px rgba(253, 214, 190, 0.23)", "borderTopLeftRadius" to 15, "borderTopRightRadius" to 15, "borderBottomRightRadius" to 15, "borderBottomLeftRadius" to 15, "borderTopWidth" to 2, "borderRightWidth" to 2, "borderBottomWidth" to 2, "borderLeftWidth" to 2, "borderTopStyle" to "solid", "borderRightStyle" to "solid", "borderBottomStyle" to "solid", "borderLeftStyle" to "solid", "borderTopColor" to "#FFFFFF", "borderRightColor" to "#FFFFFF", "borderBottomColor" to "#FFFFFF", "borderLeftColor" to "#FFFFFF", "paddingTop" to 20, "paddingRight" to 20, "paddingBottom" to 20, "paddingLeft" to 20, "marginBottom" to 20)), "card-header" to utsMapOf(".card " to utsMapOf("width" to "100%", "display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "space-between", "marginBottom" to 10)), "left" to utsMapOf(".card .card-header " to utsMapOf("display" to "flex", "flexDirection" to "row", "alignItems" to "center")), "location-icon" to utsMapOf(".card .card-header .left " to utsMapOf("width" to 13, "height" to 15, "marginRight" to 5)), "arrow-icon" to utsMapOf(".card .card-header .left " to utsMapOf("width" to 8, "height" to 4, "marginLeft" to 5)), "features" to utsMapOf(".card .card-body " to utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "paddingTop" to 20, "paddingRight" to 0, "paddingBottom" to 20, "paddingLeft" to 0)), "feature-item" to utsMapOf(".card .card-body .features " to utsMapOf("display" to "flex", "alignItems" to "center", "flex" to 1)), "feature-icon" to utsMapOf(".card .card-body .features .feature-item " to utsMapOf("width" to 28.5, "height" to 29.5, "marginBottom" to 10)), "feature-text" to utsMapOf(".card .card-body .features .feature-item " to utsMapOf("display" to "flex", "flexDirection" to "column", "fontSize" to 15)), "join-options" to utsMapOf(".card .card-body " to utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center", "position" to "relative")), "border-bg-left" to utsMapOf(".card .card-body .join-options " to utsMapOf("position" to "absolute", "top" to 0, "zIndex" to 2, "pointerEvents" to "none", "width" to "53%", "height" to "100%", "left" to 0)), "border-bg-right" to utsMapOf(".card .card-body .join-options " to utsMapOf("position" to "absolute", "top" to 0, "zIndex" to 2, "pointerEvents" to "none", "width" to "53%", "height" to "100%", "right" to 0)), "join-item" to utsMapOf(".card .card-body .join-options " to utsMapOf("width" to "49%", "height" to 90, "display" to "flex", "justifyContent" to "center", "borderTopLeftRadius" to "20rpx", "borderTopRightRadius" to "20rpx", "borderBottomRightRadius" to "20rpx", "borderBottomLeftRadius" to "20rpx", "fontSize" to 15, "position" to "relative")), "tag" to utsMapOf(".card .card-body .join-options .join-item " to utsMapOf("position" to "absolute", "top" to 0, "left" to 0, "borderTopLeftRadius" to 10, "borderTopRightRadius" to 0, "borderBottomRightRadius" to 20, "borderBottomLeftRadius" to 0, "backgroundColor" to "#000000", "paddingTop" to 3, "paddingRight" to 10, "paddingBottom" to 3, "paddingLeft" to 6)), "tag-text" to utsMapOf(".card .card-body .join-options .join-item .tag " to utsMapOf("width" to "100%", "textAlign" to "center", "color" to "#ffffff", "fontSize" to 12)), "join-item-text" to utsMapOf(".card .card-body .join-options .join-item " to utsMapOf("textAlign" to "center", "fontWeight" to "bold")), "grid-func" to utsMapOf(".card .card-body " to utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "paddingTop" to 20, "paddingRight" to 0, "paddingBottom" to 20, "paddingLeft" to 0)), "grid-item" to utsMapOf(".card .card-body .grid-func " to utsMapOf("display" to "flex", "alignItems" to "center", "flex" to 1)), "grid-icon" to utsMapOf(".card .card-body .grid-func .grid-item " to utsMapOf("width" to 35, "height" to 39, "marginBottom" to 10)), "grid-text" to utsMapOf(".card .card-body .grid-func .grid-item " to utsMapOf("display" to "flex", "flexDirection" to "column", "fontSize" to 15, "color" to "#141414")), "join-slogan" to utsMapOf(".card " to utsMapOf("color" to "#9E9FA0", "fontSize" to 13, "marginTop" to 15, "textAlign" to "center")), "contact-btn" to utsMapOf(".card " to utsMapOf("marginTop" to 15), "" to utsMapOf("backgroundColor" to "#000000", "color" to "#ffffff", "textAlign" to "center", "paddingTop" to "10rpx", "paddingRight" to "30rpx", "paddingBottom" to "10rpx", "paddingLeft" to "30rpx", "borderTopLeftRadius" to "30rpx", "borderTopRightRadius" to "30rpx", "borderBottomRightRadius" to "30rpx", "borderBottomLeftRadius" to "30rpx")), "faq-link" to utsMapOf(".card " to utsMapOf("textAlign" to "center", "color" to "#969696", "fontSize" to 15, "marginTop" to 15, "marginRight" to 0, "marginBottom" to 15, "marginLeft" to 0), "" to utsMapOf("textAlign" to "center", "color" to "#969696", "fontSize" to 15, "marginTop" to 15, "marginRight" to 0, "marginBottom" to 15, "marginLeft" to 0)), "login-btn" to padStyleMapOf(utsMapOf("width" to "100%", "backgroundColor" to "#000000", "color" to "#ffffff", "paddingTop" to 3, "paddingRight" to 0, "paddingBottom" to 3, "paddingLeft" to 0, "fontWeight" to "bold", "borderTopLeftRadius" to 10, "borderTopRightRadius" to 10, "borderBottomRightRadius" to 10, "borderBottomLeftRadius" to 10, "marginTop" to 10, "marginRight" to 0, "marginBottom" to 10, "marginLeft" to 0)), "login-container" to padStyleMapOf(utsMapOf("backgroundColor" to "#ffffff", "position" to "relative")), "login-header" to utsMapOf(".login-container " to utsMapOf("textAlign" to "center", "marginTop" to 15, "marginRight" to 15, "marginBottom" to 15, "marginLeft" to 15)), "text-size-xl" to utsMapOf(".login-container .login-header " to utsMapOf("fontSize" to 22, "fontWeight" to "bold", "color" to "#000000", "textAlign" to "center")), "login-tip" to utsMapOf(".login-container .login-header " to utsMapOf("display" to "flex", "flexDirection" to "row", "marginTop" to 16)), "info-icon" to utsMapOf(".login-container .login-header .login-tip " to utsMapOf("width" to 16, "height" to 16, "marginRight" to 5)), "text-color-warning" to utsMapOf(".login-container .login-header .login-tip " to utsMapOf("color" to "#E05656", "fontSize" to "26rpx")), "text-size-s" to utsMapOf(".login-container .login-header " to utsMapOf("fontSize" to 14, "color" to "#C43838")), "mt-8" to utsMapOf(".login-container .login-header " to utsMapOf("marginTop" to 8)), "login-form" to utsMapOf(".login-container " to utsMapOf("marginBottom" to 20)), "phone-icon" to utsMapOf(".login-container .login-form " to utsMapOf("width" to 20, "height" to 20, "marginRight" to 10)), "code-icon" to utsMapOf(".login-container .login-form " to utsMapOf("width" to 20, "height" to 20, "marginRight" to 10)), "phone-input" to utsMapOf(".login-container .login-form " to utsMapOf("display" to "flex", "flexDirection" to "row", "alignItems" to "center", "backgroundColor" to "#F5F5F5", "borderTopLeftRadius" to 10, "borderTopRightRadius" to 10, "borderBottomRightRadius" to 10, "borderBottomLeftRadius" to 10, "marginBottom" to 20, "paddingTop" to 0, "paddingRight" to 15, "paddingBottom" to 0, "paddingLeft" to 15)), "country-code" to utsMapOf(".login-container .login-form .phone-input " to utsMapOf("display" to "flex", "flexDirection" to "row", "alignItems" to "center", "paddingTop" to 15, "paddingRight" to 0, "paddingBottom" to 15, "paddingLeft" to 0)), "prefix" to utsMapOf(".login-container .login-form .phone-input .country-code " to utsMapOf("fontSize" to 16, "fontWeight" to "bold")), "arrow-down" to utsMapOf(".login-container .login-form .phone-input .country-code " to utsMapOf("width" to 12, "height" to 8, "marginLeft" to 5)), "divider" to utsMapOf(".login-container .login-form .phone-input " to utsMapOf("width" to 1, "height" to 20, "backgroundColor" to "#CCCCCC", "marginTop" to 0, "marginRight" to 15, "marginBottom" to 0, "marginLeft" to 15)), "phone-field" to utsMapOf(".login-container .login-form .phone-input " to utsMapOf("flex" to 1)), "code-input" to utsMapOf(".login-container .login-form " to utsMapOf("backgroundColor" to "#F5F5F5", "borderTopLeftRadius" to 10, "borderTopRightRadius" to 10, "borderBottomRightRadius" to 10, "borderBottomLeftRadius" to 10, "paddingTop" to 0, "paddingRight" to 15, "paddingBottom" to 0, "paddingLeft" to 15)), "get-code-btn" to utsMapOf(".login-container .login-form .code-input " to utsMapOf("color" to "#000000", "fontSize" to 15)), "agreement" to utsMapOf(".login-container .login-footer " to utsMapOf("display" to "flex", "justifyContent" to "center", "marginBottom" to 20)), "agreement-row" to utsMapOf(".login-container .login-footer .agreement " to utsMapOf("display" to "flex", "flexDirection" to "row", "alignItems" to "center", "flexWrap" to "nowrap")), "agreement-checkbox" to utsMapOf(".login-container .login-footer .agreement " to utsMapOf("marginRight" to 0)), "checkbox-text" to utsMapOf(".login-container .login-footer .agreement " to utsMapOf("fontSize" to "26rpx", "color" to "#848484", "marginRight" to 5)), "agreement-text" to utsMapOf(".login-container .login-footer .agreement " to utsMapOf("fontSize" to 14, "color" to "#333333", "marginTop" to 0, "marginRight" to 2, "marginBottom" to 0, "marginLeft" to 2)), "agreement-link" to utsMapOf(".login-container .login-footer .agreement " to utsMapOf("color" to "#B09312", "fontSize" to "26rpx")), "other-login-options" to utsMapOf(".login-container .login-footer " to utsMapOf("marginBottom" to 20)), "old-phone" to utsMapOf(".login-container .login-footer .other-login-options " to utsMapOf("textAlign" to "center", "color" to "#B09312", "fontSize" to "26rpx", "textDecorationLine" to "underline")), "wechat-login" to utsMapOf(".login-container .login-footer " to utsMapOf("width" to "100%", "display" to "flex", "flexDirection" to "row", "justifyContent" to "center")), "wechat-icon" to utsMapOf(".login-container .login-footer .wechat-login " to utsMapOf("width" to 42, "height" to 42)), "privacy-title" to padStyleMapOf(utsMapOf("fontSize" to "34rpx", "fontWeight" to "bold", "textAlign" to "center", "paddingTop" to "40rpx")), "link-text" to padStyleMapOf(utsMapOf("fontWeight" to "bold", "paddingBottom" to "40rpx", "textAlign" to "center", "textDecorationLine" to "underline")), "btn-group" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between")), "x-navbar-button" to utsMapOf("" to utsMapOf("width" to 25, "height" to 25), ".mr25" to utsMapOf("marginRight" to 25), ".mr20" to utsMapOf("marginRight" to 20)))
+                return utsMapOf("text-row" to padStyleMapOf(utsMapOf("fontSize" to "32rpx", "paddingBottom" to "20rpx", "textIndent" to "30rpx")), "blod" to padStyleMapOf(utsMapOf("fontWeight" to "bold", "color" to "#FF0000")), "container" to padStyleMapOf(utsMapOf("width" to "100%", "position" to "relative", "paddingTop" to 0, "paddingRight" to 15, "paddingBottom" to 0, "paddingLeft" to 15)), "home-bg" to padStyleMapOf(utsMapOf("position" to "absolute", "top" to 0, "left" to 0, "width" to "100%", "zIndex" to -1)), "header" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center", "paddingLeft" to 30, "paddingTop" to 10)), "banner" to padStyleMapOf(utsMapOf("paddingTop" to 30, "paddingRight" to 0, "paddingBottom" to 30, "paddingLeft" to 0, "display" to "flex", "alignItems" to "center")), "banner-logo" to utsMapOf(".banner " to utsMapOf("width" to "80%")), "card" to padStyleMapOf(utsMapOf("width" to "100%", "backgroundColor" to "#ffffff", "boxShadow" to "0px 11px 35px 0px rgba(253, 214, 190, 0.23)", "borderTopLeftRadius" to 15, "borderTopRightRadius" to 15, "borderBottomRightRadius" to 15, "borderBottomLeftRadius" to 15, "borderTopWidth" to 2, "borderRightWidth" to 2, "borderBottomWidth" to 2, "borderLeftWidth" to 2, "borderTopStyle" to "solid", "borderRightStyle" to "solid", "borderBottomStyle" to "solid", "borderLeftStyle" to "solid", "borderTopColor" to "#FFFFFF", "borderRightColor" to "#FFFFFF", "borderBottomColor" to "#FFFFFF", "borderLeftColor" to "#FFFFFF", "paddingTop" to 20, "paddingRight" to 20, "paddingBottom" to 20, "paddingLeft" to 20, "marginBottom" to 20)), "card-header" to utsMapOf(".card " to utsMapOf("width" to "100%", "display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "space-between", "marginBottom" to 10)), "left" to utsMapOf(".card .card-header " to utsMapOf("display" to "flex", "flexDirection" to "row", "alignItems" to "center")), "location-icon" to utsMapOf(".card .card-header .left " to utsMapOf("width" to 13, "height" to 15, "marginRight" to 5)), "arrow-icon" to utsMapOf(".card .card-header .left " to utsMapOf("width" to 8, "height" to 4, "marginLeft" to 5)), "features" to utsMapOf(".card .card-body " to utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "paddingTop" to 20, "paddingRight" to 0, "paddingBottom" to 20, "paddingLeft" to 0)), "feature-item" to utsMapOf(".card .card-body .features " to utsMapOf("display" to "flex", "alignItems" to "center", "flex" to 1)), "feature-icon" to utsMapOf(".card .card-body .features .feature-item " to utsMapOf("width" to 28.5, "height" to 29.5, "marginBottom" to 10)), "feature-text" to utsMapOf(".card .card-body .features .feature-item " to utsMapOf("display" to "flex", "flexDirection" to "column", "fontSize" to 15)), "join-options" to utsMapOf(".card .card-body " to utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center", "position" to "relative")), "border-bg-left" to utsMapOf(".card .card-body .join-options " to utsMapOf("position" to "absolute", "top" to 0, "zIndex" to 2, "pointerEvents" to "none", "width" to "53%", "height" to "100%", "left" to 0)), "border-bg-right" to utsMapOf(".card .card-body .join-options " to utsMapOf("position" to "absolute", "top" to 0, "zIndex" to 2, "pointerEvents" to "none", "width" to "53%", "height" to "100%", "right" to 0)), "join-item" to utsMapOf(".card .card-body .join-options " to utsMapOf("width" to "49%", "height" to 90, "display" to "flex", "justifyContent" to "center", "borderTopLeftRadius" to "20rpx", "borderTopRightRadius" to "20rpx", "borderBottomRightRadius" to "20rpx", "borderBottomLeftRadius" to "20rpx", "fontSize" to 15, "position" to "relative")), "tag" to utsMapOf(".card .card-body .join-options .join-item " to utsMapOf("position" to "absolute", "top" to 0, "left" to 0, "borderTopLeftRadius" to 10, "borderTopRightRadius" to 0, "borderBottomRightRadius" to 20, "borderBottomLeftRadius" to 0, "backgroundColor" to "#000000", "paddingTop" to 3, "paddingRight" to 10, "paddingBottom" to 3, "paddingLeft" to 6)), "tag-text" to utsMapOf(".card .card-body .join-options .join-item .tag " to utsMapOf("width" to "100%", "textAlign" to "center", "color" to "#ffffff", "fontSize" to 12)), "join-item-text" to utsMapOf(".card .card-body .join-options .join-item " to utsMapOf("textAlign" to "center", "fontWeight" to "bold")), "grid-func" to utsMapOf(".card .card-body " to utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "paddingTop" to 20, "paddingRight" to 0, "paddingBottom" to 20, "paddingLeft" to 0)), "grid-item" to utsMapOf(".card .card-body .grid-func " to utsMapOf("display" to "flex", "alignItems" to "center", "flex" to 1)), "grid-icon" to utsMapOf(".card .card-body .grid-func .grid-item " to utsMapOf("width" to 35, "height" to 39, "marginBottom" to 10)), "grid-text" to utsMapOf(".card .card-body .grid-func .grid-item " to utsMapOf("display" to "flex", "flexDirection" to "column", "fontSize" to 15, "color" to "#141414")), "join-slogan" to utsMapOf(".card " to utsMapOf("color" to "#9E9FA0", "fontSize" to 13, "marginTop" to 15, "textAlign" to "center")), "contact-btn" to utsMapOf(".card " to utsMapOf("marginTop" to 15), "" to utsMapOf("backgroundColor" to "#000000", "color" to "#ffffff", "textAlign" to "center", "paddingTop" to "10rpx", "paddingRight" to "30rpx", "paddingBottom" to "10rpx", "paddingLeft" to "30rpx", "borderTopLeftRadius" to "30rpx", "borderTopRightRadius" to "30rpx", "borderBottomRightRadius" to "30rpx", "borderBottomLeftRadius" to "30rpx")), "faq-link" to utsMapOf(".card " to utsMapOf("textAlign" to "center", "color" to "#969696", "fontSize" to 15, "marginTop" to 15, "marginRight" to 0, "marginBottom" to 15, "marginLeft" to 0), "" to utsMapOf("textAlign" to "center", "color" to "#969696", "fontSize" to 15, "marginTop" to 15, "marginRight" to 0, "marginBottom" to 15, "marginLeft" to 0)), "login-btn" to padStyleMapOf(utsMapOf("width" to "100%", "backgroundColor" to "#000000", "color" to "#ffffff", "paddingTop" to 3, "paddingRight" to 0, "paddingBottom" to 3, "paddingLeft" to 0, "fontWeight" to "bold", "borderTopLeftRadius" to 10, "borderTopRightRadius" to 10, "borderBottomRightRadius" to 10, "borderBottomLeftRadius" to 10, "marginTop" to 10, "marginRight" to 0, "marginBottom" to 10, "marginLeft" to 0)), "login-container" to padStyleMapOf(utsMapOf("backgroundColor" to "#ffffff", "position" to "relative")), "login-header" to utsMapOf(".login-container " to utsMapOf("textAlign" to "center", "marginTop" to 15, "marginRight" to 15, "marginBottom" to 15, "marginLeft" to 15)), "text-size-xl" to utsMapOf(".login-container .login-header " to utsMapOf("fontSize" to 22, "fontWeight" to "bold", "color" to "#000000", "textAlign" to "center")), "login-tip" to utsMapOf(".login-container .login-header " to utsMapOf("display" to "flex", "flexDirection" to "row", "marginTop" to 16)), "info-icon" to utsMapOf(".login-container .login-header .login-tip " to utsMapOf("width" to 16, "height" to 16, "marginRight" to 5)), "text-color-warning" to utsMapOf(".login-container .login-header .login-tip " to utsMapOf("color" to "#E05656", "fontSize" to "26rpx")), "text-size-s" to utsMapOf(".login-container .login-header " to utsMapOf("fontSize" to 14, "color" to "#C43838")), "mt-8" to utsMapOf(".login-container .login-header " to utsMapOf("marginTop" to 8)), "login-form" to utsMapOf(".login-container " to utsMapOf("marginBottom" to 20)), "phone-icon" to utsMapOf(".login-container .login-form " to utsMapOf("width" to 20, "height" to 20, "marginRight" to 10)), "code-icon" to utsMapOf(".login-container .login-form " to utsMapOf("width" to 20, "height" to 20, "marginRight" to 10)), "phone-input" to utsMapOf(".login-container .login-form " to utsMapOf("display" to "flex", "flexDirection" to "row", "alignItems" to "center", "backgroundColor" to "#F5F5F5", "borderTopLeftRadius" to 10, "borderTopRightRadius" to 10, "borderBottomRightRadius" to 10, "borderBottomLeftRadius" to 10, "marginBottom" to 20, "paddingTop" to 0, "paddingRight" to 15, "paddingBottom" to 0, "paddingLeft" to 15)), "country-code" to utsMapOf(".login-container .login-form .phone-input " to utsMapOf("display" to "flex", "flexDirection" to "row", "alignItems" to "center", "paddingTop" to 15, "paddingRight" to 0, "paddingBottom" to 15, "paddingLeft" to 0)), "prefix" to utsMapOf(".login-container .login-form .phone-input .country-code " to utsMapOf("fontSize" to 16, "fontWeight" to "bold")), "arrow-down" to utsMapOf(".login-container .login-form .phone-input .country-code " to utsMapOf("width" to 12, "height" to 8, "marginLeft" to 5)), "divider" to utsMapOf(".login-container .login-form .phone-input " to utsMapOf("width" to 1, "height" to 20, "backgroundColor" to "#CCCCCC", "marginTop" to 0, "marginRight" to 15, "marginBottom" to 0, "marginLeft" to 15)), "phone-field" to utsMapOf(".login-container .login-form .phone-input " to utsMapOf("flex" to 1)), "code-input" to utsMapOf(".login-container .login-form " to utsMapOf("backgroundColor" to "#F5F5F5", "borderTopLeftRadius" to 10, "borderTopRightRadius" to 10, "borderBottomRightRadius" to 10, "borderBottomLeftRadius" to 10, "paddingTop" to 0, "paddingRight" to 15, "paddingBottom" to 0, "paddingLeft" to 15)), "get-code-btn" to utsMapOf(".login-container .login-form .code-input " to utsMapOf("color" to "#000000", "fontSize" to 15)), "agreement" to utsMapOf(".login-container .login-footer " to utsMapOf("display" to "flex", "justifyContent" to "center", "marginBottom" to 20)), "agreement-row" to utsMapOf(".login-container .login-footer .agreement " to utsMapOf("display" to "flex", "flexDirection" to "row", "alignItems" to "center", "flexWrap" to "nowrap")), "agreement-checkbox" to utsMapOf(".login-container .login-footer .agreement " to utsMapOf("marginRight" to 0)), "checkbox-text" to utsMapOf(".login-container .login-footer .agreement " to utsMapOf("fontSize" to "26rpx", "color" to "#848484", "marginRight" to 5)), "agreement-text" to utsMapOf(".login-container .login-footer .agreement " to utsMapOf("fontSize" to 14, "color" to "#333333", "marginTop" to 0, "marginRight" to 2, "marginBottom" to 0, "marginLeft" to 2)), "agreement-link" to utsMapOf(".login-container .login-footer .agreement " to utsMapOf("color" to "#B09312", "fontSize" to "26rpx")), "other-login-options" to utsMapOf(".login-container .login-footer " to utsMapOf("marginBottom" to 20)), "old-phone" to utsMapOf(".login-container .login-footer .other-login-options " to utsMapOf("textAlign" to "center", "color" to "#B09312", "fontSize" to "26rpx", "textDecorationLine" to "underline")), "wechat-login" to utsMapOf(".login-container .login-footer " to utsMapOf("width" to "100%", "display" to "flex", "flexDirection" to "row", "justifyContent" to "center")), "wechat-icon" to utsMapOf(".login-container .login-footer .wechat-login " to utsMapOf("marginTop" to 0, "marginRight" to "25rpx", "marginBottom" to 0, "marginLeft" to "25rpx", "width" to "83rpx", "height" to "83rpx")), "privacy-title" to padStyleMapOf(utsMapOf("fontSize" to "34rpx", "fontWeight" to "bold", "textAlign" to "center", "paddingTop" to "40rpx")), "link-text" to padStyleMapOf(utsMapOf("fontWeight" to "bold", "paddingBottom" to "40rpx", "textAlign" to "center", "textDecorationLine" to "underline")), "btn-group" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between")), "x-navbar-button" to utsMapOf("" to utsMapOf("width" to 25, "height" to 25), ".mr25" to utsMapOf("marginRight" to 25), ".mr20" to utsMapOf("marginRight" to 20)))
             }
         var inheritAttrs = true
         var inject: Map<String, Map<String, Any?>> = utsMapOf()

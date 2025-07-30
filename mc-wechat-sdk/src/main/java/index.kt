@@ -1,13 +1,20 @@
 @file:Suppress("UNCHECKED_CAST", "USELESS_CAST", "INAPPLICABLE_JVM_NAME", "UNUSED_ANONYMOUS_PARAMETER", "NAME_SHADOWING", "UNNECESSARY_NOT_NULL_ASSERTION")
 package uts.sdk.modules.mcWechatSdk
+import android.app.Activity
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.os.Bundle
+import com.tencent.mm.opensdk.constants.ConstantsAPI
+import com.tencent.mm.opensdk.modelbase.BaseReq
+import com.tencent.mm.opensdk.modelbase.BaseResp
 import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram
+import com.tencent.mm.opensdk.modelmsg.SendAuth
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage
 import com.tencent.mm.opensdk.modelmsg.WXMiniProgramObject
 import com.tencent.mm.opensdk.modelmsg.WXTextObject
 import com.tencent.mm.opensdk.openapi.IWXAPI
+import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import io.dcloud.uniapp.*
 import io.dcloud.uniapp.extapi.*
@@ -15,6 +22,7 @@ import io.dcloud.uniapp.framework.*
 import io.dcloud.uniapp.runtime.*
 import io.dcloud.uniapp.vue.*
 import io.dcloud.uniapp.vue.shared.*
+import io.dcloud.unicloud.*
 import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
@@ -25,6 +33,19 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.downloadFile as uni_downloadFile
 import io.dcloud.uniapp.extapi.showToast as uni_showToast
+open class WeChatLoginSuccess (
+    @JsonNotNull
+    open var code: String,
+    @JsonNotNull
+    open var state: String,
+) : UTSObject()
+typealias WeChatLoginSuccessCallback = (result: WeChatLoginSuccess) -> Unit
+typealias WeChatLoginFailCallback = (result: Any) -> Unit
+open class WeChatLoginOptions (
+    open var state: String? = null,
+    open var success: WeChatLoginSuccessCallback? = null,
+    open var fail: WeChatLoginFailCallback? = null,
+) : UTSObject()
 open class WeChatShare {
     private var appId: String = "wx251c3866781ef220"
     private var miniProgramId: String = "gh_2a74a079e98e"
@@ -35,6 +56,7 @@ open class WeChatShare {
     private var imageBitmap: Bitmap? = null
     private var imageBitmapPath: String? = null
     private var miniProgramPath: String = ""
+    open var loginOptions: WeChatLoginOptions? = null
     constructor(){
         console.log("appId==", this.appId)
         this.mWXApi.registerApp(this.appId)
@@ -158,6 +180,15 @@ open class WeChatShare {
             }
         })
     }
+    open var login = fun(options: WeChatLoginOptions){
+        console.log("wxlogin options state=", options.state)
+        this.loginOptions = options
+        val req = SendAuth.Req()
+        req.scope = "snsapi_userinfo"
+        req.state = this.loginOptions!!.state ?: ("mc-driver" + Date.now().toString(10))
+        console.log("wxlogin req=", req)
+        this.mWXApi!!.sendReq(req)
+    }
     companion object {
         private var instance: WeChatShare? = null
         fun getInstance(): WeChatShare {
@@ -166,5 +197,35 @@ open class WeChatShare {
             }
             return this.instance!!
         }
+    }
+}
+open class WXEntryActivity : Activity , IWXAPIEventHandler {
+    constructor() : super() {}
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        var api = WXAPIFactory.createWXAPI(this, "wx251c3866781ef220", false)
+        api.handleIntent(this.getIntent(), this)
+    }
+    override fun onResp(resp: BaseResp) {
+        if (resp.getType() == ConstantsAPI.COMMAND_SENDAUTH) {
+            val options = WeChatShare.getInstance().loginOptions
+            if (resp.errCode == BaseResp.ErrCode.ERR_OK) {
+                val code = (resp as SendAuth.Resp).code
+                val state = (resp as SendAuth.Resp).state
+                console.log("wxlogin code = ", code, " state = ", state)
+                val success = WeChatLoginSuccess(code = "" + (resp as SendAuth.Resp).code, state = (resp as SendAuth.Resp).state)
+                options?.success?.invoke(success)
+            } else {
+                console.log("wxlogin err = ", resp)
+                options?.fail?.invoke(object : UTSJSONObject() {
+                    var errCode: Number = 500
+                    var errMsg = "授权失败"
+                })
+            }
+        }
+        this.finish()
+    }
+    override fun onReq(req: BaseReq) {
+        this.finish()
     }
 }

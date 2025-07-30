@@ -6,6 +6,7 @@ import io.dcloud.uniapp.framework.*
 import io.dcloud.uniapp.runtime.*
 import io.dcloud.uniapp.vue.*
 import io.dcloud.uniapp.vue.shared.*
+import io.dcloud.unicloud.*
 import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
@@ -120,8 +121,10 @@ open class GenPagesHomeIndex : BasePage {
                 if (getPrivacyStatus()) {
                     if (globalData.isLogin) {
                         JgUtil.resumePush()
+                        onPushMessage(null)
                     } else {
                         JgUtil.stopPush()
+                        offPushMessage()
                     }
                 }
             }
