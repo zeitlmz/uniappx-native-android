@@ -18,8 +18,8 @@ android {
 
         minSdk 24
         targetSdk 34
-        versionCode 405
-        versionName '4.0.5'
+        versionCode 406
+        versionName '4.0.6'
         // Vector drawable 优化
         vectorDrawables.useSupportLibrary = true
 

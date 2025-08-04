@@ -36,13 +36,13 @@ jobs:
       #          ORG_GRADLE_PROJECT_DEBUG_STORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
       #          ORG_GRADLE_PROJECT_DEBUG_KEY_ALIAS: androiddebugkey
       #          ORG_GRADLE_PROJECT_DEBUG_KEY_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
-      - name: Upload-app-v4.0.5-64-release.apk
+      - name: Upload-app-v4.0.6-64-release.apk
         uses: actions/upload-artifact@v4
         with:
-          name: app-v4.0.5-64-release.apk
-          path: app/build/outputs/apk/64/release/app-v4.0.5-64-release.apk
-      - name: Upload-app-v4.0.5-64-32-release.apk
+          name: app-v4.0.6-64-release.apk
+          path: app/build/outputs/apk/64/release/app-v4.0.6-64-release.apk
+      - name: Upload-app-v4.0.6-64-32-release.apk
         uses: actions/upload-artifact@v4
         with:
-          name: app-v4.0.5-64-32-release.apk
-          path: app/build/outputs/apk/64-32/release/app-v4.0.5-64-32-release.apk
+          name: app-v4.0.6-64-32-release.apk
+          path: app/build/outputs/apk/64-32/release/app-v4.0.6-64-32-release.apk
