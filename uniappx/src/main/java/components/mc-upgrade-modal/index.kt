@@ -16,7 +16,7 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.downloadFile as uni_downloadFile
-import io.dcloud.uniapp.extapi.更新installApk as uni_installApk
+import io.dcloud.uniapp.extapi.installApk as uni_installApk
 import uts.sdk.modules.xOpenweb.openWeb
 open class GenComponentsMcUpgradeModalIndex : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {

@@ -74,6 +74,7 @@ dependencies {
     implementation project(':x-base642file-s')
     implementation project(':x-loading-s')
     implementation project(':x-modal-s')
+    implementation project(':x-openweb')
     implementation project(':x-share-s')
     implementation project(':x-tips-s')
     implementation project(':x-toast-s')
