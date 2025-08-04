@@ -30,25 +30,25 @@ open class GenPagesHomeIndex : BasePage {
         onPageScroll(fun(e: OnPageScrollOptions) {
             xProvitae.scrollTop = e.scrollTop
         }
-            , __ins)
+        , __ins)
         onResize(fun(_: OnResizeOptions) {
             uni__emit("onResize", fun() {})
         }
-            , __ins)
+        , __ins)
         onLoad(fun(_: OnLoadOptions) {}, __ins)
         onPageHide(fun() {
             uni__emit("onHide", fun() {})
         }
-            , __ins)
+        , __ins)
         onReady(fun() {
             uni__emit("onReady", fun() {})
             xProvitae.pageReady = true
         }
-            , __ins)
+        , __ins)
         onPageShow(fun() {
             uni__emit("onShow", fun() {})
         }
-            , __ins)
+        , __ins)
     }
     companion object {
         @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
@@ -111,7 +111,7 @@ open class GenPagesHomeIndex : BasePage {
                         pageRef.value?.`$callMethod`("onInit")
                         pageRef.value?.`$callMethod`("onShow")
                     }
-                        , 250)
+                    , 250)
                     isInited.value = true
                 }
             }

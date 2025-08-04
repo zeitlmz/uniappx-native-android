@@ -177,7 +177,7 @@ open class GenPagesHomeNotSettled : VueComponent {
                                 clearInterval(timer)
                             }
                         }
-                            , 1000)
+                        , 1000)
                     }
                     )
                 }
@@ -194,7 +194,7 @@ open class GenPagesHomeNotSettled : VueComponent {
                         jg.getRegistrationID()
                         jg.getConnectionState()
                     }
-                        , 10000)
+                    , 10000)
                     app.globalData.jg = jg
                 }
             }
@@ -225,7 +225,7 @@ open class GenPagesHomeNotSettled : VueComponent {
                     setTimeout(fun(){
                         openNotifiPerm()
                     }
-                        , 300)
+                    , 300)
                 }
                 ).`catch`(fun(err: Any?){
                     val errInfo = JSON.parse(JSON.stringify(err)) as UTSJSONObject
@@ -273,7 +273,7 @@ open class GenPagesHomeNotSettled : VueComponent {
                         setTimeout(fun(){
                             openNotifiPerm()
                         }
-                            , 300)
+                        , 300)
                     }
                 }
                 )
@@ -348,9 +348,9 @@ open class GenPagesHomeNotSettled : VueComponent {
                     }
                     )
                 }
-                    , fail = fun(err: Any){
-                        console.log("wechatLogin error=>", err)
-                    }
+                , fail = fun(err: Any){
+                    console.log("wechatLogin error=>", err)
+                }
                 ))
             }
             val alipayLogin = fun(){
@@ -369,9 +369,9 @@ open class GenPagesHomeNotSettled : VueComponent {
                     }
                     )
                 }
-                    , fail = fun(err: Any){
-                        console.log("alipayLogin error=>", err)
-                    }
+                , fail = fun(err: Any){
+                    console.log("alipayLogin error=>", err)
+                }
                 ))
             }
             val onShowAgreement = fun(){
@@ -434,7 +434,7 @@ open class GenPagesHomeNotSettled : VueComponent {
                     } else {
                         "vertical"
                     }
-                        , "show-scrollbar" to false), utsArrayOf(
+                    , "show-scrollbar" to false), utsArrayOf(
                         createElementVNode("view", utsMapOf("style" to normalizeStyle("width:100%;height: " + unref(statusBarHeight) + "px;")), null, 4),
                         createElementVNode("image", utsMapOf("class" to "home-bg", "src" to ("" + unref(resBaseUrl) + "/static/images/home-bg.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
                             "src"
@@ -443,7 +443,7 @@ open class GenPagesHomeNotSettled : VueComponent {
                             createVNode(_component_x_tabs, utsMapOf("modelValue" to unref(acitveTab), "onUpdate:modelValue" to fun(`$event`: String){
                                 trySetRefValue(acitveTab, `$event`)
                             }
-                                , "onChange" to onTabChange, "line-full" to true, "line-height" to "3", "color" to "#00000000", "list" to tabs), utsMapOf("default" to withScopedSlotCtx(fun(slotProps: GenUniModulesTmxUiComponentsXTabsXTabsSlotDataDefault): UTSArray<Any> {
+                            , "onChange" to onTabChange, "line-full" to true, "line-height" to "3", "color" to "#00000000", "list" to tabs), utsMapOf("default" to withScopedSlotCtx(fun(slotProps: GenUniModulesTmxUiComponentsXTabsXTabsSlotDataDefault): UTSArray<Any> {
                                 val item = slotProps.item
                                 val active = slotProps.active
                                 return utsArrayOf(
@@ -693,7 +693,7 @@ open class GenPagesHomeNotSettled : VueComponent {
                     createVNode(_component_x_drawer, utsMapOf("content-margin" to "0px", "show" to unref(showLogin), "onUpdate:show" to fun(`$event`: Boolean){
                         trySetRefValue(showLogin, `$event`)
                     }
-                        , "bgColor" to "#ffffff", "show-title" to false, "size" to "500px"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                    , "bgColor" to "#ffffff", "show-title" to false, "size" to "500px"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                         return utsArrayOf(
                             createVNode(_component_x_sheet, utsMapOf("margin" to utsArrayOf(
                                 "0"
@@ -721,7 +721,7 @@ open class GenPagesHomeNotSettled : VueComponent {
                                                 createVNode(_component_x_input, utsMapOf("modelValue" to unref(phone), "onUpdate:modelValue" to fun(`$event`: String){
                                                     trySetRefValue(phone, `$event`)
                                                 }
-                                                    , "placeholder" to "请输入手机号", "maxlength" to 11, "class" to "phone-field", "type" to "number"), null, 8, utsArrayOf(
+                                                , "placeholder" to "请输入手机号", "maxlength" to 11, "class" to "phone-field", "type" to "number"), null, 8, utsArrayOf(
                                                     "modelValue"
                                                 ))
                                             )),
@@ -729,7 +729,7 @@ open class GenPagesHomeNotSettled : VueComponent {
                                                 createVNode(_component_x_input, utsMapOf("modelValue" to unref(code), "onUpdate:modelValue" to fun(`$event`: String){
                                                     trySetRefValue(code, `$event`)
                                                 }
-                                                    , "placeholder" to "请输入验证码", "maxlength" to 4, "type" to "number"), utsMapOf("inputRight" to withSlotCtx(fun(): UTSArray<Any> {
+                                                , "placeholder" to "请输入验证码", "maxlength" to 4, "type" to "number"), utsMapOf("inputRight" to withSlotCtx(fun(): UTSArray<Any> {
                                                     return utsArrayOf(
                                                         createElementVNode("text", utsMapOf("class" to "get-code-btn", "onClick" to onGetCode), toDisplayString(if (unref(countdown) > 0) {
                                                             "" + unref(countdown) + "s\u540E\u91CD\u8BD5"
@@ -750,7 +750,7 @@ open class GenPagesHomeNotSettled : VueComponent {
                                                     createVNode(_component_x_checkbox, utsMapOf("modelValue" to unref(agreed), "onUpdate:modelValue" to fun(`$event`: String){
                                                         trySetRefValue(agreed, `$event`)
                                                     }
-                                                        , "size" to "18", "class" to "agreement-checkbox"), null, 8, utsArrayOf(
+                                                    , "size" to "18", "class" to "agreement-checkbox"), null, 8, utsArrayOf(
                                                         "modelValue"
                                                     )),
                                                     createElementVNode("text", utsMapOf("class" to "checkbox-text"), "同意"),
@@ -784,7 +784,7 @@ open class GenPagesHomeNotSettled : VueComponent {
                     createVNode(_component_x_drawer, utsMapOf("content-margin" to "0px", "show" to unref(showThridLogin), "onUpdate:show" to fun(`$event`: Boolean){
                         trySetRefValue(showThridLogin, `$event`)
                     }
-                        , "bgColor" to "#ffffff", "show-title" to false, "size" to "500px"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                    , "bgColor" to "#ffffff", "show-title" to false, "size" to "500px"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                         return utsArrayOf(
                             createVNode(_component_x_sheet, utsMapOf("margin" to utsArrayOf(
                                 "0"
@@ -812,7 +812,7 @@ open class GenPagesHomeNotSettled : VueComponent {
                                                 createVNode(_component_x_input, utsMapOf("modelValue" to unref(phone), "onUpdate:modelValue" to fun(`$event`: String){
                                                     trySetRefValue(phone, `$event`)
                                                 }
-                                                    , "placeholder" to "请输入手机号", "maxlength" to 11, "class" to "phone-field", "type" to "number"), null, 8, utsArrayOf(
+                                                , "placeholder" to "请输入手机号", "maxlength" to 11, "class" to "phone-field", "type" to "number"), null, 8, utsArrayOf(
                                                     "modelValue"
                                                 ))
                                             )),
@@ -820,7 +820,7 @@ open class GenPagesHomeNotSettled : VueComponent {
                                                 createVNode(_component_x_input, utsMapOf("modelValue" to unref(code), "onUpdate:modelValue" to fun(`$event`: String){
                                                     trySetRefValue(code, `$event`)
                                                 }
-                                                    , "placeholder" to "请输入验证码", "maxlength" to 4, "type" to "number"), utsMapOf("inputRight" to withSlotCtx(fun(): UTSArray<Any> {
+                                                , "placeholder" to "请输入验证码", "maxlength" to 4, "type" to "number"), utsMapOf("inputRight" to withSlotCtx(fun(): UTSArray<Any> {
                                                     return utsArrayOf(
                                                         createElementVNode("text", utsMapOf("class" to "get-code-btn", "onClick" to onGetCode), toDisplayString(if (unref(countdown) > 0) {
                                                             "" + unref(countdown) + "s\u540E\u91CD\u8BD5"
@@ -841,7 +841,7 @@ open class GenPagesHomeNotSettled : VueComponent {
                                                     createVNode(_component_x_checkbox, utsMapOf("modelValue" to unref(agreed), "onUpdate:modelValue" to fun(`$event`: String){
                                                         trySetRefValue(agreed, `$event`)
                                                     }
-                                                        , "size" to "18", "class" to "agreement-checkbox"), null, 8, utsArrayOf(
+                                                    , "size" to "18", "class" to "agreement-checkbox"), null, 8, utsArrayOf(
                                                         "modelValue"
                                                     )),
                                                     createElementVNode("text", utsMapOf("class" to "checkbox-text"), "同意"),
@@ -864,7 +864,7 @@ open class GenPagesHomeNotSettled : VueComponent {
                     createVNode(_component_x_modal, utsMapOf("show" to unref(loginTipsModal), "onUpdate:show" to fun(`$event`: Boolean){
                         trySetRefValue(loginTipsModal, `$event`)
                     }
-                        , "title" to "温馨提示", "onConfirm" to loginRequest, "onCancel" to closeLoginModal), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                    , "title" to "温馨提示", "onConfirm" to loginRequest, "onCancel" to closeLoginModal), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                         return utsArrayOf(
                             createElementVNode("text", utsMapOf("style" to normalizeStyle(utsMapOf("text-align" to "center"))), toDisplayString(unref(loginTips)), 5)
                         )
@@ -875,7 +875,7 @@ open class GenPagesHomeNotSettled : VueComponent {
                     createVNode(_component_x_modal, utsMapOf("show" to unref(loginThridTipsModal), "onUpdate:show" to fun(`$event`: Boolean){
                         trySetRefValue(loginThridTipsModal, `$event`)
                     }
-                        , "title" to "温馨提示", "onConfirm" to initThirdLoginDriverSession, "onCancel" to onLogoutClick), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                    , "title" to "温馨提示", "onConfirm" to initThirdLoginDriverSession, "onCancel" to onLogoutClick), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                         return utsArrayOf(
                             createElementVNode("text", utsMapOf("style" to normalizeStyle(utsMapOf("text-align" to "center"))), toDisplayString(unref(loginTips)), 5)
                         )
@@ -886,7 +886,7 @@ open class GenPagesHomeNotSettled : VueComponent {
                     createVNode(_component_x_action_modal, utsMapOf("show" to unref(showPrivacyModal), "onUpdate:show" to fun(`$event`: Boolean){
                         trySetRefValue(showPrivacyModal, `$event`)
                     }
-                        , "overlayClick" to false), utsMapOf("title" to withSlotCtx(fun(): UTSArray<Any> {
+                    , "overlayClick" to false), utsMapOf("title" to withSlotCtx(fun(): UTSArray<Any> {
                         return utsArrayOf(
                             createElementVNode("text", utsMapOf("class" to "privacy-title"), "每橙车主法律协议及隐私政策")
                         )
