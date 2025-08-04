@@ -116,6 +116,9 @@ import uts.sdk.modules.xTipsS.showTips as showTips1
 import uts.sdk.modules.xTipsS.showTips as showXTips
 import uts.sdk.modules.xToastS.showToast as showXToast
 import io.dcloud.uniapp.extapi.showToast as uni_showToast
+import uts.sdk.modules.mcKeepalive.startKeepaliveService
+import uts.sdk.modules.mcKeepalive.stopKeepaliveService
+import uts.sdk.modules.mcKeepalive.checkAndRequestPermissions
 import io.dcloud.uniapp.extapi.uploadFile as uni_uploadFile
 import uts.sdk.modules.uniKuxrouter.useKuxRouter as uni_useKuxRouter
 import uts.sdk.modules.xVibrateS.vibrator
@@ -9727,7 +9730,7 @@ open class Response (
 val getCurrentVersionDetail = fun(appType: Number, appVersion: String): UTSPromise<Response> {
     console.log("查询app版本信息：", appVersion)
     return UTSPromise(fun(resolve, reject){
-        uni_request<Response>(RequestOptions(url = "" + baseUrl + "/mcpt-system/app/appVersionManage/getCurrentVersionDetail/" + appType + "/" + appVersion, method = "GET", timeout = 5000, sslVerify = true, success = fun(res){
+        uni_request<Response>(RequestOptions(url = "" + prodBaseUrl + "/mcpt-system/app/appVersionManage/getCurrentVersionDetail/" + appType + "/" + appVersion, method = "GET", timeout = 5000, sslVerify = true, success = fun(res){
             resolve(res.data!!)
         }
         , fail = fun(error){
@@ -9740,7 +9743,7 @@ val getCurrentVersionDetail = fun(appType: Number, appVersion: String): UTSPromi
 val getLatestVersionDetail = fun(appType: Number, appVersion: String): UTSPromise<Response> {
     console.log("查询最新版本信息：", appVersion)
     return UTSPromise(fun(resolve, reject){
-        uni_request<Response>(RequestOptions(url = "" + baseUrl + "/mcpt-system/app/appVersionManage/getLeastVersion/" + appType + "/" + appVersion, method = "GET", timeout = 5000, sslVerify = true, success = fun(res){
+        uni_request<Response>(RequestOptions(url = "" + prodBaseUrl + "/mcpt-system/app/appVersionManage/getLeastVersion/" + appType + "/" + appVersion, method = "GET", timeout = 5000, sslVerify = true, success = fun(res){
             resolve(res.data!!)
         }
         , fail = fun(error){
@@ -9787,9 +9790,13 @@ open class GenApp : BaseApp {
             if (getPrivacyStatus()) {
                 this.globalData.jg?.clearBadgeNumber()
             }
+            stopKeepaliveService()
         }
         , __ins)
-        onAppHide(fun() {}, __ins)
+        onAppHide(fun() {
+            startKeepaliveService()
+        }
+        , __ins)
         onLastPageBackPress(fun() {
             if (firstBackTime == 0) {
                 uni_showToast(ShowToastOptions(title = "再按一次退出应用", position = "bottom"))
@@ -24896,7 +24903,7 @@ fun defineAppConfig() {
 }
 open class UniCloudConfig : io.dcloud.unicloud.InternalUniCloudConfig {
     override var isDev: Boolean = false
-    override var spaceList: String = "[{\"provider\":\"aliyun\",\"spaceName\":\"mc-driver\",\"spaceId\":\"mp-80f49c90-bb1e-471a-b272-f31c61333fa4\",\"clientSecret\":\"PQRdwMOCojnDmkBScEmW9A==\",\"endpoint\":\"https://api.next.bspapp.com\"}]"
+    override var spaceList: String = "[{\"provider\":\"aliyun\",\"spaceName\":\"default\",\"spaceId\":\"mp-eb1c558b-e516-4288-b425-9cd912c7d0d2\",\"clientSecret\":\"A8lLuU/WCJBhc3308idYig==\",\"endpoint\":\"https://api.next.bspapp.com\"}]"
     override var debuggerInfo: String? = null
     override var secureNetworkEnable: Boolean = false
     override var secureNetworkConfig: String? = ""
