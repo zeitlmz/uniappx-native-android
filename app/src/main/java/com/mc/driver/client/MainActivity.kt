@@ -12,21 +12,21 @@ class App : UniApplication() {
 
     override fun onCreate() {
         super.onCreate()
-        register()
+//        register()
     }
 
     private fun register() {
-        try {
-            registerComponents("video", "uts.sdk.modules.DCloudUniVideo.VideoComponent")
-        } catch (e: Exception) {
-            Log.e(TAG, "register: 无法注册 video 组件", e)
-        }
-
-        try {
-            registerHooksClass("uts.sdk.modules.zlText.ZlTextHook")
-        } catch (e: Exception) {
-            Log.e(TAG, "register: 无法注册 ZlTextHook 生命周期监听函数", e)
-        }
+//        try {
+//            registerComponents("video", "uts.sdk.modules.DCloudUniVideo.VideoComponent")
+//        } catch (e: Exception) {
+//            Log.e(TAG, "register: 无法注册 video 组件", e)
+//        }
+//
+//        try {
+//            registerHooksClass("uts.sdk.modules.zlText.ZlTextHook")
+//        } catch (e: Exception) {
+//            Log.e(TAG, "register: 无法注册 ZlTextHook 生命周期监听函数", e)
+//        }
     }
 
     /**

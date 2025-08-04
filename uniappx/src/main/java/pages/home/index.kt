@@ -30,25 +30,25 @@ open class GenPagesHomeIndex : BasePage {
         onPageScroll(fun(e: OnPageScrollOptions) {
             xProvitae.scrollTop = e.scrollTop
         }
-        , __ins)
+            , __ins)
         onResize(fun(_: OnResizeOptions) {
             uni__emit("onResize", fun() {})
         }
-        , __ins)
+            , __ins)
         onLoad(fun(_: OnLoadOptions) {}, __ins)
         onPageHide(fun() {
             uni__emit("onHide", fun() {})
         }
-        , __ins)
+            , __ins)
         onReady(fun() {
             uni__emit("onReady", fun() {})
             xProvitae.pageReady = true
         }
-        , __ins)
+            , __ins)
         onPageShow(fun() {
             uni__emit("onShow", fun() {})
         }
-        , __ins)
+            , __ins)
     }
     companion object {
         @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
@@ -76,32 +76,34 @@ open class GenPagesHomeIndex : BasePage {
                 globalData.entryStatus = entryStatusCache
                 if (entryStatusCache != AUDIT_APPROVE) {
                     showLoading(XLOADINGS_TYPE(title = "加载中..."))
-                    getDriverCurrentStatus().then(fun(res: Response){
-                        val data = res.data as UTSJSONObject
-                        val status = data.getNumber("status") as Number
-                        globalData.entryStatus = status
-                        setDriverCurrentStatus(status as Number)
-                        if (status == AUDIT_APPROVE) {
-                            setTheme("primary")
-                            globalData.theme = getTheme()
-                            isInited.value = true
-                            setTimeout(fun(){
-                                pageRef.value?.`$callMethod`("onInit")
-                                pageRef.value?.`$callMethod`("onShow")
-                            }, 250)
-                        } else {
+                    setTimeout(fun(){
+                        getDriverCurrentStatus().then(fun(res: Response){
+                            val data = res.data as UTSJSONObject
+                            val status = data.getNumber("status") as Number
+                            globalData.entryStatus = status
+                            setDriverCurrentStatus(status as Number)
+                            if (status == AUDIT_APPROVE) {
+                                setTheme("primary")
+                                globalData.theme = getTheme()
+                                isInited.value = true
+                                setTimeout(fun(){
+                                    pageRef.value?.`$callMethod`("onInit")
+                                    pageRef.value?.`$callMethod`("onShow")
+                                }, 250)
+                            } else {
+                                isInited.value = false
+                            }
+                        }).`catch`(fun(err: Any?){
+                            val errInfo = JSON.parse(JSON.stringify(err)) as UTSJSONObject
+                            val code = errInfo.getNumber("code") as Number
                             isInited.value = false
-                        }
-                    }).`catch`(fun(err: Any?){
-                        val errInfo = JSON.parse(JSON.stringify(err)) as UTSJSONObject
-                        val code = errInfo.getNumber("code") as Number
-                        isInited.value = false
-                        if (code == 10000) {
-                            showToast1(XTOAST_TYPE(title = errInfo.getString("msg") ?: "", iconCode = "error", iconColor = "red", titleColor = "red"))
-                        }
-                    }).`finally`(fun(){
-                        hideXloading()
-                    })
+                            if (code == 10000) {
+                                showToast1(XTOAST_TYPE(title = errInfo.getString("msg") ?: "", iconCode = "error", iconColor = "red", titleColor = "red"))
+                            }
+                        }).`finally`(fun(){
+                            hideXloading()
+                        })
+                    }, 100)
                 } else {
                     setTheme("primary")
                     globalData.theme = getTheme()
@@ -109,7 +111,7 @@ open class GenPagesHomeIndex : BasePage {
                         pageRef.value?.`$callMethod`("onInit")
                         pageRef.value?.`$callMethod`("onShow")
                     }
-                    , 250)
+                        , 250)
                     isInited.value = true
                 }
             }
