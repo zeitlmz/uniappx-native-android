@@ -226,9 +226,12 @@ open class GenPagesPersonalIndex : BasePage {
                         formData.value.status = data.getNumber("status") ?: -1
                         formData.value.processRemark = data.getString("processRemark") ?: null
                         if (formData.value.status == 1 || formData.value.status == 2) {
-                            headImg.value = data.getString("headImg") ?: defaultHeadImg
-                        }
-                        if (formData.value.status == 0) {
+                            if (data.getString("headImg") != null && data.getString("headImg") != "") {
+                                headImg.value = data.getString("headImg")!!
+                            } else {
+                                headImg.value = defaultHeadImg
+                            }
+                        } else if (formData.value.status == 0) {
                             headImg.value = auditHeadImg
                         }
                     }

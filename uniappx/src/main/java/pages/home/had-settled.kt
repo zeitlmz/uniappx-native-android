@@ -420,9 +420,12 @@ open class GenPagesHomeHadSettled : VueComponent {
                         console.log("getHeadImg res =", res)
                         val status = data.getNumber("status") ?: -1
                         if (status == 1 || status == 2) {
-                            headImg.value = data.getString("headImg") ?: defaultHeadImg
-                        }
-                        if (status == 0) {
+                            if (data.getString("headImg") != null && data.getString("headImg") != "") {
+                                headImg.value = data.getString("headImg")!!
+                            } else {
+                                headImg.value = defaultHeadImg
+                            }
+                        } else if (status == 0) {
                             headImg.value = auditHeadImg
                         }
                     }
