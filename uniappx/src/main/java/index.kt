@@ -9727,7 +9727,7 @@ open class Response (
 val getCurrentVersionDetail = fun(appType: Number, appVersion: String): UTSPromise<Response> {
     console.log("查询app版本信息：", appVersion)
     return UTSPromise(fun(resolve, reject){
-        uni_request<Response>(RequestOptions(url = "" + prodBaseUrl + "/mcpt-system/app/appVersionManage/getCurrentVersionDetail/" + appType + "/" + appVersion, method = "GET", timeout = 5000, sslVerify = true, success = fun(res){
+        uni_request<Response>(RequestOptions(url = "" + baseUrl + "/mcpt-system/app/appVersionManage/getCurrentVersionDetail/" + appType + "/" + appVersion, method = "GET", timeout = 5000, sslVerify = true, success = fun(res){
             resolve(res.data!!)
         }
         , fail = fun(error){
@@ -9740,7 +9740,7 @@ val getCurrentVersionDetail = fun(appType: Number, appVersion: String): UTSPromi
 val getLatestVersionDetail = fun(appType: Number, appVersion: String): UTSPromise<Response> {
     console.log("查询最新版本信息：", appVersion)
     return UTSPromise(fun(resolve, reject){
-        uni_request<Response>(RequestOptions(url = "" + prodBaseUrl + "/mcpt-system/app/appVersionManage/getLeastVersion/" + appType + "/" + appVersion, method = "GET", timeout = 5000, sslVerify = true, success = fun(res){
+        uni_request<Response>(RequestOptions(url = "" + baseUrl + "/mcpt-system/app/appVersionManage/getLeastVersion/" + appType + "/" + appVersion, method = "GET", timeout = 5000, sslVerify = true, success = fun(res){
             resolve(res.data!!)
         }
         , fail = fun(error){
