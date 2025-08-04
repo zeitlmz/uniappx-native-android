@@ -70,6 +70,7 @@ dependencies {
     implementation project(':mc-permission-request')
     implementation project(':mc-wechat-sdk')
     implementation project(':mc-alipay-sdk')
+    implementation project(':mc-keepalive')
     implementation project(':uni-kuxrouter')
     implementation project(':x-base642file-s')
     implementation project(':x-loading-s')
