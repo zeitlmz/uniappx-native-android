@@ -3,8 +3,8 @@
   "name": "每橙车主",
   "description": "每橙车主",
   "version": {
-    "name": "4.0.5",
-    "code": "405"
+    "name": "4.0.6",
+    "code": "406"
   },
   "uni-app-x": {
     "compilerVersion": "4.66"
@@ -79,6 +79,7 @@
       },
       "modules": {
         "uni-makePhoneCall": {},
+        "uni-installApk": {},
         "uni-event": {},
         "uni-createInnerAudioContext": {},
         "uni-getSystemInfo": {},
@@ -87,11 +88,11 @@
         "uni-storage": {},
         "uni-theme": {},
         "uni-prompt": {},
+        "uni-network": {},
         "uni-rpx2px": {},
         "uni-getAppBaseInfo": {},
         "uni-createWebviewContext": {},
         "uni-exit": {},
-        "uni-network": {},
         "uni-getDeviceInfo": {},
         "uni-getElementById": {},
         "uni-websocket": {},
