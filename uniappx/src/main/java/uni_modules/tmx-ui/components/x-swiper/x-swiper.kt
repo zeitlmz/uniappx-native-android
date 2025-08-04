@@ -23,6 +23,7 @@ import io.dcloud.uniapp.extapi.createSelectorQuery as uni_createSelectorQuery
 import io.dcloud.uniapp.extapi.getElementById as uni_getElementById
 open class GenUniModulesTmxUiComponentsXSwiperXSwiper : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {
+        provide("xSwiperDisabled", this._disabled)
         provide("xSwiperRadius", this._round)
         provide("xSwipershowScalAni", this._showScalAni)
         provide("xSwiperSpace", this.space)
@@ -186,6 +187,7 @@ open class GenUniModulesTmxUiComponentsXSwiperXSwiper : VueComponent {
     open var modelValue: Number by `$props`
     open var width: String by `$props`
     open var height: String by `$props`
+    open var disabled: Boolean by `$props`
     open var threshold: Number by `$props`
     open var damping: Number by `$props`
     open var animationDuration: Number by `$props`
@@ -231,6 +233,7 @@ open class GenUniModulesTmxUiComponentsXSwiperXSwiper : VueComponent {
     open var isSwiper: String by `$data`
     open var isReady: Boolean by `$data`
     open var _height: String by `$data`
+    open var _disabled: Boolean by `$data`
     open var _width: String by `$data`
     open var _round: String by `$data`
     open var _dotColor: String by `$data`
@@ -248,6 +251,9 @@ open class GenUniModulesTmxUiComponentsXSwiperXSwiper : VueComponent {
     override fun data(): Map<String, Any?> {
         return utsMapOf("id" to ("xSwiperItem-" + getUid()) as String, "parentId" to ("xSwiperParent-" + getUid()) as String, "status" to "runing" as String, "dirs" to "none" as DICR, "swiperTouchMove" to POSITON(x = 0, y = 0), "touchStartPos" to POSITON(x = 0, y = 0), "nowPos" to POSITON(x = 0, y = 0), "nowCureentIndex" to 0, "isMoveing" to false, "swiperDiff" to 0, "containerSize" to SIZE(width = 0, height = 0), "list" to utsArrayOf<SWIPER_ITEM>(), "startLeft" to 0, "startTop" to 0, "tid" to 0, "isResert" to false, "resizeObserver" to null as UniResizeObserver?, "dateIdff" to 0, "key" to 1, "tid2" to 12, "isLastingAniMoveing" to false, "_pos_x" to 0, "_pos_y" to 0, "isSwiper" to "none", "isReady" to false, "_height" to computed<String>(fun(): String {
             return checkIsCssUnit(this.height, xConfig.unit)
+        }
+        ), "_disabled" to computed<Boolean>(fun(): Boolean {
+            return this.disabled
         }
         ), "_width" to computed<String>(fun(): String {
             return checkIsCssUnit(this.width, xConfig.unit)
@@ -777,11 +783,12 @@ open class GenUniModulesTmxUiComponentsXSwiperXSwiper : VueComponent {
         var inheritAttrs = true
         var inject: Map<String, Map<String, Any?>> = utsMapOf()
         var emits: Map<String, Any?> = utsMapOf("change" to null, "click" to null, "dragLastEnd" to null, "update:modelValue" to null)
-        var props = normalizePropsOptions(utsMapOf("modelValue" to utsMapOf("type" to "Number", "default" to 0), "width" to utsMapOf("type" to "String", "default" to "auto"), "height" to utsMapOf("type" to "String", "default" to "150"), "threshold" to utsMapOf("type" to "Number", "default" to 30), "damping" to utsMapOf("type" to "Number", "default" to 0.1), "animationDuration" to utsMapOf("type" to "Number", "default" to 350), "spaceOffset" to utsMapOf("type" to "Number", "default" to 0), "space" to utsMapOf("type" to "Number", "default" to 0), "model" to utsMapOf("type" to "String", "default" to ""), "animationFun" to utsMapOf("type" to "String", "default" to "cubic-bezier(0, 0.55, 0.45, 1)"), "duration" to utsMapOf("type" to "Number", "default" to 5000), "vertical" to utsMapOf("type" to "Boolean", "default" to false), "round" to utsMapOf("type" to "String", "default" to "10"), "dotColor" to utsMapOf("type" to "String", "default" to "rgba(255,255,255,0.5)"), "dotActiveColor" to utsMapOf("type" to "String", "default" to "rgba(255,255,255,1)"), "dotOffset" to utsMapOf("type" to "String", "default" to "15"), "dotSize" to utsMapOf("type" to "String", "default" to "6"), "showDot" to utsMapOf("type" to "Boolean", "default" to true), "autoPlay" to utsMapOf("type" to "Boolean", "default" to true), "loop" to utsMapOf("type" to "Boolean", "default" to true), "showLastView" to utsMapOf("type" to "Boolean", "default" to false), "showScalAni" to utsMapOf("type" to "Boolean", "default" to false)))
+        var props = normalizePropsOptions(utsMapOf("modelValue" to utsMapOf("type" to "Number", "default" to 0), "width" to utsMapOf("type" to "String", "default" to "auto"), "height" to utsMapOf("type" to "String", "default" to "150"), "disabled" to utsMapOf("type" to "Boolean", "default" to false), "threshold" to utsMapOf("type" to "Number", "default" to 30), "damping" to utsMapOf("type" to "Number", "default" to 0.1), "animationDuration" to utsMapOf("type" to "Number", "default" to 350), "spaceOffset" to utsMapOf("type" to "Number", "default" to 0), "space" to utsMapOf("type" to "Number", "default" to 0), "model" to utsMapOf("type" to "String", "default" to ""), "animationFun" to utsMapOf("type" to "String", "default" to "cubic-bezier(0, 0.55, 0.45, 1)"), "duration" to utsMapOf("type" to "Number", "default" to 5000), "vertical" to utsMapOf("type" to "Boolean", "default" to false), "round" to utsMapOf("type" to "String", "default" to "10"), "dotColor" to utsMapOf("type" to "String", "default" to "rgba(255,255,255,0.5)"), "dotActiveColor" to utsMapOf("type" to "String", "default" to "rgba(255,255,255,1)"), "dotOffset" to utsMapOf("type" to "String", "default" to "15"), "dotSize" to utsMapOf("type" to "String", "default" to "6"), "showDot" to utsMapOf("type" to "Boolean", "default" to true), "autoPlay" to utsMapOf("type" to "Boolean", "default" to true), "loop" to utsMapOf("type" to "Boolean", "default" to true), "showLastView" to utsMapOf("type" to "Boolean", "default" to false), "showScalAni" to utsMapOf("type" to "Boolean", "default" to false)))
         var propsNeedCastKeys = utsArrayOf(
             "modelValue",
             "width",
             "height",
+            "disabled",
             "threshold",
             "damping",
             "animationDuration",

@@ -457,6 +457,14 @@ open class GenPagesOtherTripPlanAddIndex : BasePage {
                 if (planId.value != "") {
                     title.value = "编辑"
                     initShow(planId.value, selectDate.value)
+                } else {
+                    val hour = Date().getHours()
+                    planGoTime.value = (if (hour < 10) {
+                        ("0" + hour)
+                    } else {
+                        hour.toString(10)
+                    }
+                    ) + ":00"
                 }
                 showLoading(XLOADINGS_TYPE(title = "加载中..."))
                 getServiceOperationTime().then(fun(res: Response){
@@ -504,7 +512,7 @@ open class GenPagesOtherTripPlanAddIndex : BasePage {
                                     , "start-date" to selectDate.value, "end-date" to deadlineStartSelectDate.value, "onChange" to fun(){
                                         startChange()
                                     }
-                                    ), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                    , "title" to "请选择开始日期"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                                         return utsArrayOf(
                                             createElementVNode("view", utsMapOf("class" to "form-item"), utsArrayOf(
                                                 createElementVNode("text", utsMapOf("class" to "left-box"), "计划开始日期"),
@@ -546,7 +554,7 @@ open class GenPagesOtherTripPlanAddIndex : BasePage {
                                     , "end-date" to deadlineEndSelectDate.value, "onChange" to fun(){
                                         endChange()
                                     }
-                                    ), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                    , "title" to "请选择结束日期"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                                         return utsArrayOf(
                                             createElementVNode("view", utsMapOf("class" to "form-item"), utsArrayOf(
                                                 createElementVNode("text", utsMapOf("class" to "left-box"), "计划结束日期"),
@@ -587,7 +595,7 @@ open class GenPagesOtherTripPlanAddIndex : BasePage {
                                     , "model-str" to planGoTimeStr.value, "onUpdate:modelStr" to fun(`$event`: String){
                                         planGoTimeStr.value = `$event`
                                     }
-                                    , "format" to "hh:mm", "start" to operationStartTime.value, "end" to operationEndTime.value, "steps" to 10), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                    , "format" to "hh:mm", "start" to operationStartTime.value, "end" to operationEndTime.value, "steps" to 10, "title" to "请选择发车时间"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                                         return utsArrayOf(
                                             createElementVNode("view", utsMapOf("class" to "form-item"), utsArrayOf(
                                                 createElementVNode("text", utsMapOf("class" to "left-box"), "发车时间"),

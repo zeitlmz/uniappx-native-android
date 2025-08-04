@@ -31,6 +31,7 @@ open class GenComponentsMcBaseContainerIndex : VueComponent {
     open var navbarHeight: Number by `$props`
     open var linearGradient: UTSArray<String> by `$props`
     open var linearActiveGradient: UTSArray<String> by `$props`
+    open var lrWidth: String by `$props`
     companion object {
         @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
         var setup: (__props: GenComponentsMcBaseContainerIndex) -> Any? = fun(__props): Any? {
@@ -42,7 +43,7 @@ open class GenComponentsMcBaseContainerIndex : VueComponent {
                 val _component_mc_env_tag = resolveEasyComponent("mc-env-tag", GenComponentsMcEnvTagIndexClass)
                 return createElementVNode(Fragment, null, utsArrayOf(
                     if (isTrue(_ctx.showNavbar)) {
-                        createVNode(_component_x_navbar, utsMapOf("key" to 0, "title" to _ctx.title, "title-color" to _ctx.titleColor, "title-font-size" to "18", "isPlace" to _ctx.navbarIsPlace, "height" to _ctx.navbarHeight, "showNavBack" to _ctx.showNavBack, "linear-gradient" to _ctx.linearGradient, "linear-active-gradient" to _ctx.linearActiveGradient, "staticTransparent" to _ctx.staticTransparent), utsMapOf("left" to withSlotCtx(fun(): UTSArray<Any> {
+                        createVNode(_component_x_navbar, utsMapOf("key" to 0, "title" to _ctx.title, "title-color" to _ctx.titleColor, "title-font-size" to "18", "isPlace" to _ctx.navbarIsPlace, "height" to _ctx.navbarHeight, "showNavBack" to _ctx.showNavBack, "linear-gradient" to _ctx.linearGradient, "lrWidth" to _ctx.lrWidth, "linear-active-gradient" to _ctx.linearActiveGradient, "staticTransparent" to _ctx.staticTransparent), utsMapOf("left" to withSlotCtx(fun(): UTSArray<Any> {
                             return utsArrayOf(
                                 renderSlot(_ctx.`$slots`, "navbar-left")
                             )
@@ -61,6 +62,7 @@ open class GenComponentsMcBaseContainerIndex : VueComponent {
                             "height",
                             "showNavBack",
                             "linear-gradient",
+                            "lrWidth",
                             "linear-active-gradient",
                             "staticTransparent"
                         ))
@@ -104,7 +106,7 @@ open class GenComponentsMcBaseContainerIndex : VueComponent {
         ), "linearActiveGradient" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
             return utsArrayOf<String>()
         }
-        )))
+        ), "lrWidth" to utsMapOf("type" to "String", "default" to "100")))
         var propsNeedCastKeys = utsArrayOf(
             "direction",
             "bgColor",
@@ -119,7 +121,8 @@ open class GenComponentsMcBaseContainerIndex : VueComponent {
             "showNavBack",
             "navbarHeight",
             "linearGradient",
-            "linearActiveGradient"
+            "linearActiveGradient",
+            "lrWidth"
         )
         var components: Map<String, CreateVueComponent> = utsMapOf()
     }

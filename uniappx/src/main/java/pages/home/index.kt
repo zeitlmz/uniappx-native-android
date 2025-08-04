@@ -57,6 +57,7 @@ open class GenPagesHomeIndex : BasePage {
             val _ctx = __ins.proxy as GenPagesHomeIndex
             val _cache = __ins.renderCache
             val pageRef = ref<ComponentPublicInstance?>(null)
+            val canAppUpgrade = ref(false)
             val globalData = inject("globalData") as GlobalDataType
             val router = uni_useKuxRouter()
             val auditApproveStatus: Number = AUDIT_APPROVE as Number
@@ -136,14 +137,31 @@ open class GenPagesHomeIndex : BasePage {
             )
             return fun(): Any? {
                 val _component_mc_env_tag = resolveEasyComponent("mc-env-tag", GenComponentsMcEnvTagIndexClass)
+                val _component_mc_upgrade_modal = resolveEasyComponent("mc-upgrade-modal", GenComponentsMcUpgradeModalIndexClass)
                 return createElementVNode(Fragment, null, utsArrayOf(
                     if (isTrue(unref(globalData).isLogin && unref(globalData).entryStatus == unref(auditApproveStatus))) {
                         createVNode(unref(GenPagesHomeHadSettledClass), utsMapOf("key" to 0, "ref_key" to "pageRef", "ref" to pageRef), null, 512)
                     } else {
-                        createVNode(unref(GenPagesHomeNotSettledClass), utsMapOf("key" to 1, "onCheckHasEntry" to checkHasEntry))
+                        createVNode(unref(GenPagesHomeNotSettledClass), utsMapOf("key" to 1, "onCheckHasEntry" to checkHasEntry, "onAgreePrivacy" to fun(){
+                            canAppUpgrade.value = true
+                        }
+                        ), null, 8, utsArrayOf(
+                            "onAgreePrivacy"
+                        ))
                     }
                     ,
-                    createVNode(_component_mc_env_tag)
+                    createVNode(_component_mc_env_tag),
+                    if (isTrue(unref(canAppUpgrade))) {
+                        createVNode(_component_mc_upgrade_modal, utsMapOf("key" to 2, "style-type" to if (unref(globalData).isLogin && unref(globalData).entryStatus == unref(auditApproveStatus)) {
+                            1
+                        } else {
+                            0
+                        }), null, 8, utsArrayOf(
+                            "style-type"
+                        ))
+                    } else {
+                        createCommentVNode("v-if", true)
+                    }
                 ), 64)
             }
         }

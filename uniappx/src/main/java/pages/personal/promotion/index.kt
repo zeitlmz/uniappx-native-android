@@ -244,24 +244,34 @@ open class GenPagesPersonalPromotionIndex : BasePage {
                                         ))
                                     )),
                                     createElementVNode("view", utsMapOf("class" to "ranking-list"), utsArrayOf(
-                                        if (unref(rankingList).length >= 2) {
-                                            createElementVNode("view", utsMapOf("key" to 0, "class" to "ranking-item"), utsArrayOf(
-                                                createElementVNode("view", utsMapOf("class" to "ranking-medal"), utsArrayOf(
-                                                    createElementVNode("image", utsMapOf("src" to ("" + unref(resBaseUrl) + "/static/images/personal-promotion-rank-2.png"), "mode" to "aspectFit", "class" to "medal-icon"), null, 8, utsArrayOf(
-                                                        "src"
-                                                    ))
-                                                )),
-                                                createElementVNode("view", utsMapOf("class" to "user-info"), utsArrayOf(
+                                        createElementVNode("view", utsMapOf("class" to "ranking-item"), utsArrayOf(
+                                            createElementVNode("view", utsMapOf("class" to "ranking-medal"), utsArrayOf(
+                                                createElementVNode("image", utsMapOf("src" to ("" + unref(resBaseUrl) + "/static/images/personal-promotion-rank-2.png"), "mode" to "aspectFit", "class" to "medal-icon"), null, 8, utsArrayOf(
+                                                    "src"
+                                                ))
+                                            )),
+                                            if (unref(rankingList).length >= 2) {
+                                                createElementVNode("view", utsMapOf("key" to 0, "class" to "user-info"), utsArrayOf(
                                                     createElementVNode("text", utsMapOf("class" to "user-name"), toDisplayString(unref(rankingList)[1].maskedPhone), 1)
-                                                )),
-                                                createElementVNode("text", utsMapOf("class" to "user-count"), toDisplayString(unref(rankingList)[1].inviteCount) + "人", 1)
-                                            ))
-                                        } else {
-                                            createCommentVNode("v-if", true)
-                                        }
-                                        ,
+                                                ))
+                                            } else {
+                                                createCommentVNode("v-if", true)
+                                            }
+                                            ,
+                                            if (unref(rankingList).length >= 2) {
+                                                createElementVNode("text", utsMapOf("key" to 1, "class" to "user-count"), toDisplayString(unref(rankingList)[1].inviteCount) + "人", 1)
+                                            } else {
+                                                createCommentVNode("v-if", true)
+                                            }
+                                            ,
+                                            if (unref(rankingList).length < 2) {
+                                                createElementVNode("text", utsMapOf("key" to 2, "class" to "user-count mt-5"), "--")
+                                            } else {
+                                                createCommentVNode("v-if", true)
+                                            }
+                                        )),
                                         if (unref(rankingList).length >= 1) {
-                                            createElementVNode("view", utsMapOf("key" to 1, "class" to "ranking-item", "style" to normalizeStyle(utsMapOf("margin-top" to "-100rpx"))), utsArrayOf(
+                                            createElementVNode("view", utsMapOf("key" to 0, "class" to "ranking-item", "style" to normalizeStyle(utsMapOf("margin-top" to "-60rpx"))), utsArrayOf(
                                                 createElementVNode("view", utsMapOf("class" to "ranking-medal"), utsArrayOf(
                                                     createElementVNode("image", utsMapOf("src" to ("" + unref(resBaseUrl) + "/static/images/personal-promotion-rank-1.png"), "mode" to "aspectFit", "class" to "medal-icon"), null, 8, utsArrayOf(
                                                         "src"
@@ -276,21 +286,32 @@ open class GenPagesPersonalPromotionIndex : BasePage {
                                             createCommentVNode("v-if", true)
                                         }
                                         ,
-                                        if (unref(rankingList).length >= 3) {
-                                            createElementVNode("view", utsMapOf("key" to 2, "class" to "ranking-item"), utsArrayOf(
-                                                createElementVNode("view", utsMapOf("class" to "ranking-medal"), utsArrayOf(
-                                                    createElementVNode("image", utsMapOf("src" to ("" + unref(resBaseUrl) + "/static/images/personal-promotion-rank-3.png"), "mode" to "aspectFit", "class" to "medal-icon"), null, 8, utsArrayOf(
-                                                        "src"
-                                                    ))
-                                                )),
-                                                createElementVNode("view", utsMapOf("class" to "user-info"), utsArrayOf(
+                                        createElementVNode("view", utsMapOf("class" to "ranking-item"), utsArrayOf(
+                                            createElementVNode("view", utsMapOf("class" to "ranking-medal"), utsArrayOf(
+                                                createElementVNode("image", utsMapOf("src" to ("" + unref(resBaseUrl) + "/static/images/personal-promotion-rank-3.png"), "mode" to "aspectFit", "class" to "medal-icon"), null, 8, utsArrayOf(
+                                                    "src"
+                                                ))
+                                            )),
+                                            if (unref(rankingList).length >= 3) {
+                                                createElementVNode("view", utsMapOf("key" to 0, "class" to "user-info"), utsArrayOf(
                                                     createElementVNode("text", utsMapOf("class" to "user-name"), toDisplayString(unref(rankingList)[2].maskedPhone), 1)
-                                                )),
-                                                createElementVNode("text", utsMapOf("class" to "user-count"), toDisplayString(unref(rankingList)[2].inviteCount) + "人", 1)
-                                            ))
-                                        } else {
-                                            createCommentVNode("v-if", true)
-                                        }
+                                                ))
+                                            } else {
+                                                createCommentVNode("v-if", true)
+                                            }
+                                            ,
+                                            if (unref(rankingList).length >= 3) {
+                                                createElementVNode("text", utsMapOf("key" to 1, "class" to "user-count"), toDisplayString(unref(rankingList)[2].inviteCount) + "人", 1)
+                                            } else {
+                                                createCommentVNode("v-if", true)
+                                            }
+                                            ,
+                                            if (unref(rankingList).length < 3) {
+                                                createElementVNode("text", utsMapOf("key" to 2, "class" to "user-count mt-5"), "--")
+                                            } else {
+                                                createCommentVNode("v-if", true)
+                                            }
+                                        ))
                                     ))
                                 )),
                                 createElementVNode("view", utsMapOf("class" to "promotion-buttons", "style" to normalizeStyle(utsMapOf("width" to "100%"))), utsArrayOf(

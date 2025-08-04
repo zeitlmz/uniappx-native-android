@@ -69,7 +69,7 @@ open class GenComponentsMcDatePickerIndex : VueComponent {
                                 "15"
                             )), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
                                 return utsArrayOf(
-                                    createElementVNode("text", utsMapOf("class" to "date-selector-title"), "日期选择"),
+                                    createElementVNode("text", utsMapOf("class" to "date-selector-title"), toDisplayString(_ctx.title), 1),
                                     if (isTrue(_ctx.isShow)) {
                                         createVNode(_component_x_calendar_view, utsMapOf("key" to 0, "date-style" to _ctx.dateStyle, "disabledSwiper" to true, "start-date" to _ctx.startDate, "end-date" to _ctx.endDate, "disabled-days" to _ctx.disabledDays, "format" to _ctx.format, "modelValue" to _ctx.date, "onUpdate:modelValue" to fun(`$event`: String){
                                             _ctx.date = `$event`
@@ -139,6 +139,7 @@ open class GenComponentsMcDatePickerIndex : VueComponent {
     open var minDate: String by `$props`
     open var format: String by `$props`
     open var dateStyle: UTSArray<xCalendarDateStyle_type> by `$props`
+    open var title: String by `$props`
     open var date: String by `$data`
     open var showDrawer: Boolean by `$data`
     open var isShow: Boolean
@@ -193,7 +194,7 @@ open class GenComponentsMcDatePickerIndex : VueComponent {
         ), "minDate" to utsMapOf("type" to "String", "default" to ""), "format" to utsMapOf("type" to "String", "default" to "YYYY-MM-DD"), "dateStyle" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<xCalendarDateStyle_type> {
             return utsArrayOf()
         }
-        )))
+        ), "title" to utsMapOf("type" to "String", "default" to "日期选择")))
         var propsNeedCastKeys = utsArrayOf(
             "modelValue",
             "show",
@@ -202,7 +203,8 @@ open class GenComponentsMcDatePickerIndex : VueComponent {
             "disabledDays",
             "minDate",
             "format",
-            "dateStyle"
+            "dateStyle",
+            "title"
         )
         var components: Map<String, CreateVueComponent> = utsMapOf()
     }
