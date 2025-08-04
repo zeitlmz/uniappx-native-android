@@ -923,14 +923,15 @@ open class GenPagesHomeNotSettled : VueComponent {
                                 createElementVNode("text", utsMapOf("class" to "text-row"), "相机权限：用于注册中的资料上传；位置权限：用于基于定位的订单匹配和导航、路程规划；"),
                                 createElementVNode("text", utsMapOf("class" to "text-row"), "麦克风权限：用于行程中声音获取、行程录音;"),
                                 createElementVNode("text", utsMapOf("class" to "text-row"), "电话权限：用于获取设备信息，防控运营风险;通讯录权限(非必要权限)，用于添加紧急联系；"),
-                                createElementVNode("text", utsMapOf("class" to "text-row"), "极光SDK功能："),
+                                createElementVNode("text", utsMapOf("class" to "text-row"), "UniPush集成个推SDK功能："),
                                 createElementVNode("text", utsMapOf("class" to "text-row"), "使用目的：实现操作消息的推送和提示，向您的设备发送重要通知（如订单状态、系统更新、活动提醒等）。"),
-                                createElementVNode("text", utsMapOf("class" to "text-row"), "收集信息方式与范围：登录每橙车主App后，您可以体验极光推送的消息和通知的推送服务。您在体验极光推送服务时，我们系统后台会自动给您生成唯一的Registration，您可以向您自己的Registration发送\"消息通知\"的信息。"),
-                                createElementVNode("text", utsMapOf("class" to "text-row"), "极光推送SDK在服务过程中可能收集以下信息：设备信息【如 IP 地址、GNSS 信息、网络类型、WiFi 状态、WiFi 参数、WiFi 列表、SSID、BSSID、ANDROID ID、基站信息、WiFi 信号强度的信息、蓝牙信息、传感器信息（矢量、加速度、压力、方向、地磁）、设备信号强度信息、外部存储目录、读取电话状态】、设备标识信息（IDFA、OAID）、当前应用信息（应用名、应用版本号）、设备参数及系统信息（设备品牌及型号、操作系统、运营商信息、屏幕分辨率）。"),
+                                createElementVNode("text", utsMapOf("class" to "text-row"), "收集信息方式与范围：登录每橙车主App后，您可以体验UniPush个推推送的消息和通知的推送服务。您在体验推送服务的同时，我们系统后台会自动给您生成唯一的Registration，您可以向您自己的Registration发送\"消息通知\"的信息。"),
+                                createElementVNode("text", utsMapOf("class" to "text-row"), "UniPush个推SDK在服务过程中可能收集以下信息：设备信息【如 IP 地址、GNSS 信息、网络类型、WiFi 状态、WiFi 参数、WiFi 列表、SSID、BSSID、ANDROID ID、基站信息、WiFi 信号强度的信息、蓝牙信息、传感器信息（矢量、加速度、压力、方向、地磁）、设备信号强度信息、外部存储目录、读取电话状态】、设备标识信息（IDFA、OAID）、当前应用信息（应用名、应用版本号）、设备参数及系统信息（设备品牌及型号、操作系统、运营商信息、屏幕分辨率）。"),
+                                createElementVNode("text", utsMapOf("class" to "text-row"), "您也可以使用第三方帐号(微信、支付宝)登录并使用，您将授权我们获取您在第三方平台注册的公开信息（头像、昵称以及您授权的其他信息），用于与每橙车主绑定，使您可以直接登录并使用本产品和相关服务。"),
                                 createElementVNode("text", utsMapOf("class" to "text-row"), "您确认本弹窗并不会直接开启相关权限，我们会就具体权限开启另行征得您的同意。权限开启后，您还可以随时通过设备设置关闭权限。"),
                                 createElementVNode("text", utsMapOf("class" to "text-row blod"), "本APP提供了撤回隐私政策授权的功能，具体路径:登录后点击右上角(已入驻是头像图标)-设置图标-账户与安全-撤回同意隐私政策。"),
                                 createElementVNode("text", utsMapOf("class" to "text-row blod"), "本APP提供了撤回系统权限的功能，具体路径:登录后点击右上角(已入驻是头像图标)-设置图标-账户与安全-权限管理。")
-                            ), 4)
+                            ),4)
                         )
                     }
                     ), "_" to 1), 8, utsArrayOf(
