@@ -75,7 +75,7 @@ open class GenPagesHomeIndex : BasePage {
                 setDriverCurrentStatus(entryStatusCache)
                 globalData.entryStatus = entryStatusCache
                 if (entryStatusCache != AUDIT_APPROVE) {
-                    showLoading(XLOADINGS_TYPE(title = "加载中..."))
+//                    showLoading(XLOADINGS_TYPE(title = "加载中..."))
                     setTimeout(fun(){
                         getDriverCurrentStatus().then(fun(res: Response){
                             val data = res.data as UTSJSONObject
