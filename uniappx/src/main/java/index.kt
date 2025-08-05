@@ -66,6 +66,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import io.dcloud.uniapp.extapi.`$emit` as uni__emit
 import uts.sdk.modules.jgJpush.JgUtil
 import uts.sdk.modules.kuxRequestInterceptors.RIInterceptorManager
 import uts.sdk.modules.kuxRequestInterceptors.RIInterceptorManagerImpl
@@ -9808,6 +9809,7 @@ val runBlock3 = run {
     )
     showSplashScreen(SplashScreenOptions(width = screenWidth, height = screenHeight, duration = 3000, hideCb = fun() {
         setShowHome(true)
+        uni__emit("initData", null)
     }
     ))
 }

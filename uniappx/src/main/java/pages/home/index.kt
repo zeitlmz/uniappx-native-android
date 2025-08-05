@@ -16,6 +16,8 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.`$emit` as uni__emit
+import io.dcloud.uniapp.extapi.`$off` as uni__off
+import io.dcloud.uniapp.extapi.`$on` as uni__on
 import uts.sdk.modules.jgJpush.JgUtil
 import uts.sdk.modules.xLoadingS.XLOADINGS_TYPE
 import uts.sdk.modules.xToastS.XTOAST_TYPE
@@ -75,7 +77,7 @@ open class GenPagesHomeIndex : BasePage {
                 setDriverCurrentStatus(entryStatusCache)
                 globalData.entryStatus = entryStatusCache
                 if (entryStatusCache != AUDIT_APPROVE) {
-//                    showLoading(XLOADINGS_TYPE(title = "加载中..."))
+                    showLoading(XLOADINGS_TYPE(title = "加载中..."))
                     setTimeout(fun(){
                         getDriverCurrentStatus().then(fun(res: Response){
                             val data = res.data as UTSJSONObject
@@ -119,6 +121,7 @@ open class GenPagesHomeIndex : BasePage {
                 if (!store.showHome) {
                     return
                 }
+                console.log("initData:showHome==>", store.showHome)
                 globalData.isLogin = getCacheUserInfo() != null
                 checkHasEntry()
                 if (isInited.value) {
@@ -135,15 +138,14 @@ open class GenPagesHomeIndex : BasePage {
                 }
             }
             onPageShow(initData)
-            watchEffect(fun(){
-                if (store.showHome) {
-                    initData()
-                }
-            }
-            )
             onReady(fun(){
+                uni__on("initData", initData)
                 pageRef.value?.`$callMethod`("onReady")
                 globalData.safeAreaBottom = uni_getSystemInfoSync().safeAreaInsets.bottom
+            }
+            )
+            onUnmounted(fun(){
+                uni__off("initData", initData)
             }
             )
             return fun(): Any? {

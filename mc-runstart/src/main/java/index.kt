@@ -41,16 +41,19 @@ var hideCb: HideCb? = null
 var lastTime: Long = 0
 fun hideSplashScreen() {
     val timeDiff = Date().getTime() - lastTime
-    val time = 2000 - timeDiff
+    val time = 1000 - timeDiff
     console.log("timeDiff:", timeDiff)
     setTimeout(fun(){
-        var decorView = UTSAndroid.getUniActivity()!!.window.decorView as ViewGroup
-        var mk = decorView.findViewById<View>(maskDomId.toInt())
-        if (mk != null) {
-            decorView.removeView(mk)
-        }
         hideCb?.invoke()
-        console.log("隐藏启动图")
+        setTimeout(fun(){
+            var decorView = UTSAndroid.getUniActivity()!!.window.decorView as ViewGroup
+            var mk = decorView.findViewById<View>(maskDomId.toInt())
+            if (mk != null) {
+                decorView.removeView(mk)
+            }
+            console.log("隐藏启动图")
+        }
+            , 350)
     }
         , if (time <= 0) {
             0
