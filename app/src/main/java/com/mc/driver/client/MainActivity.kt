@@ -1,10 +1,14 @@
 package com.mc.driver.client
 
-import android.util.Log
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
+import com.huawei.hms.framework.common.ContextCompat
 import io.dcloud.uniapp.UniApplication
 import io.dcloud.uniapp.UniSDKEngine
 import io.dcloud.uniapp.ui.component.IComponent
 import io.dcloud.uts.UTSAndroidHookProxy
+
 
 class App : UniApplication() {
 
