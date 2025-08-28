@@ -11,15 +11,15 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.`$emit` as uni__emit
+import uts.sdk.modules.mcPermissionRequest.checkDrawOverlays
+import uts.sdk.modules.mcPermissionRequest.checkGrantedNotice
+import uts.sdk.modules.mcPermissionRequest.openBatteryPage
+import uts.sdk.modules.mcPermissionRequest.openNotificationSetting
+import uts.sdk.modules.mcPermissionRequest.requestDrawOverlaysPermission
 import uts.sdk.modules.mcPermissionRequest.checkGrantedCamera
 import uts.sdk.modules.mcPermissionRequest.checkGrantedLocation
 import uts.sdk.modules.mcPermissionRequest.checkGrantedPhoto
-import uts.sdk.modules.mcPermissionRequest.checkGrantedNotice
 import io.dcloud.uniapp.extapi.openAppAuthorizeSetting as uni_openAppAuthorizeSetting
 import uts.sdk.modules.uniKuxrouter.useKuxRouter as uni_useKuxRouter
 open class GenPagesPersonalSettingGrantManageIndex : BasePage {
@@ -62,10 +62,16 @@ open class GenPagesPersonalSettingGrantManageIndex : BasePage {
                 }
                 ))
             }
-            val menuList = ref(utsArrayOf<MenuItem1>())
+            val menuList = ref(_uA<MenuItem1>())
             onPageShow(fun(){
-                menuList.value = utsArrayOf<MenuItem1>(MenuItem1(title = "通知", desc = "用于新增订单、取消订单消息通知提醒。", granted = checkGrantedNotice(), click = fun(){
-                    openSystemSettings()
+                menuList.value = _uA<MenuItem1>(MenuItem1(title = "电池优化", desc = "用于降低App后台接单时被杀进程的几率。", granted = false, click = fun(){
+                    openBatteryPage()
+                }
+                ), MenuItem1(title = "悬浮窗", desc = "用于App后台接单时显示小悬浮窗口。", granted = checkDrawOverlays(), click = fun(){
+                    requestDrawOverlaysPermission()
+                }
+                ), MenuItem1(title = "通知", desc = "用于新增订单、取消订单消息通知提醒。", granted = checkGrantedNotice(), click = fun(){
+                    openNotificationSetting()
                 }
                 ), MenuItem1(title = "相册", desc = "用于选取上传入驻资料，如身份证、驾驶、营运资质等。", granted = checkGrantedPhoto(), click = fun(){
                     openSystemSettings()
@@ -83,12 +89,12 @@ open class GenPagesPersonalSettingGrantManageIndex : BasePage {
                 val _component_x_sheet = resolveEasyComponent("x-sheet", GenUniModulesTmxUiComponentsXSheetXSheetClass)
                 val _component_mc_active_animation = resolveEasyComponent("mc-active-animation", GenComponentsMcActiveAnimationIndexClass)
                 val _component_mc_base_container = resolveEasyComponent("mc-base-container", GenComponentsMcBaseContainerIndexClass)
-                return createVNode(_component_mc_base_container, utsMapOf("title" to "权限管理"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                    return utsArrayOf(
-                        createElementVNode(Fragment, null, RenderHelpers.renderList(unref(menuList), fun(menu, index, __index, _cached): Any {
-                            return createVNode(_component_mc_active_animation, utsMapOf("key" to menu.title), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                return utsArrayOf(
-                                    createVNode(_component_x_sheet, utsMapOf("margin" to utsArrayOf(
+                return _cV(_component_mc_base_container, _uM("title" to "权限管理"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                    return _uA(
+                        _cE(Fragment, null, RenderHelpers.renderList(unref(menuList), fun(menu, index, __index, _cached): Any {
+                            return _cV(_component_mc_active_animation, _uM("key" to menu.title), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                return _uA(
+                                    _cV(_component_x_sheet, _uM("margin" to _uA(
                                         "15",
                                         if (index > 0) {
                                             "0"
@@ -98,30 +104,30 @@ open class GenPagesPersonalSettingGrantManageIndex : BasePage {
                                         ,
                                         "15",
                                         "15"
-                                    ), "padding" to utsArrayOf(
+                                    ), "padding" to _uA(
                                         "15"
-                                    ), "onClick" to menu.click), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                        return utsArrayOf(
-                                            createElementVNode("view", utsMapOf("class" to "setting-item"), utsArrayOf(
-                                                createElementVNode("view", utsMapOf("class" to "left-box", "style" to normalizeStyle(utsMapOf("width" to ("" + (unref(screenWidth) - 150) + "px")))), utsArrayOf(
-                                                    createElementVNode("text", utsMapOf("class" to "name"), toDisplayString(menu.title), 1),
-                                                    createElementVNode("text", utsMapOf("class" to "desc"), toDisplayString(menu.desc), 1)
+                                    ), "onClick" to menu.click), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                        return _uA(
+                                            _cE("view", _uM("class" to "setting-item"), _uA(
+                                                _cE("view", _uM("class" to "left-box", "style" to _nS(_uM("width" to ("" + (unref(screenWidth) - 150) + "px")))), _uA(
+                                                    _cE("text", _uM("class" to "name"), _tD(menu.title), 1),
+                                                    _cE("text", _uM("class" to "desc"), _tD(menu.desc), 1)
                                                 ), 4),
-                                                createElementVNode("view", utsMapOf("class" to "right-box flex-row"), utsArrayOf(
-                                                    createElementVNode("text", utsMapOf("class" to "value"), toDisplayString(if (menu.granted) {
+                                                _cE("view", _uM("class" to "right-box flex-row"), _uA(
+                                                    _cE("text", _uM("class" to "value"), _tD(if (menu.granted) {
                                                         "已授权"
                                                     } else {
                                                         "去设置"
                                                     }
                                                     ), 1),
-                                                    createElementVNode("image", utsMapOf("class" to "icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-arrow-right-line-samll.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
+                                                    _cE("image", _uM("class" to "icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-arrow-right-line-samll.png"), "mode" to "widthFix"), null, 8, _uA(
                                                         "src"
                                                     ))
                                                 ))
                                             ))
                                         )
                                     }
-                                    ), "_" to 2), 1032, utsArrayOf(
+                                    ), "_" to 2), 1032, _uA(
                                         "margin",
                                         "onClick"
                                     ))
@@ -136,21 +142,21 @@ open class GenPagesPersonalSettingGrantManageIndex : BasePage {
             }
         }
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
-            ), utsArrayOf(
+            ), _uA(
                 GenApp.styles
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("setting-item" to padStyleMapOf(utsMapOf("flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center", "gap" to "20rpx")), "name" to utsMapOf(".setting-item .left-box " to utsMapOf("fontSize" to "30rpx")), "desc" to utsMapOf(".setting-item .left-box " to utsMapOf("fontSize" to "26rpx", "color" to "#999999")), "right-box" to utsMapOf(".setting-item " to utsMapOf("flexShrink" to 0)), "value" to utsMapOf(".setting-item .right-box " to utsMapOf("fontSize" to "26rpx", "color" to "#646464")), "icon" to utsMapOf(".setting-item " to utsMapOf("width" to "17rpx", "height" to "28rpx", "marginLeft" to "20rpx")), "bottom-panel" to padStyleMapOf(utsMapOf("position" to "fixed", "bottom" to 0, "left" to 0, "width" to "100%", "paddingTop" to "20rpx", "paddingRight" to "20rpx", "paddingBottom" to "60rpx", "paddingLeft" to "20rpx", "boxShadow" to "0 -2px 10px rgba(0, 0, 0, 0.1)")))
+                return _uM("setting-item" to _pS(_uM("flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center", "gap" to "20rpx")), "name" to _uM(".setting-item .left-box " to _uM("fontSize" to "30rpx")), "desc" to _uM(".setting-item .left-box " to _uM("fontSize" to "26rpx", "color" to "#999999")), "right-box" to _uM(".setting-item " to _uM("flexShrink" to 0)), "value" to _uM(".setting-item .right-box " to _uM("fontSize" to "26rpx", "color" to "#646464")), "icon" to _uM(".setting-item " to _uM("width" to "17rpx", "height" to "28rpx", "marginLeft" to "20rpx")), "bottom-panel" to _pS(_uM("position" to "fixed", "bottom" to 0, "left" to 0, "width" to "100%", "paddingTop" to "20rpx", "paddingRight" to "20rpx", "paddingBottom" to "60rpx", "paddingLeft" to "20rpx", "boxShadow" to "0 -2px 10px rgba(0, 0, 0, 0.1)")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf()
-        var props = normalizePropsOptions(utsMapOf())
-        var propsNeedCastKeys: UTSArray<String> = utsArrayOf()
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM()
+        var props = _nP(_uM())
+        var propsNeedCastKeys: UTSArray<String> = _uA()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.`$off` as uni__off
 import io.dcloud.uniapp.extapi.`$on` as uni__on
 import io.dcloud.uniapp.extapi.createSelectorQuery as uni_createSelectorQuery
@@ -53,26 +49,26 @@ open class GenUniModulesTmxUiComponentsXFloatButtonXFloatButton : VueComponent {
     override fun `$render`(): Any? {
         val _ctx = this
         val _cache = this.`$`.renderCache
-        return createElementVNode("view", null, utsArrayOf(
-            createElementVNode("view", utsMapOf("id" to _ctx.id, "onTouchstart" to _ctx.mStart, "onTouchmove" to withModifiers(_ctx.mMove, utsArrayOf(
+        return _cE("view", null, _uA(
+            _cE("view", _uM("id" to _ctx.id, "onTouchstart" to _ctx.mStart, "onTouchmove" to withModifiers(_ctx.mMove, _uA(
                 "stop"
-            )), "onTouchend" to _ctx.mEnd, "ref" to "xFloatButton", "style" to normalizeStyle(utsArrayOf(
-                utsMapOf("width" to (_ctx._width + "px"), "height" to (_ctx._height + "px"), "borderRadius" to _ctx._round, "zIndex" to (_ctx.zIndex + 1), "opacity" to if (_ctx.isReady) {
+            )), "onTouchend" to _ctx.mEnd, "ref" to "xFloatButton", "style" to _nS(_uA(
+                _uM("width" to (_ctx._width + "px"), "height" to (_ctx._height + "px"), "borderRadius" to _ctx._round, "zIndex" to (_ctx.zIndex + 1), "opacity" to if (_ctx.isReady) {
                     "1"
                 } else {
                     "0"
                 }
                 ),
                 _ctx._bgColor
-            )), "class" to "xFloatButton"), utsArrayOf(
+            )), "class" to "xFloatButton"), _uA(
                 renderSlot(_ctx.`$slots`, "default")
-            ), 44, utsArrayOf(
+            ), 44, _uA(
                 "id",
                 "onTouchstart",
                 "onTouchmove",
                 "onTouchend"
             )),
-            createElementVNode("view", utsMapOf("class" to "xFloatButtonBox", "style" to normalizeStyle(utsMapOf("zIndex" to _ctx.zIndex))), null, 4)
+            _cE("view", _uM("class" to "xFloatButtonBox", "style" to _nS(_uM("zIndex" to _ctx.zIndex))), null, 4)
         ))
     }
     open var duration: Number by `$props`
@@ -112,7 +108,7 @@ open class GenUniModulesTmxUiComponentsXFloatButtonXFloatButton : VueComponent {
     open var _disabled: Boolean by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("id" to ("xFloatButtonId-" + getUid()) as String, "_x" to 0, "_y" to 0, "winHeight" to 0, "winWidth" to 0, "nowXy" to utsArrayOf<Number>(0, 0), "windtop" to 0, "isMoveing" to false, "dateTime" to 0, "diffX" to 0, "_real_X" to 0, "_real_Y" to 0, "lastX" to 0, "lastY" to 0, "first" to true, "longtimeid" to 22, "isReady" to false, "_diffLen" to computed<Number>(fun(): Number {
+        return _uM("id" to ("xFloatButtonId-" + getUid()) as String, "_x" to 0, "_y" to 0, "winHeight" to 0, "winWidth" to 0, "nowXy" to _uA<Number>(0, 0), "windtop" to 0, "isMoveing" to false, "dateTime" to 0, "diffX" to 0, "_real_X" to 0, "_real_Y" to 0, "lastX" to 0, "lastY" to 0, "first" to true, "longtimeid" to 22, "isReady" to false, "_diffLen" to computed<Number>(fun(): Number {
             var p = parseInt(this.width)
             if (this.width.lastIndexOf("rpx") > -1) {
                 p = rpx2px(p)
@@ -138,11 +134,7 @@ open class GenUniModulesTmxUiComponentsXFloatButtonXFloatButton : VueComponent {
         }
         ), "_bgColor" to computed<Any>(fun(): Any {
             if (this.bgColor.indexOf("linear-gradient") > -1) {
-                return let {
-                    object : UTSJSONObject() {
-                        var backgroundImage = it.bgColor
-                    }
-                }
+                return _uO("backgroundImage" to this.bgColor)
             }
             var color = if (this.bgColor == "") {
                 getDefaultColor(xConfig.color)
@@ -215,7 +207,7 @@ open class GenUniModulesTmxUiComponentsXFloatButtonXFloatButton : VueComponent {
         }
         node.style.setProperty("left", "" + x + "px")
         node.style.setProperty("top", "" + (y + this.windtop) + "px")
-        this.nowXy = utsArrayOf(
+        this.nowXy = _uA(
             x,
             y
         )
@@ -261,11 +253,11 @@ open class GenUniModulesTmxUiComponentsXFloatButtonXFloatButton : VueComponent {
         y = Math.max(Math.min(maxY, y), 0)
         node.style.setProperty("left", "" + x + "px")
         node.style.setProperty("top", "" + y + "px")
-        this.nowXy = utsArrayOf(
+        this.nowXy = _uA(
             x,
             y
         )
-        this.`$emit`("change", utsArrayOf(
+        this.`$emit`("change", _uA(
             x,
             y
         ))
@@ -287,7 +279,7 @@ open class GenUniModulesTmxUiComponentsXFloatButtonXFloatButton : VueComponent {
             } else {
                 x = this.threshold
             }
-            this.nowXy = utsArrayOf(
+            this.nowXy = _uA(
                 x,
                 y
             )
@@ -333,22 +325,22 @@ open class GenUniModulesTmxUiComponentsXFloatButtonXFloatButton : VueComponent {
     }
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xFloatButtonBox" to padStyleMapOf(utsMapOf("pointerEvents" to "none", "width" to "100%", "height" to "100%", "backgroundColor" to "rgba(0,0,0,0)", "opacity" to 0, "position" to "fixed", "left" to 0, "top" to 0, "transform" to "translate(-100%, -100%)")), "xFloatButton" to padStyleMapOf(utsMapOf("transitionDuration" to "0ms", "transitionProperty" to "left,right,top,bottom", "transitionTimingFunction" to "cubic-bezier(0,0.55,0.45,1)", "top" to 0, "left" to 0, "position" to "fixed")), "@TRANSITION" to utsMapOf("xFloatButton" to utsMapOf("duration" to "0ms", "property" to "left,right,top,bottom", "timingFunction" to "cubic-bezier(0,0.55,0.45,1)")))
+                return _uM("xFloatButtonBox" to _pS(_uM("pointerEvents" to "none", "width" to "100%", "height" to "100%", "backgroundColor" to "rgba(0,0,0,0)", "opacity" to 0, "position" to "fixed", "left" to 0, "top" to 0, "transform" to "translate(-100%, -100%)")), "xFloatButton" to _pS(_uM("transitionDuration" to "0ms", "transitionProperty" to "left,right,top,bottom", "transitionTimingFunction" to "cubic-bezier(0,0.55,0.45,1)", "top" to 0, "left" to 0, "position" to "fixed")), "@TRANSITION" to _uM("xFloatButton" to _uM("duration" to "0ms", "property" to "left,right,top,bottom", "timingFunction" to "cubic-bezier(0,0.55,0.45,1)")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("click" to null, "longpress" to null, "change" to null, "update:offset" to null)
-        var props = normalizePropsOptions(utsMapOf("duration" to utsMapOf("type" to "Number", "default" to 650), "threshold" to utsMapOf("type" to "Number", "default" to 12), "thresholdTop" to utsMapOf("type" to "Number", "default" to 0), "thresholdBottom" to utsMapOf("type" to "Number", "default" to 12), "round" to utsMapOf("type" to "String", "default" to "64"), "offset" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<Number> {
-            return utsArrayOf<Number>(-1, -1)
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("click" to null, "longpress" to null, "change" to null, "update:offset" to null)
+        var props = _nP(_uM("duration" to _uM("type" to "Number", "default" to 650), "threshold" to _uM("type" to "Number", "default" to 12), "thresholdTop" to _uM("type" to "Number", "default" to 0), "thresholdBottom" to _uM("type" to "Number", "default" to 12), "round" to _uM("type" to "String", "default" to "64"), "offset" to _uM("type" to "Array", "default" to fun(): UTSArray<Number> {
+            return _uA<Number>(-1, -1)
         }
-        ), "bgColor" to utsMapOf("type" to "String", "default" to ""), "width" to utsMapOf("type" to "String", "default" to "50px"), "height" to utsMapOf("type" to "String", "default" to "50px"), "adsorption" to utsMapOf("type" to "Boolean", "default" to true), "disabled" to utsMapOf("type" to "Boolean", "default" to false), "zIndex" to utsMapOf("type" to "Number", "default" to 87)))
-        var propsNeedCastKeys = utsArrayOf(
+        ), "bgColor" to _uM("type" to "String", "default" to ""), "width" to _uM("type" to "String", "default" to "50px"), "height" to _uM("type" to "String", "default" to "50px"), "adsorption" to _uM("type" to "Boolean", "default" to true), "disabled" to _uM("type" to "Boolean", "default" to false), "zIndex" to _uM("type" to "Number", "default" to 87)))
+        var propsNeedCastKeys = _uA(
             "duration",
             "threshold",
             "thresholdTop",
@@ -362,6 +354,6 @@ open class GenUniModulesTmxUiComponentsXFloatButtonXFloatButton : VueComponent {
             "disabled",
             "zIndex"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

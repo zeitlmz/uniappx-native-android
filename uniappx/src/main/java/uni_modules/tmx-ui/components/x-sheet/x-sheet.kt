@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.navigateTo as uni_navigateTo
 open class GenUniModulesTmxUiComponentsXSheetXSheet : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {}
@@ -23,23 +19,23 @@ open class GenUniModulesTmxUiComponentsXSheetXSheet : VueComponent {
         val _ctx = this
         val _cache = this.`$`.renderCache
         val _component_x_icon = resolveEasyComponent("x-icon", GenUniModulesTmxUiComponentsXIconXIconClass)
-        return createElementVNode("view", utsMapOf("onClick" to _ctx.onclick, "onTouchend" to _ctx.mend, "onTouchcancel" to _ctx.mendcel, "onTouchstart" to _ctx.mst, "class" to "xSheet", "style" to normalizeStyle(_ctx._styleMap)), utsArrayOf(
+        return _cE("view", _uM("onClick" to _ctx.onclick, "onTouchend" to _ctx.mend, "onTouchcancel" to _ctx.mendcel, "onTouchstart" to _ctx.mst, "class" to "xSheet", "style" to _nS(_ctx._styleMap)), _uA(
             if (isTrue(_ctx._loading)) {
-                createElementVNode("view", utsMapOf("key" to 0, "onClick" to withModifiers(fun(){}, utsArrayOf(
+                _cE("view", _uM("key" to 0, "onClick" to withModifiers(fun(){}, _uA(
                     "stop"
-                )), "class" to "xSheetLoading", "style" to normalizeStyle(utsMapOf("borderRadius" to _ctx._round))), utsArrayOf(
-                    createVNode(_component_x_icon, utsMapOf("spin" to true, "font-size" to "42", "name" to "loader-fill", "color" to _ctx._loadingColor), null, 8, utsArrayOf(
+                )), "class" to "xSheetLoading", "style" to _nS(_uM("borderRadius" to _ctx._round))), _uA(
+                    _cV(_component_x_icon, _uM("spin" to true, "font-size" to "42", "name" to "loader-fill", "color" to _ctx._loadingColor), null, 8, _uA(
                         "color"
                     ))
-                ), 12, utsArrayOf(
+                ), 12, _uA(
                     "onClick"
                 ))
             } else {
-                createCommentVNode("v-if", true)
+                _cC("v-if", true)
             }
             ,
             renderSlot(_ctx.`$slots`, "default")
-        ), 44, utsArrayOf(
+        ), 44, _uA(
             "onClick",
             "onTouchend",
             "onTouchcancel",
@@ -81,7 +77,7 @@ open class GenUniModulesTmxUiComponentsXSheetXSheet : VueComponent {
     open var _styleMap: Map<String, String> by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("isHover" to false, "_color" to computed<String>(fun(): String {
+        return _uM("isHover" to false, "_color" to computed<String>(fun(): String {
             if (this.linearGradient.length > 0 || this.color == "transparent") {
                 return "transparent"
             }
@@ -258,19 +254,19 @@ open class GenUniModulesTmxUiComponentsXSheetXSheet : VueComponent {
     }
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xSheet" to padStyleMapOf(utsMapOf("position" to "relative")), "xSheetLoading" to padStyleMapOf(utsMapOf("position" to "absolute", "zIndex" to 2, "backgroundColor" to "rgba(60,60,60,0.5)", "display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center", "width" to "100%", "height" to "100%", "left" to 0, "top" to 0)))
+                return _uM("xSheet" to _pS(_uM("position" to "relative")), "xSheetLoading" to _pS(_uM("position" to "absolute", "zIndex" to 2, "backgroundColor" to "rgba(60,60,60,0.5)", "display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center", "width" to "100%", "height" to "100%", "left" to 0, "top" to 0)))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("click" to null)
-        var props = normalizePropsOptions(utsMapOf("color" to utsMapOf("type" to "String", "default" to "white"), "darkColor" to utsMapOf("type" to "String", "default" to ""), "followTheme" to utsMapOf("type" to "Boolean", "default" to false), "hoverColor" to utsMapOf("type" to "String", "default" to ""), "url" to utsMapOf("type" to "String", "default" to ""), "linearGradient" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("click" to null)
+        var props = _nP(_uM("color" to _uM("type" to "String", "default" to "white"), "darkColor" to _uM("type" to "String", "default" to ""), "followTheme" to _uM("type" to "Boolean", "default" to false), "hoverColor" to _uM("type" to "String", "default" to ""), "url" to _uM("type" to "String", "default" to ""), "linearGradient" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA()
         }
         , "validator" to fun(kVal: UTSArray<String>): Boolean {
             if (kVal.length == 0) {
@@ -282,29 +278,29 @@ open class GenUniModulesTmxUiComponentsXSheetXSheet : VueComponent {
             }
             return true
         }
-        ), "round" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf()
+        ), "round" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA()
         }
-        ), "border" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf()
+        ), "border" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA()
         }
-        ), "shadow" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf<String>()
+        ), "shadow" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA<String>()
         }
-        ), "borderColor" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf()
+        ), "borderColor" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA()
         }
-        ), "darkBorderColor" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf()
+        ), "darkBorderColor" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA()
         }
-        ), "borderStyle" to utsMapOf("type" to "String", "default" to "solid"), "margin" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf<String>()
+        ), "borderStyle" to _uM("type" to "String", "default" to "solid"), "margin" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA<String>()
         }
-        ), "padding" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf<String>()
+        ), "padding" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA<String>()
         }
-        ), "isLink" to utsMapOf("type" to "Boolean", "default" to false), "loading" to utsMapOf("type" to "Boolean", "default" to false), "height" to utsMapOf("type" to "String", "default" to "auto"), "width" to utsMapOf("type" to "String", "default" to "auto")))
-        var propsNeedCastKeys = utsArrayOf(
+        ), "isLink" to _uM("type" to "Boolean", "default" to false), "loading" to _uM("type" to "Boolean", "default" to false), "height" to _uM("type" to "String", "default" to "auto"), "width" to _uM("type" to "String", "default" to "auto")))
+        var propsNeedCastKeys = _uA(
             "color",
             "darkColor",
             "followTheme",
@@ -324,6 +320,6 @@ open class GenUniModulesTmxUiComponentsXSheetXSheet : VueComponent {
             "height",
             "width"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

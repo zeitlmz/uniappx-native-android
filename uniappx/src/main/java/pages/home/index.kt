@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.`$emit` as uni__emit
 import io.dcloud.uniapp.extapi.`$off` as uni__off
 import io.dcloud.uniapp.extapi.`$on` as uni__on
@@ -65,6 +61,7 @@ open class GenPagesHomeIndex : BasePage {
             val auditApproveStatus: Number = AUDIT_APPROVE as Number
             val isInited = ref(false)
             val checkHasEntry = fun(){
+                console.log("checkHasEntry globalData.isLogin=", globalData.isLogin)
                 if (!globalData.isLogin) {
                     return
                 }
@@ -91,6 +88,7 @@ open class GenPagesHomeIndex : BasePage {
                                 setTimeout(fun(){
                                     pageRef.value?.`$callMethod`("onInit")
                                     pageRef.value?.`$callMethod`("onShow")
+                                    pageRef.value?.`$callMethod`("onReady")
                                 }, 250)
                             } else {
                                 isInited.value = false
@@ -112,6 +110,7 @@ open class GenPagesHomeIndex : BasePage {
                     setTimeout(fun(){
                         pageRef.value?.`$callMethod`("onInit")
                         pageRef.value?.`$callMethod`("onShow")
+                        pageRef.value?.`$callMethod`("onReady")
                     }
                     , 250)
                     isInited.value = true
@@ -124,13 +123,10 @@ open class GenPagesHomeIndex : BasePage {
                 console.log("initData:showHome==>", store.showHome)
                 globalData.isLogin = getCacheUserInfo() != null
                 checkHasEntry()
-                if (isInited.value) {
-                    pageRef.value?.`$callMethod`("onShow")
-                }
                 if (getPrivacyStatus()) {
                     if (globalData.isLogin) {
                         JgUtil.resumePush()
-                        onPushMessage(null)
+                        onPushMessage()
                     } else {
                         JgUtil.stopPush()
                         offPushMessage()
@@ -150,45 +146,45 @@ open class GenPagesHomeIndex : BasePage {
             )
             return fun(): Any? {
                 val _component_mc_upgrade_modal = resolveEasyComponent("mc-upgrade-modal", GenComponentsMcUpgradeModalIndexClass)
-                return createElementVNode(Fragment, null, utsArrayOf(
+                return _cE(Fragment, null, _uA(
                     if (isTrue(unref(store).showHome && unref(globalData).isLogin && unref(globalData).entryStatus == unref(auditApproveStatus))) {
-                        createVNode(unref(GenPagesHomeHadSettledClass), utsMapOf("key" to 0, "ref_key" to "pageRef", "ref" to pageRef), null, 512)
+                        _cV(unref(GenPagesHomeHadSettledClass), _uM("key" to 0, "ref_key" to "pageRef", "ref" to pageRef), null, 512)
                     } else {
                         if (isTrue(unref(store).showHome)) {
-                            createVNode(unref(GenPagesHomeNotSettledClass), utsMapOf("key" to 1, "onCheckHasEntry" to checkHasEntry, "onAgreePrivacy" to fun(){
+                            _cV(unref(GenPagesHomeNotSettledClass), _uM("key" to 1, "onCheckHasEntry" to checkHasEntry, "onAgreePrivacy" to fun(){
                                 canAppUpgrade.value = true
-                            }), null, 8, utsArrayOf(
+                            }), null, 8, _uA(
                                 "onAgreePrivacy"
                             ))
                         } else {
-                            createCommentVNode("v-if", true)
+                            _cC("v-if", true)
                         }
                     }
                     ,
                     if (isTrue(unref(store).showHome && unref(canAppUpgrade))) {
-                        createVNode(_component_mc_upgrade_modal, utsMapOf("key" to 2, "style-type" to if (unref(globalData).isLogin && unref(globalData).entryStatus == unref(auditApproveStatus)) {
+                        _cV(_component_mc_upgrade_modal, _uM("key" to 2, "style-type" to if (unref(globalData).isLogin && unref(globalData).entryStatus == unref(auditApproveStatus)) {
                             1
                         } else {
                             0
-                        }), null, 8, utsArrayOf(
+                        }), null, 8, _uA(
                             "style-type"
                         ))
                     } else {
-                        createCommentVNode("v-if", true)
+                        _cC("v-if", true)
                     }
                 ), 64)
             }
         }
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(), utsArrayOf(
+            _nCS(_uA(), _uA(
                 GenApp.styles
             ))
         }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf()
-        var props = normalizePropsOptions(utsMapOf())
-        var propsNeedCastKeys: UTSArray<String> = utsArrayOf()
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM()
+        var props = _nP(_uM())
+        var propsNeedCastKeys: UTSArray<String> = _uA()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

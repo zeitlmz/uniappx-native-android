@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.getWindowInfo as uni_getWindowInfo
 import io.dcloud.uniapp.extapi.navigateBack as uni_navigateBack
 import io.dcloud.uniapp.extapi.reLaunch as uni_reLaunch
@@ -208,77 +204,77 @@ open class GenUniModulesTmxUiComponentsXNavbarXNavbar : VueComponent {
             }
             return fun(): Any? {
                 val _component_x_icon = resolveEasyComponent("x-icon", GenUniModulesTmxUiComponentsXIconXIconClass)
-                return createElementVNode("view", null, utsArrayOf(
-                    createElementVNode("view", utsMapOf("class" to "xNavbar", "style" to normalizeStyle(utsMapOf("zIndex" to _ctx.zIndex, "maxWidth" to unref(_maxWidth)))), utsArrayOf(
-                        createElementVNode("view", utsMapOf("key" to unref(_linearActiveGradient), "style" to normalizeStyle(unref(_styleMap)), "class" to "xNavbarBg"), null, 4),
-                        createElementVNode("view", utsMapOf("class" to "xNavbarContentBox"), utsArrayOf(
-                            createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("height" to (unref(statusBarHeight) + "px")))), null, 4),
-                            createElementVNode("view", utsMapOf("class" to "xNavbarContent", "style" to normalizeStyle(utsMapOf("height" to (unref(navbarHeight) + "px")))), utsArrayOf(
-                                createElementVNode("view", utsMapOf("class" to "xNavBarLeft", "style" to normalizeStyle(utsMapOf("width" to unref(_llWidth)))), utsArrayOf(
+                return _cE("view", null, _uA(
+                    _cE("view", _uM("class" to "xNavbar", "style" to _nS(_uM("zIndex" to _ctx.zIndex, "maxWidth" to unref(_maxWidth)))), _uA(
+                        _cE("view", _uM("key" to unref(_linearActiveGradient), "style" to _nS(unref(_styleMap)), "class" to "xNavbarBg"), null, 4),
+                        _cE("view", _uM("class" to "xNavbarContentBox"), _uA(
+                            _cE("view", _uM("style" to _nS(_uM("height" to (unref(statusBarHeight) + "px")))), null, 4),
+                            _cE("view", _uM("class" to "xNavbarContent", "style" to _nS(_uM("height" to (unref(navbarHeight) + "px")))), _uA(
+                                _cE("view", _uM("class" to "xNavBarLeft", "style" to _nS(_uM("width" to unref(_llWidth)))), _uA(
                                     if (isTrue(_ctx.showNavBack)) {
-                                        createElementVNode("view", utsMapOf("key" to 0, "onClick" to backGo, "class" to "xNavBarBack", "style" to normalizeStyle(utsMapOf("paddingLeft" to "16px"))), utsArrayOf(
-                                            createVNode(_component_x_icon, utsMapOf("font-size" to "26", "name" to "arrow-left-s-line", "color" to if (unref(isFiexd)) {
+                                        _cE("view", _uM("key" to 0, "onClick" to backGo, "class" to "xNavBarBack", "style" to _nS(_uM("paddingLeft" to "16px"))), _uA(
+                                            _cV(_component_x_icon, _uM("font-size" to "26", "name" to "arrow-left-s-line", "color" to if (unref(isFiexd)) {
                                                 unref(_titleActiveColor)
                                             } else {
                                                 unref(_backColor)
-                                            }), null, 8, utsArrayOf(
+                                            }), null, 8, _uA(
                                                 "color"
                                             ))
                                         ), 4)
                                     } else {
-                                        createCommentVNode("v-if", true)
+                                        _cC("v-if", true)
                                     }
                                     ,
-                                    renderSlot(_ctx.`$slots`, "left", utsMapOf("isFiexd" to unref(isFiexd)))
+                                    renderSlot(_ctx.`$slots`, "left", _uM("isFiexd" to unref(isFiexd)))
                                 ), 4),
-                                createElementVNode("view", utsMapOf("class" to "xNavBarTtitle"), utsArrayOf(
-                                    renderSlot(_ctx.`$slots`, "title", utsMapOf("isFiexd" to unref(isFiexd)), fun(): UTSArray<Any> {
-                                        return utsArrayOf(
-                                            createElementVNode("text", utsMapOf("class" to "xNvbarTtitleOverls", "style" to normalizeStyle(utsMapOf("fontSize" to unref(_titleFontSize), "fontWeight" to "bold", "color" to if (unref(isFiexd)) {
+                                _cE("view", _uM("class" to "xNavBarTtitle"), _uA(
+                                    renderSlot(_ctx.`$slots`, "title", _uM("isFiexd" to unref(isFiexd)), fun(): UTSArray<Any> {
+                                        return _uA(
+                                            _cE("text", _uM("class" to "xNvbarTtitleOverls", "style" to _nS(_uM("fontSize" to unref(_titleFontSize), "fontWeight" to "bold", "color" to if (unref(isFiexd)) {
                                                 unref(_titleActiveColor)
                                             } else {
                                                 unref(_titleColor)
                                             }
-                                            ))), toDisplayString(unref(_title)), 5)
+                                            ))), _tD(unref(_title)), 5)
                                         )
                                     }
                                     )
                                 )),
-                                createElementVNode("view", utsMapOf("class" to "xNavBarRight", "style" to normalizeStyle(utsMapOf("width" to unref(_lrWidth)))), utsArrayOf(
-                                    renderSlot(_ctx.`$slots`, "right", utsMapOf("isFiexd" to unref(isFiexd)))
+                                _cE("view", _uM("class" to "xNavBarRight", "style" to _nS(_uM("width" to unref(_lrWidth)))), _uA(
+                                    renderSlot(_ctx.`$slots`, "right", _uM("isFiexd" to unref(isFiexd)))
                                 ), 4)
                             ), 4)
                         ))
                     ), 4),
                     if (isTrue(_ctx.isPlace)) {
-                        createElementVNode("view", utsMapOf("key" to 0, "style" to normalizeStyle(utsMapOf("height" to ((unref(statusBarHeight) + unref(navbarHeight)) + "px")))), null, 4)
+                        _cE("view", _uM("key" to 0, "style" to _nS(_uM("height" to ((unref(statusBarHeight) + unref(navbarHeight)) + "px")))), null, 4)
                     } else {
-                        createCommentVNode("v-if", true)
+                        _cC("v-if", true)
                     }
                 ))
             }
         }
         var name = "xNavbar"
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xNvbarTtitleOverls" to padStyleMapOf(utsMapOf("lines" to 1, "textOverflow" to "ellipsis", "textAlign" to "center")), "xNavbarContentBox" to padStyleMapOf(utsMapOf("position" to "absolute", "top" to 0, "left" to 0, "width" to "100%")), "xNavBarBack" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-start", "alignItems" to "center")), "xNavbar" to padStyleMapOf(utsMapOf("position" to "fixed", "width" to "100%")), "xNavbarContent" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center")), "xNavBarLeft" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-start", "alignItems" to "center")), "xNavBarRight" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-end", "alignItems" to "center")), "xNavBarTtitle" to padStyleMapOf(utsMapOf("flex" to 1, "display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center", "height" to "100%")))
+                return _uM("xNvbarTtitleOverls" to _pS(_uM("lines" to 1, "textOverflow" to "ellipsis", "textAlign" to "center")), "xNavbarContentBox" to _pS(_uM("position" to "absolute", "top" to 0, "left" to 0, "width" to "100%")), "xNavBarBack" to _pS(_uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-start", "alignItems" to "center")), "xNavbar" to _pS(_uM("position" to "fixed", "width" to "100%")), "xNavbarContent" to _pS(_uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center")), "xNavBarLeft" to _pS(_uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-start", "alignItems" to "center")), "xNavBarRight" to _pS(_uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-end", "alignItems" to "center")), "xNavBarTtitle" to _pS(_uM("flex" to 1, "display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center", "height" to "100%")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("fiexdChange" to null, "init" to null)
-        var props = normalizePropsOptions(utsMapOf("isPlace" to utsMapOf("type" to "Boolean", "default" to true), "bgColor" to utsMapOf("type" to "String", "default" to "white"), "darkBgColor" to utsMapOf("type" to "String", "default" to "#000000"), "activeBgColor" to utsMapOf("type" to "String", "default" to ""), "backColor" to utsMapOf("type" to "String", "default" to ""), "title" to utsMapOf("type" to "String", "default" to "标题"), "titleColor" to utsMapOf("type" to "String", "default" to "#333333"), "titleActiveColor" to utsMapOf("type" to "String", "default" to "#333333"), "titleFontSize" to utsMapOf("type" to "String", "default" to "17"), "lrWidth" to utsMapOf("type" to "String", "default" to "100"), "llWidth" to utsMapOf("type" to "String", "default" to "100"), "zIndex" to utsMapOf("type" to "Number", "default" to 90), "backErrorPath" to utsMapOf("type" to "String", "default" to "/pages/index/index"), "showNavBack" to utsMapOf("type" to "Boolean", "default" to true), "linearGradient" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf<String>()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("fiexdChange" to null, "init" to null)
+        var props = _nP(_uM("isPlace" to _uM("type" to "Boolean", "default" to true), "bgColor" to _uM("type" to "String", "default" to "white"), "darkBgColor" to _uM("type" to "String", "default" to "#000000"), "activeBgColor" to _uM("type" to "String", "default" to ""), "backColor" to _uM("type" to "String", "default" to ""), "title" to _uM("type" to "String", "default" to "标题"), "titleColor" to _uM("type" to "String", "default" to "#333333"), "titleActiveColor" to _uM("type" to "String", "default" to "#333333"), "titleFontSize" to _uM("type" to "String", "default" to "17"), "lrWidth" to _uM("type" to "String", "default" to "100"), "llWidth" to _uM("type" to "String", "default" to "100"), "zIndex" to _uM("type" to "Number", "default" to 90), "backErrorPath" to _uM("type" to "String", "default" to "/pages/index/index"), "showNavBack" to _uM("type" to "Boolean", "default" to true), "linearGradient" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA<String>()
         }
-        ), "linearActiveGradient" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf<String>()
+        ), "linearActiveGradient" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA<String>()
         }
-        ), "staticTransparent" to utsMapOf("type" to "Boolean", "default" to false), "maxWidth" to utsMapOf("type" to "String", "default" to "none"), "height" to utsMapOf("type" to "Number", "default" to 50)))
-        var propsNeedCastKeys = utsArrayOf(
+        ), "staticTransparent" to _uM("type" to "Boolean", "default" to false), "maxWidth" to _uM("type" to "String", "default" to "none"), "height" to _uM("type" to "Number", "default" to 50)))
+        var propsNeedCastKeys = _uA(
             "isPlace",
             "bgColor",
             "darkBgColor",
@@ -299,6 +295,6 @@ open class GenUniModulesTmxUiComponentsXNavbarXNavbar : VueComponent {
             "maxWidth",
             "height"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

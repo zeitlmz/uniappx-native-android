@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- 为了使用 "通用跳转 SDK" 的能力，需要在您的 App 的 AndroidManifest.xml 中添加这一项 -->
+    <!-- 并合理设置 android:scheme 的值 -->
     <application>
         <activity android:name="com.alipay.sdk.app.AlipayResultActivity" android:exported="true" tools:node="merge">
             <intent-filter tools:node="replace">

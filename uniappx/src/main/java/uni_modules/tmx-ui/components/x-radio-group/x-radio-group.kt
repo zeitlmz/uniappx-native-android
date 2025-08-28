@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 open class GenUniModulesTmxUiComponentsXRadioGroupXRadioGroup : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {
         onBeforeUnmount(fun() {
@@ -43,7 +39,7 @@ open class GenUniModulesTmxUiComponentsXRadioGroupXRadioGroup : VueComponent {
     override fun `$render`(): Any? {
         val _ctx = this
         val _cache = this.`$`.renderCache
-        return createElementVNode("view", utsMapOf("class" to "xRadioGroup", "style" to normalizeStyle(utsMapOf("flex-direction" to _ctx.direction))), utsArrayOf(
+        return _cE("view", _uM("class" to "xRadioGroup", "style" to _nS(_uM("flex-direction" to _ctx.direction))), _uA(
             renderSlot(_ctx.`$slots`, "default")
         ), 4)
     }
@@ -57,7 +53,7 @@ open class GenUniModulesTmxUiComponentsXRadioGroupXRadioGroup : VueComponent {
     open var oldvalueList_ids: UTSArray<String> by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("oldvalueList" to utsArrayOf<XRADIO_LISTITEM_TYPE>(), "checkvaluelist" to "", "tid" to 0, "isDestroy" to false, "id" to ("xRadioGroup-" + getUid()), "oldvalueList_ids" to computed<UTSArray<String>>(fun(): UTSArray<String> {
+        return _uM("oldvalueList" to _uA<XRADIO_LISTITEM_TYPE>(), "checkvaluelist" to "", "tid" to 0, "isDestroy" to false, "id" to ("xRadioGroup-" + getUid()), "oldvalueList_ids" to computed<UTSArray<String>>(fun(): UTSArray<String> {
             return this.oldvalueList.map(fun(el: XRADIO_LISTITEM_TYPE): String {
                 return el.id
             }
@@ -143,22 +139,22 @@ open class GenUniModulesTmxUiComponentsXRadioGroupXRadioGroup : VueComponent {
     companion object {
         var name = "xRadioGroup"
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xRadioGroup" to padStyleMapOf(utsMapOf("display" to "flex", "flexWrap" to "wrap")))
+                return _uM("xRadioGroup" to _pS(_uM("display" to "flex", "flexWrap" to "wrap")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("change" to null, "update:modelValue" to null)
-        var props = normalizePropsOptions(utsMapOf("modelValue" to utsMapOf("type" to "String", "default" to ""), "direction" to utsMapOf("type" to "String", "default" to "row")))
-        var propsNeedCastKeys = utsArrayOf(
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("change" to null, "update:modelValue" to null)
+        var props = _nP(_uM("modelValue" to _uM("type" to "String", "default" to ""), "direction" to _uM("type" to "String", "default" to "row")))
+        var propsNeedCastKeys = _uA(
             "modelValue",
             "direction"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.`$emit` as uni__emit
 import uts.sdk.modules.xLoadingS.XLOADINGS_TYPE
 import uts.sdk.modules.xTipsS.XTIPS_TYPE
@@ -59,27 +55,27 @@ open class GenPagesPersonalWalletAddBankCard : BasePage {
             val router = uni_useKuxRouter()
             val globalData = inject("globalData") as GlobalDataType
             val reqData = reactive<BANK_CARD_INFO>(BANK_CARD_INFO(id = 0, realName = "", idCard = "", bankName = "", bankCard = "", bankPhone = "", bankLogo = "", code = "", status = -1, bankNameAndCard = ""))
-            var vaildUsername = utsArrayOf<FORM_RULE>(FORM_RULE(type = "string", errorMessage = "不能空且要小于4个字符", trigger = "blur", valid = fun(kVal: Any?): Boolean {
+            var vaildUsername = _uA<FORM_RULE>(FORM_RULE(type = "string", errorMessage = "不能空且要小于4个字符", trigger = "blur", valid = fun(kVal: Any?): Boolean {
                 var pval = kVal as String
                 return pval.length > 0 && pval.length <= 4
             }
             ))
-            var vaildIdCard = utsArrayOf<FORM_RULE>(FORM_RULE(type = "string", errorMessage = "不能空且不小于18个字符", valid = fun(kVal: Any?): Boolean {
+            var vaildIdCard = _uA<FORM_RULE>(FORM_RULE(type = "string", errorMessage = "不能空且不小于18个字符", valid = fun(kVal: Any?): Boolean {
                 var pval = kVal as String
                 return pval.length == 18
             }
             ))
-            var vaildBankCard = utsArrayOf<FORM_RULE>(FORM_RULE(type = "string", errorMessage = "银行卡号必须是16-19位数字", valid = fun(kVal: Any?): Boolean {
+            var vaildBankCard = _uA<FORM_RULE>(FORM_RULE(type = "string", errorMessage = "银行卡号必须是16-19位数字", valid = fun(kVal: Any?): Boolean {
                 var pval = kVal as String
                 return UTSRegExp("^\\d{16,19}\$", "").test(pval)
             }
             ))
-            var vaildPhone = utsArrayOf<FORM_RULE>(FORM_RULE(type = "string", errorMessage = "请输入正确的手机号", valid = fun(kVal: Any?): Boolean {
+            var vaildPhone = _uA<FORM_RULE>(FORM_RULE(type = "string", errorMessage = "请输入正确的手机号", valid = fun(kVal: Any?): Boolean {
                 var pval = kVal as String
                 return UTSRegExp("^1[3-9]\\d{9}\$", "").test(pval)
             }
             ))
-            var vaildVerifyCode = utsArrayOf<FORM_RULE>(FORM_RULE(type = "string", errorMessage = "验证码必须是4-6位数字", valid = fun(kVal: Any?): Boolean {
+            var vaildVerifyCode = _uA<FORM_RULE>(FORM_RULE(type = "string", errorMessage = "验证码必须是4-6位数字", valid = fun(kVal: Any?): Boolean {
                 var pval = kVal as String
                 return UTSRegExp("^\\d{4,6}\$", "").test(pval)
             }
@@ -150,85 +146,85 @@ open class GenPagesPersonalWalletAddBankCard : BasePage {
                 val _component_x_sheet = resolveEasyComponent("x-sheet", GenUniModulesTmxUiComponentsXSheetXSheetClass)
                 val _component_mc_primary_button = resolveEasyComponent("mc-primary-button", GenComponentsMcPrimaryButtonIndexClass)
                 val _component_mc_base_container = resolveEasyComponent("mc-base-container", GenComponentsMcBaseContainerIndexClass)
-                return createVNode(_component_mc_base_container, utsMapOf("showStatusBarPlaceholder" to false, "scroll" to true, "show-navbar" to true, "navbarIsPlace" to false, "static-transparent" to false, "title" to "添加银行卡"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                    return utsArrayOf(
-                        createElementVNode("view", utsMapOf("style" to normalizeStyle("width:100%;height: " + unref(statusBarHeight) + "px;")), null, 4),
-                        createElementVNode("view", utsMapOf("class" to "home-bg"), utsArrayOf(
-                            createElementVNode("view", utsMapOf("class" to "top-bg"))
+                return _cV(_component_mc_base_container, _uM("showStatusBarPlaceholder" to false, "scroll" to true, "show-navbar" to true, "navbarIsPlace" to false, "static-transparent" to false, "title" to "添加银行卡"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                    return _uA(
+                        _cE("view", _uM("style" to _nS("width:100%;height: " + unref(statusBarHeight) + "px;")), null, 4),
+                        _cE("view", _uM("class" to "home-bg"), _uA(
+                            _cE("view", _uM("class" to "top-bg"))
                         )),
-                        createElementVNode("view", utsMapOf("class" to "container", "style" to normalizeStyle("height: " + (unref(screenHeight) - unref(globalData).safeAreaBottom - unref(statusBarHeight) - 20) + "px;")), utsArrayOf(
-                            createElementVNode("view", utsMapOf("class" to "mt-50 mb-15"), utsArrayOf(
-                                createVNode(_component_x_sheet, null, utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                    return utsArrayOf(
-                                        createVNode(_component_x_form, utsMapOf("ref" to "form", "modelValue" to unref(reqData), "onUpdate:modelValue" to fun(`$event`: BANK_CARD_INFO){
+                        _cE("view", _uM("class" to "container", "style" to _nS("height: " + (unref(screenHeight) - unref(globalData).safeAreaBottom - unref(statusBarHeight) - 20) + "px;")), _uA(
+                            _cE("view", _uM("class" to "mt-50 mb-15"), _uA(
+                                _cV(_component_x_sheet, null, _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                    return _uA(
+                                        _cV(_component_x_form, _uM("ref" to "form", "modelValue" to unref(reqData), "onUpdate:modelValue" to fun(`$event`: BANK_CARD_INFO){
                                             trySetRefValue(reqData, `$event`)
                                         }
-                                        , "labelFontSize" to "13"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                            return utsArrayOf(
-                                                createVNode(_component_x_form_item, utsMapOf("rule" to unref(validname), "field" to "username", "label" to "姓名", "required" to true), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                                    return utsArrayOf(
-                                                        createVNode(_component_x_input, utsMapOf("cursor-color" to "red", "color" to "transparent", "modelValue" to unref(reqData).realName, "onUpdate:modelValue" to fun(`$event`: String){
+                                        , "labelFontSize" to "13"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                            return _uA(
+                                                _cV(_component_x_form_item, _uM("rule" to unref(validname), "field" to "username", "label" to "姓名", "required" to true), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                    return _uA(
+                                                        _cV(_component_x_input, _uM("cursor-color" to "red", "color" to "transparent", "modelValue" to unref(reqData).realName, "onUpdate:modelValue" to fun(`$event`: String){
                                                             unref(reqData).realName = `$event`
                                                         }
-                                                        , "align" to "right", "placeholder" to "请输入姓名"), null, 8, utsArrayOf(
+                                                        , "align" to "right", "placeholder" to "请输入姓名"), null, 8, _uA(
                                                             "modelValue",
                                                             "onUpdate:modelValue"
                                                         ))
                                                     )
                                                 }
-                                                ), "_" to 1), 8, utsArrayOf(
+                                                ), "_" to 1), 8, _uA(
                                                     "rule"
                                                 )),
-                                                createVNode(_component_x_form_item, utsMapOf("rule" to unref(vaildIdCards), "field" to "idCardNum", "label" to "身份证号", "required" to true), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                                    return utsArrayOf(
-                                                        createVNode(_component_x_input, utsMapOf("color" to "transparent", "modelValue" to unref(reqData).idCard, "onUpdate:modelValue" to fun(`$event`: String){
+                                                _cV(_component_x_form_item, _uM("rule" to unref(vaildIdCards), "field" to "idCardNum", "label" to "身份证号", "required" to true), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                    return _uA(
+                                                        _cV(_component_x_input, _uM("color" to "transparent", "modelValue" to unref(reqData).idCard, "onUpdate:modelValue" to fun(`$event`: String){
                                                             unref(reqData).idCard = `$event`
                                                         }
-                                                        , "align" to "right", "placeholder" to "请输入身份证号"), null, 8, utsArrayOf(
+                                                        , "align" to "right", "placeholder" to "请输入身份证号"), null, 8, _uA(
                                                             "modelValue",
                                                             "onUpdate:modelValue"
                                                         ))
                                                     )
                                                 }
-                                                ), "_" to 1), 8, utsArrayOf(
+                                                ), "_" to 1), 8, _uA(
                                                     "rule"
                                                 )),
-                                                createVNode(_component_x_form_item, utsMapOf("rule" to unref(vaildBankCards), "field" to "bankCardNum", "label" to "银行卡号", "required" to true), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                                    return utsArrayOf(
-                                                        createVNode(_component_x_input, utsMapOf("color" to "transparent", "modelValue" to unref(reqData).bankCard, "onUpdate:modelValue" to fun(`$event`: String){
+                                                _cV(_component_x_form_item, _uM("rule" to unref(vaildBankCards), "field" to "bankCardNum", "label" to "银行卡号", "required" to true), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                    return _uA(
+                                                        _cV(_component_x_input, _uM("color" to "transparent", "modelValue" to unref(reqData).bankCard, "onUpdate:modelValue" to fun(`$event`: String){
                                                             unref(reqData).bankCard = `$event`
                                                         }
-                                                        , "align" to "right", "placeholder" to "请输入银行卡号"), null, 8, utsArrayOf(
+                                                        , "align" to "right", "placeholder" to "请输入银行卡号"), null, 8, _uA(
                                                             "modelValue",
                                                             "onUpdate:modelValue"
                                                         ))
                                                     )
                                                 }
-                                                ), "_" to 1), 8, utsArrayOf(
+                                                ), "_" to 1), 8, _uA(
                                                     "rule"
                                                 )),
-                                                createVNode(_component_x_form_item, utsMapOf("rule" to unref(vaildPhones), "field" to "phoneNum", "label" to "预留手机号", "required" to true, "labelWidth" to "150"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                                    return utsArrayOf(
-                                                        createVNode(_component_x_input, utsMapOf("color" to "transparent", "modelValue" to unref(reqData).bankPhone, "onUpdate:modelValue" to fun(`$event`: String){
+                                                _cV(_component_x_form_item, _uM("rule" to unref(vaildPhones), "field" to "phoneNum", "label" to "预留手机号", "required" to true, "labelWidth" to "150"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                    return _uA(
+                                                        _cV(_component_x_input, _uM("color" to "transparent", "modelValue" to unref(reqData).bankPhone, "onUpdate:modelValue" to fun(`$event`: String){
                                                             unref(reqData).bankPhone = `$event`
                                                         }
-                                                        , "align" to "right", "placeholder" to "请输入手机号"), null, 8, utsArrayOf(
+                                                        , "align" to "right", "placeholder" to "请输入手机号"), null, 8, _uA(
                                                             "modelValue",
                                                             "onUpdate:modelValue"
                                                         ))
                                                     )
                                                 }
-                                                ), "_" to 1), 8, utsArrayOf(
+                                                ), "_" to 1), 8, _uA(
                                                     "rule"
                                                 )),
-                                                createVNode(_component_x_form_item, utsMapOf("rule" to unref(vaildVerifyCodes), "field" to "verifyCode", "label" to "验证码", "required" to true), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                                    return utsArrayOf(
-                                                        createVNode(_component_x_input, utsMapOf("color" to "transparent", "type" to "number", "modelValue" to unref(reqData).code, "onUpdate:modelValue" to fun(`$event`: String){
+                                                _cV(_component_x_form_item, _uM("rule" to unref(vaildVerifyCodes), "field" to "verifyCode", "label" to "验证码", "required" to true), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                    return _uA(
+                                                        _cV(_component_x_input, _uM("color" to "transparent", "type" to "number", "modelValue" to unref(reqData).code, "onUpdate:modelValue" to fun(`$event`: String){
                                                             unref(reqData).code = `$event`
                                                         }
-                                                        , "align" to "right", "placeholder" to "请输入", "font-size" to "30rpx"), utsMapOf("inputRight" to withSlotCtx(fun(): UTSArray<Any> {
-                                                            return utsArrayOf(
-                                                                createElementVNode("text", utsMapOf("class" to "get-code-btn", "onClick" to toValidateBankCard), toDisplayString(if (unref(countdown) > 0) {
+                                                        , "align" to "right", "placeholder" to "请输入", "font-size" to "30rpx"), _uM("inputRight" to withSlotCtx(fun(): UTSArray<Any> {
+                                                            return _uA(
+                                                                _cE("text", _uM("class" to "get-code-btn", "onClick" to toValidateBankCard), _tD(if (unref(countdown) > 0) {
                                                                     "" + unref(countdown) + "s\u540E\u91CD\u8BD5"
                                                                 } else {
                                                                     "获取验证码"
@@ -236,26 +232,26 @@ open class GenPagesPersonalWalletAddBankCard : BasePage {
                                                                 ), 1)
                                                             )
                                                         }
-                                                        ), "_" to 1), 8, utsArrayOf(
+                                                        ), "_" to 1), 8, _uA(
                                                             "modelValue",
                                                             "onUpdate:modelValue"
                                                         ))
                                                     )
                                                 }
-                                                ), "_" to 1), 8, utsArrayOf(
+                                                ), "_" to 1), 8, _uA(
                                                     "rule"
                                                 ))
                                             )
                                         }
-                                        ), "_" to 1), 8, utsArrayOf(
+                                        ), "_" to 1), 8, _uA(
                                             "modelValue"
                                         ))
                                     )
                                 }
                                 ), "_" to 1))
                             )),
-                            createVNode(_component_mc_primary_button, utsMapOf("span" to -1, "height" to "45px", "onClick" to toAddBankCard), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                return utsArrayOf(
+                            _cV(_component_mc_primary_button, _uM("span" to -1, "height" to "45px", "onClick" to toAddBankCard), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                return _uA(
                                     " 立即添加 "
                                 )
                             }
@@ -267,21 +263,21 @@ open class GenPagesPersonalWalletAddBankCard : BasePage {
             }
         }
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
-            ), utsArrayOf(
+            ), _uA(
                 GenApp.styles
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("container" to padStyleMapOf(utsMapOf("width" to "100%", "position" to "relative", "paddingTop" to 0, "paddingRight" to 15, "paddingBottom" to 0, "paddingLeft" to 15, "marginTop" to 20, "height" to 900)), "home-bg" to padStyleMapOf(utsMapOf("position" to "absolute", "top" to 0, "left" to 0, "bottom" to 0, "width" to "100%", "zIndex" to -1)), "top-bg" to utsMapOf(".home-bg " to utsMapOf("height" to 900, "width" to "100%", "backgroundImage" to "linear-gradient(to bottom, #CAD7F2, #FFFFFF)")), "get-code-btn" to padStyleMapOf(utsMapOf("color" to "#536EA6", "fontSize" to "30rpx")))
+                return _uM("container" to _pS(_uM("width" to "100%", "position" to "relative", "paddingTop" to 0, "paddingRight" to 15, "paddingBottom" to 0, "paddingLeft" to 15, "marginTop" to 20, "height" to 900)), "home-bg" to _pS(_uM("position" to "absolute", "top" to 0, "left" to 0, "bottom" to 0, "width" to "100%", "zIndex" to -1)), "top-bg" to _uM(".home-bg " to _uM("height" to 900, "width" to "100%", "backgroundImage" to "linear-gradient(to bottom, #CAD7F2, #FFFFFF)")), "get-code-btn" to _pS(_uM("color" to "#536EA6", "fontSize" to "30rpx")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf()
-        var props = normalizePropsOptions(utsMapOf())
-        var propsNeedCastKeys: UTSArray<String> = utsArrayOf()
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM()
+        var props = _nP(_uM())
+        var propsNeedCastKeys: UTSArray<String> = _uA()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

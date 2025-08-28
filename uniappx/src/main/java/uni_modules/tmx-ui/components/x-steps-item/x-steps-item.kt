@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 open class GenUniModulesTmxUiComponentsXStepsItemXStepsItem : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {
         onMounted(fun() {
@@ -64,50 +60,50 @@ open class GenUniModulesTmxUiComponentsXStepsItemXStepsItem : VueComponent {
         val _ctx = this
         val _cache = this.`$`.renderCache
         val _component_x_icon = resolveEasyComponent("x-icon", GenUniModulesTmxUiComponentsXIconXIconClass)
-        return createElementVNode("view", utsMapOf("onClick" to _ctx.itemClick, "class" to normalizeClass(utsArrayOf(
+        return _cE("view", _uM("onClick" to _ctx.itemClick, "class" to _nC(_uA(
             if (_ctx.xsetpsvertical) {
                 "xStepsItemV"
             } else {
                 "xStepsItemH"
             }
-        )), "style" to normalizeStyle(utsMapOf("height" to if (_ctx.xsetpsvertical) {
+        )), "style" to _nS(_uM("height" to if (_ctx.xsetpsvertical) {
             _ctx.eleMinHeight + "px"
         } else {
             "auto"
         }
-        ))), utsArrayOf(
+        ))), _uA(
             if (isTrue(!_ctx.xsetpsvertical)) {
-                createElementVNode("view", utsMapOf("key" to 0, "class" to "xStepsItemH_border", "style" to normalizeStyle(utsMapOf("marginBottom" to "5px"))), utsArrayOf(
-                    createElementVNode("view", utsMapOf("class" to "xStepsItemH_border_l", "style" to normalizeStyle(utsMapOf("backgroundColor" to if (_ctx.indexIdx == 0) {
+                _cE("view", _uM("key" to 0, "class" to "xStepsItemH_border", "style" to _nS(_uM("marginBottom" to "5px"))), _uA(
+                    _cE("view", _uM("class" to "xStepsItemH_border_l", "style" to _nS(_uM("backgroundColor" to if (_ctx.indexIdx == 0) {
                         "transparent"
                     } else {
                         _ctx._linearColor
                     }))), null, 4),
-                    createElementVNode("view", utsMapOf("class" to "xStepsItemH_border_h"), utsArrayOf(
-                        createVNode(_component_x_icon, utsMapOf("color" to _ctx._linearColor, "font-size" to _ctx._iconSize, "name" to if (_ctx.active) {
+                    _cE("view", _uM("class" to "xStepsItemH_border_h"), _uA(
+                        _cV(_component_x_icon, _uM("color" to _ctx._linearColor, "font-size" to _ctx._iconSize, "name" to if (_ctx.active) {
                             _ctx._activeIcon
                         } else {
                             _ctx._icon
-                        }), null, 8, utsArrayOf(
+                        }), null, 8, _uA(
                             "color",
                             "font-size",
                             "name"
                         ))
                     )),
-                    createElementVNode("view", utsMapOf("class" to "xStepsItemH_border_r", "style" to normalizeStyle(utsMapOf("backgroundColor" to if (_ctx.indexIdx == _ctx.list.length - 1) {
+                    _cE("view", _uM("class" to "xStepsItemH_border_r", "style" to _nS(_uM("backgroundColor" to if (_ctx.indexIdx == _ctx.list.length - 1) {
                         "transparent"
                     } else {
                         _ctx._linearColor
                     }))), null, 4)
                 ), 4)
             } else {
-                createElementVNode("view", utsMapOf("key" to 1, "class" to "xStepsItemV_border_box"), utsArrayOf(
-                    createVNode(_component_x_icon, utsMapOf("color" to _ctx._linearColor, "font-size" to _ctx._iconSize, "name" to if (_ctx.active) {
+                _cE("view", _uM("key" to 1, "class" to "xStepsItemV_border_box"), _uA(
+                    _cV(_component_x_icon, _uM("color" to _ctx._linearColor, "font-size" to _ctx._iconSize, "name" to if (_ctx.active) {
                         _ctx._activeIcon
                     } else {
                         _ctx._icon
                     }
-                    ), null, 8, utsArrayOf(
+                    ), null, 8, _uA(
                         "color",
                         "font-size",
                         "name"
@@ -115,48 +111,48 @@ open class GenUniModulesTmxUiComponentsXStepsItemXStepsItem : VueComponent {
                 ))
             }
             ,
-            createElementVNode("view", utsMapOf("class" to normalizeClass(utsArrayOf(
+            _cE("view", _uM("class" to _nC(_uA(
                 if (_ctx.xsetpsvertical) {
                     "xStepsItemHTextV"
                 } else {
                     "xStepsItemHText"
                 }
-            ))), utsArrayOf(
-                createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("width" to "100%")), "ref" to "xStepsItemHTextVBox"), utsArrayOf(
+            ))), _uA(
+                _cE("view", _uM("style" to _nS(_uM("width" to "100%")), "ref" to "xStepsItemHTextVBox"), _uA(
                     renderSlot(_ctx.`$slots`, "default", GenUniModulesTmxUiComponentsXStepsItemXStepsItemSlotDataDefault(active = _ctx.active), fun(): UTSArray<Any> {
-                        return utsArrayOf(
-                            createElementVNode("text", utsMapOf("class" to "xStepsText", "style" to normalizeStyle(utsMapOf("textAlign" to if (_ctx.xsetpsvertical) {
+                        return _uA(
+                            _cE("text", _uM("class" to "xStepsText", "style" to _nS(_uM("textAlign" to if (_ctx.xsetpsvertical) {
                                 "left"
                             } else {
                                 "center"
                             }
-                            , "marginBottom" to "2px", "fontWeight" to "bold", "color" to _ctx._color, "fontSize" to _ctx._labelSize))), toDisplayString(_ctx._label), 5),
-                            createElementVNode("text", utsMapOf("class" to "xStepsText", "style" to normalizeStyle(utsMapOf("textAlign" to if (_ctx.xsetpsvertical) {
+                            , "marginBottom" to "2px", "fontWeight" to "bold", "color" to _ctx._color, "fontSize" to _ctx._labelSize))), _tD(_ctx._label), 5),
+                            _cE("text", _uM("class" to "xStepsText", "style" to _nS(_uM("textAlign" to if (_ctx.xsetpsvertical) {
                                 "left"
                             } else {
                                 "center"
                             }
-                            , "color" to _ctx._linearColor, "fontSize" to _ctx._descSize))), toDisplayString(_ctx._desc), 5)
+                            , "color" to _ctx._linearColor, "fontSize" to _ctx._descSize))), _tD(_ctx._desc), 5)
                         )
                     }
                     ),
                     if (isTrue(_ctx.xsetpsvertical)) {
-                        createElementVNode("view", utsMapOf("key" to 0, "style" to normalizeStyle(utsMapOf("height" to "16px"))), null, 4)
+                        _cE("view", _uM("key" to 0, "style" to _nS(_uM("height" to "16px"))), null, 4)
                     } else {
-                        createCommentVNode("v-if", true)
+                        _cC("v-if", true)
                     }
                 ), 4)
             ), 2),
             if (isTrue(_ctx.xsetpsvertical)) {
-                createElementVNode("view", utsMapOf("key" to 2, "class" to "xStepsVSlider", "style" to normalizeStyle(utsMapOf("top" to _ctx._iconSize, "backgroundColor" to if (_ctx.indexIdx == _ctx.list.length - 1) {
+                _cE("view", _uM("key" to 2, "class" to "xStepsVSlider", "style" to _nS(_uM("top" to _ctx._iconSize, "backgroundColor" to if (_ctx.indexIdx == _ctx.list.length - 1) {
                     "transparent"
                 } else {
                     _ctx._linearColor
                 }))), null, 4)
             } else {
-                createCommentVNode("v-if", true)
+                _cC("v-if", true)
             }
-        ), 14, utsArrayOf(
+        ), 14, _uA(
             "onClick"
         ))
     }
@@ -197,7 +193,7 @@ open class GenUniModulesTmxUiComponentsXStepsItemXStepsItem : VueComponent {
     open var _disabled: Boolean by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("id" to ("xStepsItemH-" + getUid()), "list" to utsArrayOf<String>(), "active" to false, "resizeObserver" to null as UniResizeObserver?, "eleMinHeight" to 20, "_label" to computed<String>(fun(): String {
+        return _uM("id" to ("xStepsItemH-" + getUid()), "list" to _uA<String>(), "active" to false, "resizeObserver" to null as UniResizeObserver?, "eleMinHeight" to 20, "_label" to computed<String>(fun(): String {
             return this.label
         }
         ), "_desc" to computed<String>(fun(): String {
@@ -329,19 +325,19 @@ open class GenUniModulesTmxUiComponentsXStepsItemXStepsItem : VueComponent {
     }
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xStepsVSlider" to padStyleMapOf(utsMapOf("width" to 1, "height" to "100%", "position" to "absolute", "left" to 16, "zIndex" to 0)), "xStepsItemH" to padStyleMapOf(utsMapOf("flex" to 1, "display" to "flex", "flexDirection" to "column", "justifyContent" to "flex-start")), "xStepsItemV" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "alignItems" to "stretch", "justifyContent" to "flex-start")), "xStepsItemV_border" to padStyleMapOf(utsMapOf("height" to "100%", "width" to 1, "backgroundImage" to "none", "backgroundColor" to "#FF0000", "position" to "absolute", "zIndex" to 1, "left" to 0, "top" to 3)), "xStepsItemV_border_box" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "alignItems" to "flex-start", "justifyContent" to "center", "width" to 32, "zIndex" to 2)), "xStepsItemHTextV" to padStyleMapOf(utsMapOf("display" to "flex", "flex" to 1, "paddingRight" to 12)), "xStepsItemHText" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "column", "justifyContent" to "center", "alignItems" to "center", "flexWrap" to "wrap", "flex" to 1, "paddingTop" to 0, "paddingRight" to 5, "paddingBottom" to 0, "paddingLeft" to 5)), "xStepsItemH_border" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "center")), "xStepsItemH_border_h" to padStyleMapOf(utsMapOf("paddingTop" to 0, "paddingRight" to 5, "paddingBottom" to 0, "paddingLeft" to 5)), "xStepsItemH_border_l" to padStyleMapOf(utsMapOf("flex" to 1, "height" to 1)), "xStepsItemH_border_r" to padStyleMapOf(utsMapOf("flex" to 1, "height" to 1)))
+                return _uM("xStepsVSlider" to _pS(_uM("width" to 1, "height" to "100%", "position" to "absolute", "left" to 16, "zIndex" to 0)), "xStepsItemH" to _pS(_uM("flex" to 1, "display" to "flex", "flexDirection" to "column", "justifyContent" to "flex-start")), "xStepsItemV" to _pS(_uM("display" to "flex", "flexDirection" to "row", "alignItems" to "stretch", "justifyContent" to "flex-start")), "xStepsItemV_border" to _pS(_uM("height" to "100%", "width" to 1, "backgroundImage" to "none", "backgroundColor" to "#FF0000", "position" to "absolute", "zIndex" to 1, "left" to 0, "top" to 3)), "xStepsItemV_border_box" to _pS(_uM("display" to "flex", "flexDirection" to "row", "alignItems" to "flex-start", "justifyContent" to "center", "width" to 32, "zIndex" to 2)), "xStepsItemHTextV" to _pS(_uM("display" to "flex", "flex" to 1, "paddingRight" to 12)), "xStepsItemHText" to _pS(_uM("display" to "flex", "flexDirection" to "column", "justifyContent" to "center", "alignItems" to "center", "flexWrap" to "wrap", "flex" to 1, "paddingTop" to 0, "paddingRight" to 5, "paddingBottom" to 0, "paddingLeft" to 5)), "xStepsItemH_border" to _pS(_uM("display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "center")), "xStepsItemH_border_h" to _pS(_uM("paddingTop" to 0, "paddingRight" to 5, "paddingBottom" to 0, "paddingLeft" to 5)), "xStepsItemH_border_l" to _pS(_uM("flex" to 1, "height" to 1)), "xStepsItemH_border_r" to _pS(_uM("flex" to 1, "height" to 1)))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf("xsetpsIcon" to utsMapOf("type" to "String", "default" to "checkbox-blank-circle-fill"), "xsetpsActiveIcon" to utsMapOf("type" to "String", "default" to "checkbox-circle-fill"), "xsetpsiconSize" to utsMapOf("type" to "String", "default" to "11"), "xsetpslabelSize" to utsMapOf("type" to "String", "default" to "14"), "xsetpsdescSize" to utsMapOf("type" to "String", "default" to "12"), "xsetpsactiveColor" to utsMapOf("type" to "String", "default" to ""), "xsetpscolor" to utsMapOf("type" to "String", "default" to ""), "xsetpsvertical" to utsMapOf("type" to "Boolean", "default" to false), "xsetpsdisabled" to utsMapOf("type" to "Boolean", "default" to true))
-        var emits: Map<String, Any?> = utsMapOf("click" to null)
-        var props = normalizePropsOptions(utsMapOf("label" to utsMapOf("type" to "String", "default" to ""), "desc" to utsMapOf("type" to "String", "default" to ""), "color" to utsMapOf("type" to "String", "default" to ""), "activeColor" to utsMapOf("type" to "String", "default" to ""), "icon" to utsMapOf("type" to "String", "default" to ""), "activeIcon" to utsMapOf("type" to "String", "default" to ""), "iconSize" to utsMapOf("type" to "String", "default" to ""), "labelSize" to utsMapOf("type" to "String", "default" to ""), "descSize" to utsMapOf("type" to "String", "default" to "")))
-        var propsNeedCastKeys = utsArrayOf(
+        var inject: Map<String, Map<String, Any?>> = _uM("xsetpsIcon" to _uM("type" to "String", "default" to "checkbox-blank-circle-fill"), "xsetpsActiveIcon" to _uM("type" to "String", "default" to "checkbox-circle-fill"), "xsetpsiconSize" to _uM("type" to "String", "default" to "11"), "xsetpslabelSize" to _uM("type" to "String", "default" to "14"), "xsetpsdescSize" to _uM("type" to "String", "default" to "12"), "xsetpsactiveColor" to _uM("type" to "String", "default" to ""), "xsetpscolor" to _uM("type" to "String", "default" to ""), "xsetpsvertical" to _uM("type" to "Boolean", "default" to false), "xsetpsdisabled" to _uM("type" to "Boolean", "default" to true))
+        var emits: Map<String, Any?> = _uM("click" to null)
+        var props = _nP(_uM("label" to _uM("type" to "String", "default" to ""), "desc" to _uM("type" to "String", "default" to ""), "color" to _uM("type" to "String", "default" to ""), "activeColor" to _uM("type" to "String", "default" to ""), "icon" to _uM("type" to "String", "default" to ""), "activeIcon" to _uM("type" to "String", "default" to ""), "iconSize" to _uM("type" to "String", "default" to ""), "labelSize" to _uM("type" to "String", "default" to ""), "descSize" to _uM("type" to "String", "default" to "")))
+        var propsNeedCastKeys = _uA(
             "label",
             "desc",
             "color",
@@ -352,6 +348,6 @@ open class GenUniModulesTmxUiComponentsXStepsItemXStepsItem : VueComponent {
             "labelSize",
             "descSize"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

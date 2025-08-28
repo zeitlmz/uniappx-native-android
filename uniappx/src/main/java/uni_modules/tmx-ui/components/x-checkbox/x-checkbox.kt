@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 open class GenUniModulesTmxUiComponentsXCheckboxXCheckbox : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {
         onBeforeUnmount(fun() {
@@ -63,8 +59,8 @@ open class GenUniModulesTmxUiComponentsXCheckboxXCheckbox : VueComponent {
         val _cache = this.`$`.renderCache
         val _component_x_icon = resolveEasyComponent("x-icon", GenUniModulesTmxUiComponentsXIconXIconClass)
         val _component_x_text = resolveEasyComponent("x-text", GenUniModulesTmxUiComponentsXTextXTextClass)
-        return createElementVNode("view", utsMapOf("class" to normalizeClass(utsArrayOf(
-            utsArrayOf(
+        return _cE("view", _uM("class" to _nC(_uA(
+            _uA(
                 if (_ctx._disabled) {
                     "checkboxDisabled"
                 } else {
@@ -72,9 +68,9 @@ open class GenUniModulesTmxUiComponentsXCheckboxXCheckbox : VueComponent {
                 }
             ),
             "checkbox"
-        )), "onClick" to _ctx.boxClick), utsArrayOf(
+        )), "onClick" to _ctx.boxClick), _uA(
             if (isTrue(!_ctx.hiddenCheckbox)) {
-                createElementVNode("view", utsMapOf("key" to 0, "class" to "checkboxBox", "style" to normalizeStyle(utsMapOf("backgroundColor" to if (_ctx._isCheck) {
+                _cE("view", _uM("key" to 0, "class" to "checkboxBox", "style" to _nS(_uM("backgroundColor" to if (_ctx._isCheck) {
                     _ctx._color
                 } else {
                     "transparent"
@@ -82,45 +78,45 @@ open class GenUniModulesTmxUiComponentsXCheckboxXCheckbox : VueComponent {
                     _ctx._color
                 } else {
                     _ctx._unCheckColor
-                })), "borderRadius" to _ctx._round, "width" to _ctx._size, "height" to _ctx._size))), utsArrayOf(
-                    createElementVNode("view", utsMapOf("id" to _ctx.boxId, "ref" to "checkboxBoxIcon", "class" to "checkboxBoxIcon"), utsArrayOf(
-                        createVNode(_component_x_icon, utsMapOf("color" to "white", "name" to if (_ctx._indeterminate) {
+                })), "borderRadius" to _ctx._round, "width" to _ctx._size, "height" to _ctx._size))), _uA(
+                    _cE("view", _uM("id" to _ctx.boxId, "ref" to "checkboxBoxIcon", "class" to "checkboxBoxIcon"), _uA(
+                        _cV(_component_x_icon, _uM("color" to "white", "name" to if (_ctx._indeterminate) {
                             "subtract-line"
                         } else {
                             _ctx.icon
-                        }, "font-size" to _ctx.iconSize), null, 8, utsArrayOf(
+                        }, "font-size" to _ctx.iconSize), null, 8, _uA(
                             "name",
                             "font-size"
                         ))
-                    ), 8, utsArrayOf(
+                    ), 8, _uA(
                         "id"
                     ))
                 ), 4)
             } else {
-                createCommentVNode("v-if", true)
+                _cC("v-if", true)
             }
             ,
-            createElementVNode("view", utsMapOf("class" to "checkboxLabelBox", "style" to normalizeStyle(utsMapOf("paddingLeft" to if (!_ctx.hiddenCheckbox) {
+            _cE("view", _uM("class" to "checkboxLabelBox", "style" to _nS(_uM("paddingLeft" to if (!_ctx.hiddenCheckbox) {
                 _ctx._labelSpace
             } else {
                 "0px"
             }
-            ))), utsArrayOf(
+            ))), _uA(
                 renderSlot(_ctx.`$slots`, "label", GenUniModulesTmxUiComponentsXCheckboxXCheckboxSlotDataLabel(checked = _ctx._isCheck, value = _ctx.nowValue), fun(): UTSArray<Any> {
-                    return utsArrayOf(
-                        createVNode(_component_x_text, utsMapOf("font-size" to _ctx.labelFontSize, "class" to "checkboxLabel"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                            return utsArrayOf(
-                                toDisplayString(_ctx._label)
+                    return _uA(
+                        _cV(_component_x_text, _uM("font-size" to _ctx.labelFontSize, "class" to "checkboxLabel"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                            return _uA(
+                                _tD(_ctx._label)
                             )
                         }
-                        ), "_" to 1), 8, utsArrayOf(
+                        ), "_" to 1), 8, _uA(
                             "font-size"
                         ))
                     )
                 }
                 )
             ), 4)
-        ), 10, utsArrayOf(
+        ), 10, _uA(
             "onClick"
         ))
     }
@@ -157,7 +153,7 @@ open class GenUniModulesTmxUiComponentsXCheckboxXCheckbox : VueComponent {
     open var _labelSpace: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("nowValue" to "", "boxId" to ("xCheckbox-" + getUid()), "tid" to 0, "isDestroy" to false, "undefaultCheck" to false, "_color" to computed<String>(fun(): String {
+        return _uM("nowValue" to "", "boxId" to ("xCheckbox-" + getUid()), "tid" to 0, "isDestroy" to false, "undefaultCheck" to false, "_color" to computed<String>(fun(): String {
             if (this.color == "") {
                 return getDefaultColor(xConfig.color)
             }
@@ -283,19 +279,19 @@ open class GenUniModulesTmxUiComponentsXCheckboxXCheckbox : VueComponent {
     }
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("checkbox" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "flex-start")), "checkboxLabelBox" to padStyleMapOf(utsMapOf("flex" to 1)), "checkboxDisabled" to padStyleMapOf(utsMapOf("opacity" to 0.7)), "checkboxBoxIcon" to padStyleMapOf(utsMapOf("transitionDuration" to "350ms", "transitionTimingFunction" to "cubic-bezier(0.18,0.89,0.32,1)", "transitionProperty" to "opacity,transform", "opacity" to 0, "transform" to "scale(0)")), "checkboxBox" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "center")), "checkboxLabelBoxLeftSpace" to padStyleMapOf(utsMapOf("paddingLeft" to 10)), "checkboxLabel" to padStyleMapOf(utsMapOf("fontSize" to 14)), "@TRANSITION" to utsMapOf("checkboxBoxIcon" to utsMapOf("duration" to "350ms", "timingFunction" to "cubic-bezier(0.18,0.89,0.32,1)", "property" to "opacity,transform")))
+                return _uM("checkbox" to _pS(_uM("display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "flex-start")), "checkboxLabelBox" to _pS(_uM("flex" to 1)), "checkboxDisabled" to _pS(_uM("opacity" to 0.7)), "checkboxBoxIcon" to _pS(_uM("transitionDuration" to "350ms", "transitionTimingFunction" to "cubic-bezier(0.18,0.89,0.32,1)", "transitionProperty" to "opacity,transform", "opacity" to 0, "transform" to "scale(0)")), "checkboxBox" to _pS(_uM("display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "center")), "checkboxLabelBoxLeftSpace" to _pS(_uM("paddingLeft" to 10)), "checkboxLabel" to _pS(_uM("fontSize" to 14)), "@TRANSITION" to _uM("checkboxBoxIcon" to _uM("duration" to "350ms", "timingFunction" to "cubic-bezier(0.18,0.89,0.32,1)", "property" to "opacity,transform")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("change" to null, "click" to null, "update:modelValue" to null)
-        var props = normalizePropsOptions(utsMapOf("color" to utsMapOf("type" to "String", "default" to ""), "unCheckColor" to utsMapOf("type" to "String", "default" to ""), "darkUnCheckColor" to utsMapOf("type" to "String", "default" to ""), "modelValue" to utsMapOf("type" to "String", "default" to ""), "defaultChecked" to utsMapOf("type" to "Boolean", "default" to false), "value" to utsMapOf("type" to "String", "default" to "1"), "unCheckValue" to utsMapOf("type" to "String", "default" to ""), "disabled" to utsMapOf("type" to "Boolean", "default" to false), "icon" to utsMapOf("type" to "String", "default" to "check-line"), "label" to utsMapOf("type" to "String", "default" to ""), "hiddenCheckbox" to utsMapOf("type" to "Boolean", "default" to false), "indeterminate" to utsMapOf("type" to "Boolean", "default" to false), "size" to utsMapOf("type" to "String", "default" to "24"), "iconSize" to utsMapOf("type" to "String", "default" to "20"), "labelFontSize" to utsMapOf("type" to "String", "default" to "15px"), "labelSpace" to utsMapOf("type" to "String", "default" to "10"), "round" to utsMapOf("type" to "String", "default" to "4")))
-        var propsNeedCastKeys = utsArrayOf(
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("change" to null, "click" to null, "update:modelValue" to null)
+        var props = _nP(_uM("color" to _uM("type" to "String", "default" to ""), "unCheckColor" to _uM("type" to "String", "default" to ""), "darkUnCheckColor" to _uM("type" to "String", "default" to ""), "modelValue" to _uM("type" to "String", "default" to ""), "defaultChecked" to _uM("type" to "Boolean", "default" to false), "value" to _uM("type" to "String", "default" to "1"), "unCheckValue" to _uM("type" to "String", "default" to ""), "disabled" to _uM("type" to "Boolean", "default" to false), "icon" to _uM("type" to "String", "default" to "check-line"), "label" to _uM("type" to "String", "default" to ""), "hiddenCheckbox" to _uM("type" to "Boolean", "default" to false), "indeterminate" to _uM("type" to "Boolean", "default" to false), "size" to _uM("type" to "String", "default" to "24"), "iconSize" to _uM("type" to "String", "default" to "20"), "labelFontSize" to _uM("type" to "String", "default" to "15px"), "labelSpace" to _uM("type" to "String", "default" to "10"), "round" to _uM("type" to "String", "default" to "4")))
+        var propsNeedCastKeys = _uA(
             "color",
             "unCheckColor",
             "darkUnCheckColor",
@@ -314,6 +310,6 @@ open class GenUniModulesTmxUiComponentsXCheckboxXCheckbox : VueComponent {
             "labelSpace",
             "round"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

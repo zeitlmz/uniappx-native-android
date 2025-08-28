@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.showToast as uni_showToast
 open class GenUniModulesTmxUiComponentsXCheckboxGroupXCheckboxGroup : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {
@@ -46,7 +42,7 @@ open class GenUniModulesTmxUiComponentsXCheckboxGroupXCheckboxGroup : VueCompone
     override fun `$render`(): Any? {
         val _ctx = this
         val _cache = this.`$`.renderCache
-        return createElementVNode("view", utsMapOf("class" to "xCheckboxGroup", "style" to normalizeStyle(utsMapOf("flex-direction" to _ctx.direction))), utsArrayOf(
+        return _cE("view", _uM("class" to "xCheckboxGroup", "style" to _nS(_uM("flex-direction" to _ctx.direction))), _uA(
             renderSlot(_ctx.`$slots`, "default")
         ), 4)
     }
@@ -62,7 +58,7 @@ open class GenUniModulesTmxUiComponentsXCheckboxGroupXCheckboxGroup : VueCompone
     open var _max: Number by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("oldvalueList" to utsArrayOf<XCHECKBOX_LISTITEM_TYPE>(), "checkvaluelist" to utsArrayOf<String>(), "tid" to 0, "isDestroy" to false, "id" to ("xCheckboxGroup-" + getUid()), "oldvalueList_ids" to computed<UTSArray<String>>(fun(): UTSArray<String> {
+        return _uM("oldvalueList" to _uA<XCHECKBOX_LISTITEM_TYPE>(), "checkvaluelist" to _uA<String>(), "tid" to 0, "isDestroy" to false, "id" to ("xCheckboxGroup-" + getUid()), "oldvalueList_ids" to computed<UTSArray<String>>(fun(): UTSArray<String> {
             return this.oldvalueList.map(fun(el: XCHECKBOX_LISTITEM_TYPE): String {
                 return el.id
             }
@@ -159,26 +155,26 @@ open class GenUniModulesTmxUiComponentsXCheckboxGroupXCheckboxGroup : VueCompone
     companion object {
         var name = "xCheckboxGroup"
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xCheckboxGroup" to padStyleMapOf(utsMapOf("display" to "flex", "flexWrap" to "wrap")))
+                return _uM("xCheckboxGroup" to _pS(_uM("display" to "flex", "flexWrap" to "wrap")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("change" to null, "update:modelValue" to null)
-        var props = normalizePropsOptions(utsMapOf("modelValue" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf<String>()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("change" to null, "update:modelValue" to null)
+        var props = _nP(_uM("modelValue" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA<String>()
         }
-        ), "direction" to utsMapOf("type" to "String", "default" to "row"), "max" to utsMapOf("type" to "Number", "default" to -1)))
-        var propsNeedCastKeys = utsArrayOf(
+        ), "direction" to _uM("type" to "String", "default" to "row"), "max" to _uM("type" to "Number", "default" to -1)))
+        var propsNeedCastKeys = _uA(
             "modelValue",
             "direction",
             "max"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

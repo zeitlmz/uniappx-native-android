@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.createSelectorQuery as uni_createSelectorQuery
 import uts.sdk.modules.xVibrateS.vibrator
 open class GenComponentsMcDragVerifyIndex : VueComponent {
@@ -124,75 +120,74 @@ open class GenComponentsMcDragVerifyIndex : VueComponent {
                 getNodeInfo()
             }
             )
-            __expose(utsMapOf("reset" to reset))
+            __expose(_uM("reset" to reset))
             return fun(): Any? {
                 val _component_x_icon = resolveEasyComponent("x-icon", GenUniModulesTmxUiComponentsXIconXIconClass)
                 val _component_x_finger = resolveEasyComponent("x-finger", GenUniModulesTmxUiComponentsXFingerXFingerClass)
-                return createElementVNode("view", utsMapOf("class" to "drag-verify box", "style" to normalizeStyle(unref(outStyle))), utsArrayOf(
-                    createVNode(_component_x_finger, utsMapOf("disabled" to (_ctx.disabled || unref(isCompleted)), "style" to normalizeStyle(utsMapOf("width" to "100%", "height" to "100%")), "clickDiff" to _ctx.clickDiff, "longDiff" to _ctx.longDiff, "swiperDiff" to _ctx.swiperDiff, "onMove" to move, "onStart" to start, "onSwiper" to unref(touchSwiper)), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                        return utsArrayOf(
-                            createElementVNode("view", utsMapOf("class" to "drag-verify inner flex-row flex-row-center-center", "ref_key" to "dragVerifyInner", "ref" to dragVerifyInner, "style" to normalizeStyle(unref(innerStyle))), utsArrayOf(
+                return _cE("view", _uM("class" to "drag-verify box", "style" to _nS(unref(outStyle))), _uA(
+                    _cV(_component_x_finger, _uM("disabled" to (_ctx.disabled || unref(isCompleted)), "style" to _nS(_uM("width" to "100%", "height" to "100%")), "clickDiff" to _ctx.clickDiff, "longDiff" to _ctx.longDiff, "swiperDiff" to _ctx.swiperDiff, "onMove" to move, "onStart" to start, "onSwiper" to touchSwiper), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                        return _uA(
+                            _cE("view", _uM("class" to "drag-verify inner flex-row flex-row-center-center", "ref_key" to "dragVerifyInner", "ref" to dragVerifyInner, "style" to _nS(unref(innerStyle))), _uA(
                                 if (isTrue(_ctx.disabled || unref(isCompleted))) {
-                                    createElementVNode("text", utsMapOf("key" to 0, "class" to "verify-text", "style" to normalizeStyle("color: " + _ctx.verifyTextColor + ";")), toDisplayString(_ctx.completeText), 5)
+                                    _cE("text", _uM("key" to 0, "class" to "verify-text", "style" to _nS("color: " + _ctx.verifyTextColor + ";")), _tD(_ctx.completeText), 5)
                                 } else {
-                                    createElementVNode("text", utsMapOf("key" to 1, "class" to "verify-text", "style" to normalizeStyle("color: " + _ctx.verifyTextColor + ";")), toDisplayString(_ctx.verifyText), 5)
+                                    _cE("text", _uM("key" to 1, "class" to "verify-text", "style" to _nS("color: " + _ctx.verifyTextColor + ";")), _tD(_ctx.verifyText), 5)
                                 }
                                 ,
                                 if (isTrue(!unref(isCompleted) && !_ctx.disabled)) {
-                                    createElementVNode(Fragment, utsMapOf("key" to 2), utsArrayOf(
+                                    _cE(Fragment, _uM("key" to 2), _uA(
                                         if (_ctx.imgIconPath != "") {
-                                            createElementVNode("image", utsMapOf("key" to 0, "class" to "img-icon", "src" to _ctx.imgIconPath, "mode" to "widthFix"), null, 8, utsArrayOf(
+                                            _cE("image", _uM("key" to 0, "class" to "img-icon", "src" to _ctx.imgIconPath, "mode" to "widthFix"), null, 8, _uA(
                                                 "src"
                                             ))
                                         } else {
-                                            createVNode(_component_x_icon, utsMapOf("key" to 1, "code" to _ctx.iconCode), null, 8, utsArrayOf(
+                                            _cV(_component_x_icon, _uM("key" to 1, "code" to _ctx.iconCode), null, 8, _uA(
                                                 "code"
                                             ))
                                         }
                                     ), 64)
                                 } else {
-                                    createCommentVNode("v-if", true)
+                                    _cC("v-if", true)
                                 }
                             ), 4)
                         )
                     }
-                    ), "_" to 1), 8, utsArrayOf(
+                    ), "_" to 1), 8, _uA(
                         "disabled",
                         "style",
                         "clickDiff",
                         "longDiff",
-                        "swiperDiff",
-                        "onSwiper"
+                        "swiperDiff"
                     ))
                 ), 4)
             }
         }
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("drag-verify" to utsMapOf(".box" to utsMapOf("width" to "100%")), "inner" to utsMapOf(".drag-verify.box " to utsMapOf("transitionProperty" to "width,backgroundColor", "transitionDuration" to "0.35s")), "verify-text" to utsMapOf(".drag-verify.box .inner " to utsMapOf("fontWeight" to "bold", "fontSize" to "36rpx", "paddingRight" to "20rpx")), "img-icon" to utsMapOf(".drag-verify.box .inner " to utsMapOf("width" to "40rpx", "height" to "29rpx")), "@TRANSITION" to utsMapOf("inner" to utsMapOf("property" to "width,backgroundColor", "duration" to "0.35s")))
+                return _uM("drag-verify" to _uM(".box" to _uM("width" to "100%")), "inner" to _uM(".drag-verify.box " to _uM("transitionProperty" to "width,backgroundColor", "transitionDuration" to "0.35s")), "verify-text" to _uM(".drag-verify.box .inner " to _uM("fontWeight" to "bold", "fontSize" to "36rpx", "paddingRight" to "20rpx")), "img-icon" to _uM(".drag-verify.box .inner " to _uM("width" to "40rpx", "height" to "29rpx")), "@TRANSITION" to _uM("inner" to _uM("property" to "width,backgroundColor", "duration" to "0.35s")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("success" to null, "fail" to null)
-        var props = normalizePropsOptions(utsMapOf("round" to utsMapOf("type" to "Number", "default" to 20), "height" to utsMapOf("type" to "String", "default" to "110rpx"), "swiperDiff" to utsMapOf("type" to "Number", "default" to 100), "verifyText" to utsMapOf("type" to "String", "default" to "向右滑动进行验证"), "completeText" to utsMapOf("type" to "String", "default" to "验证成功"), "verifyTextColor" to utsMapOf("type" to "String", "default" to "#ffffff"), "imgIconPath" to utsMapOf("type" to "String", "default" to ""), "iconCode" to utsMapOf("type" to "String", "default" to ""), "clickDiff" to utsMapOf("type" to "Number", "default" to 50), "longDiff" to utsMapOf("type" to "Number", "default" to 800), "disabled" to utsMapOf("type" to "Boolean", "default" to false), "linearGradient" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf(
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("success" to null, "fail" to null)
+        var props = _nP(_uM("round" to _uM("type" to "Number", "default" to 20), "height" to _uM("type" to "String", "default" to "110rpx"), "swiperDiff" to _uM("type" to "Number", "default" to 100), "verifyText" to _uM("type" to "String", "default" to "向右滑动进行验证"), "completeText" to _uM("type" to "String", "default" to "验证成功"), "verifyTextColor" to _uM("type" to "String", "default" to "#ffffff"), "imgIconPath" to _uM("type" to "String", "default" to ""), "iconCode" to _uM("type" to "String", "default" to ""), "clickDiff" to _uM("type" to "Number", "default" to 50), "longDiff" to _uM("type" to "Number", "default" to 800), "disabled" to _uM("type" to "Boolean", "default" to false), "linearGradient" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA(
                 "#44C791",
                 "#28D07F"
             )
         }
-        ), "bgColor" to utsMapOf("type" to "String", "default" to "#D0F6E5"), "completeLinearGradient" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf(
+        ), "bgColor" to _uM("type" to "String", "default" to "#D0F6E5"), "completeLinearGradient" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA(
                 "#B3B3B3",
                 "#B3B3B3"
             )
         }
-        ), "verifyPos" to utsMapOf("type" to "String", "default" to "80%")))
-        var propsNeedCastKeys = utsArrayOf(
+        ), "verifyPos" to _uM("type" to "String", "default" to "80%")))
+        var propsNeedCastKeys = _uA(
             "round",
             "height",
             "swiperDiff",
@@ -209,6 +204,6 @@ open class GenComponentsMcDragVerifyIndex : VueComponent {
             "completeLinearGradient",
             "verifyPos"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

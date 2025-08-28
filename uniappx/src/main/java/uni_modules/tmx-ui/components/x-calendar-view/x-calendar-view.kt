@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 open class GenUniModulesTmxUiComponentsXCalendarViewXCalendarView : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {}
     open var modelValue: String by `$props`
@@ -76,7 +72,7 @@ open class GenUniModulesTmxUiComponentsXCalendarViewXCalendarView : VueComponent
                 __ins.emit(event, *do_not_transform_spread)
             }
             val props = __props
-            val weeksCn = utsArrayOf(
+            val weeksCn = _uA(
                 "周一",
                 "周二",
                 "周三",
@@ -99,7 +95,7 @@ open class GenUniModulesTmxUiComponentsXCalendarViewXCalendarView : VueComponent
             val _modelValue = ref(props.modelValue)
             val _currentDate = ref(xDate(props.modelValue).format("YYYY-MM-DD"))
             val _currentDateSwipersIndex = ref(0)
-            val _currentDateSwipers = ref(utsArrayOf<String>())
+            val _currentDateSwipers = ref(_uA<String>())
             val _currentDateLabel = computed(fun(): String {
                 var ars = _currentDate.value.split("-")
                 return "" + ars[0] + "\u5E74" + ars[1] + "\u6708"
@@ -162,7 +158,7 @@ open class GenUniModulesTmxUiComponentsXCalendarViewXCalendarView : VueComponent
                 var xd = currentData.getClone().setDateOf(1, "d").format("YYYY-MM-DD")
                 var start = currentData.getClone().setDateOf(1, "d").subtraction(1, "m").format("YYYY-MM-DD")
                 var end = currentData.getClone().setDateOf(1, "d").add(1, "m").format("YYYY-MM-DD")
-                var datas = utsArrayOf(
+                var datas = _uA(
                     xd,
                     end,
                     start
@@ -171,19 +167,19 @@ open class GenUniModulesTmxUiComponentsXCalendarViewXCalendarView : VueComponent
                     return datas
                 }
                 if (index == 0) {
-                    datas = utsArrayOf(
+                    datas = _uA(
                         xd,
                         end,
                         start
                     )
                 } else if (index == 1) {
-                    datas = utsArrayOf(
+                    datas = _uA(
                         start,
                         xd,
                         end
                     )
                 } else if (index == 2) {
-                    datas = utsArrayOf(
+                    datas = _uA(
                         end,
                         start,
                         xd
@@ -263,7 +259,7 @@ open class GenUniModulesTmxUiComponentsXCalendarViewXCalendarView : VueComponent
                 )
             }
             val swiperChange = ::gen_swiperChange_fn
-            watch(utsArrayOf(
+            watch(_uA(
                 fun(): String {
                     return props.modelValue
                 }
@@ -300,7 +296,7 @@ open class GenUniModulesTmxUiComponentsXCalendarViewXCalendarView : VueComponent
                 return parseInt(vls[1])
             }
             val getmonth = ::gen_getmonth_fn
-            __expose(utsMapOf("next" to fun() {
+            __expose(_uM("next" to fun() {
                 nextMonth()
             }
             , "prev" to fun() {
@@ -317,71 +313,71 @@ open class GenUniModulesTmxUiComponentsXCalendarViewXCalendarView : VueComponent
                 val _component_x_text = resolveEasyComponent("x-text", GenUniModulesTmxUiComponentsXTextXTextClass)
                 val _component_x_icon = resolveEasyComponent("x-icon", GenUniModulesTmxUiComponentsXIconXIconClass)
                 val _component_x_stepper = resolveEasyComponent("x-stepper", GenUniModulesTmxUiComponentsXStepperXStepperClass)
-                return createElementVNode("view", utsMapOf("class" to "xCalendarView"), utsArrayOf(
+                return _cE("view", _uM("class" to "xCalendarView"), _uA(
                     renderSlot(_ctx.`$slots`, "header", UTSJSONObject(), fun(): UTSArray<Any> {
-                        return utsArrayOf(
-                            createElementVNode("view", utsMapOf("class" to normalizeClass(utsArrayOf(
+                        return _uA(
+                            _cE("view", _uM("class" to _nC(_uA(
                                 "xCalendarViewDataHeaderWrap",
-                                utsArrayOf(
+                                _uA(
                                     if (unref(showPanel)) {
                                         "xCalendarViewMonthOff"
                                     } else {
                                         "xCalendarViewMonthOn"
                                     }
                                 )
-                            )), "style" to normalizeStyle(utsArrayOf(
-                                utsMapOf("backgroundColor" to unref(_headBgColor)),
+                            )), "style" to _nS(_uA(
+                                _uM("backgroundColor" to unref(_headBgColor)),
                                 _ctx.headStyle
-                            ))), utsArrayOf(
-                                createElementVNode("view", utsMapOf("class" to "xCalendarViewHeader", "style" to normalizeStyle(utsMapOf("padding" to "0 12px"))), utsArrayOf(
-                                    createElementVNode("view", utsMapOf("onClick" to fun(){
+                            ))), _uA(
+                                _cE("view", _uM("class" to "xCalendarViewHeader", "style" to _nS(_uM("padding" to "0 12px"))), _uA(
+                                    _cE("view", _uM("onClick" to fun(){
                                         showPanel.value = !unref(showPanel)
                                     }
-                                    , "class" to "xCalendarViewHeaderLeft"), utsArrayOf(
-                                        createVNode(_component_x_text, utsMapOf("color" to unref(_headFontColor), "font-size" to "21"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                            return utsArrayOf(
-                                                toDisplayString(unref(_currentDateLabel))
+                                    , "class" to "xCalendarViewHeaderLeft"), _uA(
+                                        _cV(_component_x_text, _uM("color" to unref(_headFontColor), "font-size" to "21"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                            return _uA(
+                                                _tD(unref(_currentDateLabel))
                                             )
                                         }
-                                        ), "_" to 1), 8, utsArrayOf(
+                                        ), "_" to 1), 8, _uA(
                                             "color"
                                         )),
-                                        createVNode(_component_x_icon, utsMapOf("color" to unref(_headFontColor), "font-size" to "21", "name" to "arrow-down-s-fill"), null, 8, utsArrayOf(
+                                        _cV(_component_x_icon, _uM("color" to unref(_headFontColor), "font-size" to "21", "name" to "arrow-down-s-fill"), null, 8, _uA(
                                             "color"
                                         ))
-                                    ), 8, utsArrayOf(
+                                    ), 8, _uA(
                                         "onClick"
                                     )),
-                                    createElementVNode("view", utsMapOf("class" to "xCalendarViewHeaderRight"), utsArrayOf(
-                                        createVNode(_component_x_text, utsMapOf("onClick" to clear, "color" to unref(_headFontColor), "style" to normalizeStyle(utsMapOf("padding" to "10px 20px"))), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                            return utsArrayOf(
+                                    _cE("view", _uM("class" to "xCalendarViewHeaderRight"), _uA(
+                                        _cV(_component_x_text, _uM("onClick" to clear, "color" to unref(_headFontColor), "style" to _nS(_uM("padding" to "10px 20px"))), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                            return _uA(
                                                 "清空"
                                             )
                                         }
-                                        ), "_" to 1), 8, utsArrayOf(
+                                        ), "_" to 1), 8, _uA(
                                             "color",
                                             "style"
                                         )),
-                                        createVNode(_component_x_text, utsMapOf("onClick" to nowMonth, "color" to unref(_headFontColor), "style" to normalizeStyle(utsMapOf("padding" to "10px 0px"))), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                            return utsArrayOf(
+                                        _cV(_component_x_text, _uM("onClick" to nowMonth, "color" to unref(_headFontColor), "style" to _nS(_uM("padding" to "10px 0px"))), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                            return _uA(
                                                 "本月"
                                             )
                                         }
-                                        ), "_" to 1), 8, utsArrayOf(
+                                        ), "_" to 1), 8, _uA(
                                             "color",
                                             "style"
                                         ))
                                     ))
                                 ), 4),
-                                createElementVNode("view", utsMapOf("class" to "xCalendarViewDataHeader"), utsArrayOf(
-                                    createElementVNode(Fragment, null, RenderHelpers.renderList(7, fun(item, index, __index, _cached): Any {
-                                        return createElementVNode("view", utsMapOf("class" to "xCalendarViewDataHeaderItem", "key" to item), utsArrayOf(
-                                            createVNode(_component_x_text, utsMapOf("color" to unref(_headFontColor), "font-size" to "12"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                                return utsArrayOf(
-                                                    toDisplayString(weeksCn[index])
+                                _cE("view", _uM("class" to "xCalendarViewDataHeader"), _uA(
+                                    _cE(Fragment, null, RenderHelpers.renderList(7, fun(item, index, __index, _cached): Any {
+                                        return _cE("view", _uM("class" to "xCalendarViewDataHeaderItem", "key" to item), _uA(
+                                            _cV(_component_x_text, _uM("color" to unref(_headFontColor), "font-size" to "12"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                return _uA(
+                                                    _tD(weeksCn[index])
                                                 )
                                             }
-                                            ), "_" to 2), 1032, utsArrayOf(
+                                            ), "_" to 2), 1032, _uA(
                                                 "color"
                                             ))
                                         ))
@@ -392,9 +388,9 @@ open class GenUniModulesTmxUiComponentsXCalendarViewXCalendarView : VueComponent
                         )
                     }
                     ),
-                    createElementVNode("view", utsMapOf("class" to "xCalendarViewSpace")),
-                    createElementVNode("view", utsMapOf("class" to normalizeClass(utsArrayOf(
-                        utsArrayOf(
+                    _cE("view", _uM("class" to "xCalendarViewSpace")),
+                    _cE("view", _uM("class" to _nC(_uA(
+                        _uA(
                             if (unref(showPanel)) {
                                 "xCalendarViewMonthOff"
                             } else {
@@ -402,15 +398,15 @@ open class GenUniModulesTmxUiComponentsXCalendarViewXCalendarView : VueComponent
                             }
                         ),
                         "xCalendarViewWrap"
-                    ))), utsArrayOf(
+                    ))), _uA(
                         if (unref(_currentDateSwipers).length > 0) {
-                            createElementVNode("swiper", utsMapOf("key" to 0, "vertical" to props.vertical, "onChange" to swiperChange, "current" to unref(_currentDateSwipersIndex), "circular" to true, "style" to normalizeStyle(utsMapOf("width" to "100%", "height" to "100%"))), utsArrayOf(
-                                createElementVNode(Fragment, null, RenderHelpers.renderList(unref(_currentDateSwipers), fun(item, index, __index, _cached): Any {
-                                    return createElementVNode("swiper-item", utsMapOf("key" to index, "style" to normalizeStyle(utsMapOf("width" to "100%", "height" to "100%"))), utsArrayOf(
-                                        createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("width" to "100%", "height" to "100%", "position" to "relative"))), utsArrayOf(
-                                            createElementVNode("view", utsMapOf("class" to "xCalendarViewContentBox"), utsArrayOf(
+                            _cE("swiper", _uM("key" to 0, "vertical" to props.vertical, "onChange" to swiperChange, "current" to unref(_currentDateSwipersIndex), "circular" to true, "style" to _nS(_uM("width" to "100%", "height" to "100%"))), _uA(
+                                _cE(Fragment, null, RenderHelpers.renderList(unref(_currentDateSwipers), fun(item, index, __index, _cached): Any {
+                                    return _cE("swiper-item", _uM("key" to index, "style" to _nS(_uM("width" to "100%", "height" to "100%"))), _uA(
+                                        _cE("view", _uM("style" to _nS(_uM("width" to "100%", "height" to "100%", "position" to "relative"))), _uA(
+                                            _cE("view", _uM("class" to "xCalendarViewContentBox"), _uA(
                                                 if (isTrue(index == unref(_currentDateSwipersIndex) || !props.renderOnly)) {
-                                                    createVNode(unref(GenUniModulesTmxUiComponentsXCalendarViewCalendarMultipleClass), utsMapOf("key" to 0, "onClick" to dateClick, "currentDate" to item, "modelValue" to props.modelValue, "model" to props.model, "disabledDays" to props.disabledDays, "startDate" to props.startDate, "endDate" to props.endDate, "dateStyle" to props.dateStyle, "format" to props.format, "color" to props.color, "fontColor" to props.fontColor, "fontDarkColor" to props.fontDarkColor, "activeFontColor" to props.activeFontColor, "rangColor" to props.rangColor, "rangFontColor" to props.rangFontColor), null, 8, utsArrayOf(
+                                                    _cV(unref(GenUniModulesTmxUiComponentsXCalendarViewCalendarMultipleClass), _uM("key" to 0, "onClick" to dateClick, "currentDate" to item, "modelValue" to props.modelValue, "model" to props.model, "disabledDays" to props.disabledDays, "startDate" to props.startDate, "endDate" to props.endDate, "dateStyle" to props.dateStyle, "format" to props.format, "color" to props.color, "fontColor" to props.fontColor, "fontDarkColor" to props.fontDarkColor, "activeFontColor" to props.activeFontColor, "rangColor" to props.rangColor, "rangFontColor" to props.rangFontColor), null, 8, _uA(
                                                         "currentDate",
                                                         "modelValue",
                                                         "model",
@@ -427,30 +423,30 @@ open class GenUniModulesTmxUiComponentsXCalendarViewXCalendarView : VueComponent
                                                         "rangFontColor"
                                                     ))
                                                 } else {
-                                                    createCommentVNode("v-if", true)
+                                                    _cC("v-if", true)
                                                 }
                                             )),
-                                            createElementVNode("view", utsMapOf("class" to "xCalendarViewNum"), utsArrayOf(
-                                                createElementVNode("text", utsMapOf("class" to "xCalendarViewNumText"), toDisplayString(getmonth(item)), 1)
+                                            _cE("view", _uM("class" to "xCalendarViewNum"), _uA(
+                                                _cE("text", _uM("class" to "xCalendarViewNumText"), _tD(getmonth(item)), 1)
                                             ))
                                         ), 4)
                                     ), 4)
                                 }), 128)
-                            ), 44, utsArrayOf(
+                            ), 44, _uA(
                                 "vertical",
                                 "current"
                             ))
                         } else {
-                            createCommentVNode("v-if", true)
+                            _cC("v-if", true)
                         }
                     ), 2),
-                    createElementVNode("view", utsMapOf("class" to "xCalendarViewSpace")),
+                    _cE("view", _uM("class" to "xCalendarViewSpace")),
                     renderSlot(_ctx.`$slots`, "footer", UTSJSONObject(), fun(): UTSArray<Any> {
-                        return utsArrayOf(
-                            createElementVNode("view", utsMapOf("class" to "xCalendarViewFooter"), utsArrayOf(
-                                createVNode(_component_x_text, utsMapOf("color" to "#707070", "font-size" to "14"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                    return utsArrayOf(
-                                        toDisplayString(unref(_tipsText))
+                        return _uA(
+                            _cE("view", _uM("class" to "xCalendarViewFooter"), _uA(
+                                _cV(_component_x_text, _uM("color" to "#707070", "font-size" to "14"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                    return _uA(
+                                        _tD(unref(_tipsText))
                                     )
                                 }
                                 ), "_" to 1))
@@ -458,8 +454,8 @@ open class GenUniModulesTmxUiComponentsXCalendarViewXCalendarView : VueComponent
                         )
                     }
                     ),
-                    createElementVNode("view", utsMapOf("class" to normalizeClass(utsArrayOf(
-                        utsArrayOf(
+                    _cE("view", _uM("class" to _nC(_uA(
+                        _uA(
                             if (unref(showPanel)) {
                                 "xCalendarViewMonthOn"
                             } else {
@@ -467,48 +463,48 @@ open class GenUniModulesTmxUiComponentsXCalendarViewXCalendarView : VueComponent
                             }
                         ),
                         "xCalendarViewMonth"
-                    )), "style" to normalizeStyle(utsMapOf("backgroundColor" to unref(_monthBgColor)))), utsArrayOf(
-                        createElementVNode("view", utsMapOf("class" to "xCalendarViewHeader", "style" to normalizeStyle(utsMapOf("padding" to "0 12px"))), utsArrayOf(
-                            createElementVNode("view", utsMapOf("onClick" to fun(){
+                    )), "style" to _nS(_uM("backgroundColor" to unref(_monthBgColor)))), _uA(
+                        _cE("view", _uM("class" to "xCalendarViewHeader", "style" to _nS(_uM("padding" to "0 12px"))), _uA(
+                            _cE("view", _uM("onClick" to fun(){
                                 showPanel.value = !unref(showPanel)
                             }
-                            , "class" to "xCalendarViewHeaderLeft"), utsArrayOf(
-                                createVNode(_component_x_text, utsMapOf("color" to unref(_color), "font-size" to "21"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                    return utsArrayOf(
-                                        toDisplayString(unref(_currentDateLabel))
+                            , "class" to "xCalendarViewHeaderLeft"), _uA(
+                                _cV(_component_x_text, _uM("color" to unref(_color), "font-size" to "21"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                    return _uA(
+                                        _tD(unref(_currentDateLabel))
                                     )
                                 }
-                                ), "_" to 1), 8, utsArrayOf(
+                                ), "_" to 1), 8, _uA(
                                     "color"
                                 )),
-                                createVNode(_component_x_icon, utsMapOf("color" to unref(_color), "font-size" to "21", "name" to "arrow-up-s-fill"), null, 8, utsArrayOf(
+                                _cV(_component_x_icon, _uM("color" to unref(_color), "font-size" to "21", "name" to "arrow-up-s-fill"), null, 8, _uA(
                                     "color"
                                 ))
-                            ), 8, utsArrayOf(
+                            ), 8, _uA(
                                 "onClick"
                             )),
-                            createElementVNode("view", utsMapOf("class" to "xCalendarViewHeaderRight"), utsArrayOf(
-                                createVNode(_component_x_stepper, utsMapOf("onChange" to stepperChangeYear, "modelValue" to unref(_currentYear), "onUpdate:modelValue" to fun(`$event`: Number){
+                            _cE("view", _uM("class" to "xCalendarViewHeaderRight"), _uA(
+                                _cV(_component_x_stepper, _uM("onChange" to stepperChangeYear, "modelValue" to unref(_currentYear), "onUpdate:modelValue" to fun(`$event`: Number){
                                     trySetRefValue(_currentYear, `$event`)
                                 }
-                                , "min" to 1900, "max" to 5000, "width" to "120"), null, 8, utsArrayOf(
+                                , "min" to 1900, "max" to 5000, "width" to "120"), null, 8, _uA(
                                     "modelValue"
                                 ))
                             ))
                         ), 4),
-                        createElementVNode("view", utsMapOf("class" to "xCalendarViewMonthWrap", "style" to normalizeStyle(utsMapOf("flex" to "1"))), utsArrayOf(
-                            createElementVNode(Fragment, null, RenderHelpers.renderList(12, fun(item, index, __index, _cached): Any {
-                                return createElementVNode("view", utsMapOf("onClick" to fun(){
+                        _cE("view", _uM("class" to "xCalendarViewMonthWrap", "style" to _nS(_uM("flex" to "1"))), _uA(
+                            _cE(Fragment, null, RenderHelpers.renderList(12, fun(item, index, __index, _cached): Any {
+                                return _cE("view", _uM("onClick" to fun(){
                                     changeMonth(index)
                                 }
-                                , "class" to "xCalendarViewMonthItem", "key" to index), utsArrayOf(
-                                    createVNode(_component_x_text, utsMapOf("font-size" to "18"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                        return utsArrayOf(
-                                            toDisplayString(item) + "月"
+                                , "class" to "xCalendarViewMonthItem", "key" to index), _uA(
+                                    _cV(_component_x_text, _uM("font-size" to "18"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                        return _uA(
+                                            _tD(item) + "月"
                                         )
                                     }
                                     ), "_" to 2), 1024)
-                                ), 8, utsArrayOf(
+                                ), 8, _uA(
                                     "onClick"
                                 ))
                             }
@@ -520,19 +516,19 @@ open class GenUniModulesTmxUiComponentsXCalendarViewXCalendarView : VueComponent
         }
         var name = "xCalendarMultiple"
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xCalendarViewMonth" to utsMapOf("" to utsMapOf("position" to "absolute", "zIndex" to 3, "left" to 0, "top" to 0, "width" to "100%", "height" to "100%", "display" to "flex", "flexDirection" to "column", "transitionProperty" to "transform,opacity", "transitionTimingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)", "transitionDuration" to "0.3s"), ".xCalendarViewMonthOff" to utsMapOf("pointerEvents" to "none", "opacity" to 0, "transform" to "scale(0, 0)"), ".xCalendarViewMonthOn" to utsMapOf("pointerEvents" to "auto", "opacity" to 1, "transform" to "scale(1, 1)")), "xCalendarViewMonthWrap" to utsMapOf(".xCalendarViewMonth " to utsMapOf("display" to "flex", "flexDirection" to "row", "flexWrap" to "wrap")), "xCalendarViewMonthItem" to utsMapOf(".xCalendarViewMonth .xCalendarViewMonthWrap " to utsMapOf("width" to "33.3333%", "height" to "25%", "display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center")), "xCalendarViewWrap" to utsMapOf("" to utsMapOf("transitionProperty" to "transform,opacity", "transitionTimingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)", "transitionDuration" to "0.3s", "position" to "relative", "width" to "100%", "flex" to 1), ".xCalendarViewMonthOff" to utsMapOf("pointerEvents" to "none", "opacity" to 0, "transform" to "scale(2, 2)"), ".xCalendarViewMonthOn" to utsMapOf("pointerEvents" to "auto", "opacity" to 1, "transform" to "scale(1, 1)")), "xCalendarViewContentBox" to utsMapOf(".xCalendarViewWrap " to utsMapOf("position" to "absolute", "left" to 0, "top" to 0, "width" to "100%", "height" to "100%", "zIndex" to 3)), "xCalendarViewNum" to utsMapOf(".xCalendarViewWrap " to utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center", "width" to "100%", "height" to "100%")), "xCalendarViewNumText" to utsMapOf(".xCalendarViewWrap .xCalendarViewNum " to utsMapOf("fontSize" to 200, "color" to "rgba(125,125,125,0.1)", "fontWeight" to "bold")), "xCalendarViewDataHeaderWrap" to utsMapOf("" to utsMapOf("transitionProperty" to "transform,opacity", "transitionTimingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)", "transitionDuration" to "0.3s"), ".xCalendarViewMonthOff" to utsMapOf("pointerEvents" to "none", "opacity" to 0), ".xCalendarViewMonthOn" to utsMapOf("pointerEvents" to "auto", "opacity" to 1)), "xCalendarViewSpace" to padStyleMapOf(utsMapOf("height" to 5)), "xCalendarViewHeader" to padStyleMapOf(utsMapOf("height" to 50, "display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center")), "xCalendarViewHeaderLeft" to utsMapOf(".xCalendarViewHeader " to utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-start", "alignItems" to "center")), "xCalendarViewHeaderRight" to utsMapOf(".xCalendarViewHeader " to utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-end", "alignItems" to "center")), "xCalendarViewDataHeader" to padStyleMapOf(utsMapOf("height" to 40, "display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center")), "xCalendarViewDataHeaderItem" to utsMapOf(".xCalendarViewDataHeader " to utsMapOf("width" to "14.285%", "display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center")), "xCalendarView" to padStyleMapOf(utsMapOf("position" to "relative", "display" to "flex", "flexDirection" to "column", "minHeight" to 440)), "xCalendarViewFooter" to padStyleMapOf(utsMapOf("height" to 40, "display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center")), "@TRANSITION" to utsMapOf("xCalendarViewMonth" to utsMapOf("property" to "transform,opacity", "timingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)", "duration" to "0.3s"), "xCalendarViewWrap" to utsMapOf("property" to "transform,opacity", "timingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)", "duration" to "0.3s"), "xCalendarViewDataHeaderWrap" to utsMapOf("property" to "transform,opacity", "timingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)", "duration" to "0.3s")))
+                return _uM("xCalendarViewMonth" to _uM("" to _uM("position" to "absolute", "zIndex" to 3, "left" to 0, "top" to 0, "width" to "100%", "height" to "100%", "display" to "flex", "flexDirection" to "column", "transitionProperty" to "transform,opacity", "transitionTimingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)", "transitionDuration" to "0.3s"), ".xCalendarViewMonthOff" to _uM("pointerEvents" to "none", "opacity" to 0, "transform" to "scale(0, 0)"), ".xCalendarViewMonthOn" to _uM("pointerEvents" to "auto", "opacity" to 1, "transform" to "scale(1, 1)")), "xCalendarViewMonthWrap" to _uM(".xCalendarViewMonth " to _uM("display" to "flex", "flexDirection" to "row", "flexWrap" to "wrap")), "xCalendarViewMonthItem" to _uM(".xCalendarViewMonth .xCalendarViewMonthWrap " to _uM("width" to "33.3333%", "height" to "25%", "display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center")), "xCalendarViewWrap" to _uM("" to _uM("transitionProperty" to "transform,opacity", "transitionTimingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)", "transitionDuration" to "0.3s", "position" to "relative", "width" to "100%", "flex" to 1), ".xCalendarViewMonthOff" to _uM("pointerEvents" to "none", "opacity" to 0, "transform" to "scale(2, 2)"), ".xCalendarViewMonthOn" to _uM("pointerEvents" to "auto", "opacity" to 1, "transform" to "scale(1, 1)")), "xCalendarViewContentBox" to _uM(".xCalendarViewWrap " to _uM("position" to "absolute", "left" to 0, "top" to 0, "width" to "100%", "height" to "100%", "zIndex" to 3)), "xCalendarViewNum" to _uM(".xCalendarViewWrap " to _uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center", "width" to "100%", "height" to "100%")), "xCalendarViewNumText" to _uM(".xCalendarViewWrap .xCalendarViewNum " to _uM("fontSize" to 200, "color" to "rgba(125,125,125,0.1)", "fontWeight" to "bold")), "xCalendarViewDataHeaderWrap" to _uM("" to _uM("transitionProperty" to "transform,opacity", "transitionTimingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)", "transitionDuration" to "0.3s"), ".xCalendarViewMonthOff" to _uM("pointerEvents" to "none", "opacity" to 0), ".xCalendarViewMonthOn" to _uM("pointerEvents" to "auto", "opacity" to 1)), "xCalendarViewSpace" to _pS(_uM("height" to 5)), "xCalendarViewHeader" to _pS(_uM("height" to 50, "display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center")), "xCalendarViewHeaderLeft" to _uM(".xCalendarViewHeader " to _uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-start", "alignItems" to "center")), "xCalendarViewHeaderRight" to _uM(".xCalendarViewHeader " to _uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-end", "alignItems" to "center")), "xCalendarViewDataHeader" to _pS(_uM("height" to 40, "display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center")), "xCalendarViewDataHeaderItem" to _uM(".xCalendarViewDataHeader " to _uM("width" to "14.285%", "display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center")), "xCalendarView" to _pS(_uM("position" to "relative", "display" to "flex", "flexDirection" to "column", "minHeight" to 440)), "xCalendarViewFooter" to _pS(_uM("height" to 40, "display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center")), "@TRANSITION" to _uM("xCalendarViewMonth" to _uM("property" to "transform,opacity", "timingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)", "duration" to "0.3s"), "xCalendarViewWrap" to _uM("property" to "transform,opacity", "timingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)", "duration" to "0.3s"), "xCalendarViewDataHeaderWrap" to _uM("property" to "transform,opacity", "timingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)", "duration" to "0.3s")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("change" to null, "click" to null, "currentChange" to null, "update:modelValue" to null, "update:currentDate" to null)
-        var props = normalizePropsOptions(utsMapOf("modelValue" to utsMapOf("type" to "String", "required" to true, "default" to ""), "model" to utsMapOf("type" to "String", "required" to true, "default" to "day"), "disabledDays" to utsMapOf("type" to "Array", "required" to true, "default" to utsArrayOf<String>()), "disabled" to utsMapOf("type" to "Boolean", "required" to true, "default" to false), "vertical" to utsMapOf("type" to "Boolean", "required" to true, "default" to false), "startDate" to utsMapOf("type" to "String", "required" to true, "default" to "1900-1-1"), "endDate" to utsMapOf("type" to "String", "required" to true, "default" to "2100-1-1"), "dateStyle" to utsMapOf("type" to "Array", "required" to true, "default" to utsArrayOf<xCalendarDateStyle_type>()), "format" to utsMapOf("type" to "String", "required" to true, "default" to "YYYY-MM-DD"), "color" to utsMapOf("type" to "String", "required" to true, "default" to ""), "fontColor" to utsMapOf("type" to "String", "required" to true, "default" to "#333333"), "fontDarkColor" to utsMapOf("type" to "String", "required" to true, "default" to "#ffffff"), "activeFontColor" to utsMapOf("type" to "String", "required" to true, "default" to "#ffffff"), "rangColor" to utsMapOf("type" to "String", "required" to true, "default" to ""), "rangFontColor" to utsMapOf("type" to "String", "required" to true, "default" to ""), "headBgColor" to utsMapOf("type" to "String", "required" to true, "default" to "transparent"), "headFontColor" to utsMapOf("type" to "String", "required" to true, "default" to ""), "headStyle" to utsMapOf("type" to "String", "required" to true, "default" to ""), "renderOnly" to utsMapOf("type" to "Boolean", "required" to true, "default" to true)))
-        var propsNeedCastKeys = utsArrayOf(
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("change" to null, "click" to null, "currentChange" to null, "update:modelValue" to null, "update:currentDate" to null)
+        var props = _nP(_uM("modelValue" to _uM("type" to "String", "required" to true, "default" to ""), "model" to _uM("type" to "String", "required" to true, "default" to "day"), "disabledDays" to _uM("type" to "Array", "required" to true, "default" to _uA<String>()), "disabled" to _uM("type" to "Boolean", "required" to true, "default" to false), "vertical" to _uM("type" to "Boolean", "required" to true, "default" to false), "startDate" to _uM("type" to "String", "required" to true, "default" to "1900-1-1"), "endDate" to _uM("type" to "String", "required" to true, "default" to "2100-1-1"), "dateStyle" to _uM("type" to "Array", "required" to true, "default" to _uA<xCalendarDateStyle_type>()), "format" to _uM("type" to "String", "required" to true, "default" to "YYYY-MM-DD"), "color" to _uM("type" to "String", "required" to true, "default" to ""), "fontColor" to _uM("type" to "String", "required" to true, "default" to "#333333"), "fontDarkColor" to _uM("type" to "String", "required" to true, "default" to "#ffffff"), "activeFontColor" to _uM("type" to "String", "required" to true, "default" to "#ffffff"), "rangColor" to _uM("type" to "String", "required" to true, "default" to ""), "rangFontColor" to _uM("type" to "String", "required" to true, "default" to ""), "headBgColor" to _uM("type" to "String", "required" to true, "default" to "transparent"), "headFontColor" to _uM("type" to "String", "required" to true, "default" to ""), "headStyle" to _uM("type" to "String", "required" to true, "default" to ""), "renderOnly" to _uM("type" to "Boolean", "required" to true, "default" to true)))
+        var propsNeedCastKeys = _uA(
             "modelValue",
             "model",
             "disabledDays",
@@ -553,6 +549,6 @@ open class GenUniModulesTmxUiComponentsXCalendarViewXCalendarView : VueComponent
             "headStyle",
             "renderOnly"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

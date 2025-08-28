@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.`$emit` as uni__emit
 import uts.sdk.modules.xToastS.XTOAST_TYPE
 import uts.sdk.modules.xModalS.X_MODAL_TYPE
@@ -78,38 +74,38 @@ open class GenPagesPersonalSettingAccountSafeRevokePrivacyIndex : BasePage {
                 val _component_x_sheet = resolveEasyComponent("x-sheet", GenUniModulesTmxUiComponentsXSheetXSheetClass)
                 val _component_mc_primary_button = resolveEasyComponent("mc-primary-button", GenComponentsMcPrimaryButtonIndexClass)
                 val _component_mc_base_container = resolveEasyComponent("mc-base-container", GenComponentsMcBaseContainerIndexClass)
-                return createVNode(_component_mc_base_container, utsMapOf("scroll" to true, "bg-color" to "#ffffff", "title" to "撤回同意隐私政策提醒"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                    return utsArrayOf(
-                        createVNode(_component_x_sheet, utsMapOf("margin" to utsArrayOf(
+                return _cV(_component_mc_base_container, _uM("scroll" to true, "bg-color" to "#ffffff", "title" to "撤回同意隐私政策提醒"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                    return _uA(
+                        _cV(_component_x_sheet, _uM("margin" to _uA(
                             "0"
-                        ), "padding" to utsArrayOf(
+                        ), "padding" to _uA(
                             "20",
                             "20",
                             "20",
                             "25"
-                        )), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                            return utsArrayOf(
-                                createElementVNode("text", utsMapOf("class" to "text-item"), "撤回每橙车主基本功能"),
-                                createElementVNode("text", utsMapOf("class" to "text-item bold"), "个人信息处理规则须知:"),
-                                createElementVNode("text", utsMapOf("class" to "text-item bold"), "在您撤回《个人信息处理规则》授权前，请先阅读并同意以下内容："),
-                                createElementVNode("text", utsMapOf("class" to "text-item"), "一、因为您撤回对基本功能处理您必要个人信息的授权，当您点击“撤回授权”，我们将为您注销账号。"),
-                                createElementVNode("text", utsMapOf("class" to "text-item"), "二、撤回授权后您在App中的个人信息和相关权益将被清空，至少包括以下信息："),
-                                createElementVNode("text", utsMapOf("class" to "text-item"), "1.车主端账号下的所有个人信息（身份证、驾驶证、车辆信息等）"),
-                                createElementVNode("text", utsMapOf("class" to "text-item"), "2.车主端账号下的订单信息"),
-                                createElementVNode("text", utsMapOf("class" to "text-item"), "3.车主端账号下的钱包余额、流水等数据"),
-                                createElementVNode("text", utsMapOf("class" to "text-item"), "4.车主端账号下的资质等信息"),
-                                createElementVNode("text", utsMapOf("class" to "text-item"), "5.车主端账号下的奖励数据；"),
-                                createElementVNode("text", utsMapOf("class" to "text-item"), "6.以及您在车主端中留存的其他信息。"),
-                                createElementVNode("text", utsMapOf("class" to "text-item"), "四、请您知悉，您撤回授权并不影响撤回前我们基于您的授权已经进行的个人信息处理活动。"),
-                                createElementVNode("text", utsMapOf("class" to "text-item"), "五、在您撤回授权后，如您被投诉、举报、诉讼、仲裁、国家有权机关调查或者存在其他我们依法需要配合处理的情况，我们会依法进行处理，并基于这些处理行为按照最小必要原则处理您的个人信息。"),
-                                createElementVNode("text", utsMapOf("class" to "text-item"), "六、您撤回授权或者注销账号后，我们会按照个人信息处理规则声明的保存期限保存您的个人信息，保存期满后进行删除或者匿名化处理。"),
-                                createElementVNode("view", utsMapOf("class" to "placeholder-box"))
+                        )), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                            return _uA(
+                                _cE("text", _uM("class" to "text-item"), "撤回每橙车主基本功能"),
+                                _cE("text", _uM("class" to "text-item bold"), "个人信息处理规则须知:"),
+                                _cE("text", _uM("class" to "text-item bold"), "在您撤回《个人信息处理规则》授权前，请先阅读并同意以下内容："),
+                                _cE("text", _uM("class" to "text-item"), "一、因为您撤回对基本功能处理您必要个人信息的授权，当您点击“撤回授权”，我们将为您注销账号。"),
+                                _cE("text", _uM("class" to "text-item"), "二、撤回授权后您在App中的个人信息和相关权益将被清空，至少包括以下信息："),
+                                _cE("text", _uM("class" to "text-item"), "1.车主端账号下的所有个人信息（身份证、驾驶证、车辆信息等）"),
+                                _cE("text", _uM("class" to "text-item"), "2.车主端账号下的订单信息"),
+                                _cE("text", _uM("class" to "text-item"), "3.车主端账号下的钱包余额、流水等数据"),
+                                _cE("text", _uM("class" to "text-item"), "4.车主端账号下的资质等信息"),
+                                _cE("text", _uM("class" to "text-item"), "5.车主端账号下的奖励数据；"),
+                                _cE("text", _uM("class" to "text-item"), "6.以及您在车主端中留存的其他信息。"),
+                                _cE("text", _uM("class" to "text-item"), "四、请您知悉，您撤回授权并不影响撤回前我们基于您的授权已经进行的个人信息处理活动。"),
+                                _cE("text", _uM("class" to "text-item"), "五、在您撤回授权后，如您被投诉、举报、诉讼、仲裁、国家有权机关调查或者存在其他我们依法需要配合处理的情况，我们会依法进行处理，并基于这些处理行为按照最小必要原则处理您的个人信息。"),
+                                _cE("text", _uM("class" to "text-item"), "六、您撤回授权或者注销账号后，我们会按照个人信息处理规则声明的保存期限保存您的个人信息，保存期满后进行删除或者匿名化处理。"),
+                                _cE("view", _uM("class" to "placeholder-box"))
                             )
                         }
                         ), "_" to 1)),
-                        createElementVNode("view", utsMapOf("class" to "btn-group-panel flex-row", "style" to normalizeStyle("padding-bottom: " + (unref(globalData).safeAreaBottom + 15) + "px;")), utsArrayOf(
-                            createVNode(_component_mc_primary_button, utsMapOf("onClick" to confirm, "height" to "50px"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                return utsArrayOf(
+                        _cE("view", _uM("class" to "btn-group-panel flex-row", "style" to _nS("padding-bottom: " + (unref(globalData).safeAreaBottom + 15) + "px;")), _uA(
+                            _cV(_component_mc_primary_button, _uM("onClick" to confirm, "height" to "50px"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                return _uA(
                                     "确认撤回"
                                 )
                             }
@@ -121,21 +117,21 @@ open class GenPagesPersonalSettingAccountSafeRevokePrivacyIndex : BasePage {
             }
         }
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
-            ), utsArrayOf(
+            ), _uA(
                 GenApp.styles
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("text-item" to utsMapOf("" to utsMapOf("fontSize" to "30rpx", "color" to "#000000", "lineHeight" to "60rpx"), ".title" to utsMapOf("fontSize" to "36rpx", "fontWeight" to "bold", "color" to "#000000", "lineHeight" to "60rpx"), ".sub-title" to utsMapOf("fontSize" to "36rpx", "fontWeight" to "bold", "color" to "#000000", "lineHeight" to "60rpx"), ".bold" to utsMapOf("fontWeight" to "bold")), "placeholder-box" to padStyleMapOf(utsMapOf("height" to "400rpx", "width" to "100%")), "btn-group-panel" to padStyleMapOf(utsMapOf("position" to "fixed", "bottom" to 0, "left" to 0, "right" to 0, "paddingTop" to 15, "paddingRight" to 15, "paddingBottom" to 15, "paddingLeft" to 15)))
+                return _uM("text-item" to _uM("" to _uM("fontSize" to "30rpx", "color" to "#000000", "lineHeight" to "60rpx"), ".title" to _uM("fontSize" to "36rpx", "fontWeight" to "bold", "color" to "#000000", "lineHeight" to "60rpx"), ".sub-title" to _uM("fontSize" to "36rpx", "fontWeight" to "bold", "color" to "#000000", "lineHeight" to "60rpx"), ".bold" to _uM("fontWeight" to "bold")), "placeholder-box" to _pS(_uM("height" to "400rpx", "width" to "100%")), "btn-group-panel" to _pS(_uM("position" to "fixed", "bottom" to 0, "left" to 0, "right" to 0, "paddingTop" to 15, "paddingRight" to 15, "paddingBottom" to 15, "paddingLeft" to 15)))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf()
-        var props = normalizePropsOptions(utsMapOf())
-        var propsNeedCastKeys: UTSArray<String> = utsArrayOf()
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM()
+        var props = _nP(_uM())
+        var propsNeedCastKeys: UTSArray<String> = _uA()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

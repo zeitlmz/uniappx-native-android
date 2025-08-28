@@ -31,6 +31,7 @@ import io.dcloud.uniapp.framework.onUnload
 import io.dcloud.uniapp.runtime.*
 import io.dcloud.uniapp.vue.*
 import io.dcloud.uniapp.vue.shared.*
+import io.dcloud.unicloud.*
 import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
@@ -98,7 +99,7 @@ fun hexToRgb(sColors: String): RGBA? {
             }
             sColor = sColorNew
         }
-        var sColorChange: UTSArray<Number> = utsArrayOf()
+        var sColorChange: UTSArray<Number> = _uA()
         sColorChange.push(parseInt(sColor.substring(1, 3), 16))
         sColorChange.push(parseInt(sColor.substring(3, 5), 16))
         sColorChange.push(parseInt(sColor.substring(5, 7), 16))

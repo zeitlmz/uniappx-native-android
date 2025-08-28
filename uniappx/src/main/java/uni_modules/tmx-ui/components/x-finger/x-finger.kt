@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.createSelectorQuery as uni_createSelectorQuery
 open class GenUniModulesTmxUiComponentsXFingerXFinger : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {
@@ -42,9 +38,9 @@ open class GenUniModulesTmxUiComponentsXFingerXFinger : VueComponent {
     override fun `$render`(): Any? {
         val _ctx = this
         val _cache = this.`$`.renderCache
-        return createElementVNode("view", utsMapOf("id" to _ctx.id, "ref" to _ctx.id, "class" to "finger", "onTouchstart" to _ctx.mStart, "onTouchmove" to _ctx.mMove, "onTouchend" to _ctx.mEnd, "onTouchcancel" to _ctx.mCancel), utsArrayOf(
+        return _cE("view", _uM("id" to _ctx.id, "ref" to _ctx.id, "class" to "finger", "onTouchstart" to _ctx.mStart, "onTouchmove" to _ctx.mMove, "onTouchend" to _ctx.mEnd, "onTouchcancel" to _ctx.mCancel), _uA(
             renderSlot(_ctx.`$slots`, "default", GenUniModulesTmxUiComponentsXFingerXFingerSlotDataDefault(x = _ctx.mX, y = _ctx.mY, type = _ctx.eventName))
-        ), 40, utsArrayOf(
+        ), 40, _uA(
             "id",
             "onTouchstart",
             "onTouchmove",
@@ -86,7 +82,7 @@ open class GenUniModulesTmxUiComponentsXFingerXFinger : VueComponent {
     open var _disabled: Boolean by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("isMouseDown" to false, "wheelScale" to 1, "wheelDelta" to 0.1, "dubleTime" to 0, "tid" to 56, "_x" to 0, "_y" to 0, "_start_x" to 0, "_start_y" to 0, "eventName" to "", "mX" to 0, "mY" to 0, "swipeDirection" to "", "el" to null as Element?, "left" to 0, "top" to 0, "id" to ("xFinGer" + getUid()), "zoomFactor" to 0.55, "zoomFactorAb" to 0.03, "pinchStartLen" to 0, "scale" to 0, "angle" to 0, "pinth_x" to 0, "pinth_y" to 0, "preV" to CHECKPOINT_XY(x = null, y = null), "parentRect" to DRect(left = 0, right = 0, top = 0, bottom = 0, width = 0, height = 0), "_disabled" to computed<Boolean>(fun(): Boolean {
+        return _uM("isMouseDown" to false, "wheelScale" to 1, "wheelDelta" to 0.1, "dubleTime" to 0, "tid" to 56, "_x" to 0, "_y" to 0, "_start_x" to 0, "_start_y" to 0, "eventName" to "", "mX" to 0, "mY" to 0, "swipeDirection" to "", "el" to null as Element?, "left" to 0, "top" to 0, "id" to ("xFinGer" + getUid()), "zoomFactor" to 0.55, "zoomFactorAb" to 0.03, "pinchStartLen" to 0, "scale" to 0, "angle" to 0, "pinth_x" to 0, "pinth_y" to 0, "preV" to CHECKPOINT_XY(x = null, y = null), "parentRect" to DRect(left = 0, right = 0, top = 0, bottom = 0, width = 0, height = 0), "_disabled" to computed<Boolean>(fun(): Boolean {
             return this.disabled
         }
         ))
@@ -226,29 +222,10 @@ open class GenUniModulesTmxUiComponentsXFingerXFinger : VueComponent {
             }
         }
         if (this.swipeDirection != "") {
-            this.`$emit`("swiper", let {
-                object : UTSJSONObject() {
-                    var x = it.mX
-                    var y = it.mY
-                    var diffX = deltaX
-                    var diffY = deltaY
-                    var direction = it.swipeDirection
-                    var type = "swiper"
-                    var width = rectBox.width
-                    var height = rectBox.height
-                }
-            })
+            this.`$emit`("swiper", _uO("x" to this.mX, "y" to this.mY, "diffX" to deltaX, "diffY" to deltaY, "direction" to this.swipeDirection, "type" to "swiper", "width" to rectBox.width, "height" to rectBox.height))
             this.eventName = "swiper"
         }
-        this.`$emit`("move", let {
-            object : UTSJSONObject() {
-                var x = it.mX
-                var y = it.mY
-                var type = "move"
-                var width = rectBox.width
-                var height = rectBox.height
-            }
-        })
+        this.`$emit`("move", _uO("x" to this.mX, "y" to this.mY, "type" to "move", "width" to rectBox.width, "height" to rectBox.height))
         this.eventName = "move"
         clearTimeout(this.tid)
         if (evt.changedTouches.length >= 2) {
@@ -263,36 +240,12 @@ open class GenUniModulesTmxUiComponentsXFingerXFinger : VueComponent {
                     var temsc = (nowLenPitch / this.pinchStartLen)
                     val deltaScale = (temsc - 1) * this.zoomFactor + this.scale
                     this.scale = Math.max(deltaScale, 0.1)
-                    this.`$emit`("pinch", let {
-                        object : UTSJSONObject() {
-                            var x = currentX
-                            var y = currentY
-                            var x1 = otx
-                            var y2 = oty
-                            var type = "pinch"
-                            var width = rectBox.width
-                            var height = rectBox.height
-                            var len = nowLenPitch
-                            var scale = it.scale
-                        }
-                    })
+                    this.`$emit`("pinch", _uO("x" to currentX, "y" to currentY, "x1" to otx, "y2" to oty, "type" to "pinch", "width" to rectBox.width, "height" to rectBox.height, "len" to nowLenPitch, "scale" to this.scale))
                 }
                 var testjd = this.getRotateAngle(v, this.preV)
                 this.angle = Math.floor((testjd - 1) * this.zoomFactorAb) + this.angle
                 this.pinchStartLen = nowLenPitch
-                this.`$emit`("rotate", let {
-                    object : UTSJSONObject() {
-                        var x = currentX
-                        var y = currentY
-                        var x1 = otx
-                        var y2 = oty
-                        var type = "rotate"
-                        var width = rectBox.width
-                        var height = rectBox.height
-                        var len = nowLenPitch
-                        var angle = it.angle
-                    }
-                })
+                this.`$emit`("rotate", _uO("x" to currentX, "y" to currentY, "x1" to otx, "y2" to oty, "type" to "rotate", "width" to rectBox.width, "height" to rectBox.height, "len" to nowLenPitch, "angle" to this.angle))
             }
             this.preV = v
         }
@@ -315,26 +268,10 @@ open class GenUniModulesTmxUiComponentsXFingerXFinger : VueComponent {
         var y = event.clientY - rectBox.top
         this.mX = Math.max(0, Math.min(rectBox.width, x)) - this._start_x
         this.mY = Math.max(0, Math.min(rectBox.height, y)) - this._start_y
-        this.`$emit`("end", let {
-            object : UTSJSONObject() {
-                var x = it.mX
-                var y = it.mY
-                var type = "end"
-                var width = rectBox.width
-                var height = rectBox.height
-            }
-        })
+        this.`$emit`("end", _uO("x" to this.mX, "y" to this.mY, "type" to "end", "width" to rectBox.width, "height" to rectBox.height))
         this.eventName = "end"
         if (Date().getTime() - this.dubleTime > this.clickDiff) {
-            this.`$emit`("click", let {
-                object : UTSJSONObject() {
-                    var x = it.mX
-                    var y = it.mY
-                    var type = "click"
-                    var width = rectBox.width
-                    var height = rectBox.height
-                }
-            })
+            this.`$emit`("click", _uO("x" to this.mX, "y" to this.mY, "type" to "click", "width" to rectBox.width, "height" to rectBox.height))
             this.eventName = "click"
         }
         this.preV = CHECKPOINT_XY(x = 0, y = 0)
@@ -358,34 +295,26 @@ open class GenUniModulesTmxUiComponentsXFingerXFinger : VueComponent {
         var y = event.clientY - rectBox.top
         this.mX = Math.max(0, Math.min(rectBox.width, x)) - this._start_x
         this.mY = Math.max(0, Math.min(rectBox.height, y)) - this._start_y
-        this.`$emit`("cancel", let {
-            object : UTSJSONObject() {
-                var x = it.mX
-                var y = it.mY
-                var type = "end"
-                var width = rectBox.width
-                var height = rectBox.height
-            }
-        })
+        this.`$emit`("cancel", _uO("x" to this.mX, "y" to this.mY, "type" to "end", "width" to rectBox.width, "height" to rectBox.height))
         this.eventName = "cancel"
         this.preV = CHECKPOINT_XY(x = 0, y = 0)
         this.pinchStartLen = 0
     }
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf())
+            _nCS(_uA())
         }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("start" to null, "move" to null, "end" to null, "cancel" to null, "doubleClick" to null, "longPress" to null, "swiper" to null, "click" to null, "pinch" to null, "rotate" to null)
-        var props = normalizePropsOptions(utsMapOf("swiperDiff" to utsMapOf("type" to "Number", "default" to 50), "dbClickDiff" to utsMapOf("type" to "Number", "default" to 300), "clickDiff" to utsMapOf("type" to "Number", "default" to 50), "longDiff" to utsMapOf("type" to "Number", "default" to 800), "disabled" to utsMapOf("type" to "Boolean", "default" to false)))
-        var propsNeedCastKeys = utsArrayOf(
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("start" to null, "move" to null, "end" to null, "cancel" to null, "doubleClick" to null, "longPress" to null, "swiper" to null, "click" to null, "pinch" to null, "rotate" to null)
+        var props = _nP(_uM("swiperDiff" to _uM("type" to "Number", "default" to 50), "dbClickDiff" to _uM("type" to "Number", "default" to 300), "clickDiff" to _uM("type" to "Number", "default" to 50), "longDiff" to _uM("type" to "Number", "default" to 800), "disabled" to _uM("type" to "Boolean", "default" to false)))
+        var propsNeedCastKeys = _uA(
             "swiperDiff",
             "dbClickDiff",
             "clickDiff",
             "longDiff",
             "disabled"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 open class GenUniModulesTmxUiComponentsXPickerTimeXPickerTime : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {
         onMounted(fun() {
@@ -55,25 +51,25 @@ open class GenUniModulesTmxUiComponentsXPickerTimeXPickerTime : VueComponent {
         val _cache = this.`$`.renderCache
         val _component_x_picker_view = resolveEasyComponent("x-picker-view", GenUniModulesTmxUiComponentsXPickerViewXPickerViewClass)
         val _component_x_drawer = resolveEasyComponent("x-drawer", GenUniModulesTmxUiComponentsXDrawerXDrawerClass)
-        return createElementVNode(Fragment, null, utsArrayOf(
-            createElementVNode("view", utsMapOf("onClick" to _ctx.openShow), utsArrayOf(
+        return _cE(Fragment, null, _uA(
+            _cE("view", _uM("onClick" to _ctx.openShow), _uA(
                 renderSlot(_ctx.`$slots`, "default")
-            ), 8, utsArrayOf(
+            ), 8, _uA(
                 "onClick"
             )),
-            createVNode(_component_x_drawer, utsMapOf("cancel-text" to _ctx.cancelText, "confirm-text" to _ctx.confirmText, "zIndex" to _ctx.zIndex, "widthCoverCenter" to _ctx.widthCoverCenter, "disabledScroll" to true, "title" to _ctx.title, "onClose" to _ctx.onClose, "onConfirm" to _ctx.onConfirm, "onCancel" to _ctx.onCancel, "showFooter" to true, "show" to _ctx.show, "onUpdate:show" to fun(`$event`: Boolean){
+            _cV(_component_x_drawer, _uM("cancel-text" to _ctx.cancelText, "confirm-text" to _ctx.confirmText, "zIndex" to _ctx.zIndex, "widthCoverCenter" to _ctx.widthCoverCenter, "disabledScroll" to true, "title" to _ctx.title, "onClose" to _ctx.onClose, "onConfirm" to _ctx.onConfirm, "onCancel" to _ctx.onCancel, "showFooter" to true, "show" to _ctx.show, "onUpdate:show" to fun(`$event`: Boolean){
                 _ctx.show = `$event`
             }
-            , "show-close" to _ctx.showClose, "size" to "410px"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                return utsArrayOf(
-                    createElementVNode("view", utsMapOf("class" to "xPickerDateWrap"), utsArrayOf(
+            , "show-close" to _ctx.showClose, "size" to "410px"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                return _uA(
+                    _cE("view", _uM("class" to "xPickerDateWrap"), _uA(
                         if (isTrue(_ctx.show)) {
-                            createElementVNode(Fragment, utsMapOf("key" to 0), RenderHelpers.renderList(_ctx.dateList.slice(3), fun(item, index, __index, _cached): Any {
-                                return createVNode(_component_x_picker_view, utsMapOf("cellUnits" to utsArrayOf(
+                            _cE(Fragment, _uM("key" to 0), RenderHelpers.renderList(_ctx.dateList.slice(3), fun(item, index, __index, _cached): Any {
+                                return _cV(_component_x_picker_view, _uM("cellUnits" to _uA(
                                     _ctx.cellUnits[index + 3]
                                 ), "key" to (index + 3), "onChange" to fun(`$event`: Any){
                                     _ctx.mchange(`$event` as UTSArray<String>, index + 3)
-                                }, "model-value" to _ctx.nowValue[index + 3], "style" to normalizeStyle(utsMapOf("flex" to "1")), "list" to item), null, 8, utsArrayOf(
+                                }, "model-value" to _ctx.nowValue[index + 3], "style" to _nS(_uM("flex" to "1")), "list" to item), null, 8, _uA(
                                     "cellUnits",
                                     "onChange",
                                     "model-value",
@@ -82,12 +78,12 @@ open class GenUniModulesTmxUiComponentsXPickerTimeXPickerTime : VueComponent {
                                 ))
                             }), 128)
                         } else {
-                            createCommentVNode("v-if", true)
+                            _cC("v-if", true)
                         }
                     ))
                 )
             }
-            ), "_" to 1), 8, utsArrayOf(
+            ), "_" to 1), 8, _uA(
                 "cancel-text",
                 "confirm-text",
                 "zIndex",
@@ -137,7 +133,7 @@ open class GenUniModulesTmxUiComponentsXPickerTimeXPickerTime : VueComponent {
     override fun data(): Map<String, Any?> {
         var startValue = xDate("2000-1-1 0:0:0")
         var endValue = xDate("2000-1-1 23:59:59")
-        return utsMapOf("default_year" to 2000, "default_month" to 1, "default_date" to 1, "default_time_date" to "2000-1-1 ", "show" to false, "nowValue" to utsArrayOf<UTSArray<String>>(), "nowValueStr" to "", "startDate" to startValue, "endDate" to endValue, "dateList" to utsArrayOf<UTSArray<PICKER_ITEM_INFO>>(), "nowPull" to false, "_start_date" to computed<xDate>(fun(): xDate {
+        return _uM("default_year" to 2000, "default_month" to 1, "default_date" to 1, "default_time_date" to "2000-1-1 ", "show" to false, "nowValue" to _uA<UTSArray<String>>(), "nowValueStr" to "", "startDate" to startValue, "endDate" to endValue, "dateList" to _uA<UTSArray<PICKER_ITEM_INFO>>(), "nowPull" to false, "_start_date" to computed<xDate>(fun(): xDate {
             if (this.start == "") {
                 return this.startDate
             }
@@ -194,17 +190,17 @@ open class GenUniModulesTmxUiComponentsXPickerTimeXPickerTime : VueComponent {
     }
     open var getRangByDateTime = ::gen_getRangByDateTime_fn
     open fun gen_getRangByDateTime_fn(d: xDate): coverValue {
-        var nowRange = utsArrayOf<UTSArray<String>>(utsArrayOf(
+        var nowRange = _uA<UTSArray<String>>(_uA(
             d.getYear().toString(10)
-        ), utsArrayOf(
+        ), _uA(
             d.getMonth().toString(10)
-        ), utsArrayOf(
+        ), _uA(
             d.getDate().toString(10)
-        ), utsArrayOf(
+        ), _uA(
             d.getHours().toString(10)
-        ), utsArrayOf(
+        ), _uA(
             d.getMinutes().toString(10)
-        ), utsArrayOf(
+        ), _uA(
             d.getSeconds().toString(10)
         ))
         var nowRangeStr = d.getYear().toString(10) + "-" + (d.getMonth() + 1).toString(10) + "-" + d.getDate().toString(10) + " " + d.getHours().toString(10) + ":" + d.getMinutes().toString(10) + ":" + d.getSeconds().toString(10)
@@ -233,12 +229,12 @@ open class GenUniModulesTmxUiComponentsXPickerTimeXPickerTime : VueComponent {
         var startCopy = start.getClone()
         var nowDate = xDate(this.nowValueStr)
         var endCopy = end.getClone()
-        var years = utsArrayOf<PICKER_ITEM_INFO>()
-        var months = utsArrayOf<PICKER_ITEM_INFO>()
-        var days = utsArrayOf<PICKER_ITEM_INFO>()
-        var hours = utsArrayOf<PICKER_ITEM_INFO>()
-        var minutes = utsArrayOf<PICKER_ITEM_INFO>()
-        var seconds = utsArrayOf<PICKER_ITEM_INFO>()
+        var years = _uA<PICKER_ITEM_INFO>()
+        var months = _uA<PICKER_ITEM_INFO>()
+        var days = _uA<PICKER_ITEM_INFO>()
+        var hours = _uA<PICKER_ITEM_INFO>()
+        var minutes = _uA<PICKER_ITEM_INFO>()
+        var seconds = _uA<PICKER_ITEM_INFO>()
         run {
             var i = startCopy.getYear()
             while(i <= endCopy.getYear()){
@@ -366,7 +362,7 @@ open class GenUniModulesTmxUiComponentsXPickerTimeXPickerTime : VueComponent {
                     }
                 }
             }
-            return utsArrayOf<Number>(st, et)
+            return _uA<Number>(st, et)
         }
         var maxlen = this.getNowTypeLenIndex()
         if (maxlen > 1) {
@@ -389,7 +385,7 @@ open class GenUniModulesTmxUiComponentsXPickerTimeXPickerTime : VueComponent {
             var sdate = getDnumber("M", "s")
             getD("s", sdate[0]!!, sdate[1]!!)
         }
-        return utsArrayOf(
+        return _uA(
             years,
             months,
             days,
@@ -400,7 +396,7 @@ open class GenUniModulesTmxUiComponentsXPickerTimeXPickerTime : VueComponent {
     }
     open var getRangNumber = ::gen_getRangNumber_fn
     open fun gen_getRangNumber_fn(start: Number, end: Number): UTSArray<String> {
-        var iar = utsArrayOf<String>()
+        var iar = _uA<String>()
         run {
             var i = start
             while(i <= end){
@@ -481,22 +477,22 @@ open class GenUniModulesTmxUiComponentsXPickerTimeXPickerTime : VueComponent {
     }
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xPickerDateWrap" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row")))
+                return _uM("xPickerDateWrap" to _pS(_uM("display" to "flex", "flexDirection" to "row")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("cancel" to null, "confirm" to null, "change" to null, "update:modelShow" to null, "update:modelStr" to null, "update:modelValue" to null)
-        var props = normalizePropsOptions(utsMapOf("modelValue" to utsMapOf("type" to "String", "default" to ""), "modelStr" to utsMapOf("type" to "String", "default" to ""), "modelShow" to utsMapOf("type" to "Boolean", "default" to false), "title" to utsMapOf("type" to "String", "default" to "请选择时间"), "cancelText" to utsMapOf("type" to "String", "default" to "取消"), "confirmText" to utsMapOf("type" to "String", "default" to "确认"), "start" to utsMapOf("type" to "String", "default" to ""), "end" to utsMapOf("type" to "String", "default" to ""), "type" to utsMapOf("type" to "String", "default" to "second"), "format" to utsMapOf("type" to "String", "default" to "hh:mm:ss"), "cellUnits" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf<String>("年", "月", "日", "小时", "分钟", "秒数")
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("cancel" to null, "confirm" to null, "change" to null, "update:modelShow" to null, "update:modelStr" to null, "update:modelValue" to null)
+        var props = _nP(_uM("modelValue" to _uM("type" to "String", "default" to ""), "modelStr" to _uM("type" to "String", "default" to ""), "modelShow" to _uM("type" to "Boolean", "default" to false), "title" to _uM("type" to "String", "default" to "请选择时间"), "cancelText" to _uM("type" to "String", "default" to "取消"), "confirmText" to _uM("type" to "String", "default" to "确认"), "start" to _uM("type" to "String", "default" to ""), "end" to _uM("type" to "String", "default" to ""), "type" to _uM("type" to "String", "default" to "second"), "format" to _uM("type" to "String", "default" to "hh:mm:ss"), "cellUnits" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA<String>("年", "月", "日", "小时", "分钟", "秒数")
         }
-        ), "zIndex" to utsMapOf("type" to "Number", "default" to 1100), "showClose" to utsMapOf("type" to "Boolean", "default" to false), "disabled" to utsMapOf("type" to "Boolean", "default" to false), "widthCoverCenter" to utsMapOf("type" to "Boolean", "default" to false), "steps" to utsMapOf("type" to "Number", "default" to 0)))
-        var propsNeedCastKeys = utsArrayOf(
+        ), "zIndex" to _uM("type" to "Number", "default" to 1100), "showClose" to _uM("type" to "Boolean", "default" to false), "disabled" to _uM("type" to "Boolean", "default" to false), "widthCoverCenter" to _uM("type" to "Boolean", "default" to false), "steps" to _uM("type" to "Number", "default" to 0)))
+        var propsNeedCastKeys = _uA(
             "modelValue",
             "modelStr",
             "modelShow",
@@ -514,6 +510,6 @@ open class GenUniModulesTmxUiComponentsXPickerTimeXPickerTime : VueComponent {
             "widthCoverCenter",
             "steps"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 open class GenComponentsMcPrimaryButtonIndex : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {}
     open var disabled: Boolean by `$props`
@@ -74,57 +70,58 @@ open class GenComponentsMcPrimaryButtonIndex : VueComponent {
             }
             )
             return fun(): Any? {
-                return createElementVNode("view", utsMapOf("disabled" to _ctx.disabled, "class" to normalizeClass(utsArrayOf(
+                return _cE("view", _uM("disabled" to _ctx.disabled, "class" to _nC(_uA(
                     "primary-btn transition",
-                    utsMapOf("active" to unref(isPressed))
+                    _uM("active" to unref(isPressed))
                 )), "onTouchstart" to withModifiers(fun(){
                     isPressed.value = true
                 }
-                , utsArrayOf(
+                , _uA(
                     "stop"
                 )), "onTouchend" to withModifiers(fun(){
                     isPressed.value = false
                 }
-                , utsArrayOf(
+                , _uA(
                     "stop"
-                )), "style" to normalizeStyle(unref(customStyle)), "onClick" to withModifiers(click, utsArrayOf(
+                )), "style" to _nS(unref(customStyle)), "onClick" to withModifiers(click, _uA(
                     "stop"
-                ))), utsArrayOf(
+                ))), _uA(
                     if (_ctx.iconPath != "") {
-                        createElementVNode("image", utsMapOf("key" to 0, "style" to normalizeStyle(utsMapOf("width" to _ctx.iconSize)), "src" to _ctx.iconPath, "mode" to "widthFix"), null, 12, utsArrayOf(
+                        _cE("image", _uM("key" to 0, "style" to _nS(_uM("width" to _ctx.iconSize)), "src" to _ctx.iconPath, "mode" to "widthFix"), null, 12, _uA(
                             "src"
                         ))
                     } else {
-                        createCommentVNode("v-if", true)
+                        _cC("v-if", true)
                     }
                     ,
-                    createElementVNode("text", utsMapOf("style" to normalizeStyle(utsMapOf("color" to unref(customStyle)["color"]))), utsArrayOf(
+                    _cE("text", _uM("style" to _nS(_uM("color" to unref(customStyle)["color"]))), _uA(
                         renderSlot(_ctx.`$slots`, "default")
                     ), 4)
-                ), 46, utsArrayOf(
+                ), 46, _uA(
                     "disabled",
                     "onTouchstart",
                     "onTouchend"
                 ))
             }
         }
+        var name = "mc-primary-button"
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("primary-btn" to padStyleMapOf(utsMapOf("paddingTop" to 0, "paddingRight" to "20rpx", "paddingBottom" to 0, "paddingLeft" to "20rpx", "display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center", "boxSizing" to "border-box", "fontWeight" to "400", "boxShadow" to "0rpx 2rpx 5rpx 0rpx rgba(89, 119, 177, 0.2)")))
+                return _uM("primary-btn" to _pS(_uM("paddingTop" to 0, "paddingRight" to "20rpx", "paddingBottom" to 0, "paddingLeft" to "20rpx", "display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center", "boxSizing" to "border-box", "fontWeight" to "400", "boxShadow" to "0rpx 2rpx 5rpx 0rpx rgba(89, 119, 177, 0.2)")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("click" to null)
-        var props = normalizePropsOptions(utsMapOf("disabled" to utsMapOf("type" to "Boolean", "default" to false), "span" to utsMapOf("type" to "Number", "default" to 1), "iconPath" to utsMapOf("type" to "String", "default" to ""), "iconSize" to utsMapOf("type" to "String", "default" to "28rpx"), "fontSize" to utsMapOf("type" to "String", "default" to "30rpx"), "height" to utsMapOf("type" to "String", "default" to "80rpx"), "marginRight" to utsMapOf("type" to "String", "default" to "0"), "linearColors" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("click" to null)
+        var props = _nP(_uM("disabled" to _uM("type" to "Boolean", "default" to false), "span" to _uM("type" to "Number", "default" to 1), "iconPath" to _uM("type" to "String", "default" to ""), "iconSize" to _uM("type" to "String", "default" to "28rpx"), "fontSize" to _uM("type" to "String", "default" to "30rpx"), "height" to _uM("type" to "String", "default" to "80rpx"), "marginRight" to _uM("type" to "String", "default" to "0"), "linearColors" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA()
         }
-        ), "bgColor" to utsMapOf("type" to "String", "default" to ""), "color" to utsMapOf("type" to "String", "default" to ""), "borderRadius" to utsMapOf("type" to "String", "default" to "")))
-        var propsNeedCastKeys = utsArrayOf(
+        ), "bgColor" to _uM("type" to "String", "default" to ""), "color" to _uM("type" to "String", "default" to ""), "borderRadius" to _uM("type" to "String", "default" to "")))
+        var propsNeedCastKeys = _uA(
             "disabled",
             "span",
             "iconPath",
@@ -137,6 +134,6 @@ open class GenComponentsMcPrimaryButtonIndex : VueComponent {
             "color",
             "borderRadius"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

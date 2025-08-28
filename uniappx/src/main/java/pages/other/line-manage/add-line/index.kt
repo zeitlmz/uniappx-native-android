@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.`$emit` as uni__emit
 open class GenPagesOtherLineManageAddLineIndex : BasePage {
     constructor(__ins: ComponentInternalInstance, __renderer: String?) : super(__ins, __renderer) {
@@ -54,12 +50,12 @@ open class GenPagesOtherLineManageAddLineIndex : BasePage {
                 val _component_x_collapse_item = resolveEasyComponent("x-collapse-item", GenUniModulesTmxUiComponentsXCollapseItemXCollapseItemClass)
                 val _component_x_collapse = resolveEasyComponent("x-collapse", GenUniModulesTmxUiComponentsXCollapseXCollapseClass)
                 val _component_mc_base_container = resolveEasyComponent("mc-base-container", GenComponentsMcBaseContainerIndexClass)
-                return createVNode(_component_mc_base_container, utsMapOf("title" to "添加线路"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                    return utsArrayOf(
-                        createElementVNode(Fragment, null, RenderHelpers.renderList((9 as Number), fun(item, index, __index, _cached): Any {
-                            return createVNode(_component_x_sheet, utsMapOf("padding" to utsArrayOf(
+                return _cV(_component_mc_base_container, _uM("title" to "添加线路"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                    return _uA(
+                        _cE(Fragment, null, RenderHelpers.renderList((9 as Number), fun(item, index, __index, _cached): Any {
+                            return _cV(_component_x_sheet, _uM("padding" to _uA(
                                 "0"
-                            ), "margin" to utsArrayOf(
+                            ), "margin" to _uA(
                                 "15",
                                 if (index == 0) {
                                     "15"
@@ -69,24 +65,24 @@ open class GenPagesOtherLineManageAddLineIndex : BasePage {
                                 ,
                                 "15",
                                 "15"
-                            )), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                return utsArrayOf(
-                                    createVNode(_component_x_collapse, null, utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                        return utsArrayOf(
-                                            createVNode(_component_x_collapse_item, utsMapOf("showBottomLine" to false, "name" to "1", "title" to "太原市-太原市"), utsMapOf("left" to withSlotCtx(fun(): UTSArray<Any> {
-                                                return utsArrayOf(
-                                                    createVNode(_component_x_checkbox, utsMapOf("size" to "18"))
+                            )), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                return _uA(
+                                    _cV(_component_x_collapse, null, _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                        return _uA(
+                                            _cV(_component_x_collapse_item, _uM("showBottomLine" to false, "name" to "1", "title" to "太原市-太原市"), _uM("left" to withSlotCtx(fun(): UTSArray<Any> {
+                                                return _uA(
+                                                    _cV(_component_x_checkbox, _uM("size" to "18"))
                                                 )
                                             }
                                             ), "default" to withSlotCtx(fun(): UTSArray<Any> {
-                                                return utsArrayOf(
-                                                    createVNode(_component_x_sheet, utsMapOf("margin" to utsArrayOf(
+                                                return _uA(
+                                                    _cV(_component_x_sheet, _uM("margin" to _uA(
                                                         "0"
-                                                    ), "class" to "flex-row flex-row-center-between", "color" to "#EAF2FD"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                                        return utsArrayOf(
-                                                            createElementVNode("view", utsMapOf("class" to "left-box flex-row flex-row-center-between"), utsArrayOf(
-                                                                createVNode(_component_x_checkbox, utsMapOf("size" to "18")),
-                                                                createElementVNode("text", null, "小店区-太原市")
+                                                    ), "class" to "flex-row flex-row-center-between", "color" to "#EAF2FD"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                        return _uA(
+                                                            _cE("view", _uM("class" to "left-box flex-row flex-row-center-between"), _uA(
+                                                                _cV(_component_x_checkbox, _uM("size" to "18")),
+                                                                _cE("text", null, "小店区-太原市")
                                                             ))
                                                         )
                                                     }
@@ -99,33 +95,33 @@ open class GenPagesOtherLineManageAddLineIndex : BasePage {
                                     ), "_" to 1))
                                 )
                             }
-                            ), "_" to 2), 1032, utsArrayOf(
+                            ), "_" to 2), 1032, _uA(
                                 "margin"
                             ))
                         }
                         ), 64),
-                        createElementVNode("view", utsMapOf("style" to normalizeStyle("width:100%;height: " + (unref(globalData).safeAreaBottom + 55) + "px;")), null, 4)
+                        _cE("view", _uM("style" to _nS("width:100%;height: " + (unref(globalData).safeAreaBottom + 55) + "px;")), null, 4)
                     )
                 }
                 ), "_" to 1))
             }
         }
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
-            ), utsArrayOf(
+            ), _uA(
                 GenApp.styles
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("left-box" to padStyleMapOf(utsMapOf("flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center")), "icon" to utsMapOf(".left-box " to utsMapOf("width" to 12, "height" to 14), ".right-box " to utsMapOf("width" to 6, "height" to 12, "marginLeft" to "10rpx")), "btn-group-panel" to padStyleMapOf(utsMapOf("position" to "fixed", "bottom" to 0, "left" to 0, "right" to 0, "paddingTop" to 15, "paddingRight" to 15, "paddingBottom" to 15, "paddingLeft" to 15)))
+                return _uM("left-box" to _pS(_uM("flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center")), "icon" to _uM(".left-box " to _uM("width" to 12, "height" to 14), ".right-box " to _uM("width" to 6, "height" to 12, "marginLeft" to "10rpx")), "btn-group-panel" to _pS(_uM("position" to "fixed", "bottom" to 0, "left" to 0, "right" to 0, "paddingTop" to 15, "paddingRight" to 15, "paddingBottom" to 15, "paddingLeft" to 15)))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf()
-        var props = normalizePropsOptions(utsMapOf())
-        var propsNeedCastKeys: UTSArray<String> = utsArrayOf()
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM()
+        var props = _nP(_uM())
+        var propsNeedCastKeys: UTSArray<String> = _uA()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 open class GenComponentsMcActiveAnimationIndex : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {}
     companion object {
@@ -31,37 +27,38 @@ open class GenComponentsMcActiveAnimationIndex : VueComponent {
                 emit("click")
             }
             return fun(): Any? {
-                return createElementVNode("view", utsMapOf("class" to normalizeClass(utsArrayOf(
+                return _cE("view", _uM("class" to _nC(_uA(
                     "transition",
-                    utsMapOf("active" to unref(isPressed))
+                    _uM("active" to unref(isPressed))
                 )), "onTouchstart" to fun(){
                     isPressed.value = true
                 }
                 , "onTouchend" to fun(){
                     isPressed.value = false
                 }
-                , "onClick" to click), utsArrayOf(
+                , "onClick" to click), _uA(
                     renderSlot(_ctx.`$slots`, "default")
-                ), 42, utsArrayOf(
+                ), 42, _uA(
                     "onTouchstart",
                     "onTouchend"
                 ))
             }
         }
+        var name = "mc-active-animation"
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("transition" to utsMapOf("" to utsMapOf("transitionDuration" to "0.15s"), ".active" to utsMapOf("opacity" to 0.8, "transform" to "scale(0.98)")), "@TRANSITION" to utsMapOf("transition" to utsMapOf("duration" to "0.15s")))
+                return _uM("transition" to _uM("" to _uM("transitionProperty" to "all", "transitionDuration" to "0.15s"), ".active" to _uM("opacity" to 0.8, "transform" to "scale(0.98)")), "@TRANSITION" to _uM("transition" to _uM("property" to "all", "duration" to "0.15s")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("click" to null)
-        var props = normalizePropsOptions(utsMapOf())
-        var propsNeedCastKeys: UTSArray<String> = utsArrayOf()
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("click" to null)
+        var props = _nP(_uM())
+        var propsNeedCastKeys: UTSArray<String> = _uA()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

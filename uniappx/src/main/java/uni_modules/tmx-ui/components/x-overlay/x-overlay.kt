@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.getWindowInfo as uni_getWindowInfo
 open class GenUniModulesTmxUiComponentsXOverlayXOverlay : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {
@@ -53,20 +49,20 @@ open class GenUniModulesTmxUiComponentsXOverlayXOverlay : VueComponent {
         val _ctx = this
         val _cache = this.`$`.renderCache
         val _component_x_icon = resolveEasyComponent("x-icon", GenUniModulesTmxUiComponentsXIconXIconClass)
-        return createElementVNode("view", null, utsArrayOf(
-            createElementVNode("view", utsMapOf("onClick" to _ctx.openOverlay), utsArrayOf(
-                renderSlot(_ctx.`$slots`, "trigger", utsMapOf("show" to _ctx.show))
-            ), 8, utsArrayOf(
+        return _cE("view", null, _uA(
+            _cE("view", _uM("onClick" to _ctx.openOverlay), _uA(
+                renderSlot(_ctx.`$slots`, "trigger", _uM("show" to _ctx.show))
+            ), 8, _uA(
                 "onClick"
             )),
             if (isTrue(_ctx.showOverflay)) {
-                createElementVNode("view", utsMapOf("key" to 0, "id" to _ctx.id, "ref" to "xoverflay", "class" to "xoverflay", "style" to normalizeStyle(utsArrayOf(
-                    utsMapOf("width" to "100%", "height" to _ctx.__height, "top" to (_ctx.windtop + "px"), "zIndex" to _ctx.zIndex)
-                ))), utsArrayOf(
-                    createElementVNode("view", utsMapOf("onClick" to withModifiers(_ctx.onClickOverflowy, utsArrayOf(
+                _cE("view", _uM("key" to 0, "id" to _ctx.id, "ref" to "xoverflay", "class" to "xoverflay", "style" to _nS(_uA(
+                    _uM("width" to "100%", "height" to _ctx.__height, "top" to (_ctx.windtop + "px"), "zIndex" to _ctx.zIndex)
+                ))), _uA(
+                    _cE("view", _uM("onClick" to withModifiers(_ctx.onClickOverflowy, _uA(
                         "stop"
-                    )), "class" to normalizeClass(utsArrayOf(
-                        utsArrayOf(
+                    )), "class" to _nC(_uA(
+                        _uA(
                             if (_ctx.status == "open") {
                                 "xoverflayMaskShow"
                             } else {
@@ -79,9 +75,9 @@ open class GenUniModulesTmxUiComponentsXOverlayXOverlay : VueComponent {
                             }
                         ),
                         "xoverflayWrapBoxContent"
-                    )), "style" to normalizeStyle(_ctx._customStyle)), utsArrayOf(
-                        createElementVNode("view", utsMapOf("ref" to "xoverflayWrapBox", "class" to normalizeClass(utsArrayOf(
-                            utsArrayOf(
+                    )), "style" to _nS(_ctx._customStyle)), _uA(
+                        _cE("view", _uM("ref" to "xoverflayWrapBox", "class" to _nC(_uA(
+                            _uA(
                                 if (_ctx.status == "open") {
                                     "xoverflayShow"
                                 } else {
@@ -94,30 +90,30 @@ open class GenUniModulesTmxUiComponentsXOverlayXOverlay : VueComponent {
                                 }
                             ),
                             "xoverflayWrapBox"
-                        )), "onClick" to withModifiers(fun(){}, utsArrayOf(
+                        )), "onClick" to withModifiers(fun(){}, _uA(
                             "stop"
-                        )), "style" to normalizeStyle(_ctx._customContentStyle)), utsArrayOf(
+                        )), "style" to _nS(_ctx._customContentStyle)), _uA(
                             renderSlot(_ctx.`$slots`, "default"),
                             if (isTrue(_ctx._showClose)) {
-                                createElementVNode("view", utsMapOf("key" to 0, "class" to "closeOverBtn"), utsArrayOf(
-                                    createVNode(_component_x_icon, utsMapOf("onClick" to _ctx.closeAlert, "color" to "white", "font-size" to "38", "name" to "close-circle-fill"), null, 8, utsArrayOf(
+                                _cE("view", _uM("key" to 0, "class" to "closeOverBtn"), _uA(
+                                    _cV(_component_x_icon, _uM("onClick" to _ctx.closeAlert, "color" to "white", "font-size" to "38", "name" to "close-circle-fill"), null, 8, _uA(
                                         "onClick"
                                     ))
                                 ))
                             } else {
-                                createCommentVNode("v-if", true)
+                                _cC("v-if", true)
                             }
-                        ), 14, utsArrayOf(
+                        ), 14, _uA(
                             "onClick"
                         ))
-                    ), 14, utsArrayOf(
+                    ), 14, _uA(
                         "onClick"
                     ))
-                ), 12, utsArrayOf(
+                ), 12, _uA(
                     "id"
                 ))
             } else {
-                createCommentVNode("v-if", true)
+                _cC("v-if", true)
             }
         ))
     }
@@ -151,7 +147,7 @@ open class GenUniModulesTmxUiComponentsXOverlayXOverlay : VueComponent {
     open var __height: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("_width" to 0, "_height" to 0, "showOverflay" to false, "element" to null as Element?, "actioning" to false, "status" to "", "id" to ("xoverflay" + getUid()), "tid" to 0, "windtop" to 0, "isOpenedDefault" to false, "xani" to null as xAnimate?, "tw" to xTween(), "_customStyle" to computed<String>(fun(): String {
+        return _uM("_width" to 0, "_height" to 0, "showOverflay" to false, "element" to null as Element?, "actioning" to false, "status" to "", "id" to ("xoverflay" + getUid()), "tid" to 0, "windtop" to 0, "isOpenedDefault" to false, "xani" to null as xAnimate?, "tw" to xTween(), "_customStyle" to computed<String>(fun(): String {
             return this.customStyle
         }
         ), "_customContentStyle" to computed<String>(fun(): String {
@@ -287,19 +283,19 @@ open class GenUniModulesTmxUiComponentsXOverlayXOverlay : VueComponent {
     open fun gen_wrapClick_fn(evt: UniPointerEvent) {}
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xoverflayWrapBox" to padStyleMapOf(utsMapOf("pointerEvents" to "auto", "transform" to "scale(0)", "opacity" to 0)), "closeOverBtn" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "marginTop" to "32rpx", "zIndex" to 105, "opacity" to 0.7)), "xoverflayWrapBoxMasker" to padStyleMapOf(utsMapOf("width" to "100%", "height" to "100%", "left" to 0, "top" to 0, "position" to "absolute", "zIndex" to 1)), "xoverflayWrapBoxContent" to padStyleMapOf(utsMapOf("width" to "100%", "height" to "100%", "left" to 0, "top" to 0, "position" to "absolute", "zIndex" to 3)), "xoverflay" to padStyleMapOf(utsMapOf("backgroundColor" to "rgba(0,0,0,0)", "position" to "fixed", "left" to 0, "top" to 0)))
+                return _uM("xoverflayWrapBox" to _pS(_uM("pointerEvents" to "auto", "transform" to "scale(0)", "opacity" to 0)), "closeOverBtn" to _pS(_uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "marginTop" to "32rpx", "zIndex" to 105, "opacity" to 0.7)), "xoverflayWrapBoxMasker" to _pS(_uM("width" to "100%", "height" to "100%", "left" to 0, "top" to 0, "position" to "absolute", "zIndex" to 1)), "xoverflayWrapBoxContent" to _pS(_uM("width" to "100%", "height" to "100%", "left" to 0, "top" to 0, "position" to "absolute", "zIndex" to 3)), "xoverflay" to _pS(_uM("backgroundColor" to "rgba(0,0,0,0)", "position" to "fixed", "left" to 0, "top" to 0)))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("click" to null, "close" to null, "open" to null, "beforeOpen" to null, "beforeClose" to null, "update:show" to null)
-        var props = normalizePropsOptions(utsMapOf("customStyle" to utsMapOf("type" to "String", "default" to ""), "customContentStyle" to utsMapOf("type" to "String", "default" to ""), "showClose" to utsMapOf("type" to "Boolean", "default" to false), "overlayClick" to utsMapOf("type" to "Boolean", "default" to true), "disabledAni" to utsMapOf("type" to "Boolean", "default" to false), "show" to utsMapOf("type" to "Boolean", "default" to false), "duration" to utsMapOf("type" to "Number", "default" to 300), "watiDuration" to utsMapOf("type" to "Number", "default" to 120), "zIndex" to utsMapOf("type" to "Number", "default" to 1100)))
-        var propsNeedCastKeys = utsArrayOf(
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("click" to null, "close" to null, "open" to null, "beforeOpen" to null, "beforeClose" to null, "update:show" to null)
+        var props = _nP(_uM("customStyle" to _uM("type" to "String", "default" to ""), "customContentStyle" to _uM("type" to "String", "default" to ""), "showClose" to _uM("type" to "Boolean", "default" to false), "overlayClick" to _uM("type" to "Boolean", "default" to true), "disabledAni" to _uM("type" to "Boolean", "default" to false), "show" to _uM("type" to "Boolean", "default" to false), "duration" to _uM("type" to "Number", "default" to 300), "watiDuration" to _uM("type" to "Number", "default" to 120), "zIndex" to _uM("type" to "Number", "default" to 1100)))
+        var propsNeedCastKeys = _uA(
             "customStyle",
             "customContentStyle",
             "showClose",
@@ -310,6 +306,6 @@ open class GenUniModulesTmxUiComponentsXOverlayXOverlay : VueComponent {
             "watiDuration",
             "zIndex"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

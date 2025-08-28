@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 open class GenUniModulesTmxUiComponentsXLoadingXLoading : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {}
     @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
@@ -22,19 +18,19 @@ open class GenUniModulesTmxUiComponentsXLoadingXLoading : VueComponent {
         val _ctx = this
         val _cache = this.`$`.renderCache
         val _component_x_icon = resolveEasyComponent("x-icon", GenUniModulesTmxUiComponentsXIconXIconClass)
-        return createElementVNode("view", utsMapOf("class" to "xLoading", "style" to normalizeStyle(utsMapOf("flex-direction" to if (_ctx.vertical) {
+        return _cE("view", _uM("class" to "xLoading", "style" to _nS(_uM("flex-direction" to if (_ctx.vertical) {
             "column"
         } else {
             "row"
         }
-        ))), utsArrayOf(
-            createVNode(_component_x_icon, utsMapOf("font-size" to _ctx._iconSize, "color" to _ctx._color, "name" to _ctx._icon, "spin" to true), null, 8, utsArrayOf(
+        ))), _uA(
+            _cV(_component_x_icon, _uM("font-size" to _ctx._iconSize, "color" to _ctx._color, "name" to _ctx._icon, "spin" to true), null, 8, _uA(
                 "font-size",
                 "color",
                 "name"
             )),
             if (isTrue(!_ctx._hideText)) {
-                createElementVNode("text", utsMapOf("key" to 0, "style" to normalizeStyle(utsMapOf("font-size" to _ctx._textSize, "color" to _ctx._textColor, "marginLeft" to if (_ctx.vertical) {
+                _cE("text", _uM("key" to 0, "style" to _nS(_uM("font-size" to _ctx._textSize, "color" to _ctx._textColor, "marginLeft" to if (_ctx.vertical) {
                     "0px"
                 } else {
                     "5px"
@@ -42,15 +38,15 @@ open class GenUniModulesTmxUiComponentsXLoadingXLoading : VueComponent {
                     "8px"
                 } else {
                     "0px"
-                }, "lineHeight" to "1.1"))), utsArrayOf(
+                }, "lineHeight" to "1.1"))), _uA(
                     renderSlot(_ctx.`$slots`, "default", UTSJSONObject(), fun(): UTSArray<Any> {
-                        return utsArrayOf(
+                        return _uA(
                             "加载中..."
                         )
                     })
                 ), 4)
             } else {
-                createCommentVNode("v-if", true)
+                _cC("v-if", true)
             }
         ), 4)
     }
@@ -69,7 +65,7 @@ open class GenUniModulesTmxUiComponentsXLoadingXLoading : VueComponent {
     open var _iconSize: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("_icon" to computed<String>(fun(): String {
+        return _uM("_icon" to computed<String>(fun(): String {
             return this.icon
         }
         ), "_hideText" to computed<Boolean>(fun(): Boolean {
@@ -91,19 +87,19 @@ open class GenUniModulesTmxUiComponentsXLoadingXLoading : VueComponent {
     }
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xLoading" to padStyleMapOf(utsMapOf("display" to "flex", "alignItems" to "center", "justifyContent" to "center")))
+                return _uM("xLoading" to _pS(_uM("display" to "flex", "alignItems" to "center", "justifyContent" to "center")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf()
-        var props = normalizePropsOptions(utsMapOf("color" to utsMapOf("type" to "String", "default" to "#8b8b8b"), "textColor" to utsMapOf("type" to "String", "default" to "#8b8b8b"), "textSize" to utsMapOf("type" to "String", "default" to "12"), "iconSize" to utsMapOf("type" to "String", "default" to "21"), "vertical" to utsMapOf("type" to "Boolean", "default" to true), "icon" to utsMapOf("type" to "String", "default" to "loader-line"), "hideText" to utsMapOf("type" to "Boolean", "default" to false)))
-        var propsNeedCastKeys = utsArrayOf(
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM()
+        var props = _nP(_uM("color" to _uM("type" to "String", "default" to "#8b8b8b"), "textColor" to _uM("type" to "String", "default" to "#8b8b8b"), "textSize" to _uM("type" to "String", "default" to "12"), "iconSize" to _uM("type" to "String", "default" to "21"), "vertical" to _uM("type" to "Boolean", "default" to true), "icon" to _uM("type" to "String", "default" to "loader-line"), "hideText" to _uM("type" to "Boolean", "default" to false)))
+        var propsNeedCastKeys = _uA(
             "color",
             "textColor",
             "textSize",
@@ -112,6 +108,6 @@ open class GenUniModulesTmxUiComponentsXLoadingXLoading : VueComponent {
             "icon",
             "hideText"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

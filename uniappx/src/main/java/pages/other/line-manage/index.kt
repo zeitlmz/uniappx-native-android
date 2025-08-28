@@ -11,13 +11,7 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.`$emit` as uni__emit
-import uts.sdk.modules.mcAmapNavPlus.checkLocationPermission
-import uts.sdk.modules.mcAmapNavPlus.init
 import io.dcloud.uniapp.extapi.navigateTo as uni_navigateTo
 open class GenPagesOtherLineManageIndex : BasePage {
     constructor(__ins: ComponentInternalInstance, __renderer: String?) : super(__ins, __renderer) {
@@ -54,20 +48,20 @@ open class GenPagesOtherLineManageIndex : BasePage {
             val isfresh = ref<Boolean>(false)
             val bottomFresh = ref<Boolean>(false)
             var scrollDirection = "down"
-            val linesAggCityList = ref(utsArrayOf<LinesAggCityInfo>())
+            val linesAggCityList = ref(_uA<LinesAggCityInfo>())
             val itemMap = ref<Map<Number, UTSArray<LinesBindInfo>>>(Map())
             val toViewDistinct = fun(item: LinesBindInfo){
                 uni_navigateTo(NavigateToOptions(url = "/pages/other/line-manage/view-distinct/index?districtToCityName=" + item.districtToCityName + "&startDistrictCode=" + item.startDistrictCode + "&startCityCode=" + item.startCityCode + "&endCityCode=" + item.endCityCode))
             }
             val onChange = fun(item: LinesAggCityInfo, index: Number){
                 getDriverBindLinesDistrictToCityList(item.startCityCode, item.endCityCode).then(fun(res: Response){
-                    itemMap.value.set(index, JSON.parseArray<LinesBindInfo>(JSON.stringify(res.data)) ?: utsArrayOf())
+                    itemMap.value.set(index, JSON.parseArray<LinesBindInfo>(JSON.stringify(res.data)) ?: _uA())
                 }
                 )
             }
             val init = fun(){
                 getDriverBindLines().then(fun(res: Response){
-                    linesAggCityList.value = JSON.parseArray<LinesAggCityInfo>(JSON.stringify(res.data)) ?: utsArrayOf()
+                    linesAggCityList.value = JSON.parseArray<LinesAggCityInfo>(JSON.stringify(res.data)) ?: _uA()
                     if (scrollDirection == "down") {
                         isfresh.value = false
                     } else {
@@ -98,22 +92,22 @@ open class GenPagesOtherLineManageIndex : BasePage {
                 val _component_x_pull_refresh = resolveEasyComponent("x-pull-refresh", GenUniModulesTmxUiComponentsXPullRefreshXPullRefreshClass)
                 val _component_template = resolveComponent("template")
                 val _component_mc_base_container = resolveEasyComponent("mc-base-container", GenComponentsMcBaseContainerIndexClass)
-                return createVNode(_component_mc_base_container, utsMapOf("title" to "线路管理"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                    return utsArrayOf(
-                        createVNode(_component_template, null, utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                            return utsArrayOf(
-                                createVNode(_component_x_pull_refresh, utsMapOf("height" to ("" + (unref(screenHeight) - unref(statusBarHeight) - unref(globalData).safeAreaBottom - 125) + "px"), "pullHeight" to 30, "disabled-bottom" to true, "show-scrollbar" to false, "modelValue" to unref(isfresh), "onUpdate:modelValue" to fun(`$event`: Boolean){
+                return _cV(_component_mc_base_container, _uM("title" to "线路管理"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                    return _uA(
+                        _cV(_component_template, null, _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                            return _uA(
+                                _cV(_component_x_pull_refresh, _uM("height" to ("" + (unref(screenHeight) - unref(statusBarHeight) - unref(globalData).safeAreaBottom - 125) + "px"), "pullHeight" to 30, "disabled-bottom" to true, "show-scrollbar" to false, "modelValue" to unref(isfresh), "onUpdate:modelValue" to fun(`$event`: Boolean){
                                     trySetRefValue(isfresh, `$event`)
                                 }
                                 , "model-bottom-status" to unref(bottomFresh), "onUpdate:modelBottomStatus" to fun(`$event`: Boolean){
                                     trySetRefValue(bottomFresh, `$event`)
                                 }
-                                , "onRefresh" to topLoad, "onBottomRefresh" to bottomLoad), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                    return utsArrayOf(
-                                        createElementVNode(Fragment, null, RenderHelpers.renderList(unref(linesAggCityList), fun(item, index, __index, _cached): Any {
-                                            return createVNode(_component_x_sheet, utsMapOf("padding" to utsArrayOf(
+                                , "onRefresh" to topLoad, "onBottomRefresh" to bottomLoad), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                    return _uA(
+                                        _cE(Fragment, null, RenderHelpers.renderList(unref(linesAggCityList), fun(item, index, __index, _cached): Any {
+                                            return _cV(_component_x_sheet, _uM("padding" to _uA(
                                                 "0"
-                                            ), "margin" to utsArrayOf(
+                                            ), "margin" to _uA(
                                                 "15",
                                                 if (index == 0) {
                                                     "15"
@@ -123,17 +117,17 @@ open class GenPagesOtherLineManageIndex : BasePage {
                                                 ,
                                                 "15",
                                                 "20"
-                                            ), "style" to normalizeStyle(utsMapOf("margin-bottom" to "20px"))), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                                return utsArrayOf(
-                                                    createVNode(_component_x_collapse, utsMapOf("onChange" to fun(){
+                                            ), "style" to _nS(_uM("margin-bottom" to "20px"))), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                return _uA(
+                                                    _cV(_component_x_collapse, _uM("onChange" to fun(){
                                                         onChange(item, index)
                                                     }
-                                                    ), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                                        return utsArrayOf(
-                                                            createVNode(_component_x_collapse_item, utsMapOf("showBottomLine" to false, "name" to "1", "title" to (item.startCityName + "-" + item.endCityName)), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                                                return utsArrayOf(
-                                                                    createElementVNode(Fragment, null, RenderHelpers.renderList(unref(itemMap).get(index), fun(item2, index2, __index, _cached): Any {
-                                                                        return createVNode(_component_x_sheet, utsMapOf("margin" to utsArrayOf(
+                                                    ), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                        return _uA(
+                                                            _cV(_component_x_collapse_item, _uM("showBottomLine" to false, "name" to "1", "title" to (item.startCityName + "-" + item.endCityName)), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                                return _uA(
+                                                                    _cE(Fragment, null, RenderHelpers.renderList(unref(itemMap).get(index), fun(item2, index2, __index, _cached): Any {
+                                                                        return _cV(_component_x_sheet, _uM("margin" to _uA(
                                                                             "0",
                                                                             if (index2 == 0) {
                                                                                 "0"
@@ -143,28 +137,28 @@ open class GenPagesOtherLineManageIndex : BasePage {
                                                                             ,
                                                                             "0",
                                                                             "0"
-                                                                        ), "class" to "flex-row flex-row-center-between", "color" to unref(globalData).theme.painColor), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                                                            return utsArrayOf(
-                                                                                createElementVNode("view", utsMapOf("class" to "left-box flex-row flex-row-center-between"), utsArrayOf(
-                                                                                    createElementVNode("image", utsMapOf("class" to "icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-location-filled.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
+                                                                        ), "class" to "flex-row flex-row-center-between", "color" to unref(globalData).theme.painColor), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                                            return _uA(
+                                                                                _cE("view", _uM("class" to "left-box flex-row flex-row-center-between"), _uA(
+                                                                                    _cE("image", _uM("class" to "icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-location-filled.png"), "mode" to "widthFix"), null, 8, _uA(
                                                                                         "src"
                                                                                     )),
-                                                                                    createElementVNode("text", utsMapOf("class" to "pl-5"), toDisplayString(item2.districtToCityName), 1)
+                                                                                    _cE("text", _uM("class" to "pl-5"), _tD(item2.districtToCityName), 1)
                                                                                 )),
-                                                                                createElementVNode("view", utsMapOf("class" to "right-box flex-row flex-row-center-between", "onClick" to fun(){
+                                                                                _cE("view", _uM("class" to "right-box flex-row flex-row-center-between", "onClick" to fun(){
                                                                                     toViewDistinct(item2)
                                                                                 }
-                                                                                ), utsArrayOf(
-                                                                                    createElementVNode("text", utsMapOf("style" to normalizeStyle("color: " + unref(globalData).theme.primaryColor + ";")), "查看区县", 4),
-                                                                                    createElementVNode("image", utsMapOf("class" to "icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-arrow-right-line-samll.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
+                                                                                ), _uA(
+                                                                                    _cE("text", _uM("style" to _nS("color: " + unref(globalData).theme.primaryColor + ";")), "查看区县", 4),
+                                                                                    _cE("image", _uM("class" to "icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-arrow-right-line-samll.png"), "mode" to "widthFix"), null, 8, _uA(
                                                                                         "src"
                                                                                     ))
-                                                                                ), 8, utsArrayOf(
+                                                                                ), 8, _uA(
                                                                                     "onClick"
                                                                                 ))
                                                                             )
                                                                         }
-                                                                        ), "_" to 2), 1032, utsArrayOf(
+                                                                        ), "_" to 2), 1032, _uA(
                                                                             "margin",
                                                                             "color"
                                                                         ))
@@ -172,30 +166,30 @@ open class GenPagesOtherLineManageIndex : BasePage {
                                                                     ), 256)
                                                                 )
                                                             }
-                                                            ), "_" to 2), 1032, utsArrayOf(
+                                                            ), "_" to 2), 1032, _uA(
                                                                 "title"
                                                             ))
                                                         )
                                                     }
-                                                    ), "_" to 2), 1032, utsArrayOf(
+                                                    ), "_" to 2), 1032, _uA(
                                                         "onChange"
                                                     ))
                                                 )
                                             }
-                                            ), "_" to 2), 1032, utsArrayOf(
+                                            ), "_" to 2), 1032, _uA(
                                                 "margin",
                                                 "style"
                                             ))
                                         }
                                         ), 256),
                                         if (unref(linesAggCityList).length <= 0) {
-                                            createVNode(_component_x_empty, utsMapOf("key" to 0, "loading" to false, "empty" to true, "showBtn" to false))
+                                            _cV(_component_x_empty, _uM("key" to 0, "loading" to false, "empty" to true, "showBtn" to false))
                                         } else {
-                                            createCommentVNode("v-if", true)
+                                            _cC("v-if", true)
                                         }
                                     )
                                 }
-                                ), "_" to 1), 8, utsArrayOf(
+                                ), "_" to 1), 8, _uA(
                                     "height",
                                     "modelValue",
                                     "model-bottom-status"
@@ -209,21 +203,21 @@ open class GenPagesOtherLineManageIndex : BasePage {
             }
         }
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
-            ), utsArrayOf(
+            ), _uA(
                 GenApp.styles
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("left-box" to padStyleMapOf(utsMapOf("flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center")), "icon" to utsMapOf(".left-box " to utsMapOf("width" to 12, "height" to 14), ".right-box " to utsMapOf("width" to 6, "height" to 12, "marginLeft" to "10rpx")), "btn-group-panel" to padStyleMapOf(utsMapOf("position" to "fixed", "bottom" to 0, "left" to 0, "right" to 0, "paddingTop" to 15, "paddingRight" to 15, "paddingBottom" to 15, "paddingLeft" to 15)))
+                return _uM("left-box" to _pS(_uM("flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center")), "icon" to _uM(".left-box " to _uM("width" to 12, "height" to 14), ".right-box " to _uM("width" to 6, "height" to 12, "marginLeft" to "10rpx")), "btn-group-panel" to _pS(_uM("position" to "fixed", "bottom" to 0, "left" to 0, "right" to 0, "paddingTop" to 15, "paddingRight" to 15, "paddingBottom" to 15, "paddingLeft" to 15)))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf()
-        var props = normalizePropsOptions(utsMapOf())
-        var propsNeedCastKeys: UTSArray<String> = utsArrayOf()
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM()
+        var props = _nP(_uM())
+        var propsNeedCastKeys: UTSArray<String> = _uA()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

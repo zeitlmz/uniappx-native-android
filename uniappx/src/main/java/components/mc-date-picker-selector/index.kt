@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 open class GenComponentsMcDatePickerSelectorIndex : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {
         this.`$watch`(fun(): Any? {
@@ -34,36 +30,36 @@ open class GenComponentsMcDatePickerSelectorIndex : VueComponent {
         val _component_x_button = resolveEasyComponent("x-button", GenUniModulesTmxUiComponentsXButtonXButtonClass)
         val _component_x_sheet = resolveEasyComponent("x-sheet", GenUniModulesTmxUiComponentsXSheetXSheetClass)
         val _component_x_drawer = resolveEasyComponent("x-drawer", GenUniModulesTmxUiComponentsXDrawerXDrawerClass)
-        return createElementVNode(Fragment, null, utsArrayOf(
-            createElementVNode("view", utsMapOf("onClick" to _ctx.openDatePicker), utsArrayOf(
+        return _cE(Fragment, null, _uA(
+            _cE("view", _uM("onClick" to _ctx.openDatePicker), _uA(
                 renderSlot(_ctx.`$slots`, "default")
-            ), 8, utsArrayOf(
+            ), 8, _uA(
                 "onClick"
             )),
-            createVNode(_component_x_drawer, utsMapOf("content-margin" to "0px", "show" to _ctx.showDrawer, "onUpdate:show" to fun(`$event`: Boolean){
+            _cV(_component_x_drawer, _uM("content-margin" to "0px", "show" to _ctx.showDrawer, "onUpdate:show" to fun(`$event`: Boolean){
                 _ctx.showDrawer = `$event`
             }
-            , "bgColor" to "#ffffff", "show-title" to false, "size" to "560px"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                return utsArrayOf(
-                    createVNode(_component_x_sheet, utsMapOf("height" to "100%", "padding" to utsArrayOf(
+            , "bgColor" to "#ffffff", "show-title" to false, "size" to "560px"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                return _uA(
+                    _cV(_component_x_sheet, _uM("height" to "100%", "padding" to _uA(
                         "0"
-                    ), "margin" to utsArrayOf(
+                    ), "margin" to _uA(
                         "0"
-                    ), "linear-gradient" to utsArrayOf(
+                    ), "linear-gradient" to _uA(
                         "bottom",
                         _ctx.globalData.theme.painColor,
                         "#ffffff"
-                    )), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                        return utsArrayOf(
-                            createVNode(_component_x_sheet, utsMapOf("color" to "transparent", "padding" to utsArrayOf(
+                    )), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                        return _uA(
+                            _cV(_component_x_sheet, _uM("color" to "transparent", "padding" to _uA(
                                 "15"
-                            )), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                return utsArrayOf(
-                                    createElementVNode("text", utsMapOf("class" to "title"), "月份选择"),
-                                    createVNode(_component_x_date_view, utsMapOf("style" to normalizeStyle(utsMapOf("height" to "700rpx")), "type" to "month", "modelValue" to _ctx.date, "onUpdate:modelValue" to fun(`$event`: Any?){
+                            )), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                return _uA(
+                                    _cE("text", _uM("class" to "title"), "月份选择"),
+                                    _cV(_component_x_date_view, _uM("style" to _nS(_uM("height" to "700rpx")), "type" to "month", "modelValue" to _ctx.date, "onUpdate:modelValue" to fun(`$event`: String){
                                         _ctx.date = `$event`
                                     }
-                                    , "title" to "月份选择", "format" to _ctx.format, "start" to _ctx.start, "end" to _ctx.end), null, 8, utsArrayOf(
+                                    , "title" to "月份选择", "format" to _ctx.format, "start" to _ctx.start, "end" to _ctx.end), null, 8, _uA(
                                         "style",
                                         "modelValue",
                                         "onUpdate:modelValue",
@@ -71,22 +67,22 @@ open class GenComponentsMcDatePickerSelectorIndex : VueComponent {
                                         "start",
                                         "end"
                                     )),
-                                    createElementVNode("view", utsMapOf("class" to "btn-group"), utsArrayOf(
-                                        createVNode(_component_x_button, utsMapOf("onClick" to _ctx.onCancel, "skin" to "thin", "style" to normalizeStyle(utsMapOf("flex" to "1", "margin-right" to "10px"))), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                            return utsArrayOf(
+                                    _cE("view", _uM("class" to "btn-group"), _uA(
+                                        _cV(_component_x_button, _uM("onClick" to _ctx.onCancel, "skin" to "thin", "style" to _nS(_uM("flex" to "1", "margin-right" to "10px"))), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                            return _uA(
                                                 "取消"
                                             )
                                         }
-                                        ), "_" to 1), 8, utsArrayOf(
+                                        ), "_" to 1), 8, _uA(
                                             "onClick",
                                             "style"
                                         )),
-                                        createVNode(_component_x_button, utsMapOf("onClick" to _ctx.onConfirm, "style" to normalizeStyle(utsMapOf("flex" to "1"))), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                            return utsArrayOf(
+                                        _cV(_component_x_button, _uM("onClick" to _ctx.onConfirm, "style" to _nS(_uM("flex" to "1"))), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                            return _uA(
                                                 "确认"
                                             )
                                         }
-                                        ), "_" to 1), 8, utsArrayOf(
+                                        ), "_" to 1), 8, _uA(
                                             "onClick",
                                             "style"
                                         ))
@@ -96,12 +92,12 @@ open class GenComponentsMcDatePickerSelectorIndex : VueComponent {
                             ), "_" to 1))
                         )
                     }
-                    ), "_" to 1), 8, utsArrayOf(
+                    ), "_" to 1), 8, _uA(
                         "linear-gradient"
                     ))
                 )
             }
-            ), "_" to 1), 8, utsArrayOf(
+            ), "_" to 1), 8, _uA(
                 "show",
                 "onUpdate:show"
             ))
@@ -117,7 +113,7 @@ open class GenComponentsMcDatePickerSelectorIndex : VueComponent {
     open var showDrawer: Boolean by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("date" to formatDate(Date(), "yyyy-MM"), "showDrawer" to false)
+        return _uM("date" to formatDate(Date(), "yyyy-MM"), "showDrawer" to false)
     }
     open var change = ::gen_change_fn
     open fun gen_change_fn() {
@@ -143,24 +139,24 @@ open class GenComponentsMcDatePickerSelectorIndex : VueComponent {
     }
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("title" to padStyleMapOf(utsMapOf("paddingTop" to 10, "paddingRight" to 0, "paddingBottom" to 10, "paddingLeft" to 0, "fontSize" to 18, "fontWeight" to "bold", "color" to "#000000", "textAlign" to "center")), "btn-group" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "position" to "relative", "bottom" to 0)))
+                return _uM("title" to _pS(_uM("paddingTop" to 10, "paddingRight" to 0, "paddingBottom" to 10, "paddingLeft" to 0, "fontSize" to 18, "fontWeight" to "bold", "color" to "#000000", "textAlign" to "center")), "btn-group" to _pS(_uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "position" to "relative", "bottom" to 0)))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf("globalData" to utsMapOf("type" to "Object"))
-        var emits: Map<String, Any?> = utsMapOf("update:modelValue" to null, "update:modelShow" to null, "change" to null)
-        var props = normalizePropsOptions(utsMapOf("modelValue" to utsMapOf("type" to "String", "default" to ""), "modelShow" to utsMapOf("type" to "Boolean", "default" to true), "start" to utsMapOf("type" to "String", "default" to "2023-01"), "end" to utsMapOf("type" to "String"), "format" to utsMapOf("type" to "String", "default" to "yyyy-MM")))
-        var propsNeedCastKeys = utsArrayOf(
+        var inject: Map<String, Map<String, Any?>> = _uM("globalData" to _uM("type" to "Object"))
+        var emits: Map<String, Any?> = _uM("update:modelValue" to null, "update:modelShow" to null, "change" to null)
+        var props = _nP(_uM("modelValue" to _uM("type" to "String", "default" to ""), "modelShow" to _uM("type" to "Boolean", "default" to true), "start" to _uM("type" to "String", "default" to "2023-01"), "end" to _uM("type" to "String"), "format" to _uM("type" to "String", "default" to "yyyy-MM")))
+        var propsNeedCastKeys = _uA(
             "modelValue",
             "modelShow",
             "start",
             "format"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

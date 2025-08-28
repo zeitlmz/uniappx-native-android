@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.`$emit` as uni__emit
 import io.dcloud.uniapp.extapi.getElementById as uni_getElementById
 open class GenPagesOtherWebViewIndex : BasePage {
@@ -74,36 +70,36 @@ open class GenPagesOtherWebViewIndex : BasePage {
             )
             return fun(): Any? {
                 val _component_x_navbar = resolveEasyComponent("x-navbar", GenUniModulesTmxUiComponentsXNavbarXNavbarClass)
-                return createElementVNode(Fragment, null, utsArrayOf(
-                    createVNode(_component_x_navbar, utsMapOf("title" to unref(title), "title-color" to "#000000", "title-font-size" to "18", "isPlace" to true, "height" to 50, "showNavBack" to true), utsMapOf("left" to withSlotCtx(fun(): UTSArray<Any> {
-                        return utsArrayOf(
+                return _cE(Fragment, null, _uA(
+                    _cV(_component_x_navbar, _uM("title" to unref(title), "title-color" to "#000000", "title-font-size" to "18", "isPlace" to true, "height" to 50, "showNavBack" to true), _uM("left" to withSlotCtx(fun(): UTSArray<Any> {
+                        return _uA(
                             renderSlot(_ctx.`$slots`, "navbar-left")
                         )
                     }
                     ), "title" to withSlotCtx(fun(): UTSArray<Any> {
-                        return utsArrayOf(
+                        return _uA(
                             renderSlot(_ctx.`$slots`, "navbar-title")
                         )
                     }
-                    ), "_" to 3), 8, utsArrayOf(
+                    ), "_" to 3), 8, _uA(
                         "title"
                     )),
-                    createElementVNode("web-view", utsMapOf("id" to "cus-web-view", "src" to unref(src), "verticalScrollBarAccess" to true, "style" to normalizeStyle("height: " + unref(contentHeight) + "px;")), null, 12, utsArrayOf(
+                    _cE("web-view", _uM("id" to "cus-web-view", "src" to unref(src), "verticalScrollBarAccess" to true, "style" to _nS("height: " + unref(contentHeight) + "px;")), null, 12, _uA(
                         "src"
                     ))
                 ), 64)
             }
         }
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(), utsArrayOf(
+            _nCS(_uA(), _uA(
                 GenApp.styles
             ))
         }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf()
-        var props = normalizePropsOptions(utsMapOf())
-        var propsNeedCastKeys: UTSArray<String> = utsArrayOf()
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM()
+        var props = _nP(_uM())
+        var propsNeedCastKeys: UTSArray<String> = _uA()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

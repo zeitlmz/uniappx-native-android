@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 open class GenComponentsMcSeatViewerIndex : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {}
     open var data: UTSArray<ChooseSeat> by `$props`
@@ -54,64 +50,64 @@ open class GenComponentsMcSeatViewerIndex : VueComponent {
             val close = fun(){
                 showDrawer.value = false
             }
-            __expose(utsMapOf("show" to show))
+            __expose(_uM("show" to show))
             return fun(): Any? {
                 val _component_mc_seat_select = resolveEasyComponent("mc-seat-select", GenComponentsMcSeatSelectIndexClass)
                 val _component_x_modal = resolveEasyComponent("x-modal", GenUniModulesTmxUiComponentsXModalXModalClass)
-                return createVNode(_component_x_modal, utsMapOf("show" to showDrawer.value, "onUpdate:show" to fun(`$event`: Boolean){
+                return _cV(_component_x_modal, _uM("show" to showDrawer.value, "onUpdate:show" to fun(`$event`: Boolean){
                     showDrawer.value = `$event`
                 }
-                , "height" to "85%", "width" to "100%", "contentPadding" to "0", "bgColor" to "#00000000"), utsMapOf("title" to withSlotCtx(fun(): UTSArray<Any> {
-                    return utsArrayOf(
-                        createElementVNode("text", utsMapOf("class" to "viewer-title"), "座位信息图预览")
+                , "height" to "85%", "width" to "100%", "contentPadding" to "0", "bgColor" to "#00000000"), _uM("title" to withSlotCtx(fun(): UTSArray<Any> {
+                    return _uA(
+                        _cE("text", _uM("class" to "viewer-title"), "座位信息图预览")
                     )
                 }
                 ), "footer" to withSlotCtx(fun(): UTSArray<Any> {
-                    return utsArrayOf(
-                        createElementVNode("text", utsMapOf("class" to "confirm-button", "style" to normalizeStyle("background-image: linear-gradient(to right, " + unref(globalData).theme.primaryLinearColors.join(",") + ");"), "onClick" to close), "关闭", 4)
+                    return _uA(
+                        _cE("text", _uM("class" to "confirm-button", "style" to _nS("background-image: linear-gradient(to right, " + unref(globalData).theme.primaryLinearColors.join(",") + ");"), "onClick" to close), "关闭", 4)
                     )
                 }
                 ), "default" to withSlotCtx(fun(): UTSArray<Any> {
-                    return utsArrayOf(
+                    return _uA(
                         if (isTrue(showDrawer.value)) {
-                            createVNode(_component_mc_seat_select, utsMapOf("key" to 0, "showPrice" to "", "model-value" to seatSelectData.value, "ref_key" to "seatSelect", "ref" to seatSelect, "readonly" to "", "seat-templates" to _ctx.seatTemplates), null, 8, utsArrayOf(
+                            _cV(_component_mc_seat_select, _uM("key" to 0, "showPrice" to "", "model-value" to seatSelectData.value, "ref_key" to "seatSelect", "ref" to seatSelect, "readonly" to "", "seat-templates" to _ctx.seatTemplates), null, 8, _uA(
                                 "model-value",
                                 "seat-templates"
                             ))
                         } else {
-                            createCommentVNode("v-if", true)
+                            _cC("v-if", true)
                         }
                     )
                 }
-                ), "_" to 1), 8, utsArrayOf(
+                ), "_" to 1), 8, _uA(
                     "show",
                     "onUpdate:show"
                 ))
             }
         }
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("viewer-title" to padStyleMapOf(utsMapOf("fontSize" to "36rpx", "fontWeight" to "bold", "color" to "#ffffff", "textAlign" to "center")), "confirm-button" to padStyleMapOf(utsMapOf("height" to "88rpx", "lineHeight" to "88rpx", "textAlign" to "center", "width" to "92%", "backgroundImage" to "linear-gradient(90deg, #ff3232, #fc6832)", "backgroundColor" to "rgba(0,0,0,0)", "borderTopLeftRadius" to "12rpx", "borderTopRightRadius" to "12rpx", "borderBottomRightRadius" to "12rpx", "borderBottomLeftRadius" to "12rpx", "color" to "#ffffff", "fontSize" to "32rpx", "marginTop" to 0, "marginRight" to "30rpx", "marginBottom" to 0, "marginLeft" to "30rpx", "opacity:active" to 0.8)))
+                return _uM("viewer-title" to _pS(_uM("fontSize" to "36rpx", "fontWeight" to "bold", "color" to "#ffffff", "textAlign" to "center")), "confirm-button" to _pS(_uM("height" to "88rpx", "lineHeight" to "88rpx", "textAlign" to "center", "width" to "92%", "backgroundImage" to "linear-gradient(90deg, #ff3232, #fc6832)", "backgroundColor" to "rgba(0,0,0,0)", "borderTopLeftRadius" to "12rpx", "borderTopRightRadius" to "12rpx", "borderBottomRightRadius" to "12rpx", "borderBottomLeftRadius" to "12rpx", "color" to "#ffffff", "fontSize" to "32rpx", "marginTop" to 0, "marginRight" to "30rpx", "marginBottom" to 0, "marginLeft" to "30rpx", "opacity:active" to 0.8)))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf()
-        var props = normalizePropsOptions(utsMapOf("data" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<ChooseSeat> {
-            return utsArrayOf<ChooseSeat>()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM()
+        var props = _nP(_uM("data" to _uM("type" to "Array", "default" to fun(): UTSArray<ChooseSeat> {
+            return _uA<ChooseSeat>()
         }
-        , "required" to true), "seatTemplates" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<Any?> {
-            return utsArrayOf()
+        , "required" to true), "seatTemplates" to _uM("type" to "Array", "default" to fun(): UTSArray<Any?> {
+            return _uA()
         }
         )))
-        var propsNeedCastKeys = utsArrayOf(
+        var propsNeedCastKeys = _uA(
             "data",
             "seatTemplates"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

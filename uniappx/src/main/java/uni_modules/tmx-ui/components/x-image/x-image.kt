@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.createSelectorQuery as uni_createSelectorQuery
 import io.dcloud.uniapp.extapi.getElementById as uni_getElementById
 import io.dcloud.uniapp.extapi.getImageInfo as uni_getImageInfo
@@ -86,71 +82,71 @@ open class GenUniModulesTmxUiComponentsXImageXImage : VueComponent {
         val _ctx = this
         val _cache = this.`$`.renderCache
         val _component_x_icon = resolveEasyComponent("x-icon", GenUniModulesTmxUiComponentsXIconXIconClass)
-        return createElementVNode("view", utsMapOf("key" to _ctx.keyidsf, "onClick" to _ctx.prevImage, "class" to "xImage", "ref" to "xImage", "id" to _ctx.idBox, "style" to normalizeStyle(utsMapOf("width" to _ctx._place_size.width, "height" to _ctx._place_size.height))), utsArrayOf(
-            createElementVNode("view", utsMapOf("class" to "xImageBox", "style" to normalizeStyle(utsMapOf("width" to _ctx._img_box_size.width, "height" to _ctx._img_box_size.height, "borderRadius" to _ctx._round, "pointerEvent" to "none"))), utsArrayOf(
+        return _cE("view", _uM("key" to _ctx.keyidsf, "onClick" to _ctx.prevImage, "class" to "xImage", "ref" to "xImage", "id" to _ctx.idBox, "style" to _nS(_uM("width" to _ctx._place_size.width, "height" to _ctx._place_size.height))), _uA(
+            _cE("view", _uM("class" to "xImageBox", "style" to _nS(_uM("width" to _ctx._img_box_size.width, "height" to _ctx._img_box_size.height, "borderRadius" to _ctx._round, "pointerEvent" to "none"))), _uA(
                 if (isTrue(_ctx.isLoading)) {
-                    renderSlot(_ctx.`$slots`, "loading", utsMapOf("key" to 0), fun(): UTSArray<Any> {
-                        return utsArrayOf(
-                            createElementVNode("view", utsMapOf("class" to "xImagePlace", "style" to normalizeStyle(utsMapOf("backgroundColor" to _ctx._placeBgColor))), utsArrayOf(
+                    renderSlot(_ctx.`$slots`, "loading", _uM("key" to 0), fun(): UTSArray<Any> {
+                        return _uA(
+                            _cE("view", _uM("class" to "xImagePlace", "style" to _nS(_uM("backgroundColor" to _ctx._placeBgColor))), _uA(
                                 if (isTrue(_ctx.isLoading)) {
-                                    createVNode(_component_x_icon, utsMapOf("key" to 0, "font-size" to _ctx.iconSize, "name" to "loader-2-line", "color" to "primary", "spin" to true), null, 8, utsArrayOf(
+                                    _cV(_component_x_icon, _uM("key" to 0, "font-size" to _ctx.iconSize, "name" to "loader-2-line", "color" to "primary", "spin" to true), null, 8, _uA(
                                         "font-size"
                                     ))
                                 } else {
-                                    createCommentVNode("v-if", true)
+                                    _cC("v-if", true)
                                 }
                             ), 4)
                         )
                     })
                 } else {
-                    createCommentVNode("v-if", true)
+                    _cC("v-if", true)
                 }
                 ,
                 if (isTrue(_ctx.isError)) {
-                    renderSlot(_ctx.`$slots`, "error", utsMapOf("key" to 1), fun(): UTSArray<Any> {
-                        return utsArrayOf(
-                            createElementVNode("view", utsMapOf("class" to "xImagePlace", "style" to normalizeStyle(utsMapOf("backgroundColor" to _ctx._placeBgColor))), utsArrayOf(
+                    renderSlot(_ctx.`$slots`, "error", _uM("key" to 1), fun(): UTSArray<Any> {
+                        return _uA(
+                            _cE("view", _uM("class" to "xImagePlace", "style" to _nS(_uM("backgroundColor" to _ctx._placeBgColor))), _uA(
                                 if (isTrue(_ctx.isError)) {
-                                    createVNode(_component_x_icon, utsMapOf("key" to 0, "font-size" to _ctx.iconSize, "color" to "error", "name" to "landscape-line"), null, 8, utsArrayOf(
+                                    _cV(_component_x_icon, _uM("key" to 0, "font-size" to _ctx.iconSize, "color" to "error", "name" to "landscape-line"), null, 8, _uA(
                                         "font-size"
                                     ))
                                 } else {
-                                    createCommentVNode("v-if", true)
+                                    _cC("v-if", true)
                                 }
                             ), 4)
                         )
                     })
                 } else {
-                    createCommentVNode("v-if", true)
+                    _cC("v-if", true)
                 }
                 ,
                 if (isTrue(!_ctx.isError)) {
-                    createElementVNode("image", utsMapOf("key" to 2, "fade-show" to _ctx.fadeShow, "class" to normalizeClass(utsArrayOf(
+                    _cE("image", _uM("key" to 2, "fade-show" to _ctx.fadeShow, "class" to _nC(_uA(
                         "xImageImg",
-                        utsArrayOf(
+                        _uA(
                             if (_ctx.isLoading) {
                                 "xImageImgAbs"
                             } else {
                                 ""
                             }
                         )
-                    )), "mode" to _ctx._model, "style" to normalizeStyle(utsArrayOf(
+                    )), "mode" to _ctx._model, "style" to _nS(_uA(
                         _ctx._styleMap,
-                        utsMapOf("visibility" to if (_ctx.isVisibled || !_ctx.lazy) {
+                        _uM("visibility" to if (_ctx.isVisibled || !_ctx.lazy) {
                             "visible"
                         } else {
                             "hidden"
                         })
-                    )), "src" to _ctx._src), null, 14, utsArrayOf(
+                    )), "src" to _ctx._src), null, 14, _uA(
                         "fade-show",
                         "mode",
                         "src"
                     ))
                 } else {
-                    createCommentVNode("v-if", true)
+                    _cC("v-if", true)
                 }
             ), 4)
-        ), 12, utsArrayOf(
+        ), 12, _uA(
             "onClick",
             "id"
         ))
@@ -203,7 +199,7 @@ open class GenUniModulesTmxUiComponentsXImageXImage : VueComponent {
     open var _styleMap: Map<String, String> by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("id" to ("xImage-" + getUid()) as String, "idBox" to ("xImage-" + getUid()) as String, "isLoading" to true, "isError" to false, "reload" to 0, "imgrealWidth" to 0, "imgrealHeight" to 0, "boxWidth" to 0, "boxHeight" to 0, "ratioWidth" to 0, "ratioHeight" to 0, "isLoaded" to false, "tid" to 0, "resizeObserver" to null as UniResizeObserver?, "androidAndWebUrl" to "", "dateTime" to 0, "_x" to 0, "_y" to 0, "boxLeft" to 0, "boxTop" to 0, "isVisibled" to false, "tid2" to 0, "keyidsf" to 0, "_model" to computed<String>(fun(): String {
+        return _uM("id" to ("xImage-" + getUid()) as String, "idBox" to ("xImage-" + getUid()) as String, "isLoading" to true, "isError" to false, "reload" to 0, "imgrealWidth" to 0, "imgrealHeight" to 0, "boxWidth" to 0, "boxHeight" to 0, "ratioWidth" to 0, "ratioHeight" to 0, "isLoaded" to false, "tid" to 0, "resizeObserver" to null as UniResizeObserver?, "androidAndWebUrl" to "", "dateTime" to 0, "_x" to 0, "_y" to 0, "boxLeft" to 0, "boxTop" to 0, "isVisibled" to false, "tid2" to 0, "keyidsf" to 0, "_model" to computed<String>(fun(): String {
             return this.model
         }
         ), "_placeBgColor" to computed<String>(fun(): String {
@@ -339,7 +335,7 @@ open class GenUniModulesTmxUiComponentsXImageXImage : VueComponent {
     open fun gen_prevImage_fn() {
         this.`$emit`("click")
         if (this.preview) {
-            uni_previewImage(PreviewImageOptions(current = this._previewSrc, urls = utsArrayOf(
+            uni_previewImage(PreviewImageOptions(current = this._previewSrc, urls = _uA(
                 this._previewSrc
             )))
         }
@@ -403,19 +399,19 @@ open class GenUniModulesTmxUiComponentsXImageXImage : VueComponent {
     }
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xImage" to padStyleMapOf(utsMapOf("position" to "relative", "overflow" to "hidden")), "xImageBox" to padStyleMapOf(utsMapOf("pointerEvents" to "none")), "xImagePlace" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "center", "width" to "100%", "height" to "100%")), "xImageImgAbs" to padStyleMapOf(utsMapOf("position" to "absolute", "pointerEvents" to "none")))
+                return _uM("xImage" to _pS(_uM("position" to "relative", "overflow" to "hidden")), "xImageBox" to _pS(_uM("pointerEvents" to "none")), "xImagePlace" to _pS(_uM("display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "center", "width" to "100%", "height" to "100%")), "xImageImgAbs" to _pS(_uM("position" to "absolute", "pointerEvents" to "none")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("click" to null)
-        var props = normalizePropsOptions(utsMapOf("width" to utsMapOf("type" to "String", "default" to "100%"), "height" to utsMapOf("type" to "String", "default" to "auto"), "src" to utsMapOf("type" to "String", "default" to ""), "previewSrc" to utsMapOf("type" to "String", "default" to ""), "model" to utsMapOf("type" to "String", "default" to "fill"), "preview" to utsMapOf("type" to "Boolean", "default" to true), "ratio" to utsMapOf("type" to "Number", "default" to 1.25), "round" to utsMapOf("type" to "String", "default" to "0"), "iconSize" to utsMapOf("type" to "String", "default" to "16"), "placeBgColor" to utsMapOf("type" to "String", "default" to "#F5F5F5"), "placeDarkBgColor" to utsMapOf("type" to "String", "default" to ""), "fadeShow" to utsMapOf("type" to "Boolean", "default" to false), "lazy" to utsMapOf("type" to "Boolean", "default" to false)))
-        var propsNeedCastKeys = utsArrayOf(
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("click" to null)
+        var props = _nP(_uM("width" to _uM("type" to "String", "default" to "100%"), "height" to _uM("type" to "String", "default" to "auto"), "src" to _uM("type" to "String", "default" to ""), "previewSrc" to _uM("type" to "String", "default" to ""), "model" to _uM("type" to "String", "default" to "fill"), "preview" to _uM("type" to "Boolean", "default" to true), "ratio" to _uM("type" to "Number", "default" to 1.25), "round" to _uM("type" to "String", "default" to "0"), "iconSize" to _uM("type" to "String", "default" to "16"), "placeBgColor" to _uM("type" to "String", "default" to "#F5F5F5"), "placeDarkBgColor" to _uM("type" to "String", "default" to ""), "fadeShow" to _uM("type" to "Boolean", "default" to false), "lazy" to _uM("type" to "Boolean", "default" to false)))
+        var propsNeedCastKeys = _uA(
             "width",
             "height",
             "src",
@@ -430,6 +426,6 @@ open class GenUniModulesTmxUiComponentsXImageXImage : VueComponent {
             "fadeShow",
             "lazy"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

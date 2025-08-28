@@ -10,7 +10,8 @@ import io.dcloud.uniapp.vue.*
 import io.dcloud.uniapp.vue.shared.*
 import io.dcloud.unicloud.*
 import io.dcloud.uts.*
-
+import io.dcloud.uts.Map
+import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
 import java.util.Base64
 import java.util.HashMap
@@ -43,25 +44,20 @@ open class AlipayShare {
         console.log("bizParams=", bizParams)
         val scheme = "__alipaysdkmc__"
         val context = UTSAndroid.getUniActivity()!!
-        try {
-            val task = OpenAuthTask(context)
-            task.execute(scheme, OpenAuthTask.BizType.AccountAuth, bizParams, fun(paramInt: Number, paramString: String, bundle: Bundle){
-                console.log("paramInt=", paramInt, ", paramString=", paramString)
-                console.log("bundle=", this.bundleToString(bundle))
-                if (paramInt == 9000 && bundle.containsKey("auth_code")) {
-                    options?.success?.invoke(AlipayLoginSuccess(code = bundle.getString("auth_code")!!, state = bundle.getString("state")!!))
-                } else {
-                    options?.fail?.invoke(object : UTSJSONObject() {
-                        var code = paramInt
-                        var state = "alipay授权失败"
-                    })
-                }
+        val task = OpenAuthTask(context)
+        task.execute(scheme, OpenAuthTask.BizType.AccountAuth, bizParams, fun(paramInt: Number, paramString: String, bundle: Bundle){
+            console.log("paramInt=", paramInt, ", paramString=", paramString)
+            console.log("bundle=", this.bundleToString(bundle))
+            if (paramInt == 9000 && bundle.containsKey("auth_code")) {
+                options?.success?.invoke(AlipayLoginSuccess(code = bundle.getString("auth_code")!!, state = bundle.getString("state")!!))
+            } else {
+                options?.fail?.invoke(object : UTSJSONObject() {
+                    var code = paramInt
+                    var state = "alipay授权失败"
+                })
             }
-                , true)
-        }catch (err : Exception ){
-            console.log("alipaylogin err=", err)
         }
-
+            , true)
     }
     open var bundleToString = fun(bundle: Bundle): String {
         if (bundle == null) {

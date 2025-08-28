@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 open class GenUniModulesTmxUiComponentsXDateViewXDateView : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {
         onMounted(fun() {
@@ -43,14 +39,14 @@ open class GenUniModulesTmxUiComponentsXDateViewXDateView : VueComponent {
         val _ctx = this
         val _cache = this.`$`.renderCache
         val _component_x_picker_view = resolveEasyComponent("x-picker-view", GenUniModulesTmxUiComponentsXPickerViewXPickerViewClass)
-        return createElementVNode("view", utsMapOf("class" to "xPickerDateWrap", "onTouchstart" to _ctx.onTouchstart, "onTouchend" to _ctx.onTouchend, "onTouchcancel" to _ctx.onTouchend), utsArrayOf(
-            createElementVNode(Fragment, null, RenderHelpers.renderList(_ctx.dateList, fun(item, index, __index, _cached): Any {
-                return createVNode(_component_x_picker_view, utsMapOf("cellUnits" to utsArrayOf(
+        return _cE("view", _uM("class" to "xPickerDateWrap", "onTouchstart" to _ctx.onTouchstart, "onTouchend" to _ctx.onTouchend, "onTouchcancel" to _ctx.onTouchend), _uA(
+            _cE(Fragment, null, RenderHelpers.renderList(_ctx.dateList, fun(item, index, __index, _cached): Any {
+                return _cV(_component_x_picker_view, _uM("cellUnits" to _uA(
                     _ctx.cellUnits[index]
                 ), "onChange" to fun(`$event`: Any){
                     _ctx.mchange(`$event` as UTSArray<String>, index)
                 }
-                , "model-value" to _ctx.nowValue[index], "key" to index, "style" to normalizeStyle(utsMapOf("flex" to "1")), "list" to item), null, 8, utsArrayOf(
+                , "model-value" to _ctx.nowValue[index], "key" to index, "style" to _nS(_uM("flex" to "1")), "list" to item), null, 8, _uA(
                     "cellUnits",
                     "onChange",
                     "model-value",
@@ -59,7 +55,7 @@ open class GenUniModulesTmxUiComponentsXDateViewXDateView : VueComponent {
                 ))
             }
             ), 128)
-        ), 40, utsArrayOf(
+        ), 40, _uA(
             "onTouchstart",
             "onTouchend",
             "onTouchcancel"
@@ -89,7 +85,7 @@ open class GenUniModulesTmxUiComponentsXDateViewXDateView : VueComponent {
         var startValue = xDate()
         var endValue = xDate()
         startValue.subtraction(1, "y")
-        return utsMapOf("nowValue" to utsArrayOf<UTSArray<String>>(), "nowValueStr" to "", "startDate" to startValue, "endDate" to endValue, "dateList" to utsArrayOf<UTSArray<PICKER_ITEM_INFO>>(), "changeIndex" to 0, "nowPull" to false, "_start_date" to computed<xDate>(fun(): xDate {
+        return _uM("nowValue" to _uA<UTSArray<String>>(), "nowValueStr" to "", "startDate" to startValue, "endDate" to endValue, "dateList" to _uA<UTSArray<PICKER_ITEM_INFO>>(), "changeIndex" to 0, "nowPull" to false, "_start_date" to computed<xDate>(fun(): xDate {
             if (this.start == "") {
                 return this.startDate
             }
@@ -140,17 +136,17 @@ open class GenUniModulesTmxUiComponentsXDateViewXDateView : VueComponent {
     }
     open var getRangByDateTime = ::gen_getRangByDateTime_fn
     open fun gen_getRangByDateTime_fn(d: xDate): coverValue1 {
-        var nowRange = utsArrayOf<UTSArray<String>>(utsArrayOf(
+        var nowRange = _uA<UTSArray<String>>(_uA(
             d.getYear().toString(10)
-        ), utsArrayOf(
+        ), _uA(
             d.getMonth().toString(10)
-        ), utsArrayOf(
+        ), _uA(
             d.getDate().toString(10)
-        ), utsArrayOf(
+        ), _uA(
             d.getHours().toString(10)
-        ), utsArrayOf(
+        ), _uA(
             d.getMinutes().toString(10)
-        ), utsArrayOf(
+        ), _uA(
             d.getSeconds().toString(10)
         ))
         var nowRangeStr = d.getYear().toString(10) + "-" + (d.getMonth() + 1).toString(10) + "-" + d.getDate().toString(10) + " " + d.getHours().toString(10) + ":" + d.getMinutes().toString(10) + ":" + d.getSeconds().toString(10)
@@ -185,12 +181,12 @@ open class GenUniModulesTmxUiComponentsXDateViewXDateView : VueComponent {
         var startCopy = start.getClone()
         var nowDate = xDate(this.nowValueStr)
         var endCopy = end.getClone()
-        var years = utsArrayOf<PICKER_ITEM_INFO>()
-        var months = utsArrayOf<PICKER_ITEM_INFO>()
-        var days = utsArrayOf<PICKER_ITEM_INFO>()
-        var hours = utsArrayOf<PICKER_ITEM_INFO>()
-        var minutes = utsArrayOf<PICKER_ITEM_INFO>()
-        var seconds = utsArrayOf<PICKER_ITEM_INFO>()
+        var years = _uA<PICKER_ITEM_INFO>()
+        var months = _uA<PICKER_ITEM_INFO>()
+        var days = _uA<PICKER_ITEM_INFO>()
+        var hours = _uA<PICKER_ITEM_INFO>()
+        var minutes = _uA<PICKER_ITEM_INFO>()
+        var seconds = _uA<PICKER_ITEM_INFO>()
         run {
             var i = startCopy.getYear()
             while(i <= endCopy.getYear()){
@@ -313,7 +309,7 @@ open class GenUniModulesTmxUiComponentsXDateViewXDateView : VueComponent {
                     }
                 }
             }
-            return utsArrayOf<Number>(st, et)
+            return _uA<Number>(st, et)
         }
         var maxlen = this.getNowTypeLenIndex()
         if (maxlen > 1) {
@@ -336,7 +332,7 @@ open class GenUniModulesTmxUiComponentsXDateViewXDateView : VueComponent {
             var sdate = getDnumber("m", "s")
             getD("s", sdate[0]!!, sdate[1]!!)
         }
-        return utsArrayOf(
+        return _uA(
             years,
             months,
             days,
@@ -347,7 +343,7 @@ open class GenUniModulesTmxUiComponentsXDateViewXDateView : VueComponent {
     }
     open var getRangNumber = ::gen_getRangNumber_fn
     open fun gen_getRangNumber_fn(start: Number, end: Number): UTSArray<String> {
-        var iar = utsArrayOf<String>()
+        var iar = _uA<String>()
         run {
             var i = start
             while(i <= end){
@@ -369,7 +365,7 @@ open class GenUniModulesTmxUiComponentsXDateViewXDateView : VueComponent {
         } else {
             days
         }
-        this.nowValue.splice(2, 1, utsArrayOf(
+        this.nowValue.splice(2, 1, _uA(
             days.toString(10)
         ))
         return this.fillNumber(this.nowValue[0][0]) + "-" + this.fillNumber((parseInt(this.nowValue[1][0]) + 1).toString(10)) + "-" + this.fillNumber(this.nowValue[2][0]) + " " + this.fillNumber(this.nowValue[3][0]) + ":" + this.fillNumber(this.nowValue[4][0]) + ":" + this.fillNumber(this.nowValue[5][0])
@@ -424,22 +420,22 @@ open class GenUniModulesTmxUiComponentsXDateViewXDateView : VueComponent {
     }
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xPickerDateWrap" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row")))
+                return _uM("xPickerDateWrap" to _pS(_uM("display" to "flex", "flexDirection" to "row")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("change" to null, "update:modelStr" to null, "update:modelValue" to null)
-        var props = normalizePropsOptions(utsMapOf("modelValue" to utsMapOf("type" to "String", "default" to ""), "modelStr" to utsMapOf("type" to "String", "default" to ""), "title" to utsMapOf("type" to "String", "default" to "请选择时间"), "start" to utsMapOf("type" to "String", "default" to ""), "end" to utsMapOf("type" to "String", "default" to ""), "type" to utsMapOf("type" to "String", "default" to "day"), "format" to utsMapOf("type" to "String", "default" to "YYYY-MM-DD"), "formatSyncValue" to utsMapOf("type" to "Boolean", "default" to false), "cellUnits" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf<String>("年", "月", "日", "时", "分", "秒")
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("change" to null, "update:modelStr" to null, "update:modelValue" to null)
+        var props = _nP(_uM("modelValue" to _uM("type" to "String", "default" to ""), "modelStr" to _uM("type" to "String", "default" to ""), "title" to _uM("type" to "String", "default" to "请选择时间"), "start" to _uM("type" to "String", "default" to ""), "end" to _uM("type" to "String", "default" to ""), "type" to _uM("type" to "String", "default" to "day"), "format" to _uM("type" to "String", "default" to "YYYY-MM-DD"), "formatSyncValue" to _uM("type" to "Boolean", "default" to false), "cellUnits" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA<String>("年", "月", "日", "时", "分", "秒")
         }
         )))
-        var propsNeedCastKeys = utsArrayOf(
+        var propsNeedCastKeys = _uA(
             "modelValue",
             "modelStr",
             "title",
@@ -450,6 +446,6 @@ open class GenUniModulesTmxUiComponentsXDateViewXDateView : VueComponent {
             "formatSyncValue",
             "cellUnits"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

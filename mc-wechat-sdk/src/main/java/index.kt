@@ -199,11 +199,11 @@ open class WeChatShare {
         }
     }
 }
-open class WXEntryActivity : Activity , IWXAPIEventHandler {
+open class WXEntryActivity : Activity, IWXAPIEventHandler {
     constructor() : super() {}
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var api = WXAPIFactory.createWXAPI(this, "wx251c3866781ef220", false)
+        var api = WXAPIFactory.createWXAPI(this, "")
         api.handleIntent(this.getIntent(), this)
     }
     override fun onResp(resp: BaseResp) {

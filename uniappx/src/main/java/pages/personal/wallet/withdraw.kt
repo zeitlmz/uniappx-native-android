@@ -11,15 +11,9 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.`$emit` as uni__emit
 import uts.sdk.modules.xLoadingS.XLOADINGS_TYPE
 import uts.sdk.modules.xTipsS.XTIPS_TYPE
-import uts.sdk.modules.mcAmapNavPlus.checkLocationPermission
-import uts.sdk.modules.mcAmapNavPlus.init
 import uts.sdk.modules.xLoadingS.hideXloading
 import uts.sdk.modules.xLoadingS.showLoading
 import io.dcloud.uniapp.extapi.navigateBack as uni_navigateBack
@@ -64,7 +58,7 @@ open class GenPagesPersonalWalletWithdraw : BasePage {
             val feeRate = ref<Number>(1)
             val bankCardInfo = ref<BANK_CARD_INFO?>(null)
             val bankCardInfoName = ref<String?>(null)
-            val withdrawRule = ref(utsArrayOf<String>())
+            val withdrawRule = ref(_uA<String>())
             val canWithdraw = computed(fun(): Boolean {
                 return parseFloat(withdrawAmount.value) > 0 && parseFloat(withdrawAmount.value) <= availableAmount.value
             }
@@ -102,7 +96,7 @@ open class GenPagesPersonalWalletWithdraw : BasePage {
                     }
                 }
                 )
-                withdrawRule.value = utsArrayOf(
+                withdrawRule.value = _uA(
                     "1、提现手续费：每笔提现收取金额的1%作为手续费",
                     "2、提现时间：每周一至周五（如遇法定节假日顺延）",
                     "3、提现限制：单日提现限额2000元"
@@ -149,68 +143,68 @@ open class GenPagesPersonalWalletWithdraw : BasePage {
                 val _component_mc_primary_button = resolveEasyComponent("mc-primary-button", GenComponentsMcPrimaryButtonIndexClass)
                 val _component_x_text = resolveEasyComponent("x-text", GenUniModulesTmxUiComponentsXTextXTextClass)
                 val _component_mc_base_container = resolveEasyComponent("mc-base-container", GenComponentsMcBaseContainerIndexClass)
-                return createVNode(_component_mc_base_container, utsMapOf("showStatusBarPlaceholder" to false, "scroll" to true, "show-navbar" to true, "navbarIsPlace" to false, "static-transparent" to false, "title" to "提现"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                    return utsArrayOf(
-                        createElementVNode("view", utsMapOf("style" to normalizeStyle("width:100%;height: " + unref(statusBarHeight) + "px;")), null, 4),
-                        createElementVNode("view", utsMapOf("class" to "home-bg"), utsArrayOf(
-                            createElementVNode("view", utsMapOf("class" to "top-bg"))
+                return _cV(_component_mc_base_container, _uM("showStatusBarPlaceholder" to false, "scroll" to true, "show-navbar" to true, "navbarIsPlace" to false, "static-transparent" to false, "title" to "提现"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                    return _uA(
+                        _cE("view", _uM("style" to _nS("width:100%;height: " + unref(statusBarHeight) + "px;")), null, 4),
+                        _cE("view", _uM("class" to "home-bg"), _uA(
+                            _cE("view", _uM("class" to "top-bg"))
                         )),
-                        createElementVNode("view", utsMapOf("class" to "container", "style" to normalizeStyle("height: " + (unref(screenHeight) - unref(globalData).safeAreaBottom - unref(statusBarHeight) - 20) + "px;")), utsArrayOf(
-                            createElementVNode("view", utsMapOf("class" to "withdraw-card"), utsArrayOf(
-                                createElementVNode("view", utsMapOf("class" to "card-header"), utsArrayOf(
-                                    createElementVNode("text", null, "提现至"),
-                                    createElementVNode("view", utsMapOf("class" to "add-account", "onClick" to goToAddAccount), utsArrayOf(
+                        _cE("view", _uM("class" to "container", "style" to _nS("height: " + (unref(screenHeight) - unref(globalData).safeAreaBottom - unref(statusBarHeight) - 20) + "px;")), _uA(
+                            _cE("view", _uM("class" to "withdraw-card"), _uA(
+                                _cE("view", _uM("class" to "card-header"), _uA(
+                                    _cE("text", null, "提现至"),
+                                    _cE("view", _uM("class" to "add-account", "onClick" to goToAddAccount), _uA(
                                         if (unref(bankCardInfoName) == null) {
-                                            createElementVNode("text", utsMapOf("key" to 0, "class" to "text"), "请添加收款账户")
+                                            _cE("text", _uM("key" to 0, "class" to "text"), "请添加收款账户")
                                         } else {
-                                            createElementVNode("text", utsMapOf("key" to 1, "class" to "text"), toDisplayString(unref(bankCardInfoName)), 1)
+                                            _cE("text", _uM("key" to 1, "class" to "text"), _tD(unref(bankCardInfoName)), 1)
                                         }
                                     ))
                                 )),
-                                createElementVNode("view", utsMapOf("class" to "amount-input-container"), utsArrayOf(
-                                    createElementVNode("view", utsMapOf("class" to "amount-input-wrapper"), utsArrayOf(
-                                        createElementVNode("text", utsMapOf("style" to normalizeStyle(utsMapOf("font-size" to "24px", "font-weight" to "bold"))), "¥", 4),
-                                        createVNode(_component_x_input, utsMapOf("style" to normalizeStyle(utsMapOf("margin-left" to "10px")), "type" to "digit", "modelValue" to unref(withdrawAmount), "onUpdate:modelValue" to fun(`$event`: String){
+                                _cE("view", _uM("class" to "amount-input-container"), _uA(
+                                    _cE("view", _uM("class" to "amount-input-wrapper"), _uA(
+                                        _cE("text", _uM("style" to _nS(_uM("font-size" to "24px", "font-weight" to "bold"))), "¥", 4),
+                                        _cV(_component_x_input, _uM("style" to _nS(_uM("margin-left" to "10px")), "type" to "digit", "modelValue" to unref(withdrawAmount), "onUpdate:modelValue" to fun(`$event`: Ref<String>){
                                             withdrawAmount = trySetRefValue(withdrawAmount, `$event`)
                                         }
-                                        , "placeholder" to "0.00", "color" to "#ffffff"), null, 8, utsArrayOf(
+                                        , "placeholder" to "0.00", "color" to "#ffffff"), null, 8, _uA(
                                             "style",
                                             "modelValue"
                                         ))
                                     )),
-                                    createElementVNode("view", utsMapOf("class" to "amount-label"), utsArrayOf(
-                                        createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("display" to "flex", "flex-direction" to "row"))), utsArrayOf(
-                                            createElementVNode("text", utsMapOf("class" to "text"), "可提现金额："),
-                                            createElementVNode("text", utsMapOf("class" to "available-amount"), "¥ " + toDisplayString(unref(availableAmount)), 1)
+                                    _cE("view", _uM("class" to "amount-label"), _uA(
+                                        _cE("view", _uM("style" to _nS(_uM("display" to "flex", "flex-direction" to "row"))), _uA(
+                                            _cE("text", _uM("class" to "text"), "可提现金额："),
+                                            _cE("text", _uM("class" to "available-amount"), "¥ " + _tD(unref(availableAmount)), 1)
                                         ), 4),
-                                        createElementVNode("text", utsMapOf("class" to "withdraw-all", "onClick" to setWithdrawAll), "全部提现")
+                                        _cE("text", _uM("class" to "withdraw-all", "onClick" to setWithdrawAll), "全部提现")
                                     ))
                                 ))
                             )),
-                            createVNode(_component_mc_primary_button, utsMapOf("disabled" to !unref(canWithdraw), "span" to -1, "height" to "45px", "onClick" to handleWithdraw), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                return utsArrayOf(
+                            _cV(_component_mc_primary_button, _uM("disabled" to !unref(canWithdraw), "span" to -1, "height" to "45px", "onClick" to handleWithdraw), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                return _uA(
                                     "立即提现"
                                 )
                             }
-                            ), "_" to 1), 8, utsArrayOf(
+                            ), "_" to 1), 8, _uA(
                                 "disabled"
                             )),
                             if (unref(withdrawRule).length > 0) {
-                                createElementVNode("view", utsMapOf("key" to 0, "class" to "withdraw-rules-card"), utsArrayOf(
-                                    createElementVNode("view", utsMapOf("class" to "withdraw-rules"), utsArrayOf(
-                                        createElementVNode("image", utsMapOf("class" to "info-icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-withdraw-rule.png")), null, 8, utsArrayOf(
+                                _cE("view", _uM("key" to 0, "class" to "withdraw-rules-card"), _uA(
+                                    _cE("view", _uM("class" to "withdraw-rules"), _uA(
+                                        _cE("image", _uM("class" to "info-icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-withdraw-rule.png")), null, 8, _uA(
                                             "src"
                                         )),
-                                        createElementVNode("text", utsMapOf("class" to "text"), "提现规则：")
+                                        _cE("text", _uM("class" to "text"), "提现规则：")
                                     )),
-                                    createElementVNode("view", utsMapOf("class" to "rules-list"), utsArrayOf(
-                                        createElementVNode(Fragment, null, RenderHelpers.renderList(unref(withdrawRule), fun(item, index, __index, _cached): Any {
-                                            return createElementVNode("view", utsMapOf("class" to "rule-item", "key" to index), utsArrayOf(
-                                                createVNode(_component_x_text, utsMapOf("style" to normalizeStyle(utsMapOf("font-size" to "25rpx", "font-weight" to "350"))), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                                    return utsArrayOf(
-                                                        toDisplayString(item)
+                                    _cE("view", _uM("class" to "rules-list"), _uA(
+                                        _cE(Fragment, null, RenderHelpers.renderList(unref(withdrawRule), fun(item, index, __index, _cached): Any {
+                                            return _cE("view", _uM("class" to "rule-item", "key" to index), _uA(
+                                                _cV(_component_x_text, _uM("style" to _nS(_uM("font-size" to "25rpx", "font-weight" to "350"))), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                    return _uA(
+                                                        _tD(item)
                                                     )
-                                                }), "_" to 2), 1032, utsArrayOf(
+                                                }), "_" to 2), 1032, _uA(
                                                     "style"
                                                 ))
                                             ))
@@ -218,7 +212,7 @@ open class GenPagesPersonalWalletWithdraw : BasePage {
                                     ))
                                 ))
                             } else {
-                                createCommentVNode("v-if", true)
+                                _cC("v-if", true)
                             }
                         ), 4)
                     )
@@ -227,21 +221,21 @@ open class GenPagesPersonalWalletWithdraw : BasePage {
             }
         }
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
-            ), utsArrayOf(
+            ), _uA(
                 GenApp.styles
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("container" to padStyleMapOf(utsMapOf("width" to "100%", "position" to "relative", "paddingTop" to 0, "paddingRight" to 15, "paddingBottom" to 0, "paddingLeft" to 15, "marginTop" to 20, "height" to 900)), "home-bg" to padStyleMapOf(utsMapOf("position" to "absolute", "top" to 0, "left" to 0, "width" to "100%", "zIndex" to -1)), "top-bg" to utsMapOf(".home-bg " to utsMapOf("height" to 900, "width" to "100%", "backgroundImage" to "linear-gradient(to bottom, #CAD7F2, #FFFFFF)")), "withdraw-card" to padStyleMapOf(utsMapOf("width" to "100%", "backgroundColor" to "#FFFFFF", "borderTopLeftRadius" to 15, "borderTopRightRadius" to 15, "borderBottomRightRadius" to 15, "borderBottomLeftRadius" to 15, "paddingTop" to 20, "paddingRight" to 20, "paddingBottom" to 20, "paddingLeft" to 20, "marginTop" to 50, "boxShadow" to "0px 5px 15px rgba(0, 0, 0, 0.05)", "marginBottom" to 20)), "card-header" to utsMapOf(".withdraw-card " to utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center", "paddingBottom" to 15, "borderBottomWidth" to 1, "borderBottomStyle" to "solid", "borderBottomColor" to "#ECECEC")), "add-account" to utsMapOf(".withdraw-card .card-header " to utsMapOf("display" to "flex", "flexDirection" to "row", "alignItems" to "center")), "text" to utsMapOf(".withdraw-card .card-header .add-account " to utsMapOf("fontSize" to 16, "color" to "#666666"), ".withdraw-card .amount-input-container .amount-label " to utsMapOf("fontSize" to 14, "color" to "#6C6C6C"), ".withdraw-rules-card .withdraw-rules " to utsMapOf("fontSize" to 14, "color" to "#6C6C6C", "fontWeight" to "bold"), ".withdraw-rules-card .rules-list .rule-item " to utsMapOf("fontSize" to "25rpx")), "arrow-icon" to utsMapOf(".withdraw-card .card-header .add-account " to utsMapOf("width" to 16, "height" to 16, "marginLeft" to 5)), "amount-input-container" to utsMapOf(".withdraw-card " to utsMapOf("marginTop" to 25)), "amount-label" to utsMapOf(".withdraw-card .amount-input-container " to utsMapOf("display" to "flex", "flexDirection" to "row", "alignItems" to "center", "marginTop" to 15, "justifyContent" to "space-between")), "available-amount" to utsMapOf(".withdraw-card .amount-input-container .amount-label " to utsMapOf("color" to "#6C6C6C", "fontWeight" to "bold", "marginRight" to 10)), "withdraw-all" to utsMapOf(".withdraw-card .amount-input-container .amount-label " to utsMapOf("color" to "#D50303", "fontSize" to 14, "alignItems" to "flex-end")), "amount-input-wrapper" to utsMapOf(".withdraw-card .amount-input-container " to utsMapOf("display" to "flex", "flexDirection" to "row", "alignItems" to "center", "borderBottomWidth" to 1, "borderBottomStyle" to "solid", "borderBottomColor" to "#ECECEC", "paddingBottom" to 10, "height" to 70)), "currency-symbol" to utsMapOf(".withdraw-card .amount-input-container .amount-input-wrapper " to utsMapOf("fontSize" to 24, "fontWeight" to "bold", "color" to "#6C6C6C", "marginRight" to 10, "marginLeft" to 10)), "amount-input" to utsMapOf(".withdraw-card .amount-input-container .amount-input-wrapper " to utsMapOf("fontSize" to 24, "fontWeight" to "bold", "color" to "#333333", "flex" to 1, "height" to 40)), "withdraw-rules-card" to padStyleMapOf(utsMapOf("paddingTop" to 20, "paddingRight" to 20, "paddingBottom" to 20, "paddingLeft" to 20, "height" to "100%")), "withdraw-rules" to utsMapOf(".withdraw-rules-card " to utsMapOf("marginTop" to 10, "display" to "flex", "flexDirection" to "row", "alignItems" to "center")), "info-icon" to utsMapOf(".withdraw-rules-card .withdraw-rules " to utsMapOf("width" to 16, "height" to 16, "marginRight" to 5)), "rules-list" to utsMapOf(".withdraw-rules-card " to utsMapOf("marginTop" to 5)), "rule-item" to utsMapOf(".withdraw-rules-card .rules-list " to utsMapOf("marginBottom" to 5)))
+                return _uM("container" to _pS(_uM("width" to "100%", "position" to "relative", "paddingTop" to 0, "paddingRight" to 15, "paddingBottom" to 0, "paddingLeft" to 15, "marginTop" to 20, "height" to 900)), "home-bg" to _pS(_uM("position" to "absolute", "top" to 0, "left" to 0, "width" to "100%", "zIndex" to -1)), "top-bg" to _uM(".home-bg " to _uM("height" to 900, "width" to "100%", "backgroundImage" to "linear-gradient(to bottom, #CAD7F2, #FFFFFF)")), "withdraw-card" to _pS(_uM("width" to "100%", "backgroundColor" to "#FFFFFF", "borderTopLeftRadius" to 15, "borderTopRightRadius" to 15, "borderBottomRightRadius" to 15, "borderBottomLeftRadius" to 15, "paddingTop" to 20, "paddingRight" to 20, "paddingBottom" to 20, "paddingLeft" to 20, "marginTop" to 50, "boxShadow" to "0px 5px 15px rgba(0, 0, 0, 0.05)", "marginBottom" to 20)), "card-header" to _uM(".withdraw-card " to _uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center", "paddingBottom" to 15, "borderBottomWidth" to 1, "borderBottomStyle" to "solid", "borderBottomColor" to "#ECECEC")), "add-account" to _uM(".withdraw-card .card-header " to _uM("display" to "flex", "flexDirection" to "row", "alignItems" to "center")), "text" to _uM(".withdraw-card .card-header .add-account " to _uM("fontSize" to 16, "color" to "#666666"), ".withdraw-card .amount-input-container .amount-label " to _uM("fontSize" to 14, "color" to "#6C6C6C"), ".withdraw-rules-card .withdraw-rules " to _uM("fontSize" to 14, "color" to "#6C6C6C", "fontWeight" to "bold"), ".withdraw-rules-card .rules-list .rule-item " to _uM("fontSize" to "25rpx")), "arrow-icon" to _uM(".withdraw-card .card-header .add-account " to _uM("width" to 16, "height" to 16, "marginLeft" to 5)), "amount-input-container" to _uM(".withdraw-card " to _uM("marginTop" to 25)), "amount-label" to _uM(".withdraw-card .amount-input-container " to _uM("display" to "flex", "flexDirection" to "row", "alignItems" to "center", "marginTop" to 15, "justifyContent" to "space-between")), "available-amount" to _uM(".withdraw-card .amount-input-container .amount-label " to _uM("color" to "#6C6C6C", "fontWeight" to "bold", "marginRight" to 10)), "withdraw-all" to _uM(".withdraw-card .amount-input-container .amount-label " to _uM("color" to "#D50303", "fontSize" to 14, "alignItems" to "flex-end")), "amount-input-wrapper" to _uM(".withdraw-card .amount-input-container " to _uM("display" to "flex", "flexDirection" to "row", "alignItems" to "center", "borderBottomWidth" to 1, "borderBottomStyle" to "solid", "borderBottomColor" to "#ECECEC", "paddingBottom" to 10, "height" to 70)), "currency-symbol" to _uM(".withdraw-card .amount-input-container .amount-input-wrapper " to _uM("fontSize" to 24, "fontWeight" to "bold", "color" to "#6C6C6C", "marginRight" to 10, "marginLeft" to 10)), "amount-input" to _uM(".withdraw-card .amount-input-container .amount-input-wrapper " to _uM("fontSize" to 24, "fontWeight" to "bold", "color" to "#333333", "flex" to 1, "height" to 40)), "withdraw-rules-card" to _pS(_uM("paddingTop" to 20, "paddingRight" to 20, "paddingBottom" to 20, "paddingLeft" to 20, "height" to "100%")), "withdraw-rules" to _uM(".withdraw-rules-card " to _uM("marginTop" to 10, "display" to "flex", "flexDirection" to "row", "alignItems" to "center")), "info-icon" to _uM(".withdraw-rules-card .withdraw-rules " to _uM("width" to 16, "height" to 16, "marginRight" to 5)), "rules-list" to _uM(".withdraw-rules-card " to _uM("marginTop" to 5)), "rule-item" to _uM(".withdraw-rules-card .rules-list " to _uM("marginBottom" to 5)))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf()
-        var props = normalizePropsOptions(utsMapOf())
-        var propsNeedCastKeys: UTSArray<String> = utsArrayOf()
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM()
+        var props = _nP(_uM())
+        var propsNeedCastKeys: UTSArray<String> = _uA()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

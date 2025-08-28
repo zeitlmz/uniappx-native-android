@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 open class GenUniModulesTmxUiComponentsXEmptyXEmpty : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {}
     @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
@@ -24,74 +20,74 @@ open class GenUniModulesTmxUiComponentsXEmptyXEmpty : VueComponent {
         val _component_x_loading = resolveEasyComponent("x-loading", GenUniModulesTmxUiComponentsXLoadingXLoadingClass)
         val _component_x_text = resolveEasyComponent("x-text", GenUniModulesTmxUiComponentsXTextXTextClass)
         val _component_x_button = resolveEasyComponent("x-button", GenUniModulesTmxUiComponentsXButtonXButtonClass)
-        return createElementVNode("view", utsMapOf("class" to "xEmpty"), utsArrayOf(
+        return _cE("view", _uM("class" to "xEmpty"), _uA(
             if (isTrue(_ctx._loading)) {
-                createVNode(_component_x_loading, utsMapOf("key" to 0))
+                _cV(_component_x_loading, _uM("key" to 0))
             } else {
-                createCommentVNode("v-if", true)
+                _cC("v-if", true)
             }
             ,
             if (isTrue(!_ctx._loading && !_ctx._more && (_ctx._empty || _ctx._error))) {
-                createElementVNode("view", utsMapOf("key" to 1, "class" to "xEmptyWrap"), utsArrayOf(
-                    createElementVNode("image", utsMapOf("style" to normalizeStyle(utsMapOf("width" to "200px", "height" to "200px")), "src" to _ctx.src), null, 12, utsArrayOf(
+                _cE("view", _uM("key" to 1, "class" to "xEmptyWrap"), _uA(
+                    _cE("image", _uM("style" to _nS(_uM("width" to "200px", "height" to "200px")), "src" to _ctx.src), null, 12, _uA(
                         "src"
                     )),
                     if (isTrue(_ctx._empty)) {
-                        createVNode(_component_x_text, utsMapOf("key" to 0, "font-size" to "16", "style" to normalizeStyle(utsMapOf("opacity" to "0.5"))), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                            return utsArrayOf(
-                                toDisplayString(_ctx._title)
+                        _cV(_component_x_text, _uM("key" to 0, "font-size" to "16", "style" to _nS(_uM("opacity" to "0.5"))), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                            return _uA(
+                                _tD(_ctx._title)
                             )
-                        }), "_" to 1), 8, utsArrayOf(
+                        }), "_" to 1), 8, _uA(
                             "style"
                         ))
                     } else {
-                        createCommentVNode("v-if", true)
+                        _cC("v-if", true)
                     },
                     if (isTrue(_ctx._error)) {
-                        createVNode(_component_x_text, utsMapOf("key" to 1, "font-size" to "16", "style" to normalizeStyle(utsMapOf("opacity" to "0.5"))), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                            return utsArrayOf(
-                                toDisplayString(_ctx._errorLabel)
+                        _cV(_component_x_text, _uM("key" to 1, "font-size" to "16", "style" to _nS(_uM("opacity" to "0.5"))), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                            return _uA(
+                                _tD(_ctx._errorLabel)
                             )
-                        }), "_" to 1), 8, utsArrayOf(
+                        }), "_" to 1), 8, _uA(
                             "style"
                         ))
                     } else {
-                        createCommentVNode("v-if", true)
+                        _cC("v-if", true)
                     },
                     renderSlot(_ctx.`$slots`, "default", UTSJSONObject(), fun(): UTSArray<Any> {
-                        return utsArrayOf(
+                        return _uA(
                             if (isTrue(_ctx._showBtn)) {
-                                createElementVNode("view", utsMapOf("key" to 0, "style" to normalizeStyle(utsMapOf("padding-top" to "21px"))), utsArrayOf(
-                                    createVNode(_component_x_button, utsMapOf("onClick" to _ctx.onclick, "width" to "150px", "color" to _ctx._btnColor, "font-color" to _ctx._btnTextColor), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                        return utsArrayOf(
-                                            toDisplayString(_ctx._btnLabel)
+                                _cE("view", _uM("key" to 0, "style" to _nS(_uM("padding-top" to "21px"))), _uA(
+                                    _cV(_component_x_button, _uM("onClick" to _ctx.onclick, "width" to "150px", "color" to _ctx._btnColor, "font-color" to _ctx._btnTextColor), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                        return _uA(
+                                            _tD(_ctx._btnLabel)
                                         )
-                                    }), "_" to 1), 8, utsArrayOf(
+                                    }), "_" to 1), 8, _uA(
                                         "onClick",
                                         "color",
                                         "font-color"
                                     ))
                                 ), 4)
                             } else {
-                                createCommentVNode("v-if", true)
+                                _cC("v-if", true)
                             }
                         )
                     })
                 ))
             } else {
-                createCommentVNode("v-if", true)
+                _cC("v-if", true)
             }
             ,
             if (isTrue(_ctx._more && !_ctx._loading && !_ctx._error && !_ctx._empty)) {
-                createVNode(_component_x_text, utsMapOf("key" to 2, "font-size" to "16", "style" to normalizeStyle(utsMapOf("padding" to "16px", "opacity" to "0.5"))), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                    return utsArrayOf(
-                        toDisplayString(_ctx._moreLabel)
+                _cV(_component_x_text, _uM("key" to 2, "font-size" to "16", "style" to _nS(_uM("padding" to "16px", "opacity" to "0.5"))), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                    return _uA(
+                        _tD(_ctx._moreLabel)
                     )
-                }), "_" to 1), 8, utsArrayOf(
+                }), "_" to 1), 8, _uA(
                     "style"
                 ))
             } else {
-                createCommentVNode("v-if", true)
+                _cC("v-if", true)
             }
         ))
     }
@@ -120,7 +116,7 @@ open class GenUniModulesTmxUiComponentsXEmptyXEmpty : VueComponent {
     open var _title: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("_showBtn" to computed<Boolean>(fun(): Boolean {
+        return _uM("_showBtn" to computed<Boolean>(fun(): Boolean {
             return this.showBtn
         }
         ), "_loading" to computed<Boolean>(fun(): Boolean {
@@ -164,19 +160,19 @@ open class GenUniModulesTmxUiComponentsXEmptyXEmpty : VueComponent {
     }
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xEmpty" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "column", "justifyContent" to "center", "alignItems" to "center", "marginTop" to 16, "marginRight" to 0, "marginBottom" to 16, "marginLeft" to 0)), "xEmptyWrap" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "column", "justifyContent" to "center", "alignItems" to "center")))
+                return _uM("xEmpty" to _pS(_uM("display" to "flex", "flexDirection" to "column", "justifyContent" to "center", "alignItems" to "center", "marginTop" to 16, "marginRight" to 0, "marginBottom" to 16, "marginLeft" to 0)), "xEmptyWrap" to _pS(_uM("display" to "flex", "flexDirection" to "column", "justifyContent" to "center", "alignItems" to "center")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("click" to null)
-        var props = normalizePropsOptions(utsMapOf("loading" to utsMapOf("type" to "Boolean", "default" to true), "empty" to utsMapOf("type" to "Boolean", "default" to false), "error" to utsMapOf("type" to "Boolean", "default" to false), "more" to utsMapOf("type" to "Boolean", "default" to false), "moreLabel" to utsMapOf("type" to "String", "default" to "没有更多数据啦"), "errorLabel" to utsMapOf("type" to "String", "default" to "出错啦~"), "btnLabel" to utsMapOf("type" to "String", "default" to "点击重试"), "btnColor" to utsMapOf("type" to "String", "default" to ""), "btnTextColor" to utsMapOf("type" to "String", "default" to ""), "title" to utsMapOf("type" to "String", "default" to "当前没有数据"), "src" to utsMapOf("type" to "String", "default" to "/static/tmui4xLibs/static/empty.png"), "showBtn" to utsMapOf("type" to "Boolean", "default" to true)))
-        var propsNeedCastKeys = utsArrayOf(
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("click" to null)
+        var props = _nP(_uM("loading" to _uM("type" to "Boolean", "default" to true), "empty" to _uM("type" to "Boolean", "default" to false), "error" to _uM("type" to "Boolean", "default" to false), "more" to _uM("type" to "Boolean", "default" to false), "moreLabel" to _uM("type" to "String", "default" to "没有更多数据啦"), "errorLabel" to _uM("type" to "String", "default" to "出错啦~"), "btnLabel" to _uM("type" to "String", "default" to "点击重试"), "btnColor" to _uM("type" to "String", "default" to ""), "btnTextColor" to _uM("type" to "String", "default" to ""), "title" to _uM("type" to "String", "default" to "当前没有数据"), "src" to _uM("type" to "String", "default" to "/static/tmui4xLibs/static/empty.png"), "showBtn" to _uM("type" to "Boolean", "default" to true)))
+        var propsNeedCastKeys = _uA(
             "loading",
             "empty",
             "error",
@@ -190,6 +186,6 @@ open class GenUniModulesTmxUiComponentsXEmptyXEmpty : VueComponent {
             "src",
             "showBtn"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

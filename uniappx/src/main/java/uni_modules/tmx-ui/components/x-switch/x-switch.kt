@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 open class GenUniModulesTmxUiComponentsXSwitchXSwitch : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {
         onMounted(fun() {
@@ -37,9 +33,9 @@ open class GenUniModulesTmxUiComponentsXSwitchXSwitch : VueComponent {
         val _ctx = this
         val _cache = this.`$`.renderCache
         val _component_x_icon = resolveEasyComponent("x-icon", GenUniModulesTmxUiComponentsXIconXIconClass)
-        return createElementVNode("view", utsMapOf("onClick" to _ctx.onClick, "id" to _ctx.id, "class" to "xSwitch", "ref" to "xSwitch", "style" to normalizeStyle(utsMapOf("height" to _ctx._size, "width" to _ctx._sizeWidth, "backgroundColor" to _ctx._bgColor, "borderRadius" to _ctx._round))), utsArrayOf(
-            createElementVNode("view", utsMapOf("class" to normalizeClass(utsArrayOf(
-                utsArrayOf(
+        return _cE("view", _uM("onClick" to _ctx.onClick, "id" to _ctx.id, "class" to "xSwitch", "ref" to "xSwitch", "style" to _nS(_uM("height" to _ctx._size, "width" to _ctx._sizeWidth, "backgroundColor" to _ctx._bgColor, "borderRadius" to _ctx._round))), _uA(
+            _cE("view", _uM("class" to _nC(_uA(
+                _uA(
                     if (_ctx._disabled) {
                         "xSwitchDisabled"
                     } else {
@@ -53,9 +49,9 @@ open class GenUniModulesTmxUiComponentsXSwitchXSwitch : VueComponent {
                     }
                 ),
                 "xSwitchBg"
-            )), "style" to normalizeStyle(utsMapOf("backgroundColor" to _ctx._activeBgColor, "borderRadius" to _ctx._round, "transition-timing-function" to _ctx._animationFun))), null, 6),
-            createElementVNode("view", utsMapOf("class" to normalizeClass(utsArrayOf(
-                utsArrayOf(
+            )), "style" to _nS(_uM("backgroundColor" to _ctx._activeBgColor, "borderRadius" to _ctx._round, "transition-timing-function" to _ctx._animationFun))), null, 6),
+            _cE("view", _uM("class" to _nC(_uA(
+                _uA(
                     if (_ctx._disabled) {
                         "xSwitchDisabled"
                     } else {
@@ -63,53 +59,53 @@ open class GenUniModulesTmxUiComponentsXSwitchXSwitch : VueComponent {
                     }
                 ),
                 "xSwitchWrap"
-            )), "style" to normalizeStyle(utsMapOf("left" to (_ctx._space + "px"), "top" to (_ctx._space + "px"), "width" to (_ctx._contentWidth + "px"), "height" to (_ctx._contentHeight + "px"), "borderRadius" to _ctx._round))), utsArrayOf(
+            )), "style" to _nS(_uM("left" to (_ctx._space + "px"), "top" to (_ctx._space + "px"), "width" to (_ctx._contentWidth + "px"), "height" to (_ctx._contentHeight + "px"), "borderRadius" to _ctx._round))), _uA(
                 if (_ctx._label.length == 2) {
-                    createElementVNode("view", utsMapOf("key" to 0, "class" to "xSwitchText"), utsArrayOf(
-                        createElementVNode("text", utsMapOf("class" to "xSwitchTextLeft", "style" to normalizeStyle(utsMapOf("fontSize" to _ctx._fontSize))), toDisplayString(if (!_ctx.opened) {
+                    _cE("view", _uM("key" to 0, "class" to "xSwitchText"), _uA(
+                        _cE("text", _uM("class" to "xSwitchTextLeft", "style" to _nS(_uM("fontSize" to _ctx._fontSize))), _tD(if (!_ctx.opened) {
                             ""
                         } else {
                             _ctx._label[0]
                         }), 5),
-                        createElementVNode("text", utsMapOf("class" to "xSwitchTextRight", "style" to normalizeStyle(utsMapOf("fontSize" to _ctx._fontSize))), toDisplayString(if (_ctx.opened) {
+                        _cE("text", _uM("class" to "xSwitchTextRight", "style" to _nS(_uM("fontSize" to _ctx._fontSize))), _tD(if (_ctx.opened) {
                             ""
                         } else {
                             _ctx._label[1]
                         }), 5)
                     ))
                 } else {
-                    createCommentVNode("v-if", true)
+                    _cC("v-if", true)
                 }
                 ,
-                createElementVNode("view", utsMapOf("class" to "xSwitchBtn", "style" to normalizeStyle(utsMapOf("width" to (_ctx._contentHeight + "px"), "height" to (_ctx._contentHeight + "px"), "transform" to ("translateX(" + (if (_ctx.opened) {
+                _cE("view", _uM("class" to "xSwitchBtn", "style" to _nS(_uM("width" to (_ctx._contentHeight + "px"), "height" to (_ctx._contentHeight + "px"), "transform" to ("translateX(" + (if (_ctx.opened) {
                     _ctx._maxLeftPos
                 } else {
                     0
                 }
-                ) + "px)"), "backgroundColor" to _ctx._btnColor, "borderRadius" to _ctx._round, "transition-timing-function" to _ctx._animationFun))), utsArrayOf(
+                ) + "px)"), "backgroundColor" to _ctx._btnColor, "borderRadius" to _ctx._round, "transition-timing-function" to _ctx._animationFun))), _uA(
                     if (isTrue(_ctx._loading)) {
-                        createVNode(_component_x_icon, utsMapOf("key" to 0, "spin" to true, "font-size" to "13", "name" to "loader-line", "color" to _ctx._activeBgColor), null, 8, utsArrayOf(
+                        _cV(_component_x_icon, _uM("key" to 0, "spin" to true, "font-size" to "13", "name" to "loader-line", "color" to _ctx._activeBgColor), null, 8, _uA(
                             "color"
                         ))
                     } else {
-                        createCommentVNode("v-if", true)
+                        _cC("v-if", true)
                     }
                     ,
                     if (isTrue(!_ctx._loading)) {
-                        createElementVNode("view", utsMapOf("key" to 1, "class" to normalizeClass(utsArrayOf(
+                        _cE("view", _uM("key" to 1, "class" to _nC(_uA(
                             if (_ctx.opened) {
                                 "xSwitchIconOn"
                             } else {
                                 "xSwitchIconOff"
                             },
                             "xSwitchIcon"
-                        ))), utsArrayOf(
+                        ))), _uA(
                             if ((if (_ctx.opened) {
                                 _ctx._activeIcon
                             } else {
                                 _ctx._icon
                             }) != "") {
-                                createVNode(_component_x_icon, utsMapOf("key" to 0, "font-size" to (_ctx._contentHeight * 0.6).toString(10), "color" to if (_ctx.opened) {
+                                _cV(_component_x_icon, _uM("key" to 0, "font-size" to (_ctx._contentHeight * 0.6).toString(10), "color" to if (_ctx.opened) {
                                     _ctx._activeBgColor
                                 } else {
                                     _ctx._bgColor
@@ -117,21 +113,21 @@ open class GenUniModulesTmxUiComponentsXSwitchXSwitch : VueComponent {
                                     _ctx._activeIcon
                                 } else {
                                     _ctx._icon
-                                }), null, 8, utsArrayOf(
+                                }), null, 8, _uA(
                                     "font-size",
                                     "color",
                                     "name"
                                 ))
                             } else {
-                                createCommentVNode("v-if", true)
+                                _cC("v-if", true)
                             }
                         ), 2)
                     } else {
-                        createCommentVNode("v-if", true)
+                        _cC("v-if", true)
                     }
                 ), 4)
             ), 6)
-        ), 12, utsArrayOf(
+        ), 12, _uA(
             "onClick",
             "id"
         ))
@@ -172,7 +168,7 @@ open class GenUniModulesTmxUiComponentsXSwitchXSwitch : VueComponent {
     open var _animationFun: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("id" to ("xSwitch" + getUid()) as String, "boxwidth" to 0, "boxheight" to 0, "opened" to false, "_activeIcon" to computed<String>(fun(): String {
+        return _uM("id" to ("xSwitch" + getUid()) as String, "boxwidth" to 0, "boxheight" to 0, "opened" to false, "_activeIcon" to computed<String>(fun(): String {
             return this.activeIcon
         }
         ), "_icon" to computed<String>(fun(): String {
@@ -277,19 +273,19 @@ open class GenUniModulesTmxUiComponentsXSwitchXSwitch : VueComponent {
     }
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xSwitchIcon" to padStyleMapOf(utsMapOf("transitionProperty" to "transform,opacity", "transitionTimingFunction" to "ease-in", "transitionDuration" to "250ms", "width" to "100%", "height" to "100%", "display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center")), "xSwitchDisabled" to padStyleMapOf(utsMapOf("opacity" to 0.7)), "xSwitchTextLeft" to padStyleMapOf(utsMapOf("color" to "#FFFFFF")), "xSwitchTextRight" to padStyleMapOf(utsMapOf("color" to "#acacac")), "xSwitch" to padStyleMapOf(utsMapOf("height" to "32rpx", "position" to "relative")), "xSwitchBg" to padStyleMapOf(utsMapOf("width" to "100%", "height" to "100%", "transitionDuration" to "350ms", "transitionProperty" to "opacity,transform")), "xSwitchBgOn" to padStyleMapOf(utsMapOf("opacity" to 1, "transform" to "scale(1)")), "xSwitchOff" to padStyleMapOf(utsMapOf("opacity" to 0, "transform" to "scale(0.9)")), "xSwitchWrap" to padStyleMapOf(utsMapOf("position" to "absolute")), "xSwitchText" to padStyleMapOf(utsMapOf("width" to "100%", "height" to "100%", "display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center", "paddingTop" to 0, "paddingRight" to "12%", "paddingBottom" to 0, "paddingLeft" to "12%", "boxSizing" to "border-box")), "xSwitchBtn" to padStyleMapOf(utsMapOf("position" to "absolute", "transitionDuration" to "350ms", "left" to 0, "top" to 0, "transitionProperty" to "transform", "display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center")), "@TRANSITION" to utsMapOf("xSwitchIcon" to utsMapOf("property" to "transform,opacity", "timingFunction" to "ease-in", "duration" to "250ms"), "xSwitchBg" to utsMapOf("duration" to "350ms", "property" to "opacity,transform"), "xSwitchBtn" to utsMapOf("duration" to "350ms", "property" to "transform")))
+                return _uM("xSwitchIcon" to _pS(_uM("transitionProperty" to "transform,opacity", "transitionTimingFunction" to "ease-in", "transitionDuration" to "250ms", "width" to "100%", "height" to "100%", "display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center")), "xSwitchDisabled" to _pS(_uM("opacity" to 0.7)), "xSwitchTextLeft" to _pS(_uM("color" to "#FFFFFF")), "xSwitchTextRight" to _pS(_uM("color" to "#acacac")), "xSwitch" to _pS(_uM("height" to "32rpx", "position" to "relative")), "xSwitchBg" to _pS(_uM("width" to "100%", "height" to "100%", "transitionDuration" to "350ms", "transitionProperty" to "opacity,transform")), "xSwitchBgOn" to _pS(_uM("opacity" to 1, "transform" to "scale(1)")), "xSwitchOff" to _pS(_uM("opacity" to 0, "transform" to "scale(0.9)")), "xSwitchWrap" to _pS(_uM("position" to "absolute")), "xSwitchText" to _pS(_uM("width" to "100%", "height" to "100%", "display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center", "paddingTop" to 0, "paddingRight" to "12%", "paddingBottom" to 0, "paddingLeft" to "12%", "boxSizing" to "border-box")), "xSwitchBtn" to _pS(_uM("position" to "absolute", "transitionDuration" to "350ms", "left" to 0, "top" to 0, "transitionProperty" to "transform", "display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center")), "@TRANSITION" to _uM("xSwitchIcon" to _uM("property" to "transform,opacity", "timingFunction" to "ease-in", "duration" to "250ms"), "xSwitchBg" to _uM("duration" to "350ms", "property" to "opacity,transform"), "xSwitchBtn" to _uM("duration" to "350ms", "property" to "transform")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("change" to null, "click" to null, "update:modelValue" to null)
-        var props = normalizePropsOptions(utsMapOf("color" to utsMapOf("type" to "String", "default" to ""), "bgColor" to utsMapOf("type" to "String", "default" to "info"), "darkBgColor" to utsMapOf("type" to "String", "default" to ""), "btnColor" to utsMapOf("type" to "String", "default" to "white"), "size" to utsMapOf("type" to "String", "default" to "normal"), "space" to utsMapOf("type" to "Number", "default" to 2), "modelValue" to utsMapOf("type" to "Boolean", "default" to false), "disabled" to utsMapOf("type" to "Boolean", "default" to false), "loading" to utsMapOf("type" to "Boolean", "default" to false), "label" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("change" to null, "click" to null, "update:modelValue" to null)
+        var props = _nP(_uM("color" to _uM("type" to "String", "default" to ""), "bgColor" to _uM("type" to "String", "default" to "info"), "darkBgColor" to _uM("type" to "String", "default" to ""), "btnColor" to _uM("type" to "String", "default" to "white"), "size" to _uM("type" to "String", "default" to "normal"), "space" to _uM("type" to "Number", "default" to 2), "modelValue" to _uM("type" to "Boolean", "default" to false), "disabled" to _uM("type" to "Boolean", "default" to false), "loading" to _uM("type" to "Boolean", "default" to false), "label" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA()
         }
         , "validator" to fun(kVal: UTSArray<String>): Boolean {
             if (!UTSArray.isArray(kVal)) {
@@ -304,8 +300,8 @@ open class GenUniModulesTmxUiComponentsXSwitchXSwitch : VueComponent {
             }
             return true
         }
-        ), "round" to utsMapOf("type" to "String", "default" to ""), "activeIcon" to utsMapOf("type" to "String", "default" to ""), "icon" to utsMapOf("type" to "String", "default" to "")))
-        var propsNeedCastKeys = utsArrayOf(
+        ), "round" to _uM("type" to "String", "default" to ""), "activeIcon" to _uM("type" to "String", "default" to ""), "icon" to _uM("type" to "String", "default" to "")))
+        var propsNeedCastKeys = _uA(
             "color",
             "bgColor",
             "darkBgColor",
@@ -320,6 +316,6 @@ open class GenUniModulesTmxUiComponentsXSwitchXSwitch : VueComponent {
             "activeIcon",
             "icon"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

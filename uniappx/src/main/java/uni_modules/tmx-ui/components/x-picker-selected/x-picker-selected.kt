@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {
         onMounted(fun() {
@@ -110,78 +106,78 @@ open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueCompo
         val _component_x_pull_refresh = resolveEasyComponent("x-pull-refresh", GenUniModulesTmxUiComponentsXPullRefreshXPullRefreshClass)
         val _component_x_empty = resolveEasyComponent("x-empty", GenUniModulesTmxUiComponentsXEmptyXEmptyClass)
         val _component_x_drawer = resolveEasyComponent("x-drawer", GenUniModulesTmxUiComponentsXDrawerXDrawerClass)
-        return createElementVNode("view", null, utsArrayOf(
-            createElementVNode("view", utsMapOf("onClick" to _ctx.openShow), utsArrayOf(
+        return _cE("view", null, _uA(
+            _cE("view", _uM("onClick" to _ctx.openShow), _uA(
                 renderSlot(_ctx.`$slots`, "default")
-            ), 8, utsArrayOf(
+            ), 8, _uA(
                 "onClick"
             )),
-            createVNode(_component_x_drawer, utsMapOf("cancel-text" to _ctx.cancelText, "confirm-text" to _ctx.confirmText, "zIndex" to _ctx.zIndex, "onOpen" to _ctx.onOpen, "widthCoverCenter" to _ctx.widthCoverCenter, "watiDuration" to _ctx.duration, "contentMargin" to "0px", "disabledScroll" to true, "title" to _ctx.title, "onClose" to _ctx.onClose, "onConfirm" to _ctx.onConfirm, "onCancel" to _ctx.onCancel, "showFooter" to true, "show" to _ctx.show, "onUpdate:show" to fun(`$event`: Boolean){
+            _cV(_component_x_drawer, _uM("cancel-text" to _ctx.cancelText, "confirm-text" to _ctx.confirmText, "zIndex" to _ctx.zIndex, "onOpen" to _ctx.onOpen, "widthCoverCenter" to _ctx.widthCoverCenter, "watiDuration" to _ctx.duration, "contentMargin" to "0px", "disabledScroll" to true, "title" to _ctx.title, "onClose" to _ctx.onClose, "onConfirm" to _ctx.onConfirm, "onCancel" to _ctx.onCancel, "showFooter" to true, "show" to _ctx.show, "onUpdate:show" to fun(`$event`: Boolean){
                 _ctx.show = `$event`
             }
-            , "show-close" to _ctx.showClose, "size" to "80%"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                return utsArrayOf(
-                    createElementVNode("view", utsMapOf("class" to "xPickerSlectedIwrap", "style" to normalizeStyle(utsMapOf("height" to "44px", "borderRadius" to "44px"))), utsArrayOf(
-                        createElementVNode("view", utsMapOf("class" to "xPickerSlectedInputBox", "style" to normalizeStyle(utsMapOf("backgroundColor" to _ctx._inputBgColor))), utsArrayOf(
-                            createElementVNode("input", utsMapOf("placeholder" to "请输入关键词", "style" to normalizeStyle(utsMapOf("color" to _ctx._inputColor, "fontSize" to "16px")), "onInput" to _ctx.inpuEvent, "onConfirm" to _ctx.inputConfirm, "value" to _ctx.searchKey, "class" to "xPickerSlectedInput"), null, 44, utsArrayOf(
+            , "show-close" to _ctx.showClose, "size" to "80%"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                return _uA(
+                    _cE("view", _uM("class" to "xPickerSlectedIwrap", "style" to _nS(_uM("height" to "44px", "borderRadius" to "44px"))), _uA(
+                        _cE("view", _uM("class" to "xPickerSlectedInputBox", "style" to _nS(_uM("backgroundColor" to _ctx._inputBgColor))), _uA(
+                            _cE("input", _uM("placeholder" to "请输入关键词", "style" to _nS(_uM("color" to _ctx._inputColor, "fontSize" to "16px")), "onInput" to _ctx.inpuEvent, "onConfirm" to _ctx.inputConfirm, "value" to _ctx.searchKey, "class" to "xPickerSlectedInput"), null, 44, _uA(
                                 "onInput",
                                 "onConfirm",
                                 "value"
                             )),
                             if (_ctx.searchKey.length > 0) {
-                                createElementVNode("view", utsMapOf("key" to 0, "onClick" to _ctx.clearSearchKey, "class" to "clearClick"), utsArrayOf(
-                                    createVNode(_component_x_icon, utsMapOf("font-size" to "24", "name" to "close-circle-fill", "color" to "#d1d1d1"))
-                                ), 8, utsArrayOf(
+                                _cE("view", _uM("key" to 0, "onClick" to _ctx.clearSearchKey, "class" to "clearClick"), _uA(
+                                    _cV(_component_x_icon, _uM("font-size" to "24", "name" to "close-circle-fill", "color" to "#d1d1d1"))
+                                ), 8, _uA(
                                     "onClick"
                                 ))
                             } else {
-                                createCommentVNode("v-if", true)
+                                _cC("v-if", true)
                             }
                         ), 4),
-                        createVNode(_component_x_button, utsMapOf("width" to "80", "onClick" to _ctx.inputConfirm, "color" to _ctx._color, "round" to "0", "height" to "44"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                            return utsArrayOf(
+                        _cV(_component_x_button, _uM("width" to "80", "onClick" to _ctx.inputConfirm, "color" to _ctx._color, "round" to "0", "height" to "44"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                            return _uA(
                                 "搜索"
                             )
                         }
-                        ), "_" to 1), 8, utsArrayOf(
+                        ), "_" to 1), 8, _uA(
                             "onClick",
                             "color"
                         ))
                     ), 4),
-                    createElementVNode("view", utsMapOf("class" to "xPickerSlectedWrap"), utsArrayOf(
+                    _cE("view", _uM("class" to "xPickerSlectedWrap"), _uA(
                         if (isTrue(!_ctx.yanchiDuration)) {
-                            createVNode(_component_x_loading, utsMapOf("key" to 0))
+                            _cV(_component_x_loading, _uM("key" to 0))
                         } else {
-                            createCommentVNode("v-if", true)
+                            _cC("v-if", true)
                         }
                         ,
                         if (isTrue((_ctx._list.length > 0 && _ctx._renderListData.length > 0) && _ctx.yanchiDuration)) {
-                            createElementVNode("view", utsMapOf("key" to 1, "style" to normalizeStyle(utsMapOf("flex" to "1"))), utsArrayOf(
+                            _cE("view", _uM("key" to 1, "style" to _nS(_uM("flex" to "1"))), _uA(
                                 if (isTrue(_ctx._list.length > 0 && _ctx.yanchiDuration)) {
-                                    createVNode(_component_x_pull_refresh, utsMapOf("key" to 0, "disabled-bottom" to _ctx._disabledBottom, "disabled-pull" to _ctx._disabledPull, "onRefresh" to _ctx.loadRefres, "onBottomRefresh" to _ctx.bottomLoadRefres, "modelValue" to _ctx.isRefresh, "onUpdate:modelValue" to fun(`$event`: Boolean){
+                                    _cV(_component_x_pull_refresh, _uM("key" to 0, "disabled-bottom" to _ctx._disabledBottom, "disabled-pull" to _ctx._disabledPull, "onRefresh" to _ctx.loadRefres, "onBottomRefresh" to _ctx.bottomLoadRefres, "modelValue" to _ctx.isRefresh, "onUpdate:modelValue" to fun(`$event`: Boolean){
                                         _ctx.isRefresh = `$event`
                                     }, "model-bottom-status" to _ctx.isBootomIsRefresh, "onUpdate:modelBottomStatus" to fun(`$event`: Boolean){
                                         _ctx.isBootomIsRefresh = `$event`
-                                    }, "mode" to "listview", "height" to "100%"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                        return utsArrayOf(
-                                            createElementVNode(Fragment, null, RenderHelpers.renderList(_ctx._renderListData, fun(item, index, __index, _cached): Any {
-                                                return createElementVNode("list-item", utsMapOf("onClick" to fun(){
+                                    }, "mode" to "listview", "height" to "100%"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                        return _uA(
+                                            _cE(Fragment, null, RenderHelpers.renderList(_ctx._renderListData, fun(item, index, __index, _cached): Any {
+                                                return _cE("list-item", _uM("onClick" to fun(){
                                                     _ctx.onclik(item)
-                                                }, "type" to index, "key" to index, "class" to normalizeClass(utsArrayOf(
+                                                }, "type" to index, "key" to index, "class" to _nC(_uA(
                                                     "xPickerSlectedItem",
-                                                    utsArrayOf(
+                                                    _uA(
                                                         if (_ctx.isSelected(item)) {
                                                             "xPickerSlectedWrapOn"
                                                         } else {
                                                             ""
                                                         }
                                                     )
-                                                )), "style" to normalizeStyle(utsMapOf("height" to _ctx._itemHeight))), utsArrayOf(
-                                                    createElementVNode("view", utsMapOf("class" to "xPickerSlectedItemWrap", "style" to normalizeStyle(utsMapOf("border-bottom" to ("1px solid " + _ctx._borderColor), "margin" to "0 16px"))), utsArrayOf(
-                                                        createElementVNode("view", utsMapOf("class" to "xPickerSlectedItemText"), utsArrayOf(
+                                                )), "style" to _nS(_uM("height" to _ctx._itemHeight))), _uA(
+                                                    _cE("view", _uM("class" to "xPickerSlectedItemWrap", "style" to _nS(_uM("border-bottom" to ("1px solid " + _ctx._borderColor), "margin" to "0 16px"))), _uA(
+                                                        _cE("view", _uM("class" to "xPickerSlectedItemText"), _uA(
                                                             renderSlot(_ctx.`$slots`, "item", GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelectedSlotDataItem(item = item.item), fun(): UTSArray<Any> {
-                                                                return utsArrayOf(
-                                                                    createVNode(_component_x_text, utsMapOf("color" to if (_ctx.isSelected(item)) {
+                                                                return _uA(
+                                                                    _cV(_component_x_text, _uM("color" to if (_ctx.isSelected(item)) {
                                                                         _ctx._color
                                                                     } else {
                                                                         if (_ctx._isDark) {
@@ -189,17 +185,17 @@ open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueCompo
                                                                         } else {
                                                                             "#888"
                                                                         }
-                                                                    }, "font-size" to "15", "line-height" to "1.2", "lines" to 2), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                                                        return utsArrayOf(
-                                                                            toDisplayString(item.title)
+                                                                    }, "font-size" to "15", "line-height" to "1.2", "lines" to 2), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                                        return _uA(
+                                                                            _tD(item.title)
                                                                         )
-                                                                    }), "_" to 2), 1032, utsArrayOf(
+                                                                    }), "_" to 2), 1032, _uA(
                                                                         "color"
                                                                     ))
                                                                 )
                                                             })
                                                         )),
-                                                        createVNode(_component_x_icon, utsMapOf("color" to if (_ctx.isSelected(item)) {
+                                                        _cV(_component_x_icon, _uM("color" to if (_ctx.isSelected(item)) {
                                                             _ctx._color
                                                         } else {
                                                             "#e6e6e6"
@@ -207,18 +203,18 @@ open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueCompo
                                                             "checkbox-circle-fill"
                                                         } else {
                                                             "checkbox-blank-circle-line"
-                                                        }), null, 8, utsArrayOf(
+                                                        }), null, 8, _uA(
                                                             "color",
                                                             "name"
                                                         ))
                                                     ), 4)
-                                                ), 14, utsArrayOf(
+                                                ), 14, _uA(
                                                     "onClick",
                                                     "type"
                                                 ))
                                             }), 128)
                                         )
-                                    }), "_" to 3), 8, utsArrayOf(
+                                    }), "_" to 3), 8, _uA(
                                         "disabled-bottom",
                                         "disabled-pull",
                                         "onRefresh",
@@ -229,74 +225,74 @@ open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueCompo
                                         "onUpdate:modelBottomStatus"
                                     ))
                                 } else {
-                                    createCommentVNode("v-if", true)
+                                    _cC("v-if", true)
                                 }
                             ), 4)
                         } else {
-                            createCommentVNode("v-if", true)
+                            _cC("v-if", true)
                         }
                         ,
                         if (isTrue(_ctx._list.length == 0 || _ctx._renderListData.length == 0)) {
-                            createElementVNode("view", utsMapOf("key" to 2, "style" to normalizeStyle(utsMapOf("flex" to "1"))), utsArrayOf(
-                                createVNode(_component_x_empty, utsMapOf("show-btn" to false, "loading" to false, "empty" to true))
+                            _cE("view", _uM("key" to 2, "style" to _nS(_uM("flex" to "1"))), _uA(
+                                _cV(_component_x_empty, _uM("show-btn" to false, "loading" to false, "empty" to true))
                             ), 4)
                         } else {
-                            createCommentVNode("v-if", true)
+                            _cC("v-if", true)
                         }
                         ,
                         if (isTrue((_ctx._list.length > 0 || (_ctx.cachedItems.length > 0 && _ctx.localSearch)) && _ctx.yanchiDuration)) {
-                            createElementVNode("view", utsMapOf("key" to 3, "class" to "xPickerSlectedFooter"), utsArrayOf(
-                                createVNode(_component_x_text, utsMapOf("class" to "xPickerSlectedFooterBtnText", "style" to normalizeStyle(utsMapOf("text-align" to "center")), "color" to _ctx._color, "font-size" to "14"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                    return utsArrayOf(
-                                        " 已选择" + toDisplayString(_ctx.nowValue.length) + "项 "
+                            _cE("view", _uM("key" to 3, "class" to "xPickerSlectedFooter"), _uA(
+                                _cV(_component_x_text, _uM("class" to "xPickerSlectedFooterBtnText", "style" to _nS(_uM("text-align" to "center")), "color" to _ctx._color, "font-size" to "14"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                    return _uA(
+                                        " 已选择" + _tD(_ctx.nowValue.length) + "项 "
                                     )
-                                }), "_" to 1), 8, utsArrayOf(
+                                }), "_" to 1), 8, _uA(
                                     "style",
                                     "color"
                                 )),
-                                createElementVNode("view", utsMapOf("class" to "xPickerSlectedFooterBtn"), utsArrayOf(
+                                _cE("view", _uM("class" to "xPickerSlectedFooterBtn"), _uA(
                                     if (isTrue(!_ctx._isRadioMode)) {
-                                        createVNode(_component_x_text, utsMapOf("key" to 0, "class" to "xPickerSlectedFooterBtnText", "onClick" to _ctx.clearAll, "color" to "#666", "font-size" to "14"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                            return utsArrayOf(
+                                        _cV(_component_x_text, _uM("key" to 0, "class" to "xPickerSlectedFooterBtnText", "onClick" to _ctx.clearAll, "color" to "#666", "font-size" to "14"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                            return _uA(
                                                 " 清空选择 "
                                             )
-                                        }), "_" to 1), 8, utsArrayOf(
+                                        }), "_" to 1), 8, _uA(
                                             "onClick"
                                         ))
                                     } else {
-                                        createCommentVNode("v-if", true)
+                                        _cC("v-if", true)
                                     },
                                     if (isTrue(_ctx._isRadioMode)) {
-                                        createVNode(_component_x_text, utsMapOf("key" to 1, "class" to "xPickerSlectedFooterBtnText", "color" to "#666", "font-size" to "14"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                            return utsArrayOf(
+                                        _cV(_component_x_text, _uM("key" to 1, "class" to "xPickerSlectedFooterBtnText", "color" to "#666", "font-size" to "14"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                            return _uA(
                                                 " 当前为单选模式 "
                                             )
                                         }), "_" to 1))
                                     } else {
-                                        createCommentVNode("v-if", true)
+                                        _cC("v-if", true)
                                     },
                                     if (isTrue(_ctx.multiple)) {
-                                        createVNode(_component_x_text, utsMapOf("key" to 2, "style" to normalizeStyle(utsMapOf("margin-left" to "24px")), "class" to "xPickerSlectedFooterBtnText", "onClick" to _ctx.selectedAll, "color" to _ctx._color, "font-size" to "14"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                            return utsArrayOf(
+                                        _cV(_component_x_text, _uM("key" to 2, "style" to _nS(_uM("margin-left" to "24px")), "class" to "xPickerSlectedFooterBtnText", "onClick" to _ctx.selectedAll, "color" to _ctx._color, "font-size" to "14"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                            return _uA(
                                                 " 选择所有 "
                                             )
-                                        }), "_" to 1), 8, utsArrayOf(
+                                        }), "_" to 1), 8, _uA(
                                             "style",
                                             "onClick",
                                             "color"
                                         ))
                                     } else {
-                                        createCommentVNode("v-if", true)
+                                        _cC("v-if", true)
                                     }
                                 ))
                             ))
                         } else {
-                            createCommentVNode("v-if", true)
+                            _cC("v-if", true)
                         }
                     ))
                 )
             }
-            ), "_" to 3), 8, utsArrayOf(
+            ), "_" to 3), 8, _uA(
                 "cancel-text",
                 "confirm-text",
                 "zIndex",
@@ -380,7 +376,7 @@ open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueCompo
     open var _inputColor: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("show" to false, "nowValue" to utsArrayOf<xPickerSelectedListyType>(), "searchList" to utsArrayOf<xPickerSelectedListyType>(), "searchKey" to "", "duration" to 60, "yanchiDuration" to false, "tid" to 100, "tid34" to 369, "isRefresh" to false, "isBootomIsRefresh" to false, "cachedItems" to utsArrayOf<xPickerSelectedListyType>(), "selected" to utsArrayOf<xPickerSelectedListyType>(), "_disabled" to computed<Boolean>(fun(): Boolean {
+        return _uM("show" to false, "nowValue" to _uA<xPickerSelectedListyType>(), "searchList" to _uA<xPickerSelectedListyType>(), "searchKey" to "", "duration" to 60, "yanchiDuration" to false, "tid" to 100, "tid34" to 369, "isRefresh" to false, "isBootomIsRefresh" to false, "cachedItems" to _uA<xPickerSelectedListyType>(), "selected" to _uA<xPickerSelectedListyType>(), "_disabled" to computed<Boolean>(fun(): Boolean {
             return this.disabled
         }
         ), "_isRadioMode" to computed<Boolean>(fun(): Boolean {
@@ -471,7 +467,7 @@ open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueCompo
     }
     open var getFromCacheByIds = ::gen_getFromCacheByIds_fn
     open fun gen_getFromCacheByIds_fn(ids: UTSArray<Any>): UTSArray<xPickerSelectedListyType> {
-        var temlist = utsArrayOf<xPickerSelectedListyType>()
+        var temlist = _uA<xPickerSelectedListyType>()
         run {
             var i: Number = 0
             while(i < ids.length){
@@ -502,18 +498,18 @@ open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueCompo
         if (!this.localSearch) {
             ls = this.mergeToCacheNovalue(this.nowValue)
         }
-        var subList = utsArrayOf<xPickerSelectedListyType>()
+        var subList = _uA<xPickerSelectedListyType>()
         if (!this.multiple) {
             var index = ls.findIndex(fun(el): Boolean {
                 return el.id == item.id
             })
             if (this._isRadioMode) {
-                ls = (utsArrayOf<xPickerSelectedListyType>(item))
+                ls = (_uA<xPickerSelectedListyType>(item))
             } else {
                 ls = if (index > -1) {
-                    (utsArrayOf<xPickerSelectedListyType>())
+                    (_uA<xPickerSelectedListyType>())
                 } else {
-                    (utsArrayOf<xPickerSelectedListyType>(item))
+                    (_uA<xPickerSelectedListyType>(item))
                 }
             }
         } else {
@@ -558,7 +554,7 @@ open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueCompo
     open var inputConfirm = ::gen_inputConfirm_fn
     open fun gen_inputConfirm_fn() {
         if (this.localSearch) {
-            this.searchList = utsArrayOf<xPickerSelectedListyType>()
+            this.searchList = _uA<xPickerSelectedListyType>()
             var t = this
             var templist = this._list.filter(fun(el): Boolean {
                 return el.title.indexOf(t.searchKey.trim()) > -1
@@ -601,13 +597,13 @@ open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueCompo
             this.nowValue = this.idsToxPickerSelectedListyTypeAr(this.modelValue)
         }
         this.updateModelStr()
-        this.selected = utsArrayOf()
+        this.selected = _uA()
         this.`$emit`("cancel")
     }
     open var idsToxPickerSelectedListyTypeAr = ::gen_idsToxPickerSelectedListyTypeAr_fn
     open fun gen_idsToxPickerSelectedListyTypeAr_fn(ids: UTSArray<Any>): UTSArray<xPickerSelectedListyType> {
         if (this.list.length == 0) {
-            return utsArrayOf<xPickerSelectedListyType>()
+            return _uA<xPickerSelectedListyType>()
         }
         var fts = this.list!!.filter(fun(el: UTSJSONObject): Boolean {
             return ids.includes(el.getAny(this.idKey)!!)
@@ -636,12 +632,12 @@ open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueCompo
         this.`$emit`("confirm", ids, strs)
         this.`$emit`("update:modelValue", ids)
         this.updateModelStr()
-        this.selected = utsArrayOf()
+        this.selected = _uA()
     }
     open var clearAll = ::gen_clearAll_fn
     open fun gen_clearAll_fn() {
-        this.nowValue = utsArrayOf<xPickerSelectedListyType>()
-        this.cachedItems = utsArrayOf<xPickerSelectedListyType>()
+        this.nowValue = _uA<xPickerSelectedListyType>()
+        this.cachedItems = _uA<xPickerSelectedListyType>()
     }
     open var selectedAll = ::gen_selectedAll_fn
     open fun gen_selectedAll_fn() {
@@ -650,7 +646,7 @@ open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueCompo
             if (this.multiple) {
                 this.nowValue = temp
             } else {
-                this.nowValue = utsArrayOf<xPickerSelectedListyType>(temp[0])
+                this.nowValue = _uA<xPickerSelectedListyType>(temp[0])
             }
         }
     }
@@ -666,28 +662,28 @@ open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueCompo
     }
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xPickerSlectedFooterBtn" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-end")), "xPickerSlectedFooter" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "paddingTop" to 12, "paddingRight" to 16, "paddingBottom" to 12, "paddingLeft" to 16)), "xPickerSlectedInputBox" to padStyleMapOf(utsMapOf("height" to "100%", "flex" to 1, "position" to "relative", "display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-end")), "clearClick" to padStyleMapOf(utsMapOf("paddingTop" to 0, "paddingRight" to 16, "paddingBottom" to 0, "paddingLeft" to 16, "display" to "flex", "justifyContent" to "center", "alignItems" to "center", "flexDirection" to "row")), "xPickerSlectedIwrap" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center", "marginTop" to 0, "marginRight" to 16, "marginBottom" to 16, "marginLeft" to 16)), "xPickerSlectedInput" to padStyleMapOf(utsMapOf("height" to "100%", "flex" to 1, "paddingTop" to 0, "paddingRight" to 16, "paddingBottom" to 0, "paddingLeft" to 16)), "xPickerSlectedItemWrap" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-start", "alignItems" to "center", "height" to "100%")), "xPickerSlectedItemText" to padStyleMapOf(utsMapOf("flex" to 1)), "xPickerSlectedWrap" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "column", "flex" to 1)))
+                return _uM("xPickerSlectedFooterBtn" to _pS(_uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-end")), "xPickerSlectedFooter" to _pS(_uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "paddingTop" to 12, "paddingRight" to 16, "paddingBottom" to 12, "paddingLeft" to 16)), "xPickerSlectedInputBox" to _pS(_uM("height" to "100%", "flex" to 1, "position" to "relative", "display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-end")), "clearClick" to _pS(_uM("paddingTop" to 0, "paddingRight" to 16, "paddingBottom" to 0, "paddingLeft" to 16, "display" to "flex", "justifyContent" to "center", "alignItems" to "center", "flexDirection" to "row")), "xPickerSlectedIwrap" to _pS(_uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center", "marginTop" to 0, "marginRight" to 16, "marginBottom" to 16, "marginLeft" to 16)), "xPickerSlectedInput" to _pS(_uM("height" to "100%", "flex" to 1, "paddingTop" to 0, "paddingRight" to 16, "paddingBottom" to 0, "paddingLeft" to 16)), "xPickerSlectedItemWrap" to _pS(_uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-start", "alignItems" to "center", "height" to "100%")), "xPickerSlectedItemText" to _pS(_uM("flex" to 1)), "xPickerSlectedWrap" to _pS(_uM("display" to "flex", "flexDirection" to "column", "flex" to 1)))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("bottomRefresh" to null, "refresh" to null, "search" to null, "confirm" to null, "cancel" to null, "open" to null, "update:modelShow" to null, "update:modelStr" to null, "update:bottomRefresh" to null, "update:refresh" to null, "update:modelValue" to null)
-        var props = normalizePropsOptions(utsMapOf("modelValue" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<Any> {
-            return utsArrayOf<Any>()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("bottomRefresh" to null, "refresh" to null, "search" to null, "confirm" to null, "cancel" to null, "open" to null, "update:modelShow" to null, "update:modelStr" to null, "update:bottomRefresh" to null, "update:refresh" to null, "update:modelValue" to null)
+        var props = _nP(_uM("modelValue" to _uM("type" to "Array", "default" to fun(): UTSArray<Any> {
+            return _uA<Any>()
         }
-        ), "modelShow" to utsMapOf("type" to "Boolean", "default" to false), "modelStr" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf<String>()
+        ), "modelShow" to _uM("type" to "Boolean", "default" to false), "modelStr" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA<String>()
         }
-        ), "title" to utsMapOf("type" to "String", "default" to "请选择"), "cancelText" to utsMapOf("type" to "String", "default" to "取消"), "confirmText" to utsMapOf("type" to "String", "default" to "确认"), "filterKey" to utsMapOf("type" to "String", "default" to "text"), "labelKey" to utsMapOf("type" to "String", "default" to "text"), "idKey" to utsMapOf("type" to "String", "default" to "id"), "list" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<UTSJSONObject> {
-            return utsArrayOf<UTSJSONObject>()
+        ), "title" to _uM("type" to "String", "default" to "请选择"), "cancelText" to _uM("type" to "String", "default" to "取消"), "confirmText" to _uM("type" to "String", "default" to "确认"), "filterKey" to _uM("type" to "String", "default" to "text"), "labelKey" to _uM("type" to "String", "default" to "text"), "idKey" to _uM("type" to "String", "default" to "id"), "list" to _uM("type" to "Array", "default" to fun(): UTSArray<UTSJSONObject> {
+            return _uA<UTSJSONObject>()
         }
-        ), "localSearch" to utsMapOf("type" to "Boolean", "default" to true), "multiple" to utsMapOf("type" to "Boolean", "default" to true), "isRadioMode" to utsMapOf("type" to "Boolean", "default" to false), "lazyContent" to utsMapOf("type" to "Boolean", "default" to false), "lazyDuration" to utsMapOf("type" to "Number", "default" to 100), "itemHeight" to utsMapOf("type" to "String", "default" to "50"), "zIndex" to utsMapOf("type" to "Number", "default" to 1100), "showClose" to utsMapOf("type" to "Boolean", "default" to false), "refresh" to utsMapOf("type" to "Boolean", "default" to false), "bottomRefresh" to utsMapOf("type" to "Boolean", "default" to false), "disabledPull" to utsMapOf("type" to "Boolean", "default" to true), "disabledBottom" to utsMapOf("type" to "Boolean", "default" to true), "disabled" to utsMapOf("type" to "Boolean", "default" to false), "widthCoverCenter" to utsMapOf("type" to "Boolean", "default" to false)))
-        var propsNeedCastKeys = utsArrayOf(
+        ), "localSearch" to _uM("type" to "Boolean", "default" to true), "multiple" to _uM("type" to "Boolean", "default" to true), "isRadioMode" to _uM("type" to "Boolean", "default" to false), "lazyContent" to _uM("type" to "Boolean", "default" to false), "lazyDuration" to _uM("type" to "Number", "default" to 100), "itemHeight" to _uM("type" to "String", "default" to "50"), "zIndex" to _uM("type" to "Number", "default" to 1100), "showClose" to _uM("type" to "Boolean", "default" to false), "refresh" to _uM("type" to "Boolean", "default" to false), "bottomRefresh" to _uM("type" to "Boolean", "default" to false), "disabledPull" to _uM("type" to "Boolean", "default" to true), "disabledBottom" to _uM("type" to "Boolean", "default" to true), "disabled" to _uM("type" to "Boolean", "default" to false), "widthCoverCenter" to _uM("type" to "Boolean", "default" to false)))
+        var propsNeedCastKeys = _uA(
             "modelValue",
             "modelShow",
             "modelStr",
@@ -713,6 +709,6 @@ open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueCompo
             "disabled",
             "widthCoverCenter"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

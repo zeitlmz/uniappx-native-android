@@ -186,7 +186,7 @@ dependencies {
     implementation project(':jj-md5')
     implementation project(':kux-request-interceptors')
     implementation project(':kux-router')
-    implementation project(':mc-amap-nav-plus')
+    implementation project(':mc-amap-nav')
     implementation project(':mc-permission-request')
     implementation project(':mc-wechat-sdk')
     implementation project(':mc-alipay-sdk')

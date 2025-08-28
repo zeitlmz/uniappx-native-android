@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.`$off` as uni__off
 import io.dcloud.uniapp.extapi.`$on` as uni__on
 import io.dcloud.uniapp.extapi.createSelectorQuery as uni_createSelectorQuery
@@ -48,9 +44,9 @@ open class GenUniModulesTmxUiComponentsXPickerViewXPickerView : VueComponent {
         val _ctx = this
         val _cache = this.`$`.renderCache
         val _component_x_picker_item = resolveEasyComponent("x-picker-item", GenUniModulesTmxUiComponentsXPickerItemXPickerItemClass)
-        return createElementVNode("view", utsMapOf("class" to "xPickerView", "ref" to "xPickerView"), utsArrayOf(
+        return _cE("view", _uM("class" to "xPickerView", "ref" to "xPickerView"), _uA(
             if (isTrue(_ctx.okNodeInfo)) {
-                createVNode(_component_x_picker_item, utsMapOf("key" to 0, "unitsFontSize" to _ctx.unitsFontSize, "onCountChange" to _ctx.conutChangeEnd, "duration" to _ctx.duration, "threshold" to _ctx.threshold, "font-size" to _ctx.fontSize, "cellUnits" to _ctx._cellUnits, "onChangeDeep" to _ctx.change, "selectedIndex" to _ctx._modelValueIndex, "parentIndex" to _ctx.parentIndex, "wrapWight" to _ctx._deepWidth, "list" to _ctx._list, "class" to "xPickerViewItem"), null, 8, utsArrayOf(
+                _cV(_component_x_picker_item, _uM("key" to 0, "unitsFontSize" to _ctx.unitsFontSize, "onCountChange" to _ctx.conutChangeEnd, "duration" to _ctx.duration, "threshold" to _ctx.threshold, "font-size" to _ctx.fontSize, "cellUnits" to _ctx._cellUnits, "onChangeDeep" to _ctx.change, "selectedIndex" to _ctx._modelValueIndex, "parentIndex" to _ctx.parentIndex, "wrapWight" to _ctx._deepWidth, "list" to _ctx._list, "class" to "xPickerViewItem"), null, 8, _uA(
                     "unitsFontSize",
                     "onCountChange",
                     "duration",
@@ -64,7 +60,7 @@ open class GenUniModulesTmxUiComponentsXPickerViewXPickerView : VueComponent {
                     "list"
                 ))
             } else {
-                createCommentVNode("v-if", true)
+                _cC("v-if", true)
             }
         ), 512)
     }
@@ -90,7 +86,7 @@ open class GenUniModulesTmxUiComponentsXPickerViewXPickerView : VueComponent {
     open var _deepWidth: Number by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("wrapTotalWidth" to 0, "nowValue" to utsArrayOf<String>(), "_modelValueIndex" to utsArrayOf<Number>(), "okNodeInfo" to false, "tid" to 0, "parentIndex" to 0, "_cellUnits" to computed<UTSArray<String>>(fun(): UTSArray<String> {
+        return _uM("wrapTotalWidth" to 0, "nowValue" to _uA<String>(), "_modelValueIndex" to _uA<Number>(), "okNodeInfo" to false, "tid" to 0, "parentIndex" to 0, "_cellUnits" to computed<UTSArray<String>>(fun(): UTSArray<String> {
             return this.cellUnits as UTSArray<String>
         }
         ), "_list" to computed<UTSArray<X_PICKER_X_ITEM>>(fun(): UTSArray<X_PICKER_X_ITEM> {
@@ -99,7 +95,7 @@ open class GenUniModulesTmxUiComponentsXPickerViewXPickerView : VueComponent {
             }
             var list = this.list.slice(0) as UTSArray<PICKER_ITEM_INFO>
             fun addOptionalFieldsToTreeClolone(tree: UTSArray<PICKER_ITEM_INFO>): UTSArray<X_PICKER_X_ITEM> {
-                var nowlist = utsArrayOf<X_PICKER_X_ITEM>()
+                var nowlist = _uA<X_PICKER_X_ITEM>()
                 run {
                     var i: Number = 0
                     while(i < tree.length){
@@ -115,11 +111,11 @@ open class GenUniModulesTmxUiComponentsXPickerViewXPickerView : VueComponent {
                             node.id!! as String
                         }
                         node.children = if (node.children == null) {
-                            (utsArrayOf<PICKER_ITEM_INFO>())
+                            (_uA<PICKER_ITEM_INFO>())
                         } else {
                             node.children!! as UTSArray<PICKER_ITEM_INFO>
                         }
-                        var item = X_PICKER_X_ITEM(id = node.id!!, title = node.title, disabled = node.disabled!!, children = utsArrayOf<X_PICKER_X_ITEM>())
+                        var item = X_PICKER_X_ITEM(id = node.id!!, title = node.title, disabled = node.disabled!!, children = _uA<X_PICKER_X_ITEM>())
                         if (node.children!!.length > 0) {
                             item.children = addOptionalFieldsToTreeClolone(node.children!! as UTSArray<PICKER_ITEM_INFO>)
                         }
@@ -164,8 +160,8 @@ open class GenUniModulesTmxUiComponentsXPickerViewXPickerView : VueComponent {
     open var setChangeStrvmodel = ::gen_setChangeStrvmodel_fn
     open fun gen_setChangeStrvmodel_fn() {
         var listitem = this.getModelStr()
-        var idvalue = utsArrayOf<String>()
-        var strs = utsArrayOf<String>()
+        var idvalue = _uA<String>()
+        var strs = _uA<String>()
         listitem.forEach(fun(el){
             idvalue.push(el.id)
             strs.push(el.title)
@@ -184,8 +180,8 @@ open class GenUniModulesTmxUiComponentsXPickerViewXPickerView : VueComponent {
     open fun gen_change_fn(ids: UTSArray<Number>) {
         this._modelValueIndex = ids
         var listitem = this.getModelStr()
-        var idvalue = utsArrayOf<String>()
-        var strs = utsArrayOf<String>()
+        var idvalue = _uA<String>()
+        var strs = _uA<String>()
         listitem.forEach(fun(el){
             idvalue.push(el.id)
             strs.push(el.title)
@@ -222,7 +218,7 @@ open class GenUniModulesTmxUiComponentsXPickerViewXPickerView : VueComponent {
     open fun gen_getIdeByindex_fn(): UTSArray<Number> {
         var index: Number = 0
         var kVal = this.nowValue.slice(0)
-        var indexs = utsArrayOf<Number>()
+        var indexs = _uA<Number>()
         fun getIndex(nodes: UTSArray<X_PICKER_X_ITEM>) {
             if (kVal.length <= index || kVal.length == 0) {
                 return
@@ -252,7 +248,7 @@ open class GenUniModulesTmxUiComponentsXPickerViewXPickerView : VueComponent {
     open fun gen_getModelStr_fn(): UTSArray<X_PICKER_X_ITEM> {
         var ids = this._modelValueIndex.slice(0)
         var index: Number = 0
-        var selectedList = utsArrayOf<X_PICKER_X_ITEM>()
+        var selectedList = _uA<X_PICKER_X_ITEM>()
         fun getStr(nodes: UTSArray<X_PICKER_X_ITEM>) {
             if (ids.length <= index || ids.length == 0) {
                 return
@@ -282,25 +278,25 @@ open class GenUniModulesTmxUiComponentsXPickerViewXPickerView : VueComponent {
     }
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf())
+            _nCS(_uA())
         }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("change" to null, "update:modelStr" to null, "update:modelValue" to null)
-        var props = normalizePropsOptions(utsMapOf("list" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<PICKER_ITEM_INFO> {
-            return utsArrayOf<PICKER_ITEM_INFO>()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("change" to null, "update:modelStr" to null, "update:modelValue" to null)
+        var props = _nP(_uM("list" to _uM("type" to "Array", "default" to fun(): UTSArray<PICKER_ITEM_INFO> {
+            return _uA<PICKER_ITEM_INFO>()
         }
-        ), "listPro" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<X_PICKER_X_ITEM> {
-            return utsArrayOf<X_PICKER_X_ITEM>()
+        ), "listPro" to _uM("type" to "Array", "default" to fun(): UTSArray<X_PICKER_X_ITEM> {
+            return _uA<X_PICKER_X_ITEM>()
         }
-        ), "modelValue" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf<String>()
+        ), "modelValue" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA<String>()
         }
-        ), "modelStr" to utsMapOf("type" to "String", "default" to ""), "cellUnits" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf<String>()
+        ), "modelStr" to _uM("type" to "String", "default" to ""), "cellUnits" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA<String>()
         }
-        ), "unitsFontSize" to utsMapOf("type" to "String", "default" to "12"), "fontSize" to utsMapOf("type" to "String", "default" to "16"), "duration" to utsMapOf("type" to "Number", "default" to 300), "threshold" to utsMapOf("type" to "Number", "default" to 0.9), "modelStrJoin" to utsMapOf("type" to "String", "default" to ",")))
-        var propsNeedCastKeys = utsArrayOf(
+        ), "unitsFontSize" to _uM("type" to "String", "default" to "12"), "fontSize" to _uM("type" to "String", "default" to "16"), "duration" to _uM("type" to "Number", "default" to 300), "threshold" to _uM("type" to "Number", "default" to 0.9), "modelStrJoin" to _uM("type" to "String", "default" to ",")))
+        var propsNeedCastKeys = _uA(
             "list",
             "listPro",
             "modelValue",
@@ -312,6 +308,6 @@ open class GenUniModulesTmxUiComponentsXPickerViewXPickerView : VueComponent {
             "threshold",
             "modelStrJoin"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

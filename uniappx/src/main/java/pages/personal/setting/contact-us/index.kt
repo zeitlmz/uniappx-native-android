@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.`$emit` as uni__emit
 open class GenPagesPersonalSettingContactUsIndex : BasePage {
     constructor(__ins: ComponentInternalInstance, __renderer: String?) : super(__ins, __renderer) {
@@ -51,32 +47,32 @@ open class GenPagesPersonalSettingContactUsIndex : BasePage {
             return fun(): Any? {
                 val _component_x_sheet = resolveEasyComponent("x-sheet", GenUniModulesTmxUiComponentsXSheetXSheetClass)
                 val _component_mc_base_container = resolveEasyComponent("mc-base-container", GenComponentsMcBaseContainerIndexClass)
-                return createVNode(_component_mc_base_container, utsMapOf("title" to "联系我们"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                    return utsArrayOf(
-                        createVNode(_component_x_sheet, utsMapOf("margin" to utsArrayOf(
+                return _cV(_component_mc_base_container, _uM("title" to "联系我们"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                    return _uA(
+                        _cV(_component_x_sheet, _uM("margin" to _uA(
                             "15"
-                        ), "padding" to utsArrayOf(
+                        ), "padding" to _uA(
                             "30rpx",
                             "10rpx",
                             "30rpx",
                             "20rpx"
-                        )), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                            return utsArrayOf(
-                                createElementVNode("view", utsMapOf("class" to "desc-item"), utsArrayOf(
-                                    createElementVNode("text", utsMapOf("class" to "label"), "客服电话"),
-                                    createElementVNode("text", utsMapOf("class" to "text"), "0351-6329000")
+                        )), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                            return _uA(
+                                _cE("view", _uM("class" to "desc-item"), _uA(
+                                    _cE("text", _uM("class" to "label"), "客服电话"),
+                                    _cE("text", _uM("class" to "text"), "0351-6329000")
                                 )),
-                                createElementVNode("view", utsMapOf("class" to "desc-item"), utsArrayOf(
-                                    createElementVNode("text", utsMapOf("class" to "label"), "网址"),
-                                    createElementVNode("text", utsMapOf("class" to "text"), "https://www.mctwlx.com")
+                                _cE("view", _uM("class" to "desc-item"), _uA(
+                                    _cE("text", _uM("class" to "label"), "网址"),
+                                    _cE("text", _uM("class" to "text"), "https://www.mctwlx.com")
                                 )),
-                                createElementVNode("view", utsMapOf("class" to "desc-item"), utsArrayOf(
-                                    createElementVNode("text", utsMapOf("class" to "label"), "企业微信"),
-                                    createElementVNode("text", utsMapOf("class" to "text"), "15513610262")
+                                _cE("view", _uM("class" to "desc-item"), _uA(
+                                    _cE("text", _uM("class" to "label"), "企业微信"),
+                                    _cE("text", _uM("class" to "text"), "15513610262")
                                 )),
-                                createElementVNode("view", utsMapOf("class" to "desc-item", "style" to normalizeStyle(utsMapOf("border" to "none"))), utsArrayOf(
-                                    createElementVNode("text", utsMapOf("class" to "label"), "联系地址"),
-                                    createElementVNode("text", utsMapOf("class" to "text"), "山西省太原市万柏林区柏林国际商务中心15-20层")
+                                _cE("view", _uM("class" to "desc-item", "style" to _nS(_uM("border" to "none"))), _uA(
+                                    _cE("text", _uM("class" to "label"), "联系地址"),
+                                    _cE("text", _uM("class" to "text"), "山西省太原市万柏林区柏林国际商务中心15-20层")
                                 ), 4)
                             )
                         }
@@ -87,21 +83,21 @@ open class GenPagesPersonalSettingContactUsIndex : BasePage {
             }
         }
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
-            ), utsArrayOf(
+            ), _uA(
                 GenApp.styles
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("desc-item" to padStyleMapOf(utsMapOf("flexDirection" to "row", "justifyContent" to "space-between", "paddingTop" to "30rpx", "paddingRight" to 0, "paddingBottom" to "30rpx", "paddingLeft" to 0, "borderBottomWidth" to "1rpx", "borderBottomStyle" to "solid", "borderBottomColor" to "#D4D4D4", "boxSizing" to "border-box")), "text" to utsMapOf(".desc-item " to utsMapOf("textAlign" to "right", "width" to "70%", "fontSize" to "30rpx", "color" to "#000000")), "label" to utsMapOf(".desc-item " to utsMapOf("fontSize" to "30rpx", "color" to "#000000")))
+                return _uM("desc-item" to _pS(_uM("flexDirection" to "row", "justifyContent" to "space-between", "paddingTop" to "30rpx", "paddingRight" to 0, "paddingBottom" to "30rpx", "paddingLeft" to 0, "borderBottomWidth" to "1rpx", "borderBottomStyle" to "solid", "borderBottomColor" to "#D4D4D4", "boxSizing" to "border-box")), "text" to _uM(".desc-item " to _uM("textAlign" to "right", "width" to "70%", "fontSize" to "30rpx", "color" to "#000000")), "label" to _uM(".desc-item " to _uM("fontSize" to "30rpx", "color" to "#000000")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf()
-        var props = normalizePropsOptions(utsMapOf())
-        var propsNeedCastKeys: UTSArray<String> = utsArrayOf()
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM()
+        var props = _nP(_uM())
+        var propsNeedCastKeys: UTSArray<String> = _uA()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

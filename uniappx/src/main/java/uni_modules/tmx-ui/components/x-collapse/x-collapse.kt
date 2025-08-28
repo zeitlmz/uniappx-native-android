@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 open class GenUniModulesTmxUiComponentsXCollapseXCollapse : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {
         provide("xCollapseDefaultName", this.activeName)
@@ -34,11 +30,11 @@ open class GenUniModulesTmxUiComponentsXCollapseXCollapse : VueComponent {
                 this.activeName = newValue
             } else {
                 if (newValue.length >= 1) {
-                    this.activeName = utsArrayOf(
+                    this.activeName = _uA(
                         newValue[0]
                     )
                 } else {
-                    this.activeName = utsArrayOf()
+                    this.activeName = _uA()
                 }
             }
             this.pushChildren()
@@ -49,7 +45,7 @@ open class GenUniModulesTmxUiComponentsXCollapseXCollapse : VueComponent {
     override fun `$render`(): Any? {
         val _ctx = this
         val _cache = this.`$`.renderCache
-        return createElementVNode("view", null, utsArrayOf(
+        return _cE("view", null, _uA(
             renderSlot(_ctx.`$slots`, "default")
         ))
     }
@@ -59,7 +55,7 @@ open class GenUniModulesTmxUiComponentsXCollapseXCollapse : VueComponent {
     open var activeName: UTSArray<String> by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("list" to utsArrayOf<CHIDREN_ITEM>(), "activeName" to utsArrayOf<String>())
+        return _uM("list" to _uA<CHIDREN_ITEM>(), "activeName" to _uA<String>())
     }
     open var addItem = ::gen_addItem_fn
     open fun gen_addItem_fn(item: CHIDREN_ITEM) {
@@ -107,9 +103,9 @@ open class GenUniModulesTmxUiComponentsXCollapseXCollapse : VueComponent {
             }
         } else {
             if (this.activeName.includes(id)) {
-                this.activeName = utsArrayOf()
+                this.activeName = _uA()
             } else {
-                this.activeName = utsArrayOf(
+                this.activeName = _uA(
                     id
                 )
             }
@@ -120,19 +116,19 @@ open class GenUniModulesTmxUiComponentsXCollapseXCollapse : VueComponent {
     }
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf())
+            _nCS(_uA())
         }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("change" to null, "update:modelValue" to null)
-        var props = normalizePropsOptions(utsMapOf("modelValue" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf<String>()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("change" to null, "update:modelValue" to null)
+        var props = _nP(_uM("modelValue" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA<String>()
         }
-        ), "multiple" to utsMapOf("type" to "Boolean", "default" to true)))
-        var propsNeedCastKeys = utsArrayOf(
+        ), "multiple" to _uM("type" to "Boolean", "default" to true)))
+        var propsNeedCastKeys = _uA(
             "modelValue",
             "multiple"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

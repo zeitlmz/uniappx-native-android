@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.`$emit` as uni__emit
 open class GenPagesOtherTripPlanDetailIndex : BasePage {
     constructor(__ins: ComponentInternalInstance, __renderer: String?) : super(__ins, __renderer) {
@@ -54,9 +50,9 @@ open class GenPagesOtherTripPlanDetailIndex : BasePage {
             val endDate = ref("")
             val bindCar = ref("")
             val bindLinesGrp = ref("")
-            val bindDistrictLines = ref(utsArrayOf<DriverBindDistrictLines2>())
-            val tagList = ref(utsArrayOf<TripPlanTagInfo>())
-            val seatTemplates = ref(utsArrayOf<SeatSelectTemplate>())
+            val bindDistrictLines = ref(_uA<DriverBindDistrictLines2>())
+            val tagList = ref(_uA<TripPlanTagInfo>())
+            val seatTemplates = ref(_uA<SeatSelectTemplate>())
             val seatSelectData = ref<Map<String, ChooseSeat>>(Map())
             val seatSelect = ref<McSeatSelectComponentPublicInstance?>(null)
             val selectDate = ref("")
@@ -75,10 +71,10 @@ open class GenPagesOtherTripPlanDetailIndex : BasePage {
                         if (carLinesListStr != null && carLinesListStr != "") {
                             bindDistrictLines.value = JSON.parseArray<DriverBindDistrictLines2>(carLinesListStr)!!
                         }
-                        tagList.value = JSON.parse<UTSArray<TripPlanTagInfo>>(JSON.stringify(planData.getArray("tagInfoList"))) ?: utsArrayOf()
+                        tagList.value = JSON.parse<UTSArray<TripPlanTagInfo>>(JSON.stringify(planData.getArray("tagInfoList"))) ?: _uA()
                         refreshSeatTemplate("DRIVER_PLAN:ORDER_SEAT_METADATA:" + planId + ":" + date).then(fun(res: Response){
                             if (res.code == 200) {
-                                seatTemplates.value = JSON.parse<UTSArray<SeatSelectTemplate>>(JSON.stringify(res.data)) ?: utsArrayOf()
+                                seatTemplates.value = JSON.parse<UTSArray<SeatSelectTemplate>>(JSON.stringify(res.data)) ?: _uA()
                                 seatTemplates.value.forEach(fun(item){
                                     item.selected = false
                                 }
@@ -110,65 +106,65 @@ open class GenPagesOtherTripPlanDetailIndex : BasePage {
                 val _component_x_picker_time = resolveEasyComponent("x-picker-time", GenUniModulesTmxUiComponentsXPickerTimeXPickerTimeClass)
                 val _component_mc_seat_select = resolveEasyComponent("mc-seat-select", GenComponentsMcSeatSelectIndexClass)
                 val _component_mc_base_container = resolveEasyComponent("mc-base-container", GenComponentsMcBaseContainerIndexClass)
-                return createVNode(_component_mc_base_container, utsMapOf("title" to "行程详情"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                    return utsArrayOf(
-                        createVNode(_component_x_sheet, utsMapOf("padding" to utsArrayOf(
+                return _cV(_component_mc_base_container, _uM("title" to "行程详情"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                    return _uA(
+                        _cV(_component_x_sheet, _uM("padding" to _uA(
                             "30rpx",
                             "26rpx"
-                        ), "margin" to utsArrayOf(
+                        ), "margin" to _uA(
                             "15",
                             "15",
                             "15",
                             "15"
-                        )), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                            return utsArrayOf(
-                                createVNode(_component_mc_date_picker, utsMapOf("modelValue" to selectDate.value, "onUpdate:modelValue" to fun(`$event`: String){
+                        )), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                            return _uA(
+                                _cV(_component_mc_date_picker, _uM("modelValue" to selectDate.value, "onUpdate:modelValue" to fun(`$event`: String){
                                     selectDate.value = `$event`
                                 }
-                                ), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                    return utsArrayOf(
-                                        createElementVNode("view", utsMapOf("class" to "form-item"), utsArrayOf(
-                                            createElementVNode("text", utsMapOf("class" to "left-box"), "出行日期"),
-                                            createElementVNode("view", utsMapOf("class" to "right-box"), utsArrayOf(
-                                                createElementVNode("text", utsMapOf("class" to "value"), toDisplayString(selectDate.value), 1)
+                                ), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                    return _uA(
+                                        _cE("view", _uM("class" to "form-item"), _uA(
+                                            _cE("text", _uM("class" to "left-box"), "出行日期"),
+                                            _cE("view", _uM("class" to "right-box"), _uA(
+                                                _cE("text", _uM("class" to "value"), _tD(selectDate.value), 1)
                                             ))
                                         ))
                                     )
                                 }
-                                ), "_" to 1), 8, utsArrayOf(
+                                ), "_" to 1), 8, _uA(
                                     "modelValue",
                                     "onUpdate:modelValue"
                                 ))
                             )
                         }
                         ), "_" to 1)),
-                        createVNode(_component_x_sheet, utsMapOf("padding" to utsArrayOf(
+                        _cV(_component_x_sheet, _uM("padding" to _uA(
                             "30rpx",
                             "26rpx"
-                        ), "margin" to utsArrayOf(
+                        ), "margin" to _uA(
                             "15",
                             "0",
                             "15",
                             "15"
-                        )), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                            return utsArrayOf(
-                                createVNode(_component_x_picker_time, utsMapOf("type" to "minute", "modelValue" to planGoTime.value, "onUpdate:modelValue" to fun(`$event`: String){
+                        )), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                            return _uA(
+                                _cV(_component_x_picker_time, _uM("type" to "minute", "modelValue" to planGoTime.value, "onUpdate:modelValue" to fun(`$event`: String){
                                     planGoTime.value = `$event`
                                 }
                                 , "model-str" to planGoTimeStr.value, "onUpdate:modelStr" to fun(`$event`: String){
                                     planGoTimeStr.value = `$event`
                                 }
-                                , "format" to "hh:mm"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                    return utsArrayOf(
-                                        createElementVNode("view", utsMapOf("class" to "form-item"), utsArrayOf(
-                                            createElementVNode("text", utsMapOf("class" to "left-box"), "发车时间"),
-                                            createElementVNode("view", utsMapOf("class" to "right-box"), utsArrayOf(
-                                                createElementVNode("text", utsMapOf("class" to "value"), toDisplayString(planGoTimeStr.value), 1)
+                                , "format" to "hh:mm"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                    return _uA(
+                                        _cE("view", _uM("class" to "form-item"), _uA(
+                                            _cE("text", _uM("class" to "left-box"), "发车时间"),
+                                            _cE("view", _uM("class" to "right-box"), _uA(
+                                                _cE("text", _uM("class" to "value"), _tD(planGoTimeStr.value), 1)
                                             ))
                                         ))
                                     )
                                 }
-                                ), "_" to 1), 8, utsArrayOf(
+                                ), "_" to 1), 8, _uA(
                                     "modelValue",
                                     "onUpdate:modelValue",
                                     "model-str",
@@ -177,117 +173,117 @@ open class GenPagesOtherTripPlanDetailIndex : BasePage {
                             )
                         }
                         ), "_" to 1)),
-                        createVNode(_component_x_sheet, utsMapOf("padding" to utsArrayOf(
+                        _cV(_component_x_sheet, _uM("padding" to _uA(
                             "30rpx",
                             "26rpx"
-                        ), "margin" to utsArrayOf(
+                        ), "margin" to _uA(
                             "15",
                             "0",
                             "15",
                             "15"
-                        )), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                            return utsArrayOf(
-                                createElementVNode("view", utsMapOf("class" to "form-item"), utsArrayOf(
-                                    createElementVNode("text", utsMapOf("class" to "left-box"), "关联车辆"),
-                                    createElementVNode("view", utsMapOf("class" to "right-box"), utsArrayOf(
-                                        createElementVNode("text", utsMapOf("class" to "value"), toDisplayString(bindCar.value), 1)
+                        )), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                            return _uA(
+                                _cE("view", _uM("class" to "form-item"), _uA(
+                                    _cE("text", _uM("class" to "left-box"), "关联车辆"),
+                                    _cE("view", _uM("class" to "right-box"), _uA(
+                                        _cE("text", _uM("class" to "value"), _tD(bindCar.value), 1)
                                     ))
                                 ))
                             )
                         }
                         ), "_" to 1)),
-                        createVNode(_component_x_sheet, utsMapOf("padding" to utsArrayOf(
+                        _cV(_component_x_sheet, _uM("padding" to _uA(
                             "30rpx",
                             "26rpx"
-                        ), "margin" to utsArrayOf(
+                        ), "margin" to _uA(
                             "15",
                             "0",
                             "15",
                             "15"
-                        )), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                            return utsArrayOf(
-                                createElementVNode("view", utsMapOf("class" to "form-item", "onClick" to fun(){
+                        )), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                            return _uA(
+                                _cE("view", _uM("class" to "form-item", "onClick" to fun(){
                                     showLines.value = !showLines.value
                                 }
-                                ), utsArrayOf(
-                                    createElementVNode("text", utsMapOf("class" to "left-box"), "关联线路"),
-                                    createElementVNode("view", utsMapOf("class" to "right-box"), utsArrayOf(
-                                        createElementVNode("text", utsMapOf("class" to "value"), toDisplayString(bindLinesGrp.value), 1),
+                                ), _uA(
+                                    _cE("text", _uM("class" to "left-box"), "关联线路"),
+                                    _cE("view", _uM("class" to "right-box"), _uA(
+                                        _cE("text", _uM("class" to "value"), _tD(bindLinesGrp.value), 1),
                                         if (isTrue(!showLines.value)) {
-                                            createElementVNode("image", utsMapOf("key" to 0, "class" to "icon", "style" to normalizeStyle(utsMapOf("width" to "20rpx", "height" to "25rpx")), "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-arrow-down-filled-samll.png"), "mode" to "widthFix"), null, 12, utsArrayOf(
+                                            _cE("image", _uM("key" to 0, "class" to "icon", "style" to _nS(_uM("width" to "20rpx", "height" to "25rpx")), "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-arrow-down-filled-samll.png"), "mode" to "widthFix"), null, 12, _uA(
                                                 "src"
                                             ))
                                         } else {
-                                            createCommentVNode("v-if", true)
+                                            _cC("v-if", true)
                                         }
                                         ,
                                         if (isTrue(showLines.value)) {
-                                            createElementVNode("image", utsMapOf("key" to 1, "class" to "icon", "style" to normalizeStyle(utsMapOf("width" to "20rpx", "height" to "25rpx", "transform" to "rotate(180deg)")), "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-arrow-down-filled-samll.png"), "mode" to "widthFix"), null, 12, utsArrayOf(
+                                            _cE("image", _uM("key" to 1, "class" to "icon", "style" to _nS(_uM("width" to "20rpx", "height" to "25rpx", "transform" to "rotate(180deg)")), "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-arrow-down-filled-samll.png"), "mode" to "widthFix"), null, 12, _uA(
                                                 "src"
                                             ))
                                         } else {
-                                            createCommentVNode("v-if", true)
+                                            _cC("v-if", true)
                                         }
                                     ))
-                                ), 8, utsArrayOf(
+                                ), 8, _uA(
                                     "onClick"
                                 )),
                                 if (isTrue(showLines.value)) {
-                                    createElementVNode("view", utsMapOf("key" to 0, "style" to normalizeStyle(utsMapOf("margin-top" to "10rpx"))), utsArrayOf(
-                                        createElementVNode(Fragment, null, RenderHelpers.renderList(bindDistrictLines.value, fun(item2, index2, __index, _cached): Any {
-                                            return createVNode(_component_x_sheet, utsMapOf("class" to "flex-row flex-row-center-between", "style" to normalizeStyle(utsMapOf("margin-bottom" to "5rpx")), "margin" to utsArrayOf(
+                                    _cE("view", _uM("key" to 0, "style" to _nS(_uM("margin-top" to "10rpx"))), _uA(
+                                        _cE(Fragment, null, RenderHelpers.renderList(bindDistrictLines.value, fun(item2, index2, __index, _cached): Any {
+                                            return _cV(_component_x_sheet, _uM("class" to "flex-row flex-row-center-between", "style" to _nS(_uM("margin-bottom" to "5rpx")), "margin" to _uA(
                                                 "0",
                                                 "0",
                                                 "0",
                                                 "10"
-                                            ), "color" to unref(globalData).theme.painColor, "height" to "30rpx"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                                return utsArrayOf(
-                                                    createElementVNode("view", utsMapOf("class" to "left-box flex-row flex-row-center-between"), utsArrayOf(
-                                                        createElementVNode("image", utsMapOf("class" to "icon", "style" to normalizeStyle(utsMapOf("width" to "28rpx", "height" to "30rpx")), "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-location-filled.png"), "mode" to "widthFix"), null, 12, utsArrayOf(
+                                            ), "color" to unref(globalData).theme.painColor, "height" to "30rpx"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                return _uA(
+                                                    _cE("view", _uM("class" to "left-box flex-row flex-row-center-between"), _uA(
+                                                        _cE("image", _uM("class" to "icon", "style" to _nS(_uM("width" to "28rpx", "height" to "30rpx")), "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-location-filled.png"), "mode" to "widthFix"), null, 12, _uA(
                                                             "src"
                                                         )),
-                                                        createElementVNode("text", utsMapOf("class" to "text ml-5", "style" to normalizeStyle(utsMapOf("color" to "#949494", "font-size" to "30rpx"))), toDisplayString(item2.startDistrictName) + "-" + toDisplayString(item2.endDistrictName), 5)
+                                                        _cE("text", _uM("class" to "text ml-5", "style" to _nS(_uM("color" to "#949494", "font-size" to "30rpx"))), _tD(item2.startDistrictName) + "-" + _tD(item2.endDistrictName), 5)
                                                     ))
                                                 )
-                                            }), "_" to 2), 1032, utsArrayOf(
+                                            }), "_" to 2), 1032, _uA(
                                                 "style",
                                                 "color"
                                             ))
                                         }), 256)
                                     ), 4)
                                 } else {
-                                    createCommentVNode("v-if", true)
+                                    _cC("v-if", true)
                                 }
                             )
                         }
                         ), "_" to 1)),
-                        createVNode(_component_x_sheet, utsMapOf("padding" to utsArrayOf(
+                        _cV(_component_x_sheet, _uM("padding" to _uA(
                             "0"
-                        ), "color" to "#00000000", "round" to utsArrayOf(
+                        ), "color" to "#00000000", "round" to _uA(
                             "0"
-                        ), "margin" to utsArrayOf(
+                        ), "margin" to _uA(
                             "15",
                             "0",
                             "15",
                             "15"
-                        )), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                            return utsArrayOf(
-                                createElementVNode("view", utsMapOf("class" to "tag_card-header flex-row flex-row-center-between"), utsArrayOf(
-                                    createElementVNode("view", utsMapOf("class" to "card-title flex-row flex-row-center-between"), utsArrayOf(
-                                        createElementVNode("view", utsMapOf("class" to "title-border", "style" to normalizeStyle("background-color: " + unref(globalData).theme.primaryColor + ";")), null, 4),
-                                        createElementVNode("text", utsMapOf("class" to "text"), "配置标签")
+                        )), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                            return _uA(
+                                _cE("view", _uM("class" to "tag_card-header flex-row flex-row-center-between"), _uA(
+                                    _cE("view", _uM("class" to "card-title flex-row flex-row-center-between"), _uA(
+                                        _cE("view", _uM("class" to "title-border", "style" to _nS("background-color: " + unref(globalData).theme.primaryColor + ";")), null, 4),
+                                        _cE("text", _uM("class" to "text"), "配置标签")
                                     ))
                                 )),
-                                createElementVNode("view", utsMapOf("class" to "tag-card-list"), utsArrayOf(
-                                    createElementVNode(Fragment, null, RenderHelpers.renderList(tagList.value, fun(item, index, __index, _cached): Any {
-                                        return createElementVNode("view", utsMapOf("class" to "tag-card-item flex-row"), utsArrayOf(
-                                            createElementVNode("view", utsMapOf("class" to "tag-picker"), utsArrayOf(
-                                                createElementVNode("text", utsMapOf("class" to "label"), "标签名称："),
-                                                createElementVNode("text", utsMapOf("class" to "number-input", "style" to normalizeStyle(utsMapOf("background" to "#F5F9FF"))), toDisplayString((item.tagName as String)), 5)
+                                _cE("view", _uM("class" to "tag-card-list"), _uA(
+                                    _cE(Fragment, null, RenderHelpers.renderList(tagList.value, fun(item, index, __index, _cached): Any {
+                                        return _cE("view", _uM("class" to "tag-card-item flex-row"), _uA(
+                                            _cE("view", _uM("class" to "tag-picker"), _uA(
+                                                _cE("text", _uM("class" to "label"), "标签名称："),
+                                                _cE("text", _uM("class" to "number-input", "style" to _nS(_uM("background" to "#F5F9FF"))), _tD((item.tagName as String)), 5)
                                             )),
-                                            createElementVNode("view", utsMapOf("class" to "price-input"), utsArrayOf(
-                                                createElementVNode("text", utsMapOf("class" to "label"), "浮动金额："),
-                                                createElementVNode("text", utsMapOf("class" to "number-input"), toDisplayString((item.changeAmount as String)), 1)
+                                            _cE("view", _uM("class" to "price-input"), _uA(
+                                                _cE("text", _uM("class" to "label"), "浮动金额："),
+                                                _cE("text", _uM("class" to "number-input"), _tD((item.changeAmount as String)), 1)
                                             ))
                                         ))
                                     }
@@ -296,7 +292,7 @@ open class GenPagesOtherTripPlanDetailIndex : BasePage {
                             )
                         }
                         ), "_" to 1)),
-                        createVNode(_component_mc_seat_select, utsMapOf("model-value" to seatSelectData.value, "showPrice" to "", "ref_key" to "seatSelect", "ref" to seatSelect, "readonly" to "", "seat-templates" to seatTemplates.value), null, 8, utsArrayOf(
+                        _cV(_component_mc_seat_select, _uM("model-value" to seatSelectData.value, "showPrice" to "", "ref_key" to "seatSelect", "ref" to seatSelect, "readonly" to "", "seat-templates" to seatTemplates.value), null, 8, _uA(
                             "model-value",
                             "seat-templates"
                         ))
@@ -306,21 +302,21 @@ open class GenPagesOtherTripPlanDetailIndex : BasePage {
             }
         }
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
-            ), utsArrayOf(
+            ), _uA(
                 GenApp.styles
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("viewer-title" to padStyleMapOf(utsMapOf("fontSize" to "36rpx", "fontWeight" to "bold", "color" to "#ffffff", "textAlign" to "center")), "confirm-button" to padStyleMapOf(utsMapOf("height" to "88rpx", "lineHeight" to "88rpx", "textAlign" to "center", "width" to "92%", "backgroundImage" to "linear-gradient(90deg, #ff3232, #fc6832)", "backgroundColor" to "rgba(0,0,0,0)", "borderTopLeftRadius" to "12rpx", "borderTopRightRadius" to "12rpx", "borderBottomRightRadius" to "12rpx", "borderBottomLeftRadius" to "12rpx", "color" to "#ffffff", "fontSize" to "32rpx", "marginTop" to 0, "marginRight" to "30rpx", "marginBottom" to 0, "marginLeft" to "30rpx", "opacity:active" to 0.8)), "drawer-title" to padStyleMapOf(utsMapOf("textAlign" to "center", "width" to "100%", "marginTop" to "30rpx", "marginRight" to 0, "marginBottom" to "30rpx", "marginLeft" to 0, "fontWeight" to "bold", "fontSize" to "32rpx", "color" to "#000000")), "form-item" to padStyleMapOf(utsMapOf("flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center")), "left-box" to utsMapOf(".form-item " to utsMapOf("flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center"), ".car-info-item " to utsMapOf("width" to 115, "height" to 100, "position" to "relative")), "right-box" to utsMapOf(".form-item " to utsMapOf("flexDirection" to "row", "alignItems" to "center")), "text" to utsMapOf(".form-item .right-box " to utsMapOf("fontSize" to "32rpx", "color" to "#949494"), ".form-title " to utsMapOf("paddingLeft" to "20rpx", "fontWeight" to "bold", "fontSize" to "36rpx", "color" to "#000000"), ".tag_card-header .card-title " to utsMapOf("paddingLeft" to "20rpx", "fontWeight" to "bold", "fontSize" to "36rpx", "color" to "#000000"), ".tag_card-header .add-btn " to utsMapOf("paddingLeft" to "10rpx", "fontWeight" to "bold", "fontSize" to "32rpx"), ".tag-card-list .tag-card-item .tag-picker .picker-picker " to utsMapOf("fontSize" to "32rpx")), "value" to utsMapOf(".form-item .right-box " to utsMapOf("fontSize" to "32rpx", "color" to "#000000"), ".trip-info-card .trip-body .info-row " to utsMapOf("fontWeight" to "bold", "fontSize" to "30rpx", "color" to "#000000"), ".car-info-item .right-box .info-item " to utsMapOf("color" to "#000000", "fontSize" to 14)), "icon" to utsMapOf(".form-item .right-box " to utsMapOf("width" to 6, "height" to 12, "marginLeft" to "15rpx"), ".trip-info-card .trip-header " to utsMapOf("width" to "30rpx", "height" to "30rpx"), ".tag_card-header .add-btn " to utsMapOf("width" to "34rpx", "height" to "34rpx"), ".tag-card-list .tag-card-item .tag-picker .picker-picker " to utsMapOf("width" to "21rpx", "height" to "11rpx")), "top-box" to utsMapOf(".form-item " to utsMapOf("fontWeight" to "bold", "fontSize" to "32rpx", "color" to "#000000", "paddingBottom" to "20rpx")), "bottom-box" to utsMapOf(".form-item " to utsMapOf("flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center", "width" to "100%")), "form-title" to padStyleMapOf(utsMapOf("paddingBottom" to "20rpx")), "title-border" to utsMapOf(".form-title " to utsMapOf("width" to "8rpx", "height" to "33rpx", "borderTopLeftRadius" to "4rpx", "borderTopRightRadius" to "4rpx", "borderBottomRightRadius" to "4rpx", "borderBottomLeftRadius" to "4rpx"), ".tag_card-header .card-title " to utsMapOf("width" to "8rpx", "height" to "33rpx", "borderTopLeftRadius" to "4rpx", "borderTopRightRadius" to "4rpx", "borderBottomRightRadius" to "4rpx", "borderBottomLeftRadius" to "4rpx")), "trip-info-card" to padStyleMapOf(utsMapOf("backgroundColor" to "#FFFFFF", "borderTopLeftRadius" to "20rpx", "borderTopRightRadius" to "20rpx", "borderBottomRightRadius" to "20rpx", "borderBottomLeftRadius" to "20rpx", "paddingTop" to "20rpx", "paddingRight" to "30rpx", "paddingBottom" to "20rpx", "paddingLeft" to "30rpx")), "trip-header" to utsMapOf(".trip-info-card " to utsMapOf("borderBottomWidth" to "1rpx", "borderBottomStyle" to "solid", "borderBottomColor" to "#DDDDDD", "paddingBottom" to "15rpx")), "trip-no" to utsMapOf(".trip-info-card .trip-header " to utsMapOf("fontWeight" to "bold", "fontSize" to "30rpx")), "trip-body" to utsMapOf(".trip-info-card " to utsMapOf("paddingTop" to "15rpx")), "info-row" to utsMapOf(".trip-info-card .trip-body " to utsMapOf("paddingTop" to "10rpx", "paddingRight" to 0, "paddingBottom" to "10rpx", "paddingLeft" to 0, "fontSize" to "32rpx", "color" to "#000000", "flexDirection" to "row", "alignItems" to "center")), "label" to utsMapOf(".trip-info-card .trip-body .info-row " to utsMapOf("fontSize" to "30rpx", "color" to "#777676", "fontWeight" to "bold"), ".car-info-item .right-box .info-item " to utsMapOf("color" to "#777676", "fontSize" to 14), ".tag-card-list .tag-card-item .tag-picker " to utsMapOf("fontSize" to "32rpx", "paddingBottom" to "15rpx"), ".tag-card-list .tag-card-item .price-input " to utsMapOf("fontSize" to "32rpx", "paddingBottom" to "15rpx")), "car-info-item" to padStyleMapOf(utsMapOf("flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "flex-start")), "status-icon" to utsMapOf(".car-info-item .left-box " to utsMapOf("width" to 70, "height" to 50, "position" to "absolute", "right" to 0, "bottom" to 0)), "title" to utsMapOf(".car-info-item .right-box " to utsMapOf("paddingBottom" to 4, "flexDirection" to "row", "alignItems" to "center")), "car-no" to utsMapOf(".car-info-item .right-box .title " to utsMapOf("fontWeight" to "bold", "fontSize" to 20, "color" to "#000000", "flexDirection" to "row", "alignItems" to "center")), "tag" to utsMapOf(".car-info-item .right-box .title " to utsMapOf("paddingTop" to 1, "paddingRight" to 10, "paddingBottom" to 0, "paddingLeft" to 10, "borderTopLeftRadius" to 5, "borderTopRightRadius" to 5, "borderBottomRightRadius" to 5, "borderBottomLeftRadius" to 5, "borderTopWidth" to 1, "borderRightWidth" to 1, "borderBottomWidth" to 1, "borderLeftWidth" to 1, "borderTopStyle" to "solid", "borderRightStyle" to "solid", "borderBottomStyle" to "solid", "borderLeftStyle" to "solid", "borderTopColor" to "#C78300", "borderRightColor" to "#C78300", "borderBottomColor" to "#C78300", "borderLeftColor" to "#C78300", "fontWeight" to "bold", "fontSize" to 14, "color" to "#C78300")), "info-item" to utsMapOf(".car-info-item .right-box " to utsMapOf("flexDirection" to "row", "paddingTop" to 4, "paddingRight" to 0, "paddingBottom" to 4, "paddingLeft" to 0, "boxSizing" to "border-box")), "btn-group" to utsMapOf(".car-info-item .right-box " to utsMapOf("paddingTop" to 5, "paddingBottom" to 3, "paddingRight" to 5, "boxSizing" to "border-box", "flexDirection" to "row", "justifyContent" to "flex-end")), "btn-group-panel" to padStyleMapOf(utsMapOf("position" to "fixed", "bottom" to 0, "left" to 0, "right" to 0, "paddingTop" to 15, "paddingRight" to 15, "paddingBottom" to 15, "paddingLeft" to 15)), "tag_card-header" to padStyleMapOf(utsMapOf("paddingBottom" to "20rpx")), "tag-card-item" to utsMapOf(".tag-card-list " to utsMapOf("backgroundImage" to "none", "backgroundColor" to "#FFFFFF", "borderTopLeftRadius" to "20rpx", "borderTopRightRadius" to "20rpx", "borderBottomRightRadius" to "20rpx", "borderBottomLeftRadius" to "20rpx", "marginBottom" to "30rpx")), "del-btn" to utsMapOf(".tag-card-list .tag-card-item " to utsMapOf("paddingTop" to 0, "paddingRight" to "18rpx", "paddingBottom" to 0, "paddingLeft" to "18rpx", "alignContent" to "center")), "tag-picker" to utsMapOf(".tag-card-list .tag-card-item " to utsMapOf("flex" to 1, "paddingTop" to "25rpx", "paddingRight" to "25rpx", "paddingBottom" to "25rpx", "paddingLeft" to "25rpx")), "number-input" to utsMapOf(".tag-card-list .tag-card-item .tag-picker " to utsMapOf("borderTopLeftRadius" to "10rpx", "borderTopRightRadius" to "10rpx", "borderBottomRightRadius" to "10rpx", "borderBottomLeftRadius" to "10rpx", "borderTopWidth" to 1, "borderRightWidth" to 1, "borderBottomWidth" to 1, "borderLeftWidth" to 1, "borderTopStyle" to "solid", "borderRightStyle" to "solid", "borderBottomStyle" to "solid", "borderLeftStyle" to "solid", "borderTopColor" to "#90A2C7", "borderRightColor" to "#90A2C7", "borderBottomColor" to "#90A2C7", "borderLeftColor" to "#90A2C7", "textAlign" to "center", "paddingTop" to "10rpx", "paddingRight" to 0, "paddingBottom" to "10rpx", "paddingLeft" to 0, "color" to "#4D669A", "fontWeight" to "bold"), ".tag-card-list .tag-card-item .price-input " to utsMapOf("borderTopLeftRadius" to "10rpx", "borderTopRightRadius" to "10rpx", "borderBottomRightRadius" to "10rpx", "borderBottomLeftRadius" to "10rpx", "borderTopWidth" to 1, "borderRightWidth" to 1, "borderBottomWidth" to 1, "borderLeftWidth" to 1, "borderTopStyle" to "solid", "borderRightStyle" to "solid", "borderBottomStyle" to "solid", "borderLeftStyle" to "solid", "borderTopColor" to "#90A2C7", "borderRightColor" to "#90A2C7", "borderBottomColor" to "#90A2C7", "borderLeftColor" to "#90A2C7", "textAlign" to "center", "paddingTop" to "10rpx", "paddingRight" to 0, "paddingBottom" to "10rpx", "paddingLeft" to 0, "color" to "#4D669A", "fontWeight" to "bold")), "picker-picker" to utsMapOf(".tag-card-list .tag-card-item .tag-picker " to utsMapOf("height" to "74rpx", "paddingTop" to 0, "paddingRight" to "30rpx", "paddingBottom" to 0, "paddingLeft" to "30rpx", "borderTopLeftRadius" to "10rpx", "borderTopRightRadius" to "10rpx", "borderBottomRightRadius" to "10rpx", "borderBottomLeftRadius" to "10rpx", "borderTopWidth" to 1, "borderRightWidth" to 1, "borderBottomWidth" to 1, "borderLeftWidth" to 1, "borderTopStyle" to "solid", "borderRightStyle" to "solid", "borderBottomStyle" to "solid", "borderLeftStyle" to "solid", "borderTopColor" to "#90A2C7", "borderRightColor" to "#90A2C7", "borderBottomColor" to "#90A2C7", "borderLeftColor" to "#90A2C7")), "price-input" to utsMapOf(".tag-card-list .tag-card-item " to utsMapOf("flex" to 1, "paddingTop" to "25rpx", "paddingRight" to "25rpx", "paddingBottom" to "25rpx", "paddingLeft" to 0)))
+                return _uM("viewer-title" to _pS(_uM("fontSize" to "36rpx", "fontWeight" to "bold", "color" to "#ffffff", "textAlign" to "center")), "confirm-button" to _pS(_uM("height" to "88rpx", "lineHeight" to "88rpx", "textAlign" to "center", "width" to "92%", "backgroundImage" to "linear-gradient(90deg, #ff3232, #fc6832)", "backgroundColor" to "rgba(0,0,0,0)", "borderTopLeftRadius" to "12rpx", "borderTopRightRadius" to "12rpx", "borderBottomRightRadius" to "12rpx", "borderBottomLeftRadius" to "12rpx", "color" to "#ffffff", "fontSize" to "32rpx", "marginTop" to 0, "marginRight" to "30rpx", "marginBottom" to 0, "marginLeft" to "30rpx", "opacity:active" to 0.8)), "drawer-title" to _pS(_uM("textAlign" to "center", "width" to "100%", "marginTop" to "30rpx", "marginRight" to 0, "marginBottom" to "30rpx", "marginLeft" to 0, "fontWeight" to "bold", "fontSize" to "32rpx", "color" to "#000000")), "form-item" to _pS(_uM("flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center")), "left-box" to _uM(".form-item " to _uM("flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center"), ".car-info-item " to _uM("width" to 115, "height" to 100, "position" to "relative")), "right-box" to _uM(".form-item " to _uM("flexDirection" to "row", "alignItems" to "center")), "text" to _uM(".form-item .right-box " to _uM("fontSize" to "32rpx", "color" to "#949494"), ".form-title " to _uM("paddingLeft" to "20rpx", "fontWeight" to "bold", "fontSize" to "36rpx", "color" to "#000000"), ".tag_card-header .card-title " to _uM("paddingLeft" to "20rpx", "fontWeight" to "bold", "fontSize" to "36rpx", "color" to "#000000"), ".tag_card-header .add-btn " to _uM("paddingLeft" to "10rpx", "fontWeight" to "bold", "fontSize" to "32rpx"), ".tag-card-list .tag-card-item .tag-picker .picker-picker " to _uM("fontSize" to "32rpx")), "value" to _uM(".form-item .right-box " to _uM("fontSize" to "32rpx", "color" to "#000000"), ".trip-info-card .trip-body .info-row " to _uM("fontWeight" to "bold", "fontSize" to "30rpx", "color" to "#000000"), ".car-info-item .right-box .info-item " to _uM("color" to "#000000", "fontSize" to 14)), "icon" to _uM(".form-item .right-box " to _uM("width" to 6, "height" to 12, "marginLeft" to "15rpx"), ".trip-info-card .trip-header " to _uM("width" to "30rpx", "height" to "30rpx"), ".tag_card-header .add-btn " to _uM("width" to "34rpx", "height" to "34rpx"), ".tag-card-list .tag-card-item .tag-picker .picker-picker " to _uM("width" to "21rpx", "height" to "11rpx")), "top-box" to _uM(".form-item " to _uM("fontWeight" to "bold", "fontSize" to "32rpx", "color" to "#000000", "paddingBottom" to "20rpx")), "bottom-box" to _uM(".form-item " to _uM("flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center", "width" to "100%")), "form-title" to _pS(_uM("paddingBottom" to "20rpx")), "title-border" to _uM(".form-title " to _uM("width" to "8rpx", "height" to "33rpx", "borderTopLeftRadius" to "4rpx", "borderTopRightRadius" to "4rpx", "borderBottomRightRadius" to "4rpx", "borderBottomLeftRadius" to "4rpx"), ".tag_card-header .card-title " to _uM("width" to "8rpx", "height" to "33rpx", "borderTopLeftRadius" to "4rpx", "borderTopRightRadius" to "4rpx", "borderBottomRightRadius" to "4rpx", "borderBottomLeftRadius" to "4rpx")), "trip-info-card" to _pS(_uM("backgroundColor" to "#FFFFFF", "borderTopLeftRadius" to "20rpx", "borderTopRightRadius" to "20rpx", "borderBottomRightRadius" to "20rpx", "borderBottomLeftRadius" to "20rpx", "paddingTop" to "20rpx", "paddingRight" to "30rpx", "paddingBottom" to "20rpx", "paddingLeft" to "30rpx")), "trip-header" to _uM(".trip-info-card " to _uM("borderBottomWidth" to "1rpx", "borderBottomStyle" to "solid", "borderBottomColor" to "#DDDDDD", "paddingBottom" to "15rpx")), "trip-no" to _uM(".trip-info-card .trip-header " to _uM("fontWeight" to "bold", "fontSize" to "30rpx")), "trip-body" to _uM(".trip-info-card " to _uM("paddingTop" to "15rpx")), "info-row" to _uM(".trip-info-card .trip-body " to _uM("paddingTop" to "10rpx", "paddingRight" to 0, "paddingBottom" to "10rpx", "paddingLeft" to 0, "fontSize" to "32rpx", "color" to "#000000", "flexDirection" to "row", "alignItems" to "center")), "label" to _uM(".trip-info-card .trip-body .info-row " to _uM("fontSize" to "30rpx", "color" to "#777676", "fontWeight" to "bold"), ".car-info-item .right-box .info-item " to _uM("color" to "#777676", "fontSize" to 14), ".tag-card-list .tag-card-item .tag-picker " to _uM("fontSize" to "32rpx", "paddingBottom" to "15rpx"), ".tag-card-list .tag-card-item .price-input " to _uM("fontSize" to "32rpx", "paddingBottom" to "15rpx")), "car-info-item" to _pS(_uM("flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "flex-start")), "status-icon" to _uM(".car-info-item .left-box " to _uM("width" to 70, "height" to 50, "position" to "absolute", "right" to 0, "bottom" to 0)), "title" to _uM(".car-info-item .right-box " to _uM("paddingBottom" to 4, "flexDirection" to "row", "alignItems" to "center")), "car-no" to _uM(".car-info-item .right-box .title " to _uM("fontWeight" to "bold", "fontSize" to 20, "color" to "#000000", "flexDirection" to "row", "alignItems" to "center")), "tag" to _uM(".car-info-item .right-box .title " to _uM("paddingTop" to 1, "paddingRight" to 10, "paddingBottom" to 0, "paddingLeft" to 10, "borderTopLeftRadius" to 5, "borderTopRightRadius" to 5, "borderBottomRightRadius" to 5, "borderBottomLeftRadius" to 5, "borderTopWidth" to 1, "borderRightWidth" to 1, "borderBottomWidth" to 1, "borderLeftWidth" to 1, "borderTopStyle" to "solid", "borderRightStyle" to "solid", "borderBottomStyle" to "solid", "borderLeftStyle" to "solid", "borderTopColor" to "#C78300", "borderRightColor" to "#C78300", "borderBottomColor" to "#C78300", "borderLeftColor" to "#C78300", "fontWeight" to "bold", "fontSize" to 14, "color" to "#C78300")), "info-item" to _uM(".car-info-item .right-box " to _uM("flexDirection" to "row", "paddingTop" to 4, "paddingRight" to 0, "paddingBottom" to 4, "paddingLeft" to 0, "boxSizing" to "border-box")), "btn-group" to _uM(".car-info-item .right-box " to _uM("paddingTop" to 5, "paddingBottom" to 3, "paddingRight" to 5, "boxSizing" to "border-box", "flexDirection" to "row", "justifyContent" to "flex-end")), "btn-group-panel" to _pS(_uM("position" to "fixed", "bottom" to 0, "left" to 0, "right" to 0, "paddingTop" to 15, "paddingRight" to 15, "paddingBottom" to 15, "paddingLeft" to 15)), "tag_card-header" to _pS(_uM("paddingBottom" to "20rpx")), "tag-card-item" to _uM(".tag-card-list " to _uM("backgroundImage" to "none", "backgroundColor" to "#FFFFFF", "borderTopLeftRadius" to "20rpx", "borderTopRightRadius" to "20rpx", "borderBottomRightRadius" to "20rpx", "borderBottomLeftRadius" to "20rpx", "marginBottom" to "30rpx")), "del-btn" to _uM(".tag-card-list .tag-card-item " to _uM("paddingTop" to 0, "paddingRight" to "18rpx", "paddingBottom" to 0, "paddingLeft" to "18rpx", "alignContent" to "center")), "tag-picker" to _uM(".tag-card-list .tag-card-item " to _uM("flex" to 1, "paddingTop" to "25rpx", "paddingRight" to "25rpx", "paddingBottom" to "25rpx", "paddingLeft" to "25rpx")), "number-input" to _uM(".tag-card-list .tag-card-item .tag-picker " to _uM("borderTopLeftRadius" to "10rpx", "borderTopRightRadius" to "10rpx", "borderBottomRightRadius" to "10rpx", "borderBottomLeftRadius" to "10rpx", "borderTopWidth" to 1, "borderRightWidth" to 1, "borderBottomWidth" to 1, "borderLeftWidth" to 1, "borderTopStyle" to "solid", "borderRightStyle" to "solid", "borderBottomStyle" to "solid", "borderLeftStyle" to "solid", "borderTopColor" to "#90A2C7", "borderRightColor" to "#90A2C7", "borderBottomColor" to "#90A2C7", "borderLeftColor" to "#90A2C7", "textAlign" to "center", "paddingTop" to "10rpx", "paddingRight" to 0, "paddingBottom" to "10rpx", "paddingLeft" to 0, "color" to "#4D669A", "fontWeight" to "bold"), ".tag-card-list .tag-card-item .price-input " to _uM("borderTopLeftRadius" to "10rpx", "borderTopRightRadius" to "10rpx", "borderBottomRightRadius" to "10rpx", "borderBottomLeftRadius" to "10rpx", "borderTopWidth" to 1, "borderRightWidth" to 1, "borderBottomWidth" to 1, "borderLeftWidth" to 1, "borderTopStyle" to "solid", "borderRightStyle" to "solid", "borderBottomStyle" to "solid", "borderLeftStyle" to "solid", "borderTopColor" to "#90A2C7", "borderRightColor" to "#90A2C7", "borderBottomColor" to "#90A2C7", "borderLeftColor" to "#90A2C7", "textAlign" to "center", "paddingTop" to "10rpx", "paddingRight" to 0, "paddingBottom" to "10rpx", "paddingLeft" to 0, "color" to "#4D669A", "fontWeight" to "bold")), "picker-picker" to _uM(".tag-card-list .tag-card-item .tag-picker " to _uM("height" to "74rpx", "paddingTop" to 0, "paddingRight" to "30rpx", "paddingBottom" to 0, "paddingLeft" to "30rpx", "borderTopLeftRadius" to "10rpx", "borderTopRightRadius" to "10rpx", "borderBottomRightRadius" to "10rpx", "borderBottomLeftRadius" to "10rpx", "borderTopWidth" to 1, "borderRightWidth" to 1, "borderBottomWidth" to 1, "borderLeftWidth" to 1, "borderTopStyle" to "solid", "borderRightStyle" to "solid", "borderBottomStyle" to "solid", "borderLeftStyle" to "solid", "borderTopColor" to "#90A2C7", "borderRightColor" to "#90A2C7", "borderBottomColor" to "#90A2C7", "borderLeftColor" to "#90A2C7")), "price-input" to _uM(".tag-card-list .tag-card-item " to _uM("flex" to 1, "paddingTop" to "25rpx", "paddingRight" to "25rpx", "paddingBottom" to "25rpx", "paddingLeft" to 0)))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf()
-        var props = normalizePropsOptions(utsMapOf())
-        var propsNeedCastKeys: UTSArray<String> = utsArrayOf()
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM()
+        var props = _nP(_uM())
+        var propsNeedCastKeys: UTSArray<String> = _uA()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

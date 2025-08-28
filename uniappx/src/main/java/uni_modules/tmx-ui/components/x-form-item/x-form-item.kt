@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.createSelectorQuery as uni_createSelectorQuery
 open class GenUniModulesTmxUiComponentsXFormItemXFormItem : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {
@@ -40,18 +36,18 @@ open class GenUniModulesTmxUiComponentsXFormItemXFormItem : VueComponent {
         val _ctx = this
         val _cache = this.`$`.renderCache
         val _component_x_text = resolveEasyComponent("x-text", GenUniModulesTmxUiComponentsXTextXTextClass)
-        return createElementVNode("view", utsMapOf("class" to "xFormItem", "ref" to "xFormItem", "style" to normalizeStyle(utsArrayOf(
+        return _cE("view", _uM("class" to "xFormItem", "ref" to "xFormItem", "style" to _nS(_uA(
             _ctx._bordrBottomSolid,
-            utsMapOf("paddingTop" to _ctx._cellPadding[0], "paddingBottom" to _ctx._cellPadding[1])
-        ))), utsArrayOf(
-            createElementVNode("view", utsMapOf("class" to "xFormIitemWrap", "style" to normalizeStyle(utsMapOf("flexDirection" to if (_ctx._labelDirection == "horizontal") {
+            _uM("paddingTop" to _ctx._cellPadding[0], "paddingBottom" to _ctx._cellPadding[1])
+        ))), _uA(
+            _cE("view", _uM("class" to "xFormIitemWrap", "style" to _nS(_uM("flexDirection" to if (_ctx._labelDirection == "horizontal") {
                 "row"
             } else {
                 "column"
             }
-            ))), utsArrayOf(
+            ))), _uA(
                 if (isTrue(_ctx._showLabel)) {
-                    createElementVNode("view", utsMapOf("key" to 0, "class" to "xFormIteLabel", "style" to normalizeStyle(utsMapOf("width" to if (_ctx._labelDirection == "horizontal") {
+                    _cE("view", _uM("key" to 0, "class" to "xFormIteLabel", "style" to _nS(_uM("width" to if (_ctx._labelDirection == "horizontal") {
                         _ctx._labelWidth
                     } else {
                         "auto"
@@ -63,55 +59,55 @@ open class GenUniModulesTmxUiComponentsXFormItemXFormItem : VueComponent {
                         "0"
                     } else {
                         _ctx._labelPadding[0]
-                    }, "justify-content" to _ctx._labelAlign))), utsArrayOf(
+                    }, "justify-content" to _ctx._labelAlign))), _uA(
                         renderSlot(_ctx.`$slots`, "label", UTSJSONObject(), fun(): UTSArray<Any> {
-                            return utsArrayOf(
+                            return _uA(
                                 if (isTrue(_ctx._showRequired && _ctx._required)) {
-                                    createElementVNode("text", utsMapOf("key" to 0, "style" to normalizeStyle(utsMapOf("fontSize" to _ctx._labelFontSize, "color" to "red", "paddingRight" to "8rpx"))), "*", 4)
+                                    _cE("text", _uM("key" to 0, "style" to _nS(_uM("fontSize" to _ctx._labelFontSize, "color" to "red", "paddingRight" to "8rpx"))), "*", 4)
                                 } else {
-                                    createCommentVNode("v-if", true)
+                                    _cC("v-if", true)
                                 },
                                 if (isTrue(_ctx._label)) {
-                                    createVNode(_component_x_text, utsMapOf("key" to 1, "font-size" to _ctx._labelFontSize, "color" to _ctx._labelFontColor), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                        return utsArrayOf(
-                                            toDisplayString(_ctx._label)
+                                    _cV(_component_x_text, _uM("key" to 1, "font-size" to _ctx._labelFontSize, "color" to _ctx._labelFontColor), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                        return _uA(
+                                            _tD(_ctx._label)
                                         )
-                                    }), "_" to 1), 8, utsArrayOf(
+                                    }), "_" to 1), 8, _uA(
                                         "font-size",
                                         "color"
                                     ))
                                 } else {
-                                    createCommentVNode("v-if", true)
+                                    _cC("v-if", true)
                                 }
                             )
                         })
                     ), 4)
                 } else {
-                    createCommentVNode("v-if", true)
+                    _cC("v-if", true)
                 }
                 ,
-                createElementVNode("view", utsMapOf("class" to "xFormIteContent", "style" to normalizeStyle(utsArrayOf(
-                    utsMapOf("flex" to if (_ctx._labelDirection == "horizontal") {
+                _cE("view", _uM("class" to "xFormIteContent", "style" to _nS(_uA(
+                    _uM("flex" to if (_ctx._labelDirection == "horizontal") {
                         "1"
                     } else {
                         "auto"
                     }
                     ),
                     _ctx._contentStyle
-                ))), utsArrayOf(
+                ))), _uA(
                     renderSlot(_ctx.`$slots`, "default")
                 ), 4)
             ), 4),
             if (isTrue(_ctx.isError && !_ctx.first && _ctx._required && _ctx._showError)) {
-                createElementVNode("view", utsMapOf("key" to 0, "class" to "xFormItemError"), utsArrayOf(
+                _cE("view", _uM("key" to 0, "class" to "xFormItemError"), _uA(
                     renderSlot(_ctx.`$slots`, "error", UTSJSONObject(), fun(): UTSArray<Any> {
-                        return utsArrayOf(
-                            createElementVNode("text", utsMapOf("class" to "xFormItemErrorText", "style" to normalizeStyle(utsMapOf("fontSize" to _ctx._errorFontsize, "textAlign" to _ctx.XFORMITEM_ERROR_ALIGN))), toDisplayString(_ctx.errorText), 5)
+                        return _uA(
+                            _cE("text", _uM("class" to "xFormItemErrorText", "style" to _nS(_uM("fontSize" to _ctx._errorFontsize, "textAlign" to _ctx.XFORMITEM_ERROR_ALIGN))), _tD(_ctx.errorText), 5)
                         )
                     })
                 ))
             } else {
-                createCommentVNode("v-if", true)
+                _cC("v-if", true)
             }
         ), 4)
     }
@@ -164,7 +160,7 @@ open class GenUniModulesTmxUiComponentsXFormItemXFormItem : VueComponent {
     open var _labelAlign: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("id" to ("xFormItem-" + getUid()) as String, "errorText" to "请正确填写", "isError" to false, "first" to true, "tid" to 0, "_contentStyle" to computed<String>(fun(): String {
+        return _uM("id" to ("xFormItem-" + getUid()) as String, "errorText" to "请正确填写", "isError" to false, "first" to true, "tid" to 0, "_contentStyle" to computed<String>(fun(): String {
             return this.contentStyle
         }
         ), "_showError" to computed<Boolean>(fun(): Boolean {
@@ -173,7 +169,7 @@ open class GenUniModulesTmxUiComponentsXFormItemXFormItem : VueComponent {
         ), "_cellPadding" to computed<UTSArray<String>>(fun(): UTSArray<String> {
             var mb = checkIsCssUnit(this.cellPadding[0], xConfig.unit)
             var pb = checkIsCssUnit(this.cellPadding[1], xConfig.unit)
-            return utsArrayOf(
+            return _uA(
                 mb,
                 pb
             )
@@ -181,7 +177,7 @@ open class GenUniModulesTmxUiComponentsXFormItemXFormItem : VueComponent {
         ), "_labelPadding" to computed<UTSArray<String>>(fun(): UTSArray<String> {
             var mb = checkIsCssUnit(this.labelPadding[0], xConfig.unit)
             var pb = checkIsCssUnit(this.labelPadding[1], xConfig.unit)
-            return utsArrayOf(
+            return _uA(
                 mb,
                 pb
             )
@@ -290,7 +286,7 @@ open class GenUniModulesTmxUiComponentsXFormItemXFormItem : VueComponent {
     open fun gen_getParentRules_fn(): UTSArray<FORM_RULE> {
         var pelement = this.findParent(this)
         if (pelement == null) {
-            return utsArrayOf<FORM_RULE>()
+            return _uA<FORM_RULE>()
         }
         var parent: XFormComponentPublicInstance = pelement as XFormComponentPublicInstance
         return parent.getRules(this.field) as UTSArray<FORM_RULE>
@@ -406,28 +402,28 @@ open class GenUniModulesTmxUiComponentsXFormItemXFormItem : VueComponent {
     companion object {
         var name = "xFormItem"
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xFormIteLabel" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "alignItems" to "center")), "xFormItem" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "column")), "xFormItemErrorText" to padStyleMapOf(utsMapOf("color" to "#FF0000", "paddingTop" to 5, "display" to "flex")), "xFormIitemWrap" to padStyleMapOf(utsMapOf("display" to "flex")))
+                return _uM("xFormIteLabel" to _pS(_uM("display" to "flex", "flexDirection" to "row", "alignItems" to "center")), "xFormItem" to _pS(_uM("display" to "flex", "flexDirection" to "column")), "xFormItemErrorText" to _pS(_uM("color" to "#FF0000", "paddingTop" to 5, "display" to "flex")), "xFormIitemWrap" to _pS(_uM("display" to "flex")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf("XFORMITEM_TOP" to utsMapOf("type" to "Number", "default" to 0), "XFORMITEM_LABEL_WIDTH" to utsMapOf("type" to "String", "default" to "100"), "XFORMITEM_LABEL_Direction" to utsMapOf("type" to "String", "default" to "horizontal"), "XFORMITEM_LABEL_FontColor" to utsMapOf("type" to "String", "default" to "#333333"), "XFORMITEM_LABEL_SCROLL" to utsMapOf("type" to "Boolean", "default" to true), "XFORMITEM_LABEL_FontSize" to utsMapOf("type" to "String", "default" to "16"), "XFORMITEM_SHOWLABEL" to utsMapOf("type" to "Boolean", "default" to true), "XFORMITEM_ERROR_ALIGN" to utsMapOf("type" to "String", "default" to "right"))
-        var emits: Map<String, Any?> = utsMapOf()
-        var props = normalizePropsOptions(utsMapOf("label" to utsMapOf("type" to "String", "default" to ""), "showLabel" to utsMapOf("default" to null), "field" to utsMapOf("type" to "String", "default" to ""), "required" to utsMapOf("type" to "Boolean", "default" to false), "showRequired" to utsMapOf("type" to "Boolean", "default" to true), "rule" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<FORM_RULE> {
-            return utsArrayOf<FORM_RULE>()
+        var inject: Map<String, Map<String, Any?>> = _uM("XFORMITEM_TOP" to _uM("type" to "Number", "default" to 0), "XFORMITEM_LABEL_WIDTH" to _uM("type" to "String", "default" to "100"), "XFORMITEM_LABEL_Direction" to _uM("type" to "String", "default" to "horizontal"), "XFORMITEM_LABEL_FontColor" to _uM("type" to "String", "default" to "#333333"), "XFORMITEM_LABEL_SCROLL" to _uM("type" to "Boolean", "default" to true), "XFORMITEM_LABEL_FontSize" to _uM("type" to "String", "default" to "16"), "XFORMITEM_SHOWLABEL" to _uM("type" to "Boolean", "default" to true), "XFORMITEM_ERROR_ALIGN" to _uM("type" to "String", "default" to "right"))
+        var emits: Map<String, Any?> = _uM()
+        var props = _nP(_uM("label" to _uM("type" to "String", "default" to ""), "showLabel" to _uM("default" to null), "field" to _uM("type" to "String", "default" to ""), "required" to _uM("type" to "Boolean", "default" to false), "showRequired" to _uM("type" to "Boolean", "default" to true), "rule" to _uM("type" to "Array", "default" to fun(): UTSArray<FORM_RULE> {
+            return _uA<FORM_RULE>()
         }
-        ), "labelWidth" to utsMapOf("type" to "String", "default" to ""), "labelDirection" to utsMapOf("type" to "String", "default" to ""), "labelFontColor" to utsMapOf("type" to "String", "default" to ""), "labelFontSize" to utsMapOf("type" to "String", "default" to ""), "labelAlign" to utsMapOf("type" to "String", "default" to "left"), "showBottomBorder" to utsMapOf("type" to "Boolean", "default" to true), "cellPadding" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf<String>("10", "10")
+        ), "labelWidth" to _uM("type" to "String", "default" to ""), "labelDirection" to _uM("type" to "String", "default" to ""), "labelFontColor" to _uM("type" to "String", "default" to ""), "labelFontSize" to _uM("type" to "String", "default" to ""), "labelAlign" to _uM("type" to "String", "default" to "left"), "showBottomBorder" to _uM("type" to "Boolean", "default" to true), "cellPadding" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA<String>("10", "10")
         }
-        ), "labelPadding" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf<String>("12", "12")
+        ), "labelPadding" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA<String>("12", "12")
         }
-        ), "showError" to utsMapOf("type" to "Boolean", "default" to true), "contentStyle" to utsMapOf("type" to "String", "default" to "")))
-        var propsNeedCastKeys = utsArrayOf(
+        ), "showError" to _uM("type" to "Boolean", "default" to true), "contentStyle" to _uM("type" to "String", "default" to "")))
+        var propsNeedCastKeys = _uA(
             "label",
             "showLabel",
             "field",
@@ -445,6 +441,6 @@ open class GenUniModulesTmxUiComponentsXFormItemXFormItem : VueComponent {
             "showError",
             "contentStyle"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

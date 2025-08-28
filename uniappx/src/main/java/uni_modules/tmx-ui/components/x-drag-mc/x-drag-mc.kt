@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.getWindowInfo as uni_getWindowInfo
 import uts.sdk.modules.xVibrateS.vibrator
 open class GenUniModulesTmxUiComponentsXDragMcXDragMc : VueComponent {
@@ -34,11 +30,11 @@ open class GenUniModulesTmxUiComponentsXDragMcXDragMc : VueComponent {
     override fun `$render`(): Any? {
         val _ctx = this
         val _cache = this.`$`.renderCache
-        return createElementVNode("view", utsMapOf("class" to "xDragMc", "ref" to "xDragMc", "onLongpress" to _ctx.mStart, "onTouchmove" to withModifiers(_ctx.mMove, utsArrayOf(
+        return _cE("view", _uM("class" to "xDragMc", "ref" to "xDragMc", "onLongpress" to _ctx.mStart, "onTouchmove" to withModifiers(_ctx.mMove, _uA(
             "stop"
-        )), "onTouchend" to _ctx.mEnd, "onTouchcancel" to _ctx.mEnd, "style" to normalizeStyle(utsMapOf("height" to (_ctx.totalHeight + "px")))), utsArrayOf(
+        )), "onTouchend" to _ctx.mEnd, "onTouchcancel" to _ctx.mEnd, "style" to _nS(_uM("height" to (_ctx.totalHeight + "px")))), _uA(
             renderSlot(_ctx.`$slots`, "default")
-        ), 44, utsArrayOf(
+        ), 44, _uA(
             "onLongpress",
             "onTouchmove",
             "onTouchend",
@@ -68,7 +64,7 @@ open class GenUniModulesTmxUiComponentsXDragMcXDragMc : VueComponent {
     open var xdragRect: XDRAG_DOMRECT by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("domlist" to utsArrayOf<CHILDREN_INFO>(), "backckList" to utsArrayOf<String>(), "oldList" to utsArrayOf<UTSJSONObject>(), "activeIndex" to -1, "targetIndex" to -1, "totalHeight" to 600, "cellHeight" to 0, "cellWidth" to 0, "isMoveing" to false, "_x" to 0, "_y" to 0, "tid" to 0, "oragie_x" to 0, "oragie_y" to 0, "scrollDiffTopJuli" to 0, "tid2" to 12, "oldStartXy" to POSITION(col = 0, row = 0, index = 0), "xdragRect" to XDRAG_DOMRECT(width = 0, height = 0, left = 0, top = 0, right = 0, bottom = 0))
+        return _uM("domlist" to _uA<CHILDREN_INFO>(), "backckList" to _uA<String>(), "oldList" to _uA<UTSJSONObject>(), "activeIndex" to -1, "targetIndex" to -1, "totalHeight" to 600, "cellHeight" to 0, "cellWidth" to 0, "isMoveing" to false, "_x" to 0, "_y" to 0, "tid" to 0, "oragie_x" to 0, "oragie_y" to 0, "scrollDiffTopJuli" to 0, "tid2" to 12, "oldStartXy" to POSITION(col = 0, row = 0, index = 0), "xdragRect" to XDRAG_DOMRECT(width = 0, height = 0, left = 0, top = 0, right = 0, bottom = 0))
     }
     open var updataResize = ::gen_updataResize_fn
     open fun gen_updataResize_fn(resize: CHILDREN_SIZE) {
@@ -412,26 +408,26 @@ open class GenUniModulesTmxUiComponentsXDragMcXDragMc : VueComponent {
     }
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xDragMc" to padStyleMapOf(utsMapOf("position" to "relative")))
+                return _uM("xDragMc" to _pS(_uM("position" to "relative")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("change" to null, "move" to null, "end" to null, "start" to null)
-        var props = normalizePropsOptions(utsMapOf("col" to utsMapOf("type" to "Number", "default" to 1), "list" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<UTSJSONObject> {
-            return utsArrayOf<UTSJSONObject>()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("change" to null, "move" to null, "end" to null, "start" to null)
+        var props = _nP(_uM("col" to _uM("type" to "Number", "default" to 1), "list" to _uM("type" to "Array", "default" to fun(): UTSArray<UTSJSONObject> {
+            return _uA<UTSJSONObject>()
         }
-        , "required" to true), "scrollDiff" to utsMapOf("type" to "Number", "default" to 25)))
-        var propsNeedCastKeys = utsArrayOf(
+        , "required" to true), "scrollDiff" to _uM("type" to "Number", "default" to 25)))
+        var propsNeedCastKeys = _uA(
             "col",
             "list",
             "scrollDiff"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

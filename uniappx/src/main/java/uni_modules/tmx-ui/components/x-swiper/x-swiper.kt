@@ -11,14 +11,8 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.`$off` as uni__off
 import io.dcloud.uniapp.extapi.`$on` as uni__on
-import uts.sdk.modules.mcAmapNavPlus.checkLocationPermission
-import uts.sdk.modules.mcAmapNavPlus.init
 import io.dcloud.uniapp.extapi.createSelectorQuery as uni_createSelectorQuery
 import io.dcloud.uniapp.extapi.getElementById as uni_getElementById
 open class GenUniModulesTmxUiComponentsXSwiperXSwiper : VueComponent {
@@ -86,32 +80,32 @@ open class GenUniModulesTmxUiComponentsXSwiperXSwiper : VueComponent {
         val _ctx = this
         val _cache = this.`$`.renderCache
         val _component_x_text = resolveEasyComponent("x-text", GenUniModulesTmxUiComponentsXTextXTextClass)
-        return createElementVNode("view", utsMapOf("ref" to "xSwiper", "class" to "xSwiper", "style" to normalizeStyle(utsMapOf("height" to _ctx._height, "width" to _ctx._width, "borderRadius" to _ctx._round))), utsArrayOf(
-            createElementVNode("view", utsMapOf("id" to _ctx.id, "ref" to "xSwiperWrap", "class" to normalizeClass(utsArrayOf(
+        return _cE("view", _uM("ref" to "xSwiper", "class" to "xSwiper", "style" to _nS(_uM("height" to _ctx._height, "width" to _ctx._width, "borderRadius" to _ctx._round))), _uA(
+            _cE("view", _uM("id" to _ctx.id, "ref" to "xSwiperWrap", "class" to _nC(_uA(
                 "xSwiperWrap",
-                utsArrayOf(
+                _uA(
                     if (_ctx.vertical) {
                         "xSwiperV"
                     } else {
                         "xSwiperH"
                     }
                 )
-            )), "style" to normalizeStyle(utsMapOf("width" to (_ctx.boxWidth + "px"), "height" to (_ctx.boxHeight + "px"), "borderRadius" to _ctx._round))), utsArrayOf(
+            )), "style" to _nS(_uM("width" to (_ctx.boxWidth + "px"), "height" to (_ctx.boxHeight + "px"), "borderRadius" to _ctx._round))), _uA(
                 if (isTrue(_ctx.isReady)) {
-                    renderSlot(_ctx.`$slots`, "default", utsMapOf("key" to 0))
+                    renderSlot(_ctx.`$slots`, "default", _uM("key" to 0))
                 } else {
-                    createCommentVNode("v-if", true)
+                    _cC("v-if", true)
                 }
-            ), 14, utsArrayOf(
+            ), 14, _uA(
                 "id"
             )),
             if (isTrue(_ctx.showLastView)) {
-                createElementVNode("view", utsMapOf("key" to 0, "ref" to "lastEndRightView", "class" to "lastEndRightView"), utsArrayOf(
+                _cE("view", _uM("key" to 0, "ref" to "lastEndRightView", "class" to "lastEndRightView"), _uA(
                     renderSlot(_ctx.`$slots`, "lastView", UTSJSONObject(), fun(): UTSArray<Any> {
-                        return utsArrayOf(
-                            createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("width" to "20px", "margin-left" to "5px"))), utsArrayOf(
-                                createVNode(_component_x_text, null, utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                    return utsArrayOf(
+                        return _uA(
+                            _cE("view", _uM("style" to _nS(_uM("width" to "20px", "margin-left" to "5px"))), _uA(
+                                _cV(_component_x_text, null, _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                    return _uA(
                                         "不要再拉了"
                                     )
                                 }), "_" to 1))
@@ -120,21 +114,21 @@ open class GenUniModulesTmxUiComponentsXSwiperXSwiper : VueComponent {
                     })
                 ), 512)
             } else {
-                createCommentVNode("v-if", true)
+                _cC("v-if", true)
             }
             ,
             if (isTrue(_ctx.vertical && _ctx._showDot)) {
-                createElementVNode("view", utsMapOf("key" to 1, "class" to "xSwiperDotV", "style" to normalizeStyle(utsMapOf("right" to _ctx._dotOffset)), "onClik" to withModifiers(fun(){}, utsArrayOf(
+                _cE("view", _uM("key" to 1, "class" to "xSwiperDotV", "style" to _nS(_uM("right" to _ctx._dotOffset)), "onClik" to withModifiers(fun(){}, _uA(
                     "stop"
-                ))), utsArrayOf(
+                ))), _uA(
                     renderSlot(_ctx.`$slots`, "dotV", GenUniModulesTmxUiComponentsXSwiperXSwiperSlotDataDotV(current = _ctx.nowCureentIndex, len = _ctx.list.length), fun(): UTSArray<Any> {
-                        return utsArrayOf(
-                            createElementVNode(Fragment, null, RenderHelpers.renderList(_ctx.list, fun(item, index, __index, _cached): Any {
-                                return createElementVNode("view", utsMapOf("onClick" to withModifiers(fun(){
+                        return _uA(
+                            _cE(Fragment, null, RenderHelpers.renderList(_ctx.list, fun(item, index, __index, _cached): Any {
+                                return _cE("view", _uM("onClick" to withModifiers(fun(){
                                     _ctx.dotClick(index)
-                                }, utsArrayOf(
+                                }, _uA(
                                     "stop"
-                                )), "key" to index, "class" to "xSwiperDotItemV", "style" to normalizeStyle(utsMapOf("height" to if (_ctx.nowCureentIndex == index) {
+                                )), "key" to index, "class" to "xSwiperDotItemV", "style" to _nS(_uM("height" to if (_ctx.nowCureentIndex == index) {
                                     (_ctx._dotSize * 3) + "px"
                                 } else {
                                     _ctx._dotSize + "px"
@@ -142,29 +136,29 @@ open class GenUniModulesTmxUiComponentsXSwiperXSwiper : VueComponent {
                                     _ctx._dotActiveColor
                                 } else {
                                     _ctx._dotColor
-                                }, "transition-timing-function" to _ctx.animationFun))), null, 12, utsArrayOf(
+                                }, "transition-timing-function" to _ctx.animationFun))), null, 12, _uA(
                                     "onClick"
                                 ))
                             }), 128)
                         )
                     })
-                ), 44, utsArrayOf(
+                ), 44, _uA(
                     "onClik"
                 ))
             } else {
-                createCommentVNode("v-if", true)
+                _cC("v-if", true)
             }
             ,
             if (isTrue(!_ctx.vertical && _ctx._showDot)) {
-                createElementVNode("view", utsMapOf("key" to 2, "class" to "xSwiperDotH", "style" to normalizeStyle(utsMapOf("bottom" to _ctx._dotOffset))), utsArrayOf(
+                _cE("view", _uM("key" to 2, "class" to "xSwiperDotH", "style" to _nS(_uM("bottom" to _ctx._dotOffset))), _uA(
                     renderSlot(_ctx.`$slots`, "dot", GenUniModulesTmxUiComponentsXSwiperXSwiperSlotDataDot(current = _ctx.nowCureentIndex, len = _ctx.list.length), fun(): UTSArray<Any> {
-                        return utsArrayOf(
-                            createElementVNode(Fragment, null, RenderHelpers.renderList(_ctx.list, fun(_item, index, __index, _cached): Any {
-                                return createElementVNode("view", utsMapOf("key" to index, "onClick" to withModifiers(fun(){
+                        return _uA(
+                            _cE(Fragment, null, RenderHelpers.renderList(_ctx.list, fun(_item, index, __index, _cached): Any {
+                                return _cE("view", _uM("key" to index, "onClick" to withModifiers(fun(){
                                     _ctx.dotClick(index)
-                                }, utsArrayOf(
+                                }, _uA(
                                     "stop"
-                                )), "class" to "xSwiperDotItemH", "style" to normalizeStyle(utsMapOf("width" to if (_ctx.nowCureentIndex == index) {
+                                )), "class" to "xSwiperDotItemH", "style" to _nS(_uM("width" to if (_ctx.nowCureentIndex == index) {
                                     (_ctx._dotSize * 3) + "px"
                                 } else {
                                     _ctx._dotSize + "px"
@@ -172,7 +166,7 @@ open class GenUniModulesTmxUiComponentsXSwiperXSwiper : VueComponent {
                                     _ctx._dotActiveColor
                                 } else {
                                     _ctx._dotColor
-                                }, "transition-timing-function" to _ctx.animationFun))), null, 12, utsArrayOf(
+                                }, "transition-timing-function" to _ctx.animationFun))), null, 12, _uA(
                                     "onClick"
                                 ))
                             }), 128)
@@ -180,7 +174,7 @@ open class GenUniModulesTmxUiComponentsXSwiperXSwiper : VueComponent {
                     })
                 ), 4)
             } else {
-                createCommentVNode("v-if", true)
+                _cC("v-if", true)
             }
         ), 4)
     }
@@ -249,7 +243,7 @@ open class GenUniModulesTmxUiComponentsXSwiperXSwiper : VueComponent {
     open var _containerSizeHeight: Number by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("id" to ("xSwiperItem-" + getUid()) as String, "parentId" to ("xSwiperParent-" + getUid()) as String, "status" to "runing" as String, "dirs" to "none" as DICR, "swiperTouchMove" to POSITON(x = 0, y = 0), "touchStartPos" to POSITON(x = 0, y = 0), "nowPos" to POSITON(x = 0, y = 0), "nowCureentIndex" to 0, "isMoveing" to false, "swiperDiff" to 0, "containerSize" to SIZE(width = 0, height = 0), "list" to utsArrayOf<SWIPER_ITEM>(), "startLeft" to 0, "startTop" to 0, "tid" to 0, "isResert" to false, "resizeObserver" to null as UniResizeObserver?, "dateIdff" to 0, "key" to 1, "tid2" to 12, "isLastingAniMoveing" to false, "_pos_x" to 0, "_pos_y" to 0, "isSwiper" to "none", "isReady" to false, "_height" to computed<String>(fun(): String {
+        return _uM("id" to ("xSwiperItem-" + getUid()) as String, "parentId" to ("xSwiperParent-" + getUid()) as String, "status" to "runing" as String, "dirs" to "none" as DICR, "swiperTouchMove" to POSITON(x = 0, y = 0), "touchStartPos" to POSITON(x = 0, y = 0), "nowPos" to POSITON(x = 0, y = 0), "nowCureentIndex" to 0, "isMoveing" to false, "swiperDiff" to 0, "containerSize" to SIZE(width = 0, height = 0), "list" to _uA<SWIPER_ITEM>(), "startLeft" to 0, "startTop" to 0, "tid" to 0, "isResert" to false, "resizeObserver" to null as UniResizeObserver?, "dateIdff" to 0, "key" to 1, "tid2" to 12, "isLastingAniMoveing" to false, "_pos_x" to 0, "_pos_y" to 0, "isSwiper" to "none", "isReady" to false, "_height" to computed<String>(fun(): String {
             return checkIsCssUnit(this.height, xConfig.unit)
         }
         ), "_disabled" to computed<Boolean>(fun(): Boolean {
@@ -772,19 +766,19 @@ open class GenUniModulesTmxUiComponentsXSwiperXSwiper : VueComponent {
     }
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("lastEndRightView" to padStyleMapOf(utsMapOf("height" to "100%", "width" to 80, "right" to -80, "position" to "absolute", "zIndex" to 8, "transitionDuration" to "0ms", "transitionProperty" to "transform", "transitionTimingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)")), "xSwiper" to padStyleMapOf(utsMapOf("transitionDuration" to "350ms", "transitionProperty" to "height", "transitionTimingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)", "position" to "relative", "overflow" to "hidden")), "xSwiperH" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row")), "xSwiperV" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "column")), "xSwiperWrap" to padStyleMapOf(utsMapOf("display" to "flex", "transform" to "translate(0px)", "transitionProperty" to "transform", "transitionDuration" to "0ms", "position" to "relative", "transitionTimingFunction" to "linear", "overflow" to "hidden")), "xSwiperDotH" to padStyleMapOf(utsMapOf("position" to "absolute", "height" to 32, "width" to "100%", "display" to "flex", "flexDirection" to "row", "alignItems" to "flex-end", "justifyContent" to "center", "zIndex" to 9, "pointerEvents" to "none")), "xSwiperDotItemH" to padStyleMapOf(utsMapOf("width" to 6, "height" to 6, "marginTop" to 0, "marginRight" to 3, "marginBottom" to 0, "marginLeft" to 3, "transitionProperty" to "width", "transitionDuration" to "300ms", "borderTopLeftRadius" to 8, "borderTopRightRadius" to 8, "borderBottomRightRadius" to 8, "borderBottomLeftRadius" to 8)), "xSwiperDotV" to padStyleMapOf(utsMapOf("position" to "absolute", "height" to "100%", "width" to 30, "display" to "flex", "flexDirection" to "column", "alignItems" to "flex-end", "justifyContent" to "center", "zIndex" to 9, "pointerEvents" to "none")), "xSwiperDotItemV" to padStyleMapOf(utsMapOf("width" to 6, "height" to 6, "marginTop" to 5, "marginRight" to "0rpx", "marginBottom" to 5, "marginLeft" to "0rpx", "transitionProperty" to "height", "transitionDuration" to "300ms", "borderTopLeftRadius" to 8, "borderTopRightRadius" to 8, "borderBottomRightRadius" to 8, "borderBottomLeftRadius" to 8, "zIndex" to 9)), "@TRANSITION" to utsMapOf("lastEndRightView" to utsMapOf("duration" to "0ms", "property" to "transform", "timingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)"), "xSwiper" to utsMapOf("duration" to "350ms", "property" to "height", "timingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)"), "xSwiperWrap" to utsMapOf("property" to "transform", "duration" to "0ms", "timingFunction" to "linear"), "xSwiperDotItemH" to utsMapOf("property" to "width", "duration" to "300ms"), "xSwiperDotItemV" to utsMapOf("property" to "height", "duration" to "300ms")))
+                return _uM("lastEndRightView" to _pS(_uM("height" to "100%", "width" to 80, "right" to -80, "position" to "absolute", "zIndex" to 8, "transitionDuration" to "0ms", "transitionProperty" to "transform", "transitionTimingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)")), "xSwiper" to _pS(_uM("transitionDuration" to "350ms", "transitionProperty" to "height", "transitionTimingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)", "position" to "relative", "overflow" to "hidden")), "xSwiperH" to _pS(_uM("display" to "flex", "flexDirection" to "row")), "xSwiperV" to _pS(_uM("display" to "flex", "flexDirection" to "column")), "xSwiperWrap" to _pS(_uM("display" to "flex", "transform" to "translate(0px)", "transitionProperty" to "transform", "transitionDuration" to "0ms", "position" to "relative", "transitionTimingFunction" to "linear", "overflow" to "hidden")), "xSwiperDotH" to _pS(_uM("position" to "absolute", "height" to 32, "width" to "100%", "display" to "flex", "flexDirection" to "row", "alignItems" to "flex-end", "justifyContent" to "center", "zIndex" to 9, "pointerEvents" to "none")), "xSwiperDotItemH" to _pS(_uM("width" to 6, "height" to 6, "marginTop" to 0, "marginRight" to 3, "marginBottom" to 0, "marginLeft" to 3, "transitionProperty" to "width", "transitionDuration" to "300ms", "borderTopLeftRadius" to 8, "borderTopRightRadius" to 8, "borderBottomRightRadius" to 8, "borderBottomLeftRadius" to 8)), "xSwiperDotV" to _pS(_uM("position" to "absolute", "height" to "100%", "width" to 30, "display" to "flex", "flexDirection" to "column", "alignItems" to "flex-end", "justifyContent" to "center", "zIndex" to 9, "pointerEvents" to "none")), "xSwiperDotItemV" to _pS(_uM("width" to 6, "height" to 6, "marginTop" to 5, "marginRight" to "0rpx", "marginBottom" to 5, "marginLeft" to "0rpx", "transitionProperty" to "height", "transitionDuration" to "300ms", "borderTopLeftRadius" to 8, "borderTopRightRadius" to 8, "borderBottomRightRadius" to 8, "borderBottomLeftRadius" to 8, "zIndex" to 9)), "@TRANSITION" to _uM("lastEndRightView" to _uM("duration" to "0ms", "property" to "transform", "timingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)"), "xSwiper" to _uM("duration" to "350ms", "property" to "height", "timingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)"), "xSwiperWrap" to _uM("property" to "transform", "duration" to "0ms", "timingFunction" to "linear"), "xSwiperDotItemH" to _uM("property" to "width", "duration" to "300ms"), "xSwiperDotItemV" to _uM("property" to "height", "duration" to "300ms")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("change" to null, "click" to null, "dragLastEnd" to null, "update:modelValue" to null)
-        var props = normalizePropsOptions(utsMapOf("modelValue" to utsMapOf("type" to "Number", "default" to 0), "width" to utsMapOf("type" to "String", "default" to "auto"), "height" to utsMapOf("type" to "String", "default" to "150"), "disabled" to utsMapOf("type" to "Boolean", "default" to false), "threshold" to utsMapOf("type" to "Number", "default" to 30), "damping" to utsMapOf("type" to "Number", "default" to 0.1), "animationDuration" to utsMapOf("type" to "Number", "default" to 350), "spaceOffset" to utsMapOf("type" to "Number", "default" to 0), "space" to utsMapOf("type" to "Number", "default" to 0), "model" to utsMapOf("type" to "String", "default" to ""), "animationFun" to utsMapOf("type" to "String", "default" to "cubic-bezier(0, 0.55, 0.45, 1)"), "duration" to utsMapOf("type" to "Number", "default" to 5000), "vertical" to utsMapOf("type" to "Boolean", "default" to false), "round" to utsMapOf("type" to "String", "default" to "10"), "dotColor" to utsMapOf("type" to "String", "default" to "rgba(255,255,255,0.5)"), "dotActiveColor" to utsMapOf("type" to "String", "default" to "rgba(255,255,255,1)"), "dotOffset" to utsMapOf("type" to "String", "default" to "15"), "dotSize" to utsMapOf("type" to "String", "default" to "6"), "showDot" to utsMapOf("type" to "Boolean", "default" to true), "autoPlay" to utsMapOf("type" to "Boolean", "default" to true), "loop" to utsMapOf("type" to "Boolean", "default" to true), "showLastView" to utsMapOf("type" to "Boolean", "default" to false), "showScalAni" to utsMapOf("type" to "Boolean", "default" to false)))
-        var propsNeedCastKeys = utsArrayOf(
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("change" to null, "click" to null, "dragLastEnd" to null, "update:modelValue" to null)
+        var props = _nP(_uM("modelValue" to _uM("type" to "Number", "default" to 0), "width" to _uM("type" to "String", "default" to "auto"), "height" to _uM("type" to "String", "default" to "150"), "disabled" to _uM("type" to "Boolean", "default" to false), "threshold" to _uM("type" to "Number", "default" to 30), "damping" to _uM("type" to "Number", "default" to 0.1), "animationDuration" to _uM("type" to "Number", "default" to 350), "spaceOffset" to _uM("type" to "Number", "default" to 0), "space" to _uM("type" to "Number", "default" to 0), "model" to _uM("type" to "String", "default" to ""), "animationFun" to _uM("type" to "String", "default" to "cubic-bezier(0, 0.55, 0.45, 1)"), "duration" to _uM("type" to "Number", "default" to 5000), "vertical" to _uM("type" to "Boolean", "default" to false), "round" to _uM("type" to "String", "default" to "10"), "dotColor" to _uM("type" to "String", "default" to "rgba(255,255,255,0.5)"), "dotActiveColor" to _uM("type" to "String", "default" to "rgba(255,255,255,1)"), "dotOffset" to _uM("type" to "String", "default" to "15"), "dotSize" to _uM("type" to "String", "default" to "6"), "showDot" to _uM("type" to "Boolean", "default" to true), "autoPlay" to _uM("type" to "Boolean", "default" to true), "loop" to _uM("type" to "Boolean", "default" to true), "showLastView" to _uM("type" to "Boolean", "default" to false), "showScalAni" to _uM("type" to "Boolean", "default" to false)))
+        var propsNeedCastKeys = _uA(
             "modelValue",
             "width",
             "height",
@@ -809,6 +803,6 @@ open class GenUniModulesTmxUiComponentsXSwiperXSwiper : VueComponent {
             "showLastView",
             "showScalAni"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 open class GenUniModulesTmxUiComponentsXCalendarViewCalendarMultiple : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {}
     open var modelValue: String by `$props`
@@ -69,7 +65,7 @@ open class GenUniModulesTmxUiComponentsXCalendarViewCalendarMultiple : VueCompon
             }
             )
             fun <T> splitArray(ar: UTSArray<T>, len: Number): UTSArray<UTSArray<T>> {
-                val result: UTSArray<UTSArray<T>> = utsArrayOf()
+                val result: UTSArray<UTSArray<T>> = _uA()
                 run {
                     var i: Number = 0
                     while(i < ar.length){
@@ -182,23 +178,23 @@ open class GenUniModulesTmxUiComponentsXCalendarViewCalendarMultiple : VueCompon
             }
             )
             return fun(): Any? {
-                return createElementVNode("view", utsMapOf("class" to "xCalendarViewItem", "ref_key" to "xCalendarViewItemRef", "ref" to xCalendarViewItemRef, "onClick" to canvsClick), null, 512)
+                return _cE("view", _uM("class" to "xCalendarViewItem", "ref_key" to "xCalendarViewItemRef", "ref" to xCalendarViewItemRef, "onClick" to canvsClick), null, 512)
             }
         }
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xCalendarViewItem" to padStyleMapOf(utsMapOf("width" to "100%", "height" to "100%")))
+                return _uM("xCalendarViewItem" to _pS(_uM("width" to "100%", "height" to "100%")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("change" to null, "click" to null)
-        var props = normalizePropsOptions(utsMapOf("modelValue" to utsMapOf("type" to "String", "required" to true, "default" to ""), "model" to utsMapOf("type" to "String", "required" to true, "default" to "day" as xCalendarMode), "disabledDays" to utsMapOf("type" to "Array", "required" to true, "default" to utsArrayOf<String>()), "startDate" to utsMapOf("type" to "String", "required" to true, "default" to "1900-1-1"), "endDate" to utsMapOf("type" to "String", "required" to true, "default" to "2025-5-13"), "dateStyle" to utsMapOf("type" to "Array", "required" to true, "default" to utsArrayOf<xCalendarDateStyle_type>()), "format" to utsMapOf("type" to "String", "required" to true, "default" to "YYYY-MM-DD"), "color" to utsMapOf("type" to "String", "required" to true, "default" to ""), "fontColor" to utsMapOf("type" to "String", "required" to true, "default" to "#333333"), "fontDarkColor" to utsMapOf("type" to "String", "required" to true, "default" to "#ffffff"), "activeFontColor" to utsMapOf("type" to "String", "required" to true, "default" to "#ffffff"), "rangColor" to utsMapOf("type" to "String", "required" to true, "default" to ""), "rangFontColor" to utsMapOf("type" to "String", "required" to true, "default" to ""), "currentDate" to utsMapOf("type" to "String", "required" to true, "default" to "")))
-        var propsNeedCastKeys = utsArrayOf(
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("change" to null, "click" to null)
+        var props = _nP(_uM("modelValue" to _uM("type" to "String", "required" to true, "default" to ""), "model" to _uM("type" to "String", "required" to true, "default" to "day" as xCalendarMode), "disabledDays" to _uM("type" to "Array", "required" to true, "default" to _uA<String>()), "startDate" to _uM("type" to "String", "required" to true, "default" to "1900-1-1"), "endDate" to _uM("type" to "String", "required" to true, "default" to "2025-5-13"), "dateStyle" to _uM("type" to "Array", "required" to true, "default" to _uA<xCalendarDateStyle_type>()), "format" to _uM("type" to "String", "required" to true, "default" to "YYYY-MM-DD"), "color" to _uM("type" to "String", "required" to true, "default" to ""), "fontColor" to _uM("type" to "String", "required" to true, "default" to "#333333"), "fontDarkColor" to _uM("type" to "String", "required" to true, "default" to "#ffffff"), "activeFontColor" to _uM("type" to "String", "required" to true, "default" to "#ffffff"), "rangColor" to _uM("type" to "String", "required" to true, "default" to ""), "rangFontColor" to _uM("type" to "String", "required" to true, "default" to ""), "currentDate" to _uM("type" to "String", "required" to true, "default" to "")))
+        var propsNeedCastKeys = _uA(
             "modelValue",
             "model",
             "disabledDays",
@@ -214,6 +210,6 @@ open class GenUniModulesTmxUiComponentsXCalendarViewCalendarMultiple : VueCompon
             "rangFontColor",
             "currentDate"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

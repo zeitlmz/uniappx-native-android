@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.`$emit` as uni__emit
 import uts.sdk.modules.xToastS.XTOAST_TYPE
 import uts.sdk.modules.xToastS.showToast as showToast1
@@ -77,30 +73,30 @@ open class GenPagesPersonalSettingEmergencyContactIndex : BasePage {
                 val _component_x_sheet = resolveEasyComponent("x-sheet", GenUniModulesTmxUiComponentsXSheetXSheetClass)
                 val _component_mc_primary_button = resolveEasyComponent("mc-primary-button", GenComponentsMcPrimaryButtonIndexClass)
                 val _component_mc_base_container = resolveEasyComponent("mc-base-container", GenComponentsMcBaseContainerIndexClass)
-                return createVNode(_component_mc_base_container, utsMapOf("title" to "紧急联系人"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                    return utsArrayOf(
-                        createVNode(_component_x_sheet, utsMapOf("margin" to utsArrayOf(
+                return _cV(_component_mc_base_container, _uM("title" to "紧急联系人"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                    return _uA(
+                        _cV(_component_x_sheet, _uM("margin" to _uA(
                             "15"
-                        ), "padding" to utsArrayOf(
+                        ), "padding" to _uA(
                             "20",
                             "10",
                             "20",
                             "10"
-                        )), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                            return utsArrayOf(
-                                createElementVNode("view", utsMapOf("class" to "setting-item"), utsArrayOf(
-                                    createElementVNode("text", utsMapOf("class" to "name"), "紧急联系人姓名"),
-                                    createVNode(_component_x_input, utsMapOf("placeholder" to "请输入联系人姓名", "width" to "300rpx", "maxlength" to 10, "color" to "#00000000", "modelValue" to unref(formData).driverCallName, "onUpdate:modelValue" to fun(`$event`: String){
+                        )), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                            return _uA(
+                                _cE("view", _uM("class" to "setting-item"), _uA(
+                                    _cE("text", _uM("class" to "name"), "紧急联系人姓名"),
+                                    _cV(_component_x_input, _uM("placeholder" to "请输入联系人姓名", "width" to "300rpx", "maxlength" to 10, "color" to "#00000000", "modelValue" to unref(formData).driverCallName, "onUpdate:modelValue" to fun(`$event`: String){
                                         unref(formData).driverCallName = `$event`
                                     }
-                                    ), utsMapOf("inputRight" to withSlotCtx(fun(): UTSArray<Any> {
-                                        return utsArrayOf(
-                                            createElementVNode("image", utsMapOf("style" to normalizeStyle(utsMapOf("width" to "13rpx", "height" to "28rpx")), "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-arrow-right-line-samll.png"), "mode" to "widthFix"), null, 12, utsArrayOf(
+                                    ), _uM("inputRight" to withSlotCtx(fun(): UTSArray<Any> {
+                                        return _uA(
+                                            _cE("image", _uM("style" to _nS(_uM("width" to "13rpx", "height" to "28rpx")), "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-arrow-right-line-samll.png"), "mode" to "widthFix"), null, 12, _uA(
                                                 "src"
                                             ))
                                         )
                                     }
-                                    ), "_" to 1), 8, utsArrayOf(
+                                    ), "_" to 1), 8, _uA(
                                         "modelValue",
                                         "onUpdate:modelValue"
                                     ))
@@ -108,31 +104,31 @@ open class GenPagesPersonalSettingEmergencyContactIndex : BasePage {
                             )
                         }
                         ), "_" to 1)),
-                        createVNode(_component_x_sheet, utsMapOf("margin" to utsArrayOf(
+                        _cV(_component_x_sheet, _uM("margin" to _uA(
                             "15",
                             "0",
                             "15",
                             "15"
-                        ), "padding" to utsArrayOf(
+                        ), "padding" to _uA(
                             "15",
                             "10",
                             "15",
                             "10"
-                        )), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                            return utsArrayOf(
-                                createElementVNode("view", utsMapOf("class" to "setting-item"), utsArrayOf(
-                                    createElementVNode("text", utsMapOf("class" to "name"), "紧急联系人电话"),
-                                    createVNode(_component_x_input, utsMapOf("placeholder" to "请输入联系人电话", "width" to "300rpx", "maxlength" to 11, "color" to "#00000000", "type" to "digit", "modelValue" to unref(formData).driverCallPhone, "onUpdate:modelValue" to fun(`$event`: String){
+                        )), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                            return _uA(
+                                _cE("view", _uM("class" to "setting-item"), _uA(
+                                    _cE("text", _uM("class" to "name"), "紧急联系人电话"),
+                                    _cV(_component_x_input, _uM("placeholder" to "请输入联系人电话", "width" to "300rpx", "maxlength" to 11, "color" to "#00000000", "type" to "digit", "modelValue" to unref(formData).driverCallPhone, "onUpdate:modelValue" to fun(`$event`: String){
                                         unref(formData).driverCallPhone = `$event`
                                     }
-                                    ), utsMapOf("inputRight" to withSlotCtx(fun(): UTSArray<Any> {
-                                        return utsArrayOf(
-                                            createElementVNode("image", utsMapOf("style" to normalizeStyle(utsMapOf("width" to "13rpx", "height" to "28rpx")), "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-arrow-right-line-samll.png"), "mode" to "widthFix"), null, 12, utsArrayOf(
+                                    ), _uM("inputRight" to withSlotCtx(fun(): UTSArray<Any> {
+                                        return _uA(
+                                            _cE("image", _uM("style" to _nS(_uM("width" to "13rpx", "height" to "28rpx")), "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-arrow-right-line-samll.png"), "mode" to "widthFix"), null, 12, _uA(
                                                 "src"
                                             ))
                                         )
                                     }
-                                    ), "_" to 1), 8, utsArrayOf(
+                                    ), "_" to 1), 8, _uA(
                                         "modelValue",
                                         "onUpdate:modelValue"
                                     ))
@@ -140,9 +136,9 @@ open class GenPagesPersonalSettingEmergencyContactIndex : BasePage {
                             )
                         }
                         ), "_" to 1)),
-                        createElementVNode("view", utsMapOf("class" to "btn-group-panel flex-row", "style" to normalizeStyle("padding-bottom: " + (unref(globalData).safeAreaBottom + 15) + "px;")), utsArrayOf(
-                            createVNode(_component_mc_primary_button, utsMapOf("onClick" to saveData, "height" to "50px"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                return utsArrayOf(
+                        _cE("view", _uM("class" to "btn-group-panel flex-row", "style" to _nS("padding-bottom: " + (unref(globalData).safeAreaBottom + 15) + "px;")), _uA(
+                            _cV(_component_mc_primary_button, _uM("onClick" to saveData, "height" to "50px"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                return _uA(
                                     "保存"
                                 )
                             }
@@ -154,21 +150,21 @@ open class GenPagesPersonalSettingEmergencyContactIndex : BasePage {
             }
         }
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
-            ), utsArrayOf(
+            ), _uA(
                 GenApp.styles
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("setting-item" to padStyleMapOf(utsMapOf("flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center")), "name" to utsMapOf(".setting-item " to utsMapOf("fontSize" to 17)), "value" to utsMapOf(".setting-item " to utsMapOf("color" to "#939393")), "btn-group-panel" to padStyleMapOf(utsMapOf("position" to "fixed", "bottom" to 0, "left" to 0, "right" to 0, "paddingTop" to 15, "paddingRight" to 15, "paddingBottom" to 15, "paddingLeft" to 15)))
+                return _uM("setting-item" to _pS(_uM("flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center")), "name" to _uM(".setting-item " to _uM("fontSize" to 17)), "value" to _uM(".setting-item " to _uM("color" to "#939393")), "btn-group-panel" to _pS(_uM("position" to "fixed", "bottom" to 0, "left" to 0, "right" to 0, "paddingTop" to 15, "paddingRight" to 15, "paddingBottom" to 15, "paddingLeft" to 15)))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf()
-        var props = normalizePropsOptions(utsMapOf())
-        var propsNeedCastKeys: UTSArray<String> = utsArrayOf()
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM()
+        var props = _nP(_uM())
+        var propsNeedCastKeys: UTSArray<String> = _uA()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

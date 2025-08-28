@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.createSelectorQuery as uni_createSelectorQuery
 open class GenUniModulesTmxUiComponentsXTabsTabsItem : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {
@@ -37,28 +33,28 @@ open class GenUniModulesTmxUiComponentsXTabsTabsItem : VueComponent {
     override fun `$render`(): Any? {
         val _ctx = this
         val _cache = this.`$`.renderCache
-        return createElementVNode("view", utsMapOf("class" to "xTabsItemChildren"), utsArrayOf(
+        return _cE("view", _uM("class" to "xTabsItemChildren"), _uA(
             renderSlot(_ctx.`$slots`, "default")
         ))
     }
     open var id: String by `$props`
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xTabsItemChildren" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "flexWrap" to "nowrap", "justifyContent" to "center", "alignItems" to "center", "flex" to 1)))
+                return _uM("xTabsItemChildren" to _pS(_uM("display" to "flex", "flexDirection" to "row", "flexWrap" to "nowrap", "justifyContent" to "center", "alignItems" to "center", "flex" to 1)))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("change" to null, "destory" to null)
-        var props = normalizePropsOptions(utsMapOf("id" to utsMapOf("type" to "String", "default" to "")))
-        var propsNeedCastKeys = utsArrayOf(
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("change" to null, "destory" to null)
+        var props = _nP(_uM("id" to _uM("type" to "String", "default" to "")))
+        var propsNeedCastKeys = _uA(
             "id"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.showModal as uni_showModal
 import uts.sdk.modules.xModalS.showModal
 import io.dcloud.uniapp.extapi.showToast as uni_showToast
@@ -63,8 +59,8 @@ open class GenUniModulesTmxUiComponentsXTreeItemXTreeItem : VueComponent {
         val _component_x_modal = resolveEasyComponent("x-modal", GenUniModulesTmxUiComponentsXModalXModalClass)
         val _component_x_icon = resolveEasyComponent("x-icon", GenUniModulesTmxUiComponentsXIconXIconClass)
         val _component_x_tree_item = resolveEasyComponent("x-tree-item", GenUniModulesTmxUiComponentsXTreeItemXTreeItemClass)
-        return createElementVNode("view", utsMapOf("class" to "xTree"), utsArrayOf(
-            createVNode(_component_x_modal, utsMapOf("height" to "auto", "onConfirm" to _ctx.editeclick, "title" to if (_ctx.editeType == "add") {
+        return _cE("view", _uM("class" to "xTree"), _uA(
+            _cV(_component_x_modal, _uM("height" to "auto", "onConfirm" to _ctx.editeclick, "title" to if (_ctx.editeType == "add") {
                 "添加下级"
             } else {
                 "修改内容"
@@ -72,54 +68,54 @@ open class GenUniModulesTmxUiComponentsXTreeItemXTreeItem : VueComponent {
             , "show" to _ctx.showModal, "onUpdate:show" to fun(`$event`: Boolean){
                 _ctx.showModal = `$event`
             }
-            ), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                return utsArrayOf(
+            ), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                return _uA(
                     if (_ctx.nowediteItem != null) {
-                        createElementVNode("view", utsMapOf("key" to 0), utsArrayOf(
-                            createVNode(_component_x_input, utsMapOf("dark-bg-color" to "", "height" to "48", "modelValue" to _ctx.nowediteItemText, "onUpdate:modelValue" to fun(`$event`: String){
+                        _cE("view", _uM("key" to 0), _uA(
+                            _cV(_component_x_input, _uM("dark-bg-color" to "", "height" to "48", "modelValue" to _ctx.nowediteItemText, "onUpdate:modelValue" to fun(`$event`: String){
                                 _ctx.nowediteItemText = `$event`
-                            }), utsMapOf("inputLeft" to withSlotCtx(fun(): UTSArray<Any> {
-                                return utsArrayOf(
-                                    createVNode(_component_x_text, utsMapOf("_style" to "padding:0 12px"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                        return utsArrayOf(
+                            }), _uM("inputLeft" to withSlotCtx(fun(): UTSArray<Any> {
+                                return _uA(
+                                    _cV(_component_x_text, _uM("_style" to "padding:0 12px"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                        return _uA(
                                             "标题值"
                                         )
                                     }), "_" to 1))
                                 )
-                            }), "_" to 1), 8, utsArrayOf(
+                            }), "_" to 1), 8, _uA(
                                 "modelValue",
                                 "onUpdate:modelValue"
                             )),
-                            createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("height" to "10px"))), null, 4),
-                            createVNode(_component_x_input, utsMapOf("dark-bg-color" to "", "height" to "48", "placeholder" to "不要重复,空时自动生成", "modelValue" to _ctx.nowediteItemId, "onUpdate:modelValue" to fun(`$event`: String){
+                            _cE("view", _uM("style" to _nS(_uM("height" to "10px"))), null, 4),
+                            _cV(_component_x_input, _uM("dark-bg-color" to "", "height" to "48", "placeholder" to "不要重复,空时自动生成", "modelValue" to _ctx.nowediteItemId, "onUpdate:modelValue" to fun(`$event`: String){
                                 _ctx.nowediteItemId = `$event`
-                            }), utsMapOf("inputLeft" to withSlotCtx(fun(): UTSArray<Any> {
-                                return utsArrayOf(
-                                    createVNode(_component_x_text, utsMapOf("_style" to "padding:0 12px"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                        return utsArrayOf(
+                            }), _uM("inputLeft" to withSlotCtx(fun(): UTSArray<Any> {
+                                return _uA(
+                                    _cV(_component_x_text, _uM("_style" to "padding:0 12px"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                        return _uA(
                                             "标识ID"
                                         )
                                     }), "_" to 1))
                                 )
-                            }), "_" to 1), 8, utsArrayOf(
+                            }), "_" to 1), 8, _uA(
                                 "modelValue",
                                 "onUpdate:modelValue"
                             ))
                         ))
                     } else {
-                        createCommentVNode("v-if", true)
+                        _cC("v-if", true)
                     }
                 )
             }
-            ), "_" to 1), 8, utsArrayOf(
+            ), "_" to 1), 8, _uA(
                 "onConfirm",
                 "title",
                 "show",
                 "onUpdate:show"
             )),
-            createElementVNode(Fragment, null, RenderHelpers.renderList(_ctx._list, fun(item, index, __index, _cached): Any {
-                return createElementVNode("view", utsMapOf("class" to "xTreeItemCell", "key" to index), utsArrayOf(
-                    createElementVNode("view", utsMapOf("hover-start-time" to 5, "hover-stay-time" to 30, "hover-class" to if (_ctx.getChildren(item).length > 0) {
+            _cE(Fragment, null, RenderHelpers.renderList(_ctx._list, fun(item, index, __index, _cached): Any {
+                return _cE("view", _uM("class" to "xTreeItemCell", "key" to index), _uA(
+                    _cE("view", _uM("hover-start-time" to 5, "hover-stay-time" to 30, "hover-class" to if (_ctx.getChildren(item).length > 0) {
                         "hoverClass"
                     } else {
                         "hoverClassOff"
@@ -127,111 +123,111 @@ open class GenUniModulesTmxUiComponentsXTreeItemXTreeItem : VueComponent {
                     , "onClick" to withModifiers(fun(){
                         _ctx.childrenEvent(item)
                     }
-                    , utsArrayOf(
+                    , _uA(
                         "stop"
-                    )), "style" to normalizeStyle(utsMapOf("height" to "50px")), "class" to "xTreeItemCellWrap"), utsArrayOf(
-                        createElementVNode("view", utsMapOf("class" to "xTreeItemCellWrapLeft"), utsArrayOf(
+                    )), "style" to _nS(_uM("height" to "50px")), "class" to "xTreeItemCellWrap"), _uA(
+                        _cE("view", _uM("class" to "xTreeItemCellWrapLeft"), _uA(
                             if (isTrue(item.getArray("children") != null && _ctx._showFloaderIcon)) {
-                                createElementVNode("view", utsMapOf("key" to 0, "class" to "xTreeItemCellWrapLeftIcon"), utsArrayOf(
+                                _cE("view", _uM("key" to 0, "class" to "xTreeItemCellWrapLeftIcon"), _uA(
                                     if (isTrue(!_ctx.isInOpenFloder(item))) {
-                                        createVNode(_component_x_icon, utsMapOf("key" to 0, "color" to "#333333", "font-size" to "21", "name" to _ctx._floaderIcon[0]), null, 8, utsArrayOf(
+                                        _cV(_component_x_icon, _uM("key" to 0, "color" to "#333333", "font-size" to "21", "name" to _ctx._floaderIcon[0]), null, 8, _uA(
                                             "name"
                                         ))
                                     } else {
-                                        createCommentVNode("v-if", true)
+                                        _cC("v-if", true)
                                     },
                                     if (isTrue(_ctx.isInOpenFloder(item))) {
-                                        createVNode(_component_x_icon, utsMapOf("key" to 1, "color" to _ctx._color, "font-size" to "21", "name" to _ctx._floaderIcon[1]), null, 8, utsArrayOf(
+                                        _cV(_component_x_icon, _uM("key" to 1, "color" to _ctx._color, "font-size" to "21", "name" to _ctx._floaderIcon[1]), null, 8, _uA(
                                             "color",
                                             "name"
                                         ))
                                     } else {
-                                        createCommentVNode("v-if", true)
+                                        _cC("v-if", true)
                                     }
                                 ))
                             } else {
-                                createCommentVNode("v-if", true)
+                                _cC("v-if", true)
                             }
                             ,
-                            createElementVNode("text", utsMapOf("style" to normalizeStyle(utsMapOf("color" to if (_ctx.isSelected(item)) {
+                            _cE("text", _uM("style" to _nS(_uM("color" to if (_ctx.isSelected(item)) {
                                 _ctx._color
                             } else {
                                 _ctx._itemColor
                             }
-                            , "fontSize" to _ctx._fontSize)), "class" to "xTreeItemCellWrapLeftText"), toDisplayString(item.getString(_ctx.labelKey)), 5)
+                            , "fontSize" to _ctx._fontSize)), "class" to "xTreeItemCellWrapLeftText"), _tD(item.getString(_ctx.labelKey)), 5)
                         )),
                         if (isTrue(_ctx.isShowAdd(item))) {
-                            createElementVNode("view", utsMapOf("key" to 0, "hover-start-time" to 5, "hover-stay-time" to 30, "hover-class" to "hoverClass", "onClick" to withModifiers(fun(){
+                            _cE("view", _uM("key" to 0, "hover-start-time" to 5, "hover-stay-time" to 30, "hover-class" to "hoverClass", "onClick" to withModifiers(fun(){
                                 _ctx.showModalEdte(item, "add")
-                            }, utsArrayOf(
+                            }, _uA(
                                 "stop"
-                            )), "style" to normalizeStyle(utsMapOf("margin-right" to "10px"))), utsArrayOf(
-                                createVNode(_component_x_icon, utsMapOf("color" to if (!_ctx.isDisabled(item)) {
+                            )), "style" to _nS(_uM("margin-right" to "10px"))), _uA(
+                                _cV(_component_x_icon, _uM("color" to if (!_ctx.isDisabled(item)) {
                                     _ctx._color
                                 } else {
                                     "#cecece"
-                                }, "font-size" to "21", "name" to "add-large-line"), null, 8, utsArrayOf(
+                                }, "font-size" to "21", "name" to "add-large-line"), null, 8, _uA(
                                     "color"
                                 ))
-                            ), 12, utsArrayOf(
+                            ), 12, _uA(
                                 "onClick"
                             ))
                         } else {
-                            createCommentVNode("v-if", true)
+                            _cC("v-if", true)
                         }
                         ,
                         if (isTrue(_ctx.isShowEdite(item))) {
-                            createElementVNode("view", utsMapOf("key" to 1, "hover-start-time" to 5, "hover-stay-time" to 30, "hover-class" to "hoverClass", "onClick" to withModifiers(fun(){
+                            _cE("view", _uM("key" to 1, "hover-start-time" to 5, "hover-stay-time" to 30, "hover-class" to "hoverClass", "onClick" to withModifiers(fun(){
                                 _ctx.showModalEdte(item, "change")
-                            }, utsArrayOf(
+                            }, _uA(
                                 "stop"
-                            )), "style" to normalizeStyle(utsMapOf("margin-right" to "10px"))), utsArrayOf(
-                                createVNode(_component_x_icon, utsMapOf("color" to if (!_ctx.isDisabled(item)) {
+                            )), "style" to _nS(_uM("margin-right" to "10px"))), _uA(
+                                _cV(_component_x_icon, _uM("color" to if (!_ctx.isDisabled(item)) {
                                     _ctx._color
                                 } else {
                                     "#cecece"
-                                }, "font-size" to "21", "name" to "edit-box-line"), null, 8, utsArrayOf(
+                                }, "font-size" to "21", "name" to "edit-box-line"), null, 8, _uA(
                                     "color"
                                 ))
-                            ), 12, utsArrayOf(
+                            ), 12, _uA(
                                 "onClick"
                             ))
                         } else {
-                            createCommentVNode("v-if", true)
+                            _cC("v-if", true)
                         }
                         ,
                         if (isTrue(_ctx.isShowRemove(item))) {
-                            createElementVNode("view", utsMapOf("key" to 2, "hover-start-time" to 5, "hover-stay-time" to 30, "hover-class" to "hoverClass", "onClick" to withModifiers(fun(){
+                            _cE("view", _uM("key" to 2, "hover-start-time" to 5, "hover-stay-time" to 30, "hover-class" to "hoverClass", "onClick" to withModifiers(fun(){
                                 _ctx.removeItem(item)
-                            }, utsArrayOf(
+                            }, _uA(
                                 "stop"
-                            )), "style" to normalizeStyle(utsMapOf("margin-right" to "10px"))), utsArrayOf(
-                                createVNode(_component_x_icon, utsMapOf("color" to if (!_ctx.isDisabled(item)) {
+                            )), "style" to _nS(_uM("margin-right" to "10px"))), _uA(
+                                _cV(_component_x_icon, _uM("color" to if (!_ctx.isDisabled(item)) {
                                     _ctx._color
                                 } else {
                                     "#cecece"
-                                }, "font-size" to "21", "name" to "delete-bin-2-line"), null, 8, utsArrayOf(
+                                }, "font-size" to "21", "name" to "delete-bin-2-line"), null, 8, _uA(
                                     "color"
                                 ))
-                            ), 12, utsArrayOf(
+                            ), 12, _uA(
                                 "onClick"
                             ))
                         } else {
-                            createCommentVNode("v-if", true)
+                            _cC("v-if", true)
                         }
                         ,
                         if (isTrue(_ctx._showChecked)) {
-                            createElementVNode("view", utsMapOf("key" to 3, "hover-start-time" to 5, "hover-stay-time" to 30, "hover-class" to "hoverClass", "onClick" to withModifiers(fun(){
+                            _cE("view", _uM("key" to 3, "hover-start-time" to 5, "hover-stay-time" to 30, "hover-class" to "hoverClass", "onClick" to withModifiers(fun(){
                                 _ctx.checkBoxClickEvent(item)
-                            }, utsArrayOf(
+                            }, _uA(
                                 "stop"
-                            )), "style" to normalizeStyle(utsMapOf("opacity" to if (_ctx.isDisabled(item)) {
+                            )), "style" to _nS(_uM("opacity" to if (_ctx.isDisabled(item)) {
                                 "0.3"
                             } else {
                                 "1"
-                            }))), utsArrayOf(
+                            }))), _uA(
                                 if (isTrue(_ctx._parentSelectedFullChildren)) {
-                                    createVNode(_component_x_icon, utsMapOf("key" to 0, "color" to if (_ctx.isSelected(item) || _ctx.isIndeterminate(item)) {
+                                    _cV(_component_x_icon, _uM("key" to 0, "color" to if (_ctx.isSelected(item) || _ctx.isIndeterminate(item)) {
                                         _ctx._color
                                     } else {
                                         "#cecece"
@@ -243,12 +239,12 @@ open class GenUniModulesTmxUiComponentsXTreeItemXTreeItem : VueComponent {
                                         } else {
                                             _ctx._checkedIcon[0]
                                         }
-                                    }), null, 8, utsArrayOf(
+                                    }), null, 8, _uA(
                                         "color",
                                         "name"
                                     ))
                                 } else {
-                                    createVNode(_component_x_icon, utsMapOf("key" to 1, "color" to if (_ctx.isSelected(item)) {
+                                    _cV(_component_x_icon, _uM("key" to 1, "color" to if (_ctx.isSelected(item)) {
                                         _ctx._color
                                     } else {
                                         "#cecece"
@@ -256,25 +252,25 @@ open class GenUniModulesTmxUiComponentsXTreeItemXTreeItem : VueComponent {
                                         _ctx._checkedIcon[1]
                                     } else {
                                         _ctx._checkedIcon[0]
-                                    }), null, 8, utsArrayOf(
+                                    }), null, 8, _uA(
                                         "color",
                                         "name"
                                     ))
                                 }
-                            ), 12, utsArrayOf(
+                            ), 12, _uA(
                                 "onClick"
                             ))
                         } else {
-                            createCommentVNode("v-if", true)
+                            _cC("v-if", true)
                         }
-                    ), 12, utsArrayOf(
+                    ), 12, _uA(
                         "hover-class",
                         "onClick"
                     )),
                     if (isTrue(_ctx.isInOpenFloder(item) && _ctx.showChildren)) {
-                        createVNode(_component_x_tree_item, utsMapOf("key" to 0, "checkedIcon" to _ctx.checkedIcon, "showChecked" to _ctx._showChecked, "showFloaderIcon" to _ctx.showFloaderIcon, "floaderIcon" to _ctx.floaderIcon, "onChildrenClick" to _ctx.childrenClickEnd, "onOpenFolderChange" to _ctx.openFolderChangeEnd, "onSetChildrenData" to _ctx.setChildrenDataEnd, "beforeOpenFloder" to _ctx.beforeOpenFloder, "parentSelectedFullChildren" to _ctx._parentSelectedFullChildren, "disabled" to _ctx._disabled, "disabledParentBox" to _ctx._disabledParentBox, "onChange" to _ctx.changeEnd, "idList" to _ctx.nowIds, "color" to _ctx._color, "folderId" to _ctx.openFLoderIds, "idKey" to _ctx.idKey, "labelKey" to _ctx.labelKey, "style" to normalizeStyle(utsMapOf("margin-left" to "30px")), "list" to _ctx.getChildren(item), "modelValue" to _ctx.nowIds, "onUpdate:modelValue" to fun(`$event`: UTSArray<String>){
+                        _cV(_component_x_tree_item, _uM("key" to 0, "checkedIcon" to _ctx.checkedIcon, "showChecked" to _ctx._showChecked, "showFloaderIcon" to _ctx.showFloaderIcon, "floaderIcon" to _ctx.floaderIcon, "onChildrenClick" to _ctx.childrenClickEnd, "onOpenFolderChange" to _ctx.openFolderChangeEnd, "onSetChildrenData" to _ctx.setChildrenDataEnd, "beforeOpenFloder" to _ctx.beforeOpenFloder, "parentSelectedFullChildren" to _ctx._parentSelectedFullChildren, "disabled" to _ctx._disabled, "disabledParentBox" to _ctx._disabledParentBox, "onChange" to _ctx.changeEnd, "idList" to _ctx.nowIds, "color" to _ctx._color, "folderId" to _ctx.openFLoderIds, "idKey" to _ctx.idKey, "labelKey" to _ctx.labelKey, "style" to _nS(_uM("margin-left" to "30px")), "list" to _ctx.getChildren(item), "modelValue" to _ctx.nowIds, "onUpdate:modelValue" to fun(`$event`: UTSArray<String>){
                             _ctx.nowIds = `$event`
-                        }), null, 8, utsArrayOf(
+                        }), null, 8, _uA(
                             "checkedIcon",
                             "showChecked",
                             "showFloaderIcon",
@@ -298,7 +294,7 @@ open class GenUniModulesTmxUiComponentsXTreeItemXTreeItem : VueComponent {
                             "onUpdate:modelValue"
                         ))
                     } else {
-                        createCommentVNode("v-if", true)
+                        _cC("v-if", true)
                     }
                 ))
             }
@@ -344,7 +340,7 @@ open class GenUniModulesTmxUiComponentsXTreeItemXTreeItem : VueComponent {
     open var _itemColor: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("nowIds" to utsArrayOf<String>(), "showChildren" to true, "openFLoderIds" to utsArrayOf<String>(), "tid" to 0, "_list" to utsArrayOf<UTSJSONObject>(), "nowediteItem" to null as UTSJSONObject?, "showModal" to false, "nowediteItemText" to "", "nowediteItemId" to "", "editeType" to "change", "newItem" to null as UTSJSONObject?, "_checkedIcon" to computed<UTSArray<String>>(fun(): UTSArray<String> {
+        return _uM("nowIds" to _uA<String>(), "showChildren" to true, "openFLoderIds" to _uA<String>(), "tid" to 0, "_list" to _uA<UTSJSONObject>(), "nowediteItem" to null as UTSJSONObject?, "showModal" to false, "nowediteItemText" to "", "nowediteItemId" to "", "editeType" to "change", "newItem" to null as UTSJSONObject?, "_checkedIcon" to computed<UTSArray<String>>(fun(): UTSArray<String> {
             return this.checkedIcon
         }
         ), "_showChecked" to computed<Boolean>(fun(): Boolean {
@@ -488,7 +484,7 @@ open class GenUniModulesTmxUiComponentsXTreeItemXTreeItem : VueComponent {
     open fun gen_getChildren_fn(item: UTSJSONObject): UTSArray<UTSJSONObject> {
         var c = item.getArray<UTSJSONObject>("children")
         if (c == null) {
-            return utsArrayOf<UTSJSONObject>()
+            return _uA<UTSJSONObject>()
         }
         return c
     }
@@ -630,7 +626,7 @@ open class GenUniModulesTmxUiComponentsXTreeItemXTreeItem : VueComponent {
             this.newItem!!.set(this.idKey, id)
             var nextChildre = this.getChildren(item)
             if (nextChildre.length == 0) {
-                this.newItem!!.set("children", utsArrayOf<UTSJSONObject>(this.newItem!!))
+                this.newItem!!.set("children", _uA<UTSJSONObject>(this.newItem!!))
             } else {
                 nextChildre.push(this.newItem!! as UTSJSONObject)
             }
@@ -717,37 +713,37 @@ open class GenUniModulesTmxUiComponentsXTreeItemXTreeItem : VueComponent {
     }
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("hoverClass" to padStyleMapOf(utsMapOf("backgroundColor" to "rgba(0,0,0,0.03)")), "hoverClassOff" to padStyleMapOf(utsMapOf("backgroundColor" to "rgba(0,0,0,0)")), "xTreeItemCellWrapLeftText" to padStyleMapOf(utsMapOf("flex" to 1, "textOverflow" to "ellipsis", "lines" to 2)), "xTreeItemCellWrapLeftIcon" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-start", "alignItems" to "center", "width" to 30)), "xTreeItemCellWrapLeft" to padStyleMapOf(utsMapOf("flex" to 1, "display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-start", "alignItems" to "center")), "xTreeItemCellWrap" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center", "borderBottomWidth" to 1, "borderBottomStyle" to "solid", "borderBottomColor" to "rgba(0,0,0,0.03)")))
+                return _uM("hoverClass" to _pS(_uM("backgroundColor" to "rgba(0,0,0,0.03)")), "hoverClassOff" to _pS(_uM("backgroundColor" to "rgba(0,0,0,0)")), "xTreeItemCellWrapLeftText" to _pS(_uM("flex" to 1, "textOverflow" to "ellipsis", "lines" to 2)), "xTreeItemCellWrapLeftIcon" to _pS(_uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-start", "alignItems" to "center", "width" to 30)), "xTreeItemCellWrapLeft" to _pS(_uM("flex" to 1, "display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-start", "alignItems" to "center")), "xTreeItemCellWrap" to _pS(_uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center", "borderBottomWidth" to 1, "borderBottomStyle" to "solid", "borderBottomColor" to "rgba(0,0,0,0.03)")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("change" to null, "childrenClick" to null, "openFolderChange" to null, "setChildrenData" to null, "update:modelValue" to null)
-        var props = normalizePropsOptions(utsMapOf("idList" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf<String>()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("change" to null, "childrenClick" to null, "openFolderChange" to null, "setChildrenData" to null, "update:modelValue" to null)
+        var props = _nP(_uM("idList" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA<String>()
         }
-        ), "list" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<UTSJSONObject> {
-            return utsArrayOf<UTSJSONObject>()
+        ), "list" to _uM("type" to "Array", "default" to fun(): UTSArray<UTSJSONObject> {
+            return _uA<UTSJSONObject>()
         }
-        ), "idKey" to utsMapOf("type" to "String", "default" to "id"), "labelKey" to utsMapOf("type" to "String", "default" to "text"), "folderId" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf<String>()
+        ), "idKey" to _uM("type" to "String", "default" to "id"), "labelKey" to _uM("type" to "String", "default" to "text"), "folderId" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA<String>()
         }
-        ), "color" to utsMapOf("type" to "String", "default" to ""), "disabledParentBox" to utsMapOf("type" to "Boolean", "default" to false), "parentSelectedFullChildren" to utsMapOf("type" to "Boolean", "default" to false), "disabled" to utsMapOf("type" to "Boolean", "default" to false), "beforeOpenFloder" to utsMapOf("type" to "Function", "default" to fun(itemId: String): UTSPromise<UTSArray<UTSJSONObject>> {
-            return UTSPromise.resolve(utsArrayOf<UTSJSONObject>())
+        ), "color" to _uM("type" to "String", "default" to ""), "disabledParentBox" to _uM("type" to "Boolean", "default" to false), "parentSelectedFullChildren" to _uM("type" to "Boolean", "default" to false), "disabled" to _uM("type" to "Boolean", "default" to false), "beforeOpenFloder" to _uM("type" to "Function", "default" to fun(itemId: String): UTSPromise<UTSArray<UTSJSONObject>> {
+            return UTSPromise.resolve(_uA<UTSJSONObject>())
         }
-        ), "floaderIcon" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf<String>("folder-add-line", "folder-open-fill")
+        ), "floaderIcon" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA<String>("folder-add-line", "folder-open-fill")
         }
-        ), "showFloaderIcon" to utsMapOf("type" to "Boolean", "default" to true), "showChecked" to utsMapOf("type" to "Boolean", "default" to false), "checkedIcon" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf<String>("checkbox-blank-line", "checkbox-fill")
+        ), "showFloaderIcon" to _uM("type" to "Boolean", "default" to true), "showChecked" to _uM("type" to "Boolean", "default" to false), "checkedIcon" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA<String>("checkbox-blank-line", "checkbox-fill")
         }
         )))
-        var propsNeedCastKeys = utsArrayOf(
+        var propsNeedCastKeys = _uA(
             "idList",
             "list",
             "idKey",
@@ -763,6 +759,6 @@ open class GenUniModulesTmxUiComponentsXTreeItemXTreeItem : VueComponent {
             "showChecked",
             "checkedIcon"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

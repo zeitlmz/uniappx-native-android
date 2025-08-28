@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 open class GenUniModulesTmxUiComponentsXPickerXPicker : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {
         onMounted(fun() {
@@ -75,21 +71,21 @@ open class GenUniModulesTmxUiComponentsXPickerXPicker : VueComponent {
         val _cache = this.`$`.renderCache
         val _component_x_picker_view = resolveEasyComponent("x-picker-view", GenUniModulesTmxUiComponentsXPickerViewXPickerViewClass)
         val _component_x_drawer = resolveEasyComponent("x-drawer", GenUniModulesTmxUiComponentsXDrawerXDrawerClass)
-        return createElementVNode(Fragment, null, utsArrayOf(
-            createElementVNode("view", utsMapOf("onClick" to _ctx.openShow), utsArrayOf(
+        return _cE(Fragment, null, _uA(
+            _cE("view", _uM("onClick" to _ctx.openShow), _uA(
                 renderSlot(_ctx.`$slots`, "default")
-            ), 8, utsArrayOf(
+            ), 8, _uA(
                 "onClick"
             )),
-            createVNode(_component_x_drawer, utsMapOf("customWrapStyle" to _ctx.customWrapStyle, "lazy" to _ctx._lazyContent, "cancel-text" to _ctx.cancelText, "confirm-text" to _ctx.confirmText, "onOpen" to _ctx.onOpen, "zIndex" to _ctx.zIndex, "widthCoverCenter" to _ctx.widthCoverCenter, "disabledScroll" to true, "max-height" to "80%", "size" to "450", "title" to _ctx.title, "onClose" to _ctx.onClose, "onConfirm" to _ctx.onConfirm, "onCancel" to _ctx.onCancel, "showFooter" to true, "show" to _ctx.show, "onUpdate:show" to fun(`$event`: Boolean){
+            _cV(_component_x_drawer, _uM("customWrapStyle" to _ctx.customWrapStyle, "lazy" to _ctx._lazyContent, "cancel-text" to _ctx.cancelText, "confirm-text" to _ctx.confirmText, "onOpen" to _ctx.onOpen, "zIndex" to _ctx.zIndex, "widthCoverCenter" to _ctx.widthCoverCenter, "disabledScroll" to true, "max-height" to "80%", "size" to "450", "title" to _ctx.title, "onClose" to _ctx.onClose, "onConfirm" to _ctx.onConfirm, "onCancel" to _ctx.onCancel, "showFooter" to true, "show" to _ctx.show, "onUpdate:show" to fun(`$event`: Boolean){
                 _ctx.show = `$event`
             }
-            , "show-close" to _ctx.showClose), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                return utsArrayOf(
+            , "show-close" to _ctx.showClose), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                return _uA(
                     if (isTrue(_ctx.yanchiDuration)) {
-                        createVNode(_component_x_picker_view, utsMapOf("key" to 0, "unitsFontSize" to _ctx.unitsFontSize, "modelStrJoin" to _ctx.modelStrJoin, "cell-units" to _ctx._cellUnits, "onUpdate:modelStr" to _ctx.strChange, "onChange" to _ctx.mchange, "modelValue" to _ctx.nowValue, "onUpdate:modelValue" to fun(`$event`: UTSArray<String>){
+                        _cV(_component_x_picker_view, _uM("key" to 0, "unitsFontSize" to _ctx.unitsFontSize, "modelStrJoin" to _ctx.modelStrJoin, "cell-units" to _ctx._cellUnits, "onUpdate:modelStr" to _ctx.strChange, "onChange" to _ctx.mchange, "modelValue" to _ctx.nowValue, "onUpdate:modelValue" to fun(`$event`: UTSArray<String>){
                             _ctx.nowValue = `$event`
-                        }, "list" to _ctx._list), null, 8, utsArrayOf(
+                        }, "list" to _ctx._list), null, 8, _uA(
                             "unitsFontSize",
                             "modelStrJoin",
                             "cell-units",
@@ -100,11 +96,11 @@ open class GenUniModulesTmxUiComponentsXPickerXPicker : VueComponent {
                             "list"
                         ))
                     } else {
-                        createCommentVNode("v-if", true)
+                        _cC("v-if", true)
                     }
                 )
             }
-            ), "_" to 1), 8, utsArrayOf(
+            ), "_" to 1), 8, _uA(
                 "customWrapStyle",
                 "lazy",
                 "cancel-text",
@@ -149,7 +145,7 @@ open class GenUniModulesTmxUiComponentsXPickerXPicker : VueComponent {
     open var _disabled: Boolean by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("show" to false, "nowValue" to utsArrayOf<String>(), "modelStrValue" to "", "nowPull" to false, "yanchiDuration" to false, "_list" to computed<UTSArray<PICKER_ITEM_INFO>>(fun(): UTSArray<PICKER_ITEM_INFO> {
+        return _uM("show" to false, "nowValue" to _uA<String>(), "modelStrValue" to "", "nowPull" to false, "yanchiDuration" to false, "_list" to computed<UTSArray<PICKER_ITEM_INFO>>(fun(): UTSArray<PICKER_ITEM_INFO> {
             return this.list.slice(0)
         }
         ), "_lazyContent" to computed<Boolean>(fun(): Boolean {
@@ -209,7 +205,7 @@ open class GenUniModulesTmxUiComponentsXPickerXPicker : VueComponent {
     open var getDefaultSeledids = ::gen_getDefaultSeledids_fn
     open fun gen_getDefaultSeledids_fn(): UTSArray<String> {
         var list = this._list
-        var ids = utsArrayOf<String>()
+        var ids = _uA<String>()
         fun getid(listitem: UTSArray<PICKER_ITEM_INFO>) {
             if (listitem.length == 0) {
                 return
@@ -222,7 +218,7 @@ open class GenUniModulesTmxUiComponentsXPickerXPicker : VueComponent {
             }
             )
             var children = if (listitem[0].children == null) {
-                (utsArrayOf<PICKER_ITEM_INFO>())
+                (_uA<PICKER_ITEM_INFO>())
             } else {
                 listitem[0].children!!
             }
@@ -250,11 +246,11 @@ open class GenUniModulesTmxUiComponentsXPickerXPicker : VueComponent {
     open var listDatas = ::gen_listDatas_fn
     open fun gen_listDatas_fn(): UTSArray<X_PICKER_X_ITEM> {
         if (this.list.length == 0) {
-            return utsArrayOf<X_PICKER_X_ITEM>()
+            return _uA<X_PICKER_X_ITEM>()
         }
         var list = this.list.slice(0) as UTSArray<PICKER_ITEM_INFO>
         fun addOptionalFieldsToTreeClolone(tree: UTSArray<PICKER_ITEM_INFO>): UTSArray<X_PICKER_X_ITEM> {
-            var nowlist = utsArrayOf<X_PICKER_X_ITEM>()
+            var nowlist = _uA<X_PICKER_X_ITEM>()
             run {
                 var i: Number = 0
                 while(i < tree.length){
@@ -270,11 +266,11 @@ open class GenUniModulesTmxUiComponentsXPickerXPicker : VueComponent {
                         node.id!! as String
                     }
                     node.children = if (node.children == null) {
-                        (utsArrayOf<PICKER_ITEM_INFO>())
+                        (_uA<PICKER_ITEM_INFO>())
                     } else {
                         node.children!! as UTSArray<PICKER_ITEM_INFO>
                     }
-                    var item = X_PICKER_X_ITEM(id = node.id!!, title = node.title, disabled = node.disabled!!, children = utsArrayOf<X_PICKER_X_ITEM>())
+                    var item = X_PICKER_X_ITEM(id = node.id!!, title = node.title, disabled = node.disabled!!, children = _uA<X_PICKER_X_ITEM>())
                     if (node.children!!.length > 0) {
                         item.children = addOptionalFieldsToTreeClolone(node.children!! as UTSArray<PICKER_ITEM_INFO>)
                     }
@@ -290,11 +286,11 @@ open class GenUniModulesTmxUiComponentsXPickerXPicker : VueComponent {
     open fun gen_getIdeBystr_fn(): UTSArray<String> {
         var list = this.listDatas()
         if (list.length == 0) {
-            return utsArrayOf<String>()
+            return _uA<String>()
         }
         var index: Number = 0
         var kVal = this.nowValue.slice(0)
-        var strs = utsArrayOf<String>()
+        var strs = _uA<String>()
         fun getIndex(nodes: UTSArray<X_PICKER_X_ITEM>) {
             if (kVal.length <= index || kVal.length == 0) {
                 return
@@ -321,22 +317,22 @@ open class GenUniModulesTmxUiComponentsXPickerXPicker : VueComponent {
     }
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf())
+            _nCS(_uA())
         }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("cancel" to null, "confirm" to null, "change" to null, "update:modelShow" to null, "update:modelStr" to null, "update:modelValue" to null)
-        var props = normalizePropsOptions(utsMapOf("list" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<PICKER_ITEM_INFO> {
-            return utsArrayOf<PICKER_ITEM_INFO>()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("cancel" to null, "confirm" to null, "change" to null, "update:modelShow" to null, "update:modelStr" to null, "update:modelValue" to null)
+        var props = _nP(_uM("list" to _uM("type" to "Array", "default" to fun(): UTSArray<PICKER_ITEM_INFO> {
+            return _uA<PICKER_ITEM_INFO>()
         }
-        ), "modelValue" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf<String>()
+        ), "modelValue" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA<String>()
         }
-        ), "modelStr" to utsMapOf("type" to "String", "default" to ""), "modelShow" to utsMapOf("type" to "Boolean", "default" to false), "title" to utsMapOf("type" to "String", "default" to "请选择"), "cancelText" to utsMapOf("type" to "String", "default" to "取消"), "confirmText" to utsMapOf("type" to "String", "default" to "确认"), "lazyContent" to utsMapOf("type" to "Boolean", "default" to true), "cellUnits" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf<String>()
+        ), "modelStr" to _uM("type" to "String", "default" to ""), "modelShow" to _uM("type" to "Boolean", "default" to false), "title" to _uM("type" to "String", "default" to "请选择"), "cancelText" to _uM("type" to "String", "default" to "取消"), "confirmText" to _uM("type" to "String", "default" to "确认"), "lazyContent" to _uM("type" to "Boolean", "default" to true), "cellUnits" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA<String>()
         }
-        ), "unitsFontSize" to utsMapOf("type" to "String", "default" to "12"), "modelStrJoin" to utsMapOf("type" to "String", "default" to ","), "zIndex" to utsMapOf("type" to "Number", "default" to 1100), "showClose" to utsMapOf("type" to "Boolean", "default" to false), "disabled" to utsMapOf("type" to "Boolean", "default" to false), "widthCoverCenter" to utsMapOf("type" to "Boolean", "default" to false), "customWrapStyle" to utsMapOf("type" to "String", "default" to "")))
-        var propsNeedCastKeys = utsArrayOf(
+        ), "unitsFontSize" to _uM("type" to "String", "default" to "12"), "modelStrJoin" to _uM("type" to "String", "default" to ","), "zIndex" to _uM("type" to "Number", "default" to 1100), "showClose" to _uM("type" to "Boolean", "default" to false), "disabled" to _uM("type" to "Boolean", "default" to false), "widthCoverCenter" to _uM("type" to "Boolean", "default" to false), "customWrapStyle" to _uM("type" to "String", "default" to "")))
+        var propsNeedCastKeys = _uA(
             "list",
             "modelValue",
             "modelStr",
@@ -354,6 +350,6 @@ open class GenUniModulesTmxUiComponentsXPickerXPicker : VueComponent {
             "widthCoverCenter",
             "customWrapStyle"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

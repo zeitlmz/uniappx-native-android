@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 open class GenUniModulesTmxUiComponentsXTreeXTree : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {
         onMounted(fun() {
@@ -60,8 +56,8 @@ open class GenUniModulesTmxUiComponentsXTreeXTree : VueComponent {
         val _ctx = this
         val _cache = this.`$`.renderCache
         val _component_x_tree_item = resolveEasyComponent("x-tree-item", GenUniModulesTmxUiComponentsXTreeItemXTreeItemClass)
-        return createElementVNode("view", null, utsArrayOf(
-            createVNode(_component_x_tree_item, utsMapOf("checkedIcon" to _ctx.checkedIcon, "showChecked" to _ctx.showChecked, "showFloaderIcon" to _ctx.showFloaderIcon, "floaderIcon" to _ctx.floaderIcon, "onSetChildrenData" to _ctx.setChildrenDataEnd, "beforeOpenFloder" to _ctx.beforeOpenFloder, "parentSelectedFullChildren" to _ctx._parentSelectedFullChildren, "onChange" to _ctx.changeEnd, "disabled" to _ctx._disabled, "disabledParentBox" to _ctx._disabledParentBox, "color" to _ctx._color, "onChildrenClick" to _ctx.childrenClickEnd, "onOpenFolderChange" to _ctx.openFolderChange, "folderId" to _ctx._folderExopenids, "idKey" to _ctx.idKey, "labelKey" to _ctx.labelKey, "list" to _ctx._list, "idList" to _ctx.nowIds), null, 8, utsArrayOf(
+        return _cE("view", null, _uA(
+            _cV(_component_x_tree_item, _uM("checkedIcon" to _ctx.checkedIcon, "showChecked" to _ctx.showChecked, "showFloaderIcon" to _ctx.showFloaderIcon, "floaderIcon" to _ctx.floaderIcon, "onSetChildrenData" to _ctx.setChildrenDataEnd, "beforeOpenFloder" to _ctx.beforeOpenFloder, "parentSelectedFullChildren" to _ctx._parentSelectedFullChildren, "onChange" to _ctx.changeEnd, "disabled" to _ctx._disabled, "disabledParentBox" to _ctx._disabledParentBox, "color" to _ctx._color, "onChildrenClick" to _ctx.childrenClickEnd, "onOpenFolderChange" to _ctx.openFolderChange, "folderId" to _ctx._folderExopenids, "idKey" to _ctx.idKey, "labelKey" to _ctx.labelKey, "list" to _ctx._list, "idList" to _ctx.nowIds), null, 8, _uA(
                 "checkedIcon",
                 "showChecked",
                 "showFloaderIcon",
@@ -107,7 +103,7 @@ open class GenUniModulesTmxUiComponentsXTreeXTree : VueComponent {
     open var _parentSelectedFullChildren: Boolean by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("nowIds" to utsArrayOf<String>(), "folderExopenids" to utsArrayOf<String>(), "_list" to utsArrayOf<UTSJSONObject>(), "_folderExopenids" to computed<UTSArray<String>>(fun(): UTSArray<String> {
+        return _uM("nowIds" to _uA<String>(), "folderExopenids" to _uA<String>(), "_list" to _uA<UTSJSONObject>(), "_folderExopenids" to computed<UTSArray<String>>(fun(): UTSArray<String> {
             return this.folderExopenids
         }
         ), "_color" to computed<String>(fun(): String {
@@ -129,7 +125,7 @@ open class GenUniModulesTmxUiComponentsXTreeXTree : VueComponent {
     }
     open var getAllFoldreIdByF = ::gen_getAllFoldreIdByF_fn
     open fun gen_getAllFoldreIdByF_fn(onids: UTSArray<String>): UTSArray<String> {
-        var ids = utsArrayOf<String>()
+        var ids = _uA<String>()
         var _this = this
         onids.forEach(fun(id){
             ids = ids.concat(findParentIds(_this._list, id, _this.idKey))
@@ -151,10 +147,10 @@ open class GenUniModulesTmxUiComponentsXTreeXTree : VueComponent {
     open var upateParentIds = ::gen_upateParentIds_fn
     open fun gen_upateParentIds_fn(): UTSArray<String> {
         var updateNodeStatus = fun(nodes: UTSArray<UTSJSONObject>): UTSArray<String> {
-            return utsArrayOf<String>()
+            return _uA<String>()
         }
         updateNodeStatus = fun(nodes: UTSArray<UTSJSONObject>): UTSArray<String> {
-            var selectedParentIds = utsArrayOf<String>()
+            var selectedParentIds = _uA<String>()
             run {
                 var i: Number = 0
                 while(i < nodes.length){
@@ -222,31 +218,31 @@ open class GenUniModulesTmxUiComponentsXTreeXTree : VueComponent {
     open fun gen_setChildrenDataEnd_fn(id: String, item: UTSArray<UTSJSONObject>) {}
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf())
+            _nCS(_uA())
         }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("change" to null, "childrenClick" to null, "openFolderChange" to null, "update:folderId" to null, "update:modelValue" to null)
-        var props = normalizePropsOptions(utsMapOf("modelValue" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf<String>()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("change" to null, "childrenClick" to null, "openFolderChange" to null, "update:folderId" to null, "update:modelValue" to null)
+        var props = _nP(_uM("modelValue" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA<String>()
         }
-        ), "folderId" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf<String>()
+        ), "folderId" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA<String>()
         }
-        ), "parentSelectedFullChildren" to utsMapOf("type" to "Boolean", "default" to false), "disabledParentBox" to utsMapOf("type" to "Boolean", "default" to false), "disabled" to utsMapOf("type" to "Boolean", "default" to false), "list" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<UTSJSONObject> {
-            return utsArrayOf<UTSJSONObject>()
+        ), "parentSelectedFullChildren" to _uM("type" to "Boolean", "default" to false), "disabledParentBox" to _uM("type" to "Boolean", "default" to false), "disabled" to _uM("type" to "Boolean", "default" to false), "list" to _uM("type" to "Array", "default" to fun(): UTSArray<UTSJSONObject> {
+            return _uA<UTSJSONObject>()
         }
-        ), "idKey" to utsMapOf("type" to "String", "default" to "id"), "labelKey" to utsMapOf("type" to "String", "default" to "text"), "color" to utsMapOf("type" to "String", "default" to ""), "beforeOpenFloder" to utsMapOf("type" to "Function", "default" to fun(itemId: String): UTSPromise<UTSArray<UTSJSONObject>> {
-            return UTSPromise.resolve(utsArrayOf<UTSJSONObject>())
+        ), "idKey" to _uM("type" to "String", "default" to "id"), "labelKey" to _uM("type" to "String", "default" to "text"), "color" to _uM("type" to "String", "default" to ""), "beforeOpenFloder" to _uM("type" to "Function", "default" to fun(itemId: String): UTSPromise<UTSArray<UTSJSONObject>> {
+            return UTSPromise.resolve(_uA<UTSJSONObject>())
         }
-        ), "floaderIcon" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf<String>("add-circle-line", "indeterminate-circle-line")
+        ), "floaderIcon" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA<String>("add-circle-line", "indeterminate-circle-line")
         }
-        ), "showFloaderIcon" to utsMapOf("type" to "Boolean", "default" to true), "showChecked" to utsMapOf("type" to "Boolean", "default" to true), "checkedIcon" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf<String>("checkbox-blank-circle-line", "checkbox-circle-fill")
+        ), "showFloaderIcon" to _uM("type" to "Boolean", "default" to true), "showChecked" to _uM("type" to "Boolean", "default" to true), "checkedIcon" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA<String>("checkbox-blank-circle-line", "checkbox-circle-fill")
         }
         )))
-        var propsNeedCastKeys = utsArrayOf(
+        var propsNeedCastKeys = _uA(
             "modelValue",
             "folderId",
             "parentSelectedFullChildren",
@@ -262,6 +258,6 @@ open class GenUniModulesTmxUiComponentsXTreeXTree : VueComponent {
             "showChecked",
             "checkedIcon"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

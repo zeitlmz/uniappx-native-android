@@ -11,13 +11,7 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.`$emit` as uni__emit
-import uts.sdk.modules.mcAmapNavPlus.checkLocationPermission
-import uts.sdk.modules.mcAmapNavPlus.init
 open class GenPagesOtherLineManageViewDistinctIndex : BasePage {
     constructor(__ins: ComponentInternalInstance, __renderer: String?) : super(__ins, __renderer) {
         onPageScroll(fun(e: OnPageScrollOptions) {
@@ -50,7 +44,7 @@ open class GenPagesOtherLineManageViewDistinctIndex : BasePage {
             val _ctx = __ins.proxy as GenPagesOtherLineManageViewDistinctIndex
             val _cache = __ins.renderCache
             val globalData = inject("globalData") as GlobalDataType
-            val driverBindDistrictLines = ref(utsArrayOf<DriverBindDistrictLines>())
+            val driverBindDistrictLines = ref(_uA<DriverBindDistrictLines>())
             val startDistrictCode = ref<String>("")
             val startCityCode = ref<String>("")
             val endCityCode = ref<String>("")
@@ -76,7 +70,7 @@ open class GenPagesOtherLineManageViewDistinctIndex : BasePage {
             }
             val init = fun(){
                 getDriverBindLinesList(startDistrictCode.value, startCityCode.value, endCityCode.value).then(fun(res: Response){
-                    driverBindDistrictLines.value = JSON.parseArray<DriverBindDistrictLines>(JSON.stringify(res.data)) ?: utsArrayOf()
+                    driverBindDistrictLines.value = JSON.parseArray<DriverBindDistrictLines>(JSON.stringify(res.data)) ?: _uA()
                     if (scrollDirection == "down") {
                         isfresh.value = false
                     } else {
@@ -112,53 +106,53 @@ open class GenPagesOtherLineManageViewDistinctIndex : BasePage {
                 val _component_template = resolveComponent("template")
                 val _component_x_drawer = resolveEasyComponent("x-drawer", GenUniModulesTmxUiComponentsXDrawerXDrawerClass)
                 val _component_mc_base_container = resolveEasyComponent("mc-base-container", GenComponentsMcBaseContainerIndexClass)
-                return createVNode(_component_mc_base_container, utsMapOf("title" to "区县详情"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                    return utsArrayOf(
-                        createVNode(_component_x_sheet, utsMapOf("margin" to utsArrayOf(
+                return _cV(_component_mc_base_container, _uM("title" to "区县详情"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                    return _uA(
+                        _cV(_component_x_sheet, _uM("margin" to _uA(
                             "0"
-                        ), "padding" to utsArrayOf(
+                        ), "padding" to _uA(
                             "30rpx"
-                        ), "class" to "flex-row", "color" to "#00000000"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                            return utsArrayOf(
-                                createElementVNode("view", utsMapOf("class" to "distinct-title flex-row"), utsArrayOf(
-                                    createElementVNode("view", utsMapOf("class" to "title-border", "style" to normalizeStyle("background-color: " + unref(globalData).theme.primaryColor + ";")), null, 4),
-                                    createElementVNode("text", utsMapOf("class" to "text"), toDisplayString(unref(districtToCityName)), 1)
+                        ), "class" to "flex-row", "color" to "#00000000"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                            return _uA(
+                                _cE("view", _uM("class" to "distinct-title flex-row"), _uA(
+                                    _cE("view", _uM("class" to "title-border", "style" to _nS("background-color: " + unref(globalData).theme.primaryColor + ";")), null, 4),
+                                    _cE("text", _uM("class" to "text"), _tD(unref(districtToCityName)), 1)
                                 ))
                             )
                         }
                         ), "_" to 1)),
-                        createVNode(_component_template, null, utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                            return utsArrayOf(
-                                createVNode(_component_x_pull_refresh, utsMapOf("height" to ("" + (unref(screenHeight) - unref(statusBarHeight) - unref(globalData).safeAreaBottom - 130) + "px"), "pullHeight" to 30, "disabled-bottom" to true, "show-scrollbar" to false, "modelValue" to unref(isfresh), "onUpdate:modelValue" to fun(`$event`: Boolean){
+                        _cV(_component_template, null, _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                            return _uA(
+                                _cV(_component_x_pull_refresh, _uM("height" to ("" + (unref(screenHeight) - unref(statusBarHeight) - unref(globalData).safeAreaBottom - 130) + "px"), "pullHeight" to 30, "disabled-bottom" to true, "show-scrollbar" to false, "modelValue" to unref(isfresh), "onUpdate:modelValue" to fun(`$event`: Boolean){
                                     trySetRefValue(isfresh, `$event`)
                                 }
                                 , "model-bottom-status" to unref(bottomFresh), "onUpdate:modelBottomStatus" to fun(`$event`: Boolean){
                                     trySetRefValue(bottomFresh, `$event`)
                                 }
-                                , "onRefresh" to topLoad, "onBottomRefresh" to bottomLoad), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                    return utsArrayOf(
-                                        createElementVNode(Fragment, null, RenderHelpers.renderList(unref(driverBindDistrictLines), fun(item, index, __index, _cached): Any {
-                                            return createVNode(_component_x_sheet, utsMapOf("class" to "flex-row flex-row-center-between", "color" to "#ffffff", "padding" to utsArrayOf(
+                                , "onRefresh" to topLoad, "onBottomRefresh" to bottomLoad), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                    return _uA(
+                                        _cE(Fragment, null, RenderHelpers.renderList(unref(driverBindDistrictLines), fun(item, index, __index, _cached): Any {
+                                            return _cV(_component_x_sheet, _uM("class" to "flex-row flex-row-center-between", "color" to "#ffffff", "padding" to _uA(
                                                 "30rpx"
-                                            ), "margin" to utsArrayOf(
+                                            ), "margin" to _uA(
                                                 "15",
                                                 "0",
                                                 "15",
                                                 "15"
-                                            )), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                                return utsArrayOf(
-                                                    createElementVNode("view", utsMapOf("class" to "left-box flex-row flex-row-center-between"), utsArrayOf(
-                                                        createElementVNode("text", null, toDisplayString(item.startDistrictName + "-" + item.endDistrictName), 1)
+                                            )), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                return _uA(
+                                                    _cE("view", _uM("class" to "left-box flex-row flex-row-center-between"), _uA(
+                                                        _cE("text", null, _tD(item.startDistrictName + "-" + item.endDistrictName), 1)
                                                     )),
-                                                    createElementVNode("view", utsMapOf("onClick" to fun(){
+                                                    _cE("view", _uM("onClick" to fun(){
                                                         viewPrice(item)
                                                     }
-                                                    , "class" to "right-box flex-row flex-row-center-center"), utsArrayOf(
-                                                        createElementVNode("text", utsMapOf("style" to normalizeStyle("color: " + unref(globalData).theme.primaryColor + ";")), "价格明细", 4),
-                                                        createElementVNode("image", utsMapOf("class" to "icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-arrow-right-line-samll.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
+                                                    , "class" to "right-box flex-row flex-row-center-center"), _uA(
+                                                        _cE("text", _uM("style" to _nS("color: " + unref(globalData).theme.primaryColor + ";")), "价格明细", 4),
+                                                        _cE("image", _uM("class" to "icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-arrow-right-line-samll.png"), "mode" to "widthFix"), null, 8, _uA(
                                                             "src"
                                                         ))
-                                                    ), 8, utsArrayOf(
+                                                    ), 8, _uA(
                                                         "onClick"
                                                     ))
                                                 )
@@ -168,7 +162,7 @@ open class GenPagesOtherLineManageViewDistinctIndex : BasePage {
                                         ), 256)
                                     )
                                 }
-                                ), "_" to 1), 8, utsArrayOf(
+                                ), "_" to 1), 8, _uA(
                                     "height",
                                     "modelValue",
                                     "model-bottom-status"
@@ -176,58 +170,58 @@ open class GenPagesOtherLineManageViewDistinctIndex : BasePage {
                             )
                         }
                         ), "_" to 1)),
-                        createVNode(_component_x_drawer, utsMapOf("content-margin" to "30rpx", "show" to unref(showPrice), "onUpdate:show" to fun(`$event`: Boolean){
+                        _cV(_component_x_drawer, _uM("content-margin" to "30rpx", "show" to unref(showPrice), "onUpdate:show" to fun(`$event`: Boolean){
                             trySetRefValue(showPrice, `$event`)
                         }
-                        , "bgColor" to "#ECF1F8", "show-title" to false, "size" to "65%"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                            return utsArrayOf(
-                                createElementVNode("text", utsMapOf("class" to "title"), "线路价格明细"),
-                                createElementVNode("view", utsMapOf("class" to "price-group"), utsArrayOf(
+                        , "bgColor" to "#ECF1F8", "show-title" to false, "size" to "65%"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                            return _uA(
+                                _cE("text", _uM("class" to "title"), "线路价格明细"),
+                                _cE("view", _uM("class" to "price-group"), _uA(
                                     if (unref(carpoolPrice) != "") {
-                                        createElementVNode("text", utsMapOf("key" to 0, "class" to "price-item"), "拼车：" + toDisplayString(unref(carpoolPrice)) + "元", 1)
+                                        _cE("text", _uM("key" to 0, "class" to "price-item"), "拼车：" + _tD(unref(carpoolPrice)) + "元", 1)
                                     } else {
-                                        createCommentVNode("v-if", true)
+                                        _cC("v-if", true)
                                     }
                                     ,
                                     if (unref(fiveExclusivePrice) != "") {
-                                        createElementVNode("text", utsMapOf("key" to 1, "class" to "price-item"), "五座独享：" + toDisplayString(unref(fiveExclusivePrice)) + "元", 1)
+                                        _cE("text", _uM("key" to 1, "class" to "price-item"), "五座独享：" + _tD(unref(fiveExclusivePrice)) + "元", 1)
                                     } else {
-                                        createCommentVNode("v-if", true)
+                                        _cC("v-if", true)
                                     }
                                     ,
                                     if (unref(sixExclusivePrice) != "") {
-                                        createElementVNode("text", utsMapOf("key" to 2, "class" to "price-item"), "六座独享：" + toDisplayString(unref(sixExclusivePrice)) + "元", 1)
+                                        _cE("text", _uM("key" to 2, "class" to "price-item"), "六座独享：" + _tD(unref(sixExclusivePrice)) + "元", 1)
                                     } else {
-                                        createCommentVNode("v-if", true)
+                                        _cC("v-if", true)
                                     }
                                     ,
                                     if (unref(sevenExclusivePrice) != "") {
-                                        createElementVNode("text", utsMapOf("key" to 3, "class" to "price-item"), "七座独享：" + toDisplayString(unref(sevenExclusivePrice)) + "元", 1)
+                                        _cE("text", _uM("key" to 3, "class" to "price-item"), "七座独享：" + _tD(unref(sevenExclusivePrice)) + "元", 1)
                                     } else {
-                                        createCommentVNode("v-if", true)
+                                        _cC("v-if", true)
                                     }
                                     ,
                                     if (unref(eightExclusivePrice) != "") {
-                                        createElementVNode("text", utsMapOf("key" to 4, "class" to "price-item"), "八座独享：" + toDisplayString(unref(eightExclusivePrice)) + "元", 1)
+                                        _cE("text", _uM("key" to 4, "class" to "price-item"), "八座独享：" + _tD(unref(eightExclusivePrice)) + "元", 1)
                                     } else {
-                                        createCommentVNode("v-if", true)
+                                        _cC("v-if", true)
                                     }
                                     ,
                                     if (unref(nineExclusivePrice) != "") {
-                                        createElementVNode("text", utsMapOf("key" to 5, "class" to "price-item"), "九座独享：" + toDisplayString(unref(nineExclusivePrice)) + "元", 1)
+                                        _cE("text", _uM("key" to 5, "class" to "price-item"), "九座独享：" + _tD(unref(nineExclusivePrice)) + "元", 1)
                                     } else {
-                                        createCommentVNode("v-if", true)
+                                        _cC("v-if", true)
                                     }
                                 )),
-                                createElementVNode("view", utsMapOf("class" to "tips"), utsArrayOf(
-                                    createElementVNode("image", utsMapOf("class" to "icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-problem-outline.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
+                                _cE("view", _uM("class" to "tips"), _uA(
+                                    _cE("image", _uM("class" to "icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-problem-outline.png"), "mode" to "widthFix"), null, 8, _uA(
                                         "src"
                                     )),
-                                    createElementVNode("text", utsMapOf("class" to "text"), "部分街镇价格有所不同，联系客服咨询价格相关政策")
+                                    _cE("text", _uM("class" to "text"), "部分街镇价格有所不同，联系客服咨询价格相关政策")
                                 ))
                             )
                         }
-                        ), "_" to 1), 8, utsArrayOf(
+                        ), "_" to 1), 8, _uA(
                             "show"
                         ))
                     )
@@ -236,21 +230,21 @@ open class GenPagesOtherLineManageViewDistinctIndex : BasePage {
             }
         }
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
-            ), utsArrayOf(
+            ), _uA(
                 GenApp.styles
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("distinct-title" to padStyleMapOf(utsMapOf("alignItems" to "center")), "title-border" to utsMapOf(".distinct-title " to utsMapOf("width" to "8rpx", "height" to "33rpx", "borderTopLeftRadius" to "4rpx", "borderTopRightRadius" to "4rpx", "borderBottomRightRadius" to "4rpx", "borderBottomLeftRadius" to "4rpx")), "text" to utsMapOf(".distinct-title " to utsMapOf("paddingLeft" to "20rpx", "fontWeight" to "bold", "fontSize" to "36rpx", "color" to "#000000"), ".tips " to utsMapOf("boxSizing" to "border-box", "paddingLeft" to "10rpx", "fontWeight" to "bold", "fontSize" to "28rpx", "color" to "#D50303")), "left-box" to padStyleMapOf(utsMapOf("flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center")), "icon" to utsMapOf(".left-box " to utsMapOf("width" to 12, "height" to 14), ".right-box " to utsMapOf("width" to 6, "height" to 12, "marginLeft" to "10rpx"), ".tips " to utsMapOf("width" to "29rpx", "height" to "29rpx")), "btn-group-panel" to padStyleMapOf(utsMapOf("position" to "fixed", "bottom" to 0, "left" to 0, "right" to 0, "paddingTop" to 15, "paddingRight" to 15, "paddingBottom" to 15, "paddingLeft" to 15)), "title" to padStyleMapOf(utsMapOf("textAlign" to "center", "width" to "100%", "marginTop" to "30rpx", "marginRight" to 0, "marginBottom" to "30rpx", "marginLeft" to 0, "fontWeight" to "bold", "fontSize" to "32rpx", "color" to "#000000")), "price-item" to utsMapOf(".price-group " to utsMapOf("paddingTop" to "30rpx", "paddingRight" to "30rpx", "paddingBottom" to "30rpx", "paddingLeft" to "30rpx", "borderTopLeftRadius" to "10rpx", "borderTopRightRadius" to "10rpx", "borderBottomRightRadius" to "10rpx", "borderBottomLeftRadius" to "10rpx", "marginBottom" to "30rpx", "backgroundColor" to "#ffffff")), "tips" to padStyleMapOf(utsMapOf("flexDirection" to "row", "alignItems" to "center", "justifyContent" to "center", "marginBottom" to "30rpx")))
+                return _uM("distinct-title" to _pS(_uM("alignItems" to "center")), "title-border" to _uM(".distinct-title " to _uM("width" to "8rpx", "height" to "33rpx", "borderTopLeftRadius" to "4rpx", "borderTopRightRadius" to "4rpx", "borderBottomRightRadius" to "4rpx", "borderBottomLeftRadius" to "4rpx")), "text" to _uM(".distinct-title " to _uM("paddingLeft" to "20rpx", "fontWeight" to "bold", "fontSize" to "36rpx", "color" to "#000000"), ".tips " to _uM("boxSizing" to "border-box", "paddingLeft" to "10rpx", "fontWeight" to "bold", "fontSize" to "28rpx", "color" to "#D50303")), "left-box" to _pS(_uM("flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center")), "icon" to _uM(".left-box " to _uM("width" to 12, "height" to 14), ".right-box " to _uM("width" to 6, "height" to 12, "marginLeft" to "10rpx"), ".tips " to _uM("width" to "29rpx", "height" to "29rpx")), "btn-group-panel" to _pS(_uM("position" to "fixed", "bottom" to 0, "left" to 0, "right" to 0, "paddingTop" to 15, "paddingRight" to 15, "paddingBottom" to 15, "paddingLeft" to 15)), "title" to _pS(_uM("textAlign" to "center", "width" to "100%", "marginTop" to "30rpx", "marginRight" to 0, "marginBottom" to "30rpx", "marginLeft" to 0, "fontWeight" to "bold", "fontSize" to "32rpx", "color" to "#000000")), "price-item" to _uM(".price-group " to _uM("paddingTop" to "30rpx", "paddingRight" to "30rpx", "paddingBottom" to "30rpx", "paddingLeft" to "30rpx", "borderTopLeftRadius" to "10rpx", "borderTopRightRadius" to "10rpx", "borderBottomRightRadius" to "10rpx", "borderBottomLeftRadius" to "10rpx", "marginBottom" to "30rpx", "backgroundColor" to "#ffffff")), "tips" to _pS(_uM("flexDirection" to "row", "alignItems" to "center", "justifyContent" to "center", "marginBottom" to "30rpx")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf()
-        var props = normalizePropsOptions(utsMapOf())
-        var propsNeedCastKeys: UTSArray<String> = utsArrayOf()
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM()
+        var props = _nP(_uM())
+        var propsNeedCastKeys: UTSArray<String> = _uA()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.`$off` as uni__off
 import io.dcloud.uniapp.extapi.`$on` as uni__on
 import io.dcloud.uniapp.extapi.createSelectorQuery as uni_createSelectorQuery
@@ -49,18 +45,18 @@ open class GenUniModulesTmxUiComponentsXEchartXEchart : VueComponent {
         val _ctx = this
         val _cache = this.`$`.renderCache
         val _component_x_icon = resolveEasyComponent("x-icon", GenUniModulesTmxUiComponentsXIconXIconClass)
-        return createElementVNode("view", utsMapOf("class" to "xEchart", "style" to normalizeStyle(utsMapOf("width" to _ctx._width, "height" to _ctx._height))), utsArrayOf(
+        return _cE("view", _uM("class" to "xEchart", "style" to _nS(_uM("width" to _ctx._width, "height" to _ctx._height))), _uA(
             if (isTrue(!_ctx.isLoaded)) {
-                createElementVNode("view", utsMapOf("key" to 0, "style" to normalizeStyle(utsMapOf("width" to "100%", "height" to "100%", "display" to "flex", "justify-content" to "center", "align-items" to "center", "flex-direction" to "row"))), utsArrayOf(
-                    createVNode(_component_x_icon, utsMapOf("color" to "primary", "spin" to true, "name" to "loader-4-line"))
+                _cE("view", _uM("key" to 0, "style" to _nS(_uM("width" to "100%", "height" to "100%", "display" to "flex", "justify-content" to "center", "align-items" to "center", "flex-direction" to "row"))), _uA(
+                    _cV(_component_x_icon, _uM("color" to "primary", "spin" to true, "name" to "loader-4-line"))
                 ), 4)
             } else {
-                createElementVNode("web-view", utsMapOf("key" to 1, "onLoad" to _ctx.appWebViewLoaded, "id" to _ctx.id, "src" to "/hybrid/html/local.html", "style" to normalizeStyle(utsMapOf("width" to "100%", "height" to "100%", "opacity" to if (_ctx.isLoaded) {
+                _cE("web-view", _uM("key" to 1, "onLoad" to _ctx.appWebViewLoaded, "id" to _ctx.id, "src" to "/hybrid/html/local.html", "style" to _nS(_uM("width" to "100%", "height" to "100%", "opacity" to if (_ctx.isLoaded) {
                     1
                 } else {
                     0
                 }
-                )), "onMessage" to _ctx.onMessage), null, 44, utsArrayOf(
+                )), "onMessage" to _ctx.onMessage), null, 44, _uA(
                     "onLoad",
                     "id",
                     "onMessage"
@@ -85,7 +81,7 @@ open class GenUniModulesTmxUiComponentsXEchartXEchart : VueComponent {
     open var _options: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("id" to ("xEchart-" + getUid()) as String, "webviewContext" to null as WebviewContext?, "isLoaded" to false, "boxWidth" to 10, "boxHeight" to 10, "tid" to 0, "tid2" to 0, "realLoaded" to false, "dipcatchEvents" to Map<String, eventsType>(), "_width" to computed<String>(fun(): String {
+        return _uM("id" to ("xEchart-" + getUid()) as String, "webviewContext" to null as WebviewContext?, "isLoaded" to false, "boxWidth" to 10, "boxHeight" to 10, "tid" to 0, "tid2" to 0, "realLoaded" to false, "dipcatchEvents" to Map<String, eventsType>(), "_width" to computed<String>(fun(): String {
             return checkIsCssUnit(this.width, xConfig.unit)
         }
         ), "_height" to computed<String>(fun(): String {
@@ -170,7 +166,7 @@ open class GenUniModulesTmxUiComponentsXEchartXEchart : VueComponent {
     }
     open var cahrtActions = ::gen_cahrtActions_fn
     open fun gen_cahrtActions_fn(kFun: String, opts: String, evt: eventsType?) {
-        var filterevents = utsArrayOf(
+        var filterevents = _uA(
             "click"
         )
         var eventsid = ("x-" + getUid()) as String
@@ -191,17 +187,17 @@ open class GenUniModulesTmxUiComponentsXEchartXEchart : VueComponent {
     }
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf())
+            _nCS(_uA())
         }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("init" to null)
-        var props = normalizePropsOptions(utsMapOf("width" to utsMapOf("type" to "String", "default" to "auto"), "height" to utsMapOf("type" to "String", "default" to "250px"), "opts" to utsMapOf("type" to "String", "default" to "")))
-        var propsNeedCastKeys = utsArrayOf(
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("init" to null)
+        var props = _nP(_uM("width" to _uM("type" to "String", "default" to "auto"), "height" to _uM("type" to "String", "default" to "250px"), "opts" to _uM("type" to "String", "default" to "")))
+        var propsNeedCastKeys = _uA(
             "width",
             "height",
             "opts"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

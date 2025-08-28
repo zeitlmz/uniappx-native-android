@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.rpx2px as uni_rpx2px
 open class GenUniModulesTmxUiComponentsXRateXRate : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {
@@ -55,19 +51,19 @@ open class GenUniModulesTmxUiComponentsXRateXRate : VueComponent {
         val _ctx = this
         val _cache = this.`$`.renderCache
         val _component_x_icon = resolveEasyComponent("x-icon", GenUniModulesTmxUiComponentsXIconXIconClass)
-        return createElementVNode("view", utsMapOf("class" to "xRate", "style" to normalizeStyle(utsMapOf("opacity" to if (_ctx._disabled) {
+        return _cE("view", _uM("class" to "xRate", "style" to _nS(_uM("opacity" to if (_ctx._disabled) {
             0.7
         } else {
             1
         }
-        ))), utsArrayOf(
-            createElementVNode("view", utsMapOf("ref" to "xRateWrap", "class" to "xRateWrap", "onTouchstart" to _ctx._msMStart, "onTouchmove" to _ctx._msMMove, "onTouchend" to _ctx._msMEnd), utsArrayOf(
+        ))), _uA(
+            _cE("view", _uM("ref" to "xRateWrap", "class" to "xRateWrap", "onTouchstart" to _ctx._msMStart, "onTouchmove" to _ctx._msMMove, "onTouchend" to _ctx._msMEnd), _uA(
                 if (isTrue(!_ctx.half)) {
-                    createElementVNode(Fragment, utsMapOf("key" to 0), RenderHelpers.renderList(_ctx._count, fun(index, __key, __index, _cached): Any {
-                        return createElementVNode("view", utsMapOf("ref_for" to true, "ref" to ("rate-" + index), "key" to index), utsArrayOf(
-                            createVNode(_component_x_icon, utsMapOf("onClick" to fun(){
+                    _cE(Fragment, _uM("key" to 0), RenderHelpers.renderList(_ctx._count, fun(index, __key, __index, _cached): Any {
+                        return _cE("view", _uM("ref_for" to true, "ref" to ("rate-" + index), "key" to index), _uA(
+                            _cV(_component_x_icon, _uM("onClick" to fun(){
                                 _ctx.onClick(index)
-                            }, "style" to normalizeStyle(utsMapOf("marginRight" to if (index == _ctx._count) {
+                            }, "style" to _nS(_uM("marginRight" to if (index == _ctx._count) {
                                 "0rpx"
                             } else {
                                 _ctx._space
@@ -83,7 +79,7 @@ open class GenUniModulesTmxUiComponentsXRateXRate : VueComponent {
                                 _ctx.icon
                             } else {
                                 _ctx.unicon
-                            }), null, 8, utsArrayOf(
+                            }), null, 8, _uA(
                                 "onClick",
                                 "style",
                                 "font-size",
@@ -94,13 +90,13 @@ open class GenUniModulesTmxUiComponentsXRateXRate : VueComponent {
                         ))
                     }), 128)
                 } else {
-                    createCommentVNode("v-if", true)
+                    _cC("v-if", true)
                 }
                 ,
                 if (isTrue(_ctx.half)) {
-                    createElementVNode(Fragment, utsMapOf("key" to 1), RenderHelpers.renderList(_ctx._count, fun(index, __key, __index, _cached): Any {
-                        return createElementVNode("view", utsMapOf("ref_for" to true, "ref" to ("rate-" + index), "key" to index, "style" to normalizeStyle(utsMapOf("position" to "relative"))), utsArrayOf(
-                            createVNode(_component_x_icon, utsMapOf("style" to normalizeStyle(utsMapOf("marginRight" to if (index == _ctx._count) {
+                    _cE(Fragment, _uM("key" to 1), RenderHelpers.renderList(_ctx._count, fun(index, __key, __index, _cached): Any {
+                        return _cE("view", _uM("ref_for" to true, "ref" to ("rate-" + index), "key" to index, "style" to _nS(_uM("position" to "relative"))), _uA(
+                            _cV(_component_x_icon, _uM("style" to _nS(_uM("marginRight" to if (index == _ctx._count) {
                                 "0rpx"
                             } else {
                                 _ctx._space
@@ -116,39 +112,39 @@ open class GenUniModulesTmxUiComponentsXRateXRate : VueComponent {
                                 _ctx._color
                             } else {
                                 _ctx._unColor
-                            }, "name" to _ctx.isSelectedHalf(index)), null, 8, utsArrayOf(
+                            }, "name" to _ctx.isSelectedHalf(index)), null, 8, _uA(
                                 "style",
                                 "font-size",
                                 "color",
                                 "dark-color",
                                 "name"
                             )),
-                            createElementVNode("view", utsMapOf("onClick" to fun(){
+                            _cE("view", _uM("onClick" to fun(){
                                 _ctx.onClickHalf(index, 1)
-                            }, "class" to "xRateLeft"), null, 8, utsArrayOf(
+                            }, "class" to "xRateLeft"), null, 8, _uA(
                                 "onClick"
                             )),
-                            createElementVNode("view", utsMapOf("onClick" to fun(){
+                            _cE("view", _uM("onClick" to fun(){
                                 _ctx.onClickHalf(index, 2)
-                            }, "class" to "xRateRight"), null, 8, utsArrayOf(
+                            }, "class" to "xRateRight"), null, 8, _uA(
                                 "onClick"
                             ))
                         ), 4)
                     }), 128)
                 } else {
-                    createCommentVNode("v-if", true)
+                    _cC("v-if", true)
                 }
-            ), 40, utsArrayOf(
+            ), 40, _uA(
                 "onTouchstart",
                 "onTouchmove",
                 "onTouchend"
             )),
-            renderSlot(_ctx.`$slots`, "score", utsMapOf("score" to _ctx.score), fun(): UTSArray<Any> {
-                return utsArrayOf(
+            renderSlot(_ctx.`$slots`, "score", _uM("score" to _ctx.score), fun(): UTSArray<Any> {
+                return _uA(
                     if (isTrue(_ctx._showScore)) {
-                        createElementVNode("text", utsMapOf("key" to 0, "class" to "xRateText", "style" to normalizeStyle(utsMapOf("color" to _ctx._color, "fontSize" to _ctx._fontSize))), toDisplayString(_ctx.score.toFixed(1)), 5)
+                        _cE("text", _uM("key" to 0, "class" to "xRateText", "style" to _nS(_uM("color" to _ctx._color, "fontSize" to _ctx._fontSize))), _tD(_ctx.score.toFixed(1)), 5)
                     } else {
-                        createCommentVNode("v-if", true)
+                        _cC("v-if", true)
                     }
                 )
             }
@@ -191,7 +187,7 @@ open class GenUniModulesTmxUiComponentsXRateXRate : VueComponent {
     open var _showScore: Boolean by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("score" to 0, "xani" to null as xAnimate?, "clickStartIndex" to -1, "clickStartStatus" to 0, "isWEBPC" to false, "_x" to 0, "_y" to 0, "_isMove" to false, "_parentBounds" to dDrect(x = 0, y = 0, width = 0, height = 0, space = 0), "_isWEBmoveSelecteIndex" to -1, "_disabled" to computed<Boolean>(fun(): Boolean {
+        return _uM("score" to 0, "xani" to null as xAnimate?, "clickStartIndex" to -1, "clickStartStatus" to 0, "isWEBPC" to false, "_x" to 0, "_y" to 0, "_isMove" to false, "_parentBounds" to dDrect(x = 0, y = 0, width = 0, height = 0, space = 0), "_isWEBmoveSelecteIndex" to -1, "_disabled" to computed<Boolean>(fun(): Boolean {
             return this.disabled
         }
         ), "_readonly" to computed<Boolean>(fun(): Boolean {
@@ -405,19 +401,19 @@ open class GenUniModulesTmxUiComponentsXRateXRate : VueComponent {
     }
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xRateText" to padStyleMapOf(utsMapOf("marginLeft" to 10)), "xRateLeft" to padStyleMapOf(utsMapOf("position" to "absolute", "width" to "50%", "height" to "100%", "top" to 0, "left" to 0)), "xRateRight" to padStyleMapOf(utsMapOf("position" to "absolute", "width" to "50%", "height" to "100%", "top" to 0, "right" to 0)), "xRate" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "flex-start")), "xRateWrap" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "flex-start")))
+                return _uM("xRateText" to _pS(_uM("marginLeft" to 10)), "xRateLeft" to _pS(_uM("position" to "absolute", "width" to "50%", "height" to "100%", "top" to 0, "left" to 0)), "xRateRight" to _pS(_uM("position" to "absolute", "width" to "50%", "height" to "100%", "top" to 0, "right" to 0)), "xRate" to _pS(_uM("display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "flex-start")), "xRateWrap" to _pS(_uM("display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "flex-start")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("change" to null, "update:modelValue" to null)
-        var props = normalizePropsOptions(utsMapOf("modelValue" to utsMapOf("type" to "Number", "default" to 0), "count" to utsMapOf("type" to "Number", "default" to 5), "color" to utsMapOf("type" to "String", "default" to ""), "unColor" to utsMapOf("type" to "String", "default" to "#cacaca"), "darkUnColor" to utsMapOf("type" to "String", "default" to "#8b8b8b"), "size" to utsMapOf("type" to "String", "default" to "21"), "space" to utsMapOf("type" to "String", "default" to "4"), "icon" to utsMapOf("type" to "String", "default" to "star-fill"), "unicon" to utsMapOf("type" to "String", "default" to "star-line"), "readonly" to utsMapOf("type" to "Boolean", "default" to false), "disabled" to utsMapOf("type" to "Boolean", "default" to false), "showScore" to utsMapOf("type" to "Boolean", "default" to false), "fontSize" to utsMapOf("type" to "String", "default" to "14"), "half" to utsMapOf("type" to "Boolean", "default" to false)))
-        var propsNeedCastKeys = utsArrayOf(
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("change" to null, "update:modelValue" to null)
+        var props = _nP(_uM("modelValue" to _uM("type" to "Number", "default" to 0), "count" to _uM("type" to "Number", "default" to 5), "color" to _uM("type" to "String", "default" to ""), "unColor" to _uM("type" to "String", "default" to "#cacaca"), "darkUnColor" to _uM("type" to "String", "default" to "#8b8b8b"), "size" to _uM("type" to "String", "default" to "21"), "space" to _uM("type" to "String", "default" to "4"), "icon" to _uM("type" to "String", "default" to "star-fill"), "unicon" to _uM("type" to "String", "default" to "star-line"), "readonly" to _uM("type" to "Boolean", "default" to false), "disabled" to _uM("type" to "Boolean", "default" to false), "showScore" to _uM("type" to "Boolean", "default" to false), "fontSize" to _uM("type" to "String", "default" to "14"), "half" to _uM("type" to "Boolean", "default" to false)))
+        var propsNeedCastKeys = _uA(
             "modelValue",
             "count",
             "color",
@@ -433,6 +429,6 @@ open class GenUniModulesTmxUiComponentsXRateXRate : VueComponent {
             "fontSize",
             "half"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

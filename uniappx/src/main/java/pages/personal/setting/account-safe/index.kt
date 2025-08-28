@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.`$emit` as uni__emit
 import uts.sdk.modules.uniKuxrouter.useKuxRouter as uni_useKuxRouter
 open class GenPagesPersonalSettingAccountSafeIndex : BasePage {
@@ -76,58 +72,58 @@ open class GenPagesPersonalSettingAccountSafeIndex : BasePage {
                 val _component_mc_active_animation = resolveEasyComponent("mc-active-animation", GenComponentsMcActiveAnimationIndexClass)
                 val _component_x_sheet = resolveEasyComponent("x-sheet", GenUniModulesTmxUiComponentsXSheetXSheetClass)
                 val _component_mc_base_container = resolveEasyComponent("mc-base-container", GenComponentsMcBaseContainerIndexClass)
-                return createVNode(_component_mc_base_container, utsMapOf("title" to "账户与安全"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                    return utsArrayOf(
+                return _cV(_component_mc_base_container, _uM("title" to "账户与安全"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                    return _uA(
                         if (unref(globalData).entryStatus == unref(AUDIT_APPROVE)) {
-                            createVNode(_component_x_sheet, utsMapOf("key" to 0, "margin" to utsArrayOf(
+                            _cV(_component_x_sheet, _uM("key" to 0, "margin" to _uA(
                                 "15"
-                            ), "padding" to utsArrayOf(
+                            ), "padding" to _uA(
                                 "20",
                                 "15",
                                 "20",
                                 "25"
-                            )), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                return utsArrayOf(
-                                    createVNode(_component_mc_active_animation, utsMapOf("class" to "setting-item", "onClick" to toSecondaryPassword), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                        return utsArrayOf(
-                                            createElementVNode("view", utsMapOf("class" to "setting-header"), utsArrayOf(
-                                                createElementVNode("text", utsMapOf("class" to "label"), "二级密码"),
+                            )), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                return _uA(
+                                    _cV(_component_mc_active_animation, _uM("class" to "setting-item", "onClick" to toSecondaryPassword), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                        return _uA(
+                                            _cE("view", _uM("class" to "setting-header"), _uA(
+                                                _cE("text", _uM("class" to "label"), "二级密码"),
                                                 if (isTrue(unref(secondPasswordStatus))) {
-                                                    createElementVNode("text", utsMapOf("key" to 0, "class" to "label", "style" to normalizeStyle(utsMapOf("color" to "seagreen"))), "已设置", 4)
+                                                    _cE("text", _uM("key" to 0, "class" to "label", "style" to _nS(_uM("color" to "seagreen"))), "已设置", 4)
                                                 } else {
-                                                    createElementVNode("text", utsMapOf("key" to 1, "class" to "label", "style" to normalizeStyle(utsMapOf("color" to "red"))), "未设置", 4)
+                                                    _cE("text", _uM("key" to 1, "class" to "label", "style" to _nS(_uM("color" to "red"))), "未设置", 4)
                                                 }
                                             )),
-                                            createElementVNode("view", utsMapOf("class" to "desc"), utsArrayOf(
-                                                createElementVNode("text", utsMapOf("class" to "text"), "可用于更换手机号、提现")
+                                            _cE("view", _uM("class" to "desc"), _uA(
+                                                _cE("text", _uM("class" to "text"), "可用于更换手机号、提现")
                                             ))
                                         )
                                     }), "_" to 1))
                                 )
                             }), "_" to 1))
                         } else {
-                            createCommentVNode("v-if", true)
+                            _cC("v-if", true)
                         }
                         ,
-                        createVNode(_component_x_sheet, utsMapOf("margin" to utsArrayOf(
+                        _cV(_component_x_sheet, _uM("margin" to _uA(
                             "15"
-                        ), "padding" to utsArrayOf(
+                        ), "padding" to _uA(
                             "20",
                             "15",
                             "20",
                             "25"
-                        )), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                            return utsArrayOf(
-                                createVNode(_component_mc_active_animation, utsMapOf("class" to "setting-item", "onClick" to toAccountBind), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                    return utsArrayOf(
-                                        createElementVNode("view", utsMapOf("class" to "setting-header"), utsArrayOf(
-                                            createElementVNode("text", utsMapOf("class" to "label"), "账号绑定管理"),
-                                            createElementVNode("image", utsMapOf("class" to "icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-arrow-right-line-samll.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
+                        )), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                            return _uA(
+                                _cV(_component_mc_active_animation, _uM("class" to "setting-item", "onClick" to toAccountBind), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                    return _uA(
+                                        _cE("view", _uM("class" to "setting-header"), _uA(
+                                            _cE("text", _uM("class" to "label"), "账号绑定管理"),
+                                            _cE("image", _uM("class" to "icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-arrow-right-line-samll.png"), "mode" to "widthFix"), null, 8, _uA(
                                                 "src"
                                             ))
                                         )),
-                                        createElementVNode("view", utsMapOf("class" to "desc"), utsArrayOf(
-                                            createElementVNode("text", utsMapOf("class" to "text"), "绑定微信、支付宝等账号")
+                                        _cE("view", _uM("class" to "desc"), _uA(
+                                            _cE("text", _uM("class" to "text"), "绑定微信、支付宝等账号")
                                         ))
                                     )
                                 }
@@ -135,25 +131,25 @@ open class GenPagesPersonalSettingAccountSafeIndex : BasePage {
                             )
                         }
                         ), "_" to 1)),
-                        createVNode(_component_x_sheet, utsMapOf("margin" to utsArrayOf(
+                        _cV(_component_x_sheet, _uM("margin" to _uA(
                             "15"
-                        ), "padding" to utsArrayOf(
+                        ), "padding" to _uA(
                             "20",
                             "15",
                             "20",
                             "25"
-                        )), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                            return utsArrayOf(
-                                createVNode(_component_mc_active_animation, utsMapOf("class" to "setting-item", "onClick" to toRevokePrivacy), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                    return utsArrayOf(
-                                        createElementVNode("view", utsMapOf("class" to "setting-header"), utsArrayOf(
-                                            createElementVNode("text", utsMapOf("class" to "label"), "撤回同意隐私政策"),
-                                            createElementVNode("image", utsMapOf("class" to "icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-arrow-right-line-samll.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
+                        )), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                            return _uA(
+                                _cV(_component_mc_active_animation, _uM("class" to "setting-item", "onClick" to toRevokePrivacy), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                    return _uA(
+                                        _cE("view", _uM("class" to "setting-header"), _uA(
+                                            _cE("text", _uM("class" to "label"), "撤回同意隐私政策"),
+                                            _cE("image", _uM("class" to "icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-arrow-right-line-samll.png"), "mode" to "widthFix"), null, 8, _uA(
                                                 "src"
                                             ))
                                         )),
-                                        createElementVNode("view", utsMapOf("class" to "desc"), utsArrayOf(
-                                            createElementVNode("text", utsMapOf("class" to "text"), "操作后账号信息无法恢复，请谨慎操作")
+                                        _cE("view", _uM("class" to "desc"), _uA(
+                                            _cE("text", _uM("class" to "text"), "操作后账号信息无法恢复，请谨慎操作")
                                         ))
                                     )
                                 }
@@ -161,25 +157,25 @@ open class GenPagesPersonalSettingAccountSafeIndex : BasePage {
                             )
                         }
                         ), "_" to 1)),
-                        createVNode(_component_x_sheet, utsMapOf("margin" to utsArrayOf(
+                        _cV(_component_x_sheet, _uM("margin" to _uA(
                             "15"
-                        ), "padding" to utsArrayOf(
+                        ), "padding" to _uA(
                             "20",
                             "15",
                             "20",
                             "25"
-                        )), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                            return utsArrayOf(
-                                createVNode(_component_mc_active_animation, utsMapOf("class" to "setting-item", "onClick" to toAccountCancellation), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                    return utsArrayOf(
-                                        createElementVNode("view", utsMapOf("class" to "setting-header"), utsArrayOf(
-                                            createElementVNode("text", utsMapOf("class" to "label"), "永久注销账号"),
-                                            createElementVNode("image", utsMapOf("class" to "icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-arrow-right-line-samll.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
+                        )), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                            return _uA(
+                                _cV(_component_mc_active_animation, _uM("class" to "setting-item", "onClick" to toAccountCancellation), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                    return _uA(
+                                        _cE("view", _uM("class" to "setting-header"), _uA(
+                                            _cE("text", _uM("class" to "label"), "永久注销账号"),
+                                            _cE("image", _uM("class" to "icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-arrow-right-line-samll.png"), "mode" to "widthFix"), null, 8, _uA(
                                                 "src"
                                             ))
                                         )),
-                                        createElementVNode("view", utsMapOf("class" to "desc"), utsArrayOf(
-                                            createElementVNode("text", utsMapOf("class" to "text"), "操作后账号信息无法恢复，请谨慎操作")
+                                        _cE("view", _uM("class" to "desc"), _uA(
+                                            _cE("text", _uM("class" to "text"), "操作后账号信息无法恢复，请谨慎操作")
                                         ))
                                     )
                                 }
@@ -193,21 +189,21 @@ open class GenPagesPersonalSettingAccountSafeIndex : BasePage {
             }
         }
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
-            ), utsArrayOf(
+            ), _uA(
                 GenApp.styles
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("setting-header" to utsMapOf(".setting-item " to utsMapOf("flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center", "paddingBottom" to "20rpx")), "label" to utsMapOf(".setting-item .setting-header " to utsMapOf("fontWeight" to "bold", "fontSize" to "32rpx", "color" to "#000000")), "icon" to utsMapOf(".setting-item .setting-header " to utsMapOf("width" to "11rpx", "height" to "21rpx")), "text" to utsMapOf(".setting-item .desc " to utsMapOf("fontWeight" to "bold", "fontSize" to "28rpx", "color" to "#454545")))
+                return _uM("setting-header" to _uM(".setting-item " to _uM("flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center", "paddingBottom" to "20rpx")), "label" to _uM(".setting-item .setting-header " to _uM("fontWeight" to "bold", "fontSize" to "32rpx", "color" to "#000000")), "icon" to _uM(".setting-item .setting-header " to _uM("width" to "11rpx", "height" to "21rpx")), "text" to _uM(".setting-item .desc " to _uM("fontWeight" to "bold", "fontSize" to "28rpx", "color" to "#454545")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf()
-        var props = normalizePropsOptions(utsMapOf())
-        var propsNeedCastKeys: UTSArray<String> = utsArrayOf()
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM()
+        var props = _nP(_uM())
+        var propsNeedCastKeys: UTSArray<String> = _uA()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

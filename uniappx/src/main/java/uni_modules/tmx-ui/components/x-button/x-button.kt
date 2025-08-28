@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.navigateBack as uni_navigateBack
 import io.dcloud.uniapp.extapi.navigateTo as uni_navigateTo
 import io.dcloud.uniapp.extapi.reLaunch as uni_reLaunch
@@ -67,54 +63,54 @@ open class GenUniModulesTmxUiComponentsXButtonXButton : VueComponent {
         val _ctx = this
         val _cache = this.`$`.renderCache
         val _component_x_icon = resolveEasyComponent("x-icon", GenUniModulesTmxUiComponentsXIconXIconClass)
-        return createElementVNode("view", utsMapOf("onTouchcancel" to _ctx.touchCacel, "onTouchend" to _ctx.touchEnd, "onTouchstart" to _ctx.touchStart, "onClick" to _ctx.clickListen, "style" to normalizeStyle(_ctx._styleMap), "class" to normalizeClass(utsArrayOf(
+        return _cE("view", _uM("onTouchcancel" to _ctx.touchCacel, "onTouchend" to _ctx.touchEnd, "onTouchstart" to _ctx.touchStart, "onClick" to _ctx.clickListen, "style" to _nS(_ctx._styleMap), "class" to _nC(_uA(
             "parentButton",
-            utsArrayOf(
+            _uA(
                 if (_ctx._disabled || _ctx._loading) {
                     "noDrag"
                 } else {
                     ""
                 }
             )
-        ))), utsArrayOf(
-            createElementVNode("view", utsMapOf("class" to normalizeClass(utsArrayOf(
+        ))), _uA(
+            _cE("view", _uM("class" to _nC(_uA(
                 "xButton",
                 if (_ctx._loading) {
                     "load"
                 } else {
                     ""
                 }
-            ))), utsArrayOf(
+            ))), _uA(
                 if (isTrue(_ctx._icon != "" && !_ctx._loading)) {
-                    createVNode(_component_x_icon, utsMapOf("key" to 0, "style" to normalizeStyle(utsMapOf("marginRight" to if (_ctx._iconBtn) {
+                    _cV(_component_x_icon, _uM("key" to 0, "style" to _nS(_uM("marginRight" to if (_ctx._iconBtn) {
                         "0px"
                     } else {
                         " 3px"
-                    })), "font-size" to _ctx._iconSize, "color" to _ctx._set_font_color, "name" to _ctx._icon), null, 8, utsArrayOf(
+                    })), "font-size" to _ctx._iconSize, "color" to _ctx._set_font_color, "name" to _ctx._icon), null, 8, _uA(
                         "style",
                         "font-size",
                         "color",
                         "name"
                     ))
                 } else {
-                    createCommentVNode("v-if", true)
+                    _cC("v-if", true)
                 }
                 ,
                 if (isTrue(_ctx._loading)) {
-                    createVNode(_component_x_icon, utsMapOf("key" to 1, "color" to "white", "spin" to true, "name" to "loader-fill"))
+                    _cV(_component_x_icon, _uM("key" to 1, "color" to "white", "spin" to true, "name" to "loader-fill"))
                 } else {
-                    createCommentVNode("v-if", true)
+                    _cC("v-if", true)
                 }
                 ,
                 if (isTrue(!_ctx._iconBtn)) {
-                    createElementVNode("text", utsMapOf("key" to 2, "style" to normalizeStyle(utsMapOf("fontWeight" to _ctx._fontWeight, "color" to _ctx._set_font_color, "fontSize" to _ctx._fontSize, "lineHeight" to _ctx.lineHeight))), utsArrayOf(
+                    _cE("text", _uM("key" to 2, "style" to _nS(_uM("fontWeight" to _ctx._fontWeight, "color" to _ctx._set_font_color, "fontSize" to _ctx._fontSize, "lineHeight" to _ctx.lineHeight))), _uA(
                         renderSlot(_ctx.`$slots`, "default")
                     ), 4)
                 } else {
-                    createCommentVNode("v-if", true)
+                    _cC("v-if", true)
                 }
             ), 2)
-        ), 46, utsArrayOf(
+        ), 46, _uA(
             "onTouchcancel",
             "onTouchend",
             "onTouchstart",
@@ -179,7 +175,7 @@ open class GenUniModulesTmxUiComponentsXButtonXButton : VueComponent {
     open var _styleMap: Map<String, String> by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("_set_border_color" to "1px solid transparent", "_set_background_color" to "transparent", "_set_background_img" to "", "_set_font_color" to "#ffffff", "_set_opacity" to "1", "_isHover" to false, "boxShadow" to "0 0px 0px rgba(0,0,0,0)", "_fontWeight" to computed<String>(fun(): String {
+        return _uM("_set_border_color" to "1px solid transparent", "_set_background_color" to "transparent", "_set_background_img" to "", "_set_font_color" to "#ffffff", "_set_opacity" to "1", "_isHover" to false, "boxShadow" to "0 0px 0px rgba(0,0,0,0)", "_fontWeight" to computed<String>(fun(): String {
             return this.fontWeight
         }
         ), "_fontSize" to computed<String>(fun(): String {
@@ -310,10 +306,10 @@ open class GenUniModulesTmxUiComponentsXButtonXButton : VueComponent {
         }
         ), "_shadow" to computed<UTSArray<Number>>(fun(): UTSArray<Number> {
             if (this.shadow.length == 0) {
-                return utsArrayOf<Number>(0, 0)
+                return _uA<Number>(0, 0)
             }
             if (this.shadow.length == 1) {
-                return utsArrayOf<Number>(this.shadow[0], this.shadow[0])
+                return _uA<Number>(this.shadow[0], this.shadow[0])
             }
             return this.shadow
         }
@@ -525,25 +521,25 @@ open class GenUniModulesTmxUiComponentsXButtonXButton : VueComponent {
     }
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("parentButton" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center", "position" to "relative")), "xButton" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center", "width" to "100%", "height" to "100%")), "loadingMask" to padStyleMapOf(utsMapOf("position" to "absolute", "backgroundColor" to "rgba(200,200,200,0.6)", "display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center", "boxSizing" to "border-box", "width" to "100%", "height" to "100%")))
+                return _uM("parentButton" to _pS(_uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center", "position" to "relative")), "xButton" to _pS(_uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center", "width" to "100%", "height" to "100%")), "loadingMask" to _pS(_uM("position" to "absolute", "backgroundColor" to "rgba(200,200,200,0.6)", "display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center", "boxSizing" to "border-box", "width" to "100%", "height" to "100%")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("click" to null, "getuserinfo" to null, "contact" to null, "getphonenumber" to null, "getrealtimephonenumber" to null, "error" to null, "opensetting" to null, "launchapp" to null, "chooseavatar" to null, "chooseaddress" to null, "chooseinvoicetitle" to null, "addgroupapp" to null, "subscribe" to null, "login" to null, "agreeprivacyauthorization" to null)
-        var props = normalizePropsOptions(utsMapOf("color" to utsMapOf("type" to "String", "default" to ""), "darkColor" to utsMapOf("type" to "String", "default" to ""), "bgColor" to utsMapOf("type" to "String", "default" to ""), "linearGradient" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("click" to null, "getuserinfo" to null, "contact" to null, "getphonenumber" to null, "getrealtimephonenumber" to null, "error" to null, "opensetting" to null, "launchapp" to null, "chooseavatar" to null, "chooseaddress" to null, "chooseinvoicetitle" to null, "addgroupapp" to null, "subscribe" to null, "login" to null, "agreeprivacyauthorization" to null)
+        var props = _nP(_uM("color" to _uM("type" to "String", "default" to ""), "darkColor" to _uM("type" to "String", "default" to ""), "bgColor" to _uM("type" to "String", "default" to ""), "linearGradient" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA()
         }
-        ), "fontColor" to utsMapOf("type" to "String", "default" to ""), "fontDarkColor" to utsMapOf("type" to "String", "default" to ""), "fontSize" to utsMapOf("type" to "String", "default" to ""), "round" to utsMapOf("type" to "String", "default" to ""), "border" to utsMapOf("type" to "Number", "default" to 0.5), "shadow" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<Number> {
-            return utsArrayOf<Number>()
+        ), "fontColor" to _uM("type" to "String", "default" to ""), "fontDarkColor" to _uM("type" to "String", "default" to ""), "fontSize" to _uM("type" to "String", "default" to ""), "round" to _uM("type" to "String", "default" to ""), "border" to _uM("type" to "Number", "default" to 0.5), "shadow" to _uM("type" to "Array", "default" to fun(): UTSArray<Number> {
+            return _uA<Number>()
         }
-        ), "borderColor" to utsMapOf("type" to "String", "default" to ""), "skin" to utsMapOf("type" to "String", "default" to "default"), "icon" to utsMapOf("type" to "String", "default" to ""), "iconBtn" to utsMapOf("type" to "Boolean", "default" to false), "iconSize" to utsMapOf("type" to "String", "default" to ""), "size" to utsMapOf("type" to "String", "default" to "normal"), "url" to utsMapOf("type" to "String", "default" to ""), "navigateMode" to utsMapOf("type" to "String", "default" to "navigateTo"), "disabled" to utsMapOf("type" to "Boolean", "default" to false), "loading" to utsMapOf("type" to "Boolean", "default" to false), "height" to utsMapOf("type" to "String", "default" to ""), "width" to utsMapOf("type" to "String", "default" to ""), "block" to utsMapOf("type" to "Boolean", "default" to false), "formType" to utsMapOf("type" to "String", "default" to ""), "lineHeight" to utsMapOf("type" to "String", "default" to "1.4"), "fontWeight" to utsMapOf("type" to "String", "default" to "normal"), "openType" to utsMapOf("type" to "String", "default" to ""), "lang" to utsMapOf("type" to "String", "default" to "en"), "sessionFrom" to utsMapOf("type" to "String", "default" to ""), "sendMessageTitle" to utsMapOf("type" to "String", "default" to ""), "sendMessagePath" to utsMapOf("type" to "String", "default" to ""), "sendMessageImg" to utsMapOf("type" to "String", "default" to ""), "appParameter" to utsMapOf("type" to "String", "default" to ""), "showMessageCard" to utsMapOf("type" to "Boolean", "default" to false), "phoneNumberNoQuotaToast" to utsMapOf("type" to "Boolean", "default" to true)))
-        var propsNeedCastKeys = utsArrayOf(
+        ), "borderColor" to _uM("type" to "String", "default" to ""), "skin" to _uM("type" to "String", "default" to "default"), "icon" to _uM("type" to "String", "default" to ""), "iconBtn" to _uM("type" to "Boolean", "default" to false), "iconSize" to _uM("type" to "String", "default" to ""), "size" to _uM("type" to "String", "default" to "normal"), "url" to _uM("type" to "String", "default" to ""), "navigateMode" to _uM("type" to "String", "default" to "navigateTo"), "disabled" to _uM("type" to "Boolean", "default" to false), "loading" to _uM("type" to "Boolean", "default" to false), "height" to _uM("type" to "String", "default" to ""), "width" to _uM("type" to "String", "default" to ""), "block" to _uM("type" to "Boolean", "default" to false), "formType" to _uM("type" to "String", "default" to ""), "lineHeight" to _uM("type" to "String", "default" to "1.4"), "fontWeight" to _uM("type" to "String", "default" to "normal"), "openType" to _uM("type" to "String", "default" to ""), "lang" to _uM("type" to "String", "default" to "en"), "sessionFrom" to _uM("type" to "String", "default" to ""), "sendMessageTitle" to _uM("type" to "String", "default" to ""), "sendMessagePath" to _uM("type" to "String", "default" to ""), "sendMessageImg" to _uM("type" to "String", "default" to ""), "appParameter" to _uM("type" to "String", "default" to ""), "showMessageCard" to _uM("type" to "Boolean", "default" to false), "phoneNumberNoQuotaToast" to _uM("type" to "Boolean", "default" to true)))
+        var propsNeedCastKeys = _uA(
             "color",
             "darkColor",
             "bgColor",
@@ -580,6 +576,6 @@ open class GenUniModulesTmxUiComponentsXButtonXButton : VueComponent {
             "showMessageCard",
             "phoneNumberNoQuotaToast"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

@@ -11,14 +11,11 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 open class GenComponentsMcBaseContainerIndex : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {}
     open var direction: String by `$props`
     open var bgColor: String by `$props`
+    open var showOrderNotice: Boolean by `$props`
     open var showStatusBarPlaceholder: Boolean by `$props`
     open var staticTransparent: Boolean by `$props`
     open var scroll: Boolean by `$props`
@@ -40,22 +37,23 @@ open class GenComponentsMcBaseContainerIndex : VueComponent {
             val _cache = __ins.renderCache
             return fun(): Any? {
                 val _component_x_navbar = resolveEasyComponent("x-navbar", GenUniModulesTmxUiComponentsXNavbarXNavbarClass)
+                val _component_mc_order_notice = resolveEasyComponent("mc-order-notice", GenComponentsMcOrderNoticeIndexClass)
                 val _component_mc_env_tag = resolveEasyComponent("mc-env-tag", GenComponentsMcEnvTagIndexClass)
-                return createElementVNode(Fragment, null, utsArrayOf(
+                return _cE(Fragment, null, _uA(
                     if (isTrue(_ctx.showNavbar)) {
-                        createVNode(_component_x_navbar, utsMapOf("key" to 0, "title" to _ctx.title, "title-color" to _ctx.titleColor, "title-font-size" to "18", "isPlace" to _ctx.navbarIsPlace, "height" to _ctx.navbarHeight, "showNavBack" to _ctx.showNavBack, "linear-gradient" to _ctx.linearGradient, "lrWidth" to _ctx.lrWidth, "linear-active-gradient" to _ctx.linearActiveGradient, "staticTransparent" to _ctx.staticTransparent), utsMapOf("left" to withSlotCtx(fun(): UTSArray<Any> {
-                            return utsArrayOf(
+                        _cV(_component_x_navbar, _uM("key" to 0, "title" to _ctx.title, "title-color" to _ctx.titleColor, "title-font-size" to "18", "isPlace" to _ctx.navbarIsPlace, "height" to _ctx.navbarHeight, "showNavBack" to _ctx.showNavBack, "linear-gradient" to _ctx.linearGradient, "lrWidth" to _ctx.lrWidth, "linear-active-gradient" to _ctx.linearActiveGradient, "staticTransparent" to _ctx.staticTransparent), _uM("left" to withSlotCtx(fun(): UTSArray<Any> {
+                            return _uA(
                                 renderSlot(_ctx.`$slots`, "navbar-left")
                             )
                         }), "title" to withSlotCtx(fun(): UTSArray<Any> {
-                            return utsArrayOf(
+                            return _uA(
                                 renderSlot(_ctx.`$slots`, "navbar-title")
                             )
                         }), "right" to withSlotCtx(fun(): UTSArray<Any> {
-                            return utsArrayOf(
+                            return _uA(
                                 renderSlot(_ctx.`$slots`, "navbar-right")
                             )
-                        }), "_" to 3), 8, utsArrayOf(
+                        }), "_" to 3), 8, _uA(
                             "title",
                             "title-color",
                             "isPlace",
@@ -67,49 +65,56 @@ open class GenComponentsMcBaseContainerIndex : VueComponent {
                             "staticTransparent"
                         ))
                     } else {
-                        createCommentVNode("v-if", true)
+                        _cC("v-if", true)
                     }
                     ,
-                    createElementVNode("scroll-view", utsMapOf("direction" to if (_ctx.scroll) {
+                    if (isTrue(_ctx.showOrderNotice)) {
+                        _cV(_component_mc_order_notice, _uM("key" to 1))
+                    } else {
+                        _cC("v-if", true)
+                    }
+                    ,
+                    _cE("scroll-view", _uM("direction" to if (_ctx.scroll) {
                         _ctx.direction
                     } else {
                         "none"
                     }
-                    , "bounces" to false, "style" to normalizeStyle("" + (if (_ctx.bgColor != "") {
+                    , "bounces" to false, "style" to _nS("" + (if (_ctx.bgColor != "") {
                         "background-color: " + _ctx.bgColor + ";"
                     } else {
                         ""
                     }
-                    ) + ";width:100%;height: " + unref(screenHeight) + "px;}"), "show-scrollbar" to false), utsArrayOf(
-                        createElementVNode("view", utsMapOf("style" to normalizeStyle(utsArrayOf(
-                            utsMapOf("width" to "100%"),
+                    ) + ";width:100%;height: " + unref(screenHeight) + "px;}"), "show-scrollbar" to false), _uA(
+                        _cE("view", _uM("style" to _nS(_uA(
+                            _uM("width" to "100%"),
                             "" + unref(screenHeight) + "px;"
-                        ))), utsArrayOf(
+                        ))), _uA(
                             renderSlot(_ctx.`$slots`, "default")
                         ), 4)
-                    ), 12, utsArrayOf(
+                    ), 12, _uA(
                         "direction"
                     )),
-                    createVNode(_component_mc_env_tag)
+                    _cV(_component_mc_env_tag)
                 ), 64)
             }
         }
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf())
+            _nCS(_uA())
         }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("location" to null)
-        var props = normalizePropsOptions(utsMapOf("direction" to utsMapOf("type" to "String", "default" to "vertical"), "bgColor" to utsMapOf("type" to "String", "default" to "#edf1f8"), "showStatusBarPlaceholder" to utsMapOf("type" to "Boolean", "default" to false), "staticTransparent" to utsMapOf("type" to "Boolean", "default" to false), "scroll" to utsMapOf("type" to "Boolean", "default" to true), "navbarIsPlace" to utsMapOf("type" to "Boolean", "default" to true), "height" to utsMapOf("type" to "String", "default" to "100%"), "showNavbar" to utsMapOf("type" to "Boolean", "default" to true), "title" to utsMapOf("type" to "String", "default" to ""), "titleColor" to utsMapOf("type" to "String", "default" to "#000000"), "showNavBack" to utsMapOf("type" to "Boolean", "default" to true), "navbarHeight" to utsMapOf("type" to "Number", "default" to 50), "linearGradient" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf<String>()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("location" to null)
+        var props = _nP(_uM("direction" to _uM("type" to "String", "default" to "vertical"), "bgColor" to _uM("type" to "String", "default" to "#edf1f8"), "showOrderNotice" to _uM("type" to "Boolean", "default" to true), "showStatusBarPlaceholder" to _uM("type" to "Boolean", "default" to false), "staticTransparent" to _uM("type" to "Boolean", "default" to false), "scroll" to _uM("type" to "Boolean", "default" to true), "navbarIsPlace" to _uM("type" to "Boolean", "default" to true), "height" to _uM("type" to "String", "default" to "100%"), "showNavbar" to _uM("type" to "Boolean", "default" to true), "title" to _uM("type" to "String", "default" to ""), "titleColor" to _uM("type" to "String", "default" to "#000000"), "showNavBack" to _uM("type" to "Boolean", "default" to true), "navbarHeight" to _uM("type" to "Number", "default" to 50), "linearGradient" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA<String>()
         }
-        ), "linearActiveGradient" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf<String>()
+        ), "linearActiveGradient" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA<String>()
         }
-        ), "lrWidth" to utsMapOf("type" to "String", "default" to "100")))
-        var propsNeedCastKeys = utsArrayOf(
+        ), "lrWidth" to _uM("type" to "String", "default" to "100")))
+        var propsNeedCastKeys = _uA(
             "direction",
             "bgColor",
+            "showOrderNotice",
             "showStatusBarPlaceholder",
             "staticTransparent",
             "scroll",
@@ -124,6 +129,6 @@ open class GenComponentsMcBaseContainerIndex : VueComponent {
             "linearActiveGradient",
             "lrWidth"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

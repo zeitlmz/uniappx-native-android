@@ -11,17 +11,13 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 open class GenUniModulesTmxUiComponentsXDividerXDivider : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {}
     @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
     override fun `$render`(): Any? {
         val _ctx = this
         val _cache = this.`$`.renderCache
-        return createElementVNode("view", utsMapOf("class" to "xDivider", "style" to normalizeStyle(utsMapOf("height" to if (_ctx._vertical) {
+        return _cE("view", _uM("class" to "xDivider", "style" to _nS(_uM("height" to if (_ctx._vertical) {
             _ctx._height
         } else {
             "auto"
@@ -31,35 +27,35 @@ open class GenUniModulesTmxUiComponentsXDividerXDivider : VueComponent {
         } else {
             "none"
         }
-        ))), utsArrayOf(
+        ))), _uA(
             if (isTrue(!_ctx._vertical)) {
-                createElementVNode("view", utsMapOf("key" to 0, "class" to "xDividerLeft", "style" to normalizeStyle(utsMapOf("flex" to if (_ctx.align == "left") {
+                _cE("view", _uM("key" to 0, "class" to "xDividerLeft", "style" to _nS(_uM("flex" to if (_ctx.align == "left") {
                     1
                 } else {
                     6
                 }, "border-bottom" to ("" + _ctx._lineWidth + " " + _ctx._model + " " + _ctx._color)))), null, 4)
             } else {
-                createCommentVNode("v-if", true)
+                _cC("v-if", true)
             }
             ,
             renderSlot(_ctx.`$slots`, "default", UTSJSONObject(), fun(): UTSArray<Any> {
-                return utsArrayOf(
+                return _uA(
                     if (isTrue(_ctx._label != "" && !_ctx._vertical)) {
-                        createElementVNode("text", utsMapOf("key" to 0, "class" to "xDividerText", "style" to normalizeStyle(utsMapOf("color" to _ctx._labelColor, "fontSize" to _ctx._fontSize))), toDisplayString(_ctx._label), 5)
+                        _cE("text", _uM("key" to 0, "class" to "xDividerText", "style" to _nS(_uM("color" to _ctx._labelColor, "fontSize" to _ctx._fontSize))), _tD(_ctx._label), 5)
                     } else {
-                        createCommentVNode("v-if", true)
+                        _cC("v-if", true)
                     }
                 )
             }
             ),
             if (isTrue(!_ctx._vertical)) {
-                createElementVNode("view", utsMapOf("key" to 1, "class" to "xDividerRight", "style" to normalizeStyle(utsMapOf("flex" to if (_ctx.align == "right") {
+                _cE("view", _uM("key" to 1, "class" to "xDividerRight", "style" to _nS(_uM("flex" to if (_ctx.align == "right") {
                     1
                 } else {
                     6
                 }, "border-bottom" to ("" + _ctx._lineWidth + " " + _ctx._model + " " + _ctx._color)))), null, 4)
             } else {
-                createCommentVNode("v-if", true)
+                _cC("v-if", true)
             }
         ), 4)
     }
@@ -83,7 +79,7 @@ open class GenUniModulesTmxUiComponentsXDividerXDivider : VueComponent {
     open var _vertical: Boolean by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("_label" to computed<String>(fun(): String {
+        return _uM("_label" to computed<String>(fun(): String {
             return this.label
         }
         ), "_lineWidth" to computed<String>(fun(): String {
@@ -117,19 +113,19 @@ open class GenUniModulesTmxUiComponentsXDividerXDivider : VueComponent {
     }
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xDivider" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "space-between")), "xDividerText" to padStyleMapOf(utsMapOf("paddingTop" to 0, "paddingRight" to "24rpx", "paddingBottom" to 0, "paddingLeft" to "24rpx")), "xDividerLeft" to padStyleMapOf(utsMapOf("flex" to 6)), "xDividerRight" to padStyleMapOf(utsMapOf("flex" to 6)))
+                return _uM("xDivider" to _pS(_uM("display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "space-between")), "xDividerText" to _pS(_uM("paddingTop" to 0, "paddingRight" to "24rpx", "paddingBottom" to 0, "paddingLeft" to "24rpx")), "xDividerLeft" to _pS(_uM("flex" to 6)), "xDividerRight" to _pS(_uM("flex" to 6)))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf()
-        var props = normalizePropsOptions(utsMapOf("align" to utsMapOf("type" to "String", "default" to "center"), "label" to utsMapOf("type" to "String", "default" to ""), "color" to utsMapOf("type" to "String", "default" to "#f5f5f5"), "darkColor" to utsMapOf("type" to "String", "default" to ""), "lineWidth" to utsMapOf("type" to "String", "default" to "1"), "height" to utsMapOf("type" to "String", "default" to "10"), "labelColor" to utsMapOf("type" to "String", "default" to "#a2a2a2"), "model" to utsMapOf("type" to "String", "default" to "solid"), "fontSize" to utsMapOf("type" to "String", "default" to "11"), "vertical" to utsMapOf("type" to "Boolean", "default" to false)))
-        var propsNeedCastKeys = utsArrayOf(
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM()
+        var props = _nP(_uM("align" to _uM("type" to "String", "default" to "center"), "label" to _uM("type" to "String", "default" to ""), "color" to _uM("type" to "String", "default" to "#f5f5f5"), "darkColor" to _uM("type" to "String", "default" to ""), "lineWidth" to _uM("type" to "String", "default" to "1"), "height" to _uM("type" to "String", "default" to "10"), "labelColor" to _uM("type" to "String", "default" to "#a2a2a2"), "model" to _uM("type" to "String", "default" to "solid"), "fontSize" to _uM("type" to "String", "default" to "11"), "vertical" to _uM("type" to "Boolean", "default" to false)))
+        var propsNeedCastKeys = _uA(
             "align",
             "label",
             "color",
@@ -141,6 +137,6 @@ open class GenUniModulesTmxUiComponentsXDividerXDivider : VueComponent {
             "fontSize",
             "vertical"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

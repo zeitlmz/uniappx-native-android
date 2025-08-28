@@ -52,58 +52,83 @@ open class PermissionCallback (
     open var fail: ((res: RequestFailed) -> Unit)? = null,
     open var complete: (() -> Unit)? = null,
 ) : UTSObject()
+val checkDrawOverlays = fun(): Boolean {
+    return Settings.canDrawOverlays(UTSAndroid.getAppContext()!!)
+}
+val openIntent = fun(settingStr: String){
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        val context = UTSAndroid.getAppContext()!!
+        val intent = Intent(settingStr)
+        intent.setData(Uri.parse("package:" + context.getPackageName()))
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        context.startActivity(intent)
+    }
+}
+val openNotificationSetting = fun(): Unit {
+    var brand = ""
+    if (Build.BRAND != null) {
+        brand = Build.BRAND.toLowerCase()
+    }
+    goToNotificationSettings(UTSAndroid.getUniActivity()!!, brand)
+}
+val requestDrawOverlaysPermission = fun(): Unit {
+    openIntent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
+}
+val openBatteryPage = fun(): Unit {
+    openIntent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
+}
 val checkGrantedNotice = fun(): Boolean {
-    return UTSAndroid.checkSystemPermissionGranted(UTSAndroid.getUniActivity()!!, utsArrayOf(
+    return UTSAndroid.checkSystemPermissionGranted(UTSAndroid.getUniActivity()!!, _uA(
         Manifest.permission.POST_NOTIFICATIONS
     ))
 }
 val checkGrantedLocation = fun(): Boolean {
-    return UTSAndroid.checkSystemPermissionGranted(UTSAndroid.getUniActivity()!!, utsArrayOf(
+    return UTSAndroid.checkSystemPermissionGranted(UTSAndroid.getUniActivity()!!, _uA(
         Manifest.permission.ACCESS_FINE_LOCATION
-    )) || UTSAndroid.checkSystemPermissionGranted(UTSAndroid.getUniActivity()!!, utsArrayOf(
+    )) || UTSAndroid.checkSystemPermissionGranted(UTSAndroid.getUniActivity()!!, _uA(
         Manifest.permission.ACCESS_BACKGROUND_LOCATION
-    )) || UTSAndroid.checkSystemPermissionGranted(UTSAndroid.getUniActivity()!!, utsArrayOf(
+    )) || UTSAndroid.checkSystemPermissionGranted(UTSAndroid.getUniActivity()!!, _uA(
         Manifest.permission.ACCESS_COARSE_LOCATION
     ))
 }
 val checkGrantedCamera = fun(): Boolean {
-    return UTSAndroid.checkSystemPermissionGranted(UTSAndroid.getUniActivity()!!, utsArrayOf(
+    return UTSAndroid.checkSystemPermissionGranted(UTSAndroid.getUniActivity()!!, _uA(
         Manifest.permission.CAMERA
     ))
 }
 val checkGrantedPhoto = fun(): Boolean {
-    return UTSAndroid.checkSystemPermissionGranted(UTSAndroid.getUniActivity()!!, utsArrayOf(
+    return UTSAndroid.checkSystemPermissionGranted(UTSAndroid.getUniActivity()!!, _uA(
         Manifest.permission.READ_MEDIA_IMAGES
     ))
 }
 val permissionsRequest = fun(permissionType: String, cbMap: PermissionCallback){
-    if (UTSAndroid.getSystemPermissionDenied(UTSAndroid.getUniActivity()!!, utsArrayOf(
+    if (UTSAndroid.getSystemPermissionDenied(UTSAndroid.getUniActivity()!!, _uA(
             permissionType
         )).isEmpty()) {
-        cbMap.success?.invoke(RequestResult(msg = "权限已经全部授权，无需再申请", allRight = true, grantList = utsArrayOf(
+        cbMap.success?.invoke(RequestResult(msg = "权限已经全部授权，无需再申请", allRight = true, grantList = _uA(
             permissionType
         )))
         cbMap.complete?.invoke()
         return
     }
-    UTSAndroid.requestSystemPermission(UTSAndroid.getUniActivity()!!, utsArrayOf(
+    UTSAndroid.requestSystemPermission(UTSAndroid.getUniActivity()!!, _uA(
         permissionType
     ), fun(allRight: Boolean, _: UTSArray<String>) {
-        if (!UTSAndroid.getSystemPermissionDenied(UTSAndroid.getUniActivity()!!, utsArrayOf(
+        if (!UTSAndroid.getSystemPermissionDenied(UTSAndroid.getUniActivity()!!, _uA(
                 permissionType
             )).isEmpty()) {
             cbMap.fail?.invoke(RequestFailed(errorMsg = "权限请求完成,getSystemPermissionDenied 失败,授权未完成", errorCode = ERRORCODE_GET_NOT_EMPTY))
             cbMap.complete?.invoke()
             return
         }
-        if (!UTSAndroid.checkSystemPermissionGranted(UTSAndroid.getUniActivity()!!, utsArrayOf(
+        if (!UTSAndroid.checkSystemPermissionGranted(UTSAndroid.getUniActivity()!!, _uA(
                 permissionType
             ))) {
             cbMap.fail?.invoke(RequestFailed(errorMsg = "权限请求完成,checkSystemPermissionGranted 失败,授权未完成", errorCode = ERRORCODE_CHECK_FAILED))
             cbMap.complete?.invoke()
             return
         }
-        cbMap.success?.invoke(RequestResult(msg = "权限申请成功", allRight = true, grantList = utsArrayOf(
+        cbMap.success?.invoke(RequestResult(msg = "权限申请成功", allRight = true, grantList = _uA(
             permissionType
         )))
         cbMap.complete?.invoke()

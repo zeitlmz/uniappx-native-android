@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 open class GenComponentsMcEnvTagIndex : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {}
     companion object {
@@ -35,23 +31,23 @@ open class GenComponentsMcEnvTagIndex : VueComponent {
             }
             )
             return fun(): Any? {
-                return createElementVNode("view")
+                return _cE("view")
             }
         }
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("env-box" to padStyleMapOf(utsMapOf("position" to "fixed", "display" to "flex", "alignItems" to "center", "cursor" to "pointer", "bottom" to "-30rpx", "right" to "-85rpx", "width" to "200rpx", "height" to "100rpx", "opacity" to 0.5, "transform" to "rotateZ(-45deg)")), "text" to utsMapOf(".env-box " to utsMapOf("color" to "#FFFFFF", "fontSize" to "26rpx", "marginTop" to "5rpx")))
+                return _uM("env-box" to _pS(_uM("position" to "fixed", "display" to "flex", "alignItems" to "center", "cursor" to "pointer", "bottom" to "-30rpx", "right" to "-85rpx", "width" to "200rpx", "height" to "100rpx", "opacity" to 0.5, "transform" to "rotateZ(-45deg)")), "text" to _uM(".env-box " to _uM("color" to "#FFFFFF", "fontSize" to "26rpx", "marginTop" to "5rpx")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf()
-        var props = normalizePropsOptions(utsMapOf())
-        var propsNeedCastKeys: UTSArray<String> = utsArrayOf()
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM()
+        var props = _nP(_uM())
+        var propsNeedCastKeys: UTSArray<String> = _uA()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

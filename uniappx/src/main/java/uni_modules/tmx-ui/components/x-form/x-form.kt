@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.createSelectorQuery as uni_createSelectorQuery
 import io.dcloud.uniapp.extapi.pageScrollTo as uni_pageScrollTo
 open class GenUniModulesTmxUiComponentsXFormXForm : VueComponent {
@@ -83,7 +79,7 @@ open class GenUniModulesTmxUiComponentsXFormXForm : VueComponent {
             fun emits(event: String, vararg do_not_transform_spread: Any?) {
                 __ins.emit(event, *do_not_transform_spread)
             }
-            val list = ref(utsArrayOf<FORM_ITEM>())
+            val list = ref(_uA<FORM_ITEM>())
             val top = ref(0)
             val isOkTop = ref(false)
             val isdestry = ref(false)
@@ -162,7 +158,7 @@ open class GenUniModulesTmxUiComponentsXFormXForm : VueComponent {
                 }
                 var newval = JSON.parseObject(JSON.stringify(newvals)) as UTSJSONObject
                 var old = JSON.parseObject(JSON.stringify(olds)) as UTSJSONObject
-                var fileds = utsArrayOf<FORMITEM_R>()
+                var fileds = _uA<FORMITEM_R>()
                 for(key in resolveUTSKeyIterator(old)){
                     var kVal: Any? = newval.get(key)
                     var oldval: Any? = old.get(key)
@@ -170,7 +166,7 @@ open class GenUniModulesTmxUiComponentsXFormXForm : VueComponent {
                         var temval = (kVal as UTSArray<Any>).length
                         var temoldval = (oldval as UTSArray<Any>).length
                         if (temval != temoldval) {
-                            fileds.push(FORMITEM_R(key = key, value = kVal as UTSArray<Any>))
+                            fileds.push(FORMITEM_R(key = key, value = kVal))
                         }
                     } else if (kVal != oldval) {
                         fileds.push(FORMITEM_R(key = key, value = kVal))
@@ -182,7 +178,7 @@ open class GenUniModulesTmxUiComponentsXFormXForm : VueComponent {
             val diffFiled = ::gen_diffFiled_fn
             fun _valid(keys: UTSArray<String>, isShowwStatusInTag: Boolean = true): FORM_SUBMIT_RESULT {
                 var toptemp: Number = 0
-                var result = FORM_SUBMIT_RESULT(valid = true, errorMessage = "", key = "", formData = utsArrayOf<FORM_SUBMIT_OBJECT>())
+                var result = FORM_SUBMIT_RESULT(valid = true, errorMessage = "", key = "", formData = _uA<FORM_SUBMIT_OBJECT>())
                 var modevalue = JSON.parseObject(JSON.stringify(_modelValue.value)) as UTSJSONObject
                 for(key in resolveUTSKeyIterator(modevalue)){
                     if (keys.length == 0 || keys.includes(key)) {
@@ -225,7 +221,7 @@ open class GenUniModulesTmxUiComponentsXFormXForm : VueComponent {
                 }
                 clearTimeout(validTimeid)
                 validTimeid = setTimeout(fun() {
-                    val result = _valid(utsArrayOf<String>(), false)
+                    val result = _valid(_uA<String>(), false)
                     console.log(result.valid)
                     emits("update:modelValid", result.valid)
                 }
@@ -240,7 +236,7 @@ open class GenUniModulesTmxUiComponentsXFormXForm : VueComponent {
             onBeforeUnmount(fun(){
                 clearTimeout(validTimeid)
                 isdestry.value = true
-                list.value = utsArrayOf<FORM_ITEM>()
+                list.value = _uA<FORM_ITEM>()
                 oldFormData.value = UTSJSONObject()
             }
             )
@@ -254,7 +250,7 @@ open class GenUniModulesTmxUiComponentsXFormXForm : VueComponent {
                 }
             }
             , WatchOptions(deep = true))
-            __expose(utsMapOf("pushAdd" to fun(item: FORM_ITEM) {
+            __expose(_uM("pushAdd" to fun(item: FORM_ITEM) {
                 if (isdestry.value) {
                     return
                 }
@@ -286,7 +282,7 @@ open class GenUniModulesTmxUiComponentsXFormXForm : VueComponent {
             , "getRules" to fun(key: String): UTSArray<FORM_RULE> {
                 val _localRules = _rules.value.get(key)
                 if (_localRules == null) {
-                    return utsArrayOf<FORM_RULE>()
+                    return _uA<FORM_RULE>()
                 }
                 return _localRules!!
             }
@@ -300,24 +296,24 @@ open class GenUniModulesTmxUiComponentsXFormXForm : VueComponent {
                 )
             }
             , "submit" to fun(): FORM_SUBMIT_RESULT {
-                return _valid(utsArrayOf<String>())
+                return _valid(_uA<String>())
             }
             ))
             return fun(): Any? {
-                return createElementVNode("view", utsMapOf("class" to "xForm"), utsArrayOf(
+                return _cE("view", _uM("class" to "xForm"), _uA(
                     renderSlot(_ctx.`$slots`, "default")
                 ))
             }
         }
         var name = "xForm"
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf())
+            _nCS(_uA())
         }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("submit" to null, "update:modelValid" to null)
-        var props = normalizePropsOptions(utsMapOf("labelWidth" to utsMapOf("type" to "String", "required" to true, "default" to "100"), "labelDirection" to utsMapOf("type" to "String", "required" to true, "default" to "horizontal"), "labelFontColor" to utsMapOf("type" to "String", "required" to true, "default" to "#333333"), "errorAutoPage" to utsMapOf("type" to "Boolean", "required" to true, "default" to true), "modelValue" to utsMapOf("required" to true, "default" to UTSJSONObject()), "labelFontSize" to utsMapOf("type" to "String", "required" to true, "default" to "16"), "showLabel" to utsMapOf("type" to "Boolean", "required" to true, "default" to true), "errorAlign" to utsMapOf("type" to "String", "required" to true, "default" to "left"), "rules" to utsMapOf("type" to "Object", "required" to true, "default" to Map<String, UTSArray<FORM_RULE>>()), "watchValidStatus" to utsMapOf("type" to "Boolean", "required" to true, "default" to false), "modelValid" to utsMapOf("type" to "Boolean", "required" to true, "default" to false)))
-        var propsNeedCastKeys = utsArrayOf(
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("submit" to null, "update:modelValid" to null)
+        var props = _nP(_uM("labelWidth" to _uM("type" to "String", "required" to true, "default" to "100"), "labelDirection" to _uM("type" to "String", "required" to true, "default" to "horizontal"), "labelFontColor" to _uM("type" to "String", "required" to true, "default" to "#333333"), "errorAutoPage" to _uM("type" to "Boolean", "required" to true, "default" to true), "modelValue" to _uM("required" to true, "default" to UTSJSONObject()), "labelFontSize" to _uM("type" to "String", "required" to true, "default" to "16"), "showLabel" to _uM("type" to "Boolean", "required" to true, "default" to true), "errorAlign" to _uM("type" to "String", "required" to true, "default" to "left"), "rules" to _uM("type" to "Object", "required" to true, "default" to Map<String, UTSArray<FORM_RULE>>()), "watchValidStatus" to _uM("type" to "Boolean", "required" to true, "default" to false), "modelValid" to _uM("type" to "Boolean", "required" to true, "default" to false)))
+        var propsNeedCastKeys = _uA(
             "labelWidth",
             "labelDirection",
             "labelFontColor",
@@ -330,6 +326,6 @@ open class GenUniModulesTmxUiComponentsXFormXForm : VueComponent {
             "watchValidStatus",
             "modelValid"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

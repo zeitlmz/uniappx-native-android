@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 open class GenUniModulesTmxUiComponentsXCollapseItemXCollapseItem : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {
         onMounted(fun() {
@@ -63,76 +59,76 @@ open class GenUniModulesTmxUiComponentsXCollapseItemXCollapseItem : VueComponent
         val _cache = this.`$`.renderCache
         val _component_x_icon = resolveEasyComponent("x-icon", GenUniModulesTmxUiComponentsXIconXIconClass)
         val _component_x_divider = resolveEasyComponent("x-divider", GenUniModulesTmxUiComponentsXDividerXDividerClass)
-        return createElementVNode("view", utsMapOf("class" to "xCollapseItemBox", "style" to normalizeStyle(utsMapOf("background" to _ctx._color))), utsArrayOf(
-            createElementVNode("view", utsMapOf("onClick" to _ctx.itemClick, "class" to "xCollapseItem", "style" to normalizeStyle(utsMapOf("opacity" to if (_ctx._disabled) {
+        return _cE("view", _uM("class" to "xCollapseItemBox", "style" to _nS(_uM("background" to _ctx._color))), _uA(
+            _cE("view", _uM("onClick" to _ctx.itemClick, "class" to "xCollapseItem", "style" to _nS(_uM("opacity" to if (_ctx._disabled) {
                 0.5
             } else {
                 1
             }
-            ))), utsArrayOf(
-                createElementVNode("view", utsMapOf("class" to "xCollapseItemBoxLeft"), utsArrayOf(
+            ))), _uA(
+                _cE("view", _uM("class" to "xCollapseItemBoxLeft"), _uA(
                     if (isTrue(_ctx._leftIcon)) {
-                        createVNode(_component_x_icon, utsMapOf("key" to 0, "font-size" to _ctx._titleFontSize, "name" to _ctx._leftIcon, "color" to if (_ctx._isActive) {
+                        _cV(_component_x_icon, _uM("key" to 0, "font-size" to _ctx._titleFontSize, "name" to _ctx._leftIcon, "color" to if (_ctx._isActive) {
                             _ctx._activeColor
                         } else {
                             _ctx._titleColor
-                        }, "style" to normalizeStyle(utsMapOf("margin-right" to "12px"))), null, 8, utsArrayOf(
+                        }, "style" to _nS(_uM("margin-right" to "12px"))), null, 8, _uA(
                             "font-size",
                             "name",
                             "color",
                             "style"
                         ))
                     } else {
-                        createCommentVNode("v-if", true)
+                        _cC("v-if", true)
                     }
                     ,
-                    renderSlot(_ctx.`$slots`, "left", utsMapOf("status" to _ctx.opened)),
-                    createElementVNode("view", utsMapOf("class" to "xCollapseItemBoxTextBox", "style" to normalizeStyle(utsMapOf("height" to _ctx._titleHeight))), utsArrayOf(
-                        createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("flex" to "1"))), utsArrayOf(
-                            renderSlot(_ctx.`$slots`, "title", utsMapOf("status" to _ctx.opened), fun(): UTSArray<Any> {
-                                return utsArrayOf(
-                                    createElementVNode("text", utsMapOf("class" to "xCollapseItemBoxText", "style" to normalizeStyle(_ctx._textMap)), toDisplayString(_ctx._title), 5)
+                    renderSlot(_ctx.`$slots`, "left", _uM("status" to _ctx.opened)),
+                    _cE("view", _uM("class" to "xCollapseItemBoxTextBox", "style" to _nS(_uM("height" to _ctx._titleHeight))), _uA(
+                        _cE("view", _uM("style" to _nS(_uM("flex" to "1"))), _uA(
+                            renderSlot(_ctx.`$slots`, "title", _uM("status" to _ctx.opened), fun(): UTSArray<Any> {
+                                return _uA(
+                                    _cE("text", _uM("class" to "xCollapseItemBoxText", "style" to _nS(_ctx._textMap)), _tD(_ctx._title), 5)
                                 )
                             }
                             )
                         ), 4)
                     ), 4)
                 )),
-                createElementVNode("view", utsMapOf("class" to "xCollapseItemBoxRight"), utsArrayOf(
-                    renderSlot(_ctx.`$slots`, "right", utsMapOf("status" to _ctx.opened)),
-                    createVNode(_component_x_icon, utsMapOf("color" to if (_ctx._isActive) {
+                _cE("view", _uM("class" to "xCollapseItemBoxRight"), _uA(
+                    renderSlot(_ctx.`$slots`, "right", _uM("status" to _ctx.opened)),
+                    _cV(_component_x_icon, _uM("color" to if (_ctx._isActive) {
                         _ctx._activeColor
                     } else {
                         "#bfbfbf"
                     }
-                    , "style" to normalizeStyle(utsMapOf("margin-left" to "12px")), "name" to if (_ctx.opened) {
+                    , "style" to _nS(_uM("margin-left" to "12px")), "name" to if (_ctx.opened) {
                         "arrow-down-s-line"
                     } else {
                         "arrow-right-s-line"
                     }
-                    ), null, 8, utsArrayOf(
+                    ), null, 8, _uA(
                         "color",
                         "style",
                         "name"
                     ))
                 ))
-            ), 12, utsArrayOf(
+            ), 12, _uA(
                 "onClick"
             )),
-            createElementVNode("view", utsMapOf("class" to "xCollapseItemWrap", "style" to normalizeStyle(utsMapOf("height" to if (_ctx.opened) {
+            _cE("view", _uM("class" to "xCollapseItemWrap", "style" to _nS(_uM("height" to if (_ctx.opened) {
                 (_ctx.itemHeight + "px")
             } else {
                 "0rpx"
             }
-            ))), utsArrayOf(
-                createElementVNode("view", utsMapOf("class" to "xCollapseItemContent", "ref" to "xCollapseItemContent"), utsArrayOf(
+            ))), _uA(
+                _cE("view", _uM("class" to "xCollapseItemContent", "ref" to "xCollapseItemContent"), _uA(
                     renderSlot(_ctx.`$slots`, "default")
                 ), 512)
             ), 4),
             if (isTrue(_ctx.showBottomLine)) {
-                createVNode(_component_x_divider, utsMapOf("key" to 0))
+                _cV(_component_x_divider, _uM("key" to 0))
             } else {
-                createCommentVNode("v-if", true)
+                _cC("v-if", true)
             }
         ), 4)
     }
@@ -167,7 +163,7 @@ open class GenUniModulesTmxUiComponentsXCollapseItemXCollapseItem : VueComponent
     open var _textMap: Map<String, String> by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("itemHeight" to 0, "opened" to false, "id" to ("xCollapseItem-" + getUid()), "list" to utsArrayOf<String>(), "resizeObserver" to null as UniResizeObserver?, "_disabled" to computed<Boolean>(fun(): Boolean {
+        return _uM("itemHeight" to 0, "opened" to false, "id" to ("xCollapseItem-" + getUid()), "list" to _uA<String>(), "resizeObserver" to null as UniResizeObserver?, "_disabled" to computed<Boolean>(fun(): Boolean {
             return this.disabled
         }
         ), "_titleFontSize" to computed<String>(fun(): String {
@@ -286,19 +282,19 @@ open class GenUniModulesTmxUiComponentsXCollapseItemXCollapseItem : VueComponent
     }
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xCollapseItemBoxTextBox" to padStyleMapOf(utsMapOf("flex" to 1, "display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-start", "alignItems" to "center")), "xCollapseItemBoxText" to padStyleMapOf(utsMapOf("textOverflow" to "ellipsis")), "xCollapseItemContent" to padStyleMapOf(utsMapOf("paddingTop" to 12, "paddingRight" to "0rpx", "paddingBottom" to 12, "paddingLeft" to "0rpx")), "xCollapseItemBoxLeft" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-start", "alignItems" to "center", "flex" to 1)), "xCollapseItemBoxRight" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-end", "alignItems" to "center")), "xCollapseItemBox" to padStyleMapOf(utsMapOf("paddingTop" to 0, "paddingRight" to 12, "paddingBottom" to 0, "paddingLeft" to 12)), "xCollapseItem" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center")), "xCollapseItemWrap" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "column", "transitionProperty" to "height", "transitionDuration" to "350ms", "transitionTimingFunction" to "cubic-bezier(0.18,0.89,0.32,1)", "overflow" to "hidden")), "@TRANSITION" to utsMapOf("xCollapseItemWrap" to utsMapOf("property" to "height", "duration" to "350ms", "timingFunction" to "cubic-bezier(0.18,0.89,0.32,1)")))
+                return _uM("xCollapseItemBoxTextBox" to _pS(_uM("flex" to 1, "display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-start", "alignItems" to "center")), "xCollapseItemBoxText" to _pS(_uM("textOverflow" to "ellipsis")), "xCollapseItemContent" to _pS(_uM("paddingTop" to 12, "paddingRight" to "0rpx", "paddingBottom" to 12, "paddingLeft" to "0rpx")), "xCollapseItemBoxLeft" to _pS(_uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-start", "alignItems" to "center", "flex" to 1)), "xCollapseItemBoxRight" to _pS(_uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-end", "alignItems" to "center")), "xCollapseItemBox" to _pS(_uM("paddingTop" to 0, "paddingRight" to 12, "paddingBottom" to 0, "paddingLeft" to 12)), "xCollapseItem" to _pS(_uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center")), "xCollapseItemWrap" to _pS(_uM("display" to "flex", "flexDirection" to "column", "transitionProperty" to "height", "transitionDuration" to "350ms", "transitionTimingFunction" to "cubic-bezier(0.18,0.89,0.32,1)", "overflow" to "hidden")), "@TRANSITION" to _uM("xCollapseItemWrap" to _uM("property" to "height", "duration" to "350ms", "timingFunction" to "cubic-bezier(0.18,0.89,0.32,1)")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf("xCollapseDefaultName" to utsMapOf("type" to "Array", "default" to utsArrayOf<String>()))
-        var emits: Map<String, Any?> = utsMapOf("click" to null)
-        var props = normalizePropsOptions(utsMapOf("name" to utsMapOf("type" to "String", "default" to "", "required" to true), "showBottomLine" to utsMapOf("type" to "Boolean", "default" to true), "disabled" to utsMapOf("type" to "Boolean", "default" to false), "titleFontSize" to utsMapOf("type" to "String", "default" to "16px"), "titleColor" to utsMapOf("type" to "String", "default" to "#333333"), "darkTitleColor" to utsMapOf("type" to "String", "default" to ""), "activeColor" to utsMapOf("type" to "String", "default" to ""), "color" to utsMapOf("type" to "String", "default" to "white"), "darkColor" to utsMapOf("type" to "String", "default" to ""), "leftIcon" to utsMapOf("type" to "String", "default" to ""), "title" to utsMapOf("type" to "String", "default" to ""), "titleHeight" to utsMapOf("type" to "String", "default" to "55"), "titleLines" to utsMapOf("type" to "Number", "default" to 1)))
-        var propsNeedCastKeys = utsArrayOf(
+        var inject: Map<String, Map<String, Any?>> = _uM("xCollapseDefaultName" to _uM("type" to "Array", "default" to _uA<String>()))
+        var emits: Map<String, Any?> = _uM("click" to null)
+        var props = _nP(_uM("name" to _uM("type" to "String", "default" to "", "required" to true), "showBottomLine" to _uM("type" to "Boolean", "default" to true), "disabled" to _uM("type" to "Boolean", "default" to false), "titleFontSize" to _uM("type" to "String", "default" to "16px"), "titleColor" to _uM("type" to "String", "default" to "#333333"), "darkTitleColor" to _uM("type" to "String", "default" to ""), "activeColor" to _uM("type" to "String", "default" to ""), "color" to _uM("type" to "String", "default" to "white"), "darkColor" to _uM("type" to "String", "default" to ""), "leftIcon" to _uM("type" to "String", "default" to ""), "title" to _uM("type" to "String", "default" to ""), "titleHeight" to _uM("type" to "String", "default" to "55"), "titleLines" to _uM("type" to "Number", "default" to 1)))
+        var propsNeedCastKeys = _uA(
             "name",
             "showBottomLine",
             "disabled",
@@ -313,6 +309,6 @@ open class GenUniModulesTmxUiComponentsXCollapseItemXCollapseItem : VueComponent
             "titleHeight",
             "titleLines"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

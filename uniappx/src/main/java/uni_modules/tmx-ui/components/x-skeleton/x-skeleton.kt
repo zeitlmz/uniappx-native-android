@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 open class GenUniModulesTmxUiComponentsXSkeletonXSkeleton : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {
         onMounted(fun() {
@@ -35,7 +31,7 @@ open class GenUniModulesTmxUiComponentsXSkeletonXSkeleton : VueComponent {
     override fun `$render`(): Any? {
         val _ctx = this
         val _cache = this.`$`.renderCache
-        return createElementVNode("view", utsMapOf("ref" to "xSkeleton", "class" to "xSkeleton", "onTransitionend" to _ctx.animationEnd, "style" to normalizeStyle(utsMapOf("backgroundColor" to _ctx._color, "width" to _ctx._width, "height" to _ctx._height, "borderRadius" to _ctx._round, "opacity" to _ctx.myopacity, "transitionDuration" to _ctx.duration))), null, 44, utsArrayOf(
+        return _cE("view", _uM("ref" to "xSkeleton", "class" to "xSkeleton", "onTransitionend" to _ctx.animationEnd, "style" to _nS(_uM("backgroundColor" to _ctx._color, "width" to _ctx._width, "height" to _ctx._height, "borderRadius" to _ctx._round, "opacity" to _ctx.myopacity, "transitionDuration" to _ctx.duration))), null, 44, _uA(
             "onTransitionend"
         ))
     }
@@ -53,7 +49,7 @@ open class GenUniModulesTmxUiComponentsXSkeletonXSkeleton : VueComponent {
     open var _color: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("myopacity" to 1, "tid" to 0, "_width" to computed<String>(fun(): String {
+        return _uM("myopacity" to 1, "tid" to 0, "_width" to computed<String>(fun(): String {
             return checkIsCssUnit(this.width, xConfig.unit)
         }
         ), "_height" to computed<String>(fun(): String {
@@ -80,19 +76,19 @@ open class GenUniModulesTmxUiComponentsXSkeletonXSkeleton : VueComponent {
     }
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xSkeleton" to padStyleMapOf(utsMapOf("transitionTimingFunction" to "linear", "transitionProperty" to "opacity")), "@TRANSITION" to utsMapOf("xSkeleton" to utsMapOf("timingFunction" to "linear", "property" to "opacity")))
+                return _uM("xSkeleton" to _pS(_uM("transitionTimingFunction" to "linear", "transitionProperty" to "opacity")), "@TRANSITION" to _uM("xSkeleton" to _uM("timingFunction" to "linear", "property" to "opacity")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf()
-        var props = normalizePropsOptions(utsMapOf("height" to utsMapOf("type" to "String", "default" to "12"), "width" to utsMapOf("type" to "String", "default" to "auto"), "color" to utsMapOf("type" to "String", "default" to "#e4e4e4"), "darkColor" to utsMapOf("type" to "String", "default" to "#323232"), "round" to utsMapOf("type" to "String", "default" to "3"), "duration" to utsMapOf("type" to "String", "default" to "900ms")))
-        var propsNeedCastKeys = utsArrayOf(
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM()
+        var props = _nP(_uM("height" to _uM("type" to "String", "default" to "12"), "width" to _uM("type" to "String", "default" to "auto"), "color" to _uM("type" to "String", "default" to "#e4e4e4"), "darkColor" to _uM("type" to "String", "default" to "#323232"), "round" to _uM("type" to "String", "default" to "3"), "duration" to _uM("type" to "String", "default" to "900ms")))
+        var propsNeedCastKeys = _uA(
             "height",
             "width",
             "color",
@@ -100,6 +96,6 @@ open class GenUniModulesTmxUiComponentsXSkeletonXSkeleton : VueComponent {
             "round",
             "duration"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

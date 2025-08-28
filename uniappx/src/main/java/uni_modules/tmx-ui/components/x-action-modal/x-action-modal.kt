@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.getElementById as uni_getElementById
 import io.dcloud.uniapp.extapi.getWindowInfo as uni_getWindowInfo
 open class GenUniModulesTmxUiComponentsXActionModalXActionModal : VueComponent {
@@ -55,56 +51,56 @@ open class GenUniModulesTmxUiComponentsXActionModalXActionModal : VueComponent {
         val _cache = this.`$`.renderCache
         val _component_x_icon = resolveEasyComponent("x-icon", GenUniModulesTmxUiComponentsXIconXIconClass)
         val _component_x_button = resolveEasyComponent("x-button", GenUniModulesTmxUiComponentsXButtonXButtonClass)
-        return createElementVNode("view", null, utsArrayOf(
-            createElementVNode("view", utsMapOf("onClick" to _ctx.openDrawer), utsArrayOf(
-                renderSlot(_ctx.`$slots`, "trigger", utsMapOf("show" to _ctx.show))
-            ), 8, utsArrayOf(
+        return _cE("view", null, _uA(
+            _cE("view", _uM("onClick" to _ctx.openDrawer), _uA(
+                renderSlot(_ctx.`$slots`, "trigger", _uM("show" to _ctx.show))
+            ), 8, _uA(
                 "onClick"
             )),
             if (isTrue(_ctx.showOverflay)) {
-                createElementVNode("view", utsMapOf("key" to 0, "onClick" to _ctx.onClickOverflowy, "onTouchmove" to _ctx.overTouch, "onTransitionend" to _ctx.onEnd, "id" to _ctx.id, "class" to "xActionModalWrap xActionModalWrap_bottom", "style" to normalizeStyle(utsArrayOf(
-                    utsMapOf("width" to "100%", "height" to _ctx.__height, "top" to (_ctx.windtop + "px"), "transition-timing-function" to _ctx._animationFun),
+                _cE("view", _uM("key" to 0, "onClick" to _ctx.onClickOverflowy, "onTouchmove" to _ctx.overTouch, "onTransitionend" to _ctx.onEnd, "id" to _ctx.id, "class" to "xActionModalWrap xActionModalWrap_bottom", "style" to _nS(_uA(
+                    _uM("width" to "100%", "height" to _ctx.__height, "top" to (_ctx.windtop + "px"), "transition-timing-function" to _ctx._animationFun),
                     _ctx._customStyle
-                ))), utsArrayOf(
-                    createElementVNode("view", utsMapOf("onClick" to withModifiers(fun(){}, utsArrayOf(
+                ))), _uA(
+                    _cE("view", _uM("onClick" to withModifiers(fun(){}, _uA(
                         "stop"
-                    )), "class" to "xActionModalWrapContent xActionModalWrapContent_bottom", "id" to _ctx.wrapId, "style" to normalizeStyle(utsMapOf("borderRadius" to _ctx._round, "maxHeight" to if (_ctx._maxHeight != "") {
+                    )), "class" to "xActionModalWrapContent xActionModalWrapContent_bottom", "id" to _ctx.wrapId, "style" to _nS(_uM("borderRadius" to _ctx._round, "maxHeight" to if (_ctx._maxHeight != "") {
                         _ctx._maxHeight
                     } else {
                         "100%"
-                    }, "backgroundColor" to _ctx._bgColor, "transition-timing-function" to _ctx._animationFun))), utsArrayOf(
+                    }, "backgroundColor" to _ctx._bgColor, "transition-timing-function" to _ctx._animationFun))), _uA(
                         if (isTrue(_ctx._showClose)) {
-                            createVNode(_component_x_icon, utsMapOf("key" to 0, "class" to "xActionModalXclose", "onClick" to _ctx.closeAlert, "color" to "#dcdcdc", "font-size" to "24", "name" to "close-circle-fill"), null, 8, utsArrayOf(
+                            _cV(_component_x_icon, _uM("key" to 0, "class" to "xActionModalXclose", "onClick" to _ctx.closeAlert, "color" to "#dcdcdc", "font-size" to "24", "name" to "close-circle-fill"), null, 8, _uA(
                                 "onClick"
                             ))
                         } else {
-                            createCommentVNode("v-if", true)
+                            _cC("v-if", true)
                         },
-                        createElementVNode("view", null, utsArrayOf(
+                        _cE("view", null, _uA(
                             if (isTrue(_ctx._showTitle)) {
-                                createElementVNode("view", utsMapOf("key" to 0, "class" to "xActionModalTitleBox"), utsArrayOf(
-                                    renderSlot(_ctx.`$slots`, "title", utsMapOf("show" to _ctx.show), fun(): UTSArray<Any> {
-                                        return utsArrayOf(
-                                            createElementVNode("text", utsMapOf("class" to "xActionModaltitleBox"), toDisplayString(_ctx._title), 1)
+                                _cE("view", _uM("key" to 0, "class" to "xActionModalTitleBox"), _uA(
+                                    renderSlot(_ctx.`$slots`, "title", _uM("show" to _ctx.show), fun(): UTSArray<Any> {
+                                        return _uA(
+                                            _cE("text", _uM("class" to "xActionModaltitleBox"), _tD(_ctx._title), 1)
                                         )
                                     })
                                 ))
                             } else {
-                                createCommentVNode("v-if", true)
+                                _cC("v-if", true)
                             }
                         )),
-                        createElementVNode("scroll-view", utsMapOf("style" to normalizeStyle(utsMapOf("flex" to "1")), "scroll-y" to true, "rebound" to false), utsArrayOf(
+                        _cE("scroll-view", _uM("style" to _nS(_uM("flex" to "1")), "scroll-y" to true, "rebound" to false), _uA(
                             renderSlot(_ctx.`$slots`, "default")
                         ), 4),
                         if (isTrue(_ctx._showConfirm)) {
-                            createElementVNode("view", utsMapOf("key" to 1, "class" to "xActionModalFooter"), utsArrayOf(
+                            _cE("view", _uM("key" to 1, "class" to "xActionModalFooter"), _uA(
                                 renderSlot(_ctx.`$slots`, "footer", UTSJSONObject(), fun(): UTSArray<Any> {
-                                    return utsArrayOf(
-                                        createVNode(_component_x_button, utsMapOf("onClick" to _ctx.onConfirm, "block" to true, "color" to _ctx._btnColor, "round" to _ctx._round, "font-color" to _ctx._btnFontColor), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                            return utsArrayOf(
-                                                toDisplayString(_ctx._btnText)
+                                    return _uA(
+                                        _cV(_component_x_button, _uM("onClick" to _ctx.onConfirm, "block" to true, "color" to _ctx._btnColor, "round" to _ctx._round, "font-color" to _ctx._btnFontColor), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                            return _uA(
+                                                _tD(_ctx._btnText)
                                             )
-                                        }), "_" to 1), 8, utsArrayOf(
+                                        }), "_" to 1), 8, _uA(
                                             "onClick",
                                             "color",
                                             "round",
@@ -114,20 +110,20 @@ open class GenUniModulesTmxUiComponentsXActionModalXActionModal : VueComponent {
                                 })
                             ))
                         } else {
-                            createCommentVNode("v-if", true)
+                            _cC("v-if", true)
                         }
-                    ), 12, utsArrayOf(
+                    ), 12, _uA(
                         "onClick",
                         "id"
                     ))
-                ), 44, utsArrayOf(
+                ), 44, _uA(
                     "onClick",
                     "onTouchmove",
                     "onTransitionend",
                     "id"
                 ))
             } else {
-                createCommentVNode("v-if", true)
+                _cC("v-if", true)
             }
         ))
     }
@@ -177,7 +173,7 @@ open class GenUniModulesTmxUiComponentsXActionModalXActionModal : VueComponent {
     open var __height: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("_width" to 0, "_height" to 0, "showOverflay" to false, "element" to null as Element?, "elementWrap" to null as Element?, "actioning" to false, "status" to "", "id" to ("xActionModal" + getUid()), "wrapId" to ("xActionModalWrap" + getUid()), "tid" to 0, "windtop" to 0, "pageOninit" to false, "isOpenedDefault" to false, "_btnFontColor" to computed<String>(fun(): String {
+        return _uM("_width" to 0, "_height" to 0, "showOverflay" to false, "element" to null as Element?, "elementWrap" to null as Element?, "actioning" to false, "status" to "", "id" to ("xActionModal" + getUid()), "wrapId" to ("xActionModalWrap" + getUid()), "tid" to 0, "windtop" to 0, "pageOninit" to false, "isOpenedDefault" to false, "_btnFontColor" to computed<String>(fun(): String {
             return getDefaultColor(this.btnFontColor)
         }
         ), "_btnColor" to computed<String>(fun(): String {
@@ -333,19 +329,19 @@ open class GenUniModulesTmxUiComponentsXActionModalXActionModal : VueComponent {
     }
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xActionModalItem" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center", "height" to 44, "marginBottom" to 1)), "xActionModalFooter" to padStyleMapOf(utsMapOf("marginTop" to 16, "marginRight" to 16, "marginBottom" to 16, "marginLeft" to 16)), "xActionModalFooterText" to padStyleMapOf(utsMapOf("fontSize" to 15, "color" to "#333333", "textAlign" to "center")), "xActionModalXclose" to padStyleMapOf(utsMapOf("position" to "absolute", "right" to 12, "top" to 11, "zIndex" to 100)), "xActionModalTitleBox" to padStyleMapOf(utsMapOf("height" to 44, "display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "center", "marginBottom" to 4)), "xActionModaltitleBox" to padStyleMapOf(utsMapOf("maxWidth" to "350rpx", "overflow" to "hidden", "lines" to 1, "textOverflow" to "ellipsis", "fontSize" to 16, "color" to "#888888")), "xActionModalWrap_bottom" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "column", "justifyContent" to "flex-end", "alignItems" to "center")), "xActionModalWrapContent" to padStyleMapOf(utsMapOf("transitionDuration" to "350ms", "transitionProperty" to "transform", "display" to "flex", "flexDirection" to "column", "marginTop" to 0, "marginRight" to 16, "marginBottom" to 0, "marginLeft" to 16, "maxWidth" to 500)), "xActionModalWrapContent_bottom" to padStyleMapOf(utsMapOf("transform" to "translate(0%, 100%)")), "xActionModalWrap" to padStyleMapOf(utsMapOf("backgroundColor" to "rgba(0,0,0,0.35)", "opacity" to 0, "position" to "fixed", "zIndex" to 1100, "left" to 0, "top" to 0, "transitionDuration" to "350ms", "transitionProperty" to "opacity")), "@TRANSITION" to utsMapOf("xActionModalWrapContent" to utsMapOf("duration" to "350ms", "property" to "transform"), "xActionModalWrap" to utsMapOf("duration" to "350ms", "property" to "opacity")))
+                return _uM("xActionModalItem" to _pS(_uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center", "height" to 44, "marginBottom" to 1)), "xActionModalFooter" to _pS(_uM("marginTop" to 16, "marginRight" to 16, "marginBottom" to 16, "marginLeft" to 16)), "xActionModalFooterText" to _pS(_uM("fontSize" to 15, "color" to "#333333", "textAlign" to "center")), "xActionModalXclose" to _pS(_uM("position" to "absolute", "right" to 12, "top" to 11, "zIndex" to 100)), "xActionModalTitleBox" to _pS(_uM("height" to 44, "display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "center", "marginBottom" to 4)), "xActionModaltitleBox" to _pS(_uM("maxWidth" to "350rpx", "overflow" to "hidden", "lines" to 1, "textOverflow" to "ellipsis", "fontSize" to 16, "color" to "#888888")), "xActionModalWrap_bottom" to _pS(_uM("display" to "flex", "flexDirection" to "column", "justifyContent" to "flex-end", "alignItems" to "center")), "xActionModalWrapContent" to _pS(_uM("transitionDuration" to "350ms", "transitionProperty" to "transform", "display" to "flex", "flexDirection" to "column", "marginTop" to 0, "marginRight" to 16, "marginBottom" to 0, "marginLeft" to 16, "maxWidth" to 500)), "xActionModalWrapContent_bottom" to _pS(_uM("transform" to "translate(0%, 100%)")), "xActionModalWrap" to _pS(_uM("backgroundColor" to "rgba(0,0,0,0.35)", "opacity" to 0, "position" to "fixed", "zIndex" to 1100, "left" to 0, "top" to 0, "transitionDuration" to "350ms", "transitionProperty" to "opacity")), "@TRANSITION" to _uM("xActionModalWrapContent" to _uM("duration" to "350ms", "property" to "transform"), "xActionModalWrap" to _uM("duration" to "350ms", "property" to "opacity")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("confirm" to null, "click" to null, "close" to null, "open" to null, "beforeOpen" to null, "beforeClose" to null, "update:show" to null)
-        var props = normalizePropsOptions(utsMapOf("customStyle" to utsMapOf("type" to "String", "default" to ""), "title" to utsMapOf("type" to "String", "default" to "标题"), "showTitle" to utsMapOf("type" to "Boolean", "default" to true), "showClose" to utsMapOf("type" to "Boolean", "default" to false), "overlayClick" to utsMapOf("type" to "Boolean", "default" to true), "show" to utsMapOf("type" to "Boolean", "default" to false), "showConfirm" to utsMapOf("type" to "Boolean", "default" to true), "duration" to utsMapOf("type" to "Number", "default" to 350), "round" to utsMapOf("type" to "String", "default" to ""), "maxHeight" to utsMapOf("type" to "String", "default" to ""), "bgColor" to utsMapOf("type" to "String", "default" to "white"), "darkBgColor" to utsMapOf("type" to "String", "default" to ""), "btnColor" to utsMapOf("type" to "String", "default" to ""), "btnText" to utsMapOf("type" to "String", "default" to "确认"), "btnFontColor" to utsMapOf("type" to "String", "default" to ""), "watiDuration" to utsMapOf("type" to "Number", "default" to 120)))
-        var propsNeedCastKeys = utsArrayOf(
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("confirm" to null, "click" to null, "close" to null, "open" to null, "beforeOpen" to null, "beforeClose" to null, "update:show" to null)
+        var props = _nP(_uM("customStyle" to _uM("type" to "String", "default" to ""), "title" to _uM("type" to "String", "default" to "标题"), "showTitle" to _uM("type" to "Boolean", "default" to true), "showClose" to _uM("type" to "Boolean", "default" to false), "overlayClick" to _uM("type" to "Boolean", "default" to true), "show" to _uM("type" to "Boolean", "default" to false), "showConfirm" to _uM("type" to "Boolean", "default" to true), "duration" to _uM("type" to "Number", "default" to 350), "round" to _uM("type" to "String", "default" to ""), "maxHeight" to _uM("type" to "String", "default" to ""), "bgColor" to _uM("type" to "String", "default" to "white"), "darkBgColor" to _uM("type" to "String", "default" to ""), "btnColor" to _uM("type" to "String", "default" to ""), "btnText" to _uM("type" to "String", "default" to "确认"), "btnFontColor" to _uM("type" to "String", "default" to ""), "watiDuration" to _uM("type" to "Number", "default" to 120)))
+        var propsNeedCastKeys = _uA(
             "customStyle",
             "title",
             "showTitle",
@@ -363,6 +359,6 @@ open class GenUniModulesTmxUiComponentsXActionModalXActionModal : VueComponent {
             "btnFontColor",
             "watiDuration"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

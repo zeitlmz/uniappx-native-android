@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 open class GenUniModulesTmxUiComponentsXStepperXStepper : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {
         onMounted(fun() {
@@ -37,13 +33,13 @@ open class GenUniModulesTmxUiComponentsXStepperXStepper : VueComponent {
         val _ctx = this
         val _cache = this.`$`.renderCache
         val _component_x_icon = resolveEasyComponent("x-icon", GenUniModulesTmxUiComponentsXIconXIconClass)
-        return createElementVNode("view", utsMapOf("class" to "xStepper", "style" to normalizeStyle(utsMapOf("width" to _ctx._width, "borderRadius" to _ctx._round))), utsArrayOf(
+        return _cE("view", _uM("class" to "xStepper", "style" to _nS(_uM("width" to _ctx._width, "borderRadius" to _ctx._round))), _uA(
             if (isTrue((!_ctx.surDomDisabeld && _ctx.autoHideBtn) || !_ctx.autoHideBtn)) {
-                createElementVNode("view", utsMapOf("key" to 0, "hover-start-time" to 20, "hover-stay-time" to 150, "hover-class" to if (_ctx.addDomDisabeld) {
+                _cE("view", _uM("key" to 0, "hover-start-time" to 20, "hover-stay-time" to 150, "hover-class" to if (_ctx.addDomDisabeld) {
                     ""
                 } else {
                     "xStepperHoverbtn"
-                }, "onClick" to _ctx.handleDecrement, "class" to "xStepperBtn", "style" to normalizeStyle(utsMapOf("backgroundColor" to _ctx._btnColor, "height" to _ctx._height, "width" to _ctx._btnWidth, "opacity" to if (_ctx.surDomDisabeld) {
+                }, "onClick" to _ctx.handleDecrement, "class" to "xStepperBtn", "style" to _nS(_uM("backgroundColor" to _ctx._btnColor, "height" to _ctx._height, "width" to _ctx._btnWidth, "opacity" to if (_ctx.surDomDisabeld) {
                     0.6
                 } else {
                     1
@@ -51,22 +47,22 @@ open class GenUniModulesTmxUiComponentsXStepperXStepper : VueComponent {
                     "50px"
                 } else {
                     "0rpx"
-                }))), utsArrayOf(
-                    createVNode(_component_x_icon, utsMapOf("class" to "xStepperBtnBtn", "color" to _ctx._btnFontColor, "font-size" to _ctx._unFontSize, "name" to "subtract-line"), null, 8, utsArrayOf(
+                }))), _uA(
+                    _cV(_component_x_icon, _uM("class" to "xStepperBtnBtn", "color" to _ctx._btnFontColor, "font-size" to _ctx._unFontSize, "name" to "subtract-line"), null, 8, _uA(
                         "color",
                         "font-size"
                     ))
-                ), 12, utsArrayOf(
+                ), 12, _uA(
                     "hover-class",
                     "onClick"
                 ))
             } else {
-                createCommentVNode("v-if", true)
+                _cC("v-if", true)
             }
             ,
             if (isTrue((!_ctx.surDomDisabeld && _ctx.autoHideBtn) || !_ctx.autoHideBtn)) {
-                createElementVNode("input", utsMapOf("key" to 1, "always-embed" to true, "disabled" to (_ctx._disabledInput || _ctx._disabled), "onBlur" to _ctx.inputBlur, "onInput" to _ctx.handleInputChange, "value" to _ctx._input_value, "class" to "xStepperInput", "style" to normalizeStyle(utsArrayOf(
-                    utsMapOf("backgroundColor" to if (_ctx._splitBtn) {
+                _cE("input", _uM("key" to 1, "always-embed" to true, "disabled" to (_ctx._disabledInput || _ctx._disabled), "onBlur" to _ctx.inputBlur, "onInput" to _ctx.handleInputChange, "value" to _ctx._input_value, "class" to "xStepperInput", "style" to _nS(_uA(
+                    _uM("backgroundColor" to if (_ctx._splitBtn) {
                         "transparent"
                     } else {
                         _ctx._btnColor
@@ -76,7 +72,7 @@ open class GenUniModulesTmxUiComponentsXStepperXStepper : VueComponent {
                     "digit"
                 } else {
                     "number"
-                }), null, 44, utsArrayOf(
+                }), null, 44, _uA(
                     "disabled",
                     "onBlur",
                     "onInput",
@@ -84,31 +80,31 @@ open class GenUniModulesTmxUiComponentsXStepperXStepper : VueComponent {
                     "type"
                 ))
             } else {
-                createCommentVNode("v-if", true)
+                _cC("v-if", true)
             }
             ,
-            createElementVNode("view", utsMapOf("hover-start-time" to 20, "hover-stay-time" to 150, "hover-class" to if (_ctx.addDomDisabeld) {
+            _cE("view", _uM("hover-start-time" to 20, "hover-stay-time" to 150, "hover-class" to if (_ctx.addDomDisabeld) {
                 ""
             } else {
                 "xStepperHoverbtn"
             }
-            , "onClick" to _ctx.handleIncrement, "class" to "xStepperBtn", "style" to normalizeStyle(utsMapOf("backgroundColor" to _ctx._btnColor, "height" to _ctx._height, "width" to _ctx._btnWidth, "borderRadius" to if (_ctx._splitBtn) {
+            , "onClick" to _ctx.handleIncrement, "class" to "xStepperBtn", "style" to _nS(_uM("backgroundColor" to _ctx._btnColor, "height" to _ctx._height, "width" to _ctx._btnWidth, "borderRadius" to if (_ctx._splitBtn) {
                 "50px"
             } else {
                 "0rpx"
             }
-            ))), utsArrayOf(
-                createVNode(_component_x_icon, utsMapOf("class" to "xStepperBtnBtn", "style" to normalizeStyle(utsMapOf("opacity" to if (_ctx.addDomDisabeld) {
+            ))), _uA(
+                _cV(_component_x_icon, _uM("class" to "xStepperBtnBtn", "style" to _nS(_uM("opacity" to if (_ctx.addDomDisabeld) {
                     0.6
                 } else {
                     1
                 }
-                )), "color" to _ctx._btnFontColor, "font-size" to _ctx._unFontSize, "name" to "add-line"), null, 8, utsArrayOf(
+                )), "color" to _ctx._btnFontColor, "font-size" to _ctx._unFontSize, "name" to "add-line"), null, 8, _uA(
                     "style",
                     "color",
                     "font-size"
                 ))
-            ), 12, utsArrayOf(
+            ), 12, _uA(
                 "hover-class",
                 "onClick"
             ))
@@ -158,7 +154,7 @@ open class GenUniModulesTmxUiComponentsXStepperXStepper : VueComponent {
     open var _disabled: Boolean by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("_value" to 0, "_input_value" to "", "addDomDisabeld" to false, "surDomDisabeld" to false, "_round" to computed<String>(fun(): String {
+        return _uM("_value" to 0, "_input_value" to "", "addDomDisabeld" to false, "surDomDisabeld" to false, "_round" to computed<String>(fun(): String {
             if (this.round == "") {
                 return checkIsCssUnit(xConfig.progressRadius, xConfig.unit)
             }
@@ -321,19 +317,19 @@ open class GenUniModulesTmxUiComponentsXStepperXStepper : VueComponent {
     }
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xStepperBtnBtn" to padStyleMapOf(utsMapOf("pointerEvents" to "none")), "xStepperHoverbtn" to padStyleMapOf(utsMapOf("opacity" to 0.8)), "xStepper" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "overflow" to "hidden")), "xStepperInput" to padStyleMapOf(utsMapOf("flex" to 1, "marginTop" to 0, "marginRight" to 1, "marginBottom" to 0, "marginLeft" to 1, "paddingTop" to 0, "paddingRight" to 5, "paddingBottom" to 0, "paddingLeft" to 5, "textAlign" to "center")), "xStepperBtn" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center")))
+                return _uM("xStepperBtnBtn" to _pS(_uM("pointerEvents" to "none")), "xStepperHoverbtn" to _pS(_uM("opacity" to 0.8)), "xStepper" to _pS(_uM("display" to "flex", "flexDirection" to "row", "overflow" to "hidden")), "xStepperInput" to _pS(_uM("flex" to 1, "marginTop" to 0, "marginRight" to 1, "marginBottom" to 0, "marginLeft" to 1, "paddingTop" to 0, "paddingRight" to 5, "paddingBottom" to 0, "paddingLeft" to 5, "textAlign" to "center")), "xStepperBtn" to _pS(_uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("change" to null, "update:modelValue" to null)
-        var props = normalizePropsOptions(utsMapOf("modelValue" to utsMapOf("type" to "Number", "default" to 0), "max" to utsMapOf("type" to "Number", "default" to 100), "width" to utsMapOf("type" to "String", "default" to "auto"), "min" to utsMapOf("type" to "Number", "default" to 0), "autoHideBtn" to utsMapOf("type" to "Boolean", "default" to false), "disabled" to utsMapOf("type" to "Boolean", "default" to false), "disabledInput" to utsMapOf("type" to "Boolean", "default" to false), "step" to utsMapOf("type" to "Number", "default" to 1), "decimalLen" to utsMapOf("type" to "Number", "default" to 0), "btnColor" to utsMapOf("type" to "String", "default" to "info"), "darkBtnColor" to utsMapOf("type" to "String", "default" to ""), "bgColor" to utsMapOf("type" to "String", "default" to "info"), "inputStyle" to utsMapOf("type" to "String", "default" to ""), "darkBgColor" to utsMapOf("type" to "String", "default" to ""), "btnWidth" to utsMapOf("type" to "String", "default" to "36"), "height" to utsMapOf("type" to "String", "default" to "36"), "round" to utsMapOf("type" to "String", "default" to "4"), "splitBtn" to utsMapOf("type" to "Boolean", "default" to false), "btnFontColor" to utsMapOf("type" to "String", "default" to "#333333"), "fontColor" to utsMapOf("type" to "String", "default" to "#333333"), "fontSize" to utsMapOf("type" to "String", "default" to "14")))
-        var propsNeedCastKeys = utsArrayOf(
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("change" to null, "update:modelValue" to null)
+        var props = _nP(_uM("modelValue" to _uM("type" to "Number", "default" to 0), "max" to _uM("type" to "Number", "default" to 100), "width" to _uM("type" to "String", "default" to "auto"), "min" to _uM("type" to "Number", "default" to 0), "autoHideBtn" to _uM("type" to "Boolean", "default" to false), "disabled" to _uM("type" to "Boolean", "default" to false), "disabledInput" to _uM("type" to "Boolean", "default" to false), "step" to _uM("type" to "Number", "default" to 1), "decimalLen" to _uM("type" to "Number", "default" to 0), "btnColor" to _uM("type" to "String", "default" to "info"), "darkBtnColor" to _uM("type" to "String", "default" to ""), "bgColor" to _uM("type" to "String", "default" to "info"), "inputStyle" to _uM("type" to "String", "default" to ""), "darkBgColor" to _uM("type" to "String", "default" to ""), "btnWidth" to _uM("type" to "String", "default" to "36"), "height" to _uM("type" to "String", "default" to "36"), "round" to _uM("type" to "String", "default" to "4"), "splitBtn" to _uM("type" to "Boolean", "default" to false), "btnFontColor" to _uM("type" to "String", "default" to "#333333"), "fontColor" to _uM("type" to "String", "default" to "#333333"), "fontSize" to _uM("type" to "String", "default" to "14")))
+        var propsNeedCastKeys = _uA(
             "modelValue",
             "max",
             "width",
@@ -356,6 +352,6 @@ open class GenUniModulesTmxUiComponentsXStepperXStepper : VueComponent {
             "fontColor",
             "fontSize"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

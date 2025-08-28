@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 open class GenUniModulesTmxUiComponentsXPullRefreshXPullRefresh : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {
         onMounted(fun() {
@@ -56,49 +52,49 @@ open class GenUniModulesTmxUiComponentsXPullRefreshXPullRefresh : VueComponent {
         val _cache = this.`$`.renderCache
         val _component_x_icon = resolveEasyComponent("x-icon", GenUniModulesTmxUiComponentsXIconXIconClass)
         val _component_x_loading = resolveEasyComponent("x-loading", GenUniModulesTmxUiComponentsXLoadingXLoadingClass)
-        return createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("height" to _ctx._height))), utsArrayOf(
+        return _cE("view", _uM("style" to _nS(_uM("height" to _ctx._height))), _uA(
             if (_ctx.mode == "listview") {
-                createElementVNode("list-view", utsMapOf("key" to 0, "show-scrollbar" to _ctx._showScrollbar, "refresher-background" to "transparent", "scroll-top" to _ctx.scrollTop, "scroll-into-view" to _ctx.scrollIntoView, "onRefresherpulling" to _ctx.rPulling, "onRefresherrefresh" to _ctx.rPullEnd, "onRefresherrestore" to _ctx.rPullReset, "onRefresherabort" to _ctx.rPullingAbort, "onScrolltolower" to _ctx.scrollEndBottom, "onScroll" to _ctx.scrollingEvt, "refresher-triggered" to _ctx.refresherTriggered, "direction" to "vertical", "refresher-enabled" to !_ctx._disabledPull, "refresher-threshold" to _ctx.pullHeight, "refresher-default-style" to "none", "style" to normalizeStyle(utsMapOf("height" to "100%"))), utsArrayOf(
+                _cE("list-view", _uM("key" to 0, "show-scrollbar" to _ctx._showScrollbar, "refresher-background" to "transparent", "scroll-top" to _ctx.scrollTop, "scroll-into-view" to _ctx.scrollIntoView, "onRefresherpulling" to _ctx.rPulling, "onRefresherrefresh" to _ctx.rPullEnd, "onRefresherrestore" to _ctx.rPullReset, "onRefresherabort" to _ctx.rPullingAbort, "onScrolltolower" to _ctx.scrollEndBottom, "onScroll" to _ctx.scrollingEvt, "refresher-triggered" to _ctx.refresherTriggered, "direction" to "vertical", "refresher-enabled" to !_ctx._disabledPull, "refresher-threshold" to _ctx.pullHeight, "refresher-default-style" to "none", "style" to _nS(_uM("height" to "100%"))), _uA(
                     renderSlot(_ctx.`$slots`, "default"),
-                    createElementVNode("list-item", utsMapOf("class" to "xRefreshPullContentWrap", "slot" to "refresher", "style" to normalizeStyle(utsMapOf("height" to ((_ctx.pullHeight * 2.5).toString(10) + "px"), "overflay" to "hidden"))), utsArrayOf(
-                        createElementVNode("view", utsMapOf("class" to "xRefreshPullContent", "style" to normalizeStyle(utsMapOf("paddingBottom" to _ctx._pullDiffHeight))), utsArrayOf(
-                            renderSlot(_ctx.`$slots`, "pull", utsMapOf("status" to _ctx._status, "dy" to _ctx.pullDy), fun(): UTSArray<Any> {
-                                return utsArrayOf(
+                    _cE("list-item", _uM("class" to "xRefreshPullContentWrap", "slot" to "refresher", "style" to _nS(_uM("height" to ((_ctx.pullHeight * 2.5).toString(10) + "px"), "overflay" to "hidden"))), _uA(
+                        _cE("view", _uM("class" to "xRefreshPullContent", "style" to _nS(_uM("paddingBottom" to _ctx._pullDiffHeight))), _uA(
+                            renderSlot(_ctx.`$slots`, "pull", _uM("status" to _ctx._status, "dy" to _ctx.pullDy), fun(): UTSArray<Any> {
+                                return _uA(
                                     if (_ctx._status != 1) {
-                                        createVNode(_component_x_icon, utsMapOf("key" to 0, "name" to _ctx._status_obj.icon, "font-size" to "30", "color" to _ctx._status_obj.color), null, 8, utsArrayOf(
+                                        _cV(_component_x_icon, _uM("key" to 0, "name" to _ctx._status_obj.icon, "font-size" to "30", "color" to _ctx._status_obj.color), null, 8, _uA(
                                             "name",
                                             "color"
                                         ))
                                     } else {
-                                        createCommentVNode("v-if", true)
+                                        _cC("v-if", true)
                                     },
                                     if (_ctx._status == 1) {
-                                        createVNode(_component_x_icon, utsMapOf("key" to 1, "name" to _ctx._status_obj.icon, "spin" to true, "font-size" to "30", "color" to _ctx._status_obj.color), null, 8, utsArrayOf(
+                                        _cV(_component_x_icon, _uM("key" to 1, "name" to _ctx._status_obj.icon, "spin" to true, "font-size" to "30", "color" to _ctx._status_obj.color), null, 8, _uA(
                                             "name",
                                             "color"
                                         ))
                                     } else {
-                                        createCommentVNode("v-if", true)
+                                        _cC("v-if", true)
                                     },
-                                    createElementVNode("text", utsMapOf("class" to "xRefreshText", "style" to normalizeStyle(utsMapOf("color" to _ctx._status_obj.textColor))), toDisplayString(_ctx._status_obj.text), 5)
+                                    _cE("text", _uM("class" to "xRefreshText", "style" to _nS(_uM("color" to _ctx._status_obj.textColor))), _tD(_ctx._status_obj.text), 5)
                                 )
                             })
                         ), 4)
                     ), 4),
-                    createElementVNode("list-item", null, utsArrayOf(
+                    _cE("list-item", null, _uA(
                         if (isTrue(_ctx.bootomIsRefresh)) {
-                            createElementVNode("view", utsMapOf("key" to 0, "class" to "xRefreshPullContentBottom"), utsArrayOf(
+                            _cE("view", _uM("key" to 0, "class" to "xRefreshPullContentBottom"), _uA(
                                 renderSlot(_ctx.`$slots`, "bottom", UTSJSONObject(), fun(): UTSArray<Any> {
-                                    return utsArrayOf(
-                                        createVNode(_component_x_loading)
+                                    return _uA(
+                                        _cV(_component_x_loading)
                                     )
                                 })
                             ))
                         } else {
-                            createCommentVNode("v-if", true)
+                            _cC("v-if", true)
                         }
                     ))
-                ), 44, utsArrayOf(
+                ), 44, _uA(
                     "show-scrollbar",
                     "scroll-top",
                     "scroll-into-view",
@@ -113,38 +109,38 @@ open class GenUniModulesTmxUiComponentsXPullRefreshXPullRefresh : VueComponent {
                     "refresher-threshold"
                 ))
             } else {
-                createCommentVNode("v-if", true)
+                _cC("v-if", true)
             }
             ,
             if (_ctx.mode == "scrollview") {
-                createElementVNode("scroll-view", utsMapOf("key" to 1, "scroll-top" to _ctx.scrollTop, "scroll-into-view" to _ctx.scrollIntoView, "show-scrollbar" to _ctx._showScrollbar, "refresher-background" to "transparent", "onRefresherpulling" to _ctx.rPulling, "onRefresherrefresh" to _ctx.rPullEnd, "onRefresherrestore" to _ctx.rPullReset, "onRefresherabort" to _ctx.rPullingAbort, "onScrolltolower" to _ctx.scrollEndBottom, "onScroll" to _ctx.scrollingEvt, "refresher-triggered" to _ctx.refresherTriggered, "direction" to "vertical", "refresher-enabled" to !_ctx._disabledPull, "refresher-threshold" to _ctx.pullHeight, "refresher-default-style" to "none", "style" to normalizeStyle(utsMapOf("height" to "100%"))), utsArrayOf(
-                    createElementVNode("view", utsMapOf("class" to "xRefreshPullContentWrap", "slot" to "refresher", "style" to normalizeStyle(utsMapOf("height" to ((_ctx.pullHeight * 2.5).toString(10) + "px")))), utsArrayOf(
-                        createElementVNode("view", utsMapOf("class" to "xRefreshPullContent", "style" to normalizeStyle(utsMapOf("paddingBottom" to _ctx._pullDiffHeight))), utsArrayOf(
-                            renderSlot(_ctx.`$slots`, "pull", utsMapOf("status" to _ctx._status, "dy" to _ctx.pullDy), fun(): UTSArray<Any> {
-                                return utsArrayOf(
-                                    createVNode(_component_x_icon, utsMapOf("name" to _ctx._status_obj.icon, "spin" to (_ctx._status == 1), "font-size" to "30", "color" to _ctx._status_obj.color), null, 8, utsArrayOf(
+                _cE("scroll-view", _uM("key" to 1, "scroll-top" to _ctx.scrollTop, "scroll-into-view" to _ctx.scrollIntoView, "show-scrollbar" to _ctx._showScrollbar, "refresher-background" to "transparent", "onRefresherpulling" to _ctx.rPulling, "onRefresherrefresh" to _ctx.rPullEnd, "onRefresherrestore" to _ctx.rPullReset, "onRefresherabort" to _ctx.rPullingAbort, "onScrolltolower" to _ctx.scrollEndBottom, "onScroll" to _ctx.scrollingEvt, "refresher-triggered" to _ctx.refresherTriggered, "direction" to "vertical", "refresher-enabled" to !_ctx._disabledPull, "refresher-threshold" to _ctx.pullHeight, "refresher-default-style" to "none", "style" to _nS(_uM("height" to "100%"))), _uA(
+                    _cE("view", _uM("class" to "xRefreshPullContentWrap", "slot" to "refresher", "style" to _nS(_uM("height" to ((_ctx.pullHeight * 2.5).toString(10) + "px")))), _uA(
+                        _cE("view", _uM("class" to "xRefreshPullContent", "style" to _nS(_uM("paddingBottom" to _ctx._pullDiffHeight))), _uA(
+                            renderSlot(_ctx.`$slots`, "pull", _uM("status" to _ctx._status, "dy" to _ctx.pullDy), fun(): UTSArray<Any> {
+                                return _uA(
+                                    _cV(_component_x_icon, _uM("name" to _ctx._status_obj.icon, "spin" to (_ctx._status == 1), "font-size" to "30", "color" to _ctx._status_obj.color), null, 8, _uA(
                                         "name",
                                         "spin",
                                         "color"
                                     )),
-                                    createElementVNode("text", utsMapOf("class" to "xRefreshText", "style" to normalizeStyle(utsMapOf("color" to _ctx._status_obj.textColor))), toDisplayString(_ctx._status_obj.text), 5)
+                                    _cE("text", _uM("class" to "xRefreshText", "style" to _nS(_uM("color" to _ctx._status_obj.textColor))), _tD(_ctx._status_obj.text), 5)
                                 )
                             })
                         ), 4)
                     ), 4),
                     renderSlot(_ctx.`$slots`, "default"),
                     if (isTrue(_ctx.bootomIsRefresh)) {
-                        createElementVNode("view", utsMapOf("key" to 0, "class" to "xRefreshPullContentBottom"), utsArrayOf(
+                        _cE("view", _uM("key" to 0, "class" to "xRefreshPullContentBottom"), _uA(
                             renderSlot(_ctx.`$slots`, "bottom", UTSJSONObject(), fun(): UTSArray<Any> {
-                                return utsArrayOf(
-                                    createVNode(_component_x_loading)
+                                return _uA(
+                                    _cV(_component_x_loading)
                                 )
                             })
                         ))
                     } else {
-                        createCommentVNode("v-if", true)
+                        _cC("v-if", true)
                     }
-                ), 44, utsArrayOf(
+                ), 44, _uA(
                     "scroll-top",
                     "scroll-into-view",
                     "show-scrollbar",
@@ -159,7 +155,7 @@ open class GenUniModulesTmxUiComponentsXPullRefreshXPullRefresh : VueComponent {
                     "refresher-threshold"
                 ))
             } else {
-                createCommentVNode("v-if", true)
+                _cC("v-if", true)
             }
         ), 4)
     }
@@ -194,7 +190,7 @@ open class GenUniModulesTmxUiComponentsXPullRefreshXPullRefresh : VueComponent {
     open var _pullDiffHeight: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("status" to "none" as XPULL_STATUS, "isRefresh" to false, "refresherTriggered" to false, "pullDy" to 0, "tid" to 0, "bootomIsRefresh" to false, "statusbarHeight" to 0, "dirtid" to 12, "scrollTop" to 0, "scrollIntoView" to "", "_disabledPull" to computed<Boolean>(fun(): Boolean {
+        return _uM("status" to "none" as XPULL_STATUS, "isRefresh" to false, "refresherTriggered" to false, "pullDy" to 0, "tid" to 0, "bootomIsRefresh" to false, "statusbarHeight" to 0, "dirtid" to 12, "scrollTop" to 0, "scrollIntoView" to "", "_disabledPull" to computed<Boolean>(fun(): Boolean {
             return this.disabledPull
         }
         ), "_disabledBottom" to computed<Boolean>(fun(): Boolean {
@@ -315,19 +311,19 @@ open class GenUniModulesTmxUiComponentsXPullRefreshXPullRefresh : VueComponent {
     }
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xRefreshPullContentBottom" to padStyleMapOf(utsMapOf("paddingTop" to 16, "paddingRight" to 0, "paddingBottom" to 16, "paddingLeft" to 0)), "xRefreshPullContentWrap" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "flex-end", "width" to "100%")), "xRefreshPullContent" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center", "flex" to 1)), "xRefreshText" to padStyleMapOf(utsMapOf("fontSize" to 16, "marginLeft" to 8)))
+                return _uM("xRefreshPullContentBottom" to _pS(_uM("paddingTop" to 16, "paddingRight" to 0, "paddingBottom" to 16, "paddingLeft" to 0)), "xRefreshPullContentWrap" to _pS(_uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "flex-end", "width" to "100%")), "xRefreshPullContent" to _pS(_uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center", "flex" to 1)), "xRefreshText" to _pS(_uM("fontSize" to 16, "marginLeft" to 8)))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("refresh" to null, "bottomRefresh" to null, "update:modelBottomStatus" to null, "scroll" to null, "scrollDirection" to null, "update:modelValue" to null)
-        var props = normalizePropsOptions(utsMapOf("height" to utsMapOf("type" to "String", "default" to "100%"), "pullHeight" to utsMapOf("type" to "Number", "default" to 60), "color" to utsMapOf("type" to "String", "default" to ""), "textColor" to utsMapOf("type" to "String", "default" to ""), "modelValue" to utsMapOf("type" to "Boolean", "default" to false), "modelBottomStatus" to utsMapOf("type" to "Boolean", "default" to false), "mode" to utsMapOf("type" to "String", "default" to "scrollview"), "showScrollbar" to utsMapOf("type" to "Boolean", "default" to true), "disabledPull" to utsMapOf("type" to "Boolean", "default" to false), "disabledBottom" to utsMapOf("type" to "Boolean", "default" to false)))
-        var propsNeedCastKeys = utsArrayOf(
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("refresh" to null, "bottomRefresh" to null, "update:modelBottomStatus" to null, "scroll" to null, "scrollDirection" to null, "update:modelValue" to null)
+        var props = _nP(_uM("height" to _uM("type" to "String", "default" to "100%"), "pullHeight" to _uM("type" to "Number", "default" to 60), "color" to _uM("type" to "String", "default" to ""), "textColor" to _uM("type" to "String", "default" to ""), "modelValue" to _uM("type" to "Boolean", "default" to false), "modelBottomStatus" to _uM("type" to "Boolean", "default" to false), "mode" to _uM("type" to "String", "default" to "scrollview"), "showScrollbar" to _uM("type" to "Boolean", "default" to true), "disabledPull" to _uM("type" to "Boolean", "default" to false), "disabledBottom" to _uM("type" to "Boolean", "default" to false)))
+        var propsNeedCastKeys = _uA(
             "height",
             "pullHeight",
             "color",
@@ -339,6 +335,6 @@ open class GenUniModulesTmxUiComponentsXPullRefreshXPullRefresh : VueComponent {
             "disabledPull",
             "disabledBottom"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

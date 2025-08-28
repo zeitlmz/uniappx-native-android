@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.`$emit` as uni__emit
 import uts.sdk.modules.xLoadingS.XLOADINGS_TYPE
 import uts.sdk.modules.xTipsS.XTIPS_TYPE
@@ -157,33 +153,33 @@ open class GenPagesPersonalSwitchPhoneNoLoginIndex : BasePage {
                 val _component_x_keyboard_number = resolveEasyComponent("x-keyboard-number", GenUniModulesTmxUiComponentsXKeyboardNumberXKeyboardNumberClass)
                 val _component_mc_base_container = resolveEasyComponent("mc-base-container", GenComponentsMcBaseContainerIndexClass)
                 val _component_mc_primary_button = resolveEasyComponent("mc-primary-button", GenComponentsMcPrimaryButtonIndexClass)
-                return createElementVNode(Fragment, null, utsArrayOf(
-                    createVNode(_component_mc_base_container, utsMapOf("showStatusBarPlaceholder" to false, "scroll" to true, "show-navbar" to true, "navbarIsPlace" to false, "static-transparent" to false, "title" to "变更手机号"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                        return utsArrayOf(
-                            createElementVNode("view", utsMapOf("style" to normalizeStyle("width:100%;height: " + unref(statusBarHeight) + "px;")), null, 4),
-                            createElementVNode("view", utsMapOf("class" to "home-bg"), utsArrayOf(
-                                createElementVNode("view", utsMapOf("class" to "top-bg"))
+                return _cE(Fragment, null, _uA(
+                    _cV(_component_mc_base_container, _uM("showStatusBarPlaceholder" to false, "scroll" to true, "show-navbar" to true, "navbarIsPlace" to false, "static-transparent" to false, "title" to "变更手机号"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                        return _uA(
+                            _cE("view", _uM("style" to _nS("width:100%;height: " + unref(statusBarHeight) + "px;")), null, 4),
+                            _cE("view", _uM("class" to "home-bg"), _uA(
+                                _cE("view", _uM("class" to "top-bg"))
                             )),
-                            createElementVNode("view", utsMapOf("class" to "container", "style" to normalizeStyle("height: " + (unref(screenHeight) - unref(globalData).safeAreaBottom - unref(statusBarHeight) - 20) + "px;")), utsArrayOf(
-                                createElementVNode("view", utsMapOf("class" to "mt-50 mb-15"), utsArrayOf(
-                                    createVNode(_component_x_sheet, utsMapOf("height" to "120rpx"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                        return utsArrayOf(
-                                            createElementVNode("view", utsMapOf("class" to "view-itme"), utsArrayOf(
-                                                createElementVNode("view", null, utsArrayOf(
-                                                    createVNode(_component_x_text, utsMapOf("style" to normalizeStyle(utsMapOf("font-weight" to "bold"))), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                                        return utsArrayOf(
+                            _cE("view", _uM("class" to "container", "style" to _nS("height: " + (unref(screenHeight) - unref(globalData).safeAreaBottom - unref(statusBarHeight) - 20) + "px;")), _uA(
+                                _cE("view", _uM("class" to "mt-50 mb-15"), _uA(
+                                    _cV(_component_x_sheet, _uM("height" to "120rpx"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                        return _uA(
+                                            _cE("view", _uM("class" to "view-itme"), _uA(
+                                                _cE("view", null, _uA(
+                                                    _cV(_component_x_text, _uM("style" to _nS(_uM("font-weight" to "bold"))), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                        return _uA(
                                                             "旧手机号："
                                                         )
                                                     }
-                                                    ), "_" to 1), 8, utsArrayOf(
+                                                    ), "_" to 1), 8, _uA(
                                                         "style"
                                                     ))
                                                 )),
-                                                createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("width" to "50%"))), utsArrayOf(
-                                                    createVNode(_component_x_input, utsMapOf("modelValue" to unref(reqData).oldPhone, "onUpdate:modelValue" to fun(`$event`: String){
+                                                _cE("view", _uM("style" to _nS(_uM("width" to "50%"))), _uA(
+                                                    _cV(_component_x_input, _uM("modelValue" to unref(reqData).oldPhone, "onUpdate:modelValue" to fun(`$event`: String){
                                                         unref(reqData).oldPhone = `$event`
                                                     }
-                                                    , "placeholder" to "请输入旧手机号", "type" to "number", "maxlength" to 11, "color" to "transparent", "align" to "right", "font-size" to "30rpx"), null, 8, utsArrayOf(
+                                                    , "placeholder" to "请输入旧手机号", "type" to "number", "maxlength" to 11, "color" to "transparent", "align" to "right", "font-size" to "30rpx"), null, 8, _uA(
                                                         "modelValue",
                                                         "onUpdate:modelValue"
                                                     ))
@@ -192,24 +188,24 @@ open class GenPagesPersonalSwitchPhoneNoLoginIndex : BasePage {
                                         )
                                     }
                                     ), "_" to 1)),
-                                    createVNode(_component_x_sheet, utsMapOf("height" to "120rpx"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                        return utsArrayOf(
-                                            createElementVNode("view", utsMapOf("class" to "view-itme"), utsArrayOf(
-                                                createElementVNode("view", null, utsArrayOf(
-                                                    createVNode(_component_x_text, utsMapOf("style" to normalizeStyle(utsMapOf("font-weight" to "bold"))), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                                        return utsArrayOf(
+                                    _cV(_component_x_sheet, _uM("height" to "120rpx"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                        return _uA(
+                                            _cE("view", _uM("class" to "view-itme"), _uA(
+                                                _cE("view", null, _uA(
+                                                    _cV(_component_x_text, _uM("style" to _nS(_uM("font-weight" to "bold"))), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                        return _uA(
                                                             "新手机号："
                                                         )
                                                     }
-                                                    ), "_" to 1), 8, utsArrayOf(
+                                                    ), "_" to 1), 8, _uA(
                                                         "style"
                                                     ))
                                                 )),
-                                                createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("width" to "50%"))), utsArrayOf(
-                                                    createVNode(_component_x_input, utsMapOf("modelValue" to unref(reqData).newPhone, "onUpdate:modelValue" to fun(`$event`: String){
+                                                _cE("view", _uM("style" to _nS(_uM("width" to "50%"))), _uA(
+                                                    _cV(_component_x_input, _uM("modelValue" to unref(reqData).newPhone, "onUpdate:modelValue" to fun(`$event`: String){
                                                         unref(reqData).newPhone = `$event`
                                                     }
-                                                    , "placeholder" to "请输入新手机号", "type" to "number", "maxlength" to 11, "color" to "transparent", "align" to "right", "font-size" to "30rpx"), null, 8, utsArrayOf(
+                                                    , "placeholder" to "请输入新手机号", "type" to "number", "maxlength" to 11, "color" to "transparent", "align" to "right", "font-size" to "30rpx"), null, 8, _uA(
                                                         "modelValue",
                                                         "onUpdate:modelValue"
                                                     ))
@@ -218,35 +214,35 @@ open class GenPagesPersonalSwitchPhoneNoLoginIndex : BasePage {
                                         )
                                     }
                                     ), "_" to 1)),
-                                    createVNode(_component_x_sheet, utsMapOf("height" to "120rpx"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                        return utsArrayOf(
-                                            createElementVNode("view", utsMapOf("class" to "view-itme"), utsArrayOf(
-                                                createElementVNode("view", null, utsArrayOf(
-                                                    createVNode(_component_x_text, utsMapOf("style" to normalizeStyle(utsMapOf("font-weight" to "bold"))), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                                        return utsArrayOf(
+                                    _cV(_component_x_sheet, _uM("height" to "120rpx"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                        return _uA(
+                                            _cE("view", _uM("class" to "view-itme"), _uA(
+                                                _cE("view", null, _uA(
+                                                    _cV(_component_x_text, _uM("style" to _nS(_uM("font-weight" to "bold"))), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                        return _uA(
                                                             "二级密码："
                                                         )
                                                     }
-                                                    ), "_" to 1), 8, utsArrayOf(
+                                                    ), "_" to 1), 8, _uA(
                                                         "style"
                                                     ))
                                                 )),
-                                                createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("width" to "60%"))), utsArrayOf(
-                                                    createVNode(_component_x_keyboard_number, utsMapOf("mode" to "password", "digit" to false, "bgColor" to "#ffffff", "showValue" to false, "maxLen" to 6, "modelValue" to unref(reqData).newPassword, "onUpdate:modelValue" to fun(`$event`: String){
+                                                _cE("view", _uM("style" to _nS(_uM("width" to "60%"))), _uA(
+                                                    _cV(_component_x_keyboard_number, _uM("mode" to "password", "digit" to false, "bgColor" to "#ffffff", "showValue" to false, "maxLen" to 6, "modelValue" to unref(reqData).newPassword, "onUpdate:modelValue" to fun(`$event`: String){
                                                         unref(reqData).newPassword = `$event`
                                                     }
-                                                    , "onChange" to changePwd, "title" to "安全键盘请放心输入"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                                        return utsArrayOf(
-                                                            createVNode(_component_x_input, utsMapOf("color" to "transparent", "type" to "number", "disabled" to true, "maxlength" to 6, "modelValue" to unref(reqData).newPassword, "onUpdate:modelValue" to fun(`$event`: String){
+                                                    , "onChange" to changePwd, "title" to "安全键盘请放心输入"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                        return _uA(
+                                                            _cV(_component_x_input, _uM("color" to "transparent", "type" to "number", "disabled" to true, "maxlength" to 6, "modelValue" to unref(reqData).newPassword, "onUpdate:modelValue" to fun(`$event`: String){
                                                                 unref(reqData).newPassword = `$event`
                                                             }
-                                                            , "align" to "right", "placeholder" to "请输入六位数二级密码", "font-size" to "30rpx"), null, 8, utsArrayOf(
+                                                            , "align" to "right", "placeholder" to "请输入六位数二级密码", "font-size" to "30rpx"), null, 8, _uA(
                                                                 "modelValue",
                                                                 "onUpdate:modelValue"
                                                             ))
                                                         )
                                                     }
-                                                    ), "_" to 1), 8, utsArrayOf(
+                                                    ), "_" to 1), 8, _uA(
                                                         "modelValue",
                                                         "onUpdate:modelValue"
                                                     ))
@@ -255,26 +251,26 @@ open class GenPagesPersonalSwitchPhoneNoLoginIndex : BasePage {
                                         )
                                     }
                                     ), "_" to 1)),
-                                    createVNode(_component_x_sheet, utsMapOf("height" to "120rpx"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                        return utsArrayOf(
-                                            createElementVNode("view", utsMapOf("class" to "view-itme"), utsArrayOf(
-                                                createElementVNode("view", null, utsArrayOf(
-                                                    createVNode(_component_x_text, utsMapOf("style" to normalizeStyle(utsMapOf("font-weight" to "bold"))), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                                        return utsArrayOf(
+                                    _cV(_component_x_sheet, _uM("height" to "120rpx"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                        return _uA(
+                                            _cE("view", _uM("class" to "view-itme"), _uA(
+                                                _cE("view", null, _uA(
+                                                    _cV(_component_x_text, _uM("style" to _nS(_uM("font-weight" to "bold"))), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                        return _uA(
                                                             "验证码："
                                                         )
                                                     }
-                                                    ), "_" to 1), 8, utsArrayOf(
+                                                    ), "_" to 1), 8, _uA(
                                                         "style"
                                                     ))
                                                 )),
-                                                createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("width" to "50%"))), utsArrayOf(
-                                                    createVNode(_component_x_input, utsMapOf("color" to "transparent", "type" to "number", "maxlength" to 6, "modelValue" to unref(reqData).code, "onUpdate:modelValue" to fun(`$event`: String){
+                                                _cE("view", _uM("style" to _nS(_uM("width" to "50%"))), _uA(
+                                                    _cV(_component_x_input, _uM("color" to "transparent", "type" to "number", "maxlength" to 6, "modelValue" to unref(reqData).code, "onUpdate:modelValue" to fun(`$event`: String){
                                                         unref(reqData).code = `$event`
                                                     }
-                                                    , "align" to "right", "placeholder" to "请输入", "font-size" to "30rpx"), utsMapOf("inputRight" to withSlotCtx(fun(): UTSArray<Any> {
-                                                        return utsArrayOf(
-                                                            createElementVNode("text", utsMapOf("class" to "get-code-btn", "onClick" to toSwitchCheck), toDisplayString(if (unref(countdown) > 0) {
+                                                    , "align" to "right", "placeholder" to "请输入", "font-size" to "30rpx"), _uM("inputRight" to withSlotCtx(fun(): UTSArray<Any> {
+                                                        return _uA(
+                                                            _cE("text", _uM("class" to "get-code-btn", "onClick" to toSwitchCheck), _tD(if (unref(countdown) > 0) {
                                                                 "" + unref(countdown) + "s\u540E\u91CD\u8BD5"
                                                             } else {
                                                                 "获取验证码"
@@ -282,7 +278,7 @@ open class GenPagesPersonalSwitchPhoneNoLoginIndex : BasePage {
                                                             ), 1)
                                                         )
                                                     }
-                                                    ), "_" to 1), 8, utsArrayOf(
+                                                    ), "_" to 1), 8, _uA(
                                                         "modelValue",
                                                         "onUpdate:modelValue"
                                                     ))
@@ -296,9 +292,9 @@ open class GenPagesPersonalSwitchPhoneNoLoginIndex : BasePage {
                         )
                     }
                     ), "_" to 1)),
-                    createElementVNode("view", utsMapOf("class" to "bottom-panel flex-row"), utsArrayOf(
-                        createVNode(_component_mc_primary_button, utsMapOf("height" to "89rpx", "onClick" to toSwitch), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                            return utsArrayOf(
+                    _cE("view", _uM("class" to "bottom-panel flex-row"), _uA(
+                        _cV(_component_mc_primary_button, _uM("height" to "89rpx", "onClick" to toSwitch), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                            return _uA(
                                 "提交"
                             )
                         }
@@ -308,21 +304,21 @@ open class GenPagesPersonalSwitchPhoneNoLoginIndex : BasePage {
             }
         }
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
-            ), utsArrayOf(
+            ), _uA(
                 GenApp.styles
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("container" to padStyleMapOf(utsMapOf("width" to "100%", "position" to "relative", "paddingTop" to 0, "paddingRight" to 15, "paddingBottom" to 0, "paddingLeft" to 15, "marginTop" to 20, "height" to 900)), "home-bg" to padStyleMapOf(utsMapOf("position" to "absolute", "top" to 0, "left" to 0, "bottom" to 0, "width" to "100%", "zIndex" to -1)), "top-bg" to utsMapOf(".home-bg " to utsMapOf("height" to 900, "width" to "100%", "backgroundImage" to "linear-gradient(to bottom, #CAD7F2, #FFFFFF)")), "get-code-btn" to padStyleMapOf(utsMapOf("color" to "#536EA6", "fontSize" to "30rpx")), "view-itme" to padStyleMapOf(utsMapOf("width" to "100%", "flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center", "marginTop" to "-10rpx")), "bottom-panel" to padStyleMapOf(utsMapOf("position" to "fixed", "bottom" to 0, "left" to 0, "width" to "100%", "paddingTop" to "20rpx", "paddingRight" to "20rpx", "paddingBottom" to "60rpx", "paddingLeft" to "20rpx")))
+                return _uM("container" to _pS(_uM("width" to "100%", "position" to "relative", "paddingTop" to 0, "paddingRight" to 15, "paddingBottom" to 0, "paddingLeft" to 15, "marginTop" to 20, "height" to 900)), "home-bg" to _pS(_uM("position" to "absolute", "top" to 0, "left" to 0, "bottom" to 0, "width" to "100%", "zIndex" to -1)), "top-bg" to _uM(".home-bg " to _uM("height" to 900, "width" to "100%", "backgroundImage" to "linear-gradient(to bottom, #CAD7F2, #FFFFFF)")), "get-code-btn" to _pS(_uM("color" to "#536EA6", "fontSize" to "30rpx")), "view-itme" to _pS(_uM("width" to "100%", "flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center", "marginTop" to "-10rpx")), "bottom-panel" to _pS(_uM("position" to "fixed", "bottom" to 0, "left" to 0, "width" to "100%", "paddingTop" to "20rpx", "paddingRight" to "20rpx", "paddingBottom" to "60rpx", "paddingLeft" to "20rpx")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf()
-        var props = normalizePropsOptions(utsMapOf())
-        var propsNeedCastKeys: UTSArray<String> = utsArrayOf()
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM()
+        var props = _nP(_uM())
+        var propsNeedCastKeys: UTSArray<String> = _uA()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

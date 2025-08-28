@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 open class GenUniModulesTmxUiComponentsXIconXIcon : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {
         onBeforeUnmount(fun() {
@@ -65,9 +61,9 @@ open class GenUniModulesTmxUiComponentsXIconXIcon : VueComponent {
         val _ctx = this
         val _cache = this.`$`.renderCache
         return if (isTrue(!_ctx._isFileImg)) {
-            createElementVNode("text", utsMapOf("key" to 0, "onClick" to _ctx.clickListen, "id" to _ctx.id, "ref" to "xIcons", "class" to normalizeClass(utsArrayOf(
+            _cE("text", _uM("key" to 0, "onClick" to _ctx.clickListen, "id" to _ctx.id, "ref" to "xIcons", "class" to _nC(_uA(
                 "face",
-                utsArrayOf(
+                _uA(
                     if (_ctx._spin) {
                         "faceSpinIcon"
                     } else {
@@ -75,12 +71,12 @@ open class GenUniModulesTmxUiComponentsXIconXIcon : VueComponent {
                     },
                     _ctx._mpcode
                 )
-            )), "style" to normalizeStyle(utsMapOf("font-family" to _ctx.fontFamily, "font-size" to _ctx._fontSize, "color" to _ctx._color, "width" to _ctx._fontSize, "height" to _ctx._fontSize, "lineHeight" to _ctx._fontSize))), toDisplayString(_ctx.iconName), 15, utsArrayOf(
+            )), "style" to _nS(_uM("font-family" to _ctx.fontFamily, "font-size" to _ctx._fontSize, "color" to _ctx._color, "width" to _ctx._fontSize, "height" to _ctx._fontSize, "lineHeight" to _ctx._fontSize))), _tD(_ctx.iconName), 15, _uA(
                 "onClick",
                 "id"
             ))
         } else {
-            createElementVNode("image", utsMapOf("key" to 1, "onClick" to _ctx.clickListen, "id" to _ctx.id, "ref" to "xIcons", "style" to normalizeStyle(utsMapOf("width" to _ctx._fontSize, "height" to _ctx._fontSize)), "src" to _ctx.iconName), null, 12, utsArrayOf(
+            _cE("image", _uM("key" to 1, "onClick" to _ctx.clickListen, "id" to _ctx.id, "ref" to "xIcons", "style" to _nS(_uM("width" to _ctx._fontSize, "height" to _ctx._fontSize)), "src" to _ctx.iconName), null, 12, _uA(
                 "onClick",
                 "id",
                 "src"
@@ -116,7 +112,7 @@ open class GenUniModulesTmxUiComponentsXIconXIcon : VueComponent {
     open var _rotation: Number by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("xIcon" to null as Element?, "refreshId" to 1, "id" to ("xIconspin" + getUid()), "element" to null as Element?, "rotationDeg" to 0, "isLoad" to false, "isdestory" to false, "status" to "play", "tid" to 0, "xt" to xTween(), "_iconName" to computed<String>(fun(): String {
+        return _uM("xIcon" to null as Element?, "refreshId" to 1, "id" to ("xIconspin" + getUid()), "element" to null as Element?, "rotationDeg" to 0, "isLoad" to false, "isdestory" to false, "status" to "play", "tid" to 0, "xt" to xTween(), "_iconName" to computed<String>(fun(): String {
             return this.name
         }
         ), "_mpcode" to computed<String>(fun(): String {
@@ -219,19 +215,19 @@ open class GenUniModulesTmxUiComponentsXIconXIcon : VueComponent {
     }
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("face" to padStyleMapOf(utsMapOf("transitionProperty" to "transform", "transitionDuration" to "0ms", "transitionTimingFunction" to "linear", "transform" to "rotate(0deg)", "textAlign" to "center")), "@TRANSITION" to utsMapOf("face" to utsMapOf("property" to "transform", "duration" to "0ms", "timingFunction" to "linear")))
+                return _uM("face" to _pS(_uM("transitionProperty" to "transform", "transitionDuration" to "0ms", "transitionTimingFunction" to "linear", "transform" to "rotate(0deg)", "textAlign" to "center")), "@TRANSITION" to _uM("face" to _uM("property" to "transform", "duration" to "0ms", "timingFunction" to "linear")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("click" to null)
-        var props = normalizePropsOptions(utsMapOf("name" to utsMapOf("type" to "String", "default" to "home-3-fill"), "fontSize" to utsMapOf("type" to "String", "default" to "16"), "fontFamily" to utsMapOf("type" to "String", "default" to "remixicon"), "code" to utsMapOf("type" to "String", "default" to ""), "color" to utsMapOf("type" to "String", "default" to "black"), "darkColor" to utsMapOf("type" to "String", "default" to ""), "spin" to utsMapOf("type" to "Boolean", "default" to false), "rotation" to utsMapOf("type" to "Number", "default" to 0), "duration" to utsMapOf("type" to "Number", "default" to 1500)))
-        var propsNeedCastKeys = utsArrayOf(
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("click" to null)
+        var props = _nP(_uM("name" to _uM("type" to "String", "default" to "home-3-fill"), "fontSize" to _uM("type" to "String", "default" to "16"), "fontFamily" to _uM("type" to "String", "default" to "remixicon"), "code" to _uM("type" to "String", "default" to ""), "color" to _uM("type" to "String", "default" to "black"), "darkColor" to _uM("type" to "String", "default" to ""), "spin" to _uM("type" to "Boolean", "default" to false), "rotation" to _uM("type" to "Number", "default" to 0), "duration" to _uM("type" to "Number", "default" to 1500)))
+        var propsNeedCastKeys = _uA(
             "name",
             "fontSize",
             "fontFamily",
@@ -242,6 +238,6 @@ open class GenUniModulesTmxUiComponentsXIconXIcon : VueComponent {
             "rotation",
             "duration"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

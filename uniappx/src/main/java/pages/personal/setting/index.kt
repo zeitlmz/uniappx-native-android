@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.`$emit` as uni__emit
 import uts.sdk.modules.xTipsS.XTIPS_TYPE
 import uts.sdk.modules.xModalS.X_MODAL_TYPE
@@ -55,26 +51,26 @@ open class GenPagesPersonalSettingIndex : BasePage {
             val globalData = inject("globalData") as GlobalDataType
             val router = uni_useKuxRouter()
             val showRouteLove = ref(false)
-            val menuList = utsArrayOf<MenuItem>(MenuItem(title = "账户与安全", showArrow = true, isHide = !globalData.isLogin, click = fun(){
+            val menuList = _uA<MenuItem>(MenuItem(title = "账户与安全", showArrow = true, isHide = !globalData.isLogin, click = fun(){
                 console.log("进入账户与安全")
                 router.push("/pages/personal/setting/account-safe/index")
             }
             ), MenuItem(title = "紧急联系人", showArrow = true, isHide = globalData.entryStatus != AUDIT_APPROVE, click = fun(){
                 router.push("/pages/personal/setting/emergency-contact/index")
             }
-            ), MenuItem(title = "权限管理", showArrow = true, click = fun(){
+            ), MenuItem(title = "权限管理", showArrow = true, isHide = false, click = fun(){
                 router.push("/pages/personal/setting/grant-manage/index")
             }
-            ), MenuItem(title = "协议管理", showArrow = true, click = fun(){
+            ), MenuItem(title = "协议管理", showArrow = true, isHide = false, click = fun(){
                 router.push("/pages/personal/setting/agreement/index")
             }
-            ), MenuItem(title = "关于我们", showArrow = true, click = fun(){
+            ), MenuItem(title = "关于我们", showArrow = true, isHide = false, click = fun(){
                 router.push("/pages/personal/setting/about-us/index")
             }
-            ), MenuItem(title = "联系我们", showArrow = true, click = fun(){
+            ), MenuItem(title = "联系我们", showArrow = true, isHide = false, click = fun(){
                 router.push("/pages/personal/setting/contact-us/index")
             }
-            ), MenuItem(title = "版本号", value = appVersion, showArrow = false, click = fun(){}))
+            ), MenuItem(title = "版本号", value = appVersion, showArrow = false, isHide = false, click = fun(){}))
             val handleLogout = fun(){
                 showModal(X_MODAL_TYPE(title = "温馨提示", content = "确认要退出登录", confirmText = "知道了", clickMaskClose = false, confirmBgColor = globalData.theme.primaryColor, confirm = fun(){
                     logout().then(fun(res: Response){
@@ -96,15 +92,15 @@ open class GenPagesPersonalSettingIndex : BasePage {
                 val _component_mc_active_animation = resolveEasyComponent("mc-active-animation", GenComponentsMcActiveAnimationIndexClass)
                 val _component_mc_base_container = resolveEasyComponent("mc-base-container", GenComponentsMcBaseContainerIndexClass)
                 val _component_mc_primary_button = resolveEasyComponent("mc-primary-button", GenComponentsMcPrimaryButtonIndexClass)
-                return createElementVNode(Fragment, null, utsArrayOf(
-                    createVNode(_component_mc_base_container, utsMapOf("title" to "设置"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                        return utsArrayOf(
-                            createElementVNode(Fragment, null, RenderHelpers.renderList(menuList, fun(menu, index, __index, _cached): Any {
-                                return createElementVNode(Fragment, utsMapOf("key" to menu.title), utsArrayOf(
+                return _cE(Fragment, null, _uA(
+                    _cV(_component_mc_base_container, _uM("title" to "设置"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                        return _uA(
+                            _cE(Fragment, null, RenderHelpers.renderList(menuList, fun(menu, index, __index, _cached): Any {
+                                return _cE(Fragment, _uM("key" to menu.title), _uA(
                                     if (isTrue(!menu.isHide ?: true)) {
-                                        createVNode(_component_mc_active_animation, utsMapOf("key" to 0), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                            return utsArrayOf(
-                                                createVNode(_component_x_sheet, utsMapOf("margin" to utsArrayOf(
+                                        _cV(_component_mc_active_animation, _uM("key" to 0), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                            return _uA(
+                                                _cV(_component_x_sheet, _uM("margin" to _uA(
                                                     "15",
                                                     "15",
                                                     "15",
@@ -113,36 +109,36 @@ open class GenPagesPersonalSettingIndex : BasePage {
                                                     } else {
                                                         "0"
                                                     }
-                                                ), "padding" to utsArrayOf(
+                                                ), "padding" to _uA(
                                                     "20"
-                                                ), "onClick" to menu.click), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                                    return utsArrayOf(
-                                                        createElementVNode("view", utsMapOf("class" to "setting-item"), utsArrayOf(
-                                                            createElementVNode("text", utsMapOf("class" to "name"), toDisplayString(menu.title), 1),
-                                                            createElementVNode("view", utsMapOf("class" to "flex-row"), utsArrayOf(
+                                                ), "onClick" to menu.click), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                    return _uA(
+                                                        _cE("view", _uM("class" to "setting-item"), _uA(
+                                                            _cE("text", _uM("class" to "name"), _tD(menu.title), 1),
+                                                            _cE("view", _uM("class" to "flex-row"), _uA(
                                                                 if (menu.value != null) {
-                                                                    createElementVNode("text", utsMapOf("key" to 0, "class" to "value"), toDisplayString(menu.value), 1)
+                                                                    _cE("text", _uM("key" to 0, "class" to "value"), _tD(menu.value), 1)
                                                                 } else {
-                                                                    createCommentVNode("v-if", true)
+                                                                    _cC("v-if", true)
                                                                 },
                                                                 if (isTrue(menu.showArrow)) {
-                                                                    createElementVNode("image", utsMapOf("key" to 1, "class" to "icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-arrow-right-line-samll.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
+                                                                    _cE("image", _uM("key" to 1, "class" to "icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-arrow-right-line-samll.png"), "mode" to "widthFix"), null, 8, _uA(
                                                                         "src"
                                                                     ))
                                                                 } else {
-                                                                    createCommentVNode("v-if", true)
+                                                                    _cC("v-if", true)
                                                                 }
                                                             ))
                                                         ))
                                                     )
-                                                }), "_" to 2), 1032, utsArrayOf(
+                                                }), "_" to 2), 1032, _uA(
                                                     "margin",
                                                     "onClick"
                                                 ))
                                             )
                                         }), "_" to 2), 1024)
                                     } else {
-                                        createCommentVNode("v-if", true)
+                                        _cC("v-if", true)
                                     }
                                 ), 64)
                             }
@@ -151,35 +147,35 @@ open class GenPagesPersonalSettingIndex : BasePage {
                     }
                     ), "_" to 1)),
                     if (isTrue(unref(globalData).isLogin)) {
-                        createElementVNode("view", utsMapOf("key" to 0, "class" to "bottom-panel flex-row"), utsArrayOf(
-                            createVNode(_component_mc_primary_button, utsMapOf("height" to "100rpx", "onClick" to handleLogout), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                return utsArrayOf(
+                        _cE("view", _uM("key" to 0, "class" to "bottom-panel flex-row"), _uA(
+                            _cV(_component_mc_primary_button, _uM("height" to "100rpx", "onClick" to handleLogout), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                return _uA(
                                     "退出登录"
                                 )
                             }), "_" to 1))
                         ))
                     } else {
-                        createCommentVNode("v-if", true)
+                        _cC("v-if", true)
                     }
                 ), 64)
             }
         }
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
-            ), utsArrayOf(
+            ), _uA(
                 GenApp.styles
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("setting-item" to padStyleMapOf(utsMapOf("flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center")), "name" to utsMapOf(".setting-item " to utsMapOf("fontSize" to 17)), "icon" to utsMapOf(".setting-item " to utsMapOf("width" to "17rpx", "height" to "28rpx", "marginLeft" to "20rpx")), "bottom-panel" to padStyleMapOf(utsMapOf("position" to "fixed", "bottom" to 0, "left" to 0, "width" to "100%", "paddingTop" to "20rpx", "paddingRight" to "20rpx", "paddingBottom" to "60rpx", "paddingLeft" to "20rpx", "boxShadow" to "0 -2px 10px rgba(0, 0, 0, 0.1)")))
+                return _uM("setting-item" to _pS(_uM("flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center")), "name" to _uM(".setting-item " to _uM("fontSize" to 17)), "icon" to _uM(".setting-item " to _uM("width" to "17rpx", "height" to "28rpx", "marginLeft" to "20rpx")), "bottom-panel" to _pS(_uM("position" to "fixed", "bottom" to 0, "left" to 0, "width" to "100%", "paddingTop" to "20rpx", "paddingRight" to "20rpx", "paddingBottom" to "60rpx", "paddingLeft" to "20rpx", "boxShadow" to "0 -2px 10px rgba(0, 0, 0, 0.1)")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf()
-        var props = normalizePropsOptions(utsMapOf())
-        var propsNeedCastKeys: UTSArray<String> = utsArrayOf()
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM()
+        var props = _nP(_uM())
+        var propsNeedCastKeys: UTSArray<String> = _uA()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

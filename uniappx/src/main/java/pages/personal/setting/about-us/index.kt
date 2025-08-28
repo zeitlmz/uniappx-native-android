@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.`$emit` as uni__emit
 open class GenPagesPersonalSettingAboutUsIndex : BasePage {
     constructor(__ins: ComponentInternalInstance, __renderer: String?) : super(__ins, __renderer) {
@@ -51,26 +47,26 @@ open class GenPagesPersonalSettingAboutUsIndex : BasePage {
             return fun(): Any? {
                 val _component_x_sheet = resolveEasyComponent("x-sheet", GenUniModulesTmxUiComponentsXSheetXSheetClass)
                 val _component_mc_base_container = resolveEasyComponent("mc-base-container", GenComponentsMcBaseContainerIndexClass)
-                return createVNode(_component_mc_base_container, utsMapOf("title" to "关于我们"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                    return utsArrayOf(
-                        createElementVNode("view", utsMapOf("class" to "logo-box"), utsArrayOf(
-                            createElementVNode("image", utsMapOf("class" to "icon", "src" to "/static/logo.png", "mode" to "widthFix")),
-                            createElementVNode("text", utsMapOf("class" to "version"), "V" + toDisplayString(unref(appVersion)), 1)
+                return _cV(_component_mc_base_container, _uM("title" to "关于我们"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                    return _uA(
+                        _cE("view", _uM("class" to "logo-box"), _uA(
+                            _cE("image", _uM("class" to "icon", "src" to "/static/logo.png", "mode" to "widthFix")),
+                            _cE("text", _uM("class" to "version"), "V" + _tD(unref(appVersion)), 1)
                         )),
-                        createVNode(_component_x_sheet, utsMapOf("margin" to utsArrayOf(
+                        _cV(_component_x_sheet, _uM("margin" to _uA(
                             "15"
-                        ), "padding" to utsArrayOf(
+                        ), "padding" to _uA(
                             "20"
-                        )), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                            return utsArrayOf(
-                                createElementVNode("text", utsMapOf("class" to "desc"), "每橙车主定位于汽车消费生态服务产业解决方案，以自研的“每橙车主”出行平台为支撑，通过网约车、定制客运和旅游专车三大主营业务板块，构建汽车后市场和客运服务相融合的多维数字消费生态。"),
-                                createElementVNode("view", utsMapOf("class" to "ercode-box"), utsArrayOf(
-                                    createElementVNode("image", utsMapOf("class" to "ercode", "src" to ("" + unref(resBaseUrl) + "/static/images/image-wx-qrcode.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
+                        )), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                            return _uA(
+                                _cE("text", _uM("class" to "desc"), "每橙车主定位于汽车消费生态服务产业解决方案，以自研的“每橙车主”出行平台为支撑，通过网约车、定制客运和旅游专车三大主营业务板块，构建汽车后市场和客运服务相融合的多维数字消费生态。"),
+                                _cE("view", _uM("class" to "ercode-box"), _uA(
+                                    _cE("image", _uM("class" to "ercode", "src" to ("" + unref(resBaseUrl) + "/static/images/image-wx-qrcode.png"), "mode" to "widthFix"), null, 8, _uA(
                                         "src"
                                     )),
-                                    createElementVNode("view", utsMapOf("class" to "pl-20"), utsArrayOf(
-                                        createElementVNode("text", utsMapOf("class" to "text"), "微信扫码关注“每橙公众号”"),
-                                        createElementVNode("text", utsMapOf("class" to "text"), "第一时间接收各类福利通知")
+                                    _cE("view", _uM("class" to "pl-20"), _uA(
+                                        _cE("text", _uM("class" to "text"), "微信扫码关注“每橙公众号”"),
+                                        _cE("text", _uM("class" to "text"), "第一时间接收各类福利通知")
                                     ))
                                 ))
                             )
@@ -82,21 +78,21 @@ open class GenPagesPersonalSettingAboutUsIndex : BasePage {
             }
         }
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
-            ), utsArrayOf(
+            ), _uA(
                 GenApp.styles
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("logo-box" to padStyleMapOf(utsMapOf("flexDirection" to "column", "alignItems" to "center", "justifyContent" to "center", "paddingTop" to "74rpx", "paddingBottom" to "20rpx")), "icon" to utsMapOf(".logo-box " to utsMapOf("width" to "186rpx", "height" to "187rpx")), "version" to utsMapOf(".logo-box " to utsMapOf("fontWeight" to "bold", "fontSize" to "42rpx", "color" to "#000000", "paddingTop" to "24rpx")), "desc" to padStyleMapOf(utsMapOf("borderBottomWidth" to 1, "borderBottomStyle" to "dashed", "borderBottomColor" to "#4B677D", "lineHeight" to "60rpx", "paddingBottom" to "30rpx", "fontSize" to "30rpx", "color" to "#000000")), "ercode-box" to padStyleMapOf(utsMapOf("flexDirection" to "row", "alignItems" to "center", "justifyContent" to "center", "paddingTop" to "40rpx", "paddingBottom" to "200rpx")), "ercode" to utsMapOf(".ercode-box " to utsMapOf("width" to "160rpx", "height" to "160rpx")), "text" to utsMapOf(".ercode-box " to utsMapOf("fontSize" to "30rpx", "color" to "#000000", "lineHeight" to "60rpx")))
+                return _uM("logo-box" to _pS(_uM("flexDirection" to "column", "alignItems" to "center", "justifyContent" to "center", "paddingTop" to "74rpx", "paddingBottom" to "20rpx")), "icon" to _uM(".logo-box " to _uM("width" to "186rpx", "height" to "187rpx")), "version" to _uM(".logo-box " to _uM("fontWeight" to "bold", "fontSize" to "42rpx", "color" to "#000000", "paddingTop" to "24rpx")), "desc" to _pS(_uM("borderBottomWidth" to 1, "borderBottomStyle" to "dashed", "borderBottomColor" to "#4B677D", "lineHeight" to "60rpx", "paddingBottom" to "30rpx", "fontSize" to "30rpx", "color" to "#000000")), "ercode-box" to _pS(_uM("flexDirection" to "row", "alignItems" to "center", "justifyContent" to "center", "paddingTop" to "40rpx", "paddingBottom" to "200rpx")), "ercode" to _uM(".ercode-box " to _uM("width" to "160rpx", "height" to "160rpx")), "text" to _uM(".ercode-box " to _uM("fontSize" to "30rpx", "color" to "#000000", "lineHeight" to "60rpx")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf()
-        var props = normalizePropsOptions(utsMapOf())
-        var propsNeedCastKeys: UTSArray<String> = utsArrayOf()
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM()
+        var props = _nP(_uM())
+        var propsNeedCastKeys: UTSArray<String> = _uA()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 open class GenUniModulesTmxUiComponentsXPickerItemXPickerItem : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {
         onMounted(fun() {
@@ -54,24 +50,24 @@ open class GenUniModulesTmxUiComponentsXPickerItemXPickerItem : VueComponent {
         val _component_picker_view_column = resolveComponent("picker-view-column")
         val _component_picker_view = resolveComponent("picker-view")
         val _component_x_picker_item = resolveEasyComponent("x-picker-item", GenUniModulesTmxUiComponentsXPickerItemXPickerItemClass)
-        return createElementVNode("view", null, utsArrayOf(
+        return _cE("view", null, _uA(
             if (_ctx._unitsName != "") {
-                createElementVNode("view", utsMapOf("key" to 0, "class" to "xPickerViewUnit"), utsArrayOf(
-                    createVNode(_component_x_text, utsMapOf("font-size" to _ctx.unitsFontSize, "class" to "xPickerViewUnitText"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                        return utsArrayOf(
-                            toDisplayString(_ctx._unitsName)
+                _cE("view", _uM("key" to 0, "class" to "xPickerViewUnit"), _uA(
+                    _cV(_component_x_text, _uM("font-size" to _ctx.unitsFontSize, "class" to "xPickerViewUnitText"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                        return _uA(
+                            _tD(_ctx._unitsName)
                         )
-                    }), "_" to 1), 8, utsArrayOf(
+                    }), "_" to 1), 8, _uA(
                         "font-size"
                     ))
                 ))
             } else {
-                createCommentVNode("v-if", true)
+                _cC("v-if", true)
             }
             ,
-            createElementVNode("view", utsMapOf("class" to "xPickerView"), utsArrayOf(
-                createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("padding" to "0 2.5px"))), utsArrayOf(
-                    createVNode(_component_picker_view, utsMapOf("value" to _ctx.nowCurrentIndex, "onChange" to _ctx.onChange, "style" to normalizeStyle(utsMapOf("height" to "250px", "width" to ((_ctx._wrapWight - 5) + "px"))), "mask-style" to ("" + _ctx._maskStyle), "mask-bottom-style" to _ctx._maskStyle, "mask-top-style" to _ctx._maskStyle, "indicator-class" to if (_ctx._isDark) {
+            _cE("view", _uM("class" to "xPickerView"), _uA(
+                _cE("view", _uM("style" to _nS(_uM("padding" to "0 2.5px"))), _uA(
+                    _cV(_component_picker_view, _uM("value" to _ctx.nowCurrentIndex, "onChange" to _ctx.onChange, "style" to _nS(_uM("height" to "250px", "width" to ((_ctx._wrapWight - 5) + "px"))), "mask-style" to ("" + _ctx._maskStyle), "mask-bottom-style" to _ctx._maskStyle, "mask-top-style" to _ctx._maskStyle, "indicator-class" to if (_ctx._isDark) {
                         "indicatorClassDark"
                     } else {
                         "indicatorClassLight"
@@ -81,13 +77,13 @@ open class GenUniModulesTmxUiComponentsXPickerItemXPickerItem : VueComponent {
                     } else {
                         "rgba(0,0,0,0.05)"
                     }
-                    ) + ";border-radius:10px")), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                        return utsArrayOf(
-                            createVNode(_component_picker_view_column, null, utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                return utsArrayOf(
-                                    createElementVNode(Fragment, null, RenderHelpers.renderList(_ctx._list, fun(item, index, __index, _cached): Any {
-                                        return createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("height" to "50px")), "key" to index, "class" to "xPickerViewWrapCoumn"), utsArrayOf(
-                                            createElementVNode("text", utsMapOf("class" to "xPickerViewWrapCoumnText", "style" to normalizeStyle(utsMapOf("fontSize" to _ctx._fontSize, "lineHeight" to 1.1, "fontWeight" to if (_ctx.nowCurrentIndex[0] == index) {
+                    ) + ";border-radius:10px")), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                        return _uA(
+                            _cV(_component_picker_view_column, null, _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                return _uA(
+                                    _cE(Fragment, null, RenderHelpers.renderList(_ctx._list, fun(item, index, __index, _cached): Any {
+                                        return _cE("view", _uM("style" to _nS(_uM("height" to "50px")), "key" to index, "class" to "xPickerViewWrapCoumn"), _uA(
+                                            _cE("text", _uM("class" to "xPickerViewWrapCoumnText", "style" to _nS(_uM("fontSize" to _ctx._fontSize, "lineHeight" to 1.1, "fontWeight" to if (_ctx.nowCurrentIndex[0] == index) {
                                                 "bold"
                                             } else {
                                                 "inherit"
@@ -106,7 +102,7 @@ open class GenUniModulesTmxUiComponentsXPickerItemXPickerItem : VueComponent {
                                             } else {
                                                 "#000000"
                                             }
-                                            ))), toDisplayString(item.title), 5)
+                                            ))), _tD(item.title), 5)
                                         ), 4)
                                     }
                                     ), 128)
@@ -115,7 +111,7 @@ open class GenUniModulesTmxUiComponentsXPickerItemXPickerItem : VueComponent {
                             ), "_" to 1))
                         )
                     }
-                    ), "_" to 1), 8, utsArrayOf(
+                    ), "_" to 1), 8, _uA(
                         "value",
                         "onChange",
                         "style",
@@ -127,7 +123,7 @@ open class GenUniModulesTmxUiComponentsXPickerItemXPickerItem : VueComponent {
                     ))
                 ), 4),
                 if (_ctx._nowChildren.length > 0) {
-                    createVNode(_component_x_picker_item, utsMapOf("key" to 0, "onCountChange" to _ctx.pushDeepCount, "font-size" to _ctx.fontSize, "cellUnits" to _ctx._cellUnits, "onChangeDeep" to _ctx.change, "selectedIndex" to _ctx._selectedIndex, "wrapWight" to _ctx._wrapWight, "parentIndex" to (_ctx._parentIndex + 1), "list" to _ctx._nowChildren, "cell-height" to _ctx._cellHeight), null, 8, utsArrayOf(
+                    _cV(_component_x_picker_item, _uM("key" to 0, "onCountChange" to _ctx.pushDeepCount, "font-size" to _ctx.fontSize, "cellUnits" to _ctx._cellUnits, "onChangeDeep" to _ctx.change, "selectedIndex" to _ctx._selectedIndex, "wrapWight" to _ctx._wrapWight, "parentIndex" to (_ctx._parentIndex + 1), "list" to _ctx._nowChildren, "cell-height" to _ctx._cellHeight), null, 8, _uA(
                         "onCountChange",
                         "font-size",
                         "cellUnits",
@@ -139,7 +135,7 @@ open class GenUniModulesTmxUiComponentsXPickerItemXPickerItem : VueComponent {
                         "cell-height"
                     ))
                 } else {
-                    createCommentVNode("v-if", true)
+                    _cC("v-if", true)
                 }
             ))
         ))
@@ -175,7 +171,7 @@ open class GenUniModulesTmxUiComponentsXPickerItemXPickerItem : VueComponent {
     open var _maskStyle: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("boxHeight" to 0, "id" to ("xPickerItem-" + getUid()) as String, "nowCurrentIndex" to utsArrayOf(
+        return _uM("boxHeight" to 0, "id" to ("xPickerItem-" + getUid()) as String, "nowCurrentIndex" to _uA(
             0
         ), "tid" to 0, "tid2" to 0, "tid3" to 3, "_fontSize" to computed<String>(fun(): String {
             var fontSize = checkIsCssUnit(this.fontSize, xConfig.unit)
@@ -231,7 +227,7 @@ open class GenUniModulesTmxUiComponentsXPickerItemXPickerItem : VueComponent {
         ), "_nowChildren" to computed<UTSArray<X_PICKER_X_ITEM>>(fun(): UTSArray<X_PICKER_X_ITEM> {
             var index = Math.max(0, Math.min(this.nowCurrentIndex[0], this._list.length - 1))
             if (this._list.length == 0 && index > this._list.length - 1) {
-                return utsArrayOf<X_PICKER_X_ITEM>()
+                return _uA<X_PICKER_X_ITEM>()
             }
             var item = this._list[index]
             return item.children
@@ -251,7 +247,7 @@ open class GenUniModulesTmxUiComponentsXPickerItemXPickerItem : VueComponent {
     open fun gen_setNowCurrentIndex_fn(isTmChange: Boolean) {
         var t = this
         clearTimeout(this.tid3)
-        t.nowCurrentIndex = utsArrayOf<Number>(t.getIndexByid())
+        t.nowCurrentIndex = _uA<Number>(t.getIndexByid())
         if (isTmChange) {
             t.mchange(t.nowCurrentIndex)
         }
@@ -328,7 +324,7 @@ open class GenUniModulesTmxUiComponentsXPickerItemXPickerItem : VueComponent {
             }
             index = Math.max(this._list.length, index)
             index = Math.min(0, index)
-            indexs = utsArrayOf(
+            indexs = _uA(
                 index
             )
         }
@@ -337,28 +333,28 @@ open class GenUniModulesTmxUiComponentsXPickerItemXPickerItem : VueComponent {
     }
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xPickerViewUnit" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "paddingTop" to 8, "paddingRight" to 8, "paddingBottom" to 8, "paddingLeft" to 8)), "xPickerViewUnitText" to padStyleMapOf(utsMapOf("fontSize" to 12, "color" to "#888888", "fontWeight" to "bold")), "xPickerViewWrapCoumnText" to padStyleMapOf(utsMapOf("marginTop" to 0, "marginRight" to 6, "marginBottom" to 0, "marginLeft" to 6, "width" to "100%", "textAlign" to "center")), "xPickerView" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row")), "xPickerViewWrap" to padStyleMapOf(utsMapOf("position" to "relative")), "xPickerContent" to padStyleMapOf(utsMapOf("position" to "absolute", "left" to 0, "top" to 0, "width" to "100%", "zIndex" to 5, "transitionDuration" to "350ms", "transitionProperty" to "left,right,top,bottom", "transitionTimingFunction" to "cubic-bezier(0,0.55,0.45,1)")), "xPickerMasker" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "center", "pointerEvents" to "none", "height" to "100%", "width" to "100%", "top" to 0, "left" to 0, "position" to "absolute")), "xPickErBar" to padStyleMapOf(utsMapOf("backgroundColor" to "#f5f5f5", "borderTopLeftRadius" to 10, "borderTopRightRadius" to 10, "borderBottomRightRadius" to 10, "borderBottomLeftRadius" to 10, "marginTop" to 0, "marginRight" to 3, "marginBottom" to 0, "marginLeft" to 3, "flex" to 1)), "xPickerViewWrapCoumn" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "column", "justifyContent" to "center", "alignItems" to "center")), "@TRANSITION" to utsMapOf("xPickerContent" to utsMapOf("duration" to "350ms", "property" to "left,right,top,bottom", "timingFunction" to "cubic-bezier(0,0.55,0.45,1)")))
+                return _uM("xPickerViewUnit" to _pS(_uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "paddingTop" to 8, "paddingRight" to 8, "paddingBottom" to 8, "paddingLeft" to 8)), "xPickerViewUnitText" to _pS(_uM("fontSize" to 12, "color" to "#888888", "fontWeight" to "bold")), "xPickerViewWrapCoumnText" to _pS(_uM("marginTop" to 0, "marginRight" to 6, "marginBottom" to 0, "marginLeft" to 6, "width" to "100%", "textAlign" to "center")), "xPickerView" to _pS(_uM("display" to "flex", "flexDirection" to "row")), "xPickerViewWrap" to _pS(_uM("position" to "relative")), "xPickerContent" to _pS(_uM("position" to "absolute", "left" to 0, "top" to 0, "width" to "100%", "zIndex" to 5, "transitionDuration" to "350ms", "transitionProperty" to "left,right,top,bottom", "transitionTimingFunction" to "cubic-bezier(0,0.55,0.45,1)")), "xPickerMasker" to _pS(_uM("display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "center", "pointerEvents" to "none", "height" to "100%", "width" to "100%", "top" to 0, "left" to 0, "position" to "absolute")), "xPickErBar" to _pS(_uM("backgroundColor" to "#f5f5f5", "borderTopLeftRadius" to 10, "borderTopRightRadius" to 10, "borderBottomRightRadius" to 10, "borderBottomLeftRadius" to 10, "marginTop" to 0, "marginRight" to 3, "marginBottom" to 0, "marginLeft" to 3, "flex" to 1)), "xPickerViewWrapCoumn" to _pS(_uM("display" to "flex", "flexDirection" to "column", "justifyContent" to "center", "alignItems" to "center")), "@TRANSITION" to _uM("xPickerContent" to _uM("duration" to "350ms", "property" to "left,right,top,bottom", "timingFunction" to "cubic-bezier(0,0.55,0.45,1)")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("changeDeep" to null, "countChange" to null)
-        var props = normalizePropsOptions(utsMapOf("cellHeight" to utsMapOf("type" to "String", "default" to "60"), "duration" to utsMapOf("type" to "Number", "default" to 350), "list" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<X_PICKER_X_ITEM> {
-            return utsArrayOf<X_PICKER_X_ITEM>()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("changeDeep" to null, "countChange" to null)
+        var props = _nP(_uM("cellHeight" to _uM("type" to "String", "default" to "60"), "duration" to _uM("type" to "Number", "default" to 350), "list" to _uM("type" to "Array", "default" to fun(): UTSArray<X_PICKER_X_ITEM> {
+            return _uA<X_PICKER_X_ITEM>()
         }
-        ), "wrapWight" to utsMapOf("type" to "Number", "default" to 0), "parentIndex" to utsMapOf("type" to "Number", "default" to 0), "selectedIndex" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<Number> {
-            return utsArrayOf<Number>()
+        ), "wrapWight" to _uM("type" to "Number", "default" to 0), "parentIndex" to _uM("type" to "Number", "default" to 0), "selectedIndex" to _uM("type" to "Array", "default" to fun(): UTSArray<Number> {
+            return _uA<Number>()
         }
-        ), "cellUnits" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf<String>()
+        ), "cellUnits" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA<String>()
         }
-        ), "unitsFontSize" to utsMapOf("type" to "String", "default" to "12"), "fontSize" to utsMapOf("type" to "String", "default" to "15")))
-        var propsNeedCastKeys = utsArrayOf(
+        ), "unitsFontSize" to _uM("type" to "String", "default" to "12"), "fontSize" to _uM("type" to "String", "default" to "15")))
+        var propsNeedCastKeys = _uA(
             "cellHeight",
             "duration",
             "list",
@@ -369,6 +365,6 @@ open class GenUniModulesTmxUiComponentsXPickerItemXPickerItem : VueComponent {
             "unitsFontSize",
             "fontSize"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

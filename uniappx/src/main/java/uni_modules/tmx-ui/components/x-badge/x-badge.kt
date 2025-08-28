@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.createSelectorQuery as uni_createSelectorQuery
 open class GenUniModulesTmxUiComponentsXBadgeXBadge : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {
@@ -71,11 +67,11 @@ open class GenUniModulesTmxUiComponentsXBadgeXBadge : VueComponent {
     override fun `$render`(): Any? {
         val _ctx = this
         val _cache = this.`$`.renderCache
-        return createElementVNode("view", utsMapOf("class" to "xBadge", "style" to normalizeStyle(utsMapOf("padding" to _ctx.padding))), utsArrayOf(
-            createElementVNode("view", utsMapOf("class" to "xBadgeWrap"), utsArrayOf(
-                createElementVNode("text", utsMapOf("style" to normalizeStyle(_ctx._cStyles[0]!!), "class" to normalizeClass(utsArrayOf(
+        return _cE("view", _uM("class" to "xBadge", "style" to _nS(_uM("padding" to _ctx.padding))), _uA(
+            _cE("view", _uM("class" to "xBadgeWrap"), _uA(
+                _cE("text", _uM("style" to _nS(_ctx._cStyles[0]!!), "class" to _nC(_uA(
                     "xBadge-dot",
-                    utsArrayOf(
+                    _uA(
                         if (_ctx._isDot) {
                             "noneShow"
                         } else {
@@ -83,17 +79,17 @@ open class GenUniModulesTmxUiComponentsXBadgeXBadge : VueComponent {
                         }
                     )
                 ))), null, 6),
-                createElementVNode("view", utsMapOf("id" to "xBadge-countAndLabel", "class" to normalizeClass(utsArrayOf(
+                _cE("view", _uM("id" to "xBadge-countAndLabel", "class" to _nC(_uA(
                     "xBadge-countAndLabel",
-                    utsArrayOf(
+                    _uA(
                         if (_ctx._isDot) {
                             "nonex"
                         } else {
                             "noneShow"
                         }
                     )
-                )), "style" to normalizeStyle(_ctx._cStyles[1]!!)), utsArrayOf(
-                    createElementVNode("text", utsMapOf("class" to "xBadge-countAndLabelText", "style" to normalizeStyle(utsMapOf("color" to _ctx._fontColor, "fontSize" to _ctx._fontSize))), toDisplayString(_ctx._label), 5)
+                )), "style" to _nS(_ctx._cStyles[1]!!)), _uA(
+                    _cE("text", _uM("class" to "xBadge-countAndLabelText", "style" to _nS(_uM("color" to _ctx._fontColor, "fontSize" to _ctx._fontSize))), _tD(_ctx._label), 5)
                 ), 6),
                 renderSlot(_ctx.`$slots`, "default")
             ))
@@ -118,12 +114,12 @@ open class GenUniModulesTmxUiComponentsXBadgeXBadge : VueComponent {
     open var _label: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("padding" to "4px 4px", "test" to Map<String, String>(utsArrayOf(
-            utsArrayOf(
+        return _uM("padding" to "4px 4px", "test" to Map<String, String>(_uA(
+            _uA(
                 "border",
                 "2px solid red"
             ),
-            utsArrayOf(
+            _uA(
                 "background-color",
                 "green"
             )
@@ -201,7 +197,7 @@ open class GenUniModulesTmxUiComponentsXBadgeXBadge : VueComponent {
                 t.getNodeInfo()
             }
             )
-            return utsArrayOf<Map<String, String>>(dotMapCs, labelMapCs)
+            return _uA<Map<String, String>>(dotMapCs, labelMapCs)
         }
         ), "_fontColor" to computed<String>(fun(): String {
             return getDefaultColor(this.fontColor)
@@ -244,19 +240,19 @@ open class GenUniModulesTmxUiComponentsXBadgeXBadge : VueComponent {
     }
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xBadge" to padStyleMapOf(utsMapOf("overflow" to "visible")), "xBadge-countAndLabel" to padStyleMapOf(utsMapOf("position" to "absolute", "zIndex" to 3, "borderTopLeftRadius" to 100, "borderTopRightRadius" to 100, "borderBottomRightRadius" to 100, "borderBottomLeftRadius" to 100, "paddingTop" to "0rpx", "paddingRight" to 4, "paddingBottom" to "0rpx", "paddingLeft" to 4, "display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "center")), "xBadge-countAndLabelText" to padStyleMapOf(utsMapOf("lineHeight" to 1.5, "textAlign" to "center")), "xBadge-dot" to padStyleMapOf(utsMapOf("position" to "absolute", "width" to 6, "height" to 6, "borderTopLeftRadius" to 18, "borderTopRightRadius" to 18, "borderBottomRightRadius" to 18, "borderBottomLeftRadius" to 18, "zIndex" to 3, "opacity" to 0)), "noneShow" to padStyleMapOf(utsMapOf("opacity" to 1)), "nonex" to padStyleMapOf(utsMapOf("opacity" to 0)), "xBadgeWrap" to padStyleMapOf(utsMapOf("flexDirection" to "column", "justifyContent" to "center", "alignItems" to "center", "overflow" to "visible", "position" to "relative")))
+                return _uM("xBadge" to _pS(_uM("overflow" to "visible")), "xBadge-countAndLabel" to _pS(_uM("position" to "absolute", "zIndex" to 3, "borderTopLeftRadius" to 100, "borderTopRightRadius" to 100, "borderBottomRightRadius" to 100, "borderBottomLeftRadius" to 100, "paddingTop" to "0rpx", "paddingRight" to 4, "paddingBottom" to "0rpx", "paddingLeft" to 4, "display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "center")), "xBadge-countAndLabelText" to _pS(_uM("lineHeight" to 1.5, "textAlign" to "center")), "xBadge-dot" to _pS(_uM("position" to "absolute", "width" to 6, "height" to 6, "borderTopLeftRadius" to 18, "borderTopRightRadius" to 18, "borderBottomRightRadius" to 18, "borderBottomLeftRadius" to 18, "zIndex" to 3, "opacity" to 0)), "noneShow" to _pS(_uM("opacity" to 1)), "nonex" to _pS(_uM("opacity" to 0)), "xBadgeWrap" to _pS(_uM("flexDirection" to "column", "justifyContent" to "center", "alignItems" to "center", "overflow" to "visible", "position" to "relative")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf()
-        var props = normalizePropsOptions(utsMapOf("fontSize" to utsMapOf("type" to "String", "default" to "9"), "bgColor" to utsMapOf("type" to "String", "default" to "error"), "fontColor" to utsMapOf("type" to "String", "default" to "white"), "dot" to utsMapOf("type" to "Boolean", "default" to true), "count" to utsMapOf("type" to "Number", "default" to 0), "maxCount" to utsMapOf("type" to "Number", "default" to 99), "label" to utsMapOf("type" to "String", "default" to ""), "position" to utsMapOf("type" to "String", "default" to "right"), "offset" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<Number> {
-            return utsArrayOf<Number>(0, 0)
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM()
+        var props = _nP(_uM("fontSize" to _uM("type" to "String", "default" to "9"), "bgColor" to _uM("type" to "String", "default" to "error"), "fontColor" to _uM("type" to "String", "default" to "white"), "dot" to _uM("type" to "Boolean", "default" to true), "count" to _uM("type" to "Number", "default" to 0), "maxCount" to _uM("type" to "Number", "default" to 99), "label" to _uM("type" to "String", "default" to ""), "position" to _uM("type" to "String", "default" to "right"), "offset" to _uM("type" to "Array", "default" to fun(): UTSArray<Number> {
+            return _uA<Number>(0, 0)
         }
         , "validator" to fun(kVal: UTSArray<Number>): Boolean {
             if (kVal.length == 0 || kVal.length == 2) {
@@ -266,7 +262,7 @@ open class GenUniModulesTmxUiComponentsXBadgeXBadge : VueComponent {
             return false
         }
         )))
-        var propsNeedCastKeys = utsArrayOf(
+        var propsNeedCastKeys = _uA(
             "fontSize",
             "bgColor",
             "fontColor",
@@ -277,6 +273,6 @@ open class GenUniModulesTmxUiComponentsXBadgeXBadge : VueComponent {
             "position",
             "offset"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

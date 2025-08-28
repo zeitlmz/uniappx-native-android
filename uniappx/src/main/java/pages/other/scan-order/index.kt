@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.`$emit` as uni__emit
 import uts.sdk.modules.mcWechatSdk.WeChatShare
 open class GenPagesOtherScanOrderIndex : BasePage {
@@ -102,44 +98,44 @@ open class GenPagesOtherScanOrderIndex : BasePage {
             return fun(): Any? {
                 val _component_mc_active_animation = resolveEasyComponent("mc-active-animation", GenComponentsMcActiveAnimationIndexClass)
                 val _component_mc_base_container = resolveEasyComponent("mc-base-container", GenComponentsMcBaseContainerIndexClass)
-                return createVNode(_component_mc_base_container, utsMapOf("title" to "扫码下单", "showStatusBarPlaceholder" to false, "title-color" to "#ffffff", "navbar-is-place" to false, "staticTransparent" to true), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                    return utsArrayOf(
-                        createElementVNode("view", utsMapOf("class" to "scan-order-box", "style" to normalizeStyle("height: " + unref(screenHeight) + "px; padding-top: " + (unref(statusBarHeight) + 50) + "px;")), utsArrayOf(
-                            createElementVNode("image", utsMapOf("class" to "box-bg", "src" to ("" + unref(resBaseUrl) + "/static/images/scan-order-bg.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
+                return _cV(_component_mc_base_container, _uM("title" to "扫码下单", "showStatusBarPlaceholder" to false, "title-color" to "#ffffff", "navbar-is-place" to false, "staticTransparent" to true), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                    return _uA(
+                        _cE("view", _uM("class" to "scan-order-box", "style" to _nS("height: " + unref(screenHeight) + "px; padding-top: " + (unref(statusBarHeight) + 50) + "px;")), _uA(
+                            _cE("image", _uM("class" to "box-bg", "src" to ("" + unref(resBaseUrl) + "/static/images/scan-order-bg.png"), "mode" to "widthFix"), null, 8, _uA(
                                 "src"
                             )),
-                            createElementVNode("view", utsMapOf("class" to "trip-info"), utsArrayOf(
-                                createElementVNode("view", utsMapOf("class" to "info-row"), utsArrayOf(
-                                    createElementVNode("image", utsMapOf("class" to "icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-trip-outline-small.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
+                            _cE("view", _uM("class" to "trip-info"), _uA(
+                                _cE("view", _uM("class" to "info-row"), _uA(
+                                    _cE("image", _uM("class" to "icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-trip-outline-small.png"), "mode" to "widthFix"), null, 8, _uA(
                                         "src"
                                     )),
-                                    createElementVNode("text", utsMapOf("class" to "label"), "行程线路："),
-                                    createElementVNode("text", utsMapOf("class" to "value"), toDisplayString(unref(linesGroupName)), 1)
+                                    _cE("text", _uM("class" to "label"), "行程线路："),
+                                    _cE("text", _uM("class" to "value"), _tD(unref(linesGroupName)), 1)
                                 )),
-                                createElementVNode("view", utsMapOf("class" to "info-row"), utsArrayOf(
-                                    createElementVNode("image", utsMapOf("class" to "icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-clock-outline-small.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
+                                _cE("view", _uM("class" to "info-row"), _uA(
+                                    _cE("image", _uM("class" to "icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-clock-outline-small.png"), "mode" to "widthFix"), null, 8, _uA(
                                         "src"
                                     )),
-                                    createElementVNode("text", utsMapOf("class" to "label"), "行程时间："),
-                                    createElementVNode("text", utsMapOf("class" to "value"), toDisplayString(unref(xcTime)), 1)
+                                    _cE("text", _uM("class" to "label"), "行程时间："),
+                                    _cE("text", _uM("class" to "value"), _tD(unref(xcTime)), 1)
                                 ))
                             )),
-                            createElementVNode("view", utsMapOf("class" to "ercode-box"), utsArrayOf(
-                                createElementVNode("image", utsMapOf("class" to "ercode-bg", "src" to ("" + unref(resBaseUrl) + "/static/images/ercode-bg.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
+                            _cE("view", _uM("class" to "ercode-box"), _uA(
+                                _cE("image", _uM("class" to "ercode-bg", "src" to ("" + unref(resBaseUrl) + "/static/images/ercode-bg.png"), "mode" to "widthFix"), null, 8, _uA(
                                     "src"
                                 )),
-                                createElementVNode("view", utsMapOf("class" to "ercode"), utsArrayOf(
-                                    createElementVNode("image", utsMapOf("class" to "img", "src" to unref(shareImc), "mode" to "widthFix"), null, 8, utsArrayOf(
+                                _cE("view", _uM("class" to "ercode"), _uA(
+                                    _cE("image", _uM("class" to "img", "src" to unref(shareImc), "mode" to "widthFix"), null, 8, _uA(
                                         "src"
                                     )),
-                                    createElementVNode("text", utsMapOf("class" to "tips-text"), "扫码可直接下单"),
-                                    createElementVNode("view", utsMapOf("class" to "btn-group"), utsArrayOf(
-                                        createVNode(_component_mc_active_animation, utsMapOf("class" to "share-item", "onClick" to toShare), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                            return utsArrayOf(
-                                                createElementVNode("image", utsMapOf("class" to "icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-wechat-2.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
+                                    _cE("text", _uM("class" to "tips-text"), "扫码可直接下单"),
+                                    _cE("view", _uM("class" to "btn-group"), _uA(
+                                        _cV(_component_mc_active_animation, _uM("class" to "share-item", "onClick" to toShare), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                            return _uA(
+                                                _cE("image", _uM("class" to "icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-wechat-2.png"), "mode" to "widthFix"), null, 8, _uA(
                                                     "src"
                                                 )),
-                                                createElementVNode("text", utsMapOf("class" to "name"), "分享到微信")
+                                                _cE("text", _uM("class" to "name"), "分享到微信")
                                             )
                                         }
                                         ), "_" to 1))
@@ -153,21 +149,21 @@ open class GenPagesOtherScanOrderIndex : BasePage {
             }
         }
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
-            ), utsArrayOf(
+            ), _uA(
                 GenApp.styles
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("scan-order-box" to padStyleMapOf(utsMapOf("position" to "relative", "width" to "100%", "height" to "100%")), "trip-info" to utsMapOf(".scan-order-box " to utsMapOf("paddingTop" to "60rpx", "paddingRight" to "60rpx", "paddingBottom" to "60rpx", "paddingLeft" to "60rpx")), "info-row" to utsMapOf(".scan-order-box .trip-info " to utsMapOf("flexDirection" to "row", "alignItems" to "center", "marginBottom" to "30rpx")), "icon" to utsMapOf(".scan-order-box .trip-info .info-row " to utsMapOf("width" to "30rpx", "height" to "auto", "marginRight" to "20rpx"), ".scan-order-box .ercode-box .ercode .btn-group .share-item " to utsMapOf("width" to "76rpx", "height" to "auto")), "label" to utsMapOf(".scan-order-box .trip-info .info-row " to utsMapOf("fontWeight" to "bold", "fontSize" to "32rpx", "color" to "#D1DEF6")), "value" to utsMapOf(".scan-order-box .trip-info .info-row " to utsMapOf("fontWeight" to "bold", "fontSize" to "32rpx", "color" to "#ffffff")), "ercode-box" to utsMapOf(".scan-order-box " to utsMapOf("marginTop" to 0, "marginRight" to "30rpx", "marginBottom" to 0, "marginLeft" to "30rpx", "position" to "relative")), "ercode-bg" to utsMapOf(".scan-order-box .ercode-box " to utsMapOf("width" to "100%", "height" to "auto")), "ercode" to utsMapOf(".scan-order-box .ercode-box " to utsMapOf("position" to "absolute", "top" to "120rpx", "left" to "50%", "borderTopLeftRadius" to "30rpx", "borderTopRightRadius" to "30rpx", "borderBottomRightRadius" to "30rpx", "borderBottomLeftRadius" to "30rpx", "transform" to "translateX(-50%)")), "img" to utsMapOf(".scan-order-box .ercode-box .ercode " to utsMapOf("width" to "440rpx", "height" to "440rpx")), "tips-text" to utsMapOf(".scan-order-box .ercode-box .ercode " to utsMapOf("width" to "100%", "paddingTop" to "40rpx", "paddingRight" to 0, "paddingBottom" to "170rpx", "paddingLeft" to 0, "textAlign" to "center", "fontWeight" to "bold", "fontSize" to "32rpx", "color" to "#000000")), "btn-group" to utsMapOf(".scan-order-box .ercode-box .ercode " to utsMapOf("flexDirection" to "row", "alignItems" to "center", "justifyContent" to "space-evenly")), "share-item" to utsMapOf(".scan-order-box .ercode-box .ercode .btn-group " to utsMapOf("alignItems" to "center", "marginTop" to 0, "marginRight" to "30rpx", "marginBottom" to 0, "marginLeft" to "30rpx")), "name" to utsMapOf(".scan-order-box .ercode-box .ercode .btn-group .share-item " to utsMapOf("marginTop" to "20rpx", "fontWeight" to "bold", "fontSize" to "32rpx", "color" to "#000000")), "box-bg" to padStyleMapOf(utsMapOf("position" to "absolute", "top" to 0, "left" to 0, "right" to 0, "height" to "100%", "width" to "100%")))
+                return _uM("scan-order-box" to _pS(_uM("position" to "relative", "width" to "100%", "height" to "100%")), "trip-info" to _uM(".scan-order-box " to _uM("paddingTop" to "60rpx", "paddingRight" to "60rpx", "paddingBottom" to "60rpx", "paddingLeft" to "60rpx")), "info-row" to _uM(".scan-order-box .trip-info " to _uM("flexDirection" to "row", "alignItems" to "center", "marginBottom" to "30rpx")), "icon" to _uM(".scan-order-box .trip-info .info-row " to _uM("width" to "30rpx", "height" to "auto", "marginRight" to "20rpx"), ".scan-order-box .ercode-box .ercode .btn-group .share-item " to _uM("width" to "76rpx", "height" to "auto")), "label" to _uM(".scan-order-box .trip-info .info-row " to _uM("fontWeight" to "bold", "fontSize" to "32rpx", "color" to "#D1DEF6")), "value" to _uM(".scan-order-box .trip-info .info-row " to _uM("fontWeight" to "bold", "fontSize" to "32rpx", "color" to "#ffffff")), "ercode-box" to _uM(".scan-order-box " to _uM("marginTop" to 0, "marginRight" to "30rpx", "marginBottom" to 0, "marginLeft" to "30rpx", "position" to "relative")), "ercode-bg" to _uM(".scan-order-box .ercode-box " to _uM("width" to "100%", "height" to "auto")), "ercode" to _uM(".scan-order-box .ercode-box " to _uM("position" to "absolute", "top" to "120rpx", "left" to "50%", "borderTopLeftRadius" to "30rpx", "borderTopRightRadius" to "30rpx", "borderBottomRightRadius" to "30rpx", "borderBottomLeftRadius" to "30rpx", "transform" to "translateX(-50%)")), "img" to _uM(".scan-order-box .ercode-box .ercode " to _uM("width" to "440rpx", "height" to "440rpx")), "tips-text" to _uM(".scan-order-box .ercode-box .ercode " to _uM("width" to "100%", "paddingTop" to "40rpx", "paddingRight" to 0, "paddingBottom" to "170rpx", "paddingLeft" to 0, "textAlign" to "center", "fontWeight" to "bold", "fontSize" to "32rpx", "color" to "#000000")), "btn-group" to _uM(".scan-order-box .ercode-box .ercode " to _uM("flexDirection" to "row", "alignItems" to "center", "justifyContent" to "space-evenly")), "share-item" to _uM(".scan-order-box .ercode-box .ercode .btn-group " to _uM("alignItems" to "center", "marginTop" to 0, "marginRight" to "30rpx", "marginBottom" to 0, "marginLeft" to "30rpx")), "name" to _uM(".scan-order-box .ercode-box .ercode .btn-group .share-item " to _uM("marginTop" to "20rpx", "fontWeight" to "bold", "fontSize" to "32rpx", "color" to "#000000")), "box-bg" to _pS(_uM("position" to "absolute", "top" to 0, "left" to 0, "right" to 0, "height" to "100%", "width" to "100%")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf()
-        var props = normalizePropsOptions(utsMapOf())
-        var propsNeedCastKeys: UTSArray<String> = utsArrayOf()
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM()
+        var props = _nP(_uM())
+        var propsNeedCastKeys: UTSArray<String> = _uA()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

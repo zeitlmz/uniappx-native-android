@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 open class GenUniModulesTmxUiComponentsXSwiperItemXSwiperItem : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {
         onMounted(fun() {
@@ -30,7 +26,7 @@ open class GenUniModulesTmxUiComponentsXSwiperItemXSwiperItem : VueComponent {
     override fun `$render`(): Any? {
         val _ctx = this
         val _cache = this.`$`.renderCache
-        return createElementVNode("view", utsMapOf("class" to "xSwiperItem", "onTouchstart" to _ctx.mStart, "onTouchmove" to _ctx.mMove, "onTouchend" to _ctx.mEnd, "onTouchcancel" to _ctx.mEnd, "style" to normalizeStyle(utsMapOf("height" to _ctx._itemheight, "borderRadius" to _ctx._round, "width" to _ctx._styleOpts.width, "top" to ("" + _ctx._styleOpts.top), "left" to ("" + _ctx._styleOpts.left), "zIndex" to if (_ctx.isActive) {
+        return _cE("view", _uM("class" to "xSwiperItem", "onTouchstart" to _ctx.mStart, "onTouchmove" to _ctx.mMove, "onTouchend" to _ctx.mEnd, "onTouchcancel" to _ctx.mEnd, "style" to _nS(_uM("height" to _ctx._itemheight, "borderRadius" to _ctx._round, "width" to _ctx._styleOpts.width, "top" to ("" + _ctx._styleOpts.top), "left" to ("" + _ctx._styleOpts.left), "zIndex" to if (_ctx.isActive) {
             "8"
         } else {
             "1"
@@ -40,10 +36,10 @@ open class GenUniModulesTmxUiComponentsXSwiperItemXSwiperItem : VueComponent {
         } else {
             "relative"
         }
-        ))), utsArrayOf(
-            createElementVNode("view", utsMapOf("class" to "xSwiperItembox", "style" to normalizeStyle(utsMapOf("width" to _ctx._styleOpts.width, "borderRadius" to _ctx._round))), utsArrayOf(
-                createElementVNode("view", utsMapOf("class" to normalizeClass(utsArrayOf(
-                    utsArrayOf(
+        ))), _uA(
+            _cE("view", _uM("class" to "xSwiperItembox", "style" to _nS(_uM("width" to _ctx._styleOpts.width, "borderRadius" to _ctx._round))), _uA(
+                _cE("view", _uM("class" to _nC(_uA(
+                    _uA(
                         if (_ctx.xSwipershowScalAni) {
                             if ((_ctx.isActive || _ctx.isActiveNextOrPrev)) {
                                 "xSwiperItemWrapSaniOn"
@@ -55,11 +51,11 @@ open class GenUniModulesTmxUiComponentsXSwiperItemXSwiperItem : VueComponent {
                         }
                     ),
                     "xSwiperItemWrap"
-                )), "style" to normalizeStyle(utsMapOf("borderRadius" to _ctx._round))), utsArrayOf(
+                )), "style" to _nS(_uM("borderRadius" to _ctx._round))), _uA(
                     renderSlot(_ctx.`$slots`, "default")
                 ), 6)
             ), 4)
-        ), 44, utsArrayOf(
+        ), 44, _uA(
             "onTouchstart",
             "onTouchmove",
             "onTouchend",
@@ -100,7 +96,7 @@ open class GenUniModulesTmxUiComponentsXSwiperItemXSwiperItem : VueComponent {
     open var _round: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("id" to ("xSwiperItem-" + getUid()) as String, "containerSize" to SIZE(width = 0, height = 0), "list" to utsArrayOf<String>(), "currentId" to "", "currentId_next" to "", "currentId_prev" to "", "moveShowCurrentIdByPrev" to "", "moveShowCurrentIdByNext" to "", "dateIdff" to 0, "_pos_x" to 0, "_pos_y" to 0, "isMoving" to false, "isActive" to computed<Boolean>(fun(): Boolean {
+        return _uM("id" to ("xSwiperItem-" + getUid()) as String, "containerSize" to SIZE(width = 0, height = 0), "list" to _uA<String>(), "currentId" to "", "currentId_next" to "", "currentId_prev" to "", "moveShowCurrentIdByPrev" to "", "moveShowCurrentIdByNext" to "", "dateIdff" to 0, "_pos_x" to 0, "_pos_y" to 0, "isMoving" to false, "isActive" to computed<Boolean>(fun(): Boolean {
             return this.currentId == this.id
         }
         ), "isActiveNextOrPrev" to computed<Boolean>(fun(): Boolean {
@@ -423,22 +419,22 @@ open class GenUniModulesTmxUiComponentsXSwiperItemXSwiperItem : VueComponent {
     }
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xSwiperItem" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "transitionDuration" to "350ms", "transitionProperty" to "opacity,transform,left,margin,top,width", "transitionTimingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)")), "xSwiperItemAlign" to padStyleMapOf(utsMapOf("justifyContent" to "flex-end")), "xSwiperItembox" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "center", "height" to "100%", "transitionDuration" to "350ms", "transitionProperty" to "width", "transitionTimingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)", "overflow" to "hidden")), "xSwiperItemWrapSaniOn" to padStyleMapOf(utsMapOf("transform" to "scale(1)", "opacity" to 1)), "xSwiperItemWrapSaniOff" to padStyleMapOf(utsMapOf("transform" to "scale(0)", "opacity" to 0)), "xSwiperItemOn" to padStyleMapOf(utsMapOf("zIndex" to 6)), "xSwiperItemWrapSaniDiffOff_left" to padStyleMapOf(utsMapOf("zIndex" to 2)), "xSwiperItemWrapSaniDiffOff_right" to padStyleMapOf(utsMapOf("zIndex" to 2)), "xSwiperItemWrap" to padStyleMapOf(utsMapOf("flex" to 1, "height" to "100%", "width" to "100%", "transitionDuration" to "600ms", "transitionProperty" to "opacity,transform,left,margin", "transitionTimingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)")), "@TRANSITION" to utsMapOf("xSwiperItem" to utsMapOf("duration" to "350ms", "property" to "opacity,transform,left,margin,top,width", "timingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)"), "xSwiperItembox" to utsMapOf("duration" to "350ms", "property" to "width", "timingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)"), "xSwiperItemWrap" to utsMapOf("duration" to "600ms", "property" to "opacity,transform,left,margin", "timingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)")))
+                return _uM("xSwiperItem" to _pS(_uM("display" to "flex", "flexDirection" to "row", "transitionDuration" to "350ms", "transitionProperty" to "opacity,transform,left,margin,top,width", "transitionTimingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)")), "xSwiperItemAlign" to _pS(_uM("justifyContent" to "flex-end")), "xSwiperItembox" to _pS(_uM("display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "center", "height" to "100%", "transitionDuration" to "350ms", "transitionProperty" to "width", "transitionTimingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)", "overflow" to "hidden")), "xSwiperItemWrapSaniOn" to _pS(_uM("transform" to "scale(1)", "opacity" to 1)), "xSwiperItemWrapSaniOff" to _pS(_uM("transform" to "scale(0)", "opacity" to 0)), "xSwiperItemOn" to _pS(_uM("zIndex" to 6)), "xSwiperItemWrapSaniDiffOff_left" to _pS(_uM("zIndex" to 2)), "xSwiperItemWrapSaniDiffOff_right" to _pS(_uM("zIndex" to 2)), "xSwiperItemWrap" to _pS(_uM("flex" to 1, "height" to "100%", "width" to "100%", "transitionDuration" to "600ms", "transitionProperty" to "opacity,transform,left,margin", "transitionTimingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)")), "@TRANSITION" to _uM("xSwiperItem" to _uM("duration" to "350ms", "property" to "opacity,transform,left,margin,top,width", "timingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)"), "xSwiperItembox" to _uM("duration" to "350ms", "property" to "width", "timingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)"), "xSwiperItemWrap" to _uM("duration" to "600ms", "property" to "opacity,transform,left,margin", "timingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf("xSwiperDisabled" to utsMapOf("default" to false, "type" to "Boolean"), "xSwiperRadius" to utsMapOf("default" to "0px", "type" to "String"), "xSwipershowScalAni" to utsMapOf("default" to false, "type" to "Boolean"), "xSwiperSpace" to utsMapOf("default" to 0, "type" to "Number"), "xSwiperSpaceOffset" to utsMapOf("default" to 0, "type" to "Number"), "xSwiperModel" to utsMapOf("default" to "", "type" to "String"), "xSwiperViews" to utsMapOf("default" to 1, "type" to "Number"))
-        var emits: Map<String, Any?> = utsMapOf("click" to null)
-        var props = normalizePropsOptions(utsMapOf("order" to utsMapOf("type" to "Number", "default" to -1, "required" to true), "round" to utsMapOf("type" to "String", "default" to "")))
-        var propsNeedCastKeys = utsArrayOf(
+        var inject: Map<String, Map<String, Any?>> = _uM("xSwiperDisabled" to _uM("default" to false, "type" to "Boolean"), "xSwiperRadius" to _uM("default" to "0px", "type" to "String"), "xSwipershowScalAni" to _uM("default" to false, "type" to "Boolean"), "xSwiperSpace" to _uM("default" to 0, "type" to "Number"), "xSwiperSpaceOffset" to _uM("default" to 0, "type" to "Number"), "xSwiperModel" to _uM("default" to "", "type" to "String"), "xSwiperViews" to _uM("default" to 1, "type" to "Number"))
+        var emits: Map<String, Any?> = _uM("click" to null)
+        var props = _nP(_uM("order" to _uM("type" to "Number", "default" to -1, "required" to true), "round" to _uM("type" to "String", "default" to "")))
+        var propsNeedCastKeys = _uA(
             "order",
             "round"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

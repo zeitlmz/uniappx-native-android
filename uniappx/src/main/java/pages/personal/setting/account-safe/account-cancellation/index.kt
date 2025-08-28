@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.`$emit` as uni__emit
 import uts.sdk.modules.xToastS.XTOAST_TYPE
 import uts.sdk.modules.xModalS.X_MODAL_TYPE
@@ -78,27 +74,27 @@ open class GenPagesPersonalSettingAccountSafeAccountCancellationIndex : BasePage
                 val _component_x_sheet = resolveEasyComponent("x-sheet", GenUniModulesTmxUiComponentsXSheetXSheetClass)
                 val _component_mc_primary_button = resolveEasyComponent("mc-primary-button", GenComponentsMcPrimaryButtonIndexClass)
                 val _component_mc_base_container = resolveEasyComponent("mc-base-container", GenComponentsMcBaseContainerIndexClass)
-                return createVNode(_component_mc_base_container, utsMapOf("bg-color" to "#ffffff", "title" to "账号注销提示"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                    return utsArrayOf(
-                        createVNode(_component_x_sheet, utsMapOf("margin" to utsArrayOf(
+                return _cV(_component_mc_base_container, _uM("bg-color" to "#ffffff", "title" to "账号注销提示"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                    return _uA(
+                        _cV(_component_x_sheet, _uM("margin" to _uA(
                             "0"
-                        ), "padding" to utsArrayOf(
+                        ), "padding" to _uA(
                             "20",
                             "20",
                             "20",
                             "25"
-                        )), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                            return utsArrayOf(
-                                createElementVNode("text", utsMapOf("class" to "text-item"), "1. 账号注销后，您在每橙的信息将被清空且无法找回。"),
-                                createElementVNode("text", utsMapOf("class" to "text-item"), "2. 账号注销后，我们将停止为您提供服务，并根据法律法规规定及平台个人信息处理规则约定的期限对您的个人信息停止除存储和采取必要的安全保护措施之外的处理。在保存期限内，我们将不再对您的个人信息进行商业化使用。保存期限届满后我们将对您的个人信息进行匿名化处理。"),
-                                createElementVNode("text", utsMapOf("class" to "text-item"), "3. 如您使用每橙服务过程中存在违反法律法规每橙使用协议、规则等的情形，您的违法、违约记录及相应的每橙信用记录不会随着账号的注销而清除，将被每橙永久保存。"),
-                                createElementVNode("text", utsMapOf("class" to "text-item"), "4. 如您注销账号后，重新注册账号，违法、违约记录及相应的每橙信用记录将会恢复。")
+                        )), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                            return _uA(
+                                _cE("text", _uM("class" to "text-item"), "1. 账号注销后，您在每橙的信息将被清空且无法找回。"),
+                                _cE("text", _uM("class" to "text-item"), "2. 账号注销后，我们将停止为您提供服务，并根据法律法规规定及平台个人信息处理规则约定的期限对您的个人信息停止除存储和采取必要的安全保护措施之外的处理。在保存期限内，我们将不再对您的个人信息进行商业化使用。保存期限届满后我们将对您的个人信息进行匿名化处理。"),
+                                _cE("text", _uM("class" to "text-item"), "3. 如您使用每橙服务过程中存在违反法律法规每橙使用协议、规则等的情形，您的违法、违约记录及相应的每橙信用记录不会随着账号的注销而清除，将被每橙永久保存。"),
+                                _cE("text", _uM("class" to "text-item"), "4. 如您注销账号后，重新注册账号，违法、违约记录及相应的每橙信用记录将会恢复。")
                             )
                         }
                         ), "_" to 1)),
-                        createElementVNode("view", utsMapOf("class" to "btn-group-panel flex-row", "style" to normalizeStyle("padding-bottom: " + (unref(globalData).safeAreaBottom + 15) + "px;")), utsArrayOf(
-                            createVNode(_component_mc_primary_button, utsMapOf("onClick" to confirm, "height" to "50px"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                return utsArrayOf(
+                        _cE("view", _uM("class" to "btn-group-panel flex-row", "style" to _nS("padding-bottom: " + (unref(globalData).safeAreaBottom + 15) + "px;")), _uA(
+                            _cV(_component_mc_primary_button, _uM("onClick" to confirm, "height" to "50px"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                return _uA(
                                     "确认注销"
                                 )
                             }
@@ -110,21 +106,21 @@ open class GenPagesPersonalSettingAccountSafeAccountCancellationIndex : BasePage
             }
         }
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
-            ), utsArrayOf(
+            ), _uA(
                 GenApp.styles
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("text-item" to padStyleMapOf(utsMapOf("fontSize" to "30rpx", "color" to "#000000", "lineHeight" to "60rpx")), "btn-group-panel" to padStyleMapOf(utsMapOf("position" to "fixed", "bottom" to 0, "left" to 0, "right" to 0, "paddingTop" to 15, "paddingRight" to 15, "paddingBottom" to 15, "paddingLeft" to 15)))
+                return _uM("text-item" to _pS(_uM("fontSize" to "30rpx", "color" to "#000000", "lineHeight" to "60rpx")), "btn-group-panel" to _pS(_uM("position" to "fixed", "bottom" to 0, "left" to 0, "right" to 0, "paddingTop" to 15, "paddingRight" to 15, "paddingBottom" to 15, "paddingLeft" to 15)))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf()
-        var props = normalizePropsOptions(utsMapOf())
-        var propsNeedCastKeys: UTSArray<String> = utsArrayOf()
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM()
+        var props = _nP(_uM())
+        var propsNeedCastKeys: UTSArray<String> = _uA()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

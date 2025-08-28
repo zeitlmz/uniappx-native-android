@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.`$off` as uni__off
 import io.dcloud.uniapp.extapi.`$on` as uni__on
 open class GenUniModulesTmxUiComponentsXDragItemMcXDragItemMc : VueComponent {
@@ -53,7 +49,7 @@ open class GenUniModulesTmxUiComponentsXDragItemMcXDragItemMc : VueComponent {
     override fun `$render`(): Any? {
         val _ctx = this
         val _cache = this.`$`.renderCache
-        return createElementVNode("view", utsMapOf("onClick" to _ctx.onClick, "onTouchend" to _ctx.onTouchEnd, "ref" to "xDragItemMc", "class" to "xDragItemMc", "style" to normalizeStyle(utsMapOf("top" to (_ctx._defaultTop + "px"), "left" to (_ctx._defaultLeft + "px"), "zIndex" to if (_ctx.nowId == _ctx.id && _ctx.nowId != "") {
+        return _cE("view", _uM("onClick" to _ctx.onClick, "onTouchend" to _ctx.onTouchEnd, "ref" to "xDragItemMc", "class" to "xDragItemMc", "style" to _nS(_uM("top" to (_ctx._defaultTop + "px"), "left" to (_ctx._defaultLeft + "px"), "zIndex" to if (_ctx.nowId == _ctx.id && _ctx.nowId != "") {
             "5"
         } else {
             "1"
@@ -63,9 +59,9 @@ open class GenUniModulesTmxUiComponentsXDragItemMcXDragItemMc : VueComponent {
         } else {
             "0s"
         }
-        ))), utsArrayOf(
+        ))), _uA(
             renderSlot(_ctx.`$slots`, "default")
-        ), 44, utsArrayOf(
+        ), 44, _uA(
             "onClick",
             "onTouchend"
         ))
@@ -84,7 +80,7 @@ open class GenUniModulesTmxUiComponentsXDragItemMcXDragItemMc : VueComponent {
     open var _disabled: Boolean by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("id" to ("xCollapseItem-" + getUid()) as String, "cellHeight" to 0, "cellWidth" to 0, "nowActiveIndex" to -1, "targetActiveIndex" to -1, "orderIndex" to -1, "nowId" to "", "_defaultTop" to computed<Number>(fun(): Number {
+        return _uM("id" to ("xCollapseItem-" + getUid()) as String, "cellHeight" to 0, "cellWidth" to 0, "nowActiveIndex" to -1, "targetActiveIndex" to -1, "orderIndex" to -1, "nowId" to "", "_defaultTop" to computed<Number>(fun(): Number {
             var parent: XDragMcComponentPublicInstance? = null
             try {
                 parent = this.`$parent` as XDragMcComponentPublicInstance
@@ -173,22 +169,22 @@ open class GenUniModulesTmxUiComponentsXDragItemMcXDragItemMc : VueComponent {
     }
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xDragItemMc" to padStyleMapOf(utsMapOf("position" to "absolute", "left" to 0, "top" to 0, "width" to "100%", "transitionTimingFunction" to "ease", "transitionProperty" to "top,left", "zIndex" to 1)), "@TRANSITION" to utsMapOf("xDragItemMc" to utsMapOf("timingFunction" to "ease", "property" to "top,left")))
+                return _uM("xDragItemMc" to _pS(_uM("position" to "absolute", "left" to 0, "top" to 0, "width" to "100%", "transitionTimingFunction" to "ease", "transitionProperty" to "top,left", "zIndex" to 1)), "@TRANSITION" to _uM("xDragItemMc" to _uM("timingFunction" to "ease", "property" to "top,left")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("click" to null)
-        var props = normalizePropsOptions(utsMapOf("order" to utsMapOf("type" to "Number", "default" to 0, "required" to true), "disabled" to utsMapOf("type" to "Boolean", "default" to false)))
-        var propsNeedCastKeys = utsArrayOf(
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("click" to null)
+        var props = _nP(_uM("order" to _uM("type" to "Number", "default" to 0, "required" to true), "disabled" to _uM("type" to "Boolean", "default" to false)))
+        var propsNeedCastKeys = _uA(
             "order",
             "disabled"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

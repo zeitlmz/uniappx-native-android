@@ -11,16 +11,10 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.`$emit` as uni__emit
 import uts.sdk.modules.xLoadingS.XLOADINGS_TYPE
 import uts.sdk.modules.xToastS.XTOAST_TYPE
 import uts.sdk.modules.xModalS.X_MODAL_TYPE
-import uts.sdk.modules.mcAmapNavPlus.checkLocationPermission
-import uts.sdk.modules.mcAmapNavPlus.init
 import io.dcloud.uniapp.extapi.chooseImage as uni_chooseImage
 import uts.sdk.modules.xLoadingS.hideXloading
 import uts.sdk.modules.xLoadingS.showLoading
@@ -251,7 +245,7 @@ open class GenPagesPersonalIndex : BasePage {
                     showAgreeModal.value = true
                     return
                 }
-                uni_chooseImage(ChooseImageOptions(count = 1, sourceType = utsArrayOf(
+                uni_chooseImage(ChooseImageOptions(count = 1, sourceType = _uA(
                     "album",
                     "camera"
                 ), success = fun(res){
@@ -358,39 +352,39 @@ open class GenPagesPersonalIndex : BasePage {
                 val _component_x_modal = resolveEasyComponent("x-modal", GenUniModulesTmxUiComponentsXModalXModalClass)
                 val _component_x_keyboard_number = resolveEasyComponent("x-keyboard-number", GenUniModulesTmxUiComponentsXKeyboardNumberXKeyboardNumberClass)
                 val _component_x_overlay = resolveEasyComponent("x-overlay", GenUniModulesTmxUiComponentsXOverlayXOverlayClass)
-                return createElementVNode(Fragment, null, utsArrayOf(
-                    createVNode(_component_mc_base_container, utsMapOf("showStatusBarPlaceholder" to false, "scroll" to true, "show-navbar" to true, "navbarIsPlace" to false, "static-transparent" to true, "lrWidth" to "130"), utsMapOf("navbar-right" to withSlotCtx(fun(): UTSArray<Any> {
-                        return utsArrayOf(
-                            createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("flex-direction" to "row", "justify-content" to "center", "margin-right" to "30rpx"))), utsArrayOf(
-                                createVNode(_component_mc_active_animation, null, utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                    return utsArrayOf(
-                                        createElementVNode("image", utsMapOf("class" to "x-navbar-button", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-customer.png"), "onClick" to fun(){
+                return _cE(Fragment, null, _uA(
+                    _cV(_component_mc_base_container, _uM("showStatusBarPlaceholder" to false, "scroll" to true, "show-navbar" to true, "navbarIsPlace" to false, "static-transparent" to true, "lrWidth" to "130"), _uM("navbar-right" to withSlotCtx(fun(): UTSArray<Any> {
+                        return _uA(
+                            _cE("view", _uM("style" to _nS(_uM("flex-direction" to "row", "justify-content" to "center", "margin-right" to "30rpx"))), _uA(
+                                _cV(_component_mc_active_animation, null, _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                    return _uA(
+                                        _cE("image", _uM("class" to "x-navbar-button", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-customer.png"), "onClick" to fun(){
                                             handleCustomer()
                                         }
-                                        ), null, 8, utsArrayOf(
+                                        ), null, 8, _uA(
                                             "src",
                                             "onClick"
                                         ))
                                     )
                                 }
                                 ), "_" to 1)),
-                                createVNode(_component_mc_active_animation, null, utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                    return utsArrayOf(
-                                        createElementVNode("image", utsMapOf("class" to "x-navbar-button ml23", "src" to "/static/icons/icon-driver-promotion.png", "onClick" to fun(){
+                                _cV(_component_mc_active_animation, null, _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                    return _uA(
+                                        _cE("image", _uM("class" to "x-navbar-button ml23", "src" to "/static/icons/icon-driver-promotion.png", "onClick" to fun(){
                                             generatePoster()
                                         }
-                                        ), null, 8, utsArrayOf(
+                                        ), null, 8, _uA(
                                             "onClick"
                                         ))
                                     )
                                 }
                                 ), "_" to 1)),
-                                createVNode(_component_mc_active_animation, null, utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                    return utsArrayOf(
-                                        createElementVNode("image", utsMapOf("class" to "x-navbar-button ml23", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-setting.png"), "onClick" to fun(){
+                                _cV(_component_mc_active_animation, null, _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                    return _uA(
+                                        _cE("image", _uM("class" to "x-navbar-button ml23", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-setting.png"), "onClick" to fun(){
                                             handleSetting()
                                         }
-                                        ), null, 8, utsArrayOf(
+                                        ), null, 8, _uA(
                                             "src",
                                             "onClick"
                                         ))
@@ -401,41 +395,41 @@ open class GenPagesPersonalIndex : BasePage {
                         )
                     }
                     ), "default" to withSlotCtx(fun(): UTSArray<Any> {
-                        return utsArrayOf(
-                            createElementVNode("view", utsMapOf("style" to normalizeStyle("width:100%;height: " + unref(statusBarHeight) + "px;")), null, 4),
-                            createElementVNode("view", utsMapOf("class" to "home-bg"), utsArrayOf(
-                                createElementVNode("view", utsMapOf("class" to "top-bg"))
+                        return _uA(
+                            _cE("view", _uM("style" to _nS("width:100%;height: " + unref(statusBarHeight) + "px;")), null, 4),
+                            _cE("view", _uM("class" to "home-bg"), _uA(
+                                _cE("view", _uM("class" to "top-bg"))
                             )),
-                            createElementVNode("view", utsMapOf("class" to "container", "style" to normalizeStyle("height: " + (unref(screenHeight) - unref(statusBarHeight)) + "px;")), utsArrayOf(
-                                createElementVNode("view", utsMapOf("class" to "user-card"), utsArrayOf(
-                                    createElementVNode("view", utsMapOf("class" to "user-info"), utsArrayOf(
-                                        createVNode(_component_x_popover, utsMapOf("position" to "bl", "showTriangle" to unref(showHeadWarning), "modelValue" to unref(showHeadWarning)), createSlots(utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                            return utsArrayOf(
-                                                createElementVNode("image", utsMapOf("class" to "avatar", "src" to unref(headImg), "onClick" to fun(){
+                            _cE("view", _uM("class" to "container", "style" to _nS("height: " + (unref(screenHeight) - unref(statusBarHeight)) + "px;")), _uA(
+                                _cE("view", _uM("class" to "user-card"), _uA(
+                                    _cE("view", _uM("class" to "user-info"), _uA(
+                                        _cV(_component_x_popover, _uM("position" to "bl", "showTriangle" to unref(showHeadWarning), "modelValue" to unref(showHeadWarning)), createSlots(_uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                            return _uA(
+                                                _cE("image", _uM("class" to "avatar", "src" to unref(headImg), "onClick" to fun(){
                                                     uploadImage()
                                                 }
-                                                ), null, 8, utsArrayOf(
+                                                ), null, 8, _uA(
                                                     "src",
                                                     "onClick"
                                                 ))
                                             )
                                         }
-                                        ), "_" to 2), utsArrayOf(
+                                        ), "_" to 2), _uA(
                                             if (isTrue(unref(showHeadWarning))) {
-                                                utsMapOf("name" to "menu", "fn" to withSlotCtx(fun(): UTSArray<Any> {
-                                                    return utsArrayOf(
-                                                        createVNode(_component_x_sheet, utsMapOf("dark-color" to "#333", "margin" to utsArrayOf(
+                                                _uM("name" to "menu", "fn" to withSlotCtx(fun(): UTSArray<Any> {
+                                                    return _uA(
+                                                        _cV(_component_x_sheet, _uM("dark-color" to "#333", "margin" to _uA(
                                                             "0"
-                                                        )), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                                            return utsArrayOf(
-                                                                createVNode(_component_x_text, utsMapOf("color" to "red"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                                                    return utsArrayOf(
+                                                        )), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                            return _uA(
+                                                                _cV(_component_x_text, _uM("color" to "red"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                                    return _uA(
                                                                         "头像更换申请被驳回，已更换为原来头像。"
                                                                     )
                                                                 }), "_" to 1)),
-                                                                createVNode(_component_x_text, utsMapOf("color" to "red"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                                                    return utsArrayOf(
-                                                                        "驳回原因：" + toDisplayString(unref(formData).processRemark)
+                                                                _cV(_component_x_text, _uM("color" to "red"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                                    return _uA(
+                                                                        "驳回原因：" + _tD(unref(formData).processRemark)
                                                                     )
                                                                 }), "_" to 1))
                                                             )
@@ -445,187 +439,187 @@ open class GenPagesPersonalIndex : BasePage {
                                             } else {
                                                 null
                                             }
-                                        )), 1032, utsArrayOf(
+                                        )), 1032, _uA(
                                             "showTriangle",
                                             "modelValue"
                                         )),
-                                        createElementVNode("view", utsMapOf("class" to "user-details"), utsArrayOf(
-                                            createElementVNode("view", utsMapOf("class" to "username"), utsArrayOf(
-                                                createElementVNode("text", utsMapOf("style" to normalizeStyle(utsMapOf("font-size" to "23px", "font-weight" to "bold"))), toDisplayString(unref(formDetail).name), 5)
+                                        _cE("view", _uM("class" to "user-details"), _uA(
+                                            _cE("view", _uM("class" to "username"), _uA(
+                                                _cE("text", _uM("style" to _nS(_uM("font-size" to "23px", "font-weight" to "bold"))), _tD(unref(formDetail).name), 5)
                                             )),
-                                            createElementVNode("view", utsMapOf("class" to "rating"), utsArrayOf(
-                                                createVNode(_component_x_rate, utsMapOf("modelValue" to unref(formDetail).serviceStar, "unColor" to "#ffffff", "readonly" to true, "unicon" to ("" + unref(resBaseUrl) + "/static/icons/icon-gray-star.png")), null, 8, utsArrayOf(
+                                            _cE("view", _uM("class" to "rating"), _uA(
+                                                _cV(_component_x_rate, _uM("modelValue" to unref(formDetail).serviceStar, "unColor" to "#ffffff", "readonly" to true, "unicon" to ("" + unref(resBaseUrl) + "/static/icons/icon-gray-star.png")), null, 8, _uA(
                                                     "modelValue",
                                                     "unicon"
                                                 )),
-                                                createElementVNode("text", utsMapOf("class" to "score"), toDisplayString(unref(formDetail).serviceStar) + "分", 1)
+                                                _cE("text", _uM("class" to "score"), _tD(unref(formDetail).serviceStar) + "分", 1)
                                             ))
                                         ))
                                     ))
                                 )),
-                                createElementVNode("view", utsMapOf("class" to "join-info", "style" to normalizeStyle("width: " + unref(screenWidth) + ";")), utsArrayOf(
-                                    createElementVNode("text", utsMapOf("class" to "text-size"), "加入"),
-                                    createElementVNode("text", utsMapOf("class" to "text-size cus-blue"), toDisplayString(unref(formDetail).accompanyDays), 1),
-                                    createElementVNode("text", utsMapOf("class" to "text-size"), "天，累计完单"),
-                                    createElementVNode("text", utsMapOf("class" to "text-size cus-green"), toDisplayString(unref(formDetail).totalOrder), 1),
-                                    createElementVNode("text", utsMapOf("class" to "text-size"), "笔，累计收益"),
-                                    createElementVNode("text", utsMapOf("class" to "text-size cus-green"), toDisplayString(unref(formDetail).totalIncome ?: 0), 1),
-                                    createElementVNode("text", utsMapOf("class" to "text-size"), "元~")
+                                _cE("view", _uM("class" to "join-info", "style" to _nS("width: " + unref(screenWidth) + ";")), _uA(
+                                    _cE("text", _uM("class" to "text-size"), "加入"),
+                                    _cE("text", _uM("class" to "text-size cus-blue"), _tD(unref(formDetail).accompanyDays), 1),
+                                    _cE("text", _uM("class" to "text-size"), "天，累计完单"),
+                                    _cE("text", _uM("class" to "text-size cus-green"), _tD(unref(formDetail).totalOrder), 1),
+                                    _cE("text", _uM("class" to "text-size"), "笔，累计收益"),
+                                    _cE("text", _uM("class" to "text-size cus-green"), _tD(unref(formDetail).totalIncome ?: 0), 1),
+                                    _cE("text", _uM("class" to "text-size"), "元~")
                                 ), 4),
-                                createElementVNode("view", utsMapOf("class" to "card-view", "style" to normalizeStyle("width: " + unref(screenWidth) + "px;")), utsArrayOf(
-                                    createVNode(_component_x_image, utsMapOf("class" to "stats-card-img", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-rounded-rectangle.png")), null, 8, utsArrayOf(
+                                _cE("view", _uM("class" to "card-view", "style" to _nS("width: " + unref(screenWidth) + "px;")), _uA(
+                                    _cV(_component_x_image, _uM("class" to "stats-card-img", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-rounded-rectangle.png")), null, 8, _uA(
                                         "src"
                                     )),
-                                    createElementVNode("view", utsMapOf("class" to "stats-data-card"), utsArrayOf(
-                                        createElementVNode("view", utsMapOf("class" to "stats-card"), utsArrayOf(
-                                            createElementVNode("view", utsMapOf("class" to "stats-card-item"), utsArrayOf(
-                                                createElementVNode("view", utsMapOf("class" to "stats-item"), utsArrayOf(
-                                                    createElementVNode("view", utsMapOf("class" to "stats-value"), toDisplayString(unref(formDetail).todayOrder), 1),
-                                                    createElementVNode("view", utsMapOf("class" to "stats-label"), "今日订单(单)")
+                                    _cE("view", _uM("class" to "stats-data-card"), _uA(
+                                        _cE("view", _uM("class" to "stats-card"), _uA(
+                                            _cE("view", _uM("class" to "stats-card-item"), _uA(
+                                                _cE("view", _uM("class" to "stats-item"), _uA(
+                                                    _cE("view", _uM("class" to "stats-value"), _tD(unref(formDetail).todayOrder), 1),
+                                                    _cE("view", _uM("class" to "stats-label"), "今日订单(单)")
                                                 )),
-                                                createElementVNode("view", utsMapOf("class" to "stats-item-space")),
-                                                createElementVNode("view", utsMapOf("class" to "stats-item"), utsArrayOf(
-                                                    createElementVNode("view", utsMapOf("class" to "stats-value"), toDisplayString(unref(formDetail).operatingIncome ?: 0), 1),
-                                                    createElementVNode("view", utsMapOf("class" to "stats-label"), "今日收入(元)")
+                                                _cE("view", _uM("class" to "stats-item-space")),
+                                                _cE("view", _uM("class" to "stats-item"), _uA(
+                                                    _cE("view", _uM("class" to "stats-value"), _tD(unref(formDetail).operatingIncome ?: 0), 1),
+                                                    _cE("view", _uM("class" to "stats-label"), "今日收入(元)")
                                                 )),
-                                                createElementVNode("view", utsMapOf("class" to "stats-item-space")),
-                                                createElementVNode("view", utsMapOf("class" to "stats-item"), utsArrayOf(
-                                                    createElementVNode("view", utsMapOf("class" to "stats-value"), toDisplayString(unref(formDetail).teamRanking), 1),
-                                                    createElementVNode("view", utsMapOf("class" to "stats-label"), "车队排行(名)")
+                                                _cE("view", _uM("class" to "stats-item-space")),
+                                                _cE("view", _uM("class" to "stats-item"), _uA(
+                                                    _cE("view", _uM("class" to "stats-value"), _tD(unref(formDetail).teamRanking), 1),
+                                                    _cE("view", _uM("class" to "stats-label"), "车队排行(名)")
                                                 ))
                                             )),
-                                            createElementVNode("view", utsMapOf("class" to "stats-card-item"), utsArrayOf(
-                                                createElementVNode("view", utsMapOf("class" to "stats-item"), utsArrayOf(
-                                                    createElementVNode("view", utsMapOf("class" to "stats-value"), toDisplayString(unref(formDetail).activityBonus), 1),
-                                                    createElementVNode("view", utsMapOf("class" to "stats-label"), "今日奖励(元)")
+                                            _cE("view", _uM("class" to "stats-card-item"), _uA(
+                                                _cE("view", _uM("class" to "stats-item"), _uA(
+                                                    _cE("view", _uM("class" to "stats-value"), _tD(unref(formDetail).activityBonus), 1),
+                                                    _cE("view", _uM("class" to "stats-label"), "今日奖励(元)")
                                                 )),
-                                                createElementVNode("view", utsMapOf("class" to "stats-item-space")),
-                                                createElementVNode("view", utsMapOf("class" to "stats-item"), utsArrayOf(
-                                                    createElementVNode("view", utsMapOf("class" to "stats-value"), toDisplayString(unref(formDetail).totalFineAmount), 1),
-                                                    createElementVNode("view", utsMapOf("class" to "stats-label"), "今日罚款(元)")
+                                                _cE("view", _uM("class" to "stats-item-space")),
+                                                _cE("view", _uM("class" to "stats-item"), _uA(
+                                                    _cE("view", _uM("class" to "stats-value"), _tD(unref(formDetail).totalFineAmount), 1),
+                                                    _cE("view", _uM("class" to "stats-label"), "今日罚款(元)")
                                                 )),
-                                                createElementVNode("view", utsMapOf("class" to "stats-item-space")),
-                                                createElementVNode("view", utsMapOf("class" to "stats-item"), utsArrayOf(
-                                                    createElementVNode("view", utsMapOf("class" to "stats-value"), toDisplayString(unref(formDetail).totalAmountReceived), 1),
-                                                    createElementVNode("view", utsMapOf("class" to "stats-label"), "到账金额(元)")
+                                                _cE("view", _uM("class" to "stats-item-space")),
+                                                _cE("view", _uM("class" to "stats-item"), _uA(
+                                                    _cE("view", _uM("class" to "stats-value"), _tD(unref(formDetail).totalAmountReceived), 1),
+                                                    _cE("view", _uM("class" to "stats-label"), "到账金额(元)")
                                                 ))
                                             ))
                                         ))
                                     )),
-                                    createElementVNode("view", utsMapOf("class" to "function-buttons"), utsArrayOf(
-                                        createElementVNode("view", utsMapOf("class" to "function-button blue", "onClick" to fun(){
+                                    _cE("view", _uM("class" to "function-buttons"), _uA(
+                                        _cE("view", _uM("class" to "function-button blue", "onClick" to fun(){
                                             toWallet()
                                         }
-                                        ), utsArrayOf(
-                                            createElementVNode("image", utsMapOf("class" to "function-icon", "src" to ("" + unref(resBaseUrl) + "/static/images/personal-my-change.png")), null, 8, utsArrayOf(
+                                        ), _uA(
+                                            _cE("image", _uM("class" to "function-icon", "src" to ("" + unref(resBaseUrl) + "/static/images/personal-my-change.png")), null, 8, _uA(
                                                 "src"
                                             )),
-                                            createElementVNode("text", utsMapOf("class" to "function-icon-text"), "我的零钱")
-                                        ), 8, utsArrayOf(
+                                            _cE("text", _uM("class" to "function-icon-text"), "我的零钱")
+                                        ), 8, _uA(
                                             "onClick"
                                         )),
-                                        createVNode(_component_mc_active_animation, utsMapOf("class" to "function-button green", "onClick" to fun(){
+                                        _cV(_component_mc_active_animation, _uM("class" to "function-button green", "onClick" to fun(){
                                             toMonthsData()
                                         }
-                                        ), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                            return utsArrayOf(
-                                                createElementVNode("image", utsMapOf("class" to "function-icon", "src" to ("" + unref(resBaseUrl) + "/static/images/personal-months-summary.png")), null, 8, utsArrayOf(
+                                        ), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                            return _uA(
+                                                _cE("image", _uM("class" to "function-icon", "src" to ("" + unref(resBaseUrl) + "/static/images/personal-months-summary.png")), null, 8, _uA(
                                                     "src"
                                                 )),
-                                                createElementVNode("text", utsMapOf("class" to "function-icon-text"), "月度数据")
+                                                _cE("text", _uM("class" to "function-icon-text"), "月度数据")
                                             )
                                         }
-                                        ), "_" to 1), 8, utsArrayOf(
+                                        ), "_" to 1), 8, _uA(
                                             "onClick"
                                         ))
                                     )),
-                                    createElementVNode("view", utsMapOf("class" to "menu-grid"), utsArrayOf(
-                                        createElementVNode("view", utsMapOf("class" to "menu-row"), utsArrayOf(
-                                            createVNode(_component_mc_active_animation, utsMapOf("class" to "menu-item", "onClick" to fun(){
+                                    _cE("view", _uM("class" to "menu-grid"), _uA(
+                                        _cE("view", _uM("class" to "menu-row"), _uA(
+                                            _cV(_component_mc_active_animation, _uM("class" to "menu-item", "onClick" to fun(){
                                                 toJourney()
                                             }
-                                            ), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                                return utsArrayOf(
-                                                    createElementVNode("image", utsMapOf("class" to "menu-icon", "src" to ("" + unref(resBaseUrl) + "/static/images/personal-hisorder.png")), null, 8, utsArrayOf(
+                                            ), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                return _uA(
+                                                    _cE("image", _uM("class" to "menu-icon", "src" to ("" + unref(resBaseUrl) + "/static/images/personal-hisorder.png")), null, 8, _uA(
                                                         "src"
                                                     )),
-                                                    createElementVNode("text", null, "历史行程")
+                                                    _cE("text", null, "历史行程")
                                                 )
                                             }
-                                            ), "_" to 1), 8, utsArrayOf(
+                                            ), "_" to 1), 8, _uA(
                                                 "onClick"
                                             )),
-                                            createVNode(_component_mc_active_animation, utsMapOf("class" to "menu-item", "onClick" to toSwitchPhone), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                                return utsArrayOf(
-                                                    createElementVNode("image", utsMapOf("class" to "menu-icon", "src" to ("" + unref(resBaseUrl) + "/static/images/personal-change-phone.png")), null, 8, utsArrayOf(
+                                            _cV(_component_mc_active_animation, _uM("class" to "menu-item", "onClick" to toSwitchPhone), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                return _uA(
+                                                    _cE("image", _uM("class" to "menu-icon", "src" to ("" + unref(resBaseUrl) + "/static/images/personal-change-phone.png")), null, 8, _uA(
                                                         "src"
                                                     )),
-                                                    createElementVNode("text", null, "更换手机")
+                                                    _cE("text", null, "更换手机")
                                                 )
                                             }
                                             ), "_" to 1)),
-                                            createVNode(_component_mc_active_animation, utsMapOf("class" to "menu-item", "onClick" to fun(){
+                                            _cV(_component_mc_active_animation, _uM("class" to "menu-item", "onClick" to fun(){
                                                 toTradeQualification()
                                             }
-                                            ), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                                return utsArrayOf(
-                                                    createElementVNode("image", utsMapOf("class" to "menu-icon", "src" to ("" + unref(resBaseUrl) + "/static/images/personal-trade-aptitude.png")), null, 8, utsArrayOf(
+                                            ), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                return _uA(
+                                                    _cE("image", _uM("class" to "menu-icon", "src" to ("" + unref(resBaseUrl) + "/static/images/personal-trade-aptitude.png")), null, 8, _uA(
                                                         "src"
                                                     )),
-                                                    createElementVNode("text", null, "营运资质")
+                                                    _cE("text", null, "营运资质")
                                                 )
                                             }
-                                            ), "_" to 1), 8, utsArrayOf(
+                                            ), "_" to 1), 8, _uA(
                                                 "onClick"
                                             ))
                                         )),
-                                        createElementVNode("view", utsMapOf("class" to "menu-row"), utsArrayOf(
-                                            createVNode(_component_mc_active_animation, utsMapOf("class" to "menu-item", "onClick" to fun(){
+                                        _cE("view", _uM("class" to "menu-row"), _uA(
+                                            _cV(_component_mc_active_animation, _uM("class" to "menu-item", "onClick" to fun(){
                                                 toDriverQualification()
                                             }
-                                            ), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                                return utsArrayOf(
-                                                    createElementVNode("image", utsMapOf("class" to "menu-icon", "src" to ("" + unref(resBaseUrl) + "/static/images/personal-driver-aptitude.png")), null, 8, utsArrayOf(
+                                            ), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                return _uA(
+                                                    _cE("image", _uM("class" to "menu-icon", "src" to ("" + unref(resBaseUrl) + "/static/images/personal-driver-aptitude.png")), null, 8, _uA(
                                                         "src"
                                                     )),
-                                                    createElementVNode("text", null, "司机资质")
+                                                    _cE("text", null, "司机资质")
                                                 )
                                             }
-                                            ), "_" to 1), 8, utsArrayOf(
+                                            ), "_" to 1), 8, _uA(
                                                 "onClick"
                                             )),
-                                            createVNode(_component_mc_active_animation, utsMapOf("class" to "menu-item", "onClick" to fun(){
+                                            _cV(_component_mc_active_animation, _uM("class" to "menu-item", "onClick" to fun(){
                                                 toIntegral()
                                             }
-                                            ), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                                return utsArrayOf(
-                                                    createElementVNode("image", utsMapOf("class" to "menu-icon", "src" to ("" + unref(resBaseUrl) + "/static/images/personal-integral.png")), null, 8, utsArrayOf(
+                                            ), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                return _uA(
+                                                    _cE("image", _uM("class" to "menu-icon", "src" to ("" + unref(resBaseUrl) + "/static/images/personal-integral.png")), null, 8, _uA(
                                                         "src"
                                                     )),
-                                                    createElementVNode("text", null, "积分管理")
+                                                    _cE("text", null, "积分管理")
                                                 )
                                             }
-                                            ), "_" to 1), 8, utsArrayOf(
+                                            ), "_" to 1), 8, _uA(
                                                 "onClick"
                                             )),
-                                            createVNode(_component_mc_active_animation, utsMapOf("class" to "menu-item", "onClick" to fun(){
+                                            _cV(_component_mc_active_animation, _uM("class" to "menu-item", "onClick" to fun(){
                                                 toPromotion()
                                             }
-                                            ), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                                return utsArrayOf(
-                                                    createElementVNode("image", utsMapOf("class" to "menu-icon", "src" to ("" + unref(resBaseUrl) + "/static/images/personal-promotion-rewards.png")), null, 8, utsArrayOf(
+                                            ), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                return _uA(
+                                                    _cE("image", _uM("class" to "menu-icon", "src" to ("" + unref(resBaseUrl) + "/static/images/personal-promotion-rewards.png")), null, 8, _uA(
                                                         "src"
                                                     )),
-                                                    createElementVNode("text", null, "推广奖励")
+                                                    _cE("text", null, "推广奖励")
                                                 )
                                             }
-                                            ), "_" to 1), 8, utsArrayOf(
+                                            ), "_" to 1), 8, _uA(
                                                 "onClick"
                                             ))
                                         )),
-                                        createElementVNode("view", utsMapOf("class" to "menu-row"), utsArrayOf(
-                                            createElementVNode("view", utsMapOf("class" to "menu-item")),
-                                            createElementVNode("view", utsMapOf("class" to "menu-item"))
+                                        _cE("view", _uM("class" to "menu-row"), _uA(
+                                            _cE("view", _uM("class" to "menu-item")),
+                                            _cE("view", _uM("class" to "menu-item"))
                                         ))
                                     ))
                                 ), 4)
@@ -633,86 +627,86 @@ open class GenPagesPersonalIndex : BasePage {
                         )
                     }
                     ), "_" to 1)),
-                    createVNode(_component_x_modal, utsMapOf("show" to unref(showValidModal), "onUpdate:show" to fun(`$event`: Boolean){
+                    _cV(_component_x_modal, _uM("show" to unref(showValidModal), "onUpdate:show" to fun(`$event`: Boolean){
                         trySetRefValue(showValidModal, `$event`)
                     }
-                    , "show-close" to "", "onClose" to modalClose, "height" to "300rpx", "z-index" to "100", "title" to "请输入六位数二级密码", "show-footer" to false, "overlayClick" to false), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                        return utsArrayOf(
-                            createVNode(_component_x_code_input, utsMapOf("width" to "80rpx", "showNumber" to false, "auto-focus" to "", "place-shape" to "line", "maxlength" to 6, "modelValue" to unref(secondPwd), "onUpdate:modelValue" to fun(`$event`: String){
+                    , "show-close" to "", "onClose" to modalClose, "height" to "300rpx", "z-index" to "100", "title" to "请输入六位数二级密码", "show-footer" to false, "overlayClick" to false), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                        return _uA(
+                            _cV(_component_x_code_input, _uM("width" to "80rpx", "showNumber" to false, "auto-focus" to "", "place-shape" to "line", "maxlength" to 6, "modelValue" to unref(secondPwd), "onUpdate:modelValue" to fun(`$event`: String){
                                 trySetRefValue(secondPwd, `$event`)
                             }
-                            , "useSysKeyborad" to false, "skin" to "fill", "onClick" to codeClick), null, 8, utsArrayOf(
+                            , "useSysKeyborad" to false, "skin" to "fill", "onClick" to codeClick), null, 8, _uA(
                                 "modelValue"
                             ))
                         )
                     }
-                    ), "_" to 1), 8, utsArrayOf(
+                    ), "_" to 1), 8, _uA(
                         "show"
                     )),
-                    createVNode(_component_x_keyboard_number, utsMapOf("showValue" to false, "mode" to "password", "digit" to false, "model-show" to unref(secondPwdShow), "maxLen" to 6, "modelValue" to unref(secondPwd), "onUpdate:modelValue" to fun(`$event`: String){
+                    _cV(_component_x_keyboard_number, _uM("showValue" to false, "mode" to "password", "digit" to false, "model-show" to unref(secondPwdShow), "maxLen" to 6, "modelValue" to unref(secondPwd), "onUpdate:modelValue" to fun(`$event`: String){
                         trySetRefValue(secondPwd, `$event`)
                     }
                     , "onConfirm" to confirmPwd, "onCancel" to fun(){
                         secondPwdShow.value = false
                     }
-                    , "title" to "安全键盘请放心输入", "bgColor" to "#ffffff"), null, 8, utsArrayOf(
+                    , "title" to "安全键盘请放心输入", "bgColor" to "#ffffff"), null, 8, _uA(
                         "model-show",
                         "modelValue",
                         "onCancel"
                     )),
-                    createVNode(_component_x_modal, utsMapOf("show" to unref(showAgreeModal), "onUpdate:show" to fun(`$event`: Boolean){
+                    _cV(_component_x_modal, _uM("show" to unref(showAgreeModal), "onUpdate:show" to fun(`$event`: Boolean){
                         trySetRefValue(showAgreeModal, `$event`)
                     }
-                    , "bgColor" to "#ECF1F8", "cancel-text" to "拒绝", "overlay-click" to false, "onCancel" to agreeCancel, "confirm-text" to "同意", "onConfirm" to agreeConfirm, "show-title" to false, "height" to "850rpx"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                        return utsArrayOf(
-                            createElementVNode("text", utsMapOf("class" to "photo-agree-title"), "相机使用/媒体访问权限申请"),
-                            createElementVNode("view", utsMapOf("class" to "desc"), utsArrayOf(
-                                createElementVNode("text", utsMapOf("class" to "pb-10"), "我们获取您手机的相机使用/媒体访问权限是用于以下功能："),
-                                createElementVNode("text", utsMapOf("class" to "pb-10"), "1、拍摄/选取本人正面照片：用于头像上传、审核。"),
-                                createElementVNode("text", utsMapOf("class" to "pb-10"), "2、获取媒体访问权限：保存推广海报到本地相册。"),
-                                createElementVNode("text", null, "如果您拒绝我们获取您的上述所有信息，将导致您头像无法上传。"),
-                                createElementVNode("text", utsMapOf("style" to normalizeStyle(utsMapOf("color" to "red"))), "本APP提供了撤回系统权限的功能，具体路径:个人中心(登录后点击右上角)-设置-账户与安全-权限管理。", 4)
+                    , "bgColor" to "#ECF1F8", "cancel-text" to "拒绝", "overlay-click" to false, "onCancel" to agreeCancel, "confirm-text" to "同意", "onConfirm" to agreeConfirm, "show-title" to false, "height" to "850rpx"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                        return _uA(
+                            _cE("text", _uM("class" to "photo-agree-title"), "相机使用/媒体访问权限申请"),
+                            _cE("view", _uM("class" to "desc"), _uA(
+                                _cE("text", _uM("class" to "pb-10"), "我们获取您手机的相机使用/媒体访问权限是用于以下功能："),
+                                _cE("text", _uM("class" to "pb-10"), "1、拍摄/选取本人正面照片：用于头像上传、审核。"),
+                                _cE("text", _uM("class" to "pb-10"), "2、获取媒体访问权限：保存推广海报到本地相册。"),
+                                _cE("text", null, "如果您拒绝我们获取您的上述所有信息，将导致您头像无法上传。"),
+                                _cE("text", _uM("style" to _nS(_uM("color" to "red"))), "本APP提供了撤回系统权限的功能，具体路径:个人中心(登录后点击右上角)-设置-账户与安全-权限管理。", 4)
                             ))
                         )
                     }
-                    ), "_" to 1), 8, utsArrayOf(
+                    ), "_" to 1), 8, _uA(
                         "show"
                     )),
-                    createVNode(_component_x_overlay, utsMapOf("show" to unref(showPosterModal), "onUpdate:show" to fun(`$event`: Boolean){
+                    _cV(_component_x_overlay, _uM("show" to unref(showPosterModal), "onUpdate:show" to fun(`$event`: Boolean){
                         trySetRefValue(showPosterModal, `$event`)
                     }
-                    , "show-close" to true, "z-index" to 100, "overlayClick" to false, "custom-style" to "display: flex;align-items: center;justify-content: center;flex-direction: column; "), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                        return utsArrayOf(
-                            createElementVNode("view", utsMapOf("class" to "poster-container", "style" to normalizeStyle(utsMapOf("margin-top" to "100"))), utsArrayOf(
-                                createElementVNode("image", utsMapOf("src" to unref(activityPromotionSrc), "style" to normalizeStyle(utsMapOf("width" to "90%", "height" to "auto")), "mode" to "widthFix", "onLongpress" to saveImageToAlbum), null, 44, utsArrayOf(
+                    , "show-close" to true, "z-index" to 100, "overlayClick" to false, "custom-style" to "display: flex;align-items: center;justify-content: center;flex-direction: column; "), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                        return _uA(
+                            _cE("view", _uM("class" to "poster-container", "style" to _nS(_uM("margin-top" to "100"))), _uA(
+                                _cE("image", _uM("src" to unref(activityPromotionSrc), "style" to _nS(_uM("width" to "90%", "height" to "auto")), "mode" to "widthFix", "onLongpress" to saveImageToAlbum), null, 44, _uA(
                                     "src"
                                 )),
-                                createElementVNode("text", utsMapOf("class" to "save-tip"), "长按可保存至本地相册")
+                                _cE("text", _uM("class" to "save-tip"), "长按可保存至本地相册")
                             ), 4)
                         )
                     }
-                    ), "_" to 1), 8, utsArrayOf(
+                    ), "_" to 1), 8, _uA(
                         "show"
                     ))
                 ), 64)
             }
         }
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
-            ), utsArrayOf(
+            ), _uA(
                 GenApp.styles
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("container" to padStyleMapOf(utsMapOf("width" to "100%", "position" to "relative", "paddingTop" to 0, "paddingRight" to 15, "paddingBottom" to 0, "paddingLeft" to 15, "marginTop" to 15)), "home-bg" to padStyleMapOf(utsMapOf("position" to "absolute", "top" to 0, "left" to 0, "width" to "100%", "zIndex" to -1, "height" to "100%")), "top-bg" to utsMapOf(".home-bg " to utsMapOf("height" to "100%", "width" to "100%", "backgroundImage" to "linear-gradient(to bottom, #CAD7F2, #FFFFFF)")), "x-navbar-button" to utsMapOf("" to utsMapOf("width" to "40rpx", "height" to "40rpx"), ".ml23" to utsMapOf("marginLeft" to "23rpx"), ".mr25" to utsMapOf("marginRight" to "25rpx"), ".mr20" to utsMapOf("marginRight" to 20)), "user-card" to padStyleMapOf(utsMapOf("width" to "100%", "backgroundColor" to "rgba(0,0,0,0)", "boxShadow" to "0px 11px 35px 0px rgba(253, 214, 190, 0.23)", "paddingTop" to 20, "paddingRight" to 20, "paddingBottom" to 20, "paddingLeft" to 20, "marginTop" to 20)), "user-info" to utsMapOf(".user-card " to utsMapOf("display" to "flex", "flexDirection" to "row", "alignItems" to "center")), "avatar" to utsMapOf(".user-card .user-info " to utsMapOf("width" to "130rpx", "height" to "130rpx", "backgroundImage" to "none", "backgroundColor" to "#00000000", "borderTopLeftRadius" to "65rpx", "borderTopRightRadius" to "65rpx", "borderBottomRightRadius" to "65rpx", "borderBottomLeftRadius" to "65rpx", "borderTopWidth" to 2, "borderRightWidth" to 2, "borderBottomWidth" to 2, "borderLeftWidth" to 2, "borderTopStyle" to "solid", "borderRightStyle" to "solid", "borderBottomStyle" to "solid", "borderLeftStyle" to "solid", "borderTopColor" to "#00000000", "borderRightColor" to "#00000000", "borderBottomColor" to "#00000000", "borderLeftColor" to "#00000000", "marginRight" to 15)), "user-details" to utsMapOf(".user-card .user-info " to utsMapOf("flex" to 1)), "username" to utsMapOf(".user-card .user-info .user-details " to utsMapOf("fontSize" to 40, "width" to "270rpx", "height" to 38, "fontFamily" to "PingFang SC", "fontWeight" to "bold", "color" to "#000000")), "rating" to utsMapOf(".user-card .user-info .user-details " to utsMapOf("display" to "flex", "flexDirection" to "row", "alignItems" to "center", "marginBottom" to 5)), "star" to utsMapOf(".user-card .user-info .user-details .rating " to utsMapOf("width" to 18, "height" to 18, "marginRight" to 8)), "score" to utsMapOf(".user-card .user-info .user-details .rating " to utsMapOf("marginLeft" to 5, "fontWeight" to "bold", "fontSize" to 17, "color" to "#000000")), "join-info" to padStyleMapOf(utsMapOf("lineHeight" to "16px", "display" to "flex", "flexDirection" to "row", "marginLeft" to "25rpx")), "text-size" to utsMapOf(".join-info " to utsMapOf("fontSize" to "28rpx"), ".join-info .cus-blue" to utsMapOf("color" to "#4294F7"), ".join-info .cus-green" to utsMapOf("color" to "#2D9E62")), "card-view" to padStyleMapOf(utsMapOf("position" to "relative", "width" to "100%", "zIndex" to -1, "marginLeft" to -15, "marginTop" to 15, "paddingTop" to 0, "paddingRight" to 15, "paddingBottom" to 0, "paddingLeft" to 15)), "stats-card-img" to utsMapOf(".card-view " to utsMapOf("width" to "100%", "position" to "absolute", "left" to 0), ".card-view .stats-data-card " to utsMapOf("width" to "100%", "position" to "relative")), "stats-data-card" to utsMapOf(".card-view " to utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "height" to "290rpx", "marginTop" to 15)), "stats-card" to utsMapOf(".card-view .stats-data-card " to utsMapOf("position" to "absolute", "zIndex" to 1, "marginTop" to 15, "width" to "100%")), "stats-card-item" to utsMapOf(".card-view .stats-data-card .stats-card " to utsMapOf("width" to "100%", "backgroundColor" to "rgba(0,0,0,0)", "paddingTop" to "15rpx", "paddingRight" to 0, "paddingBottom" to "15rpx", "paddingLeft" to 0, "display" to "flex", "flexDirection" to "row", "justifyContent" to "space-around", "alignItems" to "center")), "stats-item" to utsMapOf(".card-view .stats-data-card .stats-card .stats-card-item " to utsMapOf("flex" to 1, "display" to "flex", "flexDirection" to "column", "alignItems" to "center", "justifyContent" to "center", "paddingTop" to 0, "paddingRight" to "8rpx", "paddingBottom" to 0, "paddingLeft" to "8rpx")), "stats-value" to utsMapOf(".card-view .stats-data-card .stats-card .stats-card-item .stats-item " to utsMapOf("fontSize" to "20rpx", "fontWeight" to "bold", "color" to "#000000", "marginBottom" to "5rpx")), "stats-label" to utsMapOf(".card-view .stats-data-card .stats-card .stats-card-item .stats-item " to utsMapOf("fontSize" to "12rpx", "color" to "#666666", "whiteSpace" to "nowrap")), "stats-item-space" to utsMapOf(".card-view .stats-data-card .stats-card .stats-card-item " to utsMapOf("width" to "20rpx")), "function-buttons" to utsMapOf(".card-view " to utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "backgroundColor" to "rgba(0,0,0,0)", "marginTop" to "20rpx", "position" to "relative")), "function-button" to utsMapOf(".card-view .function-buttons " to utsMapOf("width" to "48%", "height" to 50, "borderTopLeftRadius" to 30, "borderTopRightRadius" to 30, "borderBottomRightRadius" to 30, "borderBottomLeftRadius" to 30, "display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "center"), ".card-view .function-buttons .blue" to utsMapOf("backgroundColor" to "#EDF2FF"), ".card-view .function-buttons .green" to utsMapOf("backgroundColor" to "#E7F7EB")), "function-icon" to utsMapOf(".card-view .function-buttons .function-button " to utsMapOf("width" to "100%", "height" to "100%")), "function-icon-text" to utsMapOf(".card-view .function-buttons .function-button " to utsMapOf("fontSize" to 16, "fontWeight" to "bold", "color" to "#ffffff", "position" to "absolute", "zIndex" to 1)), "menu-grid" to utsMapOf(".card-view " to utsMapOf("width" to "100%", "backgroundColor" to "#ffffff", "borderTopLeftRadius" to 30, "borderTopRightRadius" to 30, "borderBottomRightRadius" to 30, "borderBottomLeftRadius" to 30, "borderTopWidth" to 2, "borderRightWidth" to 2, "borderBottomWidth" to 2, "borderLeftWidth" to 2, "borderTopStyle" to "solid", "borderRightStyle" to "solid", "borderBottomStyle" to "solid", "borderLeftStyle" to "solid", "borderTopColor" to "#FFFFFF", "borderRightColor" to "#FFFFFF", "borderBottomColor" to "#FFFFFF", "borderLeftColor" to "#FFFFFF", "paddingTop" to 20, "paddingRight" to 20, "paddingBottom" to 20, "paddingLeft" to 20, "marginTop" to 15, "marginBottom" to 20)), "menu-row" to utsMapOf(".card-view .menu-grid " to utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "marginBottom" to 20, "marginBottom:last-child" to 0)), "menu-item" to utsMapOf(".card-view .menu-grid .menu-row " to utsMapOf("width" to "30%", "display" to "flex", "flexDirection" to "column", "alignItems" to "center")), "menu-icon" to utsMapOf(".card-view .menu-grid .menu-row .menu-item " to utsMapOf("width" to 30, "height" to 30, "marginBottom" to 10, "marginBottom:last-child" to 0)), "photo-agree-title" to padStyleMapOf(utsMapOf("textAlign" to "center", "width" to "100%", "marginTop" to "30rpx", "marginRight" to 0, "marginBottom" to "30rpx", "marginLeft" to 0, "fontWeight" to "bold", "fontSize" to "32rpx", "color" to "#000000")), "poster-container" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "column", "alignItems" to "center")), "save-tip" to padStyleMapOf(utsMapOf("marginTop" to "20rpx", "fontSize" to "28rpx", "color" to "#FFFFFF", "textAlign" to "center")))
+                return _uM("container" to _pS(_uM("width" to "100%", "position" to "relative", "paddingTop" to 0, "paddingRight" to 15, "paddingBottom" to 0, "paddingLeft" to 15, "marginTop" to 15)), "home-bg" to _pS(_uM("position" to "absolute", "top" to 0, "left" to 0, "width" to "100%", "zIndex" to -1, "height" to "100%")), "top-bg" to _uM(".home-bg " to _uM("height" to "100%", "width" to "100%", "backgroundImage" to "linear-gradient(to bottom, #CAD7F2, #FFFFFF)")), "x-navbar-button" to _uM("" to _uM("width" to "40rpx", "height" to "40rpx"), ".ml23" to _uM("marginLeft" to "23rpx"), ".mr25" to _uM("marginRight" to "25rpx"), ".mr20" to _uM("marginRight" to 20)), "user-card" to _pS(_uM("width" to "100%", "backgroundColor" to "rgba(0,0,0,0)", "boxShadow" to "0px 11px 35px 0px rgba(253, 214, 190, 0.23)", "paddingTop" to 20, "paddingRight" to 20, "paddingBottom" to 20, "paddingLeft" to 20, "marginTop" to 20)), "user-info" to _uM(".user-card " to _uM("display" to "flex", "flexDirection" to "row", "alignItems" to "center")), "avatar" to _uM(".user-card .user-info " to _uM("width" to "130rpx", "height" to "130rpx", "backgroundImage" to "none", "backgroundColor" to "#00000000", "borderTopLeftRadius" to "65rpx", "borderTopRightRadius" to "65rpx", "borderBottomRightRadius" to "65rpx", "borderBottomLeftRadius" to "65rpx", "borderTopWidth" to 2, "borderRightWidth" to 2, "borderBottomWidth" to 2, "borderLeftWidth" to 2, "borderTopStyle" to "solid", "borderRightStyle" to "solid", "borderBottomStyle" to "solid", "borderLeftStyle" to "solid", "borderTopColor" to "#00000000", "borderRightColor" to "#00000000", "borderBottomColor" to "#00000000", "borderLeftColor" to "#00000000", "marginRight" to 15)), "user-details" to _uM(".user-card .user-info " to _uM("flex" to 1)), "username" to _uM(".user-card .user-info .user-details " to _uM("fontSize" to 40, "width" to "270rpx", "height" to 38, "fontFamily" to "PingFang SC", "fontWeight" to "bold", "color" to "#000000")), "rating" to _uM(".user-card .user-info .user-details " to _uM("display" to "flex", "flexDirection" to "row", "alignItems" to "center", "marginBottom" to 5)), "star" to _uM(".user-card .user-info .user-details .rating " to _uM("width" to 18, "height" to 18, "marginRight" to 8)), "score" to _uM(".user-card .user-info .user-details .rating " to _uM("marginLeft" to 5, "fontWeight" to "bold", "fontSize" to 17, "color" to "#000000")), "join-info" to _pS(_uM("lineHeight" to "16px", "display" to "flex", "flexDirection" to "row", "marginLeft" to "25rpx")), "text-size" to _uM(".join-info " to _uM("fontSize" to "28rpx"), ".join-info .cus-blue" to _uM("color" to "#4294F7"), ".join-info .cus-green" to _uM("color" to "#2D9E62")), "card-view" to _pS(_uM("position" to "relative", "width" to "100%", "zIndex" to -1, "marginLeft" to -15, "marginTop" to 15, "paddingTop" to 0, "paddingRight" to 15, "paddingBottom" to 0, "paddingLeft" to 15)), "stats-card-img" to _uM(".card-view " to _uM("width" to "100%", "position" to "absolute", "left" to 0), ".card-view .stats-data-card " to _uM("width" to "100%", "position" to "relative")), "stats-data-card" to _uM(".card-view " to _uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "height" to "290rpx", "marginTop" to 15)), "stats-card" to _uM(".card-view .stats-data-card " to _uM("position" to "absolute", "zIndex" to 1, "marginTop" to 15, "width" to "100%")), "stats-card-item" to _uM(".card-view .stats-data-card .stats-card " to _uM("width" to "100%", "backgroundColor" to "rgba(0,0,0,0)", "paddingTop" to "15rpx", "paddingRight" to 0, "paddingBottom" to "15rpx", "paddingLeft" to 0, "display" to "flex", "flexDirection" to "row", "justifyContent" to "space-around", "alignItems" to "center")), "stats-item" to _uM(".card-view .stats-data-card .stats-card .stats-card-item " to _uM("flex" to 1, "display" to "flex", "flexDirection" to "column", "alignItems" to "center", "justifyContent" to "center", "paddingTop" to 0, "paddingRight" to "8rpx", "paddingBottom" to 0, "paddingLeft" to "8rpx")), "stats-value" to _uM(".card-view .stats-data-card .stats-card .stats-card-item .stats-item " to _uM("fontSize" to "20rpx", "fontWeight" to "bold", "color" to "#000000", "marginBottom" to "5rpx")), "stats-label" to _uM(".card-view .stats-data-card .stats-card .stats-card-item .stats-item " to _uM("fontSize" to "12rpx", "color" to "#666666", "whiteSpace" to "nowrap")), "stats-item-space" to _uM(".card-view .stats-data-card .stats-card .stats-card-item " to _uM("width" to "20rpx")), "function-buttons" to _uM(".card-view " to _uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "backgroundColor" to "rgba(0,0,0,0)", "marginTop" to "20rpx", "position" to "relative")), "function-button" to _uM(".card-view .function-buttons " to _uM("width" to "48%", "height" to 50, "borderTopLeftRadius" to 30, "borderTopRightRadius" to 30, "borderBottomRightRadius" to 30, "borderBottomLeftRadius" to 30, "display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "center"), ".card-view .function-buttons .blue" to _uM("backgroundColor" to "#EDF2FF"), ".card-view .function-buttons .green" to _uM("backgroundColor" to "#E7F7EB")), "function-icon" to _uM(".card-view .function-buttons .function-button " to _uM("width" to "100%", "height" to "100%")), "function-icon-text" to _uM(".card-view .function-buttons .function-button " to _uM("fontSize" to 16, "fontWeight" to "bold", "color" to "#ffffff", "position" to "absolute", "zIndex" to 1)), "menu-grid" to _uM(".card-view " to _uM("width" to "100%", "backgroundColor" to "#ffffff", "borderTopLeftRadius" to 30, "borderTopRightRadius" to 30, "borderBottomRightRadius" to 30, "borderBottomLeftRadius" to 30, "borderTopWidth" to 2, "borderRightWidth" to 2, "borderBottomWidth" to 2, "borderLeftWidth" to 2, "borderTopStyle" to "solid", "borderRightStyle" to "solid", "borderBottomStyle" to "solid", "borderLeftStyle" to "solid", "borderTopColor" to "#FFFFFF", "borderRightColor" to "#FFFFFF", "borderBottomColor" to "#FFFFFF", "borderLeftColor" to "#FFFFFF", "paddingTop" to 20, "paddingRight" to 20, "paddingBottom" to 20, "paddingLeft" to 20, "marginTop" to 15, "marginBottom" to 20)), "menu-row" to _uM(".card-view .menu-grid " to _uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "marginBottom" to 20, "marginBottom:last-child" to 0)), "menu-item" to _uM(".card-view .menu-grid .menu-row " to _uM("width" to "30%", "display" to "flex", "flexDirection" to "column", "alignItems" to "center")), "menu-icon" to _uM(".card-view .menu-grid .menu-row .menu-item " to _uM("width" to 30, "height" to 30, "marginBottom" to 10, "marginBottom:last-child" to 0)), "photo-agree-title" to _pS(_uM("textAlign" to "center", "width" to "100%", "marginTop" to "30rpx", "marginRight" to 0, "marginBottom" to "30rpx", "marginLeft" to 0, "fontWeight" to "bold", "fontSize" to "32rpx", "color" to "#000000")), "poster-container" to _pS(_uM("display" to "flex", "flexDirection" to "column", "alignItems" to "center")), "save-tip" to _pS(_uM("marginTop" to "20rpx", "fontSize" to "28rpx", "color" to "#FFFFFF", "textAlign" to "center")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf()
-        var props = normalizePropsOptions(utsMapOf())
-        var propsNeedCastKeys: UTSArray<String> = utsArrayOf()
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM()
+        var props = _nP(_uM())
+        var propsNeedCastKeys: UTSArray<String> = _uA()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

@@ -11,64 +11,60 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 open class GenUniModulesTmxUiComponentsXTextXText : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {}
     @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
     override fun `$render`(): Any? {
         val _ctx = this
         val _cache = this.`$`.renderCache
-        return createElementVNode("text", utsMapOf("onClick" to _ctx.allClick, "style" to normalizeStyle(utsArrayOf(
+        return _cE("text", _uM("onClick" to _ctx.allClick, "style" to _nS(_uA(
             _ctx._styleMap,
             _ctx.___style
-        )), "class" to normalizeClass(utsArrayOf(
+        )), "class" to _nC(_uA(
             _ctx.___class,
             "xTextLines"
-        )), "selectable" to _ctx.selectable), utsArrayOf(
+        )), "selectable" to _ctx.selectable), _uA(
             renderSlot(_ctx.`$slots`, "default", UTSJSONObject(), fun(): UTSArray<Any> {
-                return utsArrayOf(
+                return _uA(
                     if (_ctx._label == "") {
-                        createElementVNode("text", utsMapOf("key" to 0, "onClick" to _ctx.allClick, "style" to normalizeStyle(utsArrayOf(
+                        _cE("text", _uM("key" to 0, "onClick" to _ctx.allClick, "style" to _nS(_uA(
                             _ctx._styleMap,
                             _ctx.___style
-                        )), "class" to normalizeClass(utsArrayOf(
+                        )), "class" to _nC(_uA(
                             _ctx.___class,
                             "xTextLines"
-                        )), "selectable" to _ctx.selectable), toDisplayString(_ctx._label), 15, utsArrayOf(
+                        )), "selectable" to _ctx.selectable), _tD(_ctx._label), 15, _uA(
                             "onClick",
                             "selectable"
                         ))
                     } else {
-                        createCommentVNode("v-if", true)
+                        _cC("v-if", true)
                     }
                 )
             }
             ),
-            createElementVNode(Fragment, null, RenderHelpers.renderList(_ctx._texts, fun(item, index, __index, _cached): Any {
-                return createElementVNode("text", utsMapOf("onClick" to fun(){
+            _cE(Fragment, null, RenderHelpers.renderList(_ctx._texts, fun(item, index, __index, _cached): Any {
+                return _cE("text", _uM("onClick" to fun(){
                     _ctx.itemClick(item.text)
                 }
-                , "class" to normalizeClass(utsArrayOf(
+                , "class" to _nC(_uA(
                     _ctx.___class
-                )), "selectable" to _ctx.selectable, "style" to normalizeStyle(utsArrayOf(
-                    utsMapOf("color" to item.color, "lineHeight" to _ctx.lineHeight, "fontSize" to _ctx._fontSize),
+                )), "selectable" to _ctx.selectable, "style" to _nS(_uA(
+                    _uM("color" to item.color, "lineHeight" to _ctx.lineHeight, "fontSize" to _ctx._fontSize),
                     if (item.isHeightLight) {
                         _ctx.heightLightStyle
                     } else {
-                        utsMapOf<String, Any?>()
+                        _uM<String, Any?>()
                     }
                     ,
                     _ctx.___style
-                )), "key" to index), toDisplayString(item.text), 15, utsArrayOf(
+                )), "key" to index), _tD(item.text), 15, _uA(
                     "onClick",
                     "selectable"
                 ))
             }
             ), 128)
-        ), 14, utsArrayOf(
+        ), 14, _uA(
             "onClick",
             "selectable"
         ))
@@ -97,7 +93,7 @@ open class GenUniModulesTmxUiComponentsXTextXText : VueComponent {
     open var _styleMap: Map<String, String> by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("___class" to computed<String>(fun(): String {
+        return _uM("___class" to computed<String>(fun(): String {
             return this._class
         }
         ), "___style" to computed<String>(fun(): String {
@@ -138,16 +134,16 @@ open class GenUniModulesTmxUiComponentsXTextXText : VueComponent {
         }
         ), "_texts" to computed<UTSArray<ITEMINFO>>(fun(): UTSArray<ITEMINFO> {
             if (this.label == "") {
-                return utsArrayOf<ITEMINFO>()
+                return _uA<ITEMINFO>()
             }
             var keywords = this.heightLight
             var albel = this.label
             if ((keywords.length == 0 && this.heightLightReg.length == 0) || albel.length == 0) {
-                return utsArrayOf(
+                return _uA(
                     ITEMINFO(text = albel, color = this._color, isHeightLight = false)
                 )
             }
-            var regexxAr = utsArrayOf<String>()
+            var regexxAr = _uA<String>()
             this.heightLightReg.forEach(fun(reg: String) {
                 var regex = UTSRegExp(reg, "gi")
                 var rulst = regex.exec(albel)
@@ -176,7 +172,7 @@ open class GenUniModulesTmxUiComponentsXTextXText : VueComponent {
             }
             )
             var ps = albel.split("~-")
-            var ar = utsArrayOf<ITEMINFO>()
+            var ar = _uA<ITEMINFO>()
             ps.forEach(fun(el: String){
                 if (el.length > 0) {
                     var start = el.indexOf("<span>")
@@ -230,25 +226,25 @@ open class GenUniModulesTmxUiComponentsXTextXText : VueComponent {
     }
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xTextRegx" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "flexWrap" to "wrap")), "xTextLines" to padStyleMapOf(utsMapOf("textOverflow" to "ellipsis")))
+                return _uM("xTextRegx" to _pS(_uM("display" to "flex", "flexDirection" to "row", "flexWrap" to "wrap")), "xTextLines" to _pS(_uM("textOverflow" to "ellipsis")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("click" to null, "item-click" to null)
-        var props = normalizePropsOptions(utsMapOf("_style" to utsMapOf("type" to "String", "default" to ""), "_class" to utsMapOf("type" to "String", "default" to ""), "label" to utsMapOf("type" to "String", "default" to ""), "heightLight" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf<String>()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("click" to null, "item-click" to null)
+        var props = _nP(_uM("_style" to _uM("type" to "String", "default" to ""), "_class" to _uM("type" to "String", "default" to ""), "label" to _uM("type" to "String", "default" to ""), "heightLight" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA<String>()
         }
-        ), "heightLightReg" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf<String>()
+        ), "heightLightReg" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA<String>()
         }
-        ), "heightLightStyle" to utsMapOf("type" to "String", "default" to ""), "lines" to utsMapOf("type" to "Number", "default" to 0), "selectable" to utsMapOf("type" to "Boolean", "default" to false), "color" to utsMapOf("type" to "String", "default" to "#333333"), "darkColor" to utsMapOf("type" to "String", "default" to ""), "heightLightColor" to utsMapOf("type" to "String", "default" to "primary"), "lineHeight" to utsMapOf("type" to "String", "default" to "1.7"), "fontSize" to utsMapOf("type" to "String", "default" to "")))
-        var propsNeedCastKeys = utsArrayOf(
+        ), "heightLightStyle" to _uM("type" to "String", "default" to ""), "lines" to _uM("type" to "Number", "default" to 0), "selectable" to _uM("type" to "Boolean", "default" to false), "color" to _uM("type" to "String", "default" to "#333333"), "darkColor" to _uM("type" to "String", "default" to ""), "heightLightColor" to _uM("type" to "String", "default" to "primary"), "lineHeight" to _uM("type" to "String", "default" to "1.7"), "fontSize" to _uM("type" to "String", "default" to "")))
+        var propsNeedCastKeys = _uA(
             "_style",
             "_class",
             "label",
@@ -263,6 +259,6 @@ open class GenUniModulesTmxUiComponentsXTextXText : VueComponent {
             "lineHeight",
             "fontSize"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

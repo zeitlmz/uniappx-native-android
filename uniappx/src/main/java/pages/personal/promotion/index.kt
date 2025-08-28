@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.`$emit` as uni__emit
 import uts.sdk.modules.mcWechatSdk.WeChatShare
 import uts.sdk.modules.xLoadingS.XLOADINGS_TYPE
@@ -66,7 +62,7 @@ open class GenPagesPersonalPromotionIndex : BasePage {
             val activityPromotionSrc = ref<String>("")
             val showValidModal = ref<Boolean>(false)
             val showAgreeModal = ref<Boolean>(false)
-            val rankingList = ref(utsArrayOf<RankingInfo>())
+            val rankingList = ref(_uA<RankingInfo>())
             val fetchPromotionReward = fun(){
                 getPromotionReward().then(fun(res: Response){
                     if (res.code == 200) {
@@ -85,7 +81,7 @@ open class GenPagesPersonalPromotionIndex : BasePage {
                                 promotionCount.value = resultData.getNumber("selfRankNo") ?: -1
                                 promotionPersons.value = resultData.getNumber("selfShareCount") ?: 0
                                 totalReward.value = resultData.getNumber("selfPromotionIncome") ?: 0
-                                rankingList.value = JSON.parse<UTSArray<RankingInfo>>(JSON.stringify(resultData.getArray("tops"))) ?: utsArrayOf()
+                                rankingList.value = JSON.parse<UTSArray<RankingInfo>>(JSON.stringify(resultData.getArray("tops"))) ?: _uA()
                             }
                             hideXloading()
                         }
@@ -166,28 +162,28 @@ open class GenPagesPersonalPromotionIndex : BasePage {
                 val _component_mc_base_container = resolveEasyComponent("mc-base-container", GenComponentsMcBaseContainerIndexClass)
                 val _component_x_overlay = resolveEasyComponent("x-overlay", GenUniModulesTmxUiComponentsXOverlayXOverlayClass)
                 val _component_x_modal = resolveEasyComponent("x-modal", GenUniModulesTmxUiComponentsXModalXModalClass)
-                return createElementVNode(Fragment, null, utsArrayOf(
-                    createVNode(_component_mc_base_container, utsMapOf("showStatusBarPlaceholder" to false, "scroll" to true, "show-navbar" to true, "navbarIsPlace" to false, "static-transparent" to true, "title" to "推广奖励", "title-color" to "#F5F7FA"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                        return utsArrayOf(
-                            createElementVNode("view", utsMapOf("style" to normalizeStyle("width:100%;height: " + unref(statusBarHeight) + "px;")), null, 4),
-                            createElementVNode("view", utsMapOf("class" to "home-bg"), utsArrayOf(
-                                createElementVNode("image", utsMapOf("class" to "bg-image", "src" to ("" + unref(resBaseUrl) + "/static/images/personal-promotion-bg.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
+                return _cE(Fragment, null, _uA(
+                    _cV(_component_mc_base_container, _uM("showStatusBarPlaceholder" to false, "scroll" to true, "show-navbar" to true, "navbarIsPlace" to false, "static-transparent" to true, "title" to "推广奖励", "title-color" to "#F5F7FA"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                        return _uA(
+                            _cE("view", _uM("style" to _nS("width:100%;height: " + unref(statusBarHeight) + "px;")), null, 4),
+                            _cE("view", _uM("class" to "home-bg"), _uA(
+                                _cE("image", _uM("class" to "bg-image", "src" to ("" + unref(resBaseUrl) + "/static/images/personal-promotion-bg.png"), "mode" to "widthFix"), null, 8, _uA(
                                     "src"
                                 ))
                             )),
-                            createElementVNode("view", utsMapOf("class" to "container", "style" to normalizeStyle("height: " + (unref(screenHeight) + 410) + "px")), utsArrayOf(
-                                createElementVNode("view", utsMapOf("class" to "promotion-card"), utsArrayOf(
-                                    createElementVNode("view", utsMapOf("class" to "promotion-content"), utsArrayOf(
-                                        createElementVNode("view", utsMapOf("class" to "promo-reward-box"), utsArrayOf(
-                                            createElementVNode("text", utsMapOf("class" to "promotion-desc"), "每推荐1个新用户，"),
-                                            createElementVNode("text", utsMapOf("class" to "promotion-desc"), "登录每橙专车小程序，你可赚取现金奖励"),
-                                            createElementVNode("view", utsMapOf("class" to "promotion-money"), utsArrayOf(
-                                                createElementVNode("view", utsMapOf("class" to "reward-amount"), utsArrayOf(
-                                                    createElementVNode("text", utsMapOf("class" to "amount"), toDisplayString(unref(promotionRewardAmount) ?: "---"), 1)
+                            _cE("view", _uM("class" to "container", "style" to _nS("height: " + (unref(screenHeight) + 410) + "px")), _uA(
+                                _cE("view", _uM("class" to "promotion-card"), _uA(
+                                    _cE("view", _uM("class" to "promotion-content"), _uA(
+                                        _cE("view", _uM("class" to "promo-reward-box"), _uA(
+                                            _cE("text", _uM("class" to "promotion-desc"), "每推荐1个新用户，"),
+                                            _cE("text", _uM("class" to "promotion-desc"), "登录每橙专车小程序，你可赚取现金奖励"),
+                                            _cE("view", _uM("class" to "promotion-money"), _uA(
+                                                _cE("view", _uM("class" to "reward-amount"), _uA(
+                                                    _cE("text", _uM("class" to "amount"), _tD(unref(promotionRewardAmount) ?: "---"), 1)
                                                 )),
-                                                createElementVNode("view", utsMapOf("class" to "unit"), utsArrayOf(
-                                                    createVNode(_component_x_text, utsMapOf("class" to "unit-text", "color" to "#D31B01"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                                        return utsArrayOf(
+                                                _cE("view", _uM("class" to "unit"), _uA(
+                                                    _cV(_component_x_text, _uM("class" to "unit-text", "color" to "#D31B01"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                                        return _uA(
                                                             "元"
                                                         )
                                                     }
@@ -195,185 +191,185 @@ open class GenPagesPersonalPromotionIndex : BasePage {
                                                 ))
                                             ))
                                         )),
-                                        createElementVNode("view", utsMapOf("class" to "promotion-buttons"), utsArrayOf(
-                                            createElementVNode("view", utsMapOf("class" to "promo-button promote-now", "onClick" to handlePromotion), utsArrayOf(
-                                                createElementVNode("text", utsMapOf("class" to "button-text"), "立即推广")
+                                        _cE("view", _uM("class" to "promotion-buttons"), _uA(
+                                            _cE("view", _uM("class" to "promo-button promote-now", "onClick" to handlePromotion), _uA(
+                                                _cE("text", _uM("class" to "button-text"), "立即推广")
                                             ))
                                         ))
                                     ))
                                 )),
-                                createElementVNode("view", utsMapOf("class" to "reward-card"), utsArrayOf(
-                                    createElementVNode("image", utsMapOf("style" to normalizeStyle(utsMapOf("width" to "100%", "position" to "absolute")), "src" to ("" + unref(resBaseUrl) + "/static/images/personal-promotion-awrod.png"), "mode" to "widthFix"), null, 12, utsArrayOf(
+                                _cE("view", _uM("class" to "reward-card"), _uA(
+                                    _cE("image", _uM("style" to _nS(_uM("width" to "100%", "position" to "absolute")), "src" to ("" + unref(resBaseUrl) + "/static/images/personal-promotion-awrod.png"), "mode" to "widthFix"), null, 12, _uA(
                                         "src"
                                     )),
-                                    createElementVNode("view", utsMapOf("class" to "reward-title"), utsArrayOf(
-                                        createElementVNode("view", utsMapOf("class" to "view-record", "onClick" to goToRecord), utsArrayOf(
-                                            createElementVNode("view", utsMapOf("class" to "record-icon"), utsArrayOf(
-                                                createElementVNode("image", utsMapOf("src" to ("" + unref(resBaseUrl) + "/static/images/personal-promotion-record.png"), "mode" to "aspectFit", "class" to "arrow-icon"), null, 8, utsArrayOf(
+                                    _cE("view", _uM("class" to "reward-title"), _uA(
+                                        _cE("view", _uM("class" to "view-record", "onClick" to goToRecord), _uA(
+                                            _cE("view", _uM("class" to "record-icon"), _uA(
+                                                _cE("image", _uM("src" to ("" + unref(resBaseUrl) + "/static/images/personal-promotion-record.png"), "mode" to "aspectFit", "class" to "arrow-icon"), null, 8, _uA(
                                                     "src"
                                                 ))
                                             )),
-                                            createElementVNode("text", utsMapOf("class" to "record-text", "style" to normalizeStyle(utsMapOf<String, Any?>())), "推广记录", 4)
+                                            _cE("text", _uM("class" to "record-text", "style" to _nS(_uM<String, Any?>())), "推广记录", 4)
                                         ))
                                     )),
-                                    createElementVNode("view", utsMapOf("class" to "reward-stats"), utsArrayOf(
-                                        createElementVNode("view", utsMapOf("class" to "stat-item"), utsArrayOf(
-                                            createElementVNode("view", utsMapOf("class" to "stat-item-bg")),
-                                            createElementVNode("text", utsMapOf("class" to "stat-value"), toDisplayString(if ((unref(promotionCount) != null && unref(promotionCount) <= 0)) {
+                                    _cE("view", _uM("class" to "reward-stats"), _uA(
+                                        _cE("view", _uM("class" to "stat-item"), _uA(
+                                            _cE("view", _uM("class" to "stat-item-bg")),
+                                            _cE("text", _uM("class" to "stat-value"), _tD(if ((unref(promotionCount) != null && unref(promotionCount) <= 0)) {
                                                 "-"
                                             } else {
                                                 unref(promotionCount)
                                             }
                                             ), 1),
-                                            createElementVNode("text", utsMapOf("class" to "stat-label"), "推广排行")
+                                            _cE("text", _uM("class" to "stat-label"), "推广排行")
                                         )),
-                                        createElementVNode("view", utsMapOf("class" to "stat-item border-lr"), utsArrayOf(
-                                            createElementVNode("view", utsMapOf("class" to "stat-item-bg")),
-                                            createElementVNode("text", utsMapOf("class" to "stat-value"), toDisplayString(unref(promotionPersons) ?: "---"), 1),
-                                            createElementVNode("text", utsMapOf("class" to "stat-label"), "推广人数")
+                                        _cE("view", _uM("class" to "stat-item border-lr"), _uA(
+                                            _cE("view", _uM("class" to "stat-item-bg")),
+                                            _cE("text", _uM("class" to "stat-value"), _tD(unref(promotionPersons) ?: "---"), 1),
+                                            _cE("text", _uM("class" to "stat-label"), "推广人数")
                                         )),
-                                        createElementVNode("view", utsMapOf("class" to "stat-item"), utsArrayOf(
-                                            createElementVNode("view", utsMapOf("class" to "stat-item-bg")),
-                                            createElementVNode("text", utsMapOf("class" to "stat-value"), toDisplayString(unref(totalReward) ?: "---"), 1),
-                                            createElementVNode("text", utsMapOf("class" to "stat-label"), "获取收益")
+                                        _cE("view", _uM("class" to "stat-item"), _uA(
+                                            _cE("view", _uM("class" to "stat-item-bg")),
+                                            _cE("text", _uM("class" to "stat-value"), _tD(unref(totalReward) ?: "---"), 1),
+                                            _cE("text", _uM("class" to "stat-label"), "获取收益")
                                         ))
                                     )),
-                                    createElementVNode("view", utsMapOf("class" to "ranking-header"), utsArrayOf(
-                                        createElementVNode("image", utsMapOf("class" to "ranking-header-img", "src" to ("" + unref(resBaseUrl) + "/static/images/personal-promotion-rank.png"), "mode" to "widthFix"), null, 8, utsArrayOf(
+                                    _cE("view", _uM("class" to "ranking-header"), _uA(
+                                        _cE("image", _uM("class" to "ranking-header-img", "src" to ("" + unref(resBaseUrl) + "/static/images/personal-promotion-rank.png"), "mode" to "widthFix"), null, 8, _uA(
                                             "src"
                                         ))
                                     )),
-                                    createElementVNode("view", utsMapOf("class" to "ranking-list"), utsArrayOf(
-                                        createElementVNode("view", utsMapOf("class" to "ranking-item"), utsArrayOf(
-                                            createElementVNode("view", utsMapOf("class" to "ranking-medal"), utsArrayOf(
-                                                createElementVNode("image", utsMapOf("src" to ("" + unref(resBaseUrl) + "/static/images/personal-promotion-rank-2.png"), "mode" to "aspectFit", "class" to "medal-icon"), null, 8, utsArrayOf(
+                                    _cE("view", _uM("class" to "ranking-list"), _uA(
+                                        _cE("view", _uM("class" to "ranking-item"), _uA(
+                                            _cE("view", _uM("class" to "ranking-medal"), _uA(
+                                                _cE("image", _uM("src" to ("" + unref(resBaseUrl) + "/static/images/personal-promotion-rank-2.png"), "mode" to "aspectFit", "class" to "medal-icon"), null, 8, _uA(
                                                     "src"
                                                 ))
                                             )),
                                             if (unref(rankingList).length >= 2) {
-                                                createElementVNode("view", utsMapOf("key" to 0, "class" to "user-info"), utsArrayOf(
-                                                    createElementVNode("text", utsMapOf("class" to "user-name"), toDisplayString(unref(rankingList)[1].maskedPhone), 1)
+                                                _cE("view", _uM("key" to 0, "class" to "user-info"), _uA(
+                                                    _cE("text", _uM("class" to "user-name"), _tD(unref(rankingList)[1].maskedPhone), 1)
                                                 ))
                                             } else {
-                                                createCommentVNode("v-if", true)
+                                                _cC("v-if", true)
                                             }
                                             ,
                                             if (unref(rankingList).length >= 2) {
-                                                createElementVNode("text", utsMapOf("key" to 1, "class" to "user-count"), toDisplayString(unref(rankingList)[1].inviteCount) + "人", 1)
+                                                _cE("text", _uM("key" to 1, "class" to "user-count"), _tD(unref(rankingList)[1].inviteCount) + "人", 1)
                                             } else {
-                                                createCommentVNode("v-if", true)
+                                                _cC("v-if", true)
                                             }
                                             ,
                                             if (unref(rankingList).length < 2) {
-                                                createElementVNode("text", utsMapOf("key" to 2, "class" to "user-count mt-5"), "--")
+                                                _cE("text", _uM("key" to 2, "class" to "user-count mt-5"), "--")
                                             } else {
-                                                createCommentVNode("v-if", true)
+                                                _cC("v-if", true)
                                             }
                                         )),
                                         if (unref(rankingList).length >= 1) {
-                                            createElementVNode("view", utsMapOf("key" to 0, "class" to "ranking-item", "style" to normalizeStyle(utsMapOf("margin-top" to "-60rpx"))), utsArrayOf(
-                                                createElementVNode("view", utsMapOf("class" to "ranking-medal"), utsArrayOf(
-                                                    createElementVNode("image", utsMapOf("src" to ("" + unref(resBaseUrl) + "/static/images/personal-promotion-rank-1.png"), "mode" to "aspectFit", "class" to "medal-icon"), null, 8, utsArrayOf(
+                                            _cE("view", _uM("key" to 0, "class" to "ranking-item", "style" to _nS(_uM("margin-top" to "-60rpx"))), _uA(
+                                                _cE("view", _uM("class" to "ranking-medal"), _uA(
+                                                    _cE("image", _uM("src" to ("" + unref(resBaseUrl) + "/static/images/personal-promotion-rank-1.png"), "mode" to "aspectFit", "class" to "medal-icon"), null, 8, _uA(
                                                         "src"
                                                     ))
                                                 )),
-                                                createElementVNode("view", utsMapOf("class" to "user-info"), utsArrayOf(
-                                                    createElementVNode("text", utsMapOf("class" to "user-name"), toDisplayString(unref(rankingList)[0].maskedPhone), 1)
+                                                _cE("view", _uM("class" to "user-info"), _uA(
+                                                    _cE("text", _uM("class" to "user-name"), _tD(unref(rankingList)[0].maskedPhone), 1)
                                                 )),
-                                                createElementVNode("text", utsMapOf("class" to "user-count"), toDisplayString(unref(rankingList)[0].inviteCount) + "人", 1)
+                                                _cE("text", _uM("class" to "user-count"), _tD(unref(rankingList)[0].inviteCount) + "人", 1)
                                             ), 4)
                                         } else {
-                                            createCommentVNode("v-if", true)
+                                            _cC("v-if", true)
                                         }
                                         ,
-                                        createElementVNode("view", utsMapOf("class" to "ranking-item"), utsArrayOf(
-                                            createElementVNode("view", utsMapOf("class" to "ranking-medal"), utsArrayOf(
-                                                createElementVNode("image", utsMapOf("src" to ("" + unref(resBaseUrl) + "/static/images/personal-promotion-rank-3.png"), "mode" to "aspectFit", "class" to "medal-icon"), null, 8, utsArrayOf(
+                                        _cE("view", _uM("class" to "ranking-item"), _uA(
+                                            _cE("view", _uM("class" to "ranking-medal"), _uA(
+                                                _cE("image", _uM("src" to ("" + unref(resBaseUrl) + "/static/images/personal-promotion-rank-3.png"), "mode" to "aspectFit", "class" to "medal-icon"), null, 8, _uA(
                                                     "src"
                                                 ))
                                             )),
                                             if (unref(rankingList).length >= 3) {
-                                                createElementVNode("view", utsMapOf("key" to 0, "class" to "user-info"), utsArrayOf(
-                                                    createElementVNode("text", utsMapOf("class" to "user-name"), toDisplayString(unref(rankingList)[2].maskedPhone), 1)
+                                                _cE("view", _uM("key" to 0, "class" to "user-info"), _uA(
+                                                    _cE("text", _uM("class" to "user-name"), _tD(unref(rankingList)[2].maskedPhone), 1)
                                                 ))
                                             } else {
-                                                createCommentVNode("v-if", true)
+                                                _cC("v-if", true)
                                             }
                                             ,
                                             if (unref(rankingList).length >= 3) {
-                                                createElementVNode("text", utsMapOf("key" to 1, "class" to "user-count"), toDisplayString(unref(rankingList)[2].inviteCount) + "人", 1)
+                                                _cE("text", _uM("key" to 1, "class" to "user-count"), _tD(unref(rankingList)[2].inviteCount) + "人", 1)
                                             } else {
-                                                createCommentVNode("v-if", true)
+                                                _cC("v-if", true)
                                             }
                                             ,
                                             if (unref(rankingList).length < 3) {
-                                                createElementVNode("text", utsMapOf("key" to 2, "class" to "user-count mt-5"), "--")
+                                                _cE("text", _uM("key" to 2, "class" to "user-count mt-5"), "--")
                                             } else {
-                                                createCommentVNode("v-if", true)
+                                                _cC("v-if", true)
                                             }
                                         ))
                                     ))
                                 )),
-                                createElementVNode("view", utsMapOf("class" to "promotion-buttons", "style" to normalizeStyle(utsMapOf("width" to "100%"))), utsArrayOf(
-                                    createElementVNode("view", utsMapOf("class" to "promo-button generate-poster", "onClick" to generatePoster), utsArrayOf(
-                                        createElementVNode("text", utsMapOf("class" to "button-text"), "生成推广海报")
+                                _cE("view", _uM("class" to "promotion-buttons", "style" to _nS(_uM("width" to "100%"))), _uA(
+                                    _cE("view", _uM("class" to "promo-button generate-poster", "onClick" to generatePoster), _uA(
+                                        _cE("text", _uM("class" to "button-text"), "生成推广海报")
                                     ))
                                 ), 4)
                             ), 4)
                         )
                     }
                     ), "_" to 1)),
-                    createVNode(_component_x_overlay, utsMapOf("show" to unref(showValidModal), "onUpdate:show" to fun(`$event`: Boolean){
+                    _cV(_component_x_overlay, _uM("show" to unref(showValidModal), "onUpdate:show" to fun(`$event`: Boolean){
                         trySetRefValue(showValidModal, `$event`)
                     }
-                    , "show-close" to true, "z-index" to 100, "overlayClick" to false, "custom-style" to "display: flex;align-items: center;justify-content: center;flex-direction: column;"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                        return utsArrayOf(
-                            createElementVNode("view", utsMapOf("class" to "poster-container"), utsArrayOf(
-                                createElementVNode("image", utsMapOf("src" to unref(activityPromotionSrc), "mode" to "widthFix", "onLongpress" to saveImageToAlbum), null, 40, utsArrayOf(
+                    , "show-close" to true, "z-index" to 100, "overlayClick" to false, "custom-style" to "display: flex;align-items: center;justify-content: center;flex-direction: column;"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                        return _uA(
+                            _cE("view", _uM("class" to "poster-container"), _uA(
+                                _cE("image", _uM("src" to unref(activityPromotionSrc), "mode" to "widthFix", "onLongpress" to saveImageToAlbum), null, 40, _uA(
                                     "src"
                                 )),
-                                createElementVNode("text", utsMapOf("class" to "save-tip"), "长按可保存至本地相册")
+                                _cE("text", _uM("class" to "save-tip"), "长按可保存至本地相册")
                             ))
                         )
                     }
-                    ), "_" to 1), 8, utsArrayOf(
+                    ), "_" to 1), 8, _uA(
                         "show"
                     )),
-                    createVNode(_component_x_modal, utsMapOf("show" to unref(showAgreeModal), "onUpdate:show" to fun(`$event`: Boolean){
+                    _cV(_component_x_modal, _uM("show" to unref(showAgreeModal), "onUpdate:show" to fun(`$event`: Boolean){
                         trySetRefValue(showAgreeModal, `$event`)
                     }
-                    , "bgColor" to "#ECF1F8", "cancel-text" to "拒绝", "overlay-click" to false, "onCancel" to agreeCancel, "confirm-text" to "同意", "onConfirm" to agreeConfirm, "show-title" to false, "height" to "500rpx"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                        return utsArrayOf(
-                            createElementVNode("text", utsMapOf("class" to "photo-agree-title"), "媒体访问权限申请"),
-                            createElementVNode("view", utsMapOf("class" to "desc"), utsArrayOf(
-                                createElementVNode("text", utsMapOf("class" to "pb-10"), "我们获取您手机的媒体访问权限是用于保存推广海报到本地相册。"),
-                                createElementVNode("text", null, "如果您拒绝我们获取您的上述权限，将导致您无法保存推广海报到本地相册。"),
-                                createElementVNode("text", utsMapOf("style" to normalizeStyle(utsMapOf("color" to "red"))), "本APP提供了撤回系统权限的功能，具体路径:个人中心(登录后点击右上角)-设置-账户与安全-权限管理。", 4)
+                    , "bgColor" to "#ECF1F8", "cancel-text" to "拒绝", "overlay-click" to false, "onCancel" to agreeCancel, "confirm-text" to "同意", "onConfirm" to agreeConfirm, "show-title" to false, "height" to "500rpx"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                        return _uA(
+                            _cE("text", _uM("class" to "photo-agree-title"), "媒体访问权限申请"),
+                            _cE("view", _uM("class" to "desc"), _uA(
+                                _cE("text", _uM("class" to "pb-10"), "我们获取您手机的媒体访问权限是用于保存推广海报到本地相册。"),
+                                _cE("text", null, "如果您拒绝我们获取您的上述权限，将导致您无法保存推广海报到本地相册。"),
+                                _cE("text", _uM("style" to _nS(_uM("color" to "red"))), "本APP提供了撤回系统权限的功能，具体路径:个人中心(登录后点击右上角)-设置-账户与安全-权限管理。", 4)
                             ))
                         )
                     }
-                    ), "_" to 1), 8, utsArrayOf(
+                    ), "_" to 1), 8, _uA(
                         "show"
                     ))
                 ), 64)
             }
         }
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
-            ), utsArrayOf(
+            ), _uA(
                 GenApp.styles
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("container" to padStyleMapOf(utsMapOf("width" to "100%", "height" to "100%", "position" to "relative", "paddingTop" to 0, "paddingRight" to 15, "paddingBottom" to 0, "paddingLeft" to 15, "marginTop" to 20)), "home-bg" to padStyleMapOf(utsMapOf("position" to "absolute", "top" to 0, "left" to 0, "width" to "100%", "height" to "100%", "zIndex" to -1)), "bg-image" to utsMapOf(".home-bg " to utsMapOf("width" to "100%", "height" to "100%", "position" to "absolute", "top" to 0, "left" to 0)), "promotion-card" to padStyleMapOf(utsMapOf("borderTopLeftRadius" to 15, "borderTopRightRadius" to 15, "borderBottomRightRadius" to 15, "borderBottomLeftRadius" to 15, "marginBottom" to 15, "paddingTop" to 20, "paddingRight" to 15, "paddingBottom" to 20, "paddingLeft" to 15, "boxShadow" to "0 2px 10px rgba(0, 0, 0, 0.05)", "backgroundColor" to "rgba(0,0,0,0)", "marginTop" to "800rpx")), "promotion-title" to padStyleMapOf(utsMapOf("textAlign" to "center", "marginBottom" to 20)), "title-text" to utsMapOf(".promotion-title " to utsMapOf("fontSize" to 20, "fontWeight" to "bold", "color" to "#FF6B00"), ".reward-title " to utsMapOf("fontSize" to 16, "fontWeight" to "bold", "color" to "#333333")), "promotion-subtitle" to padStyleMapOf(utsMapOf("marginTop" to 5)), "subtitle-text" to utsMapOf(".promotion-subtitle " to utsMapOf("fontSize" to 14, "color" to "#999999")), "promotion-content" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "column", "alignItems" to "center", "backgroundColor" to "rgba(0,0,0,0)")), "promo-reward-box" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "column", "alignItems" to "center", "backgroundColor" to "rgba(0,0,0,0)", "width" to "100%", "paddingTop" to 10, "paddingRight" to 0, "paddingBottom" to 10, "paddingLeft" to 0)), "promotion-desc" to padStyleMapOf(utsMapOf("textAlign" to "center", "color" to "#D31B01", "fontSize" to "30rpx", "fontWeight" to "bold")), "promotion-money" to padStyleMapOf(utsMapOf("marginTop" to "20rpx", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center")), "unit" to utsMapOf(".promotion-money " to utsMapOf("marginTop" to "34rpx"), ".reward-amount " to utsMapOf("fontSize" to 16, "color" to "#FF6B00", "marginLeft" to 5)), "reward-amount" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "marginTop" to 10, "marginRight" to 0, "marginBottom" to 10, "marginLeft" to 0)), "amount" to utsMapOf(".reward-amount " to utsMapOf("fontSize" to "90rpx", "fontWeight" to "bold", "color" to "#D31B01")), "unit-text" to utsMapOf(".reward-amount " to utsMapOf("fontWeight" to "bold", "color" to "#D31B01", "fontSize" to "34rpx")), "promotion-buttons" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "width" to "90%")), "promo-button" to padStyleMapOf(utsMapOf("flex" to 1, "height" to 45, "borderTopLeftRadius" to 22.5, "borderTopRightRadius" to 22.5, "borderBottomRightRadius" to 22.5, "borderBottomLeftRadius" to 22.5, "display" to "flex", "justifyContent" to "center", "alignItems" to "center", "marginTop" to 0, "marginRight" to 8, "marginBottom" to 0, "marginLeft" to 8)), "promote-now" to padStyleMapOf(utsMapOf("backgroundColor" to "#FF6B00")), "button-text" to utsMapOf(".promote-now " to utsMapOf("color" to "#FFFFFF", "fontSize" to 16, "fontWeight" to "bold"), ".generate-poster " to utsMapOf("color" to "#ffffff", "fontSize" to 16, "fontWeight" to "bold")), "generate-poster" to padStyleMapOf(utsMapOf("backgroundColor" to "#FF6B00", "borderTopWidth" to 1, "borderRightWidth" to 1, "borderBottomWidth" to 1, "borderLeftWidth" to 1, "borderTopStyle" to "solid", "borderRightStyle" to "solid", "borderBottomStyle" to "solid", "borderLeftStyle" to "solid", "borderTopColor" to "#FF6B00", "borderRightColor" to "#FF6B00", "borderBottomColor" to "#FF6B00", "borderLeftColor" to "#FF6B00", "marginTop" to "13rpx")), "reward-card" to padStyleMapOf(utsMapOf("borderTopLeftRadius" to 15, "borderTopRightRadius" to 15, "borderBottomRightRadius" to 15, "borderBottomLeftRadius" to 15, "marginBottom" to 15, "boxShadow" to "0 2px 10px rgba(0, 0, 0, 0.05)", "flexDirection" to "column", "alignItems" to "center", "width" to "100%", "backgroundColor" to "rgba(0,0,0,0)", "marginTop" to "300rpx")), "reward-title" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "marginBottom" to 15, "marginTop" to "40rpx", "right" to 20, "position" to "absolute")), "view-record" to utsMapOf(".reward-title " to utsMapOf("display" to "flex", "flexDirection" to "row", "alignItems" to "flex-end")), "record-text" to utsMapOf(".reward-title .view-record " to utsMapOf("color" to "#FE3308", "fontWeight" to "bold", "fontSize" to "23rpx", "fontFamily" to "PingFang SC")), "record-icon" to utsMapOf(".reward-title .view-record " to utsMapOf("marginLeft" to 5)), "arrow-icon" to utsMapOf(".reward-title .view-record .record-icon " to utsMapOf("width" to 16, "height" to 16)), "reward-stats" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-around", "marginTop" to "130rpx")), "stat-item" to utsMapOf(".reward-stats " to utsMapOf("display" to "flex", "flexDirection" to "column", "alignItems" to "center", "marginTop" to 0, "marginRight" to "10rpx", "marginBottom" to 0, "marginLeft" to "10rpx", "borderTopLeftRadius" to "20rpx", "borderTopRightRadius" to "20rpx", "borderBottomRightRadius" to "20rpx", "borderBottomLeftRadius" to "20rpx", "borderTopWidth" to 0, "borderRightWidth" to 0, "borderBottomWidth" to 0, "borderLeftWidth" to 0, "borderTopStyle" to "solid", "borderRightStyle" to "solid", "borderBottomStyle" to "solid", "borderLeftStyle" to "solid", "borderTopColor" to "#FC9329", "borderRightColor" to "#FC9329", "borderBottomColor" to "#FC9329", "borderLeftColor" to "#FC9329", "width" to "185rpx", "height" to "133rpx")), "stat-item-bg" to utsMapOf(".reward-stats .stat-item " to utsMapOf("position" to "absolute", "top" to 0, "left" to 0, "height" to "100%", "width" to "100%", "backgroundImage" to "linear-gradient(to bottom, #FFFFFF, #FFF1CD)")), "stat-value" to utsMapOf(".reward-stats .stat-item " to utsMapOf("fontSize" to 24, "fontWeight" to "bold", "color" to "#FE3408", "marginBottom" to 5, "marginTop" to 8)), "stat-label" to utsMapOf(".reward-stats .stat-item " to utsMapOf("fontSize" to 14, "color" to "#000000")), "border-lr" to utsMapOf(".reward-stats " to utsMapOf("borderLeftWidth" to 1, "borderLeftStyle" to "solid", "borderLeftColor" to "#EEEEEE", "borderRightWidth" to 1, "borderRightStyle" to "solid", "borderRightColor" to "#EEEEEE")), "ranking-card" to padStyleMapOf(utsMapOf("backgroundColor" to "#FFFFFF", "borderTopLeftRadius" to 15, "borderTopRightRadius" to 15, "borderBottomRightRadius" to 15, "borderBottomLeftRadius" to 15, "paddingTop" to 0, "paddingRight" to 0, "paddingBottom" to 15, "paddingLeft" to 0, "boxShadow" to "0 2px 10px rgba(0, 0, 0, 0.05)", "overflow" to "hidden")), "ranking-header" to padStyleMapOf(utsMapOf("width" to "540rpx", "height" to "35rpx", "position" to "relative", "marginTop" to "30rpx")), "ranking-header-img" to utsMapOf(".ranking-header " to utsMapOf("width" to "100%", "height" to "100%", "position" to "absolute", "top" to 0, "left" to 0)), "ranking-list" to padStyleMapOf(utsMapOf("paddingTop" to "60rpx", "paddingRight" to 15, "paddingBottom" to "60rpx", "paddingLeft" to 15, "flexDirection" to "row", "alignItems" to "center", "marginTop" to "20rpx")), "ranking-item" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "column", "alignItems" to "center", "textAlign" to "center", "borderBottomWidth" to 1, "borderBottomStyle" to "solid", "borderBottomColor" to "#F5F5F5", "marginTop" to 0, "marginRight" to 13, "marginBottom" to 0, "marginLeft" to 13)), "ranking-medal" to padStyleMapOf(utsMapOf("width" to "130rpx", "height" to "75rpx", "marginRight" to 10)), "medal-icon" to utsMapOf(".ranking-medal " to utsMapOf("width" to "100%", "height" to "100%")), "user-info" to padStyleMapOf(utsMapOf("marginTop" to "5rpx", "marginLeft" to "-17rpx")), "user-name" to utsMapOf(".user-info " to utsMapOf("fontSize" to "23rpx", "color" to "#7C7C7C")), "user-count" to padStyleMapOf(utsMapOf("marginLeft" to "-17rpx", "fontSize" to "35rpx", "color" to "#FE3408", "fontWeight" to "bold")), "poster-container" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "column", "alignItems" to "center")), "save-tip" to padStyleMapOf(utsMapOf("marginTop" to "20rpx", "fontSize" to "28rpx", "color" to "#FFFFFF", "textAlign" to "center")), "photo-agree-title" to padStyleMapOf(utsMapOf("textAlign" to "center", "width" to "100%", "marginTop" to "30rpx", "marginRight" to 0, "marginBottom" to "30rpx", "marginLeft" to 0, "fontWeight" to "bold", "fontSize" to "32rpx", "color" to "#000000")))
+                return _uM("container" to _pS(_uM("width" to "100%", "height" to "100%", "position" to "relative", "paddingTop" to 0, "paddingRight" to 15, "paddingBottom" to 0, "paddingLeft" to 15, "marginTop" to 20)), "home-bg" to _pS(_uM("position" to "absolute", "top" to 0, "left" to 0, "width" to "100%", "height" to "100%", "zIndex" to -1)), "bg-image" to _uM(".home-bg " to _uM("width" to "100%", "height" to "100%", "position" to "absolute", "top" to 0, "left" to 0)), "promotion-card" to _pS(_uM("borderTopLeftRadius" to 15, "borderTopRightRadius" to 15, "borderBottomRightRadius" to 15, "borderBottomLeftRadius" to 15, "marginBottom" to 15, "paddingTop" to 20, "paddingRight" to 15, "paddingBottom" to 20, "paddingLeft" to 15, "boxShadow" to "0 2px 10px rgba(0, 0, 0, 0.05)", "backgroundColor" to "rgba(0,0,0,0)", "marginTop" to "800rpx")), "promotion-title" to _pS(_uM("textAlign" to "center", "marginBottom" to 20)), "title-text" to _uM(".promotion-title " to _uM("fontSize" to 20, "fontWeight" to "bold", "color" to "#FF6B00"), ".reward-title " to _uM("fontSize" to 16, "fontWeight" to "bold", "color" to "#333333")), "promotion-subtitle" to _pS(_uM("marginTop" to 5)), "subtitle-text" to _uM(".promotion-subtitle " to _uM("fontSize" to 14, "color" to "#999999")), "promotion-content" to _pS(_uM("display" to "flex", "flexDirection" to "column", "alignItems" to "center", "backgroundColor" to "rgba(0,0,0,0)")), "promo-reward-box" to _pS(_uM("display" to "flex", "flexDirection" to "column", "alignItems" to "center", "backgroundColor" to "rgba(0,0,0,0)", "width" to "100%", "paddingTop" to 10, "paddingRight" to 0, "paddingBottom" to 10, "paddingLeft" to 0)), "promotion-desc" to _pS(_uM("textAlign" to "center", "color" to "#D31B01", "fontSize" to "30rpx", "fontWeight" to "bold")), "promotion-money" to _pS(_uM("marginTop" to "20rpx", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center")), "unit" to _uM(".promotion-money " to _uM("marginTop" to "34rpx"), ".reward-amount " to _uM("fontSize" to 16, "color" to "#FF6B00", "marginLeft" to 5)), "reward-amount" to _pS(_uM("display" to "flex", "flexDirection" to "row", "marginTop" to 10, "marginRight" to 0, "marginBottom" to 10, "marginLeft" to 0)), "amount" to _uM(".reward-amount " to _uM("fontSize" to "90rpx", "fontWeight" to "bold", "color" to "#D31B01")), "unit-text" to _uM(".reward-amount " to _uM("fontWeight" to "bold", "color" to "#D31B01", "fontSize" to "34rpx")), "promotion-buttons" to _pS(_uM("display" to "flex", "flexDirection" to "row", "width" to "90%")), "promo-button" to _pS(_uM("flex" to 1, "height" to 45, "borderTopLeftRadius" to 22.5, "borderTopRightRadius" to 22.5, "borderBottomRightRadius" to 22.5, "borderBottomLeftRadius" to 22.5, "display" to "flex", "justifyContent" to "center", "alignItems" to "center", "marginTop" to 0, "marginRight" to 8, "marginBottom" to 0, "marginLeft" to 8)), "promote-now" to _pS(_uM("backgroundColor" to "#FF6B00")), "button-text" to _uM(".promote-now " to _uM("color" to "#FFFFFF", "fontSize" to 16, "fontWeight" to "bold"), ".generate-poster " to _uM("color" to "#ffffff", "fontSize" to 16, "fontWeight" to "bold")), "generate-poster" to _pS(_uM("backgroundColor" to "#FF6B00", "borderTopWidth" to 1, "borderRightWidth" to 1, "borderBottomWidth" to 1, "borderLeftWidth" to 1, "borderTopStyle" to "solid", "borderRightStyle" to "solid", "borderBottomStyle" to "solid", "borderLeftStyle" to "solid", "borderTopColor" to "#FF6B00", "borderRightColor" to "#FF6B00", "borderBottomColor" to "#FF6B00", "borderLeftColor" to "#FF6B00", "marginTop" to "13rpx")), "reward-card" to _pS(_uM("borderTopLeftRadius" to 15, "borderTopRightRadius" to 15, "borderBottomRightRadius" to 15, "borderBottomLeftRadius" to 15, "marginBottom" to 15, "boxShadow" to "0 2px 10px rgba(0, 0, 0, 0.05)", "flexDirection" to "column", "alignItems" to "center", "width" to "100%", "backgroundColor" to "rgba(0,0,0,0)", "marginTop" to "300rpx")), "reward-title" to _pS(_uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "flex-end", "marginBottom" to 15, "marginTop" to "40rpx", "right" to 20, "position" to "absolute")), "view-record" to _uM(".reward-title " to _uM("display" to "flex", "flexDirection" to "row", "alignItems" to "flex-end")), "record-text" to _uM(".reward-title .view-record " to _uM("color" to "#FE3308", "fontWeight" to "bold", "fontSize" to "23rpx", "fontFamily" to "PingFang SC")), "record-icon" to _uM(".reward-title .view-record " to _uM("marginLeft" to 5)), "arrow-icon" to _uM(".reward-title .view-record .record-icon " to _uM("width" to 16, "height" to 16)), "reward-stats" to _pS(_uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-around", "marginTop" to "130rpx")), "stat-item" to _uM(".reward-stats " to _uM("display" to "flex", "flexDirection" to "column", "alignItems" to "center", "marginTop" to 0, "marginRight" to "10rpx", "marginBottom" to 0, "marginLeft" to "10rpx", "borderTopLeftRadius" to "20rpx", "borderTopRightRadius" to "20rpx", "borderBottomRightRadius" to "20rpx", "borderBottomLeftRadius" to "20rpx", "borderTopWidth" to 0, "borderRightWidth" to 0, "borderBottomWidth" to 0, "borderLeftWidth" to 0, "borderTopStyle" to "solid", "borderRightStyle" to "solid", "borderBottomStyle" to "solid", "borderLeftStyle" to "solid", "borderTopColor" to "#FC9329", "borderRightColor" to "#FC9329", "borderBottomColor" to "#FC9329", "borderLeftColor" to "#FC9329", "width" to "185rpx", "height" to "133rpx")), "stat-item-bg" to _uM(".reward-stats .stat-item " to _uM("position" to "absolute", "top" to 0, "left" to 0, "height" to "100%", "width" to "100%", "backgroundImage" to "linear-gradient(to bottom, #FFFFFF, #FFF1CD)")), "stat-value" to _uM(".reward-stats .stat-item " to _uM("fontSize" to 24, "fontWeight" to "bold", "color" to "#FE3408", "marginBottom" to 5, "marginTop" to 8)), "stat-label" to _uM(".reward-stats .stat-item " to _uM("fontSize" to 14, "color" to "#000000")), "border-lr" to _uM(".reward-stats " to _uM("borderLeftWidth" to 1, "borderLeftStyle" to "solid", "borderLeftColor" to "#EEEEEE", "borderRightWidth" to 1, "borderRightStyle" to "solid", "borderRightColor" to "#EEEEEE")), "ranking-card" to _pS(_uM("backgroundColor" to "#FFFFFF", "borderTopLeftRadius" to 15, "borderTopRightRadius" to 15, "borderBottomRightRadius" to 15, "borderBottomLeftRadius" to 15, "paddingTop" to 0, "paddingRight" to 0, "paddingBottom" to 15, "paddingLeft" to 0, "boxShadow" to "0 2px 10px rgba(0, 0, 0, 0.05)", "overflow" to "hidden")), "ranking-header" to _pS(_uM("width" to "540rpx", "height" to "35rpx", "position" to "relative", "marginTop" to "30rpx")), "ranking-header-img" to _uM(".ranking-header " to _uM("width" to "100%", "height" to "100%", "position" to "absolute", "top" to 0, "left" to 0)), "ranking-list" to _pS(_uM("paddingTop" to "60rpx", "paddingRight" to 15, "paddingBottom" to "60rpx", "paddingLeft" to 15, "flexDirection" to "row", "alignItems" to "center", "marginTop" to "20rpx")), "ranking-item" to _pS(_uM("display" to "flex", "flexDirection" to "column", "alignItems" to "center", "textAlign" to "center", "borderBottomWidth" to 1, "borderBottomStyle" to "solid", "borderBottomColor" to "#F5F5F5", "marginTop" to 0, "marginRight" to 13, "marginBottom" to 0, "marginLeft" to 13)), "ranking-medal" to _pS(_uM("width" to "130rpx", "height" to "75rpx", "marginRight" to 10)), "medal-icon" to _uM(".ranking-medal " to _uM("width" to "100%", "height" to "100%")), "user-info" to _pS(_uM("marginTop" to "5rpx", "marginLeft" to "-17rpx")), "user-name" to _uM(".user-info " to _uM("fontSize" to "23rpx", "color" to "#7C7C7C")), "user-count" to _pS(_uM("marginLeft" to "-17rpx", "fontSize" to "35rpx", "color" to "#FE3408", "fontWeight" to "bold")), "poster-container" to _pS(_uM("display" to "flex", "flexDirection" to "column", "alignItems" to "center")), "save-tip" to _pS(_uM("marginTop" to "20rpx", "fontSize" to "28rpx", "color" to "#FFFFFF", "textAlign" to "center")), "photo-agree-title" to _pS(_uM("textAlign" to "center", "width" to "100%", "marginTop" to "30rpx", "marginRight" to 0, "marginBottom" to "30rpx", "marginLeft" to 0, "fontWeight" to "bold", "fontSize" to "32rpx", "color" to "#000000")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf()
-        var props = normalizePropsOptions(utsMapOf())
-        var propsNeedCastKeys: UTSArray<String> = utsArrayOf()
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM()
+        var props = _nP(_uM())
+        var propsNeedCastKeys: UTSArray<String> = _uA()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

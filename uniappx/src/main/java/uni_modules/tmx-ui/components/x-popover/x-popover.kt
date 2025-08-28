@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.getWindowInfo as uni_getWindowInfo
 open class GenUniModulesTmxUiComponentsXPopoverXPopover : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {
@@ -68,55 +64,55 @@ open class GenUniModulesTmxUiComponentsXPopoverXPopover : VueComponent {
     override fun `$render`(): Any? {
         val _ctx = this
         val _cache = this.`$`.renderCache
-        return createElementVNode("view", utsMapOf("class" to "xPopover", "ref" to "xPopover"), utsArrayOf(
-            createElementVNode("view", utsMapOf("id" to _ctx.id, "onClick" to _ctx.openAlert, "style" to normalizeStyle(utsMapOf("flex" to "1"))), utsArrayOf(
+        return _cE("view", _uM("class" to "xPopover", "ref" to "xPopover"), _uA(
+            _cE("view", _uM("id" to _ctx.id, "onClick" to _ctx.openAlert, "style" to _nS(_uM("flex" to "1"))), _uA(
                 renderSlot(_ctx.`$slots`, "default")
-            ), 12, utsArrayOf(
+            ), 12, _uA(
                 "id",
                 "onClick"
             )),
             if (isTrue(_ctx.showPro)) {
-                createElementVNode("view", utsMapOf("key" to 0, "onTouchstart" to _ctx.closeProWrap, "class" to "xPopoverMasker", "style" to normalizeStyle(utsMapOf("width" to "100%", "height" to _ctx.__height, "opacity" to if (_ctx.showquerinnode) {
+                _cE("view", _uM("key" to 0, "onTouchstart" to _ctx.closeProWrap, "class" to "xPopoverMasker", "style" to _nS(_uM("width" to "100%", "height" to _ctx.__height, "opacity" to if (_ctx.showquerinnode) {
                     1
                 } else {
                     0
-                }, "backgroundColor" to _ctx._maskBgColor))), utsArrayOf(
-                    createElementVNode("view", utsMapOf("onClick" to withModifiers(_ctx.contentWrapClick, utsArrayOf(
+                }, "backgroundColor" to _ctx._maskBgColor))), _uA(
+                    _cE("view", _uM("onClick" to withModifiers(_ctx.contentWrapClick, _uA(
                         "stop"
-                    )), "onTouchstart" to withModifiers(fun(){}, utsArrayOf(
+                    )), "onTouchstart" to withModifiers(fun(){}, _uA(
                         "stop"
-                    )), "onTransitionend" to _ctx.onEnd, "ref" to "xPopoverWrap", "id" to _ctx.menuiId, "class" to "xPopoverWrap", "style" to normalizeStyle(utsArrayOf(
+                    )), "onTransitionend" to _ctx.onEnd, "ref" to "xPopoverWrap", "id" to _ctx.menuiId, "class" to "xPopoverWrap", "style" to _nS(_uA(
                         _ctx.xPopoverWrapPos,
-                        utsMapOf("transition-timing-function" to _ctx._animationFun)
-                    ))), utsArrayOf(
+                        _uM("transition-timing-function" to _ctx._animationFun)
+                    ))), _uA(
                         if (isTrue((_ctx.nowPos == "bc" || _ctx.nowPos == "bl" || _ctx.nowPos == "br") && _ctx.showTriangle)) {
-                            createElementVNode("view", utsMapOf("key" to 0, "class" to normalizeClass("xPopoverUp_" + _ctx.nowPos), "style" to normalizeStyle(utsMapOf("padding" to ("0px " + _ctx._round)))), utsArrayOf(
-                                createElementVNode("view", utsMapOf("class" to "xPopoverUp", "style" to normalizeStyle(utsMapOf("border-bottom-color" to _ctx._triangleColor))), null, 4)
+                            _cE("view", _uM("key" to 0, "class" to _nC("xPopoverUp_" + _ctx.nowPos), "style" to _nS(_uM("padding" to ("0px " + _ctx._round)))), _uA(
+                                _cE("view", _uM("class" to "xPopoverUp", "style" to _nS(_uM("border-bottom-color" to _ctx._triangleColor))), null, 4)
                             ), 6)
                         } else {
-                            createCommentVNode("v-if", true)
+                            _cC("v-if", true)
                         },
-                        createElementVNode("view", utsMapOf("style" to normalizeStyle(utsMapOf("borderRadius" to _ctx._round))), utsArrayOf(
+                        _cE("view", _uM("style" to _nS(_uM("borderRadius" to _ctx._round))), _uA(
                             renderSlot(_ctx.`$slots`, "menu")
                         ), 4),
                         if (isTrue((_ctx.nowPos == "tc" || _ctx.nowPos == "tl" || _ctx.nowPos == "tr") && _ctx.showTriangle)) {
-                            createElementVNode("view", utsMapOf("key" to 1, "class" to normalizeClass("xPopoverUp_" + _ctx.nowPos), "style" to normalizeStyle(utsMapOf("padding" to ("0px " + _ctx._round)))), utsArrayOf(
-                                createElementVNode("view", utsMapOf("class" to "xPopoverBp", "style" to normalizeStyle(utsMapOf("border-bottom-color" to _ctx._triangleColor))), null, 4)
+                            _cE("view", _uM("key" to 1, "class" to _nC("xPopoverUp_" + _ctx.nowPos), "style" to _nS(_uM("padding" to ("0px " + _ctx._round)))), _uA(
+                                _cE("view", _uM("class" to "xPopoverBp", "style" to _nS(_uM("border-bottom-color" to _ctx._triangleColor))), null, 4)
                             ), 6)
                         } else {
-                            createCommentVNode("v-if", true)
+                            _cC("v-if", true)
                         }
-                    ), 44, utsArrayOf(
+                    ), 44, _uA(
                         "onClick",
                         "onTouchstart",
                         "onTransitionend",
                         "id"
                     ))
-                ), 44, utsArrayOf(
+                ), 44, _uA(
                     "onTouchstart"
                 ))
             } else {
-                createCommentVNode("v-if", true)
+                _cC("v-if", true)
             }
         ), 512)
     }
@@ -150,7 +146,7 @@ open class GenUniModulesTmxUiComponentsXPopoverXPopover : VueComponent {
     open var _round: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("id" to ("xPopover" + getUid()), "menuiId" to ("xPopoverMenu" + getUid()), "_width" to 0, "_height" to 0, "trrigerNodeInfo" to null as NODE_INFO?, "menuNodeInfo" to null as NODE_INFO?, "showPro" to false, "status" to "open" as String, "isGeiNodeInfoOk" to false, "tid" to 0, "windtop" to 0, "showquerinnode" to false, "nowPos" to "bc" as xPopopverPosType, "_maskBgColor" to computed<String>(fun(): String {
+        return _uM("id" to ("xPopover" + getUid()), "menuiId" to ("xPopoverMenu" + getUid()), "_width" to 0, "_height" to 0, "trrigerNodeInfo" to null as NODE_INFO?, "menuNodeInfo" to null as NODE_INFO?, "showPro" to false, "status" to "open" as String, "isGeiNodeInfoOk" to false, "tid" to 0, "windtop" to 0, "showquerinnode" to false, "nowPos" to "bc" as xPopopverPosType, "_maskBgColor" to computed<String>(fun(): String {
             return this.maskBgColor
         }
         ), "_triangleColor" to computed<String>(fun(): String {
@@ -388,19 +384,19 @@ open class GenUniModulesTmxUiComponentsXPopoverXPopover : VueComponent {
     }
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xPopoverUp" to padStyleMapOf(utsMapOf("width" to 0, "height" to 0, "borderLeftWidth" to 10, "borderLeftStyle" to "solid", "borderLeftColor" to "rgba(0,0,0,0)", "borderRightWidth" to 10, "borderRightStyle" to "solid", "borderRightColor" to "rgba(0,0,0,0)", "borderBottomWidth" to 10, "borderBottomStyle" to "solid", "transform" to "rotate(0deg)")), "xPopoverBp" to padStyleMapOf(utsMapOf("width" to 0, "height" to 0, "borderLeftWidth" to 10, "borderLeftStyle" to "solid", "borderLeftColor" to "rgba(0,0,0,0)", "borderRightWidth" to 10, "borderRightStyle" to "solid", "borderRightColor" to "rgba(0,0,0,0)", "borderBottomWidth" to 10, "borderBottomStyle" to "solid", "transform" to "rotate(180deg)")), "xPopoverUp_bc" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "flex-end")), "xPopoverUp_bl" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-start", "alignItems" to "flex-end")), "xPopoverUp_br" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-end", "alignItems" to "flex-end")), "xPopoverUp_tc" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "flex-end")), "xPopoverUp_tl" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-start", "alignItems" to "flex-end")), "xPopoverUp_tr" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-end", "alignItems" to "flex-end")), "xPopover" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row")), "xPopoverMasker" to padStyleMapOf(utsMapOf("position" to "fixed", "zIndex" to 100, "left" to 0, "top" to 0)), "xPopoverWrap" to padStyleMapOf(utsMapOf("position" to "absolute", "transitionProperty" to "transform,opacity", "transitionTimingFunction" to "cubic-bezier(0.07,0.82,0.17,1.2)", "transform" to "scale(1)", "transitionDuration" to "300ms", "opacity" to 0)), "@TRANSITION" to utsMapOf("xPopoverWrap" to utsMapOf("property" to "transform,opacity", "timingFunction" to "cubic-bezier(0.07,0.82,0.17,1.2)", "duration" to "300ms")))
+                return _uM("xPopoverUp" to _pS(_uM("width" to 0, "height" to 0, "borderLeftWidth" to 10, "borderLeftStyle" to "solid", "borderLeftColor" to "rgba(0,0,0,0)", "borderRightWidth" to 10, "borderRightStyle" to "solid", "borderRightColor" to "rgba(0,0,0,0)", "borderBottomWidth" to 10, "borderBottomStyle" to "solid", "transform" to "rotate(0deg)")), "xPopoverBp" to _pS(_uM("width" to 0, "height" to 0, "borderLeftWidth" to 10, "borderLeftStyle" to "solid", "borderLeftColor" to "rgba(0,0,0,0)", "borderRightWidth" to 10, "borderRightStyle" to "solid", "borderRightColor" to "rgba(0,0,0,0)", "borderBottomWidth" to 10, "borderBottomStyle" to "solid", "transform" to "rotate(180deg)")), "xPopoverUp_bc" to _pS(_uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "flex-end")), "xPopoverUp_bl" to _pS(_uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-start", "alignItems" to "flex-end")), "xPopoverUp_br" to _pS(_uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-end", "alignItems" to "flex-end")), "xPopoverUp_tc" to _pS(_uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "flex-end")), "xPopoverUp_tl" to _pS(_uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-start", "alignItems" to "flex-end")), "xPopoverUp_tr" to _pS(_uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-end", "alignItems" to "flex-end")), "xPopover" to _pS(_uM("display" to "flex", "flexDirection" to "row")), "xPopoverMasker" to _pS(_uM("position" to "fixed", "zIndex" to 100, "left" to 0, "top" to 0)), "xPopoverWrap" to _pS(_uM("position" to "absolute", "transitionProperty" to "transform,opacity", "transitionTimingFunction" to "cubic-bezier(0.07,0.82,0.17,1.2)", "transform" to "scale(1)", "transitionDuration" to "300ms", "opacity" to 0)), "@TRANSITION" to _uM("xPopoverWrap" to _uM("property" to "transform,opacity", "timingFunction" to "cubic-bezier(0.07,0.82,0.17,1.2)", "duration" to "300ms")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("update:modelValue" to null)
-        var props = normalizePropsOptions(utsMapOf("position" to utsMapOf("type" to "String", "default" to "bc"), "keyName" to utsMapOf("type" to "Number", "default" to 0), "modelValue" to utsMapOf("type" to "Boolean", "default" to false), "isClickClose" to utsMapOf("type" to "Boolean", "default" to true), "round" to utsMapOf("type" to "String", "default" to "16"), "maskBgColor" to utsMapOf("type" to "String", "default" to "rgba(0,0,0,0)"), "showTriangle" to utsMapOf("type" to "Boolean", "default" to false), "triangleColor" to utsMapOf("type" to "String", "default" to "white"), "triangleDarkColor" to utsMapOf("type" to "String", "default" to "")))
-        var propsNeedCastKeys = utsArrayOf(
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("update:modelValue" to null)
+        var props = _nP(_uM("position" to _uM("type" to "String", "default" to "bc"), "keyName" to _uM("type" to "Number", "default" to 0), "modelValue" to _uM("type" to "Boolean", "default" to false), "isClickClose" to _uM("type" to "Boolean", "default" to true), "round" to _uM("type" to "String", "default" to "16"), "maskBgColor" to _uM("type" to "String", "default" to "rgba(0,0,0,0)"), "showTriangle" to _uM("type" to "Boolean", "default" to false), "triangleColor" to _uM("type" to "String", "default" to "white"), "triangleDarkColor" to _uM("type" to "String", "default" to "")))
+        var propsNeedCastKeys = _uA(
             "position",
             "keyName",
             "modelValue",
@@ -411,6 +407,6 @@ open class GenUniModulesTmxUiComponentsXPopoverXPopover : VueComponent {
             "triangleColor",
             "triangleDarkColor"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

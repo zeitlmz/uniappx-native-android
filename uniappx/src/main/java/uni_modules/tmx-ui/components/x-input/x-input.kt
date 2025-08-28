@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 open class GenUniModulesTmxUiComponentsXInputXInput : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {}
     open var _style: String by `$props`
@@ -81,7 +77,7 @@ open class GenUniModulesTmxUiComponentsXInputXInput : VueComponent {
                     style = xConfig.inputFocusBorder.slice(0)
                 }
                 if (style.length < 4) {
-                    return utsArrayOf<String>("0px", "solid", "transparent")
+                    return _uA<String>("0px", "solid", "transparent")
                 }
                 var oldcolor = style[2]
                 var hoverColor = getDefaultColor(style[3])
@@ -91,7 +87,7 @@ open class GenUniModulesTmxUiComponentsXInputXInput : VueComponent {
                 if (hoverColor == "") {
                     hoverColor = getDefaultColor(xConfig.color)
                 }
-                return utsArrayOf(
+                return _uA(
                     style[0],
                     style[1],
                     if (isFocus.value) {
@@ -394,51 +390,51 @@ open class GenUniModulesTmxUiComponentsXInputXInput : VueComponent {
             return fun(): Any? {
                 val _component_x_text = resolveEasyComponent("x-text", GenUniModulesTmxUiComponentsXTextXTextClass)
                 val _component_x_icon = resolveEasyComponent("x-icon", GenUniModulesTmxUiComponentsXIconXIconClass)
-                return createElementVNode("view", null, utsArrayOf(
-                    createElementVNode("view", utsMapOf("onClick" to onClick, "class" to "xInput", "style" to normalizeStyle(utsMapOf("width" to _width.value))), utsArrayOf(
-                        createElementVNode("view", utsMapOf("class" to "xInputLeft"), utsArrayOf(
+                return _cE("view", null, _uA(
+                    _cE("view", _uM("onClick" to onClick, "class" to "xInput", "style" to _nS(_uM("width" to _width.value))), _uA(
+                        _cE("view", _uM("class" to "xInputLeft"), _uA(
                             renderSlot(_ctx.`$slots`, "left", UTSJSONObject(), fun(): UTSArray<Any> {
-                                return utsArrayOf(
+                                return _uA(
                                     if (_leftText.value != "") {
-                                        createVNode(_component_x_text, utsMapOf("key" to 0, "font-size" to _fontSizeUnScale.value, "style" to normalizeStyle(utsMapOf("padding-right" to "12px"))), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                            return utsArrayOf(
-                                                toDisplayString(_leftText.value)
+                                        _cV(_component_x_text, _uM("key" to 0, "font-size" to _fontSizeUnScale.value, "style" to _nS(_uM("padding-right" to "12px"))), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                            return _uA(
+                                                _tD(_leftText.value)
                                             )
-                                        }), "_" to 1), 8, utsArrayOf(
+                                        }), "_" to 1), 8, _uA(
                                             "font-size",
                                             "style"
                                         ))
                                     } else {
-                                        createCommentVNode("v-if", true)
+                                        _cC("v-if", true)
                                     }
                                 )
                             }
                             )
                         )),
-                        createElementVNode("view", utsMapOf("class" to normalizeClass(utsArrayOf(
-                            utsArrayOf(
+                        _cE("view", _uM("class" to _nC(_uA(
+                            _uA(
                                 _cclass.value
                             ),
                             "xInputCenter"
-                        )), "style" to normalizeStyle(utsArrayOf(
-                            utsMapOf("borderRadius" to _round.value, "backgroundColor" to _color.value, "borderWidth" to _focusBorder.value[0], "borderStyle" to _focusBorder.value[1], "borderColor" to _focusBorder.value[2]),
+                        )), "style" to _nS(_uA(
+                            _uM("borderRadius" to _round.value, "backgroundColor" to _color.value, "borderWidth" to _focusBorder.value[0], "borderStyle" to _focusBorder.value[1], "borderColor" to _focusBorder.value[2]),
                             _cstyle.value
-                        ))), utsArrayOf(
+                        ))), _uA(
                             renderSlot(_ctx.`$slots`, "inputLeft"),
                             if (isTrue(_leftIcon.value)) {
-                                createElementVNode("view", utsMapOf("key" to 0, "style" to normalizeStyle(utsMapOf("margin-left" to "12px"))), utsArrayOf(
-                                    createVNode(_component_x_icon, utsMapOf("color" to _iconColor.value, "name" to _leftIcon.value, "font-size" to _fontSizeUnScale.value), null, 8, utsArrayOf(
+                                _cE("view", _uM("key" to 0, "style" to _nS(_uM("margin-left" to "12px"))), _uA(
+                                    _cV(_component_x_icon, _uM("color" to _iconColor.value, "name" to _leftIcon.value, "font-size" to _fontSizeUnScale.value), null, 8, _uA(
                                         "color",
                                         "name",
                                         "font-size"
                                     ))
                                 ), 4)
                             } else {
-                                createCommentVNode("v-if", true)
+                                _cC("v-if", true)
                             }
                             ,
                             if (props.type != "textarea") {
-                                createElementVNode("input", utsMapOf("key" to 1, "inputmode" to props.inputmode, "holdKeyboard" to _holdKeyboard.value, "placeholder-style" to _placeholderStyle.value, "style" to normalizeStyle(utsMapOf("color" to _fontColor.value, "fontSize" to _fontSize.value, "textAlign" to props.align, "padding" to props.inputPadding, "height" to _height.value)), "onInput" to inputHndler, "onConfirm" to confirm, "onLinechange" to onLinechange, "onBlur" to onBlur, "onKeyboardheightchange" to onkeyboardheightchange, "onFocus" to onFocus, "confirm-type" to "search", "value" to nowValue.value, "placeholder" to _placeholder.value, "class" to "xInputCenterInput", "type" to props.type, "disabled" to _disabled.value, "password" to (!seePass.value && _password.value), "maxlength" to props.maxlength, "cursorSpacing" to props.cursorSpacing, "cursor-color" to _cursorColor.value, "autoFocus" to _autoFocus.value, "focus" to _focus.value, "confirmType" to props.confirmType, "confirmHold" to props.confirmHold, "cursor" to props.cursor, "selectionStart" to _selectionStart.value, "selectionEnd" to _selectionEnd.value, "adjustPosition" to _adjustPosition.value, "fixed" to _fixed.value), null, 44, utsArrayOf(
+                                _cE("input", _uM("key" to 1, "inputmode" to props.inputmode, "holdKeyboard" to _holdKeyboard.value, "placeholder-style" to _placeholderStyle.value, "style" to _nS(_uM("color" to _fontColor.value, "fontSize" to _fontSize.value, "textAlign" to props.align, "padding" to props.inputPadding, "height" to _height.value)), "onInput" to inputHndler, "onConfirm" to confirm, "onLinechange" to onLinechange, "onBlur" to onBlur, "onKeyboardheightchange" to onkeyboardheightchange, "onFocus" to onFocus, "confirm-type" to "search", "value" to nowValue.value, "placeholder" to _placeholder.value, "class" to "xInputCenterInput", "type" to props.type, "disabled" to _disabled.value, "password" to (!seePass.value && _password.value), "maxlength" to props.maxlength, "cursorSpacing" to props.cursorSpacing, "cursor-color" to _cursorColor.value, "autoFocus" to _autoFocus.value, "focus" to _focus.value, "confirmType" to props.confirmType, "confirmHold" to props.confirmHold, "cursor" to props.cursor, "selectionStart" to _selectionStart.value, "selectionEnd" to _selectionEnd.value, "adjustPosition" to _adjustPosition.value, "fixed" to _fixed.value), null, 44, _uA(
                                     "inputmode",
                                     "holdKeyboard",
                                     "placeholder-style",
@@ -461,11 +457,11 @@ open class GenUniModulesTmxUiComponentsXInputXInput : VueComponent {
                                     "fixed"
                                 ))
                             } else {
-                                createCommentVNode("v-if", true)
+                                _cC("v-if", true)
                             }
                             ,
                             if (props.type == "textarea") {
-                                createElementVNode("textarea", utsMapOf("key" to 2, "holdKeyboard" to _holdKeyboard.value, "placeholder-style" to _placeholderStyle.value, "style" to normalizeStyle(utsMapOf("color" to _fontColor.value, "fontSize" to _fontSize.value, "textAlign" to props.align, "padding" to props.inputPadding, "height" to _height.value)), "onInput" to inputHndler, "onConfirm" to confirm, "onLinechange" to onLinechange, "onBlur" to onAreaBlur, "onKeyboardheightchange" to onkeyboardheightchange, "onFocus" to onAreaFocus, "value" to nowValue.value, "placeholder" to _placeholder.value, "class" to "xInputCenterInput xInputCenterInputArea", "disabled" to _disabled.value, "maxlength" to props.maxlength, "cursorSpacing" to props.cursorSpacing, "cursor-color" to _cursorColor.value, "autoFocus" to _autoFocus.value, "focus" to _focus.value, "confirmHold" to props.confirmHold, "cursor" to props.cursor, "selectionStart" to _selectionStart.value, "selectionEnd" to _selectionEnd.value, "adjustPosition" to _adjustPosition.value, "fixed" to _fixed.value, "autoHeight" to _autoHeight.value), null, 44, utsArrayOf(
+                                _cE("textarea", _uM("key" to 2, "holdKeyboard" to _holdKeyboard.value, "placeholder-style" to _placeholderStyle.value, "style" to _nS(_uM("color" to _fontColor.value, "fontSize" to _fontSize.value, "textAlign" to props.align, "padding" to props.inputPadding, "height" to _height.value)), "onInput" to inputHndler, "onConfirm" to confirm, "onLinechange" to onLinechange, "onBlur" to onAreaBlur, "onKeyboardheightchange" to onkeyboardheightchange, "onFocus" to onAreaFocus, "value" to nowValue.value, "placeholder" to _placeholder.value, "class" to "xInputCenterInput xInputCenterInputArea", "disabled" to _disabled.value, "maxlength" to props.maxlength, "cursorSpacing" to props.cursorSpacing, "cursor-color" to _cursorColor.value, "autoFocus" to _autoFocus.value, "focus" to _focus.value, "confirmHold" to props.confirmHold, "cursor" to props.cursor, "selectionStart" to _selectionStart.value, "selectionEnd" to _selectionEnd.value, "adjustPosition" to _adjustPosition.value, "fixed" to _fixed.value, "autoHeight" to _autoHeight.value), null, 44, _uA(
                                     "holdKeyboard",
                                     "placeholder-style",
                                     "value",
@@ -485,54 +481,54 @@ open class GenUniModulesTmxUiComponentsXInputXInput : VueComponent {
                                     "autoHeight"
                                 ))
                             } else {
-                                createCommentVNode("v-if", true)
+                                _cC("v-if", true)
                             }
                             ,
                             if (isTrue(_showClear.value && nowValue.value.length > 0)) {
-                                createElementVNode("view", utsMapOf("key" to 3, "onClick" to clearHandler, "class" to "xInputclear", "style" to normalizeStyle(utsMapOf("padding" to "0 12px"))), utsArrayOf(
-                                    createVNode(_component_x_icon, utsMapOf("color" to _clearColor.value, "name" to "close-circle-fill"), null, 8, utsArrayOf(
+                                _cE("view", _uM("key" to 3, "onClick" to clearHandler, "class" to "xInputclear", "style" to _nS(_uM("padding" to "0 12px"))), _uA(
+                                    _cV(_component_x_icon, _uM("color" to _clearColor.value, "name" to "close-circle-fill"), null, 8, _uA(
                                         "color"
                                     ))
                                 ), 4)
                             } else {
-                                createCommentVNode("v-if", true)
+                                _cC("v-if", true)
                             }
                             ,
                             if (isTrue(_password.value)) {
-                                createElementVNode("view", utsMapOf("key" to 4, "onClick" to fun(){
+                                _cE("view", _uM("key" to 4, "onClick" to fun(){
                                     seePass.value = !seePass.value
-                                }, "class" to "xInputclear", "style" to normalizeStyle(utsMapOf("padding" to "0 12px"))), utsArrayOf(
+                                }, "class" to "xInputclear", "style" to _nS(_uM("padding" to "0 12px"))), _uA(
                                     if (isTrue(!seePass.value)) {
-                                        createVNode(_component_x_icon, utsMapOf("key" to 0, "color" to _iconColor.value, "name" to "eye-off-line"), null, 8, utsArrayOf(
+                                        _cV(_component_x_icon, _uM("key" to 0, "color" to _iconColor.value, "name" to "eye-off-line"), null, 8, _uA(
                                             "color"
                                         ))
                                     } else {
-                                        createVNode(_component_x_icon, utsMapOf("key" to 1, "color" to _iconColor.value, "name" to "eye-fill"), null, 8, utsArrayOf(
+                                        _cV(_component_x_icon, _uM("key" to 1, "color" to _iconColor.value, "name" to "eye-fill"), null, 8, _uA(
                                             "color"
                                         ))
                                     }
-                                ), 12, utsArrayOf(
+                                ), 12, _uA(
                                     "onClick"
                                 ))
                             } else {
-                                createCommentVNode("v-if", true)
+                                _cC("v-if", true)
                             }
                             ,
                             renderSlot(_ctx.`$slots`, "inputRight")
                         ), 6),
-                        createElementVNode("view", utsMapOf("class" to "xInputRight"), utsArrayOf(
+                        _cE("view", _uM("class" to "xInputRight"), _uA(
                             renderSlot(_ctx.`$slots`, "right", UTSJSONObject(), fun(): UTSArray<Any> {
-                                return utsArrayOf(
+                                return _uA(
                                     if (_rightText.value != "") {
-                                        createVNode(_component_x_text, utsMapOf("key" to 0, "onClick" to raightCellClick, "font-size" to _fontSizeUnScale.value, "class" to "xInputRightText"), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                            return utsArrayOf(
-                                                toDisplayString(_rightText.value)
+                                        _cV(_component_x_text, _uM("key" to 0, "onClick" to raightCellClick, "font-size" to _fontSizeUnScale.value, "class" to "xInputRightText"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                            return _uA(
+                                                _tD(_rightText.value)
                                             )
-                                        }), "_" to 1), 8, utsArrayOf(
+                                        }), "_" to 1), 8, _uA(
                                             "font-size"
                                         ))
                                     } else {
-                                        createCommentVNode("v-if", true)
+                                        _cC("v-if", true)
                                     }
                                 )
                             }
@@ -540,49 +536,49 @@ open class GenUniModulesTmxUiComponentsXInputXInput : VueComponent {
                         ))
                     ), 4),
                     if (isTrue(_showFooter.value || _maxlength.value > -1)) {
-                        createElementVNode("view", utsMapOf("key" to 0, "class" to "xInputFooter"), utsArrayOf(
-                            createElementVNode("view", null, utsArrayOf(
+                        _cE("view", _uM("key" to 0, "class" to "xInputFooter"), _uA(
+                            _cE("view", null, _uA(
                                 if (isTrue(_showFooter.value)) {
-                                    renderSlot(_ctx.`$slots`, "footer", utsMapOf("key" to 0))
+                                    renderSlot(_ctx.`$slots`, "footer", _uM("key" to 0))
                                 } else {
-                                    createCommentVNode("v-if", true)
+                                    _cC("v-if", true)
                                 }
                             )),
                             if (isTrue(_maxlength.value > -1 && _showChartCount.value)) {
-                                createElementVNode("text", utsMapOf("key" to 0, "style" to normalizeStyle(utsMapOf("margin-left" to "20px")), "class" to "xInputMaxLen"), toDisplayString(_inputLen.value) + "/" + toDisplayString(_maxlength.value), 5)
+                                _cE("text", _uM("key" to 0, "style" to _nS(_uM("margin-left" to "20px")), "class" to "xInputMaxLen"), _tD(_inputLen.value) + "/" + _tD(_maxlength.value), 5)
                             } else {
-                                createCommentVNode("v-if", true)
+                                _cC("v-if", true)
                             },
                             if (isTrue(_maxlength.value == -1 && _showChartCount.value)) {
-                                createElementVNode("text", utsMapOf("key" to 1, "style" to normalizeStyle(utsMapOf("margin-left" to "20px")), "class" to "xInputMaxLen"), " 字符数：" + toDisplayString(_inputLen.value), 5)
+                                _cE("text", _uM("key" to 1, "style" to _nS(_uM("margin-left" to "20px")), "class" to "xInputMaxLen"), " 字符数：" + _tD(_inputLen.value), 5)
                             } else {
-                                createCommentVNode("v-if", true)
+                                _cC("v-if", true)
                             }
                         ))
                     } else {
-                        createCommentVNode("v-if", true)
+                        _cC("v-if", true)
                     }
                 ))
             }
         }
         var name = "xInput"
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xInputFooter" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "paddingTop" to "8rpx")), "xInputMaxLen" to padStyleMapOf(utsMapOf("color" to "#888888", "fontSize" to 12, "textAlign" to "right")), "xInputCenterInput" to padStyleMapOf(utsMapOf("flex" to 1, "fontSize" to 16, "height" to "100%")), "xInputCenterInputArea" to padStyleMapOf(utsMapOf("lineHeight" to 1.6)), "xInput" to padStyleMapOf(utsMapOf("width" to "100%", "position" to "relative", "display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-start", "alignItems" to "center")), "xInputCenter" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-start", "alignItems" to "center", "height" to "100%", "flex" to 1)), "xInputLeft" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-start", "alignItems" to "center", "height" to "100%")), "xInputRight" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-end", "alignItems" to "center", "height" to "100%")), "xInputRightText" to padStyleMapOf(utsMapOf("paddingLeft" to 12, "fontSize" to 16)))
+                return _uM("xInputFooter" to _pS(_uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "paddingTop" to "8rpx")), "xInputMaxLen" to _pS(_uM("color" to "#888888", "fontSize" to 12, "textAlign" to "right")), "xInputCenterInput" to _pS(_uM("flex" to 1, "fontSize" to 16, "height" to "100%")), "xInputCenterInputArea" to _pS(_uM("lineHeight" to 1.6)), "xInput" to _pS(_uM("width" to "100%", "position" to "relative", "display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-start", "alignItems" to "center")), "xInputCenter" to _pS(_uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-start", "alignItems" to "center", "height" to "100%", "flex" to 1)), "xInputLeft" to _pS(_uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-start", "alignItems" to "center", "height" to "100%")), "xInputRight" to _pS(_uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-end", "alignItems" to "center", "height" to "100%")), "xInputRightText" to _pS(_uM("paddingLeft" to 12, "fontSize" to 16)))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("click" to null, "clear" to null, "rightClick" to null, "confirm" to null, "input" to null, "focus" to null, "blur" to null, "linechange" to null, "keyboardheightchange" to null, "update:modelValue" to null)
-        var props = normalizePropsOptions(utsMapOf("_style" to utsMapOf("type" to "String", "required" to true, "default" to ""), "focusBorder" to utsMapOf("type" to "Array", "required" to true, "default" to fun(): UTSArray<String> {
-            return utsArrayOf<String>()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("click" to null, "clear" to null, "rightClick" to null, "confirm" to null, "input" to null, "focus" to null, "blur" to null, "linechange" to null, "keyboardheightchange" to null, "update:modelValue" to null)
+        var props = _nP(_uM("_style" to _uM("type" to "String", "required" to true, "default" to ""), "focusBorder" to _uM("type" to "Array", "required" to true, "default" to fun(): UTSArray<String> {
+            return _uA<String>()
         }
-        ), "placeholderStyle" to utsMapOf("type" to "String", "required" to true, "default" to ""), "_class" to utsMapOf("type" to "String", "required" to true, "default" to ""), "round" to utsMapOf("type" to "String", "required" to true, "default" to ""), "showClear" to utsMapOf("type" to "Boolean", "required" to true, "default" to false), "rightText" to utsMapOf("type" to "String", "required" to true, "default" to ""), "leftText" to utsMapOf("type" to "String", "required" to true, "default" to ""), "modelValue" to utsMapOf("type" to "String", "required" to true, "default" to ""), "placeholder" to utsMapOf("type" to "String", "required" to true, "default" to "请输入"), "iconColor" to utsMapOf("type" to "String", "required" to true, "default" to ""), "clearColor" to utsMapOf("type" to "String", "required" to true, "default" to "#bfbfbf"), "color" to utsMapOf("type" to "String", "required" to true, "default" to ""), "darkBgColor" to utsMapOf("type" to "String", "required" to true, "default" to "transparent"), "fontColor" to utsMapOf("type" to "String", "required" to true, "default" to "#333333"), "darkFontColor" to utsMapOf("type" to "String", "required" to true, "default" to ""), "fontSize" to utsMapOf("type" to "String", "required" to true, "default" to "16"), "leftIcon" to utsMapOf("type" to "String", "required" to true, "default" to ""), "name" to utsMapOf("type" to "String", "required" to true, "default" to ""), "disabled" to utsMapOf("type" to "Boolean", "required" to true, "default" to false), "type" to utsMapOf("type" to "String", "required" to true, "default" to "text"), "password" to utsMapOf("type" to "Boolean", "required" to true, "default" to false), "maxlength" to utsMapOf("type" to "Number", "required" to true, "default" to -1), "cursorSpacing" to utsMapOf("type" to "Number", "required" to true, "default" to 0), "cursorColor" to utsMapOf("type" to "String", "required" to true, "default" to ""), "autoFocus" to utsMapOf("type" to "Boolean", "required" to true, "default" to false), "focus" to utsMapOf("type" to "Boolean", "required" to true, "default" to false), "confirmType" to utsMapOf("type" to "String", "required" to true, "default" to "next"), "confirmHold" to utsMapOf("type" to "Boolean", "required" to true, "default" to false), "cursor" to utsMapOf("type" to "Number", "required" to true, "default" to 0), "selectionStart" to utsMapOf("type" to "Number", "required" to true, "default" to -1), "selectionEnd" to utsMapOf("type" to "Number", "required" to true, "default" to -1), "adjustPosition" to utsMapOf("type" to "Boolean", "required" to true, "default" to true), "width" to utsMapOf("type" to "String", "required" to true, "default" to "auto"), "height" to utsMapOf("type" to "String", "required" to true, "default" to "44"), "trim" to utsMapOf("type" to "Boolean", "required" to true, "default" to true), "align" to utsMapOf("type" to "String", "required" to true, "default" to "left"), "autoHeight" to utsMapOf("type" to "Boolean", "required" to true, "default" to false), "fixed" to utsMapOf("type" to "Boolean", "required" to true, "default" to false), "showFooter" to utsMapOf("type" to "Boolean", "required" to true, "default" to false), "showChartCount" to utsMapOf("type" to "Boolean", "required" to true, "default" to false), "inputPadding" to utsMapOf("type" to "String", "required" to true, "default" to "8px 12px"), "inputmode" to utsMapOf("type" to "String", "required" to true, "default" to "text"), "holdKeyboard" to utsMapOf("type" to "Boolean", "required" to true, "default" to false)))
-        var propsNeedCastKeys = utsArrayOf(
+        ), "placeholderStyle" to _uM("type" to "String", "required" to true, "default" to ""), "_class" to _uM("type" to "String", "required" to true, "default" to ""), "round" to _uM("type" to "String", "required" to true, "default" to ""), "showClear" to _uM("type" to "Boolean", "required" to true, "default" to false), "rightText" to _uM("type" to "String", "required" to true, "default" to ""), "leftText" to _uM("type" to "String", "required" to true, "default" to ""), "modelValue" to _uM("type" to "String", "required" to true, "default" to ""), "placeholder" to _uM("type" to "String", "required" to true, "default" to "请输入"), "iconColor" to _uM("type" to "String", "required" to true, "default" to ""), "clearColor" to _uM("type" to "String", "required" to true, "default" to "#bfbfbf"), "color" to _uM("type" to "String", "required" to true, "default" to ""), "darkBgColor" to _uM("type" to "String", "required" to true, "default" to "transparent"), "fontColor" to _uM("type" to "String", "required" to true, "default" to "#333333"), "darkFontColor" to _uM("type" to "String", "required" to true, "default" to ""), "fontSize" to _uM("type" to "String", "required" to true, "default" to "16"), "leftIcon" to _uM("type" to "String", "required" to true, "default" to ""), "name" to _uM("type" to "String", "required" to true, "default" to ""), "disabled" to _uM("type" to "Boolean", "required" to true, "default" to false), "type" to _uM("type" to "String", "required" to true, "default" to "text"), "password" to _uM("type" to "Boolean", "required" to true, "default" to false), "maxlength" to _uM("type" to "Number", "required" to true, "default" to -1), "cursorSpacing" to _uM("type" to "Number", "required" to true, "default" to 0), "cursorColor" to _uM("type" to "String", "required" to true, "default" to ""), "autoFocus" to _uM("type" to "Boolean", "required" to true, "default" to false), "focus" to _uM("type" to "Boolean", "required" to true, "default" to false), "confirmType" to _uM("type" to "String", "required" to true, "default" to "next"), "confirmHold" to _uM("type" to "Boolean", "required" to true, "default" to false), "cursor" to _uM("type" to "Number", "required" to true, "default" to 0), "selectionStart" to _uM("type" to "Number", "required" to true, "default" to -1), "selectionEnd" to _uM("type" to "Number", "required" to true, "default" to -1), "adjustPosition" to _uM("type" to "Boolean", "required" to true, "default" to true), "width" to _uM("type" to "String", "required" to true, "default" to "auto"), "height" to _uM("type" to "String", "required" to true, "default" to "44"), "trim" to _uM("type" to "Boolean", "required" to true, "default" to true), "align" to _uM("type" to "String", "required" to true, "default" to "left"), "autoHeight" to _uM("type" to "Boolean", "required" to true, "default" to false), "fixed" to _uM("type" to "Boolean", "required" to true, "default" to false), "showFooter" to _uM("type" to "Boolean", "required" to true, "default" to false), "showChartCount" to _uM("type" to "Boolean", "required" to true, "default" to false), "inputPadding" to _uM("type" to "String", "required" to true, "default" to "8px 12px"), "inputmode" to _uM("type" to "String", "required" to true, "default" to "text"), "holdKeyboard" to _uM("type" to "Boolean", "required" to true, "default" to false)))
+        var propsNeedCastKeys = _uA(
             "_style",
             "focusBorder",
             "placeholderStyle",
@@ -628,6 +624,6 @@ open class GenUniModulesTmxUiComponentsXInputXInput : VueComponent {
             "inputmode",
             "holdKeyboard"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf()
+        var components: Map<String, CreateVueComponent> = _uM()
     }
 }

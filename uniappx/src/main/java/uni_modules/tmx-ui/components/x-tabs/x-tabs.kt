@@ -11,10 +11,6 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import io.dcloud.uniapp.extapi.`$off` as uni__off
 import io.dcloud.uniapp.extapi.`$on` as uni__on
 import io.dcloud.uniapp.extapi.createSelectorQuery as uni_createSelectorQuery
@@ -65,16 +61,16 @@ open class GenUniModulesTmxUiComponentsXTabsXTabs : VueComponent {
         val _cache = this.`$`.renderCache
         val _component_x_badge = resolveEasyComponent("x-badge", GenUniModulesTmxUiComponentsXBadgeXBadgeClass)
         val _component_tabs_item = resolveComponent("tabs-item")
-        return createElementVNode("view", utsMapOf("class" to "xTabs", "ref" to "xTabs", "style" to normalizeStyle(utsMapOf("width" to _ctx._width, "borderRadius" to _ctx._round, "height" to _ctx._height, "backgroundColor" to _ctx._color))), utsArrayOf(
-            createElementVNode("scroll-view", utsMapOf("scroll-left" to _ctx.tabsItemLeft, "scroll-with-animation" to true, "class" to "xTabsWrap", "show-scrollbar" to false, "style" to normalizeStyle(utsMapOf("justifyContent" to if (_ctx.tabasItemCenter) {
+        return _cE("view", _uM("class" to "xTabs", "ref" to "xTabs", "style" to _nS(_uM("width" to _ctx._width, "borderRadius" to _ctx._round, "height" to _ctx._height, "backgroundColor" to _ctx._color))), _uA(
+            _cE("scroll-view", _uM("scroll-left" to _ctx.tabsItemLeft, "scroll-with-animation" to true, "class" to "xTabsWrap", "show-scrollbar" to false, "style" to _nS(_uM("justifyContent" to if (_ctx.tabasItemCenter) {
                 "center"
             } else {
                 "flex-start"
             }
-            )), "direction" to "horizontal"), utsArrayOf(
-                createElementVNode(Fragment, null, RenderHelpers.renderList(_ctx._list, fun(item, index, __index, _cached): Any {
-                    return createElementVNode("view", utsMapOf("class" to "xTabsItem", "ref_for" to true, "ref" to "xTabsItem", "id" to (_ctx.id + index), "key" to index, "style" to normalizeStyle(utsArrayOf(
-                        utsMapOf("width" to _ctx._itemWidth, "height" to "100%", "opacity" to if (item.disabled) {
+            )), "direction" to "horizontal"), _uA(
+                _cE(Fragment, null, RenderHelpers.renderList(_ctx._list, fun(item, index, __index, _cached): Any {
+                    return _cE("view", _uM("class" to "xTabsItem", "ref_for" to true, "ref" to "xTabsItem", "id" to (_ctx.id + index), "key" to index, "style" to _nS(_uA(
+                        _uM("width" to _ctx._itemWidth, "height" to "100%", "opacity" to if (item.disabled) {
                             "0.6"
                         } else {
                             1
@@ -88,17 +84,17 @@ open class GenUniModulesTmxUiComponentsXTabsXTabs : VueComponent {
                     )), "onClick" to fun(){
                         _ctx.itemClick(item, (_ctx.id + index), index)
                     }
-                    ), utsArrayOf(
-                        createVNode(_component_tabs_item, utsMapOf("id" to (_ctx.id + index), "onChange" to _ctx.tabsItemChange, "onDestory" to _ctx.tabsItemDestory, "style" to normalizeStyle(utsMapOf("with" to "100%"))), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                            return utsArrayOf(
+                    ), _uA(
+                        _cV(_component_tabs_item, _uM("id" to (_ctx.id + index), "onChange" to _ctx.tabsItemChange, "onDestory" to _ctx.tabsItemDestory, "style" to _nS(_uM("with" to "100%"))), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                            return _uA(
                                 if (item.dotType != "") {
-                                    createVNode(_component_x_badge, utsMapOf("key" to 0, "bg-color" to item.dotColor, "dot" to (item.dotType == "dot"), "label" to item.dotText), utsMapOf("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                        return utsArrayOf(
-                                            createElementVNode("view", utsMapOf("key" to index, "style" to normalizeStyle(utsMapOf("paddingLeft" to _ctx.titlePadding, "paddingRight" to _ctx.titlePadding))), utsArrayOf(
+                                    _cV(_component_x_badge, _uM("key" to 0, "bg-color" to item.dotColor, "dot" to (item.dotType == "dot"), "label" to item.dotText), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
+                                        return _uA(
+                                            _cE("view", _uM("key" to index, "style" to _nS(_uM("paddingLeft" to _ctx.titlePadding, "paddingRight" to _ctx.titlePadding))), _uA(
                                                 renderSlot(_ctx.`$slots`, "default", GenUniModulesTmxUiComponentsXTabsXTabsSlotDataDefault(item = item, active = (_ctx.nowActiveId == item.id)), fun(): UTSArray<Any> {
-                                                    return utsArrayOf(
-                                                        createElementVNode("text", utsMapOf("class" to "xTabsWrapText", "style" to normalizeStyle(utsArrayOf(
-                                                            utsMapOf("fontSize" to if (_ctx.nowActiveId == item.id) {
+                                                    return _uA(
+                                                        _cE("text", _uM("class" to "xTabsWrapText", "style" to _nS(_uA(
+                                                            _uM("fontSize" to if (_ctx.nowActiveId == item.id) {
                                                                 _ctx._activeFontSize
                                                             } else {
                                                                 _ctx._fontSize
@@ -112,21 +108,21 @@ open class GenUniModulesTmxUiComponentsXTabsXTabs : VueComponent {
                                                             } else {
                                                                 _ctx._textStyle
                                                             }
-                                                        ))), toDisplayString(item.title), 5)
+                                                        ))), _tD(item.title), 5)
                                                     )
                                                 })
                                             ), 4)
                                         )
-                                    }), "_" to 2), 1032, utsArrayOf(
+                                    }), "_" to 2), 1032, _uA(
                                         "bg-color",
                                         "dot",
                                         "label"
                                     ))
                                 } else {
-                                    createElementVNode("view", utsMapOf("key" to 1), utsArrayOf(
+                                    _cE("view", _uM("key" to 1), _uA(
                                         renderSlot(_ctx.`$slots`, "default", GenUniModulesTmxUiComponentsXTabsXTabsSlotDataDefault(item = item, active = (_ctx.nowActiveId == item.id)), fun(): UTSArray<Any> {
-                                            return utsArrayOf(
-                                                createElementVNode("text", utsMapOf("class" to "xTabsWrapText", "style" to normalizeStyle(utsMapOf("fontSize" to if (_ctx.nowActiveId == item.id) {
+                                            return _uA(
+                                                _cE("text", _uM("class" to "xTabsWrapText", "style" to _nS(_uM("fontSize" to if (_ctx.nowActiveId == item.id) {
                                                     _ctx._activeFontSize
                                                 } else {
                                                     _ctx._fontSize
@@ -136,7 +132,7 @@ open class GenUniModulesTmxUiComponentsXTabsXTabs : VueComponent {
                                                 } else {
                                                     _ctx._titleColor
                                                 }
-                                                , "paddingLeft" to _ctx.titlePadding, "paddingRight" to _ctx.titlePadding))), toDisplayString(item.title), 5)
+                                                , "paddingLeft" to _ctx.titlePadding, "paddingRight" to _ctx.titlePadding))), _tD(item.title), 5)
                                             )
                                         }
                                         )
@@ -144,31 +140,31 @@ open class GenUniModulesTmxUiComponentsXTabsXTabs : VueComponent {
                                 }
                             )
                         }
-                        ), "_" to 2), 1032, utsArrayOf(
+                        ), "_" to 2), 1032, _uA(
                             "id",
                             "onChange",
                             "onDestory",
                             "style"
                         ))
-                    ), 12, utsArrayOf(
+                    ), 12, _uA(
                         "id",
                         "onClick"
                     ))
                 }
                 ), 128),
-                createElementVNode("view", utsMapOf("class" to "xLineWrap", "style" to normalizeStyle(utsMapOf("width" to (_ctx.totalWidth + "px"), "height" to _ctx._lineHeight))), utsArrayOf(
+                _cE("view", _uM("class" to "xLineWrap", "style" to _nS(_uM("width" to (_ctx.totalWidth + "px"), "height" to _ctx._lineHeight))), _uA(
                     if (isTrue(_ctx._showLine && !_ctx.first)) {
-                        createElementVNode("view", utsMapOf("key" to 0, "onTransitionend" to _ctx.lineTranslateEnd, "class" to "xLine", "ref" to "xLine", "style" to normalizeStyle(utsArrayOf(
-                            utsMapOf("transform" to ("translateX(" + _ctx.lineLeft + "px)"), "height" to _ctx._lineHeight, "width" to (_ctx.activeLineWidth + "px"), "borderRadius" to _ctx._lineHeight),
+                        _cE("view", _uM("key" to 0, "onTransitionend" to _ctx.lineTranslateEnd, "class" to "xLine", "ref" to "xLine", "style" to _nS(_uA(
+                            _uM("transform" to ("translateX(" + _ctx.lineLeft + "px)"), "height" to _ctx._lineHeight, "width" to (_ctx.activeLineWidth + "px"), "borderRadius" to _ctx._lineHeight),
                             _ctx._lineColor
-                        ))), null, 44, utsArrayOf(
+                        ))), null, 44, _uA(
                             "onTransitionend"
                         ))
                     } else {
-                        createCommentVNode("v-if", true)
+                        _cC("v-if", true)
                     }
                 ), 4)
-            ), 12, utsArrayOf(
+            ), 12, _uA(
                 "scroll-left"
             ))
         ), 4)
@@ -232,7 +228,7 @@ open class GenUniModulesTmxUiComponentsXTabsXTabs : VueComponent {
     open var _list: UTSArray<TABS_ITEM> by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return utsMapOf("nowActiveId" to "", "id" to ("xTabsItem-" + getUid() + "-") as String, "lineLeft" to 0, "lineWidth" to 18, "activeLineWidth" to 18, "totalWidth" to 0, "scrollNowPosId" to "", "first" to true, "isQueryOk" to false, "tid" to 0, "tid2" to 12, "tid3" to 133, "tabsList" to Map<String, NodeInfo>(), "tabsItemLeft" to 0, "tabasItemCenter" to false, "_itemActiveStyle" to computed<String>(fun(): String {
+        return _uM("nowActiveId" to "", "id" to ("xTabsItem-" + getUid() + "-") as String, "lineLeft" to 0, "lineWidth" to 18, "activeLineWidth" to 18, "totalWidth" to 0, "scrollNowPosId" to "", "first" to true, "isQueryOk" to false, "tid" to 0, "tid2" to 12, "tid3" to 133, "tabsList" to Map<String, NodeInfo>(), "tabsItemLeft" to 0, "tabasItemCenter" to false, "_itemActiveStyle" to computed<String>(fun(): String {
             return this.itemActiveStyle
         }
         ), "_itemStyle" to computed<String>(fun(): String {
@@ -329,7 +325,7 @@ open class GenUniModulesTmxUiComponentsXTabsXTabs : VueComponent {
             return colorstyleline
         }
         ), "_list" to computed<UTSArray<TABS_ITEM>>(fun(): UTSArray<TABS_ITEM> {
-            var lits = utsArrayOf<TABS_ITEM>()
+            var lits = _uA<TABS_ITEM>()
             this.list.forEach(fun(el: TABS_ITEM_INFO, index: Number){
                 lits.push(TABS_ITEM(id = if (el.id == null) {
                     index.toString(10)
@@ -481,25 +477,25 @@ open class GenUniModulesTmxUiComponentsXTabsXTabs : VueComponent {
     }
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
-            normalizeCssStyles(utsArrayOf(
+            _nCS(_uA(
                 styles0
             ))
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return utsMapOf("xTabs" to padStyleMapOf(utsMapOf("overflow" to "hidden")), "xTabsItem" to padStyleMapOf(utsMapOf("display" to "flex", "flexDirection" to "row", "flexWrap" to "nowrap", "justifyContent" to "center", "alignItems" to "center")), "xLineWrap" to padStyleMapOf(utsMapOf("position" to "absolute", "bottom" to 0)), "xLine" to padStyleMapOf(utsMapOf("width" to 20, "position" to "relative", "left" to 0, "transitionDuration" to "300ms", "transitionProperty" to "transform,width", "transitionTimingFunction" to "cubic-bezier(0,0.55,0.45,1)")), "xTabsWrap" to padStyleMapOf(utsMapOf("width" to "100%", "height" to "100%", "display" to "flex", "flexDirection" to "row", "flexWrap" to "nowrap")), "xTabsWrapText" to padStyleMapOf(utsMapOf("whiteSpace" to "nowrap")), "@TRANSITION" to utsMapOf("xLine" to utsMapOf("duration" to "300ms", "property" to "transform,width", "timingFunction" to "cubic-bezier(0,0.55,0.45,1)")))
+                return _uM("xTabs" to _pS(_uM("overflow" to "hidden")), "xTabsItem" to _pS(_uM("display" to "flex", "flexDirection" to "row", "flexWrap" to "nowrap", "justifyContent" to "center", "alignItems" to "center")), "xLineWrap" to _pS(_uM("position" to "absolute", "bottom" to 0)), "xLine" to _pS(_uM("width" to 20, "position" to "relative", "left" to 0, "transitionDuration" to "300ms", "transitionProperty" to "transform,width", "transitionTimingFunction" to "cubic-bezier(0,0.55,0.45,1)")), "xTabsWrap" to _pS(_uM("width" to "100%", "height" to "100%", "display" to "flex", "flexDirection" to "row", "flexWrap" to "nowrap")), "xTabsWrapText" to _pS(_uM("whiteSpace" to "nowrap")), "@TRANSITION" to _uM("xLine" to _uM("duration" to "300ms", "property" to "transform,width", "timingFunction" to "cubic-bezier(0,0.55,0.45,1)")))
             }
         var inheritAttrs = true
-        var inject: Map<String, Map<String, Any?>> = utsMapOf()
-        var emits: Map<String, Any?> = utsMapOf("change" to null, "update:modelValue" to null)
-        var props = normalizePropsOptions(utsMapOf("round" to utsMapOf("type" to "String", "default" to "0"), "width" to utsMapOf("type" to "String", "default" to "auto"), "height" to utsMapOf("type" to "String", "default" to "44"), "color" to utsMapOf("type" to "String", "default" to "white"), "darkColor" to utsMapOf("type" to "String", "default" to ""), "activeTitleColor" to utsMapOf("type" to "String", "default" to ""), "titleColor" to utsMapOf("type" to "String", "default" to "#888888"), "darkTitleColor" to utsMapOf("type" to "String", "default" to "#cacaca"), "lineColor" to utsMapOf("type" to "String", "default" to ""), "lineGradient" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<String> {
-            return utsArrayOf()
+        var inject: Map<String, Map<String, Any?>> = _uM()
+        var emits: Map<String, Any?> = _uM("change" to null, "update:modelValue" to null)
+        var props = _nP(_uM("round" to _uM("type" to "String", "default" to "0"), "width" to _uM("type" to "String", "default" to "auto"), "height" to _uM("type" to "String", "default" to "44"), "color" to _uM("type" to "String", "default" to "white"), "darkColor" to _uM("type" to "String", "default" to ""), "activeTitleColor" to _uM("type" to "String", "default" to ""), "titleColor" to _uM("type" to "String", "default" to "#888888"), "darkTitleColor" to _uM("type" to "String", "default" to "#cacaca"), "lineColor" to _uM("type" to "String", "default" to ""), "lineGradient" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA()
         }
-        ), "lineHeight" to utsMapOf("type" to "String", "default" to "2px"), "lineFull" to utsMapOf("type" to "Boolean", "default" to false), "showLine" to utsMapOf("type" to "Boolean", "default" to true), "list" to utsMapOf("type" to "Array", "default" to fun(): UTSArray<TABS_ITEM_INFO> {
-            return utsArrayOf<TABS_ITEM_INFO>()
+        ), "lineHeight" to _uM("type" to "String", "default" to "2px"), "lineFull" to _uM("type" to "Boolean", "default" to false), "showLine" to _uM("type" to "Boolean", "default" to true), "list" to _uM("type" to "Array", "default" to fun(): UTSArray<TABS_ITEM_INFO> {
+            return _uA<TABS_ITEM_INFO>()
         }
-        ), "modelValue" to utsMapOf("type" to "String", "default" to "0"), "fontSize" to utsMapOf("type" to "String", "default" to "16"), "activeFontSize" to utsMapOf("type" to "String", "default" to "16"), "itemWidth" to utsMapOf("type" to "String", "default" to "auto"), "titlePadding" to utsMapOf("type" to "String", "default" to "12px"), "isItemCenter" to utsMapOf("type" to "Boolean", "default" to false), "itemActiveStyle" to utsMapOf("type" to "String", "default" to ""), "itemStyle" to utsMapOf("type" to "String", "default" to ""), "textActiveStyle" to utsMapOf("type" to "String", "default" to ""), "textStyle" to utsMapOf("type" to "String", "default" to "")))
-        var propsNeedCastKeys = utsArrayOf(
+        ), "modelValue" to _uM("type" to "String", "default" to "0"), "fontSize" to _uM("type" to "String", "default" to "16"), "activeFontSize" to _uM("type" to "String", "default" to "16"), "itemWidth" to _uM("type" to "String", "default" to "auto"), "titlePadding" to _uM("type" to "String", "default" to "12px"), "isItemCenter" to _uM("type" to "Boolean", "default" to false), "itemActiveStyle" to _uM("type" to "String", "default" to ""), "itemStyle" to _uM("type" to "String", "default" to ""), "textActiveStyle" to _uM("type" to "String", "default" to ""), "textStyle" to _uM("type" to "String", "default" to "")))
+        var propsNeedCastKeys = _uA(
             "round",
             "width",
             "height",
@@ -525,6 +521,6 @@ open class GenUniModulesTmxUiComponentsXTabsXTabs : VueComponent {
             "textActiveStyle",
             "textStyle"
         )
-        var components: Map<String, CreateVueComponent> = utsMapOf("tabsItem" to GenUniModulesTmxUiComponentsXTabsTabsItemClass)
+        var components: Map<String, CreateVueComponent> = _uM("tabsItem" to GenUniModulesTmxUiComponentsXTabsTabsItemClass)
     }
 }
