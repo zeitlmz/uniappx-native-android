@@ -9685,6 +9685,20 @@ val store = reactive<Store>(Store(showHome = false))
 val setShowHome = fun(show: Boolean){
     store.showHome = show
 }
+val isBlank = fun(kVal: String?): Boolean {
+    if (kVal == null || kVal == "") {
+        return true
+    }
+    return false
+}
+val objOfNull = fun(kVal: UTSJSONObject): Boolean {
+    return kVal == null || kVal["size"] == 0
+}
+val INIT: Number = 0
+val ENTERY: Number = 1
+val AUDIT: Number = 2
+val AUDIT_REJECT: Number = 3
+val AUDIT_APPROVE: Number = 4
 val runBlock3 = run {
     JgUtil.setPrivacyAuth(false)
     getCurrentVersionDetail(1, appVersion).then(fun(res: Response){
@@ -9731,7 +9745,15 @@ open class GenApp : BaseApp {
         }
         , __ins)
         onAppHide(fun() {
-            startKeepaliveService()
+            val entryStatusCacheStr = getDriverCurrentCacheStatus()
+            val entryStatusCache = if (isBlank(entryStatusCacheStr)) {
+                INIT
+            } else {
+                parseInt(entryStatusCacheStr)
+            }
+            if (entryStatusCache == AUDIT_APPROVE) {
+                startKeepaliveService()
+            }
         }
         , __ins)
         onLastPageBackPress(fun() {
@@ -18176,20 +18198,6 @@ val GenUniModulesTmxUiComponentsXActionModalXActionModalClass = CreateVueCompone
     return GenUniModulesTmxUiComponentsXActionModalXActionModal(instance)
 }
 )
-val INIT: Number = 0
-val ENTERY: Number = 1
-val AUDIT: Number = 2
-val AUDIT_REJECT: Number = 3
-val AUDIT_APPROVE: Number = 4
-val isBlank = fun(kVal: String?): Boolean {
-    if (kVal == null || kVal == "") {
-        return true
-    }
-    return false
-}
-val objOfNull = fun(kVal: UTSJSONObject): Boolean {
-    return kVal == null || kVal["size"] == 0
-}
 open class ADV_ITEM1 (
     @JsonNotNull
     open var image: String,
