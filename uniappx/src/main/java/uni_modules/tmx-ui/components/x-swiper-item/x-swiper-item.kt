@@ -71,6 +71,7 @@ open class GenUniModulesTmxUiComponentsXSwiperItemXSwiperItem : VueComponent {
     open var xSwiperViews: Number by `$inject`
     open var order: Number by `$props`
     open var round: String by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var id: String by `$data`
     open var containerSize: SIZE by `$data`
     open var list: UTSArray<String> by `$data`
@@ -96,7 +97,7 @@ open class GenUniModulesTmxUiComponentsXSwiperItemXSwiperItem : VueComponent {
     open var _round: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("id" to ("xSwiperItem-" + getUid()) as String, "containerSize" to SIZE(width = 0, height = 0), "list" to _uA<String>(), "currentId" to "", "currentId_next" to "", "currentId_prev" to "", "moveShowCurrentIdByPrev" to "", "moveShowCurrentIdByNext" to "", "dateIdff" to 0, "_pos_x" to 0, "_pos_y" to 0, "isMoving" to false, "isActive" to computed<Boolean>(fun(): Boolean {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "id" to ("xSwiperItem-" + getUid()) as String, "containerSize" to SIZE(width = 0, height = 0), "list" to _uA<String>(), "currentId" to "", "currentId_next" to "", "currentId_prev" to "", "moveShowCurrentIdByPrev" to "", "moveShowCurrentIdByNext" to "", "dateIdff" to 0, "_pos_x" to 0, "_pos_y" to 0, "isMoving" to false, "isActive" to computed<Boolean>(fun(): Boolean {
             return this.currentId == this.id
         }
         ), "isActiveNextOrPrev" to computed<Boolean>(fun(): Boolean {

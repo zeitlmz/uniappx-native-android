@@ -83,6 +83,7 @@ open class GenUniModulesTmxUiComponentsXFloatButtonXFloatButton : VueComponent {
     open var adsorption: Boolean by `$props`
     open var disabled: Boolean by `$props`
     open var zIndex: Number by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var id: String by `$data`
     open var _x: Number by `$data`
     open var _y: Number by `$data`
@@ -108,7 +109,7 @@ open class GenUniModulesTmxUiComponentsXFloatButtonXFloatButton : VueComponent {
     open var _disabled: Boolean by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("id" to ("xFloatButtonId-" + getUid()) as String, "_x" to 0, "_y" to 0, "winHeight" to 0, "winWidth" to 0, "nowXy" to _uA<Number>(0, 0), "windtop" to 0, "isMoveing" to false, "dateTime" to 0, "diffX" to 0, "_real_X" to 0, "_real_Y" to 0, "lastX" to 0, "lastY" to 0, "first" to true, "longtimeid" to 22, "isReady" to false, "_diffLen" to computed<Number>(fun(): Number {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "id" to ("xFloatButtonId-" + getUid()) as String, "_x" to 0, "_y" to 0, "winHeight" to 0, "winWidth" to 0, "nowXy" to _uA<Number>(0, 0), "windtop" to 0, "isMoveing" to false, "dateTime" to 0, "diffX" to 0, "_real_X" to 0, "_real_Y" to 0, "lastX" to 0, "lastY" to 0, "first" to true, "longtimeid" to 22, "isReady" to false, "_diffLen" to computed<Number>(fun(): Number {
             var p = parseInt(this.width)
             if (this.width.lastIndexOf("rpx") > -1) {
                 p = rpx2px(p)

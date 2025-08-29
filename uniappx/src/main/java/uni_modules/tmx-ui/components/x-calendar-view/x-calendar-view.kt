@@ -32,6 +32,7 @@ open class GenUniModulesTmxUiComponentsXCalendarViewXCalendarView : VueComponent
     open var headFontColor: String by `$props`
     open var headStyle: String by `$props`
     open var renderOnly: Boolean by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var next: () -> Unit
         get() {
             return unref(this.`$exposed`["next"]) as () -> Unit
@@ -60,6 +61,10 @@ open class GenUniModulesTmxUiComponentsXCalendarViewXCalendarView : VueComponent
         set(value) {
             setRefValue(this.`$exposed`, "clear", value)
         }
+    @Suppress("USELESS_CAST")
+    override fun data(): Map<String, Any?> {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml)
+    }
     companion object {
         @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
         var setup: (__props: GenUniModulesTmxUiComponentsXCalendarViewXCalendarView, _arg1: SetupContext) -> Any? = fun(__props, ref1): Any? {
@@ -67,20 +72,12 @@ open class GenUniModulesTmxUiComponentsXCalendarViewXCalendarView : VueComponent
             val __ins = getCurrentInstance()!!
             val _ctx = __ins.proxy as GenUniModulesTmxUiComponentsXCalendarViewXCalendarView
             val _cache = __ins.renderCache
+            val i18n = xConfig.i18n
             val calendar = xCalendar()
             fun emit(event: String, vararg do_not_transform_spread: Any?) {
                 __ins.emit(event, *do_not_transform_spread)
             }
             val props = __props
-            val weeksCn = _uA(
-                "周一",
-                "周二",
-                "周三",
-                "周四",
-                "周五",
-                "周六",
-                "周日"
-            )
             val _headBgColor = computed(fun(): String {
                 return getDefaultColor(props.headBgColor)
             }
@@ -98,7 +95,10 @@ open class GenUniModulesTmxUiComponentsXCalendarViewXCalendarView : VueComponent
             val _currentDateSwipers = ref(_uA<String>())
             val _currentDateLabel = computed(fun(): String {
                 var ars = _currentDate.value.split("-")
-                return "" + ars[0] + "\u5E74" + ars[1] + "\u6708"
+                return i18n.t("tmui4x.calendar.titleCurrentMonth", _uA(
+                    ars[0],
+                    ars[1]
+                ))
             }
             )
             val _currentYear = ref(xDate(props.modelValue).getYear())
@@ -111,9 +111,9 @@ open class GenUniModulesTmxUiComponentsXCalendarViewXCalendarView : VueComponent
             )
             val _tipsText = computed(fun(): String {
                 return if (_modelValue.value != "") {
-                    "\u5DF2\u9009\u62E9"
+                    i18n.t("tmui4x.calendar.selectedStatus", 2)
                 } else {
-                    "未选择日期"
+                    i18n.t("tmui4x.calendar.selectedStatus", 1)
                 }
             }
             )
@@ -140,16 +140,30 @@ open class GenUniModulesTmxUiComponentsXCalendarViewXCalendarView : VueComponent
                 if (props.disabled) {
                     return
                 }
-                var dates = _modelValue.value
-                if (isInselected) {
-                    dates = ""
-                } else {
+                var dates = ""
+                if (_modelValue.value == "") {
                     dates = item.date.date
+                } else {
+                    dates = if (isInselected) {
+                        ""
+                    } else {
+                        item.date.date
+                    }
                 }
+                val nowFormat = xDate(dates).format(props.format)
                 _modelValue.value = dates
-                val nowFormat = xDate(_modelValue.value).format(props.format)
-                emit("update:modelValue", nowFormat)
-                emit("change", nowFormat)
+                emit("update:modelValue", if (dates == "") {
+                    ""
+                } else {
+                    nowFormat
+                }
+                )
+                emit("change", if (dates == "") {
+                    ""
+                } else {
+                    nowFormat
+                }
+                )
             }
             val dateClick = ::gen_dateClick_fn
             fun gen_getSwiperListCurrentDates_fn(nowCurrentDate: String): UTSArray<String> {
@@ -259,14 +273,13 @@ open class GenUniModulesTmxUiComponentsXCalendarViewXCalendarView : VueComponent
                 )
             }
             val swiperChange = ::gen_swiperChange_fn
-            watch(_uA(
-                fun(): String {
-                    return props.modelValue
-                }
-            ), fun(){
-                var nowdate = xDate(props.modelValue).setDateOf(1, "d")
+            watch(fun(): String {
+                return props.modelValue
+            }
+            , fun(newVal: String){
                 _modelValue.value = props.modelValue
-                if (props.modelValue != "") {
+                if (newVal != "") {
+                    var nowdate = xDate(newVal).setDateOf(1, "d")
                     var nowcurrentDate = nowdate
                     if (nowcurrentDate.format("YYYY-MM-DD") == _currentDate.value) {
                         return
@@ -351,7 +364,7 @@ open class GenUniModulesTmxUiComponentsXCalendarViewXCalendarView : VueComponent
                                     _cE("view", _uM("class" to "xCalendarViewHeaderRight"), _uA(
                                         _cV(_component_x_text, _uM("onClick" to clear, "color" to unref(_headFontColor), "style" to _nS(_uM("padding" to "10px 20px"))), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
                                             return _uA(
-                                                "清空"
+                                                _tD(unref(i18n).t("tmui4x.clear"))
                                             )
                                         }
                                         ), "_" to 1), 8, _uA(
@@ -360,7 +373,7 @@ open class GenUniModulesTmxUiComponentsXCalendarViewXCalendarView : VueComponent
                                         )),
                                         _cV(_component_x_text, _uM("onClick" to nowMonth, "color" to unref(_headFontColor), "style" to _nS(_uM("padding" to "10px 0px"))), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
                                             return _uA(
-                                                "本月"
+                                                _tD(unref(i18n).t("tmui4x.calendar.currentMonthTitle"))
                                             )
                                         }
                                         ), "_" to 1), 8, _uA(
@@ -374,7 +387,7 @@ open class GenUniModulesTmxUiComponentsXCalendarViewXCalendarView : VueComponent
                                         return _cE("view", _uM("class" to "xCalendarViewDataHeaderItem", "key" to item), _uA(
                                             _cV(_component_x_text, _uM("color" to unref(_headFontColor), "font-size" to "12"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
                                                 return _uA(
-                                                    _tD(weeksCn[index])
+                                                    _tD(unref(i18n).t("tmui4x.calendar.week", index))
                                                 )
                                             }
                                             ), "_" to 2), 1032, _uA(
@@ -500,7 +513,7 @@ open class GenUniModulesTmxUiComponentsXCalendarViewXCalendarView : VueComponent
                                 , "class" to "xCalendarViewMonthItem", "key" to index), _uA(
                                     _cV(_component_x_text, _uM("font-size" to "18"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
                                         return _uA(
-                                            _tD(item) + "月"
+                                            _tD(unref(i18n).t("tmui4x.calendar.monthCountSelected", item))
                                         )
                                     }
                                     ), "_" to 2), 1024)

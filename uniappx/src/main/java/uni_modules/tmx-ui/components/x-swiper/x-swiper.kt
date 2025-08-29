@@ -201,6 +201,7 @@ open class GenUniModulesTmxUiComponentsXSwiperXSwiper : VueComponent {
     open var loop: Boolean by `$props`
     open var showLastView: Boolean by `$props`
     open var showScalAni: Boolean by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var id: String by `$data`
     open var parentId: String by `$data`
     open var status: String by `$data`
@@ -243,7 +244,7 @@ open class GenUniModulesTmxUiComponentsXSwiperXSwiper : VueComponent {
     open var _containerSizeHeight: Number by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("id" to ("xSwiperItem-" + getUid()) as String, "parentId" to ("xSwiperParent-" + getUid()) as String, "status" to "runing" as String, "dirs" to "none" as DICR, "swiperTouchMove" to POSITON(x = 0, y = 0), "touchStartPos" to POSITON(x = 0, y = 0), "nowPos" to POSITON(x = 0, y = 0), "nowCureentIndex" to 0, "isMoveing" to false, "swiperDiff" to 0, "containerSize" to SIZE(width = 0, height = 0), "list" to _uA<SWIPER_ITEM>(), "startLeft" to 0, "startTop" to 0, "tid" to 0, "isResert" to false, "resizeObserver" to null as UniResizeObserver?, "dateIdff" to 0, "key" to 1, "tid2" to 12, "isLastingAniMoveing" to false, "_pos_x" to 0, "_pos_y" to 0, "isSwiper" to "none", "isReady" to false, "_height" to computed<String>(fun(): String {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "id" to ("xSwiperItem-" + getUid()) as String, "parentId" to ("xSwiperParent-" + getUid()) as String, "status" to "runing" as String, "dirs" to "none" as DICR, "swiperTouchMove" to POSITON(x = 0, y = 0), "touchStartPos" to POSITON(x = 0, y = 0), "nowPos" to POSITON(x = 0, y = 0), "nowCureentIndex" to 0, "isMoveing" to false, "swiperDiff" to 0, "containerSize" to SIZE(width = 0, height = 0), "list" to _uA<SWIPER_ITEM>(), "startLeft" to 0, "startTop" to 0, "tid" to 0, "isResert" to false, "resizeObserver" to null as UniResizeObserver?, "dateIdff" to 0, "key" to 1, "tid2" to 12, "isLastingAniMoveing" to false, "_pos_x" to 0, "_pos_y" to 0, "isSwiper" to "none", "isReady" to false, "_height" to computed<String>(fun(): String {
             return checkIsCssUnit(this.height, xConfig.unit)
         }
         ), "_disabled" to computed<Boolean>(fun(): Boolean {
@@ -490,8 +491,9 @@ open class GenUniModulesTmxUiComponentsXSwiperXSwiper : VueComponent {
         if (node == null) {
             return
         }
-        if (isAni && this.isLastingAniMoveing == false) {
+        if (isAni) {
             node!!.style.setProperty("transition-duration", this.animationDuration + "ms")
+            node!!.style.setProperty("transition-timing-function", this.animationFun)
         } else {
             node!!.style.setProperty("transition-duration", "0ms")
         }
@@ -652,9 +654,9 @@ open class GenUniModulesTmxUiComponentsXSwiperXSwiper : VueComponent {
         if (this.nowCureentIndex == page && page != 0) {
             if (this.loop) {
                 page = 0
+                this.isLastingAniMoveing = true
             }
             this.`$emit`("dragLastEnd", page)
-            this.isLastingAniMoveing = true
         }
         if (this.isSwiper != "swiper") {
             page = this.nowCureentIndex
@@ -668,7 +670,8 @@ open class GenUniModulesTmxUiComponentsXSwiperXSwiper : VueComponent {
         this.gerRestHeight()
         var lastEndRightViewRef = this.`$refs`["lastEndRightView"] as UniElement?
         if (lastEndRightViewRef != null) {
-            lastEndRightViewRef.style.setProperty("transition-duration", "" + 0 + "ms")
+            lastEndRightViewRef.style.setProperty("transition-duration", "" + this.animationDuration + "ms")
+            lastEndRightViewRef.style.setProperty("transition-timing-function", this.animationFun)
             lastEndRightViewRef.style.setProperty("transform", "translateX(0px)")
         }
     }
@@ -772,7 +775,7 @@ open class GenUniModulesTmxUiComponentsXSwiperXSwiper : VueComponent {
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return _uM("lastEndRightView" to _pS(_uM("height" to "100%", "width" to 80, "right" to -80, "position" to "absolute", "zIndex" to 8, "transitionDuration" to "0ms", "transitionProperty" to "transform", "transitionTimingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)")), "xSwiper" to _pS(_uM("transitionDuration" to "350ms", "transitionProperty" to "height", "transitionTimingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)", "position" to "relative", "overflow" to "hidden")), "xSwiperH" to _pS(_uM("display" to "flex", "flexDirection" to "row")), "xSwiperV" to _pS(_uM("display" to "flex", "flexDirection" to "column")), "xSwiperWrap" to _pS(_uM("display" to "flex", "transform" to "translate(0px)", "transitionProperty" to "transform", "transitionDuration" to "0ms", "position" to "relative", "transitionTimingFunction" to "linear", "overflow" to "hidden")), "xSwiperDotH" to _pS(_uM("position" to "absolute", "height" to 32, "width" to "100%", "display" to "flex", "flexDirection" to "row", "alignItems" to "flex-end", "justifyContent" to "center", "zIndex" to 9, "pointerEvents" to "none")), "xSwiperDotItemH" to _pS(_uM("width" to 6, "height" to 6, "marginTop" to 0, "marginRight" to 3, "marginBottom" to 0, "marginLeft" to 3, "transitionProperty" to "width", "transitionDuration" to "300ms", "borderTopLeftRadius" to 8, "borderTopRightRadius" to 8, "borderBottomRightRadius" to 8, "borderBottomLeftRadius" to 8)), "xSwiperDotV" to _pS(_uM("position" to "absolute", "height" to "100%", "width" to 30, "display" to "flex", "flexDirection" to "column", "alignItems" to "flex-end", "justifyContent" to "center", "zIndex" to 9, "pointerEvents" to "none")), "xSwiperDotItemV" to _pS(_uM("width" to 6, "height" to 6, "marginTop" to 5, "marginRight" to "0rpx", "marginBottom" to 5, "marginLeft" to "0rpx", "transitionProperty" to "height", "transitionDuration" to "300ms", "borderTopLeftRadius" to 8, "borderTopRightRadius" to 8, "borderBottomRightRadius" to 8, "borderBottomLeftRadius" to 8, "zIndex" to 9)), "@TRANSITION" to _uM("lastEndRightView" to _uM("duration" to "0ms", "property" to "transform", "timingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)"), "xSwiper" to _uM("duration" to "350ms", "property" to "height", "timingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)"), "xSwiperWrap" to _uM("property" to "transform", "duration" to "0ms", "timingFunction" to "linear"), "xSwiperDotItemH" to _uM("property" to "width", "duration" to "300ms"), "xSwiperDotItemV" to _uM("property" to "height", "duration" to "300ms")))
+                return _uM("lastEndRightView" to _pS(_uM("height" to "100%", "width" to 80, "right" to -80, "position" to "absolute", "zIndex" to 8, "transitionDuration" to "0ms", "transitionProperty" to "transform", "transitionTimingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)")), "xSwiper" to _pS(_uM("transitionDuration" to "350ms", "transitionProperty" to "height", "transitionTimingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)", "position" to "relative", "overflow" to "hidden")), "xSwiperH" to _pS(_uM("display" to "flex", "flexDirection" to "row")), "xSwiperV" to _pS(_uM("display" to "flex", "flexDirection" to "column")), "xSwiperWrap" to _pS(_uM("display" to "flex", "transform" to "translate(0px)", "transitionProperty" to "transform", "transitionDuration" to "0ms", "position" to "relative", "transitionTimingFunction" to "cubic-bezier(0,0.55,0.45,1)", "overflow" to "hidden")), "xSwiperDotH" to _pS(_uM("position" to "absolute", "height" to 32, "width" to "100%", "display" to "flex", "flexDirection" to "row", "alignItems" to "flex-end", "justifyContent" to "center", "zIndex" to 9, "pointerEvents" to "none")), "xSwiperDotItemH" to _pS(_uM("width" to 6, "height" to 6, "marginTop" to 0, "marginRight" to 3, "marginBottom" to 0, "marginLeft" to 3, "transitionProperty" to "width", "transitionDuration" to "300ms", "borderTopLeftRadius" to 8, "borderTopRightRadius" to 8, "borderBottomRightRadius" to 8, "borderBottomLeftRadius" to 8)), "xSwiperDotV" to _pS(_uM("position" to "absolute", "height" to "100%", "width" to 30, "display" to "flex", "flexDirection" to "column", "alignItems" to "flex-end", "justifyContent" to "center", "zIndex" to 9, "pointerEvents" to "none")), "xSwiperDotItemV" to _pS(_uM("width" to 6, "height" to 6, "marginTop" to 5, "marginRight" to "0rpx", "marginBottom" to 5, "marginLeft" to "0rpx", "transitionProperty" to "height", "transitionDuration" to "300ms", "borderTopLeftRadius" to 8, "borderTopRightRadius" to 8, "borderBottomRightRadius" to 8, "borderBottomLeftRadius" to 8, "zIndex" to 9)), "@TRANSITION" to _uM("lastEndRightView" to _uM("duration" to "0ms", "property" to "transform", "timingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)"), "xSwiper" to _uM("duration" to "350ms", "property" to "height", "timingFunction" to "cubic-bezier(0.42,0.38,0.15,0.93)"), "xSwiperWrap" to _uM("property" to "transform", "duration" to "0ms", "timingFunction" to "cubic-bezier(0,0.55,0.45,1)"), "xSwiperDotItemH" to _uM("property" to "width", "duration" to "300ms"), "xSwiperDotItemV" to _uM("property" to "height", "duration" to "300ms")))
             }
         var inheritAttrs = true
         var inject: Map<String, Map<String, Any?>> = _uM()

@@ -19,6 +19,7 @@ import uts.sdk.modules.mcAmapNav.MarkerOption
 import uts.sdk.modules.mcAmapNav.NativeNavi
 open class GenComponentsMcAmapNavIndex : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {}
+    open var i18n: Tmui4xI18nTml by `$data`
     open var stopNavi: () -> Unit
         get() {
             return unref(this.`$exposed`["stopNavi"]) as () -> Unit
@@ -68,6 +69,10 @@ open class GenComponentsMcAmapNavIndex : VueComponent {
         set(value) {
             setRefValue(this.`$exposed`, "removeMarkers", value)
         }
+    @Suppress("USELESS_CAST")
+    override fun data(): Map<String, Any?> {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml)
+    }
     companion object {
         @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
         var setup: (__props: GenComponentsMcAmapNavIndex, _arg1: SetupContext) -> Any? = fun(__props, ref1): Any? {

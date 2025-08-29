@@ -49,6 +49,7 @@ open class GenUniModulesTmxUiComponentsXCheckboxGroupXCheckboxGroup : VueCompone
     open var modelValue: UTSArray<String> by `$props`
     open var direction: String by `$props`
     open var max: Number by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var oldvalueList: UTSArray<XCHECKBOX_LISTITEM_TYPE> by `$data`
     open var checkvaluelist: UTSArray<String> by `$data`
     open var tid: Number by `$data`
@@ -58,7 +59,7 @@ open class GenUniModulesTmxUiComponentsXCheckboxGroupXCheckboxGroup : VueCompone
     open var _max: Number by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("oldvalueList" to _uA<XCHECKBOX_LISTITEM_TYPE>(), "checkvaluelist" to _uA<String>(), "tid" to 0, "isDestroy" to false, "id" to ("xCheckboxGroup-" + getUid()), "oldvalueList_ids" to computed<UTSArray<String>>(fun(): UTSArray<String> {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "oldvalueList" to _uA<XCHECKBOX_LISTITEM_TYPE>(), "checkvaluelist" to _uA<String>(), "tid" to 0, "isDestroy" to false, "id" to ("xCheckboxGroup-" + getUid()), "oldvalueList_ids" to computed<UTSArray<String>>(fun(): UTSArray<String> {
             return this.oldvalueList.map(fun(el: XCHECKBOX_LISTITEM_TYPE): String {
                 return el.id
             }
@@ -89,7 +90,7 @@ open class GenUniModulesTmxUiComponentsXCheckboxGroupXCheckboxGroup : VueCompone
         if (index > -1) {
             var oldItem = this.oldvalueList[index]
             if (fl.length >= this._max && this._max > -1 && ischange && oldItem.data.nowvalue != oldItem.data.value) {
-                uni_showToast(ShowToastOptions(title = "已是最大选择数量", icon = "none", mask = true))
+                uni_showToast(ShowToastOptions(title = this!!.i18n.t("tmui4x.checkbox.tips"), icon = "none", mask = true))
                 this.pushAllChildren()
                 return
             }

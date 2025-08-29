@@ -41,6 +41,7 @@ open class GenUniModulesTmxUiComponentsXSkeletonXSkeleton : VueComponent {
     open var darkColor: String by `$props`
     open var round: String by `$props`
     open var duration: String by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var myopacity: Number by `$data`
     open var tid: Number by `$data`
     open var _width: String by `$data`
@@ -49,7 +50,7 @@ open class GenUniModulesTmxUiComponentsXSkeletonXSkeleton : VueComponent {
     open var _color: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("myopacity" to 1, "tid" to 0, "_width" to computed<String>(fun(): String {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "myopacity" to 1, "tid" to 0, "_width" to computed<String>(fun(): String {
             return checkIsCssUnit(this.width, xConfig.unit)
         }
         ), "_height" to computed<String>(fun(): String {

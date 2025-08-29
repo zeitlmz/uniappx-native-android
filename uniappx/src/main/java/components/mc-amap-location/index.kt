@@ -18,6 +18,7 @@ open class GenComponentsMcAmapLocationIndex : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {}
     open var enableHighAccuracy: Boolean by `$props`
     open var intervel: Number by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var stop: () -> Unit
         get() {
             return unref(this.`$exposed`["stop"]) as () -> Unit
@@ -32,6 +33,10 @@ open class GenComponentsMcAmapLocationIndex : VueComponent {
         set(value) {
             setRefValue(this.`$exposed`, "startLocation", value)
         }
+    @Suppress("USELESS_CAST")
+    override fun data(): Map<String, Any?> {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml)
+    }
     companion object {
         @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
         var setup: (__props: GenComponentsMcAmapLocationIndex, _arg1: SetupContext) -> Any? = fun(__props, ref1): Any? {

@@ -100,7 +100,7 @@ open class GenUniModulesTmxUiComponentsXCellXCell : VueComponent {
                     renderSlot(_ctx.`$slots`, "label", _uM("label" to _ctx._allAttr.label), fun(): UTSArray<Any> {
                         return _uA(
                             if (_ctx._allAttr.label != "") {
-                                _cE("text", _uM("key" to 0, "style" to _nS(_uM("color" to _ctx._allAttr.labelColor, "fontSize" to _ctx._rightLableSize, "width" to _ctx._rightWidth)), "class" to "rightLabel"), _tD(_ctx._allAttr.label), 5)
+                                _cE("text", _uM("key" to 0, "style" to _nS(_uM("marginLeft" to "16px", "color" to _ctx._allAttr.labelColor, "fontSize" to _ctx._rightLableSize, "width" to _ctx._rightWidth)), "class" to "rightLabel"), _tD(_ctx._allAttr.label), 5)
                             } else {
                                 _cC("v-if", true)
                             }
@@ -109,10 +109,12 @@ open class GenUniModulesTmxUiComponentsXCellXCell : VueComponent {
                     ),
                     renderSlot(_ctx.`$slots`, "right"),
                     if (isTrue(_ctx._allAttr.url != "" || _ctx._allAttr.link)) {
-                        _cV(_component_x_icon, _uM("key" to 0, "dark-color" to _ctx.linkDarkColor, "color" to _ctx.linkColor, "font-size" to "20", "name" to "arrow-right-s-line"), null, 8, _uA(
-                            "dark-color",
-                            "color"
-                        ))
+                        _cE("view", _uM("key" to 0, "style" to _nS(_uM("margin-left" to "5px"))), _uA(
+                            _cV(_component_x_icon, _uM("dark-color" to _ctx.linkDarkColor, "color" to _ctx.linkColor, "font-size" to "20", "name" to "arrow-right-s-line"), null, 8, _uA(
+                                "dark-color",
+                                "color"
+                            ))
+                        ), 4)
                     } else {
                         _cC("v-if", true)
                     }
@@ -154,6 +156,7 @@ open class GenUniModulesTmxUiComponentsXCellXCell : VueComponent {
     open var padding: UTSArray<String> by `$props`
     open var margin: UTSArray<String> by `$props`
     open var rightWidth: String by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var _padding: String by `$data`
     open var _margin: String by `$data`
     open var _disabled: Boolean by `$data`
@@ -173,7 +176,7 @@ open class GenUniModulesTmxUiComponentsXCellXCell : VueComponent {
     open var _isLinksHover: Boolean by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("_padding" to computed<String>(fun(): String {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "_padding" to computed<String>(fun(): String {
             if (this.padding.length == 0) {
                 var par = fillArrayCssValue(xConfig.sheetPadding)
                 if (par.length == 0) {
@@ -316,7 +319,7 @@ open class GenUniModulesTmxUiComponentsXCellXCell : VueComponent {
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return _uM("cellHover" to _pS(_uM("opacity" to 0.9)), "xCell" to _pS(_uM("paddingTop" to 12, "paddingRight" to 0, "paddingBottom" to 12, "paddingLeft" to 0, "display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center")), "xCellWrap" to _pS(_uM("flex" to 1, "display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center", "height" to "100%", "paddingTop" to 12, "paddingRight" to 0, "paddingBottom" to 12, "paddingLeft" to 0)), "title" to _pS(_uM("lines" to 2, "textOverflow" to "ellipsis", "flex" to 1, "flexShrink" to 0, "lineHeight" to 1.7)), "desc" to _pS(_uM("fontSize" to 12, "paddingTop" to 2)), "xCellAvatar" to _pS(_uM("marginRight" to 10, "display" to "flex", "flexDirection" to "column", "justifyContent" to "center", "alignItems" to "center", "flexShrink" to 0, "overflow" to "hidden")), "center" to _pS(_uM("flex" to 1)), "xcellRight" to _pS(_uM("paddingLeft" to 16, "flexDirection" to "row", "justifyContent" to "flex-end", "alignItems" to "center")), "rightLabel" to _pS(_uM("lines" to 1, "textOverflow" to "ellipsis", "fontSize" to 12, "textAlign" to "right")))
+                return _uM("cellHover" to _pS(_uM("opacity" to 0.9)), "xCell" to _pS(_uM("paddingTop" to 12, "paddingRight" to 0, "paddingBottom" to 12, "paddingLeft" to 0, "display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center")), "xCellWrap" to _pS(_uM("flex" to 1, "display" to "flex", "flexDirection" to "row", "justifyContent" to "space-between", "alignItems" to "center", "height" to "100%", "paddingTop" to 12, "paddingRight" to 0, "paddingBottom" to 12, "paddingLeft" to 0)), "title" to _pS(_uM("lines" to 2, "textOverflow" to "ellipsis", "flex" to 1, "flexShrink" to 0, "lineHeight" to 1.7)), "desc" to _pS(_uM("fontSize" to 12, "paddingTop" to 2)), "xCellAvatar" to _pS(_uM("marginRight" to 10, "display" to "flex", "flexDirection" to "column", "justifyContent" to "center", "alignItems" to "center", "flexShrink" to 0, "overflow" to "hidden")), "center" to _pS(_uM("flex" to 1)), "xcellRight" to _pS(_uM("flexDirection" to "row", "justifyContent" to "flex-end", "alignItems" to "center")), "rightLabel" to _pS(_uM("lines" to 1, "textOverflow" to "ellipsis", "fontSize" to 12, "textAlign" to "right")))
             }
         var inheritAttrs = true
         var inject: Map<String, Map<String, Any?>> = _uM()

@@ -45,6 +45,7 @@ open class GenUniModulesTmxUiComponentsXRadioGroupXRadioGroup : VueComponent {
     }
     open var modelValue: String by `$props`
     open var direction: String by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var oldvalueList: UTSArray<XRADIO_LISTITEM_TYPE> by `$data`
     open var checkvaluelist: String by `$data`
     open var tid: Number by `$data`
@@ -53,7 +54,7 @@ open class GenUniModulesTmxUiComponentsXRadioGroupXRadioGroup : VueComponent {
     open var oldvalueList_ids: UTSArray<String> by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("oldvalueList" to _uA<XRADIO_LISTITEM_TYPE>(), "checkvaluelist" to "", "tid" to 0, "isDestroy" to false, "id" to ("xRadioGroup-" + getUid()), "oldvalueList_ids" to computed<UTSArray<String>>(fun(): UTSArray<String> {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "oldvalueList" to _uA<XRADIO_LISTITEM_TYPE>(), "checkvaluelist" to "", "tid" to 0, "isDestroy" to false, "id" to ("xRadioGroup-" + getUid()), "oldvalueList_ids" to computed<UTSArray<String>>(fun(): UTSArray<String> {
             return this.oldvalueList.map(fun(el: XRADIO_LISTITEM_TYPE): String {
                 return el.id
             }

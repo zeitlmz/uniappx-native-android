@@ -61,9 +61,9 @@ open class GenUniModulesTmxUiComponentsXTreeItemXTreeItem : VueComponent {
         val _component_x_tree_item = resolveEasyComponent("x-tree-item", GenUniModulesTmxUiComponentsXTreeItemXTreeItemClass)
         return _cE("view", _uM("class" to "xTree"), _uA(
             _cV(_component_x_modal, _uM("height" to "auto", "onConfirm" to _ctx.editeclick, "title" to if (_ctx.editeType == "add") {
-                "添加下级"
+                _ctx.i18n!!.t("tmui4x.tree.addTitle")
             } else {
-                "修改内容"
+                _ctx.i18n!!.t("tmui4x.tree.changeTitle")
             }
             , "show" to _ctx.showModal, "onUpdate:show" to fun(`$event`: Boolean){
                 _ctx.showModal = `$event`
@@ -78,7 +78,7 @@ open class GenUniModulesTmxUiComponentsXTreeItemXTreeItem : VueComponent {
                                 return _uA(
                                     _cV(_component_x_text, _uM("_style" to "padding:0 12px"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
                                         return _uA(
-                                            "标题值"
+                                            _tD(_ctx.i18n!!.t("tmui4x.tree.inputTitle"))
                                         )
                                     }), "_" to 1))
                                 )
@@ -87,17 +87,18 @@ open class GenUniModulesTmxUiComponentsXTreeItemXTreeItem : VueComponent {
                                 "onUpdate:modelValue"
                             )),
                             _cE("view", _uM("style" to _nS(_uM("height" to "10px"))), null, 4),
-                            _cV(_component_x_input, _uM("dark-bg-color" to "", "height" to "48", "placeholder" to "不要重复,空时自动生成", "modelValue" to _ctx.nowediteItemId, "onUpdate:modelValue" to fun(`$event`: String){
+                            _cV(_component_x_input, _uM("dark-bg-color" to "", "height" to "48", "placeholder" to _ctx.i18n!!.t("tmui4x.tree.inputTips1"), "modelValue" to _ctx.nowediteItemId, "onUpdate:modelValue" to fun(`$event`: String){
                                 _ctx.nowediteItemId = `$event`
                             }), _uM("inputLeft" to withSlotCtx(fun(): UTSArray<Any> {
                                 return _uA(
                                     _cV(_component_x_text, _uM("_style" to "padding:0 12px"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
                                         return _uA(
-                                            "标识ID"
+                                            _tD(_ctx.i18n!!.t("tmui4x.tree.inputId"))
                                         )
                                     }), "_" to 1))
                                 )
                             }), "_" to 1), 8, _uA(
+                                "placeholder",
                                 "modelValue",
                                 "onUpdate:modelValue"
                             ))
@@ -315,6 +316,7 @@ open class GenUniModulesTmxUiComponentsXTreeItemXTreeItem : VueComponent {
     open var showFloaderIcon: Boolean by `$props`
     open var showChecked: Boolean by `$props`
     open var checkedIcon: UTSArray<String> by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var nowIds: UTSArray<String> by `$data`
     open var showChildren: Boolean by `$data`
     open var openFLoderIds: UTSArray<String> by `$data`
@@ -340,7 +342,7 @@ open class GenUniModulesTmxUiComponentsXTreeItemXTreeItem : VueComponent {
     open var _itemColor: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("nowIds" to _uA<String>(), "showChildren" to true, "openFLoderIds" to _uA<String>(), "tid" to 0, "_list" to _uA<UTSJSONObject>(), "nowediteItem" to null as UTSJSONObject?, "showModal" to false, "nowediteItemText" to "", "nowediteItemId" to "", "editeType" to "change", "newItem" to null as UTSJSONObject?, "_checkedIcon" to computed<UTSArray<String>>(fun(): UTSArray<String> {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "nowIds" to _uA<String>(), "showChildren" to true, "openFLoderIds" to _uA<String>(), "tid" to 0, "_list" to _uA<UTSJSONObject>(), "nowediteItem" to null as UTSJSONObject?, "showModal" to false, "nowediteItemText" to "", "nowediteItemId" to "", "editeType" to "change", "newItem" to null as UTSJSONObject?, "_checkedIcon" to computed<UTSArray<String>>(fun(): UTSArray<String> {
             return this.checkedIcon
         }
         ), "_showChecked" to computed<Boolean>(fun(): Boolean {

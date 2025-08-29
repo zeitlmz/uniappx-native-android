@@ -57,12 +57,20 @@ open class GenUniModulesTmxUiComponentsXInputXInput : VueComponent {
     open var inputPadding: String by `$props`
     open var inputmode: String by `$props`
     open var holdKeyboard: Boolean by `$props`
+    open var isLink: Boolean by `$props`
+    open var rightIcon: String by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
+    @Suppress("USELESS_CAST")
+    override fun data(): Map<String, Any?> {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml)
+    }
     companion object {
         @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
         var setup: (__props: GenUniModulesTmxUiComponentsXInputXInput) -> Any? = fun(__props): Any? {
             val __ins = getCurrentInstance()!!
             val _ctx = __ins.proxy as GenUniModulesTmxUiComponentsXInputXInput
             val _cache = __ins.renderCache
+            val i18n = xConfig.i18n
             fun emits(event: String, vararg do_not_transform_spread: Any?) {
                 __ins.emit(event, *do_not_transform_spread)
             }
@@ -116,6 +124,14 @@ open class GenUniModulesTmxUiComponentsXInputXInput : VueComponent {
             )
             val _autoHeight = computed(fun(): Boolean {
                 return props.autoHeight
+            }
+            )
+            val _isLink = computed(fun(): Boolean {
+                return props.isLink
+            }
+            )
+            val _rightIcon = computed(fun(): String {
+                return props.rightIcon
             }
             )
             val _showChartCount = computed(fun(): Boolean {
@@ -193,6 +209,9 @@ open class GenUniModulesTmxUiComponentsXInputXInput : VueComponent {
             }
             )
             val _placeholder = computed(fun(): String {
+                if (props.placeholder == "") {
+                    return i18n!!.t("tmui4x.input.placeholder")
+                }
                 return props.placeholder
             }
             )
@@ -514,7 +533,16 @@ open class GenUniModulesTmxUiComponentsXInputXInput : VueComponent {
                                 _cC("v-if", true)
                             }
                             ,
-                            renderSlot(_ctx.`$slots`, "inputRight")
+                            renderSlot(_ctx.`$slots`, "inputRight"),
+                            if (isTrue(_isLink.value || _rightIcon.value != "")) {
+                                _cE("view", _uM("key" to 5, "style" to _nS(_uM("padding" to "0 12px"))), _uA(
+                                    _cV(_component_x_icon, _uM("color" to _iconColor.value, "name" to "arrow-right-s-line"), null, 8, _uA(
+                                        "color"
+                                    ))
+                                ), 4)
+                            } else {
+                                _cC("v-if", true)
+                            }
                         ), 6),
                         _cE("view", _uM("class" to "xInputRight"), _uA(
                             renderSlot(_ctx.`$slots`, "right", UTSJSONObject(), fun(): UTSArray<Any> {
@@ -577,7 +605,7 @@ open class GenUniModulesTmxUiComponentsXInputXInput : VueComponent {
         var props = _nP(_uM("_style" to _uM("type" to "String", "required" to true, "default" to ""), "focusBorder" to _uM("type" to "Array", "required" to true, "default" to fun(): UTSArray<String> {
             return _uA<String>()
         }
-        ), "placeholderStyle" to _uM("type" to "String", "required" to true, "default" to ""), "_class" to _uM("type" to "String", "required" to true, "default" to ""), "round" to _uM("type" to "String", "required" to true, "default" to ""), "showClear" to _uM("type" to "Boolean", "required" to true, "default" to false), "rightText" to _uM("type" to "String", "required" to true, "default" to ""), "leftText" to _uM("type" to "String", "required" to true, "default" to ""), "modelValue" to _uM("type" to "String", "required" to true, "default" to ""), "placeholder" to _uM("type" to "String", "required" to true, "default" to "请输入"), "iconColor" to _uM("type" to "String", "required" to true, "default" to ""), "clearColor" to _uM("type" to "String", "required" to true, "default" to "#bfbfbf"), "color" to _uM("type" to "String", "required" to true, "default" to ""), "darkBgColor" to _uM("type" to "String", "required" to true, "default" to "transparent"), "fontColor" to _uM("type" to "String", "required" to true, "default" to "#333333"), "darkFontColor" to _uM("type" to "String", "required" to true, "default" to ""), "fontSize" to _uM("type" to "String", "required" to true, "default" to "16"), "leftIcon" to _uM("type" to "String", "required" to true, "default" to ""), "name" to _uM("type" to "String", "required" to true, "default" to ""), "disabled" to _uM("type" to "Boolean", "required" to true, "default" to false), "type" to _uM("type" to "String", "required" to true, "default" to "text"), "password" to _uM("type" to "Boolean", "required" to true, "default" to false), "maxlength" to _uM("type" to "Number", "required" to true, "default" to -1), "cursorSpacing" to _uM("type" to "Number", "required" to true, "default" to 0), "cursorColor" to _uM("type" to "String", "required" to true, "default" to ""), "autoFocus" to _uM("type" to "Boolean", "required" to true, "default" to false), "focus" to _uM("type" to "Boolean", "required" to true, "default" to false), "confirmType" to _uM("type" to "String", "required" to true, "default" to "next"), "confirmHold" to _uM("type" to "Boolean", "required" to true, "default" to false), "cursor" to _uM("type" to "Number", "required" to true, "default" to 0), "selectionStart" to _uM("type" to "Number", "required" to true, "default" to -1), "selectionEnd" to _uM("type" to "Number", "required" to true, "default" to -1), "adjustPosition" to _uM("type" to "Boolean", "required" to true, "default" to true), "width" to _uM("type" to "String", "required" to true, "default" to "auto"), "height" to _uM("type" to "String", "required" to true, "default" to "44"), "trim" to _uM("type" to "Boolean", "required" to true, "default" to true), "align" to _uM("type" to "String", "required" to true, "default" to "left"), "autoHeight" to _uM("type" to "Boolean", "required" to true, "default" to false), "fixed" to _uM("type" to "Boolean", "required" to true, "default" to false), "showFooter" to _uM("type" to "Boolean", "required" to true, "default" to false), "showChartCount" to _uM("type" to "Boolean", "required" to true, "default" to false), "inputPadding" to _uM("type" to "String", "required" to true, "default" to "8px 12px"), "inputmode" to _uM("type" to "String", "required" to true, "default" to "text"), "holdKeyboard" to _uM("type" to "Boolean", "required" to true, "default" to false)))
+        ), "placeholderStyle" to _uM("type" to "String", "required" to true, "default" to ""), "_class" to _uM("type" to "String", "required" to true, "default" to ""), "round" to _uM("type" to "String", "required" to true, "default" to ""), "showClear" to _uM("type" to "Boolean", "required" to true, "default" to false), "rightText" to _uM("type" to "String", "required" to true, "default" to ""), "leftText" to _uM("type" to "String", "required" to true, "default" to ""), "modelValue" to _uM("type" to "String", "required" to true, "default" to ""), "placeholder" to _uM("type" to "String", "required" to true, "default" to ""), "iconColor" to _uM("type" to "String", "required" to true, "default" to ""), "clearColor" to _uM("type" to "String", "required" to true, "default" to "#bfbfbf"), "color" to _uM("type" to "String", "required" to true, "default" to ""), "darkBgColor" to _uM("type" to "String", "required" to true, "default" to "transparent"), "fontColor" to _uM("type" to "String", "required" to true, "default" to "#333333"), "darkFontColor" to _uM("type" to "String", "required" to true, "default" to ""), "fontSize" to _uM("type" to "String", "required" to true, "default" to "16"), "leftIcon" to _uM("type" to "String", "required" to true, "default" to ""), "name" to _uM("type" to "String", "required" to true, "default" to ""), "disabled" to _uM("type" to "Boolean", "required" to true, "default" to false), "type" to _uM("type" to "String", "required" to true, "default" to "text"), "password" to _uM("type" to "Boolean", "required" to true, "default" to false), "maxlength" to _uM("type" to "Number", "required" to true, "default" to -1), "cursorSpacing" to _uM("type" to "Number", "required" to true, "default" to 0), "cursorColor" to _uM("type" to "String", "required" to true, "default" to ""), "autoFocus" to _uM("type" to "Boolean", "required" to true, "default" to false), "focus" to _uM("type" to "Boolean", "required" to true, "default" to false), "confirmType" to _uM("type" to "String", "required" to true, "default" to "next"), "confirmHold" to _uM("type" to "Boolean", "required" to true, "default" to false), "cursor" to _uM("type" to "Number", "required" to true, "default" to 0), "selectionStart" to _uM("type" to "Number", "required" to true, "default" to -1), "selectionEnd" to _uM("type" to "Number", "required" to true, "default" to -1), "adjustPosition" to _uM("type" to "Boolean", "required" to true, "default" to true), "width" to _uM("type" to "String", "required" to true, "default" to "auto"), "height" to _uM("type" to "String", "required" to true, "default" to "44"), "trim" to _uM("type" to "Boolean", "required" to true, "default" to true), "align" to _uM("type" to "String", "required" to true, "default" to "left"), "autoHeight" to _uM("type" to "Boolean", "required" to true, "default" to false), "fixed" to _uM("type" to "Boolean", "required" to true, "default" to false), "showFooter" to _uM("type" to "Boolean", "required" to true, "default" to false), "showChartCount" to _uM("type" to "Boolean", "required" to true, "default" to false), "inputPadding" to _uM("type" to "String", "required" to true, "default" to "8px 12px"), "inputmode" to _uM("type" to "String", "required" to true, "default" to "text"), "holdKeyboard" to _uM("type" to "Boolean", "required" to true, "default" to false), "isLink" to _uM("type" to "Boolean", "required" to true, "default" to false), "rightIcon" to _uM("type" to "String", "required" to true, "default" to "")))
         var propsNeedCastKeys = _uA(
             "_style",
             "focusBorder",
@@ -622,7 +650,9 @@ open class GenUniModulesTmxUiComponentsXInputXInput : VueComponent {
             "showChartCount",
             "inputPadding",
             "inputmode",
-            "holdKeyboard"
+            "holdKeyboard",
+            "isLink",
+            "rightIcon"
         )
         var components: Map<String, CreateVueComponent> = _uM()
     }

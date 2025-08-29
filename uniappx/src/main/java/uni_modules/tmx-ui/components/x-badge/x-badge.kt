@@ -104,6 +104,7 @@ open class GenUniModulesTmxUiComponentsXBadgeXBadge : VueComponent {
     open var label: String by `$props`
     open var position: String by `$props`
     open var offset: UTSArray<Number> by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var padding: String by `$data`
     open var test: Map<String, String> by `$data`
     open var _offset: UTSArray<Number> by `$data`
@@ -114,7 +115,7 @@ open class GenUniModulesTmxUiComponentsXBadgeXBadge : VueComponent {
     open var _label: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("padding" to "4px 4px", "test" to Map<String, String>(_uA(
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "padding" to "4px 4px", "test" to Map<String, String>(_uA(
             _uA(
                 "border",
                 "2px solid red"

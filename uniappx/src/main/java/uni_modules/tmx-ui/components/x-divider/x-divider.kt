@@ -69,6 +69,7 @@ open class GenUniModulesTmxUiComponentsXDividerXDivider : VueComponent {
     open var model: String by `$props`
     open var fontSize: String by `$props`
     open var vertical: Boolean by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var _label: String by `$data`
     open var _lineWidth: String by `$data`
     open var _fontSize: String by `$data`
@@ -79,7 +80,7 @@ open class GenUniModulesTmxUiComponentsXDividerXDivider : VueComponent {
     open var _vertical: Boolean by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("_label" to computed<String>(fun(): String {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "_label" to computed<String>(fun(): String {
             return this.label
         }
         ), "_lineWidth" to computed<String>(fun(): String {

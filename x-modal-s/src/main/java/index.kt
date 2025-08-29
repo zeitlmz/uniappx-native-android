@@ -685,8 +685,8 @@ fun _createModalView(context: Context, decorView: ViewGroup, opts: X_MODAL_TYPE)
     masker = maskerDom
 }
 fun _showModal_(opts: X_MODAL_TYPE) {
+    dialogModal = FullScreenDialogFragment(UTSAndroid.getUniActivity()!!, opts)
     UTSAndroid.getDispatcher("main").async(fun(_) {
-        dialogModal = FullScreenDialogFragment(UTSAndroid.getUniActivity()!!, opts)
         dialogModal?.show()
     }
         , null)

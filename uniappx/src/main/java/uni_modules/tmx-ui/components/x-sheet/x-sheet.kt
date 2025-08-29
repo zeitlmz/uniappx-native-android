@@ -60,6 +60,7 @@ open class GenUniModulesTmxUiComponentsXSheetXSheet : VueComponent {
     open var loading: Boolean by `$props`
     open var height: String by `$props`
     open var width: String by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var isHover: Boolean by `$data`
     open var _color: String by `$data`
     open var _width: String by `$data`
@@ -77,7 +78,7 @@ open class GenUniModulesTmxUiComponentsXSheetXSheet : VueComponent {
     open var _styleMap: Map<String, String> by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("isHover" to false, "_color" to computed<String>(fun(): String {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "isHover" to false, "_color" to computed<String>(fun(): String {
             if (this.linearGradient.length > 0 || this.color == "transparent") {
                 return "transparent"
             }
@@ -211,13 +212,17 @@ open class GenUniModulesTmxUiComponentsXSheetXSheet : VueComponent {
             stylemap.set("backgroundColor", this._color)
             stylemap.set("width", this._width)
             stylemap.set("height", this._height)
-            stylemap.set("backgroundImage", this._linearGradient)
+            if (this._linearGradient != "") {
+                stylemap.set("backgroundImage", this._linearGradient)
+            }
             stylemap.set("borderRadius", this._round)
             stylemap.set("borderWidth", this._border)
             stylemap.set("borderColor", this._borderColor)
             stylemap.set("margin", this._margin)
             stylemap.set("padding", this._padding)
-            stylemap.set("boxShadow", this._shadow)
+            if (this._shadow != "" && this._shadow != "none") {
+                stylemap.set("boxShadow", this._shadow)
+            }
             stylemap.set("borderStyle", this._borderStyle)
             return stylemap
         }

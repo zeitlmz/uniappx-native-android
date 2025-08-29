@@ -136,6 +136,7 @@ open class GenComponentsMcDatePickerIndex : VueComponent {
     open var format: String by `$props`
     open var dateStyle: UTSArray<xCalendarDateStyle_type> by `$props`
     open var title: String by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var date: String by `$data`
     open var showDrawer: Boolean by `$data`
     open var isShow: Boolean
@@ -149,7 +150,7 @@ open class GenComponentsMcDatePickerIndex : VueComponent {
         }
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("date" to "", "showDrawer" to false, "isShow" to false)
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "date" to "", "showDrawer" to false, "isShow" to false)
     }
     open var change = ::gen_change_fn
     open fun gen_change_fn() {

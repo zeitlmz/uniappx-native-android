@@ -105,6 +105,7 @@ open class GenComponentsMcUpgradeModalIndex : VueComponent {
         ))
     }
     open var styleType: Number by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var canInstallApk: Boolean by `$data`
     open var version: Any? by `$data`
     open var percent: Number by `$data`
@@ -119,7 +120,7 @@ open class GenComponentsMcUpgradeModalIndex : VueComponent {
     open var currentStyle: StyleTypeItem by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("canInstallApk" to false, "version" to appVersion, "percent" to 0, "showBtnGroup" to true, "tempFilePath" to "", "downloadedSize" to 0, "packageFileSize" to 0, "screenHeight" to 0, "screenWidth" to 0, "isUpgrade" to false, "latestAppInfo" to null as AppVersionInfo?, "currentStyle" to computed<StyleTypeItem>(fun(): StyleTypeItem {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "canInstallApk" to false, "version" to appVersion, "percent" to 0, "showBtnGroup" to true, "tempFilePath" to "", "downloadedSize" to 0, "packageFileSize" to 0, "screenHeight" to 0, "screenWidth" to 0, "isUpgrade" to false, "latestAppInfo" to null as AppVersionInfo?, "currentStyle" to computed<StyleTypeItem>(fun(): StyleTypeItem {
             return styleTypeList[this.styleType] as StyleTypeItem
         }
         ))

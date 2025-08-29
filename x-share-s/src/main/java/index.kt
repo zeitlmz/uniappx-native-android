@@ -8,6 +8,7 @@ import io.dcloud.uniapp.framework.*
 import io.dcloud.uniapp.runtime.*
 import io.dcloud.uniapp.vue.*
 import io.dcloud.uniapp.vue.shared.*
+import io.dcloud.unicloud.*
 import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
@@ -17,8 +18,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
-val context = UTSAndroid.getAppContext()!!
 fun xShare(title: String, minType: String, content: String?, path: String?) {
+    val context = UTSAndroid.getAppContext()!!
     if (minType == "text/plain") {
         var action = Intent()
         action.setAction(Intent.ACTION_SEND)

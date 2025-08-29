@@ -1,9 +1,8 @@
-// 在iframe内部执行以下代码
-var iframeId = window.frameElement.getAttribute('id');
-// 或者使用简写形式（两者等价）
-var iframeId = this.frameElement.id;
+
+var iframeId = new URLSearchParams(window.location.search).get('id')||Math.random().toString(16).substring(4)
+
 // 等待初始化完毕
-document.addEventListener('UniAppJSBridgeReady', () => {
+document.addEventListener('UniAppJSBridgeReady', function(){
 	window.parent.postMessage({
 		action: 'onJSBridgeReady',
 		data: '',
@@ -14,9 +13,7 @@ document.addEventListener('UniAppJSBridgeReady', () => {
 			action: 'onJSBridgeReady'
 		}
 	})
-
 })
-
 // window.addEventListener('message', function(event) {
 
 //   // 根据消息内容执行相应的操作或调用函数
@@ -149,6 +146,7 @@ function chart_setOption(optionStr) {
 	try {
 		
 		let option = decodeJSON(optionStr)
+		
 		chart.setOption(option)
 	} catch (error) {
 		alert(error)

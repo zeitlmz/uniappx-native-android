@@ -33,6 +33,7 @@ open class GenPagesOtherOrderDetailNavi : BasePage {
     constructor(__ins: ComponentInternalInstance, __renderer: String?) : super(__ins, __renderer) {
         onPageScroll(fun(e: OnPageScrollOptions) {
             xProvitae.scrollTop = e.scrollTop
+            uni__emit("onPageScroll", e.scrollTop)
         }
         , __ins)
         onResize(fun(_: OnResizeOptions) {
@@ -214,6 +215,7 @@ open class GenPagesOtherOrderDetailNavi : BasePage {
         ), 64)
     }
     open var globalData: GlobalDataType by `$inject`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var resBaseUrl: Any? by `$data`
     open var currentIndex: Number by `$data`
     open var showValidModal: Boolean by `$data`
@@ -229,7 +231,7 @@ open class GenPagesOtherOrderDetailNavi : BasePage {
     open var viaTime: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("resBaseUrl" to uni.UNI09580B7.resBaseUrl, "currentIndex" to 0, "showValidModal" to false, "showKey" to false, "phoneSuffix" to "", "showPanel" to false, "orderParams" to UTSJSONObject(), "orderData" to OrderSummary1(orderCount = 0, driverStatus = -2, seatSelectTemplates = _uA(), orderItems = _uA(), orderChains = _uA(), orderRoute = OrderRoute(routeStrategy = "", routeStartPoint = "", routeWaypoints = _uA(), routeEndPoint = "", routeWaypointsPoiIds = _uA<String>(), routeStartPoiId = "", routeEndPoiId = "")), "screenWidth" to uni.UNI09580B7.screenWidth as Number, "screenHeight" to uni.UNI09580B7.screenHeight as Number, "statusBarHeight" to uni.UNI09580B7.statusBarHeight as Number, "viaDistance" to "0公里", "viaTime" to "0分钟")
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "resBaseUrl" to uni.UNI09580B7.resBaseUrl, "currentIndex" to 0, "showValidModal" to false, "showKey" to false, "phoneSuffix" to "", "showPanel" to false, "orderParams" to UTSJSONObject(), "orderData" to OrderSummary1(orderCount = 0, driverStatus = -2, seatSelectTemplates = _uA(), orderItems = _uA(), orderChains = _uA(), orderRoute = OrderRoute(routeStrategy = "", routeStartPoint = "", routeWaypoints = _uA(), routeEndPoint = "", routeWaypointsPoiIds = _uA<String>(), routeStartPoiId = "", routeEndPoiId = "")), "screenWidth" to uni.UNI09580B7.screenWidth as Number, "screenHeight" to uni.UNI09580B7.screenHeight as Number, "statusBarHeight" to uni.UNI09580B7.statusBarHeight as Number, "viaDistance" to "0公里", "viaTime" to "0分钟")
     }
     open var backPage = ::gen_backPage_fn
     open fun gen_backPage_fn() {

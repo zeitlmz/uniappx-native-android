@@ -72,16 +72,16 @@ open class GenUniModulesTmxUiComponentsXPopoverXPopover : VueComponent {
                 "onClick"
             )),
             if (isTrue(_ctx.showPro)) {
-                _cE("view", _uM("key" to 0, "onTouchstart" to _ctx.closeProWrap, "class" to "xPopoverMasker", "style" to _nS(_uM("width" to "100%", "height" to _ctx.__height, "opacity" to if (_ctx.showquerinnode) {
+                _cE("view", _uM("key" to 0, "onClick" to _ctx.closeProWrap, "onTouchmove" to _ctx.closeProWrap, "zz" to "", "class" to "xPopoverMasker", "style" to _nS(_uM("width" to "100%", "height" to _ctx.__height, "opacity" to if (_ctx.showquerinnode) {
                     1
                 } else {
                     0
                 }, "backgroundColor" to _ctx._maskBgColor))), _uA(
                     _cE("view", _uM("onClick" to withModifiers(_ctx.contentWrapClick, _uA(
                         "stop"
-                    )), "onTouchstart" to withModifiers(fun(){}, _uA(
+                    )), "onTransitionend" to _ctx.onEnd, "onTouchmove" to withModifiers(fun(){}, _uA(
                         "stop"
-                    )), "onTransitionend" to _ctx.onEnd, "ref" to "xPopoverWrap", "id" to _ctx.menuiId, "class" to "xPopoverWrap", "style" to _nS(_uA(
+                    )), "ref" to "xPopoverWrap", "id" to _ctx.menuiId, "class" to "xPopoverWrap", "style" to _nS(_uA(
                         _ctx.xPopoverWrapPos,
                         _uM("transition-timing-function" to _ctx._animationFun)
                     ))), _uA(
@@ -104,12 +104,13 @@ open class GenUniModulesTmxUiComponentsXPopoverXPopover : VueComponent {
                         }
                     ), 44, _uA(
                         "onClick",
-                        "onTouchstart",
                         "onTransitionend",
+                        "onTouchmove",
                         "id"
                     ))
                 ), 44, _uA(
-                    "onTouchstart"
+                    "onClick",
+                    "onTouchmove"
                 ))
             } else {
                 _cC("v-if", true)
@@ -125,6 +126,7 @@ open class GenUniModulesTmxUiComponentsXPopoverXPopover : VueComponent {
     open var showTriangle: Boolean by `$props`
     open var triangleColor: String by `$props`
     open var triangleDarkColor: String by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var id: Any? by `$data`
     open var menuiId: Any? by `$data`
     open var _width: Number by `$data`
@@ -146,7 +148,7 @@ open class GenUniModulesTmxUiComponentsXPopoverXPopover : VueComponent {
     open var _round: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("id" to ("xPopover" + getUid()), "menuiId" to ("xPopoverMenu" + getUid()), "_width" to 0, "_height" to 0, "trrigerNodeInfo" to null as NODE_INFO?, "menuNodeInfo" to null as NODE_INFO?, "showPro" to false, "status" to "open" as String, "isGeiNodeInfoOk" to false, "tid" to 0, "windtop" to 0, "showquerinnode" to false, "nowPos" to "bc" as xPopopverPosType, "_maskBgColor" to computed<String>(fun(): String {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "id" to ("xPopover" + getUid()), "menuiId" to ("xPopoverMenu" + getUid()), "_width" to 0, "_height" to 0, "trrigerNodeInfo" to null as NODE_INFO?, "menuNodeInfo" to null as NODE_INFO?, "showPro" to false, "status" to "open" as String, "isGeiNodeInfoOk" to false, "tid" to 0, "windtop" to 0, "showquerinnode" to false, "nowPos" to "bc" as xPopopverPosType, "_maskBgColor" to computed<String>(fun(): String {
             return this.maskBgColor
         }
         ), "_triangleColor" to computed<String>(fun(): String {
@@ -298,6 +300,15 @@ open class GenUniModulesTmxUiComponentsXPopoverXPopover : VueComponent {
         this.`$emit`("update:modelValue", true)
         this.status = "open"
         t.openProWrap()
+        var currentPage = getCurrentPages()[getCurrentPages().length - 1]
+        currentPage.setPageStyle(object : UTSJSONObject() {
+            var disableScroll = true
+        })
+    }
+    open var mskerTouch = ::gen_mskerTouch_fn
+    open fun gen_mskerTouch_fn(evt: UniTouchEvent) {
+        evt.stopPropagation()
+        evt.preventDefault()
     }
     open var openProWrap = ::gen_openProWrap_fn
     open fun gen_openProWrap_fn() {

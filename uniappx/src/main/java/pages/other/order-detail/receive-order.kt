@@ -25,6 +25,7 @@ open class GenPagesOtherOrderDetailReceiveOrder : BasePage {
     constructor(__ins: ComponentInternalInstance, __renderer: String?) : super(__ins, __renderer) {
         onPageScroll(fun(e: OnPageScrollOptions) {
             xProvitae.scrollTop = e.scrollTop
+            uni__emit("onPageScroll", e.scrollTop)
         }
         , __ins)
         onResize(fun(_: OnResizeOptions) {
@@ -215,6 +216,7 @@ open class GenPagesOtherOrderDetailReceiveOrder : BasePage {
         ), 64)
     }
     open var globalData: GlobalDataType by `$inject`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var currentOrderIndex: Number by `$data`
     open var scheduledTimeMap: Map<String, RemainingTimeType1> by `$data`
     open var timer: Number by `$data`
@@ -231,7 +233,7 @@ open class GenPagesOtherOrderDetailReceiveOrder : BasePage {
     open var pointBounds: UTSArray<UTSArray<Number>> by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("currentOrderIndex" to 0, "scheduledTimeMap" to Map<String, RemainingTimeType1>(), "timer" to -1, "orderId" to "", "orderList" to _uA<OrderReceiveSummary>(), "statusBarHeight" to uni.UNI09580B7.statusBarHeight as Number, "acitveTab" to "0", "tabs" to _uA(
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "currentOrderIndex" to 0, "scheduledTimeMap" to Map<String, RemainingTimeType1>(), "timer" to -1, "orderId" to "", "orderList" to _uA<OrderReceiveSummary>(), "statusBarHeight" to uni.UNI09580B7.statusBarHeight as Number, "acitveTab" to "0", "tabs" to _uA(
             TABS_ITEM_INFO(title = "上车点位置"),
             TABS_ITEM_INFO(title = "下车点位置")
         ), "currentChooseSeat" to _uA<ChooseSeat>(), "seatSelectTemplates" to _uA<SeatSelectTemplate>(), "resBaseUrl" to uni.UNI09580B7.resBaseUrl, "screenWidth" to uni.UNI09580B7.screenWidth as Number, "screenHeight" to uni.UNI09580B7.screenHeight as Number, "pointBounds" to _uA<UTSArray<Number>>())
@@ -281,9 +283,9 @@ open class GenPagesOtherOrderDetailReceiveOrder : BasePage {
     open var updateScheduledTime = ::gen_updateScheduledTime_fn
     open fun gen_updateScheduledTime_fn() {
         this.orderList.forEach(fun(item: OrderReceiveSummary){
-            val time = getRemainingTime(addTime(item.confirmOrder.time, 20, "second"))
+            val time = getRemainingTime(addTime(item.confirmOrder.time, 90, "second"))
             if (time > 1) {
-                this.scheduledTimeMap.set(item.confirmOrder.orderId, RemainingTimeType1(timestamp = time, strDate = formatTimestamp(time, false)))
+                this.scheduledTimeMap.set(item.confirmOrder.orderId, RemainingTimeType1(timestamp = time, strDate = formatToSeconds(time)))
             } else {
                 this.scheduledTimeMap.`delete`(item.confirmOrder.orderId)
                 item.confirmOrder.needDelete = true
@@ -304,35 +306,35 @@ open class GenPagesOtherOrderDetailReceiveOrder : BasePage {
     }
     open var onTabChange = ::gen_onTabChange_fn
     open fun gen_onTabChange_fn(_0: TABS_ITEM, index: Number) {
-        val boundsPoints = _uA(
-            _uA(
-                this.globalData.position.latitude,
-                this.globalData.position.longitude
-            )
-        ) as UTSArray<UTSArray<Number>>
         val mapView = (this.`$refs`["mapView"] as McAmapComponentPublicInstance)
-        this.orderList[this.currentOrderIndex].orderChains.forEach(fun(item){
-            val pointArr: UTSArray<Number> = item.point.split(",").reverse().map(fun(item: String): Number {
-                return UTSNumber.from(item)
-            }
-            )
-            boundsPoints.push(pointArr)
-        }
-        )
         if (index == 0) {
+            val boundsPoints = _uA(
+                _uA(
+                    this.globalData.position.latitude,
+                    this.globalData.position.longitude
+                )
+            ) as UTSArray<UTSArray<Number>>
+            this.orderList[this.currentOrderIndex].orderChains.forEach(fun(item){
+                val pointArr: UTSArray<Number> = item.point.split(",").reverse().map(fun(item: String): Number {
+                    return UTSNumber.from(item)
+                })
+                boundsPoints.push(pointArr)
+            })
             val startPointArr: UTSArray<Number> = this.orderList[this.currentOrderIndex].confirmOrder.startPoint.split(",").reverse().map(fun(item: String): Number {
                 return UTSNumber.from(item)
             })
             boundsPoints.push(startPointArr)
+            this.pointBounds = boundsPoints
         } else if (index == 1) {
             val endPointArr: UTSArray<Number> = this.orderList[this.currentOrderIndex].confirmOrder.endPoint.split(",").reverse().map(fun(item: String): Number {
                 return UTSNumber.from(item)
             }
             )
-            boundsPoints.push(endPointArr)
+            this.pointBounds = _uA(
+                endPointArr
+            )
         }
-        this.pointBounds = boundsPoints
-        mapView?.setBounds(boundsPoints)
+        mapView?.setBounds(this.pointBounds)
     }
     open var queryOrderDetail = ::gen_queryOrderDetail_fn
     open fun gen_queryOrderDetail_fn() {

@@ -103,6 +103,7 @@ open class GenUniModulesTmxUiComponentsXEmptyXEmpty : VueComponent {
     open var title: String by `$props`
     open var src: String by `$props`
     open var showBtn: Boolean by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var _showBtn: Boolean by `$data`
     open var _loading: Boolean by `$data`
     open var _error: Boolean by `$data`
@@ -116,7 +117,7 @@ open class GenUniModulesTmxUiComponentsXEmptyXEmpty : VueComponent {
     open var _title: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("_showBtn" to computed<Boolean>(fun(): Boolean {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "_showBtn" to computed<Boolean>(fun(): Boolean {
             return this.showBtn
         }
         ), "_loading" to computed<Boolean>(fun(): Boolean {
@@ -132,12 +133,21 @@ open class GenUniModulesTmxUiComponentsXEmptyXEmpty : VueComponent {
             return this.empty
         }
         ), "_moreLabel" to computed<String>(fun(): String {
+            if (this.moreLabel == "") {
+                return this!!.i18n.t("tmui4x.empty.moreLabel")
+            }
             return this.moreLabel
         }
         ), "_errorLabel" to computed<String>(fun(): String {
+            if (this.errorLabel == "") {
+                return this!!.i18n.t("tmui4x.empty.errorLabel")
+            }
             return this.errorLabel
         }
         ), "_btnLabel" to computed<String>(fun(): String {
+            if (this.btnLabel == "") {
+                return this!!.i18n.t("tmui4x.empty.btnLabel")
+            }
             return this.btnLabel
         }
         ), "_btnColor" to computed<String>(fun(): String {
@@ -150,6 +160,9 @@ open class GenUniModulesTmxUiComponentsXEmptyXEmpty : VueComponent {
             return getDefaultColor(this.btnTextColor)
         }
         ), "_title" to computed<String>(fun(): String {
+            if (this.title == "") {
+                return this!!.i18n.t("tmui4x.empty.title")
+            }
             return this.title
         }
         ))
@@ -171,7 +184,7 @@ open class GenUniModulesTmxUiComponentsXEmptyXEmpty : VueComponent {
         var inheritAttrs = true
         var inject: Map<String, Map<String, Any?>> = _uM()
         var emits: Map<String, Any?> = _uM("click" to null)
-        var props = _nP(_uM("loading" to _uM("type" to "Boolean", "default" to true), "empty" to _uM("type" to "Boolean", "default" to false), "error" to _uM("type" to "Boolean", "default" to false), "more" to _uM("type" to "Boolean", "default" to false), "moreLabel" to _uM("type" to "String", "default" to "没有更多数据啦"), "errorLabel" to _uM("type" to "String", "default" to "出错啦~"), "btnLabel" to _uM("type" to "String", "default" to "点击重试"), "btnColor" to _uM("type" to "String", "default" to ""), "btnTextColor" to _uM("type" to "String", "default" to ""), "title" to _uM("type" to "String", "default" to "当前没有数据"), "src" to _uM("type" to "String", "default" to "/static/tmui4xLibs/static/empty.png"), "showBtn" to _uM("type" to "Boolean", "default" to true)))
+        var props = _nP(_uM("loading" to _uM("type" to "Boolean", "default" to true), "empty" to _uM("type" to "Boolean", "default" to false), "error" to _uM("type" to "Boolean", "default" to false), "more" to _uM("type" to "Boolean", "default" to false), "moreLabel" to _uM("type" to "String", "default" to ""), "errorLabel" to _uM("type" to "String", "default" to ""), "btnLabel" to _uM("type" to "String", "default" to ""), "btnColor" to _uM("type" to "String", "default" to ""), "btnTextColor" to _uM("type" to "String", "default" to ""), "title" to _uM("type" to "String", "default" to ""), "src" to _uM("type" to "String", "default" to "/static/tmui4xLibs/static/empty.png"), "showBtn" to _uM("type" to "Boolean", "default" to true)))
         var propsNeedCastKeys = _uA(
             "loading",
             "empty",

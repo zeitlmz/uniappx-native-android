@@ -74,6 +74,7 @@ open class GenUniModulesTmxUiComponentsXPickerViewXPickerView : VueComponent {
     open var duration: Number by `$props`
     open var threshold: Number by `$props`
     open var modelStrJoin: String by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var wrapTotalWidth: Number by `$data`
     open var nowValue: UTSArray<String> by `$data`
     open var _modelValueIndex: UTSArray<Number> by `$data`
@@ -86,7 +87,7 @@ open class GenUniModulesTmxUiComponentsXPickerViewXPickerView : VueComponent {
     open var _deepWidth: Number by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("wrapTotalWidth" to 0, "nowValue" to _uA<String>(), "_modelValueIndex" to _uA<Number>(), "okNodeInfo" to false, "tid" to 0, "parentIndex" to 0, "_cellUnits" to computed<UTSArray<String>>(fun(): UTSArray<String> {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "wrapTotalWidth" to 0, "nowValue" to _uA<String>(), "_modelValueIndex" to _uA<Number>(), "okNodeInfo" to false, "tid" to 0, "parentIndex" to 0, "_cellUnits" to computed<UTSArray<String>>(fun(): UTSArray<String> {
             return this.cellUnits as UTSArray<String>
         }
         ), "_list" to computed<UTSArray<X_PICKER_X_ITEM>>(fun(): UTSArray<X_PICKER_X_ITEM> {

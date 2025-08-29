@@ -66,7 +66,7 @@ open class GenUniModulesTmxUiComponentsXPickerTimeXPickerTime : VueComponent {
                         if (isTrue(_ctx.show)) {
                             _cE(Fragment, _uM("key" to 0), RenderHelpers.renderList(_ctx.dateList.slice(3), fun(item, index, __index, _cached): Any {
                                 return _cV(_component_x_picker_view, _uM("cellUnits" to _uA(
-                                    _ctx.cellUnits[index + 3]
+                                    _ctx._cellUnits[index + 3]
                                 ), "key" to (index + 3), "onChange" to fun(`$event`: Any){
                                     _ctx.mchange(`$event` as UTSArray<String>, index + 3)
                                 }, "model-value" to _ctx.nowValue[index + 3], "style" to _nS(_uM("flex" to "1")), "list" to item), null, 8, _uA(
@@ -114,6 +114,7 @@ open class GenUniModulesTmxUiComponentsXPickerTimeXPickerTime : VueComponent {
     open var disabled: Boolean by `$props`
     open var widthCoverCenter: Boolean by `$props`
     open var steps: Number by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var default_year: Number by `$data`
     open var default_month: Number by `$data`
     open var default_date: Number by `$data`
@@ -125,15 +126,32 @@ open class GenUniModulesTmxUiComponentsXPickerTimeXPickerTime : VueComponent {
     open var endDate: xDate by `$data`
     open var dateList: UTSArray<UTSArray<PICKER_ITEM_INFO>> by `$data`
     open var nowPull: Boolean by `$data`
+    open var _cellUnits: UTSArray<String> by `$data`
     open var _start_date: xDate by `$data`
     open var _end_date: xDate by `$data`
     open var _getDateType: xDateTypeTime by `$data`
     open var _disabled: Boolean by `$data`
+    open var _cancelText: String by `$data`
+    open var _confirmText: String by `$data`
+    open var _title: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
         var startValue = xDate("2000-1-1 0:0:0")
         var endValue = xDate("2000-1-1 23:59:59")
-        return _uM("default_year" to 2000, "default_month" to 1, "default_date" to 1, "default_time_date" to "2000-1-1 ", "show" to false, "nowValue" to _uA<UTSArray<String>>(), "nowValueStr" to "", "startDate" to startValue, "endDate" to endValue, "dateList" to _uA<UTSArray<PICKER_ITEM_INFO>>(), "nowPull" to false, "_start_date" to computed<xDate>(fun(): xDate {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "default_year" to 2000, "default_month" to 1, "default_date" to 1, "default_time_date" to "2000-1-1 ", "show" to false, "nowValue" to _uA<UTSArray<String>>(), "nowValueStr" to "", "startDate" to startValue, "endDate" to endValue, "dateList" to _uA<UTSArray<PICKER_ITEM_INFO>>(), "nowPull" to false, "_cellUnits" to computed<UTSArray<String>>(fun(): UTSArray<String> {
+            if (this.cellUnits.length == 0) {
+                return _uA(
+                    this!!.i18n.t("tmui4x.pickerDate.year"),
+                    this!!.i18n.t("tmui4x.pickerDate.month"),
+                    this!!.i18n.t("tmui4x.pickerDate.day"),
+                    this!!.i18n.t("tmui4x.pickerDate.hour"),
+                    this!!.i18n.t("tmui4x.pickerDate.minute"),
+                    this!!.i18n.t("tmui4x.pickerDate.second")
+                )
+            }
+            return this.cellUnits
+        }
+        ), "_start_date" to computed<xDate>(fun(): xDate {
             if (this.start == "") {
                 return this.startDate
             }
@@ -166,6 +184,24 @@ open class GenUniModulesTmxUiComponentsXPickerTimeXPickerTime : VueComponent {
         }
         ), "_disabled" to computed<Boolean>(fun(): Boolean {
             return this.disabled
+        }
+        ), "_cancelText" to computed<String>(fun(): String {
+            if (this.cancelText == "") {
+                return this!!.i18n.t("tmui4x.cancel")
+            }
+            return this.cancelText
+        }
+        ), "_confirmText" to computed<String>(fun(): String {
+            if (this.confirmText == "") {
+                return this!!.i18n.t("tmui4x.confirm")
+            }
+            return this.confirmText
+        }
+        ), "_title" to computed<String>(fun(): String {
+            if (this.title == "") {
+                return this!!.i18n.t("tmui4x.pickerTitle")
+            }
+            return this.title
         }
         ))
     }
@@ -483,13 +519,13 @@ open class GenUniModulesTmxUiComponentsXPickerTimeXPickerTime : VueComponent {
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return _uM("xPickerDateWrap" to _pS(_uM("display" to "flex", "flexDirection" to "row")))
+                return _uM("xPickerDateWrap" to _pS(_uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "flex-start")))
             }
         var inheritAttrs = true
         var inject: Map<String, Map<String, Any?>> = _uM()
         var emits: Map<String, Any?> = _uM("cancel" to null, "confirm" to null, "change" to null, "update:modelShow" to null, "update:modelStr" to null, "update:modelValue" to null)
-        var props = _nP(_uM("modelValue" to _uM("type" to "String", "default" to ""), "modelStr" to _uM("type" to "String", "default" to ""), "modelShow" to _uM("type" to "Boolean", "default" to false), "title" to _uM("type" to "String", "default" to "请选择时间"), "cancelText" to _uM("type" to "String", "default" to "取消"), "confirmText" to _uM("type" to "String", "default" to "确认"), "start" to _uM("type" to "String", "default" to ""), "end" to _uM("type" to "String", "default" to ""), "type" to _uM("type" to "String", "default" to "second"), "format" to _uM("type" to "String", "default" to "hh:mm:ss"), "cellUnits" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
-            return _uA<String>("年", "月", "日", "小时", "分钟", "秒数")
+        var props = _nP(_uM("modelValue" to _uM("type" to "String", "default" to ""), "modelStr" to _uM("type" to "String", "default" to ""), "modelShow" to _uM("type" to "Boolean", "default" to false), "title" to _uM("type" to "String", "default" to ""), "cancelText" to _uM("type" to "String", "default" to ""), "confirmText" to _uM("type" to "String", "default" to ""), "start" to _uM("type" to "String", "default" to ""), "end" to _uM("type" to "String", "default" to ""), "type" to _uM("type" to "String", "default" to "second"), "format" to _uM("type" to "String", "default" to "hh:mm:ss"), "cellUnits" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+            return _uA<String>()
         }
         ), "zIndex" to _uM("type" to "Number", "default" to 1100), "showClose" to _uM("type" to "Boolean", "default" to false), "disabled" to _uM("type" to "Boolean", "default" to false), "widthCoverCenter" to _uM("type" to "Boolean", "default" to false), "steps" to _uM("type" to "Number", "default" to 0)))
         var propsNeedCastKeys = _uA(

@@ -70,9 +70,9 @@ open class GenUniModulesTmxUiComponentsXKeyboardNumberXKeyboardNumber : VueCompo
                     _cE("view", _uM("style" to _nS(_uM("height" to "44px", "display" to "flex", "justify-content" to "center", "align-items" to "center", "flex-direction" to "row"))), _uA(
                         if (isTrue(_ctx.showValue)) {
                             _cE("text", _uM("key" to 0, "style" to _nS(_uM("fontSize" to if (_ctx.nowValue.split("").length > 0) {
-                                "16px"
+                                _ctx.getFontSize("16")
                             } else {
-                                "12px"
+                                _ctx.getFontSize("12")
                             }, "color" to _ctx._fontColor))), _tD(if (_ctx.nowValue.split("").length > 0) {
                                 _ctx.nowValue
                             } else {
@@ -112,7 +112,7 @@ open class GenUniModulesTmxUiComponentsXKeyboardNumberXKeyboardNumber : VueCompo
                                     "onClick"
                                 )),
                                 _cE("view", _uM("onClick" to _ctx.ok, "style" to _nS(_uM("backgroundColor" to _ctx._color)), "class" to "xKeyboardItem xKeyboardItemNoright", "hover-class" to "xKeyboardHover", "hover-start-time" to 10, "hover-stay-time" to 250), _uA(
-                                    _cE("text", _uM("style" to _nS(_uM("color" to "white", "font-size" to "16px"))), "确认", 4)
+                                    _cE("text", _uM("style" to _nS(_uM("color" to "white", "font-size" to "16px"))), _tD(_ctx.i18n!!.t("tmui4x.keyboard.confirm")), 5)
                                 ), 12, _uA(
                                     "onClick"
                                 ))
@@ -154,7 +154,7 @@ open class GenUniModulesTmxUiComponentsXKeyboardNumberXKeyboardNumber : VueCompo
                                         "onClick"
                                     )),
                                     _cE("view", _uM("onClick" to _ctx.ok, "style" to _nS(_uM("backgroundColor" to _ctx._color, "margin-right" to "5px")), "class" to "xKeyboardItem xKeyboardItemNoright", "hover-class" to "xKeyboardHover", "hover-start-time" to 10, "hover-stay-time" to 250), _uA(
-                                        _cE("text", _uM("style" to _nS(_uM("color" to "white", "font-size" to "16px"))), "确认", 4)
+                                        _cE("text", _uM("style" to _nS(_uM("color" to "white", "font-size" to "16px"))), _tD(_ctx.i18n!!.t("tmui4x.keyboard.confirm")), 5)
                                     ), 12, _uA(
                                         "onClick"
                                     ))
@@ -191,6 +191,7 @@ open class GenUniModulesTmxUiComponentsXKeyboardNumberXKeyboardNumber : VueCompo
     open var digit: Boolean by `$props`
     open var mode: String by `$props`
     open var hold: Boolean by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var show: Boolean by `$data`
     open var nowValue: String by `$data`
     open var numbList: UTSArray<UTSArray<String>> by `$data`
@@ -205,7 +206,7 @@ open class GenUniModulesTmxUiComponentsXKeyboardNumberXKeyboardNumber : VueCompo
     open var _max: Number by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("show" to false, "nowValue" to "", "numbList" to _uA(
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "show" to false, "nowValue" to "", "numbList" to _uA(
             _uA(
                 "1",
                 "2",
@@ -267,12 +268,19 @@ open class GenUniModulesTmxUiComponentsXKeyboardNumberXKeyboardNumber : VueCompo
             return getDefaultColor(this.fontColor)
         }
         ), "_title" to computed<String>(fun(): String {
+            if (this.title == "") {
+                return this!!.i18n.t("tmui4x.keyboard.placeholder")
+            }
             return this.title
         }
         ), "_max" to computed<Number>(fun(): Number {
             return this.max
         }
         ))
+    }
+    open var getFontSize = ::gen_getFontSize_fn
+    open fun gen_getFontSize_fn(k: String): String {
+        return checkIsCssUnit(k, xConfig.unit)
     }
     open var openShow = ::gen_openShow_fn
     open fun gen_openShow_fn() {

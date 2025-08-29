@@ -27,12 +27,18 @@ open class GenUniModulesTmxUiComponentsXCalendarViewCalendarMultiple : VueCompon
     open var rangColor: String by `$props`
     open var rangFontColor: String by `$props`
     open var currentDate: String by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
+    @Suppress("USELESS_CAST")
+    override fun data(): Map<String, Any?> {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml)
+    }
     companion object {
         @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
         var setup: (__props: GenUniModulesTmxUiComponentsXCalendarViewCalendarMultiple) -> Any? = fun(__props): Any? {
             val __ins = getCurrentInstance()!!
             val _ctx = __ins.proxy as GenUniModulesTmxUiComponentsXCalendarViewCalendarMultiple
             val _cache = __ins.renderCache
+            val i18n = xConfig.i18n
             val proxy = getCurrentInstance()?.proxy
             val xCalendarViewItemRef = ref<UniElement?>(null)
             var calendarDom: calendarDraw? = null
@@ -112,19 +118,22 @@ open class GenUniModulesTmxUiComponentsXCalendarViewCalendarMultiple : VueCompon
             )
             fun gen_showLabel_fn(item: xDateArrayItemType): String {
                 if (item.isInstart && item.isInEnd && _model.value == "range") {
-                    return "本日"
+                    return i18n.t("tmui4x.calendar.rangStatus", 2)
                 }
                 if (item.isInstart && !item.isInEnd && _model.value == "range") {
-                    return "开始"
+                    return i18n.t("tmui4x.calendar.rangStatus", 0)
                 }
                 if (!item.isInstart && item.isInEnd && _model.value == "range") {
-                    return "结束"
+                    return i18n.t("tmui4x.calendar.rangStatus", 1)
                 }
                 return ""
             }
             val showLabel = ::gen_showLabel_fn
             fun gen_dateClick_fn(item: xDateArrayItemType) {
                 if (item.disabled) {
+                    return
+                }
+                if (!calendar.isInCurrentMonth(Date(item.date.date), Date(props.currentDate))) {
                     return
                 }
                 emit("click", item)

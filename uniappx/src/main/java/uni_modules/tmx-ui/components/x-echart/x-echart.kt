@@ -24,11 +24,8 @@ open class GenUniModulesTmxUiComponentsXEchartXEchart : VueComponent {
             uni__on("onResize", this.onResizeChart)
         }
         , __ins)
-        onBeforeMount(fun() {
-            clearTimeout(this.tid)
-        }
-        , __ins)
         onBeforeUnmount(fun() {
+            clearTimeout(this.tid)
             uni__off("onResize", this.onResizeChart)
         }
         , __ins)
@@ -51,7 +48,7 @@ open class GenUniModulesTmxUiComponentsXEchartXEchart : VueComponent {
                     _cV(_component_x_icon, _uM("color" to "primary", "spin" to true, "name" to "loader-4-line"))
                 ), 4)
             } else {
-                _cE("web-view", _uM("key" to 1, "onLoad" to _ctx.appWebViewLoaded, "id" to _ctx.id, "src" to "/hybrid/html/local.html", "style" to _nS(_uM("width" to "100%", "height" to "100%", "opacity" to if (_ctx.isLoaded) {
+                _cE("web-view", _uM("key" to 1, "onLoad" to _ctx.appWebViewLoaded, "id" to _ctx.id, "src" to ("/hybrid/html/local.html?id=" + _ctx.id), "style" to _nS(_uM("width" to "100%", "height" to "100%", "opacity" to if (_ctx.isLoaded) {
                     1
                 } else {
                     0
@@ -59,6 +56,7 @@ open class GenUniModulesTmxUiComponentsXEchartXEchart : VueComponent {
                 )), "onMessage" to _ctx.onMessage), null, 44, _uA(
                     "onLoad",
                     "id",
+                    "src",
                     "onMessage"
                 ))
             }
@@ -67,6 +65,7 @@ open class GenUniModulesTmxUiComponentsXEchartXEchart : VueComponent {
     open var width: String by `$props`
     open var height: String by `$props`
     open var opts: String by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var id: String by `$data`
     open var webviewContext: WebviewContext? by `$data`
     open var isLoaded: Boolean by `$data`
@@ -81,7 +80,7 @@ open class GenUniModulesTmxUiComponentsXEchartXEchart : VueComponent {
     open var _options: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("id" to ("xEchart-" + getUid()) as String, "webviewContext" to null as WebviewContext?, "isLoaded" to false, "boxWidth" to 10, "boxHeight" to 10, "tid" to 0, "tid2" to 0, "realLoaded" to false, "dipcatchEvents" to Map<String, eventsType>(), "_width" to computed<String>(fun(): String {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "id" to ("xEchart-" + getUid()) as String, "webviewContext" to null as WebviewContext?, "isLoaded" to false, "boxWidth" to 10, "boxHeight" to 10, "tid" to 0, "tid2" to 0, "realLoaded" to false, "dipcatchEvents" to Map<String, eventsType>(), "_width" to computed<String>(fun(): String {
             return checkIsCssUnit(this.width, xConfig.unit)
         }
         ), "_height" to computed<String>(fun(): String {

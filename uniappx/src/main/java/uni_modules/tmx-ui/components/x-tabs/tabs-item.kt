@@ -15,13 +15,11 @@ import io.dcloud.uniapp.extapi.createSelectorQuery as uni_createSelectorQuery
 open class GenUniModulesTmxUiComponentsXTabsTabsItem : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {
         onMounted(fun() {
-            this.`$nextTick`(fun(){
-                uni_createSelectorQuery().`in`(this).select(".xTabsItemChildren").boundingClientRect(fun(rect: Any){
-                    this.`$emit`("change", rect as NodeInfo, this.id)
-                }
-                ).exec()
+            var t = this
+            uni_createSelectorQuery().`in`(t).select(".xTabsItemChildren").boundingClientRect(fun(rect: Any){
+                t.`$emit`("change", rect as NodeInfo, t.id)
             }
-            )
+            ).exec()
         }
         , __ins)
         onBeforeUnmount(fun() {
@@ -38,6 +36,11 @@ open class GenUniModulesTmxUiComponentsXTabsTabsItem : VueComponent {
         ))
     }
     open var id: String by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
+    @Suppress("USELESS_CAST")
+    override fun data(): Map<String, Any?> {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml)
+    }
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>> by lazy {
             _nCS(_uA(

@@ -42,7 +42,7 @@ open class GenUniModulesTmxUiComponentsXDateViewXDateView : VueComponent {
         return _cE("view", _uM("class" to "xPickerDateWrap", "onTouchstart" to _ctx.onTouchstart, "onTouchend" to _ctx.onTouchend, "onTouchcancel" to _ctx.onTouchend), _uA(
             _cE(Fragment, null, RenderHelpers.renderList(_ctx.dateList, fun(item, index, __index, _cached): Any {
                 return _cV(_component_x_picker_view, _uM("cellUnits" to _uA(
-                    _ctx.cellUnits[index]
+                    _ctx._cellUnits[index]
                 ), "onChange" to fun(`$event`: Any){
                     _ctx.mchange(`$event` as UTSArray<String>, index)
                 }
@@ -70,6 +70,7 @@ open class GenUniModulesTmxUiComponentsXDateViewXDateView : VueComponent {
     open var format: String by `$props`
     open var formatSyncValue: Boolean by `$props`
     open var cellUnits: UTSArray<String> by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var nowValue: UTSArray<UTSArray<String>> by `$data`
     open var nowValueStr: String by `$data`
     open var startDate: xDate by `$data`
@@ -77,6 +78,7 @@ open class GenUniModulesTmxUiComponentsXDateViewXDateView : VueComponent {
     open var dateList: UTSArray<UTSArray<PICKER_ITEM_INFO>> by `$data`
     open var changeIndex: Number by `$data`
     open var nowPull: Boolean by `$data`
+    open var _cellUnits: UTSArray<String> by `$data`
     open var _start_date: xDate by `$data`
     open var _end_date: xDate by `$data`
     open var _getDateType: xDateTypeTime by `$data`
@@ -85,7 +87,20 @@ open class GenUniModulesTmxUiComponentsXDateViewXDateView : VueComponent {
         var startValue = xDate()
         var endValue = xDate()
         startValue.subtraction(1, "y")
-        return _uM("nowValue" to _uA<UTSArray<String>>(), "nowValueStr" to "", "startDate" to startValue, "endDate" to endValue, "dateList" to _uA<UTSArray<PICKER_ITEM_INFO>>(), "changeIndex" to 0, "nowPull" to false, "_start_date" to computed<xDate>(fun(): xDate {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "nowValue" to _uA<UTSArray<String>>(), "nowValueStr" to "", "startDate" to startValue, "endDate" to endValue, "dateList" to _uA<UTSArray<PICKER_ITEM_INFO>>(), "changeIndex" to 0, "nowPull" to false, "_cellUnits" to computed<UTSArray<String>>(fun(): UTSArray<String> {
+            if (this.cellUnits.length == 0) {
+                return _uA(
+                    this!!.i18n.t("tmui4x.pickerDate.year"),
+                    this!!.i18n.t("tmui4x.pickerDate.month"),
+                    this!!.i18n.t("tmui4x.pickerDate.day"),
+                    this!!.i18n.t("tmui4x.pickerDate.hour"),
+                    this!!.i18n.t("tmui4x.pickerDate.minute"),
+                    this!!.i18n.t("tmui4x.pickerDate.second")
+                )
+            }
+            return this.cellUnits
+        }
+        ), "_start_date" to computed<xDate>(fun(): xDate {
             if (this.start == "") {
                 return this.startDate
             }
@@ -432,7 +447,7 @@ open class GenUniModulesTmxUiComponentsXDateViewXDateView : VueComponent {
         var inject: Map<String, Map<String, Any?>> = _uM()
         var emits: Map<String, Any?> = _uM("change" to null, "update:modelStr" to null, "update:modelValue" to null)
         var props = _nP(_uM("modelValue" to _uM("type" to "String", "default" to ""), "modelStr" to _uM("type" to "String", "default" to ""), "title" to _uM("type" to "String", "default" to "请选择时间"), "start" to _uM("type" to "String", "default" to ""), "end" to _uM("type" to "String", "default" to ""), "type" to _uM("type" to "String", "default" to "day"), "format" to _uM("type" to "String", "default" to "YYYY-MM-DD"), "formatSyncValue" to _uM("type" to "Boolean", "default" to false), "cellUnits" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
-            return _uA<String>("年", "月", "日", "时", "分", "秒")
+            return _uA<String>()
         }
         )))
         var propsNeedCastKeys = _uA(

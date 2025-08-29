@@ -143,6 +143,7 @@ open class GenUniModulesTmxUiComponentsXActionModalXActionModal : VueComponent {
     open var btnText: String by `$props`
     open var btnFontColor: String by `$props`
     open var watiDuration: Number by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var _width: Number by `$data`
     open var _height: Number by `$data`
     open var showOverflay: Boolean by `$data`
@@ -159,11 +160,11 @@ open class GenUniModulesTmxUiComponentsXActionModalXActionModal : VueComponent {
     open var _btnFontColor: String by `$data`
     open var _btnColor: String by `$data`
     open var _btnText: String by `$data`
+    open var _title: String by `$data`
     open var _customStyle: String by `$data`
     open var _show: Boolean by `$data`
     open var _showClose: Boolean by `$data`
     open var _duration: Number by `$data`
-    open var _title: String by `$data`
     open var _showTitle: Boolean by `$data`
     open var _round: String by `$data`
     open var _bgColor: String by `$data`
@@ -173,7 +174,7 @@ open class GenUniModulesTmxUiComponentsXActionModalXActionModal : VueComponent {
     open var __height: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("_width" to 0, "_height" to 0, "showOverflay" to false, "element" to null as Element?, "elementWrap" to null as Element?, "actioning" to false, "status" to "", "id" to ("xActionModal" + getUid()), "wrapId" to ("xActionModalWrap" + getUid()), "tid" to 0, "windtop" to 0, "pageOninit" to false, "isOpenedDefault" to false, "_btnFontColor" to computed<String>(fun(): String {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "_width" to 0, "_height" to 0, "showOverflay" to false, "element" to null as Element?, "elementWrap" to null as Element?, "actioning" to false, "status" to "", "id" to ("xActionModal" + getUid()), "wrapId" to ("xActionModalWrap" + getUid()), "tid" to 0, "windtop" to 0, "pageOninit" to false, "isOpenedDefault" to false, "_btnFontColor" to computed<String>(fun(): String {
             return getDefaultColor(this.btnFontColor)
         }
         ), "_btnColor" to computed<String>(fun(): String {
@@ -183,7 +184,16 @@ open class GenUniModulesTmxUiComponentsXActionModalXActionModal : VueComponent {
             return getDefaultColor(this.btnColor)
         }
         ), "_btnText" to computed<String>(fun(): String {
+            if (this.btnText == "") {
+                return this!!.i18n.t("tmui4x.actionModal.btnText")
+            }
             return this.btnText
+        }
+        ), "_title" to computed<String>(fun(): String {
+            if (this.title == "") {
+                return this!!.i18n.t("tmui4x.actionModal.title")
+            }
+            return this.title
         }
         ), "_customStyle" to computed<String>(fun(): String {
             return this.customStyle
@@ -196,9 +206,6 @@ open class GenUniModulesTmxUiComponentsXActionModalXActionModal : VueComponent {
         }
         ), "_duration" to computed<Number>(fun(): Number {
             return this.duration
-        }
-        ), "_title" to computed<String>(fun(): String {
-            return this.title
         }
         ), "_showTitle" to computed<Boolean>(fun(): Boolean {
             return this.showTitle
@@ -335,7 +342,7 @@ open class GenUniModulesTmxUiComponentsXActionModalXActionModal : VueComponent {
         }
         val styles0: Map<String, Map<String, Map<String, Any>>>
             get() {
-                return _uM("xActionModalItem" to _pS(_uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center", "height" to 44, "marginBottom" to 1)), "xActionModalFooter" to _pS(_uM("marginTop" to 16, "marginRight" to 16, "marginBottom" to 16, "marginLeft" to 16)), "xActionModalFooterText" to _pS(_uM("fontSize" to 15, "color" to "#333333", "textAlign" to "center")), "xActionModalXclose" to _pS(_uM("position" to "absolute", "right" to 12, "top" to 11, "zIndex" to 100)), "xActionModalTitleBox" to _pS(_uM("height" to 44, "display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "center", "marginBottom" to 4)), "xActionModaltitleBox" to _pS(_uM("maxWidth" to "350rpx", "overflow" to "hidden", "lines" to 1, "textOverflow" to "ellipsis", "fontSize" to 16, "color" to "#888888")), "xActionModalWrap_bottom" to _pS(_uM("display" to "flex", "flexDirection" to "column", "justifyContent" to "flex-end", "alignItems" to "center")), "xActionModalWrapContent" to _pS(_uM("transitionDuration" to "350ms", "transitionProperty" to "transform", "display" to "flex", "flexDirection" to "column", "marginTop" to 0, "marginRight" to 16, "marginBottom" to 0, "marginLeft" to 16, "maxWidth" to 500)), "xActionModalWrapContent_bottom" to _pS(_uM("transform" to "translate(0%, 100%)")), "xActionModalWrap" to _pS(_uM("backgroundColor" to "rgba(0,0,0,0.35)", "opacity" to 0, "position" to "fixed", "zIndex" to 1100, "left" to 0, "top" to 0, "transitionDuration" to "350ms", "transitionProperty" to "opacity")), "@TRANSITION" to _uM("xActionModalWrapContent" to _uM("duration" to "350ms", "property" to "transform"), "xActionModalWrap" to _uM("duration" to "350ms", "property" to "opacity")))
+                return _uM("xActionModalItem" to _pS(_uM("display" to "flex", "flexDirection" to "row", "justifyContent" to "center", "alignItems" to "center", "height" to 44, "marginBottom" to 1)), "xActionModalFooter" to _pS(_uM("marginTop" to 16, "marginRight" to 16, "marginBottom" to 16, "marginLeft" to 16)), "xActionModalFooterText" to _pS(_uM("fontSize" to 15, "color" to "#333333", "textAlign" to "center")), "xActionModalXclose" to _pS(_uM("position" to "absolute", "right" to 12, "top" to 11, "zIndex" to 100)), "xActionModalTitleBox" to _pS(_uM("height" to 44, "display" to "flex", "flexDirection" to "row", "alignItems" to "center", "justifyContent" to "center", "marginBottom" to 4)), "xActionModaltitleBox" to _pS(_uM("maxWidth" to "350rpx", "overflow" to "hidden", "lines" to 1, "textOverflow" to "ellipsis", "fontSize" to 16, "color" to "#888888")), "xActionModalWrap_bottom" to _pS(_uM("display" to "flex", "flexDirection" to "column", "justifyContent" to "flex-end", "alignItems" to "center")), "xActionModalWrapContent" to _pS(_uM("transitionDuration" to "350ms", "transitionProperty" to "transform", "display" to "flex", "flexDirection" to "column", "marginTop" to 0, "marginRight" to 16, "marginBottom" to 0, "marginLeft" to 16, "maxWidth" to 500)), "xActionModalWrapContent_bottom" to _pS(_uM("transform" to "translate(0%, 100%)")), "xActionModalWrap" to _pS(_uM("backgroundColor" to "rgba(0,0,0,0.35)", "transitionDuration" to "350ms", "opacity" to 0, "position" to "fixed", "zIndex" to 400, "left" to 0, "top" to 0, "transitionProperty" to "opacity")), "@TRANSITION" to _uM("xActionModalWrapContent" to _uM("duration" to "350ms", "property" to "transform"), "xActionModalWrap" to _uM("duration" to "350ms", "property" to "opacity")))
             }
         var inheritAttrs = true
         var inject: Map<String, Map<String, Any?>> = _uM()

@@ -73,11 +73,11 @@ open class GenUniModulesTmxUiComponentsXPickerXPicker : VueComponent {
         val _component_x_drawer = resolveEasyComponent("x-drawer", GenUniModulesTmxUiComponentsXDrawerXDrawerClass)
         return _cE(Fragment, null, _uA(
             _cE("view", _uM("onClick" to _ctx.openShow), _uA(
-                renderSlot(_ctx.`$slots`, "default")
+                renderSlot(_ctx.`$slots`, "default", _uM("label" to _ctx._modelStrValue))
             ), 8, _uA(
                 "onClick"
             )),
-            _cV(_component_x_drawer, _uM("customWrapStyle" to _ctx.customWrapStyle, "lazy" to _ctx._lazyContent, "cancel-text" to _ctx.cancelText, "confirm-text" to _ctx.confirmText, "onOpen" to _ctx.onOpen, "zIndex" to _ctx.zIndex, "widthCoverCenter" to _ctx.widthCoverCenter, "disabledScroll" to true, "max-height" to "80%", "size" to "450", "title" to _ctx.title, "onClose" to _ctx.onClose, "onConfirm" to _ctx.onConfirm, "onCancel" to _ctx.onCancel, "showFooter" to true, "show" to _ctx.show, "onUpdate:show" to fun(`$event`: Boolean){
+            _cV(_component_x_drawer, _uM("customWrapStyle" to _ctx.customWrapStyle, "lazy" to _ctx._lazyContent, "cancel-text" to _ctx._cancelText, "confirm-text" to _ctx._confirmText, "onOpen" to _ctx.onOpen, "zIndex" to _ctx.zIndex, "widthCoverCenter" to _ctx.widthCoverCenter, "disabledScroll" to true, "max-height" to "80%", "size" to "450", "title" to _ctx._title, "onClose" to _ctx.onClose, "onConfirm" to _ctx.onConfirm, "onCancel" to _ctx.onCancel, "showFooter" to true, "show" to _ctx.show, "onUpdate:show" to fun(`$event`: Boolean){
                 _ctx.show = `$event`
             }
             , "show-close" to _ctx.showClose), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
@@ -134,6 +134,7 @@ open class GenUniModulesTmxUiComponentsXPickerXPicker : VueComponent {
     open var disabled: Boolean by `$props`
     open var widthCoverCenter: Boolean by `$props`
     open var customWrapStyle: String by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var show: Boolean by `$data`
     open var nowValue: UTSArray<String> by `$data`
     open var modelStrValue: String by `$data`
@@ -143,9 +144,13 @@ open class GenUniModulesTmxUiComponentsXPickerXPicker : VueComponent {
     open var _lazyContent: Boolean by `$data`
     open var _cellUnits: UTSArray<String> by `$data`
     open var _disabled: Boolean by `$data`
+    open var _modelStrValue: String by `$data`
+    open var _cancelText: String by `$data`
+    open var _confirmText: String by `$data`
+    open var _title: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("show" to false, "nowValue" to _uA<String>(), "modelStrValue" to "", "nowPull" to false, "yanchiDuration" to false, "_list" to computed<UTSArray<PICKER_ITEM_INFO>>(fun(): UTSArray<PICKER_ITEM_INFO> {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "show" to false, "nowValue" to _uA<String>(), "modelStrValue" to "", "nowPull" to false, "yanchiDuration" to false, "_list" to computed<UTSArray<PICKER_ITEM_INFO>>(fun(): UTSArray<PICKER_ITEM_INFO> {
             return this.list.slice(0)
         }
         ), "_lazyContent" to computed<Boolean>(fun(): Boolean {
@@ -156,6 +161,27 @@ open class GenUniModulesTmxUiComponentsXPickerXPicker : VueComponent {
         }
         ), "_disabled" to computed<Boolean>(fun(): Boolean {
             return this.disabled
+        }
+        ), "_modelStrValue" to computed<String>(fun(): String {
+            return this.getIdeBystrBylist(this.modelValue).join(this.modelStrJoin)
+        }
+        ), "_cancelText" to computed<String>(fun(): String {
+            if (this.cancelText == "") {
+                return this!!.i18n.t("tmui4x.cancel")
+            }
+            return this.cancelText
+        }
+        ), "_confirmText" to computed<String>(fun(): String {
+            if (this.confirmText == "") {
+                return this!!.i18n.t("tmui4x.confirm")
+            }
+            return this.confirmText
+        }
+        ), "_title" to computed<String>(fun(): String {
+            if (this.title == "") {
+                return this!!.i18n.t("tmui4x.pickerTitle")
+            }
+            return this.title
         }
         ))
     }
@@ -282,6 +308,39 @@ open class GenUniModulesTmxUiComponentsXPickerXPicker : VueComponent {
         }
         return addOptionalFieldsToTreeClolone(list)
     }
+    open var getIdeBystrBylist = ::gen_getIdeBystrBylist_fn
+    open fun gen_getIdeBystrBylist_fn(ids: UTSArray<String>): UTSArray<String> {
+        var list = this.listDatas()
+        if (list.length == 0) {
+            return _uA<String>()
+        }
+        var index: Number = 0
+        var kVal = ids.slice(0)
+        var strs = _uA<String>()
+        fun getIndex(nodes: UTSArray<X_PICKER_X_ITEM>) {
+            if (kVal.length <= index || kVal.length == 0) {
+                return
+            }
+            var id = kVal[index]
+            run {
+                var i: Number = 0
+                while(i < nodes.length){
+                    var item = nodes[i]
+                    if (item.id == id) {
+                        i
+                        strs.push(item.title)
+                        if (item.children.length > 0) {
+                            index += 1
+                            getIndex(item.children)
+                        }
+                    }
+                    i++
+                }
+            }
+        }
+        getIndex(list)
+        return strs
+    }
     open var getIdeBystr = ::gen_getIdeBystr_fn
     open fun gen_getIdeBystr_fn(): UTSArray<String> {
         var list = this.listDatas()
@@ -328,7 +387,7 @@ open class GenUniModulesTmxUiComponentsXPickerXPicker : VueComponent {
         ), "modelValue" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
             return _uA<String>()
         }
-        ), "modelStr" to _uM("type" to "String", "default" to ""), "modelShow" to _uM("type" to "Boolean", "default" to false), "title" to _uM("type" to "String", "default" to "请选择"), "cancelText" to _uM("type" to "String", "default" to "取消"), "confirmText" to _uM("type" to "String", "default" to "确认"), "lazyContent" to _uM("type" to "Boolean", "default" to true), "cellUnits" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
+        ), "modelStr" to _uM("type" to "String", "default" to ""), "modelShow" to _uM("type" to "Boolean", "default" to false), "title" to _uM("type" to "String", "default" to ""), "cancelText" to _uM("type" to "String", "default" to ""), "confirmText" to _uM("type" to "String", "default" to ""), "lazyContent" to _uM("type" to "Boolean", "default" to true), "cellUnits" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
             return _uA<String>()
         }
         ), "unitsFontSize" to _uM("type" to "String", "default" to "12"), "modelStrJoin" to _uM("type" to "String", "default" to ","), "zIndex" to _uM("type" to "Number", "default" to 1100), "showClose" to _uM("type" to "Boolean", "default" to false), "disabled" to _uM("type" to "Boolean", "default" to false), "widthCoverCenter" to _uM("type" to "Boolean", "default" to false), "customWrapStyle" to _uM("type" to "String", "default" to "")))

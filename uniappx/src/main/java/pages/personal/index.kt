@@ -29,6 +29,7 @@ open class GenPagesPersonalIndex : BasePage {
     constructor(__ins: ComponentInternalInstance, __renderer: String?) : super(__ins, __renderer) {
         onPageScroll(fun(e: OnPageScrollOptions) {
             xProvitae.scrollTop = e.scrollTop
+            uni__emit("onPageScroll", e.scrollTop)
         }
         , __ins)
         onResize(fun(_: OnResizeOptions) {
@@ -49,6 +50,11 @@ open class GenPagesPersonalIndex : BasePage {
             uni__emit("onShow", fun() {})
         }
         , __ins)
+    }
+    open var i18n: Tmui4xI18nTml by `$data`
+    @Suppress("USELESS_CAST")
+    override fun data(): Map<String, Any?> {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml)
     }
     companion object {
         @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")

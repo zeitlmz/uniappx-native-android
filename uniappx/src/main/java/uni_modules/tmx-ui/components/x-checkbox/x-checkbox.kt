@@ -137,6 +137,7 @@ open class GenUniModulesTmxUiComponentsXCheckboxXCheckbox : VueComponent {
     open var labelFontSize: String by `$props`
     open var labelSpace: String by `$props`
     open var round: String by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var nowValue: String by `$data`
     open var boxId: Any? by `$data`
     open var tid: Number by `$data`
@@ -153,7 +154,7 @@ open class GenUniModulesTmxUiComponentsXCheckboxXCheckbox : VueComponent {
     open var _labelSpace: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("nowValue" to "", "boxId" to ("xCheckbox-" + getUid()), "tid" to 0, "isDestroy" to false, "undefaultCheck" to false, "_color" to computed<String>(fun(): String {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "nowValue" to "", "boxId" to ("xCheckbox-" + getUid()), "tid" to 0, "isDestroy" to false, "undefaultCheck" to false, "_color" to computed<String>(fun(): String {
             if (this.color == "") {
                 return getDefaultColor(xConfig.color)
             }

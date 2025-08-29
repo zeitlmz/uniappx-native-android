@@ -82,6 +82,7 @@ open class GenUniModulesTmxUiComponentsXTextXText : VueComponent {
     open var heightLightColor: String by `$props`
     open var lineHeight: String by `$props`
     open var fontSize: String by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var ___class: String by `$data`
     open var ___style: String by `$data`
     open var _fontSize: String by `$data`
@@ -93,7 +94,7 @@ open class GenUniModulesTmxUiComponentsXTextXText : VueComponent {
     open var _styleMap: Map<String, String> by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("___class" to computed<String>(fun(): String {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "___class" to computed<String>(fun(): String {
             return this._class
         }
         ), "___style" to computed<String>(fun(): String {

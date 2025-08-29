@@ -44,6 +44,7 @@ open class GenUniModulesTmxUiComponentsXDragMcXDragMc : VueComponent {
     open var col: Number by `$props`
     open var list: UTSArray<UTSJSONObject> by `$props`
     open var scrollDiff: Number by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var domlist: UTSArray<CHILDREN_INFO> by `$data`
     open var backckList: UTSArray<String> by `$data`
     open var oldList: UTSArray<UTSJSONObject> by `$data`
@@ -64,7 +65,7 @@ open class GenUniModulesTmxUiComponentsXDragMcXDragMc : VueComponent {
     open var xdragRect: XDRAG_DOMRECT by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("domlist" to _uA<CHILDREN_INFO>(), "backckList" to _uA<String>(), "oldList" to _uA<UTSJSONObject>(), "activeIndex" to -1, "targetIndex" to -1, "totalHeight" to 600, "cellHeight" to 0, "cellWidth" to 0, "isMoveing" to false, "_x" to 0, "_y" to 0, "tid" to 0, "oragie_x" to 0, "oragie_y" to 0, "scrollDiffTopJuli" to 0, "tid2" to 12, "oldStartXy" to POSITION(col = 0, row = 0, index = 0), "xdragRect" to XDRAG_DOMRECT(width = 0, height = 0, left = 0, top = 0, right = 0, bottom = 0))
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "domlist" to _uA<CHILDREN_INFO>(), "backckList" to _uA<String>(), "oldList" to _uA<UTSJSONObject>(), "activeIndex" to -1, "targetIndex" to -1, "totalHeight" to 600, "cellHeight" to 0, "cellWidth" to 0, "isMoveing" to false, "_x" to 0, "_y" to 0, "tid" to 0, "oragie_x" to 0, "oragie_y" to 0, "scrollDiffTopJuli" to 0, "tid2" to 12, "oldStartXy" to POSITION(col = 0, row = 0, index = 0), "xdragRect" to XDRAG_DOMRECT(width = 0, height = 0, left = 0, top = 0, right = 0, bottom = 0))
     }
     open var updataResize = ::gen_updataResize_fn
     open fun gen_updataResize_fn(resize: CHILDREN_SIZE) {

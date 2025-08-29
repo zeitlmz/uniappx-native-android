@@ -38,6 +38,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
     constructor(__ins: ComponentInternalInstance, __renderer: String?) : super(__ins, __renderer) {
         onPageScroll(fun(e: OnPageScrollOptions) {
             xProvitae.scrollTop = e.scrollTop
+            uni__emit("onPageScroll", e.scrollTop)
         }
         , __ins)
         onResize(fun(_: OnResizeOptions) {
@@ -1041,7 +1042,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
                         "onClick"
                     ))
                 } else {
-                    if (isTrue(_ctx.isCurrentDay)) {
+                    if (isTrue(_ctx.isCurrentDay || (_ctx.orderParams["orderStatus"] == "0" && _ctx.checkTimeBefore(_ctx.orderParams["queryDate"] as String)))) {
                         _cV(_component_mc_primary_button, _uM("key" to 1, "border-radius" to "20rpx", "height" to "89rpx", "onClick" to _ctx.handleStartPickup), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
                             return _uA(
                                 "出发接驾"
@@ -1099,6 +1100,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
         ), 64)
     }
     open var globalData: GlobalDataType by `$inject`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var isSendMode: Boolean by `$data`
     open var showAgreeLocationModal: Boolean by `$data`
     open var showAiDescModal: Boolean by `$data`
@@ -1149,7 +1151,7 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
     open var isCurrentDay: Boolean by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("isSendMode" to false, "showAgreeLocationModal" to false, "showAiDescModal" to false, "today" to formatDate(Date(), "yyyy-MM-dd"), "currentChooseSeat" to _uA<ChooseSeat>(), "seatSelectTemplates" to _uA<SeatSelectTemplate>(), "resBaseUrl" to uni.UNI09580B7.resBaseUrl, "orderNo" to 1, "orderIndex" to 0, "orderId" to "", "showValidModal" to false, "showKey" to false, "phoneSuffix" to "", "showCancelModal" to false, "cancelReason" to "", "driverCancelResponsibility" to "false", "isLiquidatedDamages" to false, "defaultDeduction" to "", "orderParams" to UTSJSONObject(), "sortList" to _uA<UTSJSONObject>(), "orderData" to OrderSummary1(orderCount = 0, driverStatus = -2, seatSelectTemplates = _uA(), orderItems = _uA(), orderChains = _uA(), orderRoute = OrderRoute(routeStrategy = "", routeStartPoint = "", routeWaypoints = _uA(), routeEndPoint = "", routeWaypointsPoiIds = _uA<String>(), routeStartPoiId = "", routeEndPoiId = "")), "screenWidth" to uni.UNI09580B7.screenWidth as Number, "screenHeight" to uni.UNI09580B7.screenHeight as Number, "statusBarHeight" to uni.UNI09580B7.statusBarHeight as Number, "isSmartPlanning" to true, "selectedRoute" to RouteSimpleInfo(routeId = -1, time = "", distance = "", lights = 0, paths = ""), "showOrderList" to false, "orderList" to _uA<Any>(), "routes" to _uA<RouteSimpleInfo>(), "isDx" to false, "showRouteStrategyOptions" to false, "routeStrategyMap" to object : UTSJSONObject() {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "isSendMode" to false, "showAgreeLocationModal" to false, "showAiDescModal" to false, "today" to formatDate(Date(), "yyyy-MM-dd"), "currentChooseSeat" to _uA<ChooseSeat>(), "seatSelectTemplates" to _uA<SeatSelectTemplate>(), "resBaseUrl" to uni.UNI09580B7.resBaseUrl, "orderNo" to 1, "orderIndex" to 0, "orderId" to "", "showValidModal" to false, "showKey" to false, "phoneSuffix" to "", "showCancelModal" to false, "cancelReason" to "", "driverCancelResponsibility" to "false", "isLiquidatedDamages" to false, "defaultDeduction" to "", "orderParams" to UTSJSONObject(), "sortList" to _uA<UTSJSONObject>(), "orderData" to OrderSummary1(orderCount = 0, driverStatus = -2, seatSelectTemplates = _uA(), orderItems = _uA(), orderChains = _uA(), orderRoute = OrderRoute(routeStrategy = "", routeStartPoint = "", routeWaypoints = _uA(), routeEndPoint = "", routeWaypointsPoiIds = _uA<String>(), routeStartPoiId = "", routeEndPoiId = "")), "screenWidth" to uni.UNI09580B7.screenWidth as Number, "screenHeight" to uni.UNI09580B7.screenHeight as Number, "statusBarHeight" to uni.UNI09580B7.statusBarHeight as Number, "isSmartPlanning" to true, "selectedRoute" to RouteSimpleInfo(routeId = -1, time = "", distance = "", lights = 0, paths = ""), "showOrderList" to false, "orderList" to _uA<Any>(), "routes" to _uA<RouteSimpleInfo>(), "isDx" to false, "showRouteStrategyOptions" to false, "routeStrategyMap" to object : UTSJSONObject() {
             var OVERALL_OPTIMAL: Number = 10
             var FASTEST: Number = 0
             var CHARGE_LESS: Number = 14
@@ -1191,6 +1193,11 @@ open class GenPagesOtherOrderDetailIndex : BasePage {
             return isToday
         }
         ))
+    }
+    open var checkTimeBefore = ::gen_checkTimeBefore_fn
+    open fun gen_checkTimeBefore_fn(date1: String): Boolean {
+        val newDate = formatDate(Date(), "yyyy-MM-dd")
+        return isTimeBefore(date1, newDate)
     }
     open var locationAgreeCancel = ::gen_locationAgreeCancel_fn
     open fun gen_locationAgreeCancel_fn() {

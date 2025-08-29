@@ -27,6 +27,7 @@ open class GenPagesHomeIndex : BasePage {
     constructor(__ins: ComponentInternalInstance, __renderer: String?) : super(__ins, __renderer) {
         onPageScroll(fun(e: OnPageScrollOptions) {
             xProvitae.scrollTop = e.scrollTop
+            uni__emit("onPageScroll", e.scrollTop)
         }
         , __ins)
         onResize(fun(_: OnResizeOptions) {
@@ -48,6 +49,11 @@ open class GenPagesHomeIndex : BasePage {
         }
         , __ins)
     }
+    open var i18n: Tmui4xI18nTml by `$data`
+    @Suppress("USELESS_CAST")
+    override fun data(): Map<String, Any?> {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml)
+    }
     companion object {
         @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
         var setup: (__props: GenPagesHomeIndex) -> Any? = fun(__props): Any? {
@@ -55,6 +61,7 @@ open class GenPagesHomeIndex : BasePage {
             val _ctx = __ins.proxy as GenPagesHomeIndex
             val _cache = __ins.renderCache
             val pageRef = ref<ComponentPublicInstance?>(null)
+            val notSettledPageRef = ref<ComponentPublicInstance?>(null)
             val canAppUpgrade = ref(false)
             val globalData = inject("globalData") as GlobalDataType
             val router = uni_useKuxRouter()
@@ -90,6 +97,7 @@ open class GenPagesHomeIndex : BasePage {
                                     pageRef.value?.`$callMethod`("onShow")
                                     pageRef.value?.`$callMethod`("onReady")
                                 }, 250)
+                                notSettledPageRef.value?.`$callMethod`("refreshCurrentUser")
                             } else {
                                 isInited.value = false
                             }
@@ -151,7 +159,7 @@ open class GenPagesHomeIndex : BasePage {
                         _cV(unref(GenPagesHomeHadSettledClass), _uM("key" to 0, "ref_key" to "pageRef", "ref" to pageRef), null, 512)
                     } else {
                         if (isTrue(unref(store).showHome)) {
-                            _cV(unref(GenPagesHomeNotSettledClass), _uM("key" to 1, "onCheckHasEntry" to checkHasEntry, "onAgreePrivacy" to fun(){
+                            _cV(unref(GenPagesHomeNotSettledClass), _uM("key" to 1, "ref_key" to "notSettledPageRef", "ref" to notSettledPageRef, "onCheckHasEntry" to checkHasEntry, "onAgreePrivacy" to fun(){
                                 canAppUpgrade.value = true
                             }), null, 8, _uA(
                                 "onAgreePrivacy"

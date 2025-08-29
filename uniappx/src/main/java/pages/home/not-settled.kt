@@ -23,6 +23,7 @@ import uts.sdk.modules.xModalS.X_MODAL_TYPE
 import io.dcloud.uniapp.extapi.exit as uni_exit
 import uts.sdk.modules.xLoadingS.hideXloading
 import uts.sdk.modules.xLoadingS.showLoading
+import io.dcloud.uniapp.extapi.makePhoneCall as uni_makePhoneCall
 import uts.sdk.modules.mcPermissionRequest.permissionsRequest
 import uts.sdk.modules.mcPermissionRequest.requestNotificationPermission
 import io.dcloud.uniapp.extapi.reLaunch as uni_reLaunch
@@ -30,6 +31,7 @@ import uts.sdk.modules.xModalS.showModal
 import uts.sdk.modules.uniKuxrouter.useKuxRouter as uni_useKuxRouter
 open class GenPagesHomeNotSettled : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {}
+    open var i18n: Tmui4xI18nTml by `$data`
     open var onShow: () -> Unit
         get() {
             return unref(this.`$exposed`["onShow"]) as () -> Unit
@@ -58,6 +60,17 @@ open class GenPagesHomeNotSettled : VueComponent {
         set(value) {
             setRefValue(this.`$exposed`, "onInit", value)
         }
+    open var refreshCurrentUser: () -> Unit
+        get() {
+            return unref(this.`$exposed`["refreshCurrentUser"]) as () -> Unit
+        }
+        set(value) {
+            setRefValue(this.`$exposed`, "refreshCurrentUser", value)
+        }
+    @Suppress("USELESS_CAST")
+    override fun data(): Map<String, Any?> {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml)
+    }
     companion object {
         @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
         var setup: (__props: GenPagesHomeNotSettled, _arg1: SetupContext) -> Any? = fun(__props, ref1): Any? {
@@ -85,6 +98,15 @@ open class GenPagesHomeNotSettled : VueComponent {
             val advList = _uA(
                 ADV_ITEM1(image = "/static/images/adv-driver-join.png", click = fun(index: Number){
                     console.log(index)
+                    console.log("进入客服")
+                    uni_makePhoneCall(MakePhoneCallOptions(phoneNumber = CUSTOMER_PHONE, success = fun(result: MakePhoneCallSuccess){
+                        console.log("拨打电话成功")
+                    }
+                    , fail = fun(_err){
+                        console.log("拨打电话失败", _err)
+                        showToast("拨打电话失败", "error")
+                    }
+                    ))
                 }
                 )
             )
@@ -250,6 +272,7 @@ open class GenPagesHomeNotSettled : VueComponent {
                 loginRequest()
             }
             val refreshCurrentUser = fun(){
+                console.log("refreshCurrentUser===刷新当前会话")
                 getNotDesensitizedCurrentUser().then(fun(res: Response){
                     if (res.code == 200) {
                         val data = res.data as UTSJSONObject
@@ -408,7 +431,7 @@ open class GenPagesHomeNotSettled : VueComponent {
             val onHide = fun(){}
             val onReady1 = fun(){}
             val onInit = fun(){}
-            __expose(_uM("onShow" to onShow, "onHide" to onHide, "onReady" to onReady1, "onInit" to onInit))
+            __expose(_uM("onShow" to onShow, "onHide" to onHide, "onReady" to onReady1, "onInit" to onInit, "refreshCurrentUser" to refreshCurrentUser))
             return fun(): Any? {
                 val _component_x_text = resolveEasyComponent("x-text", GenUniModulesTmxUiComponentsXTextXTextClass)
                 val _component_x_tabs = resolveEasyComponent("x-tabs", GenUniModulesTmxUiComponentsXTabsXTabsClass)
@@ -487,21 +510,27 @@ open class GenPagesHomeNotSettled : VueComponent {
                                         _cE("view", _uM("class" to "card-body"), _uA(
                                             _cE("view", _uM("class" to "features"), _uA(
                                                 _cE("view", _uM("class" to "feature-item"), _uA(
-                                                    _cE("image", _uM("class" to "feature-icon", "src" to "/static/icons/icon-books.png", "mode" to "aspectFit")),
+                                                    _cE("image", _uM("class" to "feature-icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-books.png"), "mode" to "aspectFit"), null, 8, _uA(
+                                                        "src"
+                                                    )),
                                                     _cE("view", _uM("class" to "feature-text"), _uA(
                                                         _cE("text", null, "接单灵活"),
                                                         _cE("text", null, "收入无忧")
                                                     ))
                                                 )),
                                                 _cE("view", _uM("class" to "feature-item"), _uA(
-                                                    _cE("image", _uM("class" to "feature-icon", "src" to "/static/icons/icon-money-safe.png", "mode" to "aspectFit")),
+                                                    _cE("image", _uM("class" to "feature-icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-money-safe.png"), "mode" to "aspectFit"), null, 8, _uA(
+                                                        "src"
+                                                    )),
                                                     _cE("view", _uM("class" to "feature-text"), _uA(
                                                         _cE("text", null, "资金安全"),
                                                         _cE("text", null, "秒到秒提")
                                                     ))
                                                 )),
                                                 _cE("view", _uM("class" to "feature-item"), _uA(
-                                                    _cE("image", _uM("class" to "feature-icon", "src" to "/static/icons/icon-car-outline.png", "mode" to "aspectFit")),
+                                                    _cE("image", _uM("class" to "feature-icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-car-outline.png"), "mode" to "aspectFit"), null, 8, _uA(
+                                                        "src"
+                                                    )),
                                                     _cE("view", _uM("class" to "feature-text"), _uA(
                                                         _cE("text", null, "车源直供"),
                                                         _cE("text", null, "可租可供")
@@ -567,7 +596,7 @@ open class GenPagesHomeNotSettled : VueComponent {
                                                 }
                                                 ), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
                                                     return _uA(
-                                                        _cV(_component_x_image, _uM("width" to "100%", "model" to "widthFix", "src" to item.image), null, 8, _uA(
+                                                        _cE("image", _uM("style" to _nS(_uM("width" to "100%")), "mode" to "widthFix", "src" to item.image), null, 12, _uA(
                                                             "src"
                                                         ))
                                                     )
@@ -642,7 +671,7 @@ open class GenPagesHomeNotSettled : VueComponent {
                                                 }
                                                 ), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
                                                     return _uA(
-                                                        _cV(_component_x_image, _uM("width" to "100%", "model" to "widthFix", "src" to item.image), null, 8, _uA(
+                                                        _cE("image", _uM("style" to _nS(_uM("width" to "100%")), "mode" to "widthFix", "src" to item.image), null, 12, _uA(
                                                             "src"
                                                         ))
                                                     )

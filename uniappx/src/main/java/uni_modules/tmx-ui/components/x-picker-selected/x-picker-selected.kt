@@ -14,12 +14,7 @@ import io.dcloud.uts.UTSAndroid
 open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {
         onMounted(fun() {
-            if (!this.localSearch) {
-                this.mergeToCache(this._list)
-                this.nowValue = this.getFromCacheByIds(this.modelValue)
-            } else {
-                this.nowValue = this.idsToxPickerSelectedListyTypeAr(this.modelValue)
-            }
+            this.nowValue = this.idsToxPickerSelectedListyTypeAr(this.modelValue)
             this.updateModelStr()
             this.yanchiDuration = if (this._lazyContent) {
                 false
@@ -45,11 +40,7 @@ open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueCompo
             if (newvalue.join("") == this.nowValue.join("")) {
                 return
             }
-            if (!this.localSearch) {
-                this.nowValue = this.getFromCacheByIds(this.modelValue)
-            } else {
-                this.nowValue = this.idsToxPickerSelectedListyTypeAr(this.modelValue)
-            }
+            this.nowValue = this.idsToxPickerSelectedListyTypeAr(this.modelValue)
             this.updateModelStr()
         }
         )
@@ -57,16 +48,7 @@ open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueCompo
             return this._list
         }
         , fun() {
-            if (!this.localSearch) {
-                this.mergeToCache(this._list)
-                var ls = this.getFromCacheByIds(this.modelValue)
-                this.nowValue = this.mergeToCacheNovalue(ls)
-                this.updateModelStr()
-                return
-            } else {
-                var nowModelvalue = this.idsToxPickerSelectedListyTypeAr(this.modelValue)
-                this.nowValue = nowModelvalue
-            }
+            this.nowValue = this.idsToxPickerSelectedListyTypeAr(this.modelValue)
             this.updateModelStr()
         }
         )
@@ -108,18 +90,19 @@ open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueCompo
         val _component_x_drawer = resolveEasyComponent("x-drawer", GenUniModulesTmxUiComponentsXDrawerXDrawerClass)
         return _cE("view", null, _uA(
             _cE("view", _uM("onClick" to _ctx.openShow), _uA(
-                renderSlot(_ctx.`$slots`, "default")
+                renderSlot(_ctx.`$slots`, "default", _uM("label" to _ctx.nowvalueStr))
             ), 8, _uA(
                 "onClick"
             )),
-            _cV(_component_x_drawer, _uM("cancel-text" to _ctx.cancelText, "confirm-text" to _ctx.confirmText, "zIndex" to _ctx.zIndex, "onOpen" to _ctx.onOpen, "widthCoverCenter" to _ctx.widthCoverCenter, "watiDuration" to _ctx.duration, "contentMargin" to "0px", "disabledScroll" to true, "title" to _ctx.title, "onClose" to _ctx.onClose, "onConfirm" to _ctx.onConfirm, "onCancel" to _ctx.onCancel, "showFooter" to true, "show" to _ctx.show, "onUpdate:show" to fun(`$event`: Boolean){
+            _cV(_component_x_drawer, _uM("cancel-text" to _ctx._cancelText, "confirm-text" to _ctx._confirmText, "zIndex" to _ctx.zIndex, "onOpen" to _ctx.onOpen, "widthCoverCenter" to _ctx.widthCoverCenter, "watiDuration" to _ctx.duration, "contentMargin" to "0px", "disabledScroll" to true, "title" to _ctx._title, "onClose" to _ctx.onClose, "onConfirm" to _ctx.onConfirm, "onCancel" to _ctx.onCancel, "showFooter" to true, "show" to _ctx.show, "onUpdate:show" to fun(`$event`: Boolean){
                 _ctx.show = `$event`
             }
             , "show-close" to _ctx.showClose, "size" to "80%"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
                 return _uA(
                     _cE("view", _uM("class" to "xPickerSlectedIwrap", "style" to _nS(_uM("height" to "44px", "borderRadius" to "44px"))), _uA(
                         _cE("view", _uM("class" to "xPickerSlectedInputBox", "style" to _nS(_uM("backgroundColor" to _ctx._inputBgColor))), _uA(
-                            _cE("input", _uM("placeholder" to "请输入关键词", "style" to _nS(_uM("color" to _ctx._inputColor, "fontSize" to "16px")), "onInput" to _ctx.inpuEvent, "onConfirm" to _ctx.inputConfirm, "value" to _ctx.searchKey, "class" to "xPickerSlectedInput"), null, 44, _uA(
+                            _cE("input", _uM("placeholder" to _ctx.i18n!!.t("tmui4x.pickerSelected.placeholder"), "style" to _nS(_uM("color" to _ctx._inputColor, "fontSize" to "16px")), "onInput" to _ctx.inpuEvent, "onConfirm" to _ctx.inputConfirm, "value" to _ctx.searchKey, "class" to "xPickerSlectedInput"), null, 44, _uA(
+                                "placeholder",
                                 "onInput",
                                 "onConfirm",
                                 "value"
@@ -136,7 +119,7 @@ open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueCompo
                         ), 4),
                         _cV(_component_x_button, _uM("width" to "80", "onClick" to _ctx.inputConfirm, "color" to _ctx._color, "round" to "0", "height" to "44"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
                             return _uA(
-                                "搜索"
+                                _tD(_ctx.i18n!!.t("tmui4x.pickerSelected.search"))
                             )
                         }
                         ), "_" to 1), 8, _uA(
@@ -240,11 +223,11 @@ open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueCompo
                             _cC("v-if", true)
                         }
                         ,
-                        if (isTrue((_ctx._list.length > 0 || (_ctx.cachedItems.length > 0 && _ctx.localSearch)) && _ctx.yanchiDuration)) {
+                        if (isTrue(_ctx._list.length > 0 && _ctx.yanchiDuration)) {
                             _cE("view", _uM("key" to 3, "class" to "xPickerSlectedFooter"), _uA(
                                 _cV(_component_x_text, _uM("class" to "xPickerSlectedFooterBtnText", "style" to _nS(_uM("text-align" to "center")), "color" to _ctx._color, "font-size" to "14"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
                                     return _uA(
-                                        " 已选择" + _tD(_ctx.nowValue.length) + "项 "
+                                        _tD(_ctx.i18n!!.t("tmui4x.pickerSelected.selected", _ctx.nowValue.length))
                                     )
                                 }), "_" to 1), 8, _uA(
                                     "style",
@@ -254,7 +237,7 @@ open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueCompo
                                     if (isTrue(!_ctx._isRadioMode)) {
                                         _cV(_component_x_text, _uM("key" to 0, "class" to "xPickerSlectedFooterBtnText", "onClick" to _ctx.clearAll, "color" to "#666", "font-size" to "14"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
                                             return _uA(
-                                                " 清空选择 "
+                                                _tD(_ctx.i18n!!.t("tmui4x.pickerSelected.claer"))
                                             )
                                         }), "_" to 1), 8, _uA(
                                             "onClick"
@@ -265,7 +248,7 @@ open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueCompo
                                     if (isTrue(_ctx._isRadioMode)) {
                                         _cV(_component_x_text, _uM("key" to 1, "class" to "xPickerSlectedFooterBtnText", "color" to "#666", "font-size" to "14"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
                                             return _uA(
-                                                " 当前为单选模式 "
+                                                _tD(_ctx.i18n!!.t("tmui4x.pickerSelected.selectedMode"))
                                             )
                                         }), "_" to 1))
                                     } else {
@@ -274,7 +257,7 @@ open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueCompo
                                     if (isTrue(_ctx.multiple)) {
                                         _cV(_component_x_text, _uM("key" to 2, "style" to _nS(_uM("margin-left" to "24px")), "class" to "xPickerSlectedFooterBtnText", "onClick" to _ctx.selectedAll, "color" to _ctx._color, "font-size" to "14"), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
                                             return _uA(
-                                                " 选择所有 "
+                                                _tD(_ctx.i18n!!.t("tmui4x.pickerSelected.selectedALl"))
                                             )
                                         }), "_" to 1), 8, _uA(
                                             "style",
@@ -341,6 +324,7 @@ open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueCompo
     open var disabledBottom: Boolean by `$props`
     open var disabled: Boolean by `$props`
     open var widthCoverCenter: Boolean by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var show: Boolean by `$data`
     open var nowValue: UTSArray<xPickerSelectedListyType> by `$data`
     open var searchList: UTSArray<xPickerSelectedListyType> by `$data`
@@ -359,8 +343,6 @@ open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueCompo
             this.`$data`["isRefresh"] = value
         }
     open var isBootomIsRefresh: Boolean by `$data`
-    open var cachedItems: UTSArray<xPickerSelectedListyType> by `$data`
-    open var selected: UTSArray<xPickerSelectedListyType> by `$data`
     open var _disabled: Boolean by `$data`
     open var _isRadioMode: Boolean by `$data`
     open var _disabledPull: Boolean by `$data`
@@ -374,9 +356,13 @@ open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueCompo
     open var _borderColor: String by `$data`
     open var _inputBgColor: String by `$data`
     open var _inputColor: String by `$data`
+    open var nowvalueStr: String by `$data`
+    open var _cancelText: String by `$data`
+    open var _confirmText: String by `$data`
+    open var _title: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("show" to false, "nowValue" to _uA<xPickerSelectedListyType>(), "searchList" to _uA<xPickerSelectedListyType>(), "searchKey" to "", "duration" to 60, "yanchiDuration" to false, "tid" to 100, "tid34" to 369, "isRefresh" to false, "isBootomIsRefresh" to false, "cachedItems" to _uA<xPickerSelectedListyType>(), "selected" to _uA<xPickerSelectedListyType>(), "_disabled" to computed<Boolean>(fun(): Boolean {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "show" to false, "nowValue" to _uA<xPickerSelectedListyType>(), "searchList" to _uA<xPickerSelectedListyType>(), "searchKey" to "", "duration" to 60, "yanchiDuration" to false, "tid" to 100, "tid34" to 369, "isRefresh" to false, "isBootomIsRefresh" to false, "_disabled" to computed<Boolean>(fun(): Boolean {
             return this.disabled
         }
         ), "_isRadioMode" to computed<Boolean>(fun(): Boolean {
@@ -430,59 +416,31 @@ open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueCompo
             }
             return "#333"
         }
+        ), "nowvalueStr" to computed<String>(fun(): String {
+            return this.nowValue.map(fun(el): String {
+                return el.title
+            }
+            ).join(",")
+        }
+        ), "_cancelText" to computed<String>(fun(): String {
+            if (this.cancelText == "") {
+                return this!!.i18n.t("tmui4x.cancel")
+            }
+            return this.cancelText
+        }
+        ), "_confirmText" to computed<String>(fun(): String {
+            if (this.confirmText == "") {
+                return this!!.i18n.t("tmui4x.confirm")
+            }
+            return this.confirmText
+        }
+        ), "_title" to computed<String>(fun(): String {
+            if (this.title == "") {
+                return this!!.i18n.t("tmui4x.pickerTitle")
+            }
+            return this.title
+        }
         ))
-    }
-    open var mergeToCache = ::gen_mergeToCache_fn
-    open fun gen_mergeToCache_fn(newItems: UTSArray<xPickerSelectedListyType>) {
-        newItems.forEach(fun(newItem){
-            val existingIndex = this.cachedItems.findIndex(fun(cached): Boolean {
-                return cached.id == newItem.id
-            }
-            )
-            if (existingIndex == -1) {
-                this.cachedItems.push(newItem)
-            } else {
-                this.cachedItems[existingIndex] = newItem
-            }
-        }
-        )
-    }
-    open var mergeToCacheNovalue = ::gen_mergeToCacheNovalue_fn
-    open fun gen_mergeToCacheNovalue_fn(newItems: UTSArray<xPickerSelectedListyType>): UTSArray<xPickerSelectedListyType> {
-        var ls = this.selected.slice()
-        newItems.forEach(fun(newItem){
-            val existingIndex = this.selected.findIndex(fun(cached): Boolean {
-                return cached.id == newItem.id
-            }
-            )
-            if (existingIndex == -1) {
-                ls.push(newItem)
-            } else {
-                ls[existingIndex] = newItem
-            }
-        }
-        )
-        this.selected = ls
-        return ls
-    }
-    open var getFromCacheByIds = ::gen_getFromCacheByIds_fn
-    open fun gen_getFromCacheByIds_fn(ids: UTSArray<Any>): UTSArray<xPickerSelectedListyType> {
-        var temlist = _uA<xPickerSelectedListyType>()
-        run {
-            var i: Number = 0
-            while(i < ids.length){
-                var nowid = ids[i]
-                val cached = this.cachedItems.find(fun(item: xPickerSelectedListyType): Boolean {
-                    return item.id == nowid
-                }
-                )
-                if (cached != null) {
-                    temlist.push(cached!!)
-                }
-                i++
-            }
-        }
-        return temlist
     }
     open var updateModelStr = ::gen_updateModelStr_fn
     open fun gen_updateModelStr_fn() {
@@ -494,40 +452,31 @@ open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueCompo
     }
     open var onclik = ::gen_onclik_fn
     open fun gen_onclik_fn(item: xPickerSelectedListyType) {
-        var ls = this.nowValue
-        if (!this.localSearch) {
-            ls = this.mergeToCacheNovalue(this.nowValue)
-        }
-        var subList = _uA<xPickerSelectedListyType>()
         if (!this.multiple) {
-            var index = ls.findIndex(fun(el): Boolean {
+            var index = this.nowValue.findIndex(fun(el): Boolean {
                 return el.id == item.id
             })
             if (this._isRadioMode) {
-                ls = (_uA<xPickerSelectedListyType>(item))
+                this.nowValue = (_uA<xPickerSelectedListyType>(item))
             } else {
-                ls = if (index > -1) {
+                this.nowValue = if (index > -1) {
                     (_uA<xPickerSelectedListyType>())
                 } else {
                     (_uA<xPickerSelectedListyType>(item))
                 }
             }
         } else {
-            var index = ls.findIndex(fun(el): Boolean {
+            var index = this.nowValue.findIndex(fun(el): Boolean {
                 return el.id == item.id
             }
             )
             if (index > -1) {
-                subList.push(ls[index])
-                ls.splice(index, 1)
+                this.nowValue.splice(index, 1)
             } else {
-                ls.push(item)
+                this.nowValue.push(item)
             }
         }
-        this.nowValue = ls
     }
-    @get:JvmName("getIsSelected2")
-    @set:JvmName("setIsSelected2")
     open var isSelected = ::gen_isSelected_fn
     open fun gen_isSelected_fn(item: xPickerSelectedListyType): Boolean {
         var index = this.nowValue.findIndex(fun(el): Boolean {
@@ -591,14 +540,9 @@ open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueCompo
     }
     open var onCancel = ::gen_onCancel_fn
     open fun gen_onCancel_fn() {
-        if (!this.localSearch) {
-            this.nowValue = this.getFromCacheByIds(this.modelValue)
-        } else {
-            this.nowValue = this.idsToxPickerSelectedListyTypeAr(this.modelValue)
-        }
-        this.updateModelStr()
-        this.selected = _uA()
         this.`$emit`("cancel")
+        this.nowValue = this.idsToxPickerSelectedListyTypeAr(this.modelValue)
+        this.updateModelStr()
     }
     open var idsToxPickerSelectedListyTypeAr = ::gen_idsToxPickerSelectedListyTypeAr_fn
     open fun gen_idsToxPickerSelectedListyTypeAr_fn(ids: UTSArray<Any>): UTSArray<xPickerSelectedListyType> {
@@ -632,12 +576,11 @@ open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueCompo
         this.`$emit`("confirm", ids, strs)
         this.`$emit`("update:modelValue", ids)
         this.updateModelStr()
-        this.selected = _uA()
     }
     open var clearAll = ::gen_clearAll_fn
     open fun gen_clearAll_fn() {
         this.nowValue = _uA<xPickerSelectedListyType>()
-        this.cachedItems = _uA<xPickerSelectedListyType>()
+        console.log(this.nowValue)
     }
     open var selectedAll = ::gen_selectedAll_fn
     open fun gen_selectedAll_fn() {
@@ -679,7 +622,7 @@ open class GenUniModulesTmxUiComponentsXPickerSelectedXPickerSelected : VueCompo
         ), "modelShow" to _uM("type" to "Boolean", "default" to false), "modelStr" to _uM("type" to "Array", "default" to fun(): UTSArray<String> {
             return _uA<String>()
         }
-        ), "title" to _uM("type" to "String", "default" to "请选择"), "cancelText" to _uM("type" to "String", "default" to "取消"), "confirmText" to _uM("type" to "String", "default" to "确认"), "filterKey" to _uM("type" to "String", "default" to "text"), "labelKey" to _uM("type" to "String", "default" to "text"), "idKey" to _uM("type" to "String", "default" to "id"), "list" to _uM("type" to "Array", "default" to fun(): UTSArray<UTSJSONObject> {
+        ), "title" to _uM("type" to "String", "default" to ""), "cancelText" to _uM("type" to "String", "default" to ""), "confirmText" to _uM("type" to "String", "default" to ""), "filterKey" to _uM("type" to "String", "default" to "text"), "labelKey" to _uM("type" to "String", "default" to "text"), "idKey" to _uM("type" to "String", "default" to "id"), "list" to _uM("type" to "Array", "default" to fun(): UTSArray<UTSJSONObject> {
             return _uA<UTSJSONObject>()
         }
         ), "localSearch" to _uM("type" to "Boolean", "default" to true), "multiple" to _uM("type" to "Boolean", "default" to true), "isRadioMode" to _uM("type" to "Boolean", "default" to false), "lazyContent" to _uM("type" to "Boolean", "default" to false), "lazyDuration" to _uM("type" to "Number", "default" to 100), "itemHeight" to _uM("type" to "String", "default" to "50"), "zIndex" to _uM("type" to "Number", "default" to 1100), "showClose" to _uM("type" to "Boolean", "default" to false), "refresh" to _uM("type" to "Boolean", "default" to false), "bottomRefresh" to _uM("type" to "Boolean", "default" to false), "disabledPull" to _uM("type" to "Boolean", "default" to true), "disabledBottom" to _uM("type" to "Boolean", "default" to true), "disabled" to _uM("type" to "Boolean", "default" to false), "widthCoverCenter" to _uM("type" to "Boolean", "default" to false)))

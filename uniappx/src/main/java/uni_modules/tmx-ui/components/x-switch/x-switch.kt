@@ -145,6 +145,7 @@ open class GenUniModulesTmxUiComponentsXSwitchXSwitch : VueComponent {
     open var round: String by `$props`
     open var activeIcon: String by `$props`
     open var icon: String by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var id: String by `$data`
     open var boxwidth: Number by `$data`
     open var boxheight: Number by `$data`
@@ -168,7 +169,7 @@ open class GenUniModulesTmxUiComponentsXSwitchXSwitch : VueComponent {
     open var _animationFun: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("id" to ("xSwitch" + getUid()) as String, "boxwidth" to 0, "boxheight" to 0, "opened" to false, "_activeIcon" to computed<String>(fun(): String {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "id" to ("xSwitch" + getUid()) as String, "boxwidth" to 0, "boxheight" to 0, "opened" to false, "_activeIcon" to computed<String>(fun(): String {
             return this.activeIcon
         }
         ), "_icon" to computed<String>(fun(): String {

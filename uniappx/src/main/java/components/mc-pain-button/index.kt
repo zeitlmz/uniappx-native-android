@@ -24,6 +24,11 @@ open class GenComponentsMcPainButtonIndex : VueComponent {
     open var bgColor: String by `$props`
     open var color: String by `$props`
     open var borderRadius: String by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
+    @Suppress("USELESS_CAST")
+    override fun data(): Map<String, Any?> {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml)
+    }
     companion object {
         @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
         var setup: (__props: GenComponentsMcPainButtonIndex) -> Any? = fun(__props): Any? {
@@ -89,7 +94,7 @@ open class GenComponentsMcPainButtonIndex : VueComponent {
                         _cC("v-if", true)
                     }
                     ,
-                    _cE("text", _uM("style" to _nS(_uM("color" to unref(customStyle)["color"]))), _uA(
+                    _cE("text", _uM("style" to _nS(_uM("color" to unref(customStyle)["color"], "fontSize" to unref(customStyle)["fontSize"]))), _uA(
                         renderSlot(_ctx.`$slots`, "default")
                     ), 4)
                 ), 46, _uA(

@@ -41,7 +41,7 @@ open class GenUniModulesTmxUiComponentsXLoadingXLoading : VueComponent {
                 }, "lineHeight" to "1.1"))), _uA(
                     renderSlot(_ctx.`$slots`, "default", UTSJSONObject(), fun(): UTSArray<Any> {
                         return _uA(
-                            "加载中..."
+                            _tD(_ctx._label)
                         )
                     })
                 ), 4)
@@ -57,6 +57,9 @@ open class GenUniModulesTmxUiComponentsXLoadingXLoading : VueComponent {
     open var vertical: Boolean by `$props`
     open var icon: String by `$props`
     open var hideText: Boolean by `$props`
+    open var label: String by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
+    open var _label: String by `$data`
     open var _icon: String by `$data`
     open var _hideText: Boolean by `$data`
     open var _color: String by `$data`
@@ -65,7 +68,13 @@ open class GenUniModulesTmxUiComponentsXLoadingXLoading : VueComponent {
     open var _iconSize: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("_icon" to computed<String>(fun(): String {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "_label" to computed<String>(fun(): String {
+            if (this.label == "") {
+                return this!!.i18n.t("tmui4x.xloading.label")
+            }
+            return this.label
+        }
+        ), "_icon" to computed<String>(fun(): String {
             return this.icon
         }
         ), "_hideText" to computed<Boolean>(fun(): Boolean {
@@ -98,7 +107,7 @@ open class GenUniModulesTmxUiComponentsXLoadingXLoading : VueComponent {
         var inheritAttrs = true
         var inject: Map<String, Map<String, Any?>> = _uM()
         var emits: Map<String, Any?> = _uM()
-        var props = _nP(_uM("color" to _uM("type" to "String", "default" to "#8b8b8b"), "textColor" to _uM("type" to "String", "default" to "#8b8b8b"), "textSize" to _uM("type" to "String", "default" to "12"), "iconSize" to _uM("type" to "String", "default" to "21"), "vertical" to _uM("type" to "Boolean", "default" to true), "icon" to _uM("type" to "String", "default" to "loader-line"), "hideText" to _uM("type" to "Boolean", "default" to false)))
+        var props = _nP(_uM("color" to _uM("type" to "String", "default" to "#8b8b8b"), "textColor" to _uM("type" to "String", "default" to "#8b8b8b"), "textSize" to _uM("type" to "String", "default" to "12"), "iconSize" to _uM("type" to "String", "default" to "21"), "vertical" to _uM("type" to "Boolean", "default" to true), "icon" to _uM("type" to "String", "default" to "loader-line"), "hideText" to _uM("type" to "Boolean", "default" to false), "label" to _uM("type" to "String", "default" to "")))
         var propsNeedCastKeys = _uA(
             "color",
             "textColor",
@@ -106,7 +115,8 @@ open class GenUniModulesTmxUiComponentsXLoadingXLoading : VueComponent {
             "iconSize",
             "vertical",
             "icon",
-            "hideText"
+            "hideText",
+            "label"
         )
         var components: Map<String, CreateVueComponent> = _uM()
     }

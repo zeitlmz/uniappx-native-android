@@ -15,18 +15,8 @@ import io.dcloud.uniapp.extapi.createSelectorQuery as uni_createSelectorQuery
 open class GenUniModulesTmxUiComponentsXFingerXFinger : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {
         onMounted(fun() {
-            this.el = this.`$refs`[this.id] as UniElement
-            uni_createSelectorQuery().`in`(this).select(".finger").boundingClientRect().exec(fun(ret){
-                var nodeinfo = ret[0] as NodeInfo
-                this.left = nodeinfo.left as Number
-                this.top = nodeinfo.top as Number
-            }
-            )
             var t = this
-            this.getRectBox(fun(rect){
-                t.parentRect = rect
-            }
-            )
+            t.initFunc()
         }
         , __ins)
         onBeforeUnmount(fun() {
@@ -53,6 +43,7 @@ open class GenUniModulesTmxUiComponentsXFingerXFinger : VueComponent {
     open var clickDiff: Number by `$props`
     open var longDiff: Number by `$props`
     open var disabled: Boolean by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var isMouseDown: Boolean by `$data`
     open var wheelScale: Number by `$data`
     open var wheelDelta: Number by `$data`
@@ -82,10 +73,25 @@ open class GenUniModulesTmxUiComponentsXFingerXFinger : VueComponent {
     open var _disabled: Boolean by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("isMouseDown" to false, "wheelScale" to 1, "wheelDelta" to 0.1, "dubleTime" to 0, "tid" to 56, "_x" to 0, "_y" to 0, "_start_x" to 0, "_start_y" to 0, "eventName" to "", "mX" to 0, "mY" to 0, "swipeDirection" to "", "el" to null as Element?, "left" to 0, "top" to 0, "id" to ("xFinGer" + getUid()), "zoomFactor" to 0.55, "zoomFactorAb" to 0.03, "pinchStartLen" to 0, "scale" to 0, "angle" to 0, "pinth_x" to 0, "pinth_y" to 0, "preV" to CHECKPOINT_XY(x = null, y = null), "parentRect" to DRect(left = 0, right = 0, top = 0, bottom = 0, width = 0, height = 0), "_disabled" to computed<Boolean>(fun(): Boolean {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "isMouseDown" to false, "wheelScale" to 1, "wheelDelta" to 0.1, "dubleTime" to 0, "tid" to 56, "_x" to 0, "_y" to 0, "_start_x" to 0, "_start_y" to 0, "eventName" to "", "mX" to 0, "mY" to 0, "swipeDirection" to "", "el" to null as Element?, "left" to 0, "top" to 0, "id" to ("xFinGer" + getUid()), "zoomFactor" to 0.55, "zoomFactorAb" to 0.03, "pinchStartLen" to 0, "scale" to 0, "angle" to 0, "pinth_x" to 0, "pinth_y" to 0, "preV" to CHECKPOINT_XY(x = null, y = null), "parentRect" to DRect(left = 0, right = 0, top = 0, bottom = 0, width = 0, height = 0), "_disabled" to computed<Boolean>(fun(): Boolean {
             return this.disabled
         }
         ))
+    }
+    open var initFunc = ::gen_initFunc_fn
+    open fun gen_initFunc_fn() {
+        var t = this
+        t.el = t.`$refs`[t.id] as UniElement
+        uni_createSelectorQuery().`in`(t).select(".finger").boundingClientRect().exec(fun(ret){
+            var nodeinfo = ret[0] as NodeInfo
+            t.left = nodeinfo.left as Number
+            t.top = nodeinfo.top as Number
+        }
+        )
+        t.getRectBox(fun(rect){
+            t.parentRect = rect
+        }
+        )
     }
     open var getLen = ::gen_getLen_fn
     open fun gen_getLen_fn(v: CHECKPOINT_XY): Number {

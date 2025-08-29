@@ -23,6 +23,7 @@ import io.dcloud.uniapp.framework.onUnload
 import io.dcloud.uniapp.runtime.*
 import io.dcloud.uniapp.vue.*
 import io.dcloud.uniapp.vue.shared.*
+import io.dcloud.unicloud.*
 import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
@@ -105,7 +106,7 @@ fun hexToRgb(sColors: String): RGBA? {
             }
             sColor = sColorNew
         }
-        var sColorChange: UTSArray<Number> = utsArrayOf()
+        var sColorChange: UTSArray<Number> = _uA()
         sColorChange.push(parseInt(sColor.substring(1, 3), 16))
         sColorChange.push(parseInt(sColor.substring(3, 5), 16))
         sColorChange.push(parseInt(sColor.substring(5, 7), 16))
@@ -139,20 +140,20 @@ fun hexToRgb(sColors: String): RGBA? {
     return null
 }
 val defaultConfig = XTIPS_TYPE_PRIVATE(iconColor = "rgb(5,121,255)", contentBgColor = "rgba(255,255,255,1)", maskBgColor = "rgba(0,0,0,0)", iconSize = 20, iconCode = "F449", title = "", titleSize = 16, titleColor = "rgb(5,121,255)", duration = 2000, size = 130, close = fun(){}, maskDisableClik = false, position = "top", offset = 50)
-val defaultStatusIcon = Map<String, String>(utsArrayOf(
-    utsArrayOf(
+val defaultStatusIcon = Map<String, String>(_uA(
+    _uA(
         "warn",
         "ECA1"
     ),
-    utsArrayOf(
+    _uA(
         "error",
         "EB97"
     ),
-    utsArrayOf(
+    _uA(
         "success",
         "EB79"
     ),
-    utsArrayOf(
+    _uA(
         "info",
         "F449"
     )
@@ -236,6 +237,7 @@ fun configCover(opts: XTIPS_TYPE): XTIPS_TYPE_PRIVATE {
 }
 var tid: Number? = 0
 var maskDomId: Number = 388
+var currentOpts: XTIPS_TYPE? = null
 fun px2dp(n: Number): Number {
     val mets = UTSAndroid.getAppContext()!!.resources!!.getDisplayMetrics()
     return mets.density * n
@@ -250,6 +252,7 @@ fun hideTips() {
         if (tid != null) {
             clearTimeout(tid!!)
         }
+        currentOpts?.close?.invoke()
     }
     )
 }
@@ -262,6 +265,7 @@ fun __hideTips__(decorView: ViewGroup) {
         if (tid != null) {
             clearTimeout(tid!!)
         }
+        currentOpts?.close?.invoke()
     }
     )
 }
@@ -396,6 +400,7 @@ fun showTips(opts: XTIPS_TYPE?) {
         val page = pages[pages.length - 1].vm!!
         val instance = page.`$`
         if (page.`$isReady`) {
+            currentOpts = opts
             _showTips_(opts)
         } else {
             hideTips()
@@ -404,6 +409,7 @@ fun showTips(opts: XTIPS_TYPE?) {
             hideTips()
         }, instance)
     } else {
+        currentOpts = opts
         _showTips_(opts)
     }
 }

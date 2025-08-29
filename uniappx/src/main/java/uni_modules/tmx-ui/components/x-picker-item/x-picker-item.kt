@@ -149,6 +149,7 @@ open class GenUniModulesTmxUiComponentsXPickerItemXPickerItem : VueComponent {
     open var cellUnits: UTSArray<String> by `$props`
     open var unitsFontSize: String by `$props`
     open var fontSize: String by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var boxHeight: Number by `$data`
     open var id: String by `$data`
     open var nowCurrentIndex: UTSArray<Number> by `$data`
@@ -171,7 +172,7 @@ open class GenUniModulesTmxUiComponentsXPickerItemXPickerItem : VueComponent {
     open var _maskStyle: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("boxHeight" to 0, "id" to ("xPickerItem-" + getUid()) as String, "nowCurrentIndex" to _uA(
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "boxHeight" to 0, "id" to ("xPickerItem-" + getUid()) as String, "nowCurrentIndex" to _uA(
             0
         ), "tid" to 0, "tid2" to 0, "tid3" to 3, "_fontSize" to computed<String>(fun(): String {
             var fontSize = checkIsCssUnit(this.fontSize, xConfig.unit)

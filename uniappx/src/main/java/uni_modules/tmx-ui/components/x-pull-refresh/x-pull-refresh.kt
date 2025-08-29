@@ -169,6 +169,7 @@ open class GenUniModulesTmxUiComponentsXPullRefreshXPullRefresh : VueComponent {
     open var showScrollbar: Boolean by `$props`
     open var disabledPull: Boolean by `$props`
     open var disabledBottom: Boolean by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var status: XPULL_STATUS by `$data`
     open var isRefresh: Boolean by `$data`
     open var refresherTriggered: Boolean by `$data`
@@ -190,7 +191,7 @@ open class GenUniModulesTmxUiComponentsXPullRefreshXPullRefresh : VueComponent {
     open var _pullDiffHeight: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("status" to "none" as XPULL_STATUS, "isRefresh" to false, "refresherTriggered" to false, "pullDy" to 0, "tid" to 0, "bootomIsRefresh" to false, "statusbarHeight" to 0, "dirtid" to 12, "scrollTop" to 0, "scrollIntoView" to "", "_disabledPull" to computed<Boolean>(fun(): Boolean {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "status" to "none" as XPULL_STATUS, "isRefresh" to false, "refresherTriggered" to false, "pullDy" to 0, "tid" to 0, "bootomIsRefresh" to false, "statusbarHeight" to 0, "dirtid" to 12, "scrollTop" to 0, "scrollIntoView" to "", "_disabledPull" to computed<Boolean>(fun(): Boolean {
             return this.disabledPull
         }
         ), "_disabledBottom" to computed<Boolean>(fun(): Boolean {
@@ -228,15 +229,15 @@ open class GenUniModulesTmxUiComponentsXPullRefreshXPullRefresh : VueComponent {
         }
         ), "_status_obj" to computed<XSTATUS_OBJ_INFO>(fun(): XSTATUS_OBJ_INFO {
             if (this._status == 1) {
-                return XSTATUS_OBJ_INFO(icon = "loader-line", text = "刷新中..", color = this._color, textColor = this._textColor)
+                return XSTATUS_OBJ_INFO(icon = "loader-line", text = this!!.i18n.t("tmui4x.pullRefresh.status_1"), color = this._color, textColor = this._textColor)
             }
             if (this._status == 2) {
-                return XSTATUS_OBJ_INFO(icon = "arrow-down-line", text = "继续下拉", color = this._color, textColor = this._textColor)
+                return XSTATUS_OBJ_INFO(icon = "arrow-down-line", text = this!!.i18n.t("tmui4x.pullRefresh.status_2"), color = this._color, textColor = this._textColor)
             }
             if (this._status == 3) {
-                return XSTATUS_OBJ_INFO(icon = "arrow-up-line", text = "松开刷新", color = this._color, textColor = this._textColor)
+                return XSTATUS_OBJ_INFO(icon = "arrow-up-line", text = this!!.i18n.t("tmui4x.pullRefresh.status_3"), color = this._color, textColor = this._textColor)
             }
-            return XSTATUS_OBJ_INFO(icon = "checkbox-circle-line", text = "刷新完成", color = this._color, textColor = this._textColor)
+            return XSTATUS_OBJ_INFO(icon = "checkbox-circle-line", text = this!!.i18n.t("tmui4x.pullRefresh.status_4"), color = this._color, textColor = this._textColor)
         }
         ), "_pullDiffHeight" to computed<String>(fun(): String {
             var strNumber = if (this.pullDy > (this.pullHeight * 2)) {

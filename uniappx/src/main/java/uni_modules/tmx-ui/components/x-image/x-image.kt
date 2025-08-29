@@ -50,7 +50,9 @@ open class GenUniModulesTmxUiComponentsXImageXImage : VueComponent {
         onBeforeUnmount(fun() {
             clearTimeout(this.tid)
             clearTimeout(this.tid2)
-            this.resizeObserver?.disconnect()
+            if (this.resizeObserver != null) {
+                this.resizeObserver?.disconnect()
+            }
         }
         , __ins)
         onUpdated(fun() {}, __ins)
@@ -164,6 +166,7 @@ open class GenUniModulesTmxUiComponentsXImageXImage : VueComponent {
     open var placeDarkBgColor: String by `$props`
     open var fadeShow: Boolean by `$props`
     open var lazy: Boolean by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var id: String by `$data`
     open var idBox: String by `$data`
     open var isLoading: Boolean by `$data`
@@ -199,7 +202,7 @@ open class GenUniModulesTmxUiComponentsXImageXImage : VueComponent {
     open var _styleMap: Map<String, String> by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("id" to ("xImage-" + getUid()) as String, "idBox" to ("xImage-" + getUid()) as String, "isLoading" to true, "isError" to false, "reload" to 0, "imgrealWidth" to 0, "imgrealHeight" to 0, "boxWidth" to 0, "boxHeight" to 0, "ratioWidth" to 0, "ratioHeight" to 0, "isLoaded" to false, "tid" to 0, "resizeObserver" to null as UniResizeObserver?, "androidAndWebUrl" to "", "dateTime" to 0, "_x" to 0, "_y" to 0, "boxLeft" to 0, "boxTop" to 0, "isVisibled" to false, "tid2" to 0, "keyidsf" to 0, "_model" to computed<String>(fun(): String {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "id" to ("xImage-" + getUid()) as String, "idBox" to ("xImage-" + getUid()) as String, "isLoading" to true, "isError" to false, "reload" to 0, "imgrealWidth" to 0, "imgrealHeight" to 0, "boxWidth" to 0, "boxHeight" to 0, "ratioWidth" to 0, "ratioHeight" to 0, "isLoaded" to false, "tid" to 0, "resizeObserver" to null as UniResizeObserver?, "androidAndWebUrl" to "", "dateTime" to 0, "_x" to 0, "_y" to 0, "boxLeft" to 0, "boxTop" to 0, "isVisibled" to false, "tid2" to 0, "keyidsf" to 0, "_model" to computed<String>(fun(): String {
             return this.model
         }
         ), "_placeBgColor" to computed<String>(fun(): String {

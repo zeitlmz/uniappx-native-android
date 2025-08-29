@@ -165,6 +165,7 @@ open class GenUniModulesTmxUiComponentsXRateXRate : VueComponent {
     open var showScore: Boolean by `$props`
     open var fontSize: String by `$props`
     open var half: Boolean by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var score: Number by `$data`
     open var xani: xAnimate? by `$data`
     open var clickStartIndex: Number by `$data`
@@ -187,7 +188,7 @@ open class GenUniModulesTmxUiComponentsXRateXRate : VueComponent {
     open var _showScore: Boolean by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("score" to 0, "xani" to null as xAnimate?, "clickStartIndex" to -1, "clickStartStatus" to 0, "isWEBPC" to false, "_x" to 0, "_y" to 0, "_isMove" to false, "_parentBounds" to dDrect(x = 0, y = 0, width = 0, height = 0, space = 0), "_isWEBmoveSelecteIndex" to -1, "_disabled" to computed<Boolean>(fun(): Boolean {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "score" to 0, "xani" to null as xAnimate?, "clickStartIndex" to -1, "clickStartStatus" to 0, "isWEBPC" to false, "_x" to 0, "_y" to 0, "_isMove" to false, "_parentBounds" to dDrect(x = 0, y = 0, width = 0, height = 0, space = 0), "_isWEBmoveSelecteIndex" to -1, "_disabled" to computed<Boolean>(fun(): Boolean {
             return this.disabled
         }
         ), "_readonly" to computed<Boolean>(fun(): Boolean {

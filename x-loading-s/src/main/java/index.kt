@@ -354,8 +354,8 @@ fun _createToastView(context: Context, decorView: ViewGroup, opts: XLOADINGS_TYP
     return maskerDom
 }
 fun _showLoading_(opts: XLOADINGS_TYPE?) {
+    dialogModal = FullScreenDialogFragment(UTSAndroid.getUniActivity()!!, opts)
     UTSAndroid.getDispatcher("main").async(fun(_) {
-        dialogModal = FullScreenDialogFragment(UTSAndroid.getUniActivity()!!, opts)
         dialogModal?.show()
     }
     )

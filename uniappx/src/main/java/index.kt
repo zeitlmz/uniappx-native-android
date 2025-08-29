@@ -72,6 +72,1970 @@ val runBlock1 = run {
         return GenApp.styles
     }
 }
+typealias StringOrNull = String?
+open class DateTimeNames (
+    @JsonNotNull
+    open var long: UTSArray<String>,
+    @JsonNotNull
+    open var short: UTSArray<String>,
+    @JsonNotNull
+    open var narrow: UTSArray<String>,
+) : UTSObject()
+typealias NumberOrNull = Number?
+typealias StringOrNumberOrNull = Any?
+typealias DateOrNumberOrString = Any
+typealias UTSJSONObjectOrNull = UTSJSONObject?
+typealias UTSJSONObjectOrArray = Any
+typealias AnyOrNull = Any?
+typealias StringOrMessageFunction = Any
+typealias StringOrVoid = Any
+typealias GetAnyType = (obj: AnyOrNull) -> AnyOrNull
+typealias NumberFormatOrNull = NumberFormat?
+typealias DateTimeFormatOrNull = DateTimeFormat?
+typealias GetAnyTypeOrNull = GetAnyType?
+typealias WarnHandler = (msg: StringOrNumberOrNull, err: UTSError?) -> Unit
+typealias BasePluralRule = (choice: Number, choicesLength: Number) -> Number
+typealias PluralRule = (choice: Number, choicesLength: Number, orgRule: BasePluralRule?) -> Number
+open class MessageContext (
+    @JsonNotNull
+    open var list: UTSArray<Any>,
+    @JsonNotNull
+    open var named: UTSJSONObject,
+    @JsonNotNull
+    open var pluralIndex: Number,
+    open var pluralRule: PluralRule? = null,
+    open var orgPluralRule: BasePluralRule? = null,
+    open var modifier: (str: String) -> String,
+    @JsonNotNull
+    open var message: StringOrMessageFunction,
+    @JsonNotNull
+    open var type: String,
+    open var interpolate: (`val`: Any) -> String,
+    open var normalize: (values: UTSArray<Any>) -> UTSArray<Any>,
+    @JsonNotNull
+    open var values: UTSArray<Any>,
+) : UTSObject()
+typealias MessageFunction = (ctx: MessageContext) -> String
+open class NumberFormat (
+    open var style: String? = null,
+    open var currency: String? = null,
+    open var local: String? = null,
+    open var currencyDisplay: String? = null,
+    open var useGrouping: Boolean? = null,
+    open var minimumIntegerDigits: Number? = null,
+    open var minimumFractionDigits: Number? = null,
+    open var maximumFractionDigits: Number? = null,
+    open var minimumSignificantDigits: Number? = null,
+    open var maximumSignificantDigits: Number? = null,
+) : UTSObject()
+open class NumberFormatOpts (
+    @JsonNotNull
+    open var style: String,
+    @JsonNotNull
+    open var local: String,
+    @JsonNotNull
+    open var currency: String,
+    @JsonNotNull
+    open var currencyDisplay: String,
+    @JsonNotNull
+    open var useGrouping: Boolean = false,
+    @JsonNotNull
+    open var minimumIntegerDigits: Number,
+    open var minimumFractionDigits: Number? = null,
+    open var maximumFractionDigits: Number? = null,
+    open var minimumSignificantDigits: Number? = null,
+    open var maximumSignificantDigits: Number? = null,
+) : UTSObject()
+typealias NumberFormats = Map<String, Map<String, NumberFormat>>
+open class DateTimeFormat (
+    open var localeMatcher: String? = null,
+    open var local: String? = null,
+    open var calendar: String? = null,
+    open var numberingSystem: String? = null,
+    open var timeZone: String? = null,
+    open var hour12: Boolean? = null,
+    open var hourCycle: String? = null,
+    open var formatMatcher: String? = null,
+    open var dateSeparator: String? = null,
+    open var weekday: String? = null,
+    open var era: String? = null,
+    open var year: String? = null,
+    open var month: String? = null,
+    open var day: String? = null,
+    open var dayPeriod: String? = null,
+    open var hour: String? = null,
+    open var minute: String? = null,
+    open var second: String? = null,
+    open var fractionalSecondDigits: Number? = null,
+    open var timeZoneName: String? = null,
+    open var dateStyle: String? = null,
+    open var timeStyle: String? = null,
+) : UTSObject()
+open class DateTimeFormatReal (
+    @JsonNotNull
+    open var localeMatcher: String,
+    @JsonNotNull
+    open var local: String,
+    @JsonNotNull
+    open var calendar: String,
+    @JsonNotNull
+    open var numberingSystem: String,
+    @JsonNotNull
+    open var timeZone: String,
+    @JsonNotNull
+    open var hour12: Boolean = false,
+    @JsonNotNull
+    open var hourCycle: String,
+    @JsonNotNull
+    open var formatMatcher: String,
+    @JsonNotNull
+    open var dateSeparator: String,
+    @JsonNotNull
+    open var weekday: String,
+    @JsonNotNull
+    open var era: String,
+    @JsonNotNull
+    open var year: String,
+    @JsonNotNull
+    open var month: String,
+    @JsonNotNull
+    open var day: String,
+    @JsonNotNull
+    open var dayPeriod: String,
+    @JsonNotNull
+    open var hour: String,
+    @JsonNotNull
+    open var minute: String,
+    @JsonNotNull
+    open var second: String,
+    @JsonNotNull
+    open var fractionalSecondDigits: Number,
+    @JsonNotNull
+    open var timeZoneName: String,
+    @JsonNotNull
+    open var dateStyle: String,
+    @JsonNotNull
+    open var timeStyle: String,
+) : UTSObject()
+typealias DateTimeFormats = Map<String, Map<String, DateTimeFormat>>
+open class I18nOptions (
+    open var locale: String? = null,
+    open var fallbackLocale: String? = null,
+    open var messages: UTSJSONObject? = null,
+    open var datetimeFormats: DateTimeFormats? = null,
+    open var numberFormats: NumberFormats? = null,
+    open var modifiers: Map<String, MessageFunction>? = null,
+    open var pluralRules: Map<String, PluralRule>? = null,
+    open var missing: ((locale: String, key: String, instance: Any?, type: String?) -> StringOrVoid)? = null,
+    open var missingWarn: Boolean? = null,
+    open var fallbackWarn: Boolean? = null,
+    open var fallbackRoot: Boolean? = null,
+    open var fallbackFormat: Boolean? = null,
+    open var unresolving: Boolean? = null,
+    open var postTranslation: ((str: String, key: String) -> String)? = null,
+    open var warnHtmlMessage: Boolean? = null,
+    open var escapeParameter: Boolean? = null,
+    open var inheritLocale: Boolean? = null,
+    open var warnHandler: WarnHandler? = null,
+    open var pluralRule: PluralRule? = null,
+    open var globalInjection: Boolean? = null,
+    open var allowComposition: Boolean? = null,
+    open var legacy: Boolean? = null,
+) : UTSObject()
+open class I18nOptionsReally (
+    @JsonNotNull
+    open var locale: String,
+    @JsonNotNull
+    open var fallbackLocale: String,
+    @JsonNotNull
+    open var messages: UTSJSONObject,
+    @JsonNotNull
+    open var datetimeFormats: DateTimeFormats,
+    @JsonNotNull
+    open var numberFormats: NumberFormats,
+    @JsonNotNull
+    open var modifiers: Map<String, MessageFunction>,
+    @JsonNotNull
+    open var pluralRules: Map<String, PluralRule>,
+    open var missing: ((locale: String, key: String, instance: AnyOrNull?, type: StringOrNull?) -> StringOrVoid)? = null,
+    @JsonNotNull
+    open var missingWarn: Boolean = false,
+    @JsonNotNull
+    open var fallbackWarn: Boolean = false,
+    @JsonNotNull
+    open var fallbackRoot: Boolean = false,
+    @JsonNotNull
+    open var fallbackFormat: Boolean = false,
+    @JsonNotNull
+    open var unresolving: Boolean = false,
+    open var postTranslation: ((str: String, key: String) -> String)? = null,
+    @JsonNotNull
+    open var warnHtmlMessage: Boolean = false,
+    @JsonNotNull
+    open var escapeParameter: Boolean = false,
+    @JsonNotNull
+    open var inheritLocale: Boolean = false,
+    @JsonNotNull
+    open var warnHandler: WarnHandler,
+    @JsonNotNull
+    open var pluralRule: PluralRule,
+    @JsonNotNull
+    open var globalInjection: Boolean = false,
+    @JsonNotNull
+    open var allowComposition: Boolean = false,
+    @JsonNotNull
+    open var legacy: Boolean = false,
+) : UTSObject()
+interface Tmui4xI18nTml {
+    var ops: I18nOptionsReally
+    fun setLocale(local: String)
+    fun getLocale(): String
+    fun getFallbackLocale(): String
+    fun setFallbackLocale(local: String)
+    fun setOptions(args: I18nOptions?)
+    fun t(key: String, vararg argsopts: Any): String
+    fun n(`val`: Number, formatName: StringOrNull?, opts: NumberFormatOrNull?): String
+    fun d(`val`: DateOrNumberOrString, formatName: StringOrNull?, opts: DateTimeFormatOrNull?): String
+    fun mergeLocaleMessage(local: String, newMessage: UTSJSONObject)
+    fun te(key: String, locale: String?): Boolean
+    fun rt(timeValues: Any?, units: String?, locale: String?): String
+    fun availableLocales(): UTSArray<String>
+}
+open class BestTimeTYpe (
+    @JsonNotNull
+    open var unit: String,
+    @JsonNotNull
+    open var value: Number,
+) : UTSObject()
+open class timeUnitsTYpe (
+    @JsonNotNull
+    open var unit: String,
+    @JsonNotNull
+    open var ms: Number,
+    @JsonNotNull
+    open var threshold: Number,
+) : UTSObject()
+fun mergeI18nOpts(args: I18nOptions? = null): I18nOptionsReally {
+    var localLang = uni_getStorageSync("language")
+    val currentLan = if (localLang != null && localLang != "" && UTSAndroid.`typeof`(localLang) == "string") {
+        (localLang!! as String)
+    } else {
+        "zh-Hans"
+    }
+    val defaultOptions = I18nOptionsReally(locale = currentLan, fallbackLocale = "en", messages = UTSJSONObject(), datetimeFormats = Map(), numberFormats = Map(), modifiers = Map(), pluralRules = Map(), missing = null, missingWarn = true, fallbackWarn = true, fallbackRoot = true, fallbackFormat = false, unresolving = true, postTranslation = null, warnHtmlMessage = true, escapeParameter = true, inheritLocale = true, warnHandler = fun(v, e){
+        console.warn("[tmui4x]:" + v, if (e == null) {
+            ""
+        } else {
+            e!!
+        }
+        )
+    }
+    , pluralRule = fun(choice: Number, choicesLength: Number, orgRule: BasePluralRule?): Number {
+        if (orgRule != null) {
+            return orgRule(choice, choicesLength)
+        }
+        if (choicesLength <= 1) {
+            return 0
+        }
+        return choice
+    }
+    , globalInjection = true, allowComposition = true, legacy = true)
+    if (args == null) {
+        return defaultOptions
+    }
+    return I18nOptionsReally(locale = args.locale ?: defaultOptions.locale, fallbackLocale = args.fallbackLocale ?: defaultOptions.fallbackLocale, messages = args.messages ?: defaultOptions.messages, datetimeFormats = args.datetimeFormats ?: defaultOptions.datetimeFormats, numberFormats = args.numberFormats ?: defaultOptions.numberFormats, modifiers = args.modifiers ?: defaultOptions.modifiers, pluralRules = args.pluralRules ?: defaultOptions.pluralRules, missing = args.missing ?: defaultOptions.missing, missingWarn = args.missingWarn ?: defaultOptions.missingWarn, fallbackWarn = args.fallbackWarn ?: defaultOptions.fallbackWarn, fallbackRoot = args.fallbackRoot ?: defaultOptions.fallbackRoot, fallbackFormat = args.fallbackFormat ?: defaultOptions.fallbackFormat, unresolving = args.unresolving ?: defaultOptions.unresolving, postTranslation = args.postTranslation ?: defaultOptions.postTranslation, warnHtmlMessage = args.warnHtmlMessage ?: defaultOptions.warnHtmlMessage, escapeParameter = args.escapeParameter ?: defaultOptions.escapeParameter, inheritLocale = args.inheritLocale ?: defaultOptions.inheritLocale, warnHandler = args.warnHandler ?: defaultOptions.warnHandler, pluralRule = args.pluralRule ?: defaultOptions.pluralRule, globalInjection = args.globalInjection ?: defaultOptions.globalInjection, allowComposition = args.allowComposition ?: defaultOptions.allowComposition, legacy = args.legacy ?: defaultOptions.legacy)
+}
+open class Tmui4xI18n : Tmui4xI18nTml {
+    override var ops: I18nOptionsReally
+    constructor(args: I18nOptions?){
+        this.ops = mergeI18nOpts(args)
+    }
+    override fun setLocale(local: String) {
+        uni_setStorageSync("language", local)
+        this.ops.locale = local
+    }
+    override fun getLocale(): String {
+        return this.ops.locale
+    }
+    override fun getFallbackLocale(): String {
+        return this.ops.fallbackLocale
+    }
+    override fun setFallbackLocale(local: String) {
+        this.ops.fallbackLocale = local
+    }
+    override fun setOptions(args: I18nOptions?) {
+        this.ops = mergeI18nOpts(args)
+    }
+    override fun t(key: String, vararg spreadArgsopts: Any): String {
+        var argsopts = UTSArray(*spreadArgsopts)
+        var repeatCount: NumberOrNull = null
+        var values = UTSJSONObjectOrArray()
+        var locale: String = this.ops.locale
+        if (argsopts.length > 0) {
+            var args: AnyOrNull = argsopts[0]
+            var opts: AnyOrNull = null
+            if (argsopts.length > 1) {
+                opts = argsopts[1]
+            }
+            if (args != null && opts == null) {
+                if (UTSAndroid.`typeof`(args) == "number") {
+                    val numArgs: Number = args as Number
+                    values = object : UTSJSONObject() {
+                        var count = numArgs
+                        var n = numArgs
+                    }
+                    repeatCount = numArgs
+                } else if (UTSAndroid.`typeof`(args) == "string") {
+                    val strArgs: String = args as String
+                    locale = strArgs
+                } else if (args is UTSJSONObject) {
+                    val objArgs: UTSJSONObject = args as UTSJSONObject
+                    values = objArgs
+                } else if (UTSArray.isArray(args)) {
+                    val arrArgs: UTSArray<Any> = args as UTSArray<Any>
+                    values = arrArgs
+                }
+            } else if (UTSAndroid.`typeof`(args) == "number" && opts is UTSJSONObject) {
+                val objOpts: UTSJSONObject = opts as UTSJSONObject
+                values = objOpts
+                val numArgs: Number = args as Number
+                repeatCount = numArgs
+            }
+        }
+        var message: StringOrNull = this.getMessage(key, locale)
+        if (message == null && locale != this.ops.fallbackLocale) {
+            message = this.getMessage(key, this.ops.fallbackLocale)
+            if (this.ops.fallbackWarn && message != null) {
+                this.ops.warnHandler("Fall back to translate the key '" + key + "' with '" + this.ops.fallbackLocale + "' locale.", null)
+            }
+        }
+        if (message == null) {
+            this.ops.warnHandler("Not found '" + key + "' key in '" + locale + "' locale messages.", null)
+            return key
+        }
+        if (repeatCount != null && UTSAndroid.`typeof`(message) == "string" && message.includes("|")) {
+            val safeCount: Number = repeatCount
+            message = this.handlePlural(message, safeCount, locale)
+        }
+        if (UTSAndroid.`typeof`(message) == "string") {
+            message = this.interpolate(message, values)
+        }
+        if (this.ops.postTranslation != null && UTSAndroid.`typeof`(message) == "string") {
+            val processedMessage: String = this.ops.postTranslation!!(message, key)
+            message = processedMessage
+        }
+        return if (UTSAndroid.`typeof`(message) == "string") {
+            message
+        } else {
+            key
+        }
+    }
+    override fun n(kVal: Number, formatName: StringOrNull?, opts: NumberFormatOrNull?): String {
+        var currentLocale = (opts?.local ?: this.ops.locale)!!
+        var formatOptions = NumberFormatOpts(style = "decimal", currency = "CNY", local = currentLocale, currencyDisplay = "symbol", useGrouping = false, minimumIntegerDigits = 1, minimumFractionDigits = 0, maximumFractionDigits = 3, minimumSignificantDigits = null, maximumSignificantDigits = null)
+        if (opts != null) {
+            formatOptions = NumberFormatOpts(style = opts?.style ?: formatOptions.style, currency = opts?.currency ?: formatOptions.currency, local = opts?.local ?: formatOptions.local, currencyDisplay = opts?.currencyDisplay ?: formatOptions.currencyDisplay, useGrouping = opts?.useGrouping ?: formatOptions.useGrouping, minimumIntegerDigits = opts?.minimumIntegerDigits ?: formatOptions.minimumIntegerDigits, minimumFractionDigits = opts?.minimumFractionDigits ?: formatOptions.minimumFractionDigits, maximumFractionDigits = opts?.maximumFractionDigits ?: formatOptions.maximumFractionDigits, minimumSignificantDigits = opts?.minimumSignificantDigits ?: formatOptions.minimumSignificantDigits, maximumSignificantDigits = opts?.maximumSignificantDigits ?: formatOptions.maximumSignificantDigits)
+        }
+        if (UTSAndroid.`typeof`(formatName) == "string") {
+            val formatNameReal = formatName!!
+            if (this.ops.numberFormats.has(currentLocale)) {
+                val localeFormats = this.ops.numberFormats.get(currentLocale)!!
+                if (localeFormats.has(formatNameReal)) {
+                    val formatOptions_templ = localeFormats.get(formatNameReal)!!
+                    formatOptions = NumberFormatOpts(style = formatOptions_templ?.style ?: formatOptions.style, currency = formatOptions_templ?.currency ?: formatOptions.currency, local = formatOptions_templ?.local ?: formatOptions.local, currencyDisplay = formatOptions_templ?.currencyDisplay ?: formatOptions.currencyDisplay, useGrouping = formatOptions_templ?.useGrouping ?: formatOptions.useGrouping, minimumIntegerDigits = formatOptions_templ?.minimumIntegerDigits ?: formatOptions.minimumIntegerDigits, minimumFractionDigits = formatOptions_templ?.minimumFractionDigits ?: formatOptions.minimumFractionDigits, maximumFractionDigits = formatOptions_templ?.maximumFractionDigits ?: formatOptions.maximumFractionDigits, minimumSignificantDigits = formatOptions_templ?.minimumSignificantDigits ?: formatOptions.minimumSignificantDigits, maximumSignificantDigits = formatOptions_templ?.maximumSignificantDigits ?: formatOptions.maximumSignificantDigits)
+                } else {
+                    this.ops.warnHandler("Number format '" + formatNameReal + "' not found for locale '" + currentLocale + "'", null)
+                }
+            } else {
+                this.ops.warnHandler("Number formats not found for locale '" + currentLocale + "'", null)
+            }
+        }
+        currentLocale = formatOptions.local
+        return this.formatNumber(kVal, formatOptions, currentLocale)
+    }
+    override fun d(kVal: Any, formatName: StringOrNull?, opts: DateTimeFormatOrNull?): String {
+        var currentLocale = (opts?.local ?: this.ops.locale)!!
+        var formatOptions = DateTimeFormatReal(localeMatcher = "best fit", local = currentLocale, calendar = "gregory", numberingSystem = "latn", dateSeparator = "", timeZone = "UTC", hour12 = false, hourCycle = "h23", formatMatcher = "best fit", weekday = "", era = "", year = "numeric", month = "numeric", day = "numeric", dayPeriod = "", hour = "", minute = "", second = "", fractionalSecondDigits = 0, timeZoneName = "", dateStyle = "", timeStyle = "")
+        if (opts != null) {
+            formatOptions = DateTimeFormatReal(localeMatcher = opts?.localeMatcher ?: formatOptions.localeMatcher, local = opts?.local ?: formatOptions.local, dateSeparator = opts?.dateSeparator ?: formatOptions.dateSeparator, calendar = opts?.calendar ?: formatOptions.calendar, numberingSystem = opts?.numberingSystem ?: formatOptions.numberingSystem, timeZone = opts?.timeZone ?: formatOptions.timeZone, hour12 = opts?.hour12 ?: formatOptions.hour12, hourCycle = opts?.hourCycle ?: formatOptions.hourCycle, formatMatcher = opts?.formatMatcher ?: formatOptions.formatMatcher, weekday = opts?.weekday ?: formatOptions.weekday, era = opts?.era ?: formatOptions.era, year = opts?.year ?: formatOptions.year, month = opts?.month ?: formatOptions.month, day = opts?.day ?: formatOptions.day, dayPeriod = opts?.dayPeriod ?: formatOptions.dayPeriod, hour = opts?.hour ?: formatOptions.hour, minute = opts?.minute ?: formatOptions.minute, second = opts?.second ?: formatOptions.second, fractionalSecondDigits = opts?.fractionalSecondDigits ?: formatOptions.fractionalSecondDigits, timeZoneName = opts?.timeZoneName ?: formatOptions.timeZoneName, dateStyle = opts?.dateStyle ?: formatOptions.dateStyle, timeStyle = opts?.timeStyle ?: formatOptions.timeStyle)
+        }
+        if (UTSAndroid.`typeof`(formatName) == "string") {
+            val formatNameReal = formatName!!
+            if (this.ops.datetimeFormats.has(currentLocale)) {
+                val localeFormats = this.ops.datetimeFormats.get(currentLocale)!!
+                if (localeFormats.has(formatNameReal)) {
+                    val formatOptions_templ = localeFormats.get(formatNameReal)!!
+                    formatOptions = DateTimeFormatReal(localeMatcher = formatOptions_templ?.localeMatcher ?: formatOptions.localeMatcher, local = formatOptions_templ?.local ?: formatOptions.local, calendar = formatOptions_templ?.calendar ?: formatOptions.calendar, numberingSystem = formatOptions_templ?.numberingSystem ?: formatOptions.numberingSystem, timeZone = formatOptions_templ?.timeZone ?: formatOptions.timeZone, hour12 = formatOptions_templ?.hour12 ?: formatOptions.hour12, hourCycle = formatOptions_templ?.hourCycle ?: formatOptions.hourCycle, formatMatcher = formatOptions_templ?.formatMatcher ?: formatOptions.formatMatcher, dateSeparator = formatOptions_templ?.dateSeparator ?: formatOptions.dateSeparator, weekday = formatOptions_templ?.weekday ?: formatOptions.weekday, era = formatOptions_templ?.era ?: formatOptions.era, year = formatOptions_templ?.year ?: formatOptions.year, month = formatOptions_templ?.month ?: formatOptions.month, day = formatOptions_templ?.day ?: formatOptions.day, dayPeriod = formatOptions_templ?.dayPeriod ?: formatOptions.dayPeriod, hour = formatOptions_templ?.hour ?: formatOptions.hour, minute = formatOptions_templ?.minute ?: formatOptions.minute, second = formatOptions_templ?.second ?: formatOptions.second, fractionalSecondDigits = formatOptions_templ?.fractionalSecondDigits ?: formatOptions.fractionalSecondDigits, timeZoneName = formatOptions_templ?.timeZoneName ?: formatOptions.timeZoneName, dateStyle = formatOptions_templ?.dateStyle ?: formatOptions.dateStyle, timeStyle = formatOptions_templ?.timeStyle ?: formatOptions.timeStyle)
+                } else {
+                    this.ops.warnHandler("DateTime format '" + formatNameReal + "' not found for locale '" + currentLocale + "'", null)
+                }
+            } else {
+                this.ops.warnHandler("DateTime formats not found for locale '" + currentLocale + "'", null)
+            }
+        }
+        currentLocale = formatOptions.local
+        return this.formatDateTime(kVal, formatOptions, currentLocale)
+    }
+    override fun mergeLocaleMessage(local: String, newMessage: UTSJSONObject) {
+        var nowmessage = this.ops.messages.getJSON(local)
+        if (nowmessage != null) {
+            nowmessage = UTSJSONObject.assign(UTSJSONObject(), nowmessage, newMessage)
+            this.ops.messages.set(local, nowmessage)
+        } else {
+            this.ops.messages.set(local, newMessage)
+        }
+    }
+    override fun te(key: String, locale: String?): Boolean {
+        val targetLocale = if (locale != null) {
+            locale
+        } else {
+            this.ops.locale
+        }
+        val messages = this.ops.messages
+        if (messages[targetLocale] == null) {
+            return false
+        }
+        val localeMessages = messages[targetLocale] as UTSJSONObjectOrNull
+        if (localeMessages == null) {
+            return false
+        }
+        val message = this.getNestedValue(localeMessages, key)
+        return message != null
+    }
+    override fun rt(timeValues: Any?, units: String?, locale: String?): String {
+        val targetLocale = if (locale != null) {
+            locale
+        } else {
+            this.ops.locale
+        }
+        val timeValue = if (timeValues != null) {
+            Date()
+        } else {
+            timeValues!!
+        }
+        val unit = if (units != null) {
+            "minute"
+        } else {
+            units!!
+        }
+        try {
+            var targetTimestamp: Number = 0
+            if (UTSAndroid.`typeof`(timeValue) == "number") {
+                targetTimestamp = timeValue as Number
+            } else if (timeValue is Date) {
+                targetTimestamp = (timeValue as Date).getTime()
+            } else if (UTSAndroid.`typeof`(timeValue) == "string") {
+                targetTimestamp = Date((timeValue as String).replace(UTSRegExp("-", "g"), "/")).getTime()
+            }
+            val currentTimestamp = Date().getTime()
+            val timeDiff = targetTimestamp - currentTimestamp
+            val validUnits = _uA(
+                "year",
+                "years",
+                "quarter",
+                "quarters",
+                "month",
+                "months",
+                "week",
+                "weeks",
+                "day",
+                "days",
+                "hour",
+                "hours",
+                "minute",
+                "minutes",
+                "second",
+                "seconds"
+            )
+            var normalizedUnit = unit.toLowerCase()
+            if (normalizedUnit.endsWith("s") && normalizedUnit != "seconds") {
+                normalizedUnit = normalizedUnit.slice(0, -1)
+            }
+            when (normalizedUnit) {
+                "yr", "y" -> 
+                    normalizedUnit = "year"
+                "mo", "m" -> 
+                    normalizedUnit = "month"
+                "w" -> 
+                    normalizedUnit = "week"
+                "d" -> 
+                    normalizedUnit = "day"
+                "h" -> 
+                    normalizedUnit = "hour"
+                "min" -> 
+                    normalizedUnit = "minute"
+                "s", "sec" -> 
+                    normalizedUnit = "second"
+                "q" -> 
+                    normalizedUnit = "quarter"
+            }
+            if (!validUnits.includes(normalizedUnit) && !validUnits.includes(normalizedUnit + "s")) {
+                this.ops.warnHandler("Invalid unit '" + unit + "' for relative time formatting. Valid units are: " + validUnits.join(", "), null)
+                return "" + timeValue + " " + unit
+            }
+            val bestTime = this.getBestTimeUnit(timeDiff, normalizedUnit)
+            return this.formatRelativeTimeFallback(bestTime.value, bestTime.unit, targetLocale)
+        }
+         catch (e: Throwable) {
+            this.ops.warnHandler("Relative time formatting failed for value " + timeValue + " " + unit, e as UTSError)
+            return "" + timeValue + " " + unit
+        }
+    }
+    override fun availableLocales(): UTSArray<String> {
+        return UTSJSONObject.keys(this.ops.messages)
+    }
+    private fun getBestTimeUnit(timeDiff: Number, preferredUnit: String): BestTimeTYpe {
+        val timeUnits = _uA(
+            timeUnitsTYpe(unit = "second", ms = 1000, threshold = 60),
+            timeUnitsTYpe(unit = "minute", ms = 60000, threshold = 60),
+            timeUnitsTYpe(unit = "hour", ms = 3600000, threshold = 24),
+            timeUnitsTYpe(unit = "day", ms = 86400000, threshold = 7),
+            timeUnitsTYpe(unit = "week", ms = 604800000, threshold = 4.33),
+            timeUnitsTYpe(unit = "month", ms = 2630016000, threshold = 3),
+            timeUnitsTYpe(unit = "quarter", ms = 7890048000, threshold = 4),
+            timeUnitsTYpe(unit = "year", ms = 31557600000, threshold = Infinity)
+        ) as UTSArray<timeUnitsTYpe>
+        var startIndex = timeUnits.findIndex(fun(tu): Boolean {
+            return tu.unit === preferredUnit
+        }
+        )
+        if (startIndex === -1) {
+            startIndex = 0
+        }
+        run {
+            var i = startIndex
+            while(i < timeUnits.length){
+                val currentUnit = timeUnits[i]
+                val value = Math.round(timeDiff / currentUnit.ms)
+                val absValue = Math.abs(value)
+                if (absValue < currentUnit.threshold || i === timeUnits.length - 1) {
+                    return BestTimeTYpe(unit = currentUnit.unit, value = value)
+                }
+                i++
+            }
+        }
+        val fallbackUnit = timeUnits[startIndex]
+        return BestTimeTYpe(unit = fallbackUnit.unit, value = Math.round(timeDiff / fallbackUnit.ms))
+    }
+    private fun formatRelativeTimeFallback(value: Number, unit: String, locale: String): String {
+        val absValue = Math.abs(value)
+        val isPast = value < 0
+        val isFuture = value > 0
+        val isNow = value == 0
+        val langCode = locale.split("-")[0].toLowerCase()
+        if (unit == "day") {
+            if (isNow) {
+                return if (langCode == "zh") {
+                    "今天"
+                } else {
+                    if (langCode == "ja") {
+                        "今日"
+                    } else {
+                        if (langCode == "ko") {
+                            "오늘"
+                        } else {
+                            "today"
+                        }
+                    }
+                }
+            } else if (value == -1) {
+                return if (langCode == "zh") {
+                    "昨天"
+                } else {
+                    if (langCode == "ja") {
+                        "昨日"
+                    } else {
+                        if (langCode == "ko") {
+                            "어제"
+                        } else {
+                            "yesterday"
+                        }
+                    }
+                }
+            } else if (value == 1) {
+                return if (langCode == "zh") {
+                    "明天"
+                } else {
+                    if (langCode == "ja") {
+                        "明日"
+                    } else {
+                        if (langCode == "ko") {
+                            "내일"
+                        } else {
+                            "tomorrow"
+                        }
+                    }
+                }
+            }
+        }
+        val unitName = this.getLocalizedUnitName(unit, absValue, langCode)
+        if (langCode == "zh") {
+            if (isPast) {
+                return "" + absValue + unitName + "\u524D"
+            } else if (isFuture) {
+                return "" + absValue + unitName + "\u540E"
+            } else {
+                return "\u73B0\u5728"
+            }
+        } else if (langCode == "ja") {
+            if (isPast) {
+                return "" + absValue + unitName + "\u524D"
+            } else if (isFuture) {
+                return "" + absValue + unitName + "\u5F8C"
+            } else {
+                return "\u4ECA"
+            }
+        } else if (langCode == "ko") {
+            if (isPast) {
+                return "" + absValue + unitName + " \uC804"
+            } else if (isFuture) {
+                return "" + absValue + unitName + " \uD6C4"
+            } else {
+                return "\uC9C0\uAE08"
+            }
+        } else {
+            if (isPast) {
+                return "" + absValue + " " + unitName + " ago"
+            } else if (isFuture) {
+                return "in " + absValue + " " + unitName
+            } else {
+                return "now"
+            }
+        }
+    }
+    private fun getLocalizedUnitName(unit: String, value: Number, langCode: String): String {
+        val isPlural = value != 1
+        when (langCode) {
+            "zh" -> 
+                when (unit) {
+                    "year" -> 
+                        return "年"
+                    "quarter" -> 
+                        return "季度"
+                    "month" -> 
+                        return "个月"
+                    "week" -> 
+                        return "周"
+                    "day" -> 
+                        return "天"
+                    "hour" -> 
+                        return "小时"
+                    "minute" -> 
+                        return "分钟"
+                    "second" -> 
+                        return "秒"
+                    else -> 
+                        return unit
+                }
+            "ja" -> 
+                when (unit) {
+                    "year" -> 
+                        return "年"
+                    "quarter" -> 
+                        return "四半期"
+                    "month" -> 
+                        return "ヶ月"
+                    "week" -> 
+                        return "週間"
+                    "day" -> 
+                        return "日"
+                    "hour" -> 
+                        return "時間"
+                    "minute" -> 
+                        return "分"
+                    "second" -> 
+                        return "秒"
+                    else -> 
+                        return unit
+                }
+            "ko" -> 
+                when (unit) {
+                    "year" -> 
+                        return "년"
+                    "quarter" -> 
+                        return "분기"
+                    "month" -> 
+                        return "개월"
+                    "week" -> 
+                        return "주"
+                    "day" -> 
+                        return "일"
+                    "hour" -> 
+                        return "시간"
+                    "minute" -> 
+                        return "분"
+                    "second" -> 
+                        return "초"
+                    else -> 
+                        return unit
+                }
+            else -> 
+                when (unit) {
+                    "year" -> 
+                        return if (isPlural) {
+                            "years"
+                        } else {
+                            "year"
+                        }
+                    "quarter" -> 
+                        return if (isPlural) {
+                            "quarters"
+                        } else {
+                            "quarter"
+                        }
+                    "month" -> 
+                        return if (isPlural) {
+                            "months"
+                        } else {
+                            "month"
+                        }
+                    "week" -> 
+                        return if (isPlural) {
+                            "weeks"
+                        } else {
+                            "week"
+                        }
+                    "day" -> 
+                        return if (isPlural) {
+                            "days"
+                        } else {
+                            "day"
+                        }
+                    "hour" -> 
+                        return if (isPlural) {
+                            "hours"
+                        } else {
+                            "hour"
+                        }
+                    "minute" -> 
+                        return if (isPlural) {
+                            "minutes"
+                        } else {
+                            "minute"
+                        }
+                    "second" -> 
+                        return if (isPlural) {
+                            "seconds"
+                        } else {
+                            "second"
+                        }
+                    else -> 
+                        return unit
+                }
+        }
+    }
+    private fun formatDateTime(value: Any, options: DateTimeFormatReal, locale: String): String {
+        try {
+            var dateObj: Date = Date()
+            if (value is Date) {
+                dateObj = value as Date
+            } else if (UTSAndroid.`typeof`(value) == "number") {
+                dateObj = Date(value as Number)
+            } else if (UTSAndroid.`typeof`(value) == "string") {
+                dateObj = Date((value as String).replace(UTSRegExp("-", "g"), "/"))
+            }
+            if (isNaN(dateObj.getTime())) {
+                this.ops.warnHandler("Invalid date: " + value, null)
+                return value.toString()
+            }
+            if (options.dateStyle != "" || options.timeStyle != "") {
+                return this.formatWithPredefinedStyle(dateObj, options, locale)
+            }
+            return this.formatWithCustomOptions(dateObj, options, locale)
+        }
+         catch (e: Throwable) {
+            this.ops.warnHandler("DateTime formatting failed for value " + value, e as UTSError)
+            return value.toString()
+        }
+    }
+    private fun formatWithPredefinedStyle(date: Date, options: DateTimeFormatReal, locale: String): String {
+        var result = ""
+        if (options.dateStyle != "") {
+            when (options.dateStyle) {
+                "full" -> 
+                    result += this.getFullDateFormat(date, locale)
+                "long" -> 
+                    result += this.getLongDateFormat(date, locale)
+                "medium" -> 
+                    result += this.getMediumDateFormat(date, locale)
+                "short" -> 
+                    result += this.getShortDateFormat(date, locale)
+                else -> 
+                    result += this.getMediumDateFormat(date, locale)
+            }
+        }
+        if (options.timeStyle != "") {
+            if (result != "") {
+                result += " "
+            }
+            when (options.timeStyle) {
+                "full" -> 
+                    result += this.getFullTimeFormat(date, options, locale)
+                "long" -> 
+                    result += this.getLongTimeFormat(date, options, locale)
+                "medium" -> 
+                    result += this.getMediumTimeFormat(date, options, locale)
+                "short" -> 
+                    result += this.getShortTimeFormat(date, options, locale)
+                else -> 
+                    result += this.getMediumTimeFormat(date, options, locale)
+            }
+        }
+        return result
+    }
+    private fun formatWithCustomOptions(date: Date, options: DateTimeFormatReal, locale: String): String {
+        val dateParts: UTSArray<String> = _uA()
+        val timeParts: UTSArray<String> = _uA()
+        val langCode = locale.split("-")[0].toLowerCase()
+        val isUSFormat = langCode == "en" && (locale.toLowerCase().includes("us") || locale.toLowerCase() == "en")
+        if (options.weekday != "") {
+            dateParts.push(this.formatWeekday(date, options.weekday, locale))
+        }
+        if (options.era != "") {
+            dateParts.push(this.formatEra(date, options.era, locale))
+        }
+        if (isUSFormat) {
+            if (options.month != "") {
+                dateParts.push(this.formatMonth(date, options.month, locale, options.numberingSystem, options.dateSeparator))
+            }
+            if (options.day != "") {
+                dateParts.push(this.formatDay(date, options.day, locale, options.numberingSystem, options.dateSeparator))
+            }
+            if (options.year != "") {
+                dateParts.push(this.formatYear(date, options.year, locale, options.numberingSystem, options.dateSeparator))
+            }
+        } else {
+            if (langCode == "zh" || langCode == "ja" || langCode == "ko") {
+                if (options.year != "") {
+                    dateParts.push(this.formatYear(date, options.year, locale, options.numberingSystem, options.dateSeparator))
+                }
+                if (options.month != "") {
+                    dateParts.push(this.formatMonth(date, options.month, locale, options.numberingSystem, options.dateSeparator))
+                }
+                if (options.day != "") {
+                    dateParts.push(this.formatDay(date, options.day, locale, options.numberingSystem, options.dateSeparator))
+                }
+            } else {
+                if (options.day != "") {
+                    dateParts.push(this.formatDay(date, options.day, locale, options.numberingSystem, options.dateSeparator))
+                }
+                if (options.month != "") {
+                    dateParts.push(this.formatMonth(date, options.month, locale, options.numberingSystem, options.dateSeparator))
+                }
+                if (options.year != "") {
+                    dateParts.push(this.formatYear(date, options.year, locale, options.numberingSystem, options.dateSeparator))
+                }
+            }
+        }
+        if (options.hour != "") {
+            timeParts.push(this.formatHour(date, options.hour, options.hour12, options.hourCycle, options.numberingSystem))
+        }
+        if (options.minute != "") {
+            timeParts.push(this.formatMinute(date, options.minute, options.numberingSystem))
+        }
+        if (options.second != "") {
+            timeParts.push(this.formatSecond(date, options.second, options.fractionalSecondDigits, options.numberingSystem))
+        }
+        var timeStr = ""
+        if (timeParts.length > 0) {
+            timeStr = timeParts.join(":")
+            if (options.dayPeriod != "" && options.hour12) {
+                timeStr += " " + this.formatDayPeriod(date, options.dayPeriod, locale)
+            }
+            if (options.timeZoneName != "") {
+                timeStr += " " + this.formatTimeZone(date, options.timeZoneName, options.timeZone)
+            }
+        }
+        val result: UTSArray<String> = _uA()
+        if (dateParts.length > 0) {
+            result.push(this.combineDateTimeParts(dateParts, locale, options.dateSeparator))
+        }
+        if (timeStr != "") {
+            result.push(timeStr)
+        }
+        return result.join(" ")
+    }
+    private fun formatNumber(value: Number, options: NumberFormatOpts, locale: String): String {
+        try {
+            var result = value.toString(10)
+            if (options.minimumSignificantDigits != null || options.maximumSignificantDigits != null) {
+                result = this.formatWithSignificantDigits(value, options)
+            } else {
+                if (options.minimumFractionDigits != null || options.maximumFractionDigits != null) {
+                    val minDigits = if (options.minimumFractionDigits == null) {
+                        0
+                    } else {
+                        options.minimumFractionDigits!!
+                    }
+                    val maxDigits = if (options.maximumFractionDigits == null) {
+                        3
+                    } else {
+                        options.maximumFractionDigits!!
+                    }
+                    result = value.toFixed(Math.max(minDigits, Math.min(maxDigits, 10)))
+                    if (maxDigits > minDigits) {
+                        result = parseFloat(result).toString(10)
+                        if (minDigits > 0) {
+                            val parts = result.split(".")
+                            if (parts.length == 1) {
+                                result += "." + "0".repeat(minDigits)
+                            } else {
+                                val decimalPart = parts[1]
+                                if (decimalPart.length < minDigits) {
+                                    result += "0".repeat(minDigits - decimalPart.length)
+                                }
+                            }
+                        }
+                    }
+                }
+                if (options.minimumIntegerDigits != null && options.minimumIntegerDigits > 1) {
+                    result = this.formatWithMinimumIntegerDigits(result, options.minimumIntegerDigits)
+                }
+            }
+            if (options.useGrouping == true) {
+                result = this.addThousandsSeparator(result, locale)
+            }
+            if (options.style != null) {
+                when (options.style) {
+                    "currency" -> 
+                        result = this.formatCurrency(result, options, locale)
+                    "percent" -> 
+                        result = this.formatPercent(result, value)
+                    "decimal" -> 
+                        {}
+                    else -> 
+                        {}
+                }
+            }
+            return result
+        }
+         catch (e: Throwable) {
+            this.ops.warnHandler("Number formatting failed for value " + value, e as UTSError)
+            return value.toString(10)
+        }
+    }
+    private fun formatWithSignificantDigits(value: Number, options: NumberFormatOpts): String {
+        val minSigDigits = options.minimumSignificantDigits ?: 1
+        val maxSigDigits = options.maximumSignificantDigits ?: 21
+        val actualMinSigDigits = Math.max(1, Math.min(minSigDigits, 21))
+        val actualMaxSigDigits = Math.max(actualMinSigDigits, Math.min(maxSigDigits, 21))
+        var result = value.toPrecision(actualMaxSigDigits)
+        if (!result.includes("e") && !result.includes("E")) {
+            val num = parseFloat(result)
+            result = num.toPrecision(actualMinSigDigits)
+            if (!result.includes("e") && !result.includes("E")) {
+                result = parseFloat(result).toString(10)
+            }
+        }
+        return result
+    }
+    private fun formatWithMinimumIntegerDigits(numStr: String, minIntegerDigits: Number): String {
+        val parts = numStr.split(".")
+        val integerPart = parts[0]
+        val decimalPart = if (parts.length > 1) {
+            parts[1]
+        } else {
+            ""
+        }
+        val paddedInteger = integerPart.padStart(minIntegerDigits, "0")
+        return if (decimalPart == "") {
+            "" + paddedInteger + "." + decimalPart
+        } else {
+            paddedInteger
+        }
+    }
+    private fun getFullDateFormat(date: Date, locale: String): String {
+        val langCode = locale.split("-")[0].toLowerCase()
+        val isUSFormat = langCode == "en" && (locale.toLowerCase().includes("us") || locale.toLowerCase() == "en")
+        if (langCode == "zh") {
+            return "" + date.getFullYear() + "\u5E74" + (date.getMonth() + 1) + "\u6708" + date.getDate() + "\u65E5 " + this.formatWeekday(date, "long", locale)
+        } else if (langCode == "ja") {
+            return "" + date.getFullYear() + "\u5E74" + (date.getMonth() + 1) + "\u6708" + date.getDate() + "\u65E5 " + this.formatWeekday(date, "long", locale)
+        } else if (langCode == "ko") {
+            return "" + date.getFullYear() + "\uB144 " + (date.getMonth() + 1) + "\uC6D4 " + date.getDate() + "\uC77C " + this.formatWeekday(date, "long", locale)
+        } else if (isUSFormat) {
+            return "" + this.formatWeekday(date, "long", locale) + ", " + this.formatMonth(date, "long", locale) + " " + date.getDate() + ", " + date.getFullYear()
+        } else {
+            return "" + this.formatWeekday(date, "long", locale) + ", " + date.getDate() + " " + this.formatMonth(date, "long", locale) + " " + date.getFullYear()
+        }
+    }
+    private fun getLongDateFormat(date: Date, locale: String): String {
+        val langCode = locale.split("-")[0].toLowerCase()
+        val isUSFormat = langCode == "en" && (locale.toLowerCase().includes("us") || locale.toLowerCase() == "en")
+        if (langCode == "zh") {
+            return "" + date.getFullYear() + "\u5E74" + (date.getMonth() + 1) + "\u6708" + date.getDate() + "\u65E5"
+        } else if (langCode == "ja") {
+            return "" + date.getFullYear() + "\u5E74" + (date.getMonth() + 1) + "\u6708" + date.getDate() + "\u65E5"
+        } else if (langCode == "ko") {
+            return "" + date.getFullYear() + "\uB144 " + (date.getMonth() + 1) + "\uC6D4 " + date.getDate() + "\uC77C"
+        } else if (isUSFormat) {
+            return "" + this.formatMonth(date, "long", locale) + " " + date.getDate() + ", " + date.getFullYear()
+        } else {
+            return "" + date.getDate() + " " + this.formatMonth(date, "long", locale) + " " + date.getFullYear()
+        }
+    }
+    private fun getMediumDateFormat(date: Date, locale: String): String {
+        val langCode = locale.split("-")[0].toLowerCase()
+        val isUSFormat = langCode == "en" && (locale.toLowerCase().includes("us") || locale.toLowerCase() == "en")
+        if (langCode == "zh" || langCode == "ja" || langCode == "ko") {
+            return "" + date.getFullYear() + "-" + (date.getMonth() + 1).toString(10).padStart(2, "0") + "-" + date.getDate().toString(10).padStart(2, "0")
+        } else if (isUSFormat) {
+            return "" + this.formatMonth(date, "short", locale) + " " + date.getDate() + ", " + date.getFullYear()
+        } else {
+            return "" + date.getDate() + " " + this.formatMonth(date, "short", locale) + " " + date.getFullYear()
+        }
+    }
+    private fun getShortDateFormat(date: Date, locale: String): String {
+        val langCode = locale.split("-")[0].toLowerCase()
+        val isUSFormat = langCode == "en" && (locale.toLowerCase().includes("us") || locale.toLowerCase() == "en")
+        val year = date.getFullYear().toString(10).slice(-2)
+        val month = (date.getMonth() + 1).toString(10).padStart(2, "0")
+        val day = date.getDate().toString(10).padStart(2, "0")
+        if (isUSFormat) {
+            return "" + month + "/" + day + "/" + year
+        } else if (langCode == "zh" || langCode == "ja" || langCode == "ko") {
+            return "" + year + "/" + month + "/" + day
+        } else {
+            return "" + day + "/" + month + "/" + year
+        }
+    }
+    private fun getFullTimeFormat(date: Date, options: DateTimeFormatReal, locale: String): String {
+        val timeStr = this.getMediumTimeFormat(date, options, locale)
+        val timeZone = this.formatTimeZone(date, "long", options.timeZone)
+        return "" + timeStr + " " + timeZone
+    }
+    private fun getLongTimeFormat(date: Date, options: DateTimeFormatReal, locale: String): String {
+        val timeStr = this.getMediumTimeFormat(date, options, locale)
+        val timeZone = this.formatTimeZone(date, "short", options.timeZone)
+        return "" + timeStr + " " + timeZone
+    }
+    private fun getMediumTimeFormat(date: Date, options: DateTimeFormatReal, locale: String): String {
+        val hour = this.formatHour(date, "numeric", options.hour12, options.hourCycle)
+        val minute = this.formatMinute(date, "2-digit")
+        val second = this.formatSecond(date, "2-digit", 0)
+        val dayPeriod = if (options.hour12) {
+            " " + this.formatDayPeriod(date, "short", locale)
+        } else {
+            ""
+        }
+        return "" + hour + ":" + minute + ":" + second + dayPeriod
+    }
+    private fun getShortTimeFormat(date: Date, options: DateTimeFormatReal, locale: String): String {
+        val hour = this.formatHour(date, "numeric", options.hour12, options.hourCycle)
+        val minute = this.formatMinute(date, "2-digit")
+        val dayPeriod = if (options.hour12) {
+            " " + this.formatDayPeriod(date, "short", locale)
+        } else {
+            ""
+        }
+        return "" + hour + ":" + minute + dayPeriod
+    }
+    private fun formatWeekday(date: Date, style: String, locale: String): String {
+        val weekdays = this.getWeekdayNames(locale)
+        val dayIndex = date.getDay()
+        when (style) {
+            "long" -> 
+                return weekdays.long[dayIndex]
+            "short" -> 
+                return weekdays.short[dayIndex]
+            "narrow" -> 
+                return weekdays.narrow[dayIndex]
+            else -> 
+                return weekdays.long[dayIndex]
+        }
+    }
+    private fun formatEra(date: Date, style: String, locale: String): String {
+        val year = date.getFullYear()
+        val langCode = locale.split("-")[0].toLowerCase()
+        if (langCode == "zh") {
+            return if (year > 0) {
+                "公元"
+            } else {
+                "公元前"
+            }
+        } else {
+            when (style) {
+                "long" -> 
+                    return if (year > 0) {
+                        "Anno Domini"
+                    } else {
+                        "Before Christ"
+                    }
+                "short" -> 
+                    return if (year > 0) {
+                        "AD"
+                    } else {
+                        "BC"
+                    }
+                "narrow" -> 
+                    return if (year > 0) {
+                        "AD"
+                    } else {
+                        "BC"
+                    }
+                else -> 
+                    return if (year > 0) {
+                        "AD"
+                    } else {
+                        "BC"
+                    }
+            }
+        }
+    }
+    private fun convertNumberingSystem(number: String, numberingSystem: String): String {
+        if (numberingSystem == "latn" || numberingSystem == "") {
+            return number
+        }
+        val numberingSystems = Map<String, UTSArray<String>>()
+        numberingSystems.set("arab", _uA(
+            "٠",
+            "١",
+            "٢",
+            "٣",
+            "٤",
+            "٥",
+            "٦",
+            "٧",
+            "٨",
+            "٩"
+        ))
+        numberingSystems.set("arabext", _uA(
+            "۰",
+            "۱",
+            "۲",
+            "۳",
+            "۴",
+            "۵",
+            "۶",
+            "۷",
+            "۸",
+            "۹"
+        ))
+        numberingSystems.set("deva", _uA(
+            "०",
+            "१",
+            "२",
+            "३",
+            "४",
+            "५",
+            "६",
+            "७",
+            "८",
+            "९"
+        ))
+        numberingSystems.set("fullwide", _uA(
+            "０",
+            "１",
+            "２",
+            "３",
+            "４",
+            "５",
+            "６",
+            "７",
+            "８",
+            "９"
+        ))
+        numberingSystems.set("hanidec", _uA(
+            "〇",
+            "一",
+            "二",
+            "三",
+            "四",
+            "五",
+            "六",
+            "七",
+            "八",
+            "九"
+        ))
+        numberingSystems.set("thai", _uA(
+            "๐",
+            "๑",
+            "๒",
+            "๓",
+            "๔",
+            "๕",
+            "๖",
+            "๗",
+            "๘",
+            "๙"
+        ))
+        val digits = numberingSystems.get(numberingSystem)
+        if (digits == null) {
+            return number
+        }
+        var result = ""
+        run {
+            var i: Number = 0
+            while(i < number.length){
+                val char = number.charAt(i)
+                if (char >= "0" && char <= "9") {
+                    val digitIndex = parseInt(char)
+                    result += digits[digitIndex]
+                } else {
+                    result += char
+                }
+                i++
+            }
+        }
+        return result
+    }
+    private fun formatYear(date: Date, style: String, locale: String = "", numberingSystem: String = "latn", dateSeparator: String = ""): String {
+        val year = date.getFullYear()
+        val langCode = locale.split("-")[0].toLowerCase()
+        var yearStr = ""
+        when (style) {
+            "numeric" -> 
+                {
+                    yearStr = this.convertNumberingSystem(year.toString(10), numberingSystem)
+                    return if ((dateSeparator != "" || langCode != "zh")) {
+                        yearStr
+                    } else {
+                        "" + yearStr + "\u5E74"
+                    }
+                }
+            "2-digit" -> 
+                {
+                    val shortYear = year.toString(10).slice(-2).padStart(2, "0")
+                    yearStr = this.convertNumberingSystem(shortYear, numberingSystem)
+                    return if ((dateSeparator != "" || langCode != "zh")) {
+                        yearStr
+                    } else {
+                        "" + yearStr + "\u5E74"
+                    }
+                }
+            else -> 
+                {
+                    yearStr = this.convertNumberingSystem(year.toString(10), numberingSystem)
+                    return if ((dateSeparator != "" || langCode != "zh")) {
+                        yearStr
+                    } else {
+                        "" + yearStr + "\u5E74"
+                    }
+                }
+        }
+    }
+    private fun formatMonth(date: Date, style: String, locale: String, numberingSystem: String = "latn", dateSeparator: String = ""): String {
+        val month = date.getMonth()
+        val monthNames = this.getMonthNames(locale)
+        val langCode = locale.split("-")[0].toLowerCase()
+        when (style) {
+            "numeric" -> 
+                {
+                    val monthStr = this.convertNumberingSystem((month + 1).toString(10), numberingSystem)
+                    return if ((dateSeparator != "" || langCode != "zh")) {
+                        monthStr
+                    } else {
+                        "" + monthStr + "\u6708"
+                    }
+                }
+            "2-digit" -> 
+                {
+                    val paddedMonth = (month + 1).toString(10).padStart(2, "0")
+                    val paddedMonthStr = this.convertNumberingSystem(paddedMonth, numberingSystem)
+                    return if ((dateSeparator != "" || langCode != "zh")) {
+                        paddedMonthStr
+                    } else {
+                        "" + paddedMonthStr + "\u6708"
+                    }
+                }
+            "long" -> 
+                return monthNames.long[month]
+            "short" -> 
+                return monthNames.short[month]
+            "narrow" -> 
+                return monthNames.narrow[month]
+            else -> 
+                {
+                    val defaultMonthStr = this.convertNumberingSystem((month + 1).toString(10), numberingSystem)
+                    return if ((dateSeparator != "" || langCode != "zh")) {
+                        defaultMonthStr
+                    } else {
+                        "" + defaultMonthStr + "\u6708"
+                    }
+                }
+        }
+    }
+    private fun formatDay(date: Date, style: String, locale: String = "", numberingSystem: String = "latn", dateSeparator: String = ""): String {
+        val day = date.getDate()
+        val langCode = locale.split("-")[0].toLowerCase()
+        when (style) {
+            "numeric" -> 
+                {
+                    val dayStr = this.convertNumberingSystem(day.toString(10), numberingSystem)
+                    return if ((dateSeparator != "" || langCode != "zh")) {
+                        dayStr
+                    } else {
+                        "" + dayStr + "\u65E5"
+                    }
+                }
+            "2-digit" -> 
+                {
+                    val paddedDay = day.toString(10).padStart(2, "0")
+                    val paddedDayStr = this.convertNumberingSystem(paddedDay, numberingSystem)
+                    return if ((dateSeparator != "" || langCode != "zh")) {
+                        paddedDayStr
+                    } else {
+                        "" + paddedDayStr + "\u65E5"
+                    }
+                }
+            else -> 
+                {
+                    val defaultDayStr = this.convertNumberingSystem(day.toString(10), numberingSystem)
+                    return if ((dateSeparator != "" || langCode != "zh")) {
+                        defaultDayStr
+                    } else {
+                        "" + defaultDayStr + "\u65E5"
+                    }
+                }
+        }
+    }
+    private fun formatHour(date: Date, style: String, hour12: Boolean, hourCycle: String, numberingSystem: String = "latn"): String {
+        var hour = date.getHours()
+        if (hour12) {
+            if (hourCycle == "h11") {
+                hour = hour % 12
+            } else {
+                hour = hour % 12
+                if (hour == 0) {
+                    hour = 12
+                }
+            }
+        } else {
+            if (hourCycle == "h11") {
+                hour = hour % 12
+            } else if (hourCycle == "h24") {
+                if (hour == 0) {
+                    hour = 24
+                }
+            }
+        }
+        when (style) {
+            "numeric" -> 
+                return this.convertNumberingSystem(hour.toString(10), numberingSystem)
+            "2-digit" -> 
+                return this.convertNumberingSystem(hour.toString(10).padStart(2, "0"), numberingSystem)
+            else -> 
+                return this.convertNumberingSystem(hour.toString(10), numberingSystem)
+        }
+    }
+    private fun formatMinute(date: Date, style: String, numberingSystem: String = "latn"): String {
+        val minute = date.getMinutes()
+        when (style) {
+            "numeric" -> 
+                return this.convertNumberingSystem(minute.toString(10), numberingSystem)
+            "2-digit" -> 
+                return this.convertNumberingSystem(minute.toString(10).padStart(2, "0"), numberingSystem)
+            else -> 
+                return this.convertNumberingSystem(minute.toString(10), numberingSystem)
+        }
+    }
+    private fun formatSecond(date: Date, style: String, fractionalDigits: Number, numberingSystem: String = "latn"): String {
+        val second = date.getSeconds()
+        val millisecond = date.getMilliseconds()
+        var result = ""
+        when (style) {
+            "numeric" -> 
+                result = this.convertNumberingSystem(second.toString(10), numberingSystem)
+            "2-digit" -> 
+                result = this.convertNumberingSystem(second.toString(10).padStart(2, "0"), numberingSystem)
+            else -> 
+                result = this.convertNumberingSystem(second.toString(10), numberingSystem)
+        }
+        if (fractionalDigits > 0) {
+            val fractional = millisecond.toString(10).padStart(3, "0").slice(0, fractionalDigits)
+            val convertedFractional = this.convertNumberingSystem(fractional, numberingSystem)
+            result += "." + convertedFractional
+        }
+        return result
+    }
+    private fun formatDayPeriod(date: Date, style: String, locale: String): String {
+        val hour = date.getHours()
+        val isAM = hour < 12
+        val langCode = locale.split("-")[0].toLowerCase()
+        if (langCode == "zh") {
+            when (style) {
+                "long" -> 
+                    return if (isAM) {
+                        "上午"
+                    } else {
+                        "下午"
+                    }
+                "short" -> 
+                    return if (isAM) {
+                        "上午"
+                    } else {
+                        "下午"
+                    }
+                "narrow" -> 
+                    return if (isAM) {
+                        "上午"
+                    } else {
+                        "下午"
+                    }
+                else -> 
+                    return if (isAM) {
+                        "上午"
+                    } else {
+                        "下午"
+                    }
+            }
+        } else {
+            when (style) {
+                "long" -> 
+                    return if (isAM) {
+                        "AM"
+                    } else {
+                        "PM"
+                    }
+                "short" -> 
+                    return if (isAM) {
+                        "AM"
+                    } else {
+                        "PM"
+                    }
+                "narrow" -> 
+                    return if (isAM) {
+                        "AM"
+                    } else {
+                        "PM"
+                    }
+                else -> 
+                    return if (isAM) {
+                        "AM"
+                    } else {
+                        "PM"
+                    }
+            }
+        }
+    }
+    private fun formatTimeZone(date: Date, style: String, timeZone: String): String {
+        when (style) {
+            "long" -> 
+                return if (timeZone == "UTC") {
+                    "Coordinated Universal Time"
+                } else {
+                    timeZone
+                }
+            "short" -> 
+                return if (timeZone == "UTC") {
+                    "UTC"
+                } else {
+                    timeZone
+                }
+            else -> 
+                return if (timeZone == "UTC") {
+                    "UTC"
+                } else {
+                    timeZone
+                }
+        }
+    }
+    private fun combineDateTimeParts(parts: UTSArray<String>, locale: String, dateSeparator: String = ""): String {
+        val langCode = locale.split("-")[0].toLowerCase()
+        if (dateSeparator != "") {
+            return parts.join(dateSeparator)
+        }
+        if (langCode == "zh") {
+            return parts.join("")
+        } else {
+            return parts.join(" ")
+        }
+    }
+    private fun getWeekdayNames(locale: String): DateTimeNames {
+        val langCode = locale.split("-")[0].toLowerCase()
+        if (langCode == "zh") {
+            return DateTimeNames(long = _uA(
+                "星期日",
+                "星期一",
+                "星期二",
+                "星期三",
+                "星期四",
+                "星期五",
+                "星期六"
+            ), short = _uA(
+                "周日",
+                "周一",
+                "周二",
+                "周三",
+                "周四",
+                "周五",
+                "周六"
+            ), narrow = _uA(
+                "日",
+                "一",
+                "二",
+                "三",
+                "四",
+                "五",
+                "六"
+            ))
+        } else {
+            return DateTimeNames(long = _uA(
+                "Sunday",
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday"
+            ), short = _uA(
+                "Sun",
+                "Mon",
+                "Tue",
+                "Wed",
+                "Thu",
+                "Fri",
+                "Sat"
+            ), narrow = _uA(
+                "S",
+                "M",
+                "T",
+                "W",
+                "T",
+                "F",
+                "S"
+            ))
+        }
+    }
+    private fun getMonthNames(locale: String): DateTimeNames {
+        val langCode = locale.split("-")[0].toLowerCase()
+        if (langCode == "zh") {
+            return DateTimeNames(long = _uA(
+                "一月",
+                "二月",
+                "三月",
+                "四月",
+                "五月",
+                "六月",
+                "七月",
+                "八月",
+                "九月",
+                "十月",
+                "十一月",
+                "十二月"
+            ), short = _uA(
+                "1月",
+                "2月",
+                "3月",
+                "4月",
+                "5月",
+                "6月",
+                "7月",
+                "8月",
+                "9月",
+                "10月",
+                "11月",
+                "12月"
+            ), narrow = _uA(
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11",
+                "12"
+            ))
+        } else {
+            return DateTimeNames(long = _uA(
+                "January",
+                "February",
+                "March",
+                "April",
+                "May",
+                "June",
+                "July",
+                "August",
+                "September",
+                "October",
+                "November",
+                "December"
+            ), short = _uA(
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec"
+            ), narrow = _uA(
+                "J",
+                "F",
+                "M",
+                "A",
+                "M",
+                "J",
+                "J",
+                "A",
+                "S",
+                "O",
+                "N",
+                "D"
+            ))
+        }
+    }
+    private fun addThousandsSeparator(numStr: String, locale: String): String {
+        val parts = numStr.split(".")
+        val integerPart = parts[0]
+        val decimalPart = if (parts.length > 1) {
+            parts[1]
+        } else {
+            ""
+        }
+        val separator = this.getThousandsSeparator(locale)
+        val formattedInteger = integerPart.replace(UTSRegExp("(\\d)(?=(\\d{3})+(?!\\d))", "g"), "\$1" + separator)
+        return if (decimalPart == "") {
+            "" + formattedInteger + "." + decimalPart
+        } else {
+            formattedInteger
+        }
+    }
+    private fun getThousandsSeparator(locale: String): String {
+        val langCode = locale.split("-")[0].toLowerCase()
+        val separator = Tmui4xI18n.THOUSANDS_SEPARATOR_MAP.get(langCode)
+        return separator ?: ","
+    }
+    private fun formatCurrency(numStr: String, options: NumberFormatOpts, locale: String): String {
+        val currency = options.currency ?: "USD"
+        val currencyDisplay = options.currencyDisplay ?: "symbol"
+        var currencySymbol = currency
+        if (currencyDisplay == "symbol") {
+            when (currency.toUpperCase()) {
+                "USD" -> 
+                    currencySymbol = "\$"
+                "CAD" -> 
+                    currencySymbol = "C\$"
+                "BRL" -> 
+                    currencySymbol = "R\$"
+                "MXN" -> 
+                    currencySymbol = "\$"
+                "EUR" -> 
+                    currencySymbol = "€"
+                "GBP" -> 
+                    currencySymbol = "£"
+                "CHF" -> 
+                    currencySymbol = "CHF"
+                "RUB" -> 
+                    currencySymbol = "₽"
+                "JPY" -> 
+                    currencySymbol = "¥"
+                "CNY", "RMB" -> 
+                    currencySymbol = "¥"
+                "KRW" -> 
+                    currencySymbol = "₩"
+                "INR" -> 
+                    currencySymbol = "₹"
+                "AUD" -> 
+                    currencySymbol = "A\$"
+                "SGD" -> 
+                    currencySymbol = "S\$"
+                "HKD" -> 
+                    currencySymbol = "HK\$"
+                "TWD" -> 
+                    currencySymbol = "NT\$"
+                "THB" -> 
+                    currencySymbol = "฿"
+                "MYR" -> 
+                    currencySymbol = "RM"
+                "VND" -> 
+                    currencySymbol = "₫"
+                "IDR" -> 
+                    currencySymbol = "Rp"
+                "PHP" -> 
+                    currencySymbol = "₱"
+                "SAR" -> 
+                    currencySymbol = "﷼"
+                "AED" -> 
+                    currencySymbol = "د.إ"
+                "ILS" -> 
+                    currencySymbol = "₪"
+                "TRY" -> 
+                    currencySymbol = "₺"
+                "ZAR" -> 
+                    currencySymbol = "R"
+                else -> 
+                    currencySymbol = currency
+            }
+        }
+        return this.getCurrencyPosition(currencySymbol, numStr, currency, locale)
+    }
+    private fun getCurrencyPosition(symbol: String, numStr: String, currency: String, locale: String): String {
+        val currencyCode = currency.toUpperCase()
+        val prefixNoSpace = _uA(
+            "USD",
+            "CAD",
+            "AUD",
+            "HKD",
+            "SGD",
+            "TWD",
+            "GBP",
+            "CNY",
+            "RMB",
+            "JPY"
+        )
+        val prefixWithSpace = _uA(
+            "BRL",
+            "MXN",
+            "KRW",
+            "INR",
+            "THB",
+            "VND",
+            "IDR",
+            "PHP",
+            "ILS",
+            "TRY"
+        )
+        val suffixWithSpace = _uA(
+            "EUR",
+            "CHF",
+            "RUB",
+            "MYR",
+            "SAR",
+            "AED",
+            "ZAR"
+        )
+        if (prefixNoSpace.includes(currencyCode)) {
+            return "" + symbol + numStr
+        } else if (prefixWithSpace.includes(currencyCode)) {
+            return "" + symbol + " " + numStr
+        } else if (suffixWithSpace.includes(currencyCode)) {
+            return "" + numStr + " " + symbol
+        } else {
+            if (locale.startsWith("en") || locale.startsWith("zh")) {
+                return "" + symbol + numStr
+            } else {
+                return "" + numStr + " " + symbol
+            }
+        }
+    }
+    private fun formatPercent(numStr: String, originalValue: Number): String {
+        val percentValue = originalValue * 100
+        return "" + percentValue + "%"
+    }
+    private fun getMessage(key: String, locale: String): StringOrNull {
+        val messages = this.ops.messages
+        if (messages[locale] == null) {
+            return null
+        }
+        val localeMessages = messages[locale] as UTSJSONObjectOrNull
+        return this.getNestedValue(localeMessages, key)
+    }
+    private fun getNestedValue(obj: UTSJSONObjectOrNull, path: String): StringOrNull {
+        val keys = path.split(".")
+        var getAny: GetAnyTypeOrNull = null
+        getAny = fun(objdata: AnyOrNull): AnyOrNull {
+            var realGetAny = getAny!!
+            var path: StringOrNull = keys.shift()
+            if (objdata == null) {
+                return null
+            }
+            if (UTSAndroid.`typeof`(objdata) == "string" || UTSAndroid.`typeof`(objdata) == "number") {
+                return objdata
+            }
+            if (path == null) {
+                return null
+            }
+            return realGetAny((objdata!! as UTSJSONObject).getAny(path))
+        }
+        var current: AnyOrNull = getAny(obj)
+        if (UTSAndroid.`typeof`(current) == "number") {
+            return (current as Number).toString()
+        }
+        return if (UTSAndroid.`typeof`(current) == "string") {
+            current as String
+        } else {
+            null
+        }
+    }
+    private fun handlePlural(message: String, count: Number, locale: String): String {
+        val choices = message.split("|").map(fun(choice: String): String {
+            return choice.trim()
+        }
+        )
+        val choicesLength = choices.length
+        var pluralRule = this.ops.pluralRule
+        if (this.ops.pluralRules.has(locale)) {
+            pluralRule = this.ops.pluralRules.get(locale)!!
+        }
+        var index: Number = 0
+        if (pluralRule != null) {
+            index = pluralRule(count, choicesLength, null)
+        }
+        val safeIndex = Math.max(0, Math.min(index, choicesLength - 1))
+        var result = choices[safeIndex]
+        if (result == "" || result == null) {
+            result = choices[0]
+        }
+        if (result == "" || result == null) {
+            result = message
+        }
+        return result
+    }
+    private fun interpolate(message: String, values: Any): String {
+        var msg = message
+        if (UTSArray.isArray(values)) {
+            msg = message.replace(UTSRegExp("\\{(\\d+)\\}", "g"), fun(match: String, key: String, offset: Number, str: String): String {
+                val value = (values as UTSArray<Any>)[parseInt(key)]
+                if (value != null) {
+                    var result = if (UTSAndroid.`typeof`(value) == "number") {
+                        (value as Number).toString()
+                    } else {
+                        value as String
+                    }
+                    return result
+                }
+                return match
+            })
+        } else if (values is UTSJSONObject) {
+            if (UTSJSONObject.keys(values as UTSJSONObject).length == 0) {
+                return message
+            }
+            msg = message.replace(UTSRegExp("\\{([^}]+)\\}", "g"), fun(match: String, key: String, offset: Number, str: String): String {
+                val value = (values as UTSJSONObject)[key]
+                if (value != null) {
+                    if (UTSAndroid.`typeof`(value) == "string") {
+                        return value as String
+                    }
+                    if (UTSAndroid.`typeof`(value) == "number") {
+                        return (value as Number).toString()
+                    }
+                }
+                return match
+            }
+            )
+        }
+        return msg
+    }
+    companion object {
+        private val THOUSANDS_SEPARATOR_MAP = Map<String, String>(_uA(
+            _uA(
+                "en",
+                ","
+            ),
+            _uA(
+                "zh",
+                ","
+            ),
+            _uA(
+                "zh-Hant",
+                ","
+            ),
+            _uA(
+                "zh",
+                ","
+            ),
+            _uA(
+                "ja",
+                ","
+            ),
+            _uA(
+                "ko",
+                ","
+            ),
+            _uA(
+                "pt",
+                ","
+            ),
+            _uA(
+                "th",
+                ","
+            ),
+            _uA(
+                "vi",
+                ","
+            ),
+            _uA(
+                "id",
+                ","
+            ),
+            _uA(
+                "ms",
+                ","
+            ),
+            _uA(
+                "tl",
+                ","
+            ),
+            _uA(
+                "he",
+                ","
+            ),
+            _uA(
+                "ar",
+                ","
+            ),
+            _uA(
+                "de",
+                " "
+            ),
+            _uA(
+                "fr",
+                " "
+            ),
+            _uA(
+                "ru",
+                " "
+            ),
+            _uA(
+                "sv",
+                " "
+            ),
+            _uA(
+                "no",
+                " "
+            ),
+            _uA(
+                "da",
+                " "
+            ),
+            _uA(
+                "fi",
+                " "
+            ),
+            _uA(
+                "cs",
+                " "
+            ),
+            _uA(
+                "sk",
+                " "
+            ),
+            _uA(
+                "pl",
+                " "
+            ),
+            _uA(
+                "es",
+                "."
+            ),
+            _uA(
+                "it",
+                "."
+            ),
+            _uA(
+                "nl",
+                "."
+            ),
+            _uA(
+                "tr",
+                "."
+            ),
+            _uA(
+                "ch",
+                "'"
+            )
+        ))
+    }
+}
 open class LocationInfo (
     @JsonNotNull
     open var latitude: Number,
@@ -2997,6 +4961,8 @@ open class XPRIVATECONFIGReactiveObject : XPRIVATECONFIG, IUTSReactive<XPRIVATEC
 }
 open class XCONFIG (
     @JsonNotNull
+    open var i18n: Tmui4xI18nTml,
+    @JsonNotNull
     open var theme: Map<String, String>,
     @JsonNotNull
     open var color: String,
@@ -3088,7 +5054,7 @@ open class XCONFIGReactiveObject : XCONFIG, IUTSReactive<XCONFIG> {
     override var __v_isReadonly: Boolean
     override var __v_isShallow: Boolean
     override var __v_skip: Boolean
-    constructor(__v_raw: XCONFIG, __v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean) : super(theme = __v_raw.theme, color = __v_raw.color, dark = __v_raw.dark, designSize = __v_raw.designSize, maximumCalculatedSize = __v_raw.maximumCalculatedSize, unit = __v_raw.unit, language = __v_raw.language, fontScale = __v_raw.fontScale, fontSize = __v_raw.fontSize, navigationBarTextStyleDark = __v_raw.navigationBarTextStyleDark, navigationBarTextStyleLight = __v_raw.navigationBarTextStyleLight, navigationBarBackgroundColorDark = __v_raw.navigationBarBackgroundColorDark, navigationBarBackgroundColorLight = __v_raw.navigationBarBackgroundColorLight, backgroundColorContentDark = __v_raw.backgroundColorContentDark, backgroundColorContentLight = __v_raw.backgroundColorContentLight, tabarBackgroundColorDark = __v_raw.tabarBackgroundColorDark, tabarBackgroundColorLight = __v_raw.tabarBackgroundColorLight, sheetDarkColor = __v_raw.sheetDarkColor, sheetDarkBorderColor = __v_raw.sheetDarkBorderColor, inputDarkColor = __v_raw.inputDarkColor, inputBgColor = __v_raw.inputBgColor, placeholderStyle = __v_raw.placeholderStyle, borderDarkColor = __v_raw.borderDarkColor, inputRadius = __v_raw.inputRadius, inputFocusBorder = __v_raw.inputFocusBorder, buttonRadius = __v_raw.buttonRadius, tagRadius = __v_raw.tagRadius, cellRadius = __v_raw.cellRadius, cellMargin = __v_raw.cellMargin, sheetRadius = __v_raw.sheetRadius, sheetMargin = __v_raw.sheetMargin, sheetPadding = __v_raw.sheetPadding, drawerRadius = __v_raw.drawerRadius, modalRadius = __v_raw.modalRadius, switchRadius = __v_raw.switchRadius, progressRadius = __v_raw.progressRadius, unRadioAndCheckBoxColor = __v_raw.unRadioAndCheckBoxColor, radioButtonRadius = __v_raw.radioButtonRadius, animationFun = __v_raw.animationFun, cardRound = __v_raw.cardRound, closeIcon = __v_raw.closeIcon) {
+    constructor(__v_raw: XCONFIG, __v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean) : super(i18n = __v_raw.i18n, theme = __v_raw.theme, color = __v_raw.color, dark = __v_raw.dark, designSize = __v_raw.designSize, maximumCalculatedSize = __v_raw.maximumCalculatedSize, unit = __v_raw.unit, language = __v_raw.language, fontScale = __v_raw.fontScale, fontSize = __v_raw.fontSize, navigationBarTextStyleDark = __v_raw.navigationBarTextStyleDark, navigationBarTextStyleLight = __v_raw.navigationBarTextStyleLight, navigationBarBackgroundColorDark = __v_raw.navigationBarBackgroundColorDark, navigationBarBackgroundColorLight = __v_raw.navigationBarBackgroundColorLight, backgroundColorContentDark = __v_raw.backgroundColorContentDark, backgroundColorContentLight = __v_raw.backgroundColorContentLight, tabarBackgroundColorDark = __v_raw.tabarBackgroundColorDark, tabarBackgroundColorLight = __v_raw.tabarBackgroundColorLight, sheetDarkColor = __v_raw.sheetDarkColor, sheetDarkBorderColor = __v_raw.sheetDarkBorderColor, inputDarkColor = __v_raw.inputDarkColor, inputBgColor = __v_raw.inputBgColor, placeholderStyle = __v_raw.placeholderStyle, borderDarkColor = __v_raw.borderDarkColor, inputRadius = __v_raw.inputRadius, inputFocusBorder = __v_raw.inputFocusBorder, buttonRadius = __v_raw.buttonRadius, tagRadius = __v_raw.tagRadius, cellRadius = __v_raw.cellRadius, cellMargin = __v_raw.cellMargin, sheetRadius = __v_raw.sheetRadius, sheetMargin = __v_raw.sheetMargin, sheetPadding = __v_raw.sheetPadding, drawerRadius = __v_raw.drawerRadius, modalRadius = __v_raw.modalRadius, switchRadius = __v_raw.switchRadius, progressRadius = __v_raw.progressRadius, unRadioAndCheckBoxColor = __v_raw.unRadioAndCheckBoxColor, radioButtonRadius = __v_raw.radioButtonRadius, animationFun = __v_raw.animationFun, cardRound = __v_raw.cardRound, closeIcon = __v_raw.closeIcon) {
         this.__v_raw = __v_raw
         this.__v_isReadonly = __v_isReadonly
         this.__v_isShallow = __v_isShallow
@@ -3097,6 +5063,18 @@ open class XCONFIGReactiveObject : XCONFIG, IUTSReactive<XCONFIG> {
     override fun __v_clone(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): XCONFIGReactiveObject {
         return XCONFIGReactiveObject(this.__v_raw, __v_isReadonly, __v_isShallow, __v_skip)
     }
+    override var i18n: Tmui4xI18nTml
+        get() {
+            return _tRG(__v_raw, "i18n", __v_raw.i18n, __v_isReadonly, __v_isShallow)
+        }
+        set(value) {
+            if (!__v_canSet("i18n")) {
+                return
+            }
+            val oldValue = __v_raw.i18n
+            __v_raw.i18n = value
+            _tRS(__v_raw, "i18n", oldValue, value)
+        }
     override var theme: Map<String, String>
         get() {
             return _tRG(__v_raw, "theme", __v_raw.theme, __v_isReadonly, __v_isShallow)
@@ -3910,7 +5888,924 @@ open class XTREEFLAT_NODES (
     open var fontSize: Number? = null,
     open var children: UTSArray<XTREEFLAT_NODES>? = null,
 ) : UTSObject()
-val xProvitae = reactive(XPRIVATECONFIG(scrollTop = -1, windowInnerWidth = 0, windowInnerHeight = 0, windowWidth = 0, windowHeight = 0, pageStyle = Map<String, xPageStyle>(), pageReady = false))
+open class Tmui4xOptions (
+    open var config: UTSJSONObject? = null,
+    open var i18nOptions: I18nOptions? = null,
+) : UTSObject()
+fun createI18n(args: I18nOptions? = null): Tmui4xI18n {
+    return Tmui4xI18n(args)
+}
+var globalI18nInstans: Tmui4xI18n = createI18n()
+val tmxI18n = definePlugin(VuePlugin(install = fun(app: VueApp, config: Any?) {
+    globalI18nInstans = createI18n(config as I18nOptions?)
+    app.config.globalProperties["\$i18n"] = true
+}
+))
+val tmui4x: UTSJSONObject = object : UTSJSONObject() {
+    var cancel = "Cancel"
+    var confirm = "Confirm"
+    var success = "Success"
+    var fail = "Failed"
+    var warn = "Warning"
+    var info = "Info"
+    var clear = "Clear"
+    var pickerTitle = "Please select"
+    var calendar = object : UTSJSONObject() {
+        var year = "Year"
+        var month = "Month"
+        var day = "Day"
+        var hour = "Hour"
+        var minute = "Minute"
+        var second = "Second"
+        var titleCurrentMonth = "{0} {1}"
+        var monthCountSelected = "{count} months"
+        var selectedStatus = "{count} days selected | No date selected | Selected | End date not selected"
+        var rangStatus = "Start | End | Today"
+        var tips = "Max {count} days"
+        var currentMonthTitle = "This month"
+        var week = "Mon | Tue | Wed | Thu | Fri | Sat | Sun"
+    }
+    var betweentTime = object : UTSJSONObject() {
+        var start = "Start time"
+        var end = "End time"
+        var quiakListTitle = "Today | This week | This month | This year | This quarter"
+        var quiakListTitle2 = "Last {count} days"
+        var quiakListTitle3 = "Previous {count} years"
+        var title = "Please select time"
+        var splite = "to"
+    }
+    var uploadFile = object : UTSJSONObject() {
+        var title = "Select file"
+        var uploadStatus = "Pending upload | Uploading... | Upload failed | Upload successful | Exceeds size"
+        var tips1 = "Deletion prohibited during upload"
+        var tips2 = "Deletion prohibited for uploaded files"
+    }
+    var pickerSelected = object : UTSJSONObject() {
+        var placeholder = "Please enter keywords"
+        var search = "Search"
+        var selected = "{count} items selected"
+        var claer = "Clear selection"
+        var selectedMode = "Currently in single selection mode"
+        var selectedALl = "Select all"
+    }
+    var tree = object : UTSJSONObject() {
+        var changeTitle = "Modify content"
+        var addTitle = "Add subordinate"
+        var inputTitle = "Title"
+        var inputId = "Identifier ID"
+        var inputTips1 = "Do not repeat, auto-generate when empty"
+    }
+    var input = object : UTSJSONObject() {
+        var placeholder = "Please select or fill in"
+    }
+    var inputTag = object : UTSJSONObject() {
+        var placeholder = "Please enter and press Enter"
+        var tips = "Cannot be empty"
+        var tips2 = "Exceeds maximum limit: {count}"
+        var btnText = "Add Tag"
+    }
+    var keyboard = object : UTSJSONObject() {
+        var placeholder = "Safe keyboard for secure input"
+        var space = "Space"
+        var confirm = "Confirm"
+    }
+    var pickerTime = object : UTSJSONObject() {
+        var hour = "Hour"
+        var minute = "Minute"
+        var second = "Second"
+    }
+    var cascader = object : UTSJSONObject() {
+        var placeholder = "Please select"
+        var currentPlaceholder = "Select current"
+    }
+    var pickerDate = object : UTSJSONObject() {
+        var placeholder = "Please select time"
+        var year = "Year"
+        var month = "Month"
+        var day = "Day"
+        var hour = "Hour"
+        var minute = "Minute"
+        var second = "Second"
+    }
+    var uploadMedia = object : UTSJSONObject() {
+        var tips1 = "Dragging sort not allowed during upload"
+        var videoPreview = "Video preview"
+        var close = "Close"
+        var systemError = "System error"
+        var limitMaxCount = "Exceeded max upload count"
+        var uploadStatus = "Pending upload | Uploading... | Upload failed | Upload successful | Exceeds size"
+    }
+    var checkbox = object : UTSJSONObject() {
+        var tips = "Exceeds maximum selection"
+    }
+    var weekbar = object : UTSJSONObject() {
+        var week = "Mon | Tue | Wed | Thu | Fri | Sat | Sun"
+    }
+    var pagination = object : UTSJSONObject() {
+        var prev = "Previous"
+        var next = "Next"
+    }
+    var search = object : UTSJSONObject() {
+        var placeholder = "Enter keywords"
+        var cancel = "Cancel"
+    }
+    var xmore = object : UTSJSONObject() {
+        var off = "Expand more"
+        var on = "Collapse more"
+    }
+    var empty = object : UTSJSONObject() {
+        var moreLabel = "No more data"
+        var errorLabel = "Error~"
+        var btnLabel = "Retry"
+        var title = "No data"
+    }
+    var xloading = object : UTSJSONObject() {
+        var label = "Loading..."
+    }
+    var actionModal = object : UTSJSONObject() {
+        var title = "Reminder"
+        var btnText = "Confirm"
+    }
+    var actionMenu = object : UTSJSONObject() {
+        var title = "Please select"
+        var btnText = "Confirm"
+    }
+    var pullRefresh = object : UTSJSONObject() {
+        var status_1 = "Refreshing"
+        var status_2 = "Pull down more"
+        var status_3 = "Release to refresh"
+        var status_4 = "Refresh done"
+        var status_5 = "Refresh failed"
+    }
+    var virtualList = object : UTSJSONObject() {
+        var status_0 = "Pull down more"
+        var status_1 = "Release to refresh"
+        var status_2 = "Refreshing"
+        var status_3 = "Cancel refresh"
+        var status_4 = "Refresh timeout, retry"
+        var status_5 = "Refresh done"
+    }
+    var imageResize = object : UTSJSONObject() {
+        var ok = "Done"
+        var cancel = "Cancel"
+        var reset = "Reset"
+    }
+    var colorView = object : UTSJSONObject() {
+        var rgb = "RGB"
+        var hub = "Spectrum"
+        var grid = "Palette"
+        var alpha = "Alpha"
+        var hex = "HEX"
+        var r = "Red"
+        var g = "Green"
+        var b = "Blue"
+    }
+    var modal = object : UTSJSONObject() {
+        var title = "Title"
+    }
+    var mention = object : UTSJSONObject() {
+        var placeholder = "Enter content, @select friend, press confirm"
+    }
+    var slideVerify = object : UTSJSONObject() {
+        var tipsText = "Drag to position"
+        var tipsTextSuccess = "Verified"
+        var tipsTextFail = "Verification failed"
+    }
+    var xRequest = object : UTSJSONObject() {
+        var error = "Server error:"
+        var success = "Success"
+        var hostFailEmpty = "Domain empty"
+        var loading = "Loading"
+    }
+}
+val `default`: UTSJSONObject = _uO("tmui4x" to tmui4x)
+val tmui4x1: UTSJSONObject = object : UTSJSONObject() {
+    var cancel = "取消"
+    var confirm = "确认"
+    var success = "成功"
+    var fail = "失败"
+    var warn = "警告"
+    var info = "提醒"
+    var clear = "清空"
+    var pickerTitle = "请选择"
+    var calendar = object : UTSJSONObject() {
+        var year = "年"
+        var month = "月"
+        var day = "日"
+        var hour = "时"
+        var minute = "分"
+        var second = "秒"
+        var titleCurrentMonth = "{0}年{1}月"
+        var monthCountSelected = "{count}月"
+        var selectedStatus = "已选择{count}日 | 未选择日期 | 已选择 | 未选择结束日期"
+        var rangStatus = "开始 | 结束 | 本日"
+        var tips = "最大选择{count}日"
+        var currentMonthTitle = "本月"
+        var week = "周一 | 周二 | 周三 | 周四 | 周五 | 周六 | 周日"
+    }
+    var betweentTime = object : UTSJSONObject() {
+        var start = "开始时间"
+        var end = "结束时间"
+        var quiakListTitle = "本日 | 本周 | 本月 | 本年 | 本季度"
+        var quiakListTitle2 = "最近{count}天"
+        var quiakListTitle3 = "前{count}年"
+        var title = "请选择时间"
+        var splite = "至"
+    }
+    var uploadFile = object : UTSJSONObject() {
+        var title = "选择文件"
+        var uploadStatus = "待上传 | 上传中... | 上传失败 | 上传成功 | 超过大小"
+        var tips1 = "上传中禁止删除"
+        var tips2 = "已上传文件禁止删除"
+    }
+    var pickerSelected = object : UTSJSONObject() {
+        var placeholder = "请输入关键词"
+        var search = "搜索"
+        var selected = "已选择{count}项"
+        var claer = "清空选择"
+        var selectedMode = "当前为单选模式"
+        var selectedALl = "选择所有"
+    }
+    var tree = object : UTSJSONObject() {
+        var changeTitle = "修改内容"
+        var addTitle = "添加下级"
+        var inputTitle = "标题"
+        var inputId = "标识ID"
+        var inputTips1 = "不要重复,空时自动生成"
+    }
+    var input = object : UTSJSONObject() {
+        var placeholder = "请选择或者填写"
+    }
+    var inputTag = object : UTSJSONObject() {
+        var placeholder = "请输入并回车"
+        var tips = "不能为空"
+        var tips2 = "超过限制最大数:{count}"
+        var btnText = "添加标签"
+    }
+    var keyboard = object : UTSJSONObject() {
+        var placeholder = "安全键盘放心输入"
+        var space = "空格"
+        var confirm = "确认"
+    }
+    var pickerTime = object : UTSJSONObject() {
+        var hour = "小时"
+        var minute = "分钟"
+        var second = "秒数"
+    }
+    var cascader = object : UTSJSONObject() {
+        var placeholder = "请选择"
+        var currentPlaceholder = "选择本级"
+    }
+    var pickerDate = object : UTSJSONObject() {
+        var placeholder = "请选择时间"
+        var year = "年"
+        var month = "月"
+        var day = "日"
+        var hour = "时"
+        var minute = "分"
+        var second = "秒"
+    }
+    var uploadMedia = object : UTSJSONObject() {
+        var tips1 = "上传中不允许拖动排序"
+        var videoPreview = "视频预览"
+        var close = "关闭"
+        var systemError = "系统异常"
+        var limitMaxCount = "已超最大上传数量"
+        var uploadStatus = "待上传 | 上传中... | 上传失败 | 上传成功 | 超过大小"
+    }
+    var checkbox = object : UTSJSONObject() {
+        var tips = "超过最大选择"
+    }
+    var weekbar = object : UTSJSONObject() {
+        var week = "周一 | 周二 | 周三 | 周四 | 周五 | 周六 | 周日"
+    }
+    var pagination = object : UTSJSONObject() {
+        var prev = "上一页"
+        var next = "下一页"
+    }
+    var search = object : UTSJSONObject() {
+        var placeholder = "请输入关键词"
+        var cancel = "取消"
+    }
+    var xmore = object : UTSJSONObject() {
+        var off = "展开更多"
+        var on = "收起更多"
+    }
+    var empty = object : UTSJSONObject() {
+        var moreLabel = "没有更多数据啦"
+        var errorLabel = "出错啦~"
+        var btnLabel = "点击重试"
+        var title = "当前没有数据"
+    }
+    var xloading = object : UTSJSONObject() {
+        var label = "加载中..."
+    }
+    var actionModal = object : UTSJSONObject() {
+        var title = "提醒"
+        var btnText = "确认"
+    }
+    var actionMenu = object : UTSJSONObject() {
+        var title = "请选择"
+        var btnText = "确认"
+    }
+    var pullRefresh = object : UTSJSONObject() {
+        var status_1 = "正在刷新"
+        var status_2 = "继续下拉"
+        var status_3 = "松开刷新"
+        var status_4 = "刷新完成"
+        var status_5 = "刷新失败"
+    }
+    var virtualList = object : UTSJSONObject() {
+        var status_0 = "继续下拉"
+        var status_1 = "松开刷新"
+        var status_2 = "刷新中"
+        var status_3 = "取消刷新"
+        var status_4 = "刷新超时,点击重试"
+        var status_5 = "刷新完成"
+    }
+    var imageResize = object : UTSJSONObject() {
+        var ok = "完成"
+        var cancel = "取消"
+        var reset = "还原"
+    }
+    var colorView = object : UTSJSONObject() {
+        var rgb = "RGB"
+        var hub = "光谱"
+        var grid = "色卡"
+        var alpha = "透明度"
+        var hex = "HEX"
+        var r = "红色"
+        var g = "绿色"
+        var b = "蓝色"
+    }
+    var modal = object : UTSJSONObject() {
+        var title = "标题"
+    }
+    var mention = object : UTSJSONObject() {
+        var placeholder = "请输入内容，@选择朋友,按确认完成"
+    }
+    var slideVerify = object : UTSJSONObject() {
+        var tipsText = "请拖动到指定位置"
+        var tipsTextSuccess = "验证成功"
+        var tipsTextFail = "验证失败"
+    }
+    var xRequest = object : UTSJSONObject() {
+        var error = "服务器错误:"
+        var success = "操作成功"
+        var hostFailEmpty = "未填请求域名"
+        var loading = "加载中"
+    }
+}
+val default1: UTSJSONObject = object : UTSJSONObject() {
+    var tmui4x = tmui4x1
+}
+val tmui4x2: UTSJSONObject = object : UTSJSONObject() {
+    var cancel = "取消"
+    var confirm = "確認"
+    var success = "成功"
+    var fail = "失敗"
+    var warn = "警告"
+    var info = "提醒"
+    var clear = "清空"
+    var pickerTitle = "請選擇"
+    var calendar = object : UTSJSONObject() {
+        var year = "年"
+        var month = "月"
+        var day = "日"
+        var hour = "時"
+        var minute = "分"
+        var second = "秒"
+        var titleCurrentMonth = "{0}年{1}月"
+        var monthCountSelected = "{count}月"
+        var selectedStatus = "已選擇{count}日 | 未選擇日期 | 已選擇 | 未選擇結束日期"
+        var rangStatus = "開始 | 結束 | 本日"
+        var tips = "最大選擇{count}日"
+        var currentMonthTitle = "本月"
+        var week = "週一 | 週二 | 週三 | 週四 | 週五 | 週六 | 週日"
+    }
+    var betweentTime = object : UTSJSONObject() {
+        var start = "開始時間"
+        var end = "結束時間"
+        var quiakListTitle = "本日 | 本週 | 本月 | 本年 | 本季度"
+        var quiakListTitle2 = "最近{count}天"
+        var quiakListTitle3 = "前{count}年"
+        var title = "請選擇時間"
+        var splite = "至"
+    }
+    var uploadFile = object : UTSJSONObject() {
+        var title = "選擇檔案"
+        var uploadStatus = "待上傳 | 上傳中... | 上傳失敗 | 上傳成功 | 超過大小"
+        var tips1 = "上傳中禁止刪除"
+        var tips2 = "已上傳檔案禁止刪除"
+    }
+    var pickerSelected = object : UTSJSONObject() {
+        var placeholder = "請輸入關鍵詞"
+        var search = "搜尋"
+        var selected = "已選擇{count}項"
+        var claer = "清空選擇"
+        var selectedMode = "當前為單選模式"
+        var selectedALl = "選擇所有"
+    }
+    var tree = object : UTSJSONObject() {
+        var changeTitle = "修改內容"
+        var addTitle = "添加下級"
+        var inputTitle = "標題"
+        var inputId = "標識ID"
+        var inputTips1 = "不要重複，空時自動生成"
+    }
+    var input = object : UTSJSONObject() {
+        var placeholder = "請選擇或者填寫"
+    }
+    var inputTag = object : UTSJSONObject() {
+        var placeholder = "請輸入並回車"
+        var tips = "不能為空"
+        var tips2 = "超過限制最大數:{count}"
+        var btnText = "添加標籤"
+    }
+    var keyboard = object : UTSJSONObject() {
+        var placeholder = "安全鍵盤放心輸入"
+        var space = "空格"
+        var confirm = "確認"
+    }
+    var pickerTime = object : UTSJSONObject() {
+        var hour = "小時"
+        var minute = "分鐘"
+        var second = "秒數"
+    }
+    var cascader = object : UTSJSONObject() {
+        var placeholder = "請選擇"
+        var currentPlaceholder = "選擇本級"
+    }
+    var pickerDate = object : UTSJSONObject() {
+        var placeholder = "請選擇時間"
+        var year = "年"
+        var month = "月"
+        var day = "日"
+        var hour = "時"
+        var minute = "分"
+        var second = "秒"
+    }
+    var uploadMedia = object : UTSJSONObject() {
+        var tips1 = "上傳中不允许拖動排序"
+        var videoPreview = "視頻預覽"
+        var close = "關閉"
+        var systemError = "系統異常"
+        var limitMaxCount = "已超最大上傳數量"
+        var uploadStatus = "待上傳 | 上傳中... | 上傳失敗 | 上傳成功 | 超過大小"
+    }
+    var checkbox = object : UTSJSONObject() {
+        var tips = "超過最大選擇"
+    }
+    var weekbar = object : UTSJSONObject() {
+        var week = "週一 | 週二 | 週三 | 週四 | 週五 | 週六 | 週日"
+    }
+    var pagination = object : UTSJSONObject() {
+        var prev = "上一頁"
+        var next = "下一頁"
+    }
+    var search = object : UTSJSONObject() {
+        var placeholder = "請輸入關鍵詞"
+        var cancel = "取消"
+    }
+    var xmore = object : UTSJSONObject() {
+        var off = "展開更多"
+        var on = "收起更多"
+    }
+    var empty = object : UTSJSONObject() {
+        var moreLabel = "沒有更多數據啦"
+        var errorLabel = "出錯啦~"
+        var btnLabel = "點擊重試"
+        var title = "當前沒有數據"
+    }
+    var xloading = object : UTSJSONObject() {
+        var label = "加載中..."
+    }
+    var actionModal = object : UTSJSONObject() {
+        var title = "提醒"
+        var btnText = "確認"
+    }
+    var actionMenu = object : UTSJSONObject() {
+        var title = "請選擇"
+        var btnText = "確認"
+    }
+    var pullRefresh = object : UTSJSONObject() {
+        var status_1 = "正在刷新"
+        var status_2 = "繼續下拉"
+        var status_3 = "鬆開刷新"
+        var status_4 = "刷新完成"
+        var status_5 = "刷新失敗"
+    }
+    var virtualList = object : UTSJSONObject() {
+        var status_0 = "繼續下拉"
+        var status_1 = "鬆開刷新"
+        var status_2 = "刷新中"
+        var status_3 = "取消刷新"
+        var status_4 = "刷新超時,點擊重試"
+        var status_5 = "刷新完成"
+    }
+    var imageResize = object : UTSJSONObject() {
+        var ok = "完成"
+        var cancel = "取消"
+        var reset = "還原"
+    }
+    var colorView = object : UTSJSONObject() {
+        var rgb = "RGB"
+        var hub = "光譜"
+        var grid = "色卡"
+        var alpha = "透明度"
+        var hex = "HEX"
+        var r = "紅色"
+        var g = "綠色"
+        var b = "藍色"
+    }
+    var modal = object : UTSJSONObject() {
+        var title = "標題"
+    }
+    var mention = object : UTSJSONObject() {
+        var placeholder = "請輸入內容，@選擇朋友,按確認完成"
+    }
+    var slideVerify = object : UTSJSONObject() {
+        var tipsText = "請拖動到指定位置"
+        var tipsTextSuccess = "驗證成功"
+        var tipsTextFail = "驗證失敗"
+    }
+    var xRequest = object : UTSJSONObject() {
+        var error = "服務器錯誤:"
+        var success = "操作成功"
+        var hostFailEmpty = "未填請求域名"
+        var loading = "加載中"
+    }
+}
+val default2: UTSJSONObject = object : UTSJSONObject() {
+    var tmui4x = tmui4x2
+}
+val tmui4x3: UTSJSONObject = object : UTSJSONObject() {
+    var cancel = "취소"
+    var confirm = "확인"
+    var success = "성공"
+    var fail = "실패"
+    var warn = "경고"
+    var info = "정보"
+    var clear = "지우기"
+    var pickerTitle = "선택하세요"
+    var calendar = object : UTSJSONObject() {
+        var year = "년"
+        var month = "월"
+        var day = "일"
+        var hour = "시"
+        var minute = "분"
+        var second = "초"
+        var titleCurrentMonth = "{0}년{1}월"
+        var monthCountSelected = "{count}개월"
+        var selectedStatus = "선택됨{count}일 | 날짜 미선택 | 선택됨 | 종료일 미선택"
+        var rangStatus = "시작 | 종료 | 오늘"
+        var tips = "최대선택{count}일"
+        var currentMonthTitle = "이번 달"
+        var week = "월요일 | 화요일 | 수요일 | 목요일 | 금요일 | 토요일 | 일요일"
+    }
+    var betweentTime = object : UTSJSONObject() {
+        var start = "시작 시간"
+        var end = "종료 시간"
+        var quiakListTitle = "오늘 | 이번 주 | 이번 달 | 올해 | 이번 분기"
+        var quiakListTitle2 = "최근 {count}일"
+        var quiakListTitle3 = "이전 {count}년"
+        var title = "시간을 선택하세요"
+        var splite = "부터"
+    }
+    var uploadFile = object : UTSJSONObject() {
+        var title = "파일 선택"
+        var uploadStatus = "업로드 대기 | 업로드 중... | 업로드 실패 | 업로드 성공 | 크기 초과"
+        var tips1 = "업로드 중 삭제 금지"
+        var tips2 = "업로드된 파일 삭제 금지"
+    }
+    var pickerSelected = object : UTSJSONObject() {
+        var placeholder = "키워드를 입력하세요"
+        var search = "검색"
+        var selected = "선택됨{count}개"
+        var claer = "선택 지우기"
+        var selectedMode = "현재 단일 선택 모드"
+        var selectedALl = "모두 선택"
+    }
+    var tree = object : UTSJSONObject() {
+        var changeTitle = "내용 수정"
+        var addTitle = "하위 추가"
+        var inputTitle = "제목"
+        var inputId = "식별 ID"
+        var inputTips1 = "중복하지 마세요, 비어있으면 자동 생성"
+    }
+    var input = object : UTSJSONObject() {
+        var placeholder = "선택하거나 입력하세요"
+    }
+    var inputTag = object : UTSJSONObject() {
+        var placeholder = "입력 후 엔터를 누르세요"
+        var tips = "비워둘 수 없습니다"
+        var tips2 = "최대 수 초과:{count}"
+        var btnText = "태그 추가"
+    }
+    var keyboard = object : UTSJSONObject() {
+        var placeholder = "안전한 키보드로 안심 입력"
+        var space = "스페이스"
+        var confirm = "확인"
+    }
+    var pickerTime = object : UTSJSONObject() {
+        var hour = "시간"
+        var minute = "분"
+        var second = "초수"
+    }
+    var cascader = object : UTSJSONObject() {
+        var placeholder = "선택하세요"
+        var currentPlaceholder = "본급 선택"
+    }
+    var pickerDate = object : UTSJSONObject() {
+        var placeholder = "시간을 선택하세요"
+        var year = "년"
+        var month = "월"
+        var day = "일"
+        var hour = "시"
+        var minute = "분"
+        var second = "초"
+    }
+    var uploadMedia = object : UTSJSONObject() {
+        var tips1 = "업로드 중 드래그 정렬 금지"
+        var videoPreview = "비디오 미리보기"
+        var close = "닫기"
+        var systemError = "시스템 이상"
+        var limitMaxCount = "최대 업로드 수 초과"
+        var uploadStatus = "업로드 대기 | 업로드 중... | 업로드 실패 | 업로드 성공 | 크기 초과"
+    }
+    var checkbox = object : UTSJSONObject() {
+        var tips = "최대 선택 수 초과"
+    }
+    var weekbar = object : UTSJSONObject() {
+        var week = "월요일 | 화요일 | 수요일 | 목요일 | 금요일 | 토요일 | 일요일"
+    }
+    var pagination = object : UTSJSONObject() {
+        var prev = "이전 페이지"
+        var next = "다음 페이지"
+    }
+    var search = object : UTSJSONObject() {
+        var placeholder = "키워드 입력"
+        var cancel = "취소"
+    }
+    var xmore = object : UTSJSONObject() {
+        var off = "더 펼치기"
+        var on = "더 접기"
+    }
+    var empty = object : UTSJSONObject() {
+        var moreLabel = "데이터 없음"
+        var errorLabel = "오류"
+        var btnLabel = "재시도"
+        var title = "데이터 없음"
+    }
+    var xloading = object : UTSJSONObject() {
+        var label = "로드 중..."
+    }
+    var actionModal = object : UTSJSONObject() {
+        var title = "리마인더"
+        var btnText = "확인"
+    }
+    var actionMenu = object : UTSJSONObject() {
+        var title = "선택하세요"
+        var btnText = "확인"
+    }
+    var pullRefresh = object : UTSJSONObject() {
+        var status_1 = "새로고침 중"
+        var status_2 = "더 아래로 끌기"
+        var status_3 = "놓아서 새로고침"
+        var status_4 = "새로고침 완료"
+        var status_5 = "새로고침 실패"
+    }
+    var virtualList = object : UTSJSONObject() {
+        var status_0 = "더 아래로 끌기"
+        var status_1 = "놓아서 새로고침"
+        var status_2 = "새로고침 중"
+        var status_3 = "새로고침 취소"
+        var status_4 = "새로고침 타임아웃, 재시도"
+        var status_5 = "새로고침 완료"
+    }
+    var imageResize = object : UTSJSONObject() {
+        var ok = "완료"
+        var cancel = "취소"
+        var reset = "리셋"
+    }
+    var colorView = object : UTSJSONObject() {
+        var rgb = "RGB"
+        var hub = "스펙트럼"
+        var grid = "팔레트"
+        var alpha = "투명도"
+        var hex = "HEX"
+        var r = "빨강"
+        var g = "녹색"
+        var b = "파랑"
+    }
+    var modal = object : UTSJSONObject() {
+        var title = "제목"
+    }
+    var mention = object : UTSJSONObject() {
+        var placeholder = "내용 입력, @로 친구 선택, 확인 누르기"
+    }
+    var slideVerify = object : UTSJSONObject() {
+        var tipsText = "지정 위치로 드래그"
+        var tipsTextSuccess = "검증 성공"
+        var tipsTextFail = "검증 실패"
+    }
+    var xRequest = object : UTSJSONObject() {
+        var error = "서버 오류:"
+        var success = "작업 성공"
+        var hostFailEmpty = "요청 도메인 미입력"
+        var loading = "로드 중"
+    }
+}
+val default3: UTSJSONObject = object : UTSJSONObject() {
+    var tmui4x = tmui4x3
+}
+val tmui4x4: UTSJSONObject = object : UTSJSONObject() {
+    var cancel = "キャンセル"
+    var confirm = "確認"
+    var success = "成功"
+    var fail = "失敗"
+    var warn = "警告"
+    var info = "情報"
+    var clear = "クリア"
+    var pickerTitle = "選択してください"
+    var calendar = object : UTSJSONObject() {
+        var year = "年"
+        var month = "月"
+        var day = "日"
+        var hour = "時"
+        var minute = "分"
+        var second = "秒"
+        var titleCurrentMonth = "{0}年{1}月"
+        var monthCountSelected = "{count}ヶ月"
+        var selectedStatus = "選択済み{count}日 | 日付未選択 | 選択済み | 終了日未選択"
+        var rangStatus = "開始 | 終了 | 本日"
+        var tips = "最大選択{count}日"
+        var currentMonthTitle = "今月"
+        var week = "月曜日 | 火曜日 | 水曜日 | 木曜日 | 金曜日 | 土曜日 | 日曜日"
+    }
+    var betweentTime = object : UTSJSONObject() {
+        var start = "開始時間"
+        var end = "終了時間"
+        var quiakListTitle = "本日 | 今週 | 今月 | 今年 | 今四半期"
+        var quiakListTitle2 = "最近{count}日"
+        var quiakListTitle3 = "前{count}年"
+        var title = "時間を選択してください"
+        var splite = "から"
+    }
+    var uploadFile = object : UTSJSONObject() {
+        var title = "ファイルを選択"
+        var uploadStatus = "アップロード待機 | アップロード中... | アップロード失敗 | アップロード成功 | サイズ超過"
+        var tips1 = "アップロード中は削除禁止"
+        var tips2 = "アップロード済みファイルは削除禁止"
+    }
+    var pickerSelected = object : UTSJSONObject() {
+        var placeholder = "キーワードを入力してください"
+        var search = "検索"
+        var selected = "選択済み{count}項目"
+        var claer = "選択をクリア"
+        var selectedMode = "現在は単一選択モード"
+        var selectedALl = "すべて選択"
+    }
+    var tree = object : UTSJSONObject() {
+        var changeTitle = "内容を変更"
+        var addTitle = "下位を追加"
+        var inputTitle = "タイトル"
+        var inputId = "識別ID"
+        var inputTips1 = "重複しないでください、空の場合は自動生成"
+    }
+    var input = object : UTSJSONObject() {
+        var placeholder = "選択または入力してください"
+    }
+    var inputTag = object : UTSJSONObject() {
+        var placeholder = "入力してEnterを押してください"
+        var tips = "空にできません"
+        var tips2 = "制限最大数を超過:{count}"
+        var btnText = "タグを追加"
+    }
+    var keyboard = object : UTSJSONObject() {
+        var placeholder = "安全キーボードで安心入力"
+        var space = "スペース"
+        var confirm = "確認"
+    }
+    var pickerTime = object : UTSJSONObject() {
+        var hour = "時間"
+        var minute = "分"
+        var second = "秒数"
+    }
+    var cascader = object : UTSJSONObject() {
+        var placeholder = "選択してください"
+        var currentPlaceholder = "本級を選択"
+    }
+    var pickerDate = object : UTSJSONObject() {
+        var placeholder = "時間を選択してください"
+        var year = "年"
+        var month = "月"
+        var day = "日"
+        var hour = "時"
+        var minute = "分"
+        var second = "秒"
+    }
+    var uploadMedia = object : UTSJSONObject() {
+        var tips1 = "アップロード中はドラッグソート禁止"
+        var videoPreview = "ビデオプレビュー"
+        var close = "閉じる"
+        var systemError = "システム異常"
+        var limitMaxCount = "最大アップロード数を超過"
+        var uploadStatus = "アップロード待機 | アップロード中... | アップロード失敗 | アップロード成功 | サイズ超過"
+    }
+    var checkbox = object : UTSJSONObject() {
+        var tips = "最大選択数を超過"
+    }
+    var weekbar = object : UTSJSONObject() {
+        var week = "月曜日 | 火曜日 | 水曜日 | 木曜日 | 金曜日 | 土曜日 | 日曜日"
+    }
+    var pagination = object : UTSJSONObject() {
+        var prev = "前のページ"
+        var next = "次のページ"
+    }
+    var search = object : UTSJSONObject() {
+        var placeholder = "キーワードを入力"
+        var cancel = "キャンセル"
+    }
+    var xmore = object : UTSJSONObject() {
+        var off = "もっと展開"
+        var on = "もっと収納"
+    }
+    var empty = object : UTSJSONObject() {
+        var moreLabel = "データなし"
+        var errorLabel = "エラー"
+        var btnLabel = "リトライ"
+        var title = "データなし"
+    }
+    var xloading = object : UTSJSONObject() {
+        var label = "ロード中..."
+    }
+    var actionModal = object : UTSJSONObject() {
+        var title = "リマインダー"
+        var btnText = "確認"
+    }
+    var actionMenu = object : UTSJSONObject() {
+        var title = "選択してください"
+        var btnText = "確認"
+    }
+    var pullRefresh = object : UTSJSONObject() {
+        var status_1 = "リフレッシュ中"
+        var status_2 = "さらに下に引っ張る"
+        var status_3 = "離してリフレッシュ"
+        var status_4 = "リフレッシュ完了"
+        var status_5 = "リフレッシュ失敗"
+    }
+    var virtualList = object : UTSJSONObject() {
+        var status_0 = "さらに下に引っ張る"
+        var status_1 = "離してリフレッシュ"
+        var status_2 = "リフレッシュ中"
+        var status_3 = "リフレッシュキャンセル"
+        var status_4 = "リフレッシュタイムアウト、リトライ"
+        var status_5 = "リフレッシュ完了"
+    }
+    var imageResize = object : UTSJSONObject() {
+        var ok = "完了"
+        var cancel = "キャンセル"
+        var reset = "リセット"
+    }
+    var colorView = object : UTSJSONObject() {
+        var rgb = "RGB"
+        var hub = "スペクトル"
+        var grid = "カラーパレット"
+        var alpha = "透明度"
+        var hex = "HEX"
+        var r = "赤"
+        var g = "緑"
+        var b = "青"
+    }
+    var modal = object : UTSJSONObject() {
+        var title = "タイトル"
+    }
+    var mention = object : UTSJSONObject() {
+        var placeholder = "内容を入力、@で友達選択、確認押す"
+    }
+    var slideVerify = object : UTSJSONObject() {
+        var tipsText = "指定位置にドラッグ"
+        var tipsTextSuccess = "検証成功"
+        var tipsTextFail = "検証失敗"
+    }
+    var xRequest = object : UTSJSONObject() {
+        var error = "サーバーエラー:"
+        var success = "操作成功"
+        var hostFailEmpty = "リクエストドメイン未入力"
+        var loading = "ロード中"
+    }
+}
+val default4: UTSJSONObject = object : UTSJSONObject() {
+    var tmui4x = tmui4x4
+}
+val messages: UTSJSONObject = object : UTSJSONObject() {
+    var en = `default`
+    var `zh-Hans` = default1
+    var `zh-Hant` = default2
+    var ko = default3
+    var ja = default4
+}
 val colors = Map<String, String>(_uA(
     _uA(
         "primary",
@@ -4600,7 +7495,8 @@ fun getDarkMode(): String {
     }
     return model
 }
-val xConfig = reactive(XCONFIG(theme = Map<String, String>(_uA()), color = "#0579FF", dark = "auto", designSize = 375, maximumCalculatedSize = 667, unit = "px", language = "zh-Hans", fontScale = 1, fontSize = "16", navigationBarTextStyleDark = "#ffffff", navigationBarTextStyleLight = "#000000", navigationBarBackgroundColorDark = "#000000", navigationBarBackgroundColorLight = "#f5f5f5", backgroundColorContentDark = "#000000", backgroundColorContentLight = "#f5f5f5", tabarBackgroundColorDark = "#0a0a0a", tabarBackgroundColorLight = "#FFFFFF", sheetDarkColor = "#141414", sheetDarkBorderColor = _uA(
+val xProvitae = reactive(XPRIVATECONFIG(scrollTop = -1, windowInnerWidth = 0, windowInnerHeight = 0, windowWidth = 0, windowHeight = 0, pageStyle = Map<String, xPageStyle>(), pageReady = false))
+val xConfig = reactive(XCONFIG(theme = Map<String, String>(_uA()), i18n = createI18n(I18nOptions(messages = messages, locale = "zh-Hans")), color = "#0579FF", dark = "auto", designSize = 375, maximumCalculatedSize = 667, unit = "px", language = "zh-Hans", fontScale = 1, fontSize = "16", navigationBarTextStyleDark = "#ffffff", navigationBarTextStyleLight = "#000000", navigationBarBackgroundColorDark = "#000000", navigationBarBackgroundColorLight = "#f5f5f5", backgroundColorContentDark = "#000000", backgroundColorContentLight = "#f5f5f5", tabarBackgroundColorDark = "#0a0a0a", tabarBackgroundColorLight = "#FFFFFF", sheetDarkColor = "#141414", sheetDarkBorderColor = _uA(
     "#232323"
 ), inputDarkColor = "#272727", inputBgColor = "#f5f5f5", placeholderStyle = "#888888", borderDarkColor = "#1c1c1c", inputRadius = "12", inputFocusBorder = _uA(), buttonRadius = "12", tagRadius = "3", cellRadius = "12", cellMargin = _uA(
     "12px",
@@ -5221,133 +8117,152 @@ val getDarkModel = fun(): String {
     return m as String
 }
 val xTabbarConfig = reactive(XTABBARCONFIG(tabbarActiveIndex = 0, tabaarHeight = 60, list = _uA<TABBAR_ITEM_INFO>()))
-val setConfig = fun(config: Any?){
-    if (config == null) {
+val setConfig = fun(configs: Tmui4xOptions?){
+    var localLang = uni_getStorageSync("language") as String?
+    if (configs != null && configs?.i18nOptions != null) {
+        var opts = configs.i18nOptions!!
+        xConfig.i18n = createI18n(opts)
+    }
+    if (configs != null && configs?.config != null) {
+        val config = configs.config!!
+        var cfg = config!! as UTSJSONObject
+        if (cfg.getString("color") != null && cfg.getString("color") != "") {
+            xConfig.color = cfg.getString("color")!!
+        }
+        if (cfg.getAny("theme") != null) {
+            var theme = cfg.getAny("theme")!! as Map<String, String>
+            xConfig.theme = theme
+        }
+        if (cfg.getString("dark") != null && cfg.getString("dark") != "") {
+            xConfig.dark = cfg.getString("dark")!!
+            setDarkModel(xConfig.dark)
+        }
+        if (cfg.getNumber("designSize") != null) {
+            xConfig.designSize = cfg.getNumber("designSize")!!
+        }
+        if (cfg.getNumber("maximumCalculatedSize") != null) {
+            xConfig.maximumCalculatedSize = cfg.getNumber("maximumCalculatedSize")!!
+        }
+        if (cfg.getString("unit") != null && cfg.getString("unit") != "") {
+            xConfig.unit = cfg.getString("unit")!! as String
+        }
+        if (cfg.getString("language") != null && cfg.getString("language") != "") {
+            if (localLang == "" || localLang == null) {
+                xConfig.language = cfg.getString("language")!!
+                xConfig.i18n.setLocale(xConfig.language)
+            } else {
+                xConfig.language = localLang!!
+                xConfig.i18n.setLocale(localLang!!)
+            }
+        }
+        if (cfg.getString("language") == null || cfg.getString("language") == "") {
+            if (localLang != "" && UTSAndroid.`typeof`(localLang) == "string") {
+                xConfig.language = localLang!!
+                xConfig.i18n.setLocale(localLang!!)
+            }
+        }
+        if (cfg.getNumber("fontScale") != null) {
+            xConfig.fontScale = cfg.getNumber("fontScale")!!
+        }
+        if (cfg.getString("fontSize") != null && cfg.getString("fontSize") != "") {
+            xConfig.fontSize = cfg.getString("fontSize")!!
+        }
+        if (cfg.getString("navigationBarTextStyleDark") != null) {
+            xConfig.navigationBarTextStyleDark = cfg.getString("navigationBarTextStyleDark")!!
+        }
+        if (cfg.getString("navigationBarTextStyleLight") != null) {
+            xConfig.navigationBarTextStyleLight = cfg.getString("navigationBarTextStyleLight")!!
+        }
+        if (cfg.getString("navigationBarBackgroundColorDark") != null) {
+            xConfig.navigationBarBackgroundColorDark = cfg.getString("navigationBarBackgroundColorDark")!!
+        }
+        if (cfg.getString("navigationBarBackgroundColorLight") != null) {
+            xConfig.navigationBarBackgroundColorLight = cfg.getString("navigationBarBackgroundColorLight")!!
+        }
+        if (cfg.getString("backgroundColorContentDark") != null) {
+            xConfig.backgroundColorContentDark = cfg.getString("backgroundColorContentDark")!!
+        }
+        if (cfg.getString("backgroundColorContentLight") != null) {
+            xConfig.backgroundColorContentLight = cfg.getString("backgroundColorContentLight")!!
+        }
+        if (cfg.getString("tabarBackgroundColorDark") != null) {
+            xConfig.tabarBackgroundColorDark = cfg.getString("tabarBackgroundColorDark")!!
+        }
+        if (cfg.getString("tabarBackgroundColorLight") != null) {
+            xConfig.tabarBackgroundColorLight = cfg.getString("tabarBackgroundColorLight")!!
+        }
+        if (cfg.getString("sheetDarkColor") != null) {
+            xConfig.sheetDarkColor = cfg.getString("sheetDarkColor")!!
+        }
+        if (cfg.getArray<String>("sheetDarkBorderColor") != null) {
+            xConfig.sheetDarkBorderColor = cfg.getArray<String>("sheetDarkBorderColor")!!
+        }
+        if (cfg.getString("inputDarkColor") != null) {
+            xConfig.inputDarkColor = cfg.getString("inputDarkColor")!!
+        }
+        if (cfg.getString("sheetDarkColor") != null) {
+            xConfig.borderDarkColor = cfg.getString("borderDarkColor")!!
+        }
+        if (cfg.getString("inputRadius") != null) {
+            xConfig.inputRadius = cfg.getString("inputRadius")!!
+        }
+        if (cfg.getArray<String>("inputFocusBorder") != null) {
+            xConfig.inputFocusBorder = cfg.getArray<String>("inputFocusBorder")!!
+        }
+        if (cfg.getString("buttonRadius") != null) {
+            xConfig.buttonRadius = cfg.getString("buttonRadius")!!
+        }
+        if (cfg.getString("tagRadius") != null) {
+            xConfig.tagRadius = cfg.getString("tagRadius")!!
+        }
+        if (cfg.getString("cellRadius") != null) {
+            xConfig.cellRadius = cfg.getString("cellRadius")!!
+        }
+        if (cfg.getArray<String>("sheetRadius") != null) {
+            xConfig.sheetRadius = cfg.getArray<String>("sheetRadius")!!
+        }
+        if (cfg.getArray<String>("sheetMargin") != null) {
+            xConfig.sheetMargin = cfg.getArray<String>("sheetMargin")!!
+        }
+        if (cfg.getArray<String>("sheetPadding") != null) {
+            xConfig.sheetPadding = cfg.getArray<String>("sheetPadding")!!
+        }
+        if (cfg.getString("drawerRadius") != null) {
+            xConfig.drawerRadius = cfg.getString("drawerRadius")!!
+        }
+        if (cfg.getString("modalRadius") != null) {
+            xConfig.modalRadius = cfg.getString("modalRadius")!!
+        }
+        if (cfg.getString("switchRadius") != null) {
+            xConfig.switchRadius = cfg.getString("switchRadius")!!
+        }
+        if (cfg.getString("progressRadius") != null) {
+            xConfig.progressRadius = cfg.getString("progressRadius")!!
+        }
+        if (cfg.getString("unRadioAndCheckBoxColor") != null) {
+            xConfig.unRadioAndCheckBoxColor = cfg.getString("unRadioAndCheckBoxColor")!!
+        }
+        if (cfg.getString("radioButtonRadius") != null) {
+            xConfig.radioButtonRadius = cfg.getString("radioButtonRadius")!!
+        }
+        if (cfg.getString("animationFun") != null) {
+            xConfig.animationFun = cfg.getString("animationFun")!!
+        }
+        if (cfg.getString("cardRound") != null) {
+            xConfig.cardRound = cfg.getString("cardRound")!!
+        }
+        if (cfg.getString("closeIcon") != null) {
+            xConfig.closeIcon = cfg.getString("closeIcon")!!
+        }
+        if (cfg.getString("inputBgColor") != null) {
+            xConfig.inputBgColor = cfg.getString("inputBgColor")!!
+        }
+        if (cfg.getString("placeholderStyle") != null) {
+            xConfig.placeholderStyle = cfg.getString("placeholderStyle")!!
+        }
         return
     }
-    var cfg = config!! as UTSJSONObject
-    if (cfg.getString("color") != null && cfg.getString("color") != "") {
-        xConfig.color = cfg.getString("color")!!
-    }
-    if (cfg.getAny("theme") != null) {
-        var theme = cfg.getAny("theme")!! as Map<String, String>
-        xConfig.theme = theme
-    }
-    if (cfg.getString("dark") != null && cfg.getString("dark") != "") {
-        xConfig.dark = cfg.getString("dark")!!
-        setDarkModel(xConfig.dark)
-    }
-    if (cfg.getNumber("designSize") != null) {
-        xConfig.designSize = cfg.getNumber("designSize")!!
-    }
-    if (cfg.getNumber("maximumCalculatedSize") != null) {
-        xConfig.maximumCalculatedSize = cfg.getNumber("maximumCalculatedSize")!!
-    }
-    if (cfg.getString("unit") != null && cfg.getString("unit") != "") {
-        xConfig.unit = cfg.getString("unit")!! as String
-    }
-    if (cfg.getString("language") != null && cfg.getString("language") != "") {
-        xConfig.language = cfg.getString("language")!!
-    }
-    if (cfg.getNumber("fontScale") != null) {
-        xConfig.fontScale = cfg.getNumber("fontScale")!!
-    }
-    if (cfg.getString("fontSize") != null && cfg.getString("fontSize") != "") {
-        xConfig.fontSize = cfg.getString("fontSize")!!
-    }
-    if (cfg.getString("navigationBarTextStyleDark") != null) {
-        xConfig.navigationBarTextStyleDark = cfg.getString("navigationBarTextStyleDark")!!
-    }
-    if (cfg.getString("navigationBarTextStyleLight") != null) {
-        xConfig.navigationBarTextStyleLight = cfg.getString("navigationBarTextStyleLight")!!
-    }
-    if (cfg.getString("navigationBarBackgroundColorDark") != null) {
-        xConfig.navigationBarBackgroundColorDark = cfg.getString("navigationBarBackgroundColorDark")!!
-    }
-    if (cfg.getString("navigationBarBackgroundColorLight") != null) {
-        xConfig.navigationBarBackgroundColorLight = cfg.getString("navigationBarBackgroundColorLight")!!
-    }
-    if (cfg.getString("backgroundColorContentDark") != null) {
-        xConfig.backgroundColorContentDark = cfg.getString("backgroundColorContentDark")!!
-    }
-    if (cfg.getString("backgroundColorContentLight") != null) {
-        xConfig.backgroundColorContentLight = cfg.getString("backgroundColorContentLight")!!
-    }
-    if (cfg.getString("tabarBackgroundColorDark") != null) {
-        xConfig.tabarBackgroundColorDark = cfg.getString("tabarBackgroundColorDark")!!
-    }
-    if (cfg.getString("tabarBackgroundColorLight") != null) {
-        xConfig.tabarBackgroundColorLight = cfg.getString("tabarBackgroundColorLight")!!
-    }
-    if (cfg.getString("sheetDarkColor") != null) {
-        xConfig.sheetDarkColor = cfg.getString("sheetDarkColor")!!
-    }
-    if (cfg.getArray<String>("sheetDarkBorderColor") != null) {
-        xConfig.sheetDarkBorderColor = cfg.getArray<String>("sheetDarkBorderColor")!!
-    }
-    if (cfg.getString("inputDarkColor") != null) {
-        xConfig.inputDarkColor = cfg.getString("inputDarkColor")!!
-    }
-    if (cfg.getString("sheetDarkColor") != null) {
-        xConfig.borderDarkColor = cfg.getString("borderDarkColor")!!
-    }
-    if (cfg.getString("inputRadius") != null) {
-        xConfig.inputRadius = cfg.getString("inputRadius")!!
-    }
-    if (cfg.getArray<String>("inputFocusBorder") != null) {
-        xConfig.inputFocusBorder = cfg.getArray<String>("inputFocusBorder")!!
-    }
-    if (cfg.getString("buttonRadius") != null) {
-        xConfig.buttonRadius = cfg.getString("buttonRadius")!!
-    }
-    if (cfg.getString("tagRadius") != null) {
-        xConfig.tagRadius = cfg.getString("tagRadius")!!
-    }
-    if (cfg.getString("cellRadius") != null) {
-        xConfig.cellRadius = cfg.getString("cellRadius")!!
-    }
-    if (cfg.getArray<String>("sheetRadius") != null) {
-        xConfig.sheetRadius = cfg.getArray<String>("sheetRadius")!!
-    }
-    if (cfg.getArray<String>("sheetMargin") != null) {
-        xConfig.sheetMargin = cfg.getArray<String>("sheetMargin")!!
-    }
-    if (cfg.getArray<String>("sheetPadding") != null) {
-        xConfig.sheetPadding = cfg.getArray<String>("sheetPadding")!!
-    }
-    if (cfg.getString("drawerRadius") != null) {
-        xConfig.drawerRadius = cfg.getString("drawerRadius")!!
-    }
-    if (cfg.getString("modalRadius") != null) {
-        xConfig.modalRadius = cfg.getString("modalRadius")!!
-    }
-    if (cfg.getString("switchRadius") != null) {
-        xConfig.switchRadius = cfg.getString("switchRadius")!!
-    }
-    if (cfg.getString("progressRadius") != null) {
-        xConfig.progressRadius = cfg.getString("progressRadius")!!
-    }
-    if (cfg.getString("unRadioAndCheckBoxColor") != null) {
-        xConfig.unRadioAndCheckBoxColor = cfg.getString("unRadioAndCheckBoxColor")!!
-    }
-    if (cfg.getString("radioButtonRadius") != null) {
-        xConfig.radioButtonRadius = cfg.getString("radioButtonRadius")!!
-    }
-    if (cfg.getString("animationFun") != null) {
-        xConfig.animationFun = cfg.getString("animationFun")!!
-    }
-    if (cfg.getString("cardRound") != null) {
-        xConfig.cardRound = cfg.getString("cardRound")!!
-    }
-    if (cfg.getString("closeIcon") != null) {
-        xConfig.closeIcon = cfg.getString("closeIcon")!!
-    }
-    if (cfg.getString("inputBgColor") != null) {
-        xConfig.inputBgColor = cfg.getString("inputBgColor")!!
-    }
-    if (cfg.getString("placeholderStyle") != null) {
-        xConfig.placeholderStyle = cfg.getString("placeholderStyle")!!
-    }
+    xConfig.language = xConfig.i18n.ops.locale
 }
 fun getUid(rdix: Number = 1, length: Number = 12): String {
     var ix = ""
@@ -7411,6 +10326,7 @@ open class xDate {
 val dateCovertXdate = fun(date: Date): xDate {
     return xDate(date)
 }
+val i18n = xConfig.i18n
 typealias xRequestEventType = String
 typealias funType = (arg: Any) -> UTSPromise<Any>
 open class funCall (
@@ -7534,7 +10450,7 @@ open class xRequest {
     private var cacheManager: xCacheManager
     private var selfOpts = xRequestOptionsCallBack(useCache = false, cacheTime = 60000, hostUrl = xRequestCall.hostUrl, successStatusCode = 200, url = "", data = UTSJSONObject(), header = object : UTSJSONObject() {
         var `content-type` = "application/json"
-    }, method = "GET", timeout = 6000, firstIpv4 = false, showLoadToast = xRequestCall.showLoadToast, showSuccessToast = xRequestCall.showSuccessToast, showErrorToast = xRequestCall.showErrorToast, loadToastText = "...", successToastText = "操作成功", errorToastText = "")
+    }, method = "GET", timeout = 6000, firstIpv4 = false, showLoadToast = xRequestCall.showLoadToast, showSuccessToast = xRequestCall.showSuccessToast, showErrorToast = xRequestCall.showErrorToast, loadToastText = i18n.t("tmui4x.xRequest.loading"), successToastText = i18n.t("tmui4x.xRequest.success"), errorToastText = "")
     private var _lisentEventList = _uA<funCall>()
     private var status = null as xRequestEventType?
     private var result = xRequestResult(data = null, statusCode = 0, header = UTSJSONObject() as Any, cookies = _uA<String>())
@@ -7735,7 +10651,7 @@ open class xRequest {
                     }
                     if (_thisOpts.showErrorToast) {
                         return@w UTSPromise<xRequestResult>(fun(tres, trej){
-                            uni_showToast(ShowToastOptions(title = "未填请求域名", icon = "error", mask = true, complete = fun(_) {
+                            uni_showToast(ShowToastOptions(title = i18n.t("tmui4x.xRequest.hostFailEmpty"), icon = "error", mask = true, complete = fun(_) {
                                 trej(_this.result)
                             }
                             ))
@@ -7805,7 +10721,7 @@ open class xRequest {
                                     if (_thisOpts.showErrorToast) {
                                         var msg = _thisOpts!!.errorToastText
                                         msg = if (msg == "") {
-                                            ("服务器错误:" + rst.statusCode.toString(10))
+                                            (i18n.t("tmui4x.xRequest.error") + rst.statusCode.toString(10))
                                         } else {
                                             msg
                                         }
@@ -7849,7 +10765,7 @@ open class xRequest {
                                         }
                                     }
                                     msg = if (msg == "") {
-                                        "操作成功"
+                                        i18n.t("tmui4x.xRequest.success")
                                     } else {
                                         msg
                                     }
@@ -7877,7 +10793,7 @@ open class xRequest {
                                 uni_hideLoading()
                             }
                             if (_thisOpts.showErrorToast) {
-                                uni_showToast(ShowToastOptions(title = "服务器错误：" + er.errCode.toString(), mask = true, icon = "error", complete = fun(_) {
+                                uni_showToast(ShowToastOptions(title = i18n.t("tmui4x.xRequest.error") + er.errCode.toString(), mask = true, icon = "error", complete = fun(_) {
                                     rej(_this.result)
                                 }))
                             } else {
@@ -8702,6 +11618,8 @@ open class xUploadMedia {
     open var currentIndex: Number = 0
     open var uploading = false
     open var uploadObj = null as UploadTask?
+    open var systemError = xConfig.i18n.t("tmui4x.uploadMedia.systemError")
+    open var limitMaxCount = xConfig.i18n.t("tmui4x.uploadMedia.limitMaxCount")
     constructor(opts: XUPLOADFILE_INFO = XUPLOADFILE_INFO()){
         this.chuliConfigArgs(opts)
     }
@@ -8798,7 +11716,7 @@ open class xUploadMedia {
     }
     open fun chooseMedia() {
         if (this.fileList.length == this.config.count) {
-            uni_showToast(ShowToastOptions(title = "已超最大上传数量", mask = true, icon = "none"))
+            uni_showToast(ShowToastOptions(title = this.limitMaxCount, mask = true, icon = "none"))
             console.warn("xUploadMedia:已经超过最大上传数量")
             return
         }
@@ -8826,7 +11744,7 @@ open class xUploadMedia {
                             }
                         }).`catch`(fun(er){
                             console.error(er)
-                            uni_showModal(ShowModalOptions(title = "系统异常", content = er as String, showCancel = false))
+                            uni_showModal(ShowModalOptions(title = this.systemError, content = er as String, showCancel = false))
                         })
                     } else {
                         var tps = res.tempFilePaths as UTSJSONObject
@@ -8837,7 +11755,7 @@ open class xUploadMedia {
                             }
                         }).`catch`(fun(er){
                             console.error(er)
-                            uni_showModal(ShowModalOptions(title = "系统异常", content = er as String, showCancel = false))
+                            uni_showModal(ShowModalOptions(title = this.systemError, content = er as String, showCancel = false))
                         })
                     }
                 } else {
@@ -8909,7 +11827,7 @@ open class xUploadMedia {
                         }
                     }).`catch`(fun(er){
                         console.error(er)
-                        uni_showModal(ShowModalOptions(title = "系统异常", content = er as String, showCancel = false))
+                        uni_showModal(ShowModalOptions(title = this.systemError, content = er as String, showCancel = false))
                     })
                 } else {
                     this.addNewFile(temps)
@@ -9141,8 +12059,9 @@ open class xUploadMedia {
         )
     }
 }
-val xui = definePlugin(VuePlugin(install = fun(app: VueApp, config: Any?) {
+val xui = definePlugin(VuePlugin(install = fun(app: VueApp, config: Tmui4xOptions?) {
     setConfig(config)
+    app.config.globalProperties["\$i18n"] = true
     var darkModel = getDarkMode()
     if (isCustomTheme()) {
         xConfig.dark = darkModel
@@ -9356,12 +12275,12 @@ open class WebSocketClient {
             clearInterval(this.reconnectId)
             setTimeout(fun(){
                 hideXloading()
+                this.onOpen?.invoke()
             }
             , 150)
             if (this.heartbeat) {
                 this.startHeartbeat()
             }
-            this.onOpen?.invoke()
         }
         )
         this.socketTask?.onMessage(fun(result){
@@ -9722,6 +12641,7 @@ open class GenGlobalData {
 }
 open class GenApp : BaseApp {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {
+        onLaunch(fun(_: OnLaunchOptions) {}, __ins)
         onLaunch(fun(_: OnLaunchOptions) {
             if (getPrivacyStatus()) {
                 JgUtil.setPrivacyAuth(true)
@@ -13827,6 +16747,7 @@ val GenUniModulesTmxUiComponentsXButtonXButtonClass = CreateVueComponent(GenUniM
     return GenUniModulesTmxUiComponentsXButtonXButton(instance)
 }
 )
+val i18n1 = xConfig.i18n
 val GenUniModulesTmxUiComponentsXEmptyXEmptyClass = CreateVueComponent(GenUniModulesTmxUiComponentsXEmptyXEmpty::class.java, fun(): VueComponentOptions {
     return VueComponentOptions(type = "component", name = "", inheritAttrs = GenUniModulesTmxUiComponentsXEmptyXEmpty.inheritAttrs, inject = GenUniModulesTmxUiComponentsXEmptyXEmpty.inject, props = GenUniModulesTmxUiComponentsXEmptyXEmpty.props, propsNeedCastKeys = GenUniModulesTmxUiComponentsXEmptyXEmpty.propsNeedCastKeys, emits = GenUniModulesTmxUiComponentsXEmptyXEmpty.emits, components = GenUniModulesTmxUiComponentsXEmptyXEmpty.components, styles = GenUniModulesTmxUiComponentsXEmptyXEmpty.styles)
 }
@@ -13925,22 +16846,10 @@ val getRemainingTime = fun(futureDate: Any): Number {
         0
     }
 }
-val formatTimestamp = fun(reassignedTimestamp: Number, showHours: Boolean): String {
+val formatToSeconds = fun(reassignedTimestamp: Number): String {
     var timestamp = reassignedTimestamp
     timestamp = Math.abs(timestamp)
-    val days = Math.floor(timestamp / 86400000)
-    val hours = Math.floor((timestamp % 86400000) / 3600000)
-    val minutes = Math.floor((timestamp % 3600000) / 60000)
-    val seconds = Math.floor((timestamp % 60000) / 1000)
-    if (days > 0) {
-        return "" + days + "day" + hours + "h" + minutes + "m" + seconds + "s"
-    }
-    if (hours > 0 || showHours) {
-        return "" + hours + "h" + minutes + "m" + seconds + "s"
-    }
-    if (minutes > 0) {
-        return "" + minutes + "m" + seconds + "s"
-    }
+    val seconds = Math.floor(timestamp / 1000)
     return "" + seconds + "s"
 }
 fun addTime(dateStr: String, num: Number, unit: String): String {
@@ -14422,7 +17331,7 @@ open class calendarDraw {
                         }
                         if (dstyle.dot.dot) {
                             if (dstyle.dot.dotLabel == "") {
-                                var lastx = _realCellWidth * col + _realCellWidth / 2 + this.cellHeight / 2
+                                var lastx = _realCellWidth * col + _realCellWidth / 2 + this.cellHeight / 2 - 5
                                 var lasty = _realCellWidth * i + 5
                                 ctx.fillStyle = dstyle.dot.dotColor
                                 ctx.beginPath()
@@ -14430,7 +17339,7 @@ open class calendarDraw {
                                 ctx.closePath()
                                 ctx.fill()
                             } else {
-                                var lastx = _realCellWidth * col + _realCellWidth / 2 + this.cellHeight / 2 - 5
+                                var lastx = _realCellWidth * col + _realCellWidth / 2 + this.cellHeight / 2 - 10
                                 var lasty = _realCellWidth * i + 10
                                 ctx.fillStyle = dstyle.dot.dotColor
                                 ctx.beginPath()
@@ -20623,8 +23532,7 @@ open class DriverBindDistrictLines (
     open var nineExclusivePrice: String,
     @JsonNotNull
     open var status: Number,
-    @JsonNotNull
-    open var intercityRewardRule: Number,
+    open var intercityRewardRule: Number? = null,
 ) : UTSReactiveObject() {
     override fun __v_create(__v_isReadonly: Boolean, __v_isShallow: Boolean, __v_skip: Boolean): UTSReactiveObject {
         return DriverBindDistrictLinesReactiveObject(this, __v_isReadonly, __v_isShallow, __v_skip)
@@ -20836,7 +23744,7 @@ open class DriverBindDistrictLinesReactiveObject : DriverBindDistrictLines, IUTS
             __v_raw.status = value
             _tRS(__v_raw, "status", oldValue, value)
         }
-    override var intercityRewardRule: Number
+    override var intercityRewardRule: Number?
         get() {
             return _tRG(__v_raw, "intercityRewardRule", __v_raw.intercityRewardRule, __v_isReadonly, __v_isShallow)
         }
@@ -24531,17 +27439,27 @@ val GenPagesPersonalSettingAccountSafeAccountBindIndexClass = CreateVueComponent
     return GenPagesPersonalSettingAccountSafeAccountBindIndex(instance, renderer)
 }
 )
+val messages1: UTSJSONObject = object : UTSJSONObject() {
+    var en = UTSJSONObject.assign(UTSJSONObject(), `default`, object : UTSJSONObject() {
+        var hellow = "Hi~"
+    })
+    var `zh-Hans` = UTSJSONObject.assign(UTSJSONObject(), default1, object : UTSJSONObject() {
+        var hellow = "哈喽"
+    })
+    var `zh-Hant` = default2
+    var ko = default3
+    var ja = default4
+}
 fun createApp(): UTSJSONObject {
     val app = createSSRApp(GenAppClass)
-    app.use(xui, object : UTSJSONObject() {
+    app.use(xui, Tmui4xOptions(config = object : UTSJSONObject() {
         var darkModel = "light"
-    })
+    }, i18nOptions = I18nOptions(locale = "zh-Hans", messages = messages1)))
     val router = uni_createKuxRouter(RouterOptions(routes = routes, useAddInterceptor = UseAddInterceptorOptions(switchTab = true)))
     app.provide("router", router)
     val userInfo = getCacheUserInfo()
-    console.log("createApp userInfo===", userInfo, ", status=", userInfo != null)
     val isLogin = userInfo != null
-    val globalData = reactive<GlobalDataType>(GlobalDataType(theme = getTheme(), carSetting = CarSetting(closeReceiveOrderSwitch = true, enableAIRouteStrategy = false, routeStrategy = "OVERALL_OPTIMAL"), isLogin = isLogin, entryStatus = 0, safeAreaBottom = 0, ignoreLocationPerm = false, position = LocationInfo(adcode = "", address = "", provinceName = "", cityName = "", distinctName = "", latitude = 0, longitude = 0)))
+    val globalData = reactive<GlobalDataType>(GlobalDataType(theme = getTheme(), carSetting = CarSetting(closeReceiveOrderSwitch = true, enableAIRouteStrategy = false, enableReceiveOrderConfirm = false, routeStrategy = "OVERALL_OPTIMAL"), isLogin = isLogin, entryStatus = 0, safeAreaBottom = 0, ignoreLocationPerm = false, position = LocationInfo(adcode = "", address = "", provinceName = "", cityName = "", distinctName = "", latitude = 0, longitude = 0)))
     app.provide("globalData", globalData)
     return _uO("app" to app)
 }
@@ -24628,6 +27546,12 @@ open class UniCloudConfig : io.dcloud.unicloud.InternalUniCloudConfig {
     override var secureNetworkConfig: String? = "[]"
     constructor() : super() {}
 }
+var `___$i18n` = xConfig.i18n
+var VueComponent.`$i18n`
+    get() = `___$i18n`
+    set(value) {
+        `___$i18n` = value
+    }
 open class GenUniApp : UniAppImpl() {
     open val vm: GenApp?
         get() {

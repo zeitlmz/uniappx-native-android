@@ -15,6 +15,7 @@ open class GenComponentsMcSeatViewerIndex : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {}
     open var data: UTSArray<ChooseSeat> by `$props`
     open var seatTemplates: UTSArray<SeatSelectTemplate> by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var show: () -> Unit
         get() {
             return unref(this.`$exposed`["show"]) as () -> Unit
@@ -22,6 +23,10 @@ open class GenComponentsMcSeatViewerIndex : VueComponent {
         set(value) {
             setRefValue(this.`$exposed`, "show", value)
         }
+    @Suppress("USELESS_CAST")
+    override fun data(): Map<String, Any?> {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml)
+    }
     companion object {
         @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
         var setup: (__props: GenComponentsMcSeatViewerIndex, _arg1: SetupContext) -> Any? = fun(__props, ref1): Any? {

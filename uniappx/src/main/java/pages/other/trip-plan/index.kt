@@ -19,6 +19,7 @@ open class GenPagesOtherTripPlanIndex : BasePage {
     constructor(__ins: ComponentInternalInstance, __renderer: String?) : super(__ins, __renderer) {
         onPageScroll(fun(e: OnPageScrollOptions) {
             xProvitae.scrollTop = e.scrollTop
+            uni__emit("onPageScroll", e.scrollTop)
         }
         , __ins)
         onResize(fun(_: OnResizeOptions) {
@@ -39,6 +40,11 @@ open class GenPagesOtherTripPlanIndex : BasePage {
             uni__emit("onShow", fun() {})
         }
         , __ins)
+    }
+    open var i18n: Tmui4xI18nTml by `$data`
+    @Suppress("USELESS_CAST")
+    override fun data(): Map<String, Any?> {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml)
     }
     companion object {
         @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
@@ -240,7 +246,8 @@ open class GenPagesOtherTripPlanIndex : BasePage {
                                                                 _cE("image", _uM("class" to "icon", "src" to ("" + unref(resBaseUrl) + "/static/icons/icon-clock-outline-small.png"), "mode" to "widthFix"), null, 8, _uA(
                                                                     "src"
                                                                 )),
-                                                                _cE("text", _uM("class" to "value"), _tD(item.startTime), 1)
+                                                                _cE("text", _uM("class" to "value"), _tD(item.startTime), 1),
+                                                                _cE("text", _uM("class" to "value mr-5", "style" to _nS(_uM("right" to "0", "position" to "absolute"))), _tD(item.driveInfo.vehiclePlateNo), 5)
                                                             ))
                                                         )),
                                                         _cE("view", _uM("class" to "route-info", "onClick" to fun(){

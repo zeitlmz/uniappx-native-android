@@ -174,6 +174,7 @@ open class GenUniModulesTmxUiComponentsXStepsItemXStepsItem : VueComponent {
     open var iconSize: String by `$props`
     open var labelSize: String by `$props`
     open var descSize: String by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var id: Any? by `$data`
     open var list: UTSArray<String> by `$data`
     open var active: Boolean by `$data`
@@ -193,7 +194,7 @@ open class GenUniModulesTmxUiComponentsXStepsItemXStepsItem : VueComponent {
     open var _disabled: Boolean by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("id" to ("xStepsItemH-" + getUid()), "list" to _uA<String>(), "active" to false, "resizeObserver" to null as UniResizeObserver?, "eleMinHeight" to 20, "_label" to computed<String>(fun(): String {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "id" to ("xStepsItemH-" + getUid()), "list" to _uA<String>(), "active" to false, "resizeObserver" to null as UniResizeObserver?, "eleMinHeight" to 20, "_label" to computed<String>(fun(): String {
             return this.label
         }
         ), "_desc" to computed<String>(fun(): String {

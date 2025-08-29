@@ -135,6 +135,7 @@ open class GenUniModulesTmxUiComponentsXFormItemXFormItem : VueComponent {
     open var labelPadding: UTSArray<String> by `$props`
     open var showError: Boolean by `$props`
     open var contentStyle: String by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var id: String by `$data`
     open var errorText: String by `$data`
     open var isError: Boolean by `$data`
@@ -160,7 +161,7 @@ open class GenUniModulesTmxUiComponentsXFormItemXFormItem : VueComponent {
     open var _labelAlign: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("id" to ("xFormItem-" + getUid()) as String, "errorText" to "请正确填写", "isError" to false, "first" to true, "tid" to 0, "_contentStyle" to computed<String>(fun(): String {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "id" to ("xFormItem-" + getUid()) as String, "errorText" to "请正确填写", "isError" to false, "first" to true, "tid" to 0, "_contentStyle" to computed<String>(fun(): String {
             return this.contentStyle
         }
         ), "_showError" to computed<Boolean>(fun(): Boolean {

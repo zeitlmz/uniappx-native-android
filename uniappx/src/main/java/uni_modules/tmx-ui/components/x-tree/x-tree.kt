@@ -93,6 +93,7 @@ open class GenUniModulesTmxUiComponentsXTreeXTree : VueComponent {
     open var showFloaderIcon: Boolean by `$props`
     open var showChecked: Boolean by `$props`
     open var checkedIcon: UTSArray<String> by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var nowIds: UTSArray<String> by `$data`
     open var folderExopenids: UTSArray<String> by `$data`
     open var _list: UTSArray<UTSJSONObject> by `$data`
@@ -103,7 +104,7 @@ open class GenUniModulesTmxUiComponentsXTreeXTree : VueComponent {
     open var _parentSelectedFullChildren: Boolean by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("nowIds" to _uA<String>(), "folderExopenids" to _uA<String>(), "_list" to _uA<UTSJSONObject>(), "_folderExopenids" to computed<UTSArray<String>>(fun(): UTSArray<String> {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "nowIds" to _uA<String>(), "folderExopenids" to _uA<String>(), "_list" to _uA<UTSJSONObject>(), "_folderExopenids" to computed<UTSArray<String>>(fun(): UTSArray<String> {
             return this.folderExopenids
         }
         ), "_color" to computed<String>(fun(): String {

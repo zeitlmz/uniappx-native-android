@@ -29,6 +29,7 @@ import io.dcloud.uniapp.framework.onUnload
 import io.dcloud.uniapp.runtime.*
 import io.dcloud.uniapp.vue.*
 import io.dcloud.uniapp.vue.shared.*
+import io.dcloud.unicloud.*
 import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
@@ -105,7 +106,7 @@ fun hexToRgb(sColors: String): RGBA? {
             }
             sColor = sColorNew
         }
-        var sColorChange: UTSArray<Number> = utsArrayOf()
+        var sColorChange: UTSArray<Number> = _uA()
         sColorChange.push(parseInt(sColor.substring(1, 3), 16))
         sColorChange.push(parseInt(sColor.substring(3, 5), 16))
         sColorChange.push(parseInt(sColor.substring(5, 7), 16))
@@ -138,21 +139,21 @@ fun hexToRgb(sColors: String): RGBA? {
     }
     return null
 }
-val defaultConfig = XTOAST_TYPE_PRIVATE(iconColor = "rgb(5,121,255)", contentBgColor = "rgba(255,255,255,1)", maskBgColor = "rgba(0,0,0,0.6)", iconSize = 52, iconCode = "F449", title = "", titleSize = 14, titleColor = "rgb(5,121,255)", duration = 2500, size = 130, close = fun(){}, maskDisableClik = true)
-val defaultStatusIcon = Map<String, String>(utsArrayOf(
-    utsArrayOf(
+val defaultConfig = XTOAST_TYPE_PRIVATE(iconColor = "rgb(5,121,255)", contentBgColor = "rgba(255,255,255,1)", maskBgColor = "rgba(0,0,0,0.6)", iconSize = 52, iconCode = "F449", title = "", titleSize = 14, titleColor = "rgb(5,121,255)", duration = 2000, size = 130, close = fun(){}, maskDisableClik = true)
+val defaultStatusIcon = Map<String, String>(_uA(
+    _uA(
         "warn",
         "ECA1"
     ),
-    utsArrayOf(
+    _uA(
         "error",
         "EB97"
     ),
-    utsArrayOf(
+    _uA(
         "success",
         "EB79"
     ),
-    utsArrayOf(
+    _uA(
         "info",
         "F449"
     )
@@ -424,8 +425,8 @@ fun _showToast_(opts: XTOAST_TYPE?) {
     if (tid != null) {
         clearTimeout(tid!!)
     }
+    dialogModal = FullScreenDialogFragment(UTSAndroid.getUniActivity()!!, opts)
     UTSAndroid.getDispatcher("main").async(fun(_) {
-        dialogModal = FullScreenDialogFragment(UTSAndroid.getUniActivity()!!, opts)
         dialogModal?.show()
     }
     )

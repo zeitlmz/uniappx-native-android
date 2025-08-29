@@ -68,6 +68,7 @@ open class GenUniModulesTmxUiComponentsXDragItemMcXDragItemMc : VueComponent {
     }
     open var order: Number by `$props`
     open var disabled: Boolean by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var id: String by `$data`
     open var cellHeight: Number by `$data`
     open var cellWidth: Number by `$data`
@@ -80,7 +81,7 @@ open class GenUniModulesTmxUiComponentsXDragItemMcXDragItemMc : VueComponent {
     open var _disabled: Boolean by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("id" to ("xCollapseItem-" + getUid()) as String, "cellHeight" to 0, "cellWidth" to 0, "nowActiveIndex" to -1, "targetActiveIndex" to -1, "orderIndex" to -1, "nowId" to "", "_defaultTop" to computed<Number>(fun(): Number {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "id" to ("xDragItemMc-" + getUid()) as String, "cellHeight" to 0, "cellWidth" to 0, "nowActiveIndex" to -1, "targetActiveIndex" to -1, "orderIndex" to -1, "nowId" to "", "_defaultTop" to computed<Number>(fun(): Number {
             var parent: XDragMcComponentPublicInstance? = null
             try {
                 parent = this.`$parent` as XDragMcComponentPublicInstance

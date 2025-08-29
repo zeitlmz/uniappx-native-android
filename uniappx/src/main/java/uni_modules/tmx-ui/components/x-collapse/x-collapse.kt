@@ -51,11 +51,12 @@ open class GenUniModulesTmxUiComponentsXCollapseXCollapse : VueComponent {
     }
     open var modelValue: UTSArray<String> by `$props`
     open var multiple: Boolean by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var list: UTSArray<CHIDREN_ITEM> by `$data`
     open var activeName: UTSArray<String> by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("list" to _uA<CHIDREN_ITEM>(), "activeName" to _uA<String>())
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "list" to _uA<CHIDREN_ITEM>(), "activeName" to _uA<String>())
     }
     open var addItem = ::gen_addItem_fn
     open fun gen_addItem_fn(item: CHIDREN_ITEM) {

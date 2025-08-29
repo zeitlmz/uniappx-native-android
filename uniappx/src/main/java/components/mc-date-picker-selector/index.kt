@@ -109,11 +109,12 @@ open class GenComponentsMcDatePickerSelectorIndex : VueComponent {
     open var start: String by `$props`
     open var end: String? by `$props`
     open var format: String by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var date: Any? by `$data`
     open var showDrawer: Boolean by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("date" to formatDate(Date(), "yyyy-MM"), "showDrawer" to false)
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "date" to formatDate(Date(), "yyyy-MM"), "showDrawer" to false)
     }
     open var change = ::gen_change_fn
     open fun gen_change_fn() {

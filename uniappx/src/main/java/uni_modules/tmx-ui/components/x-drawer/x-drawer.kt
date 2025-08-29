@@ -268,6 +268,7 @@ open class GenUniModulesTmxUiComponentsXDrawerXDrawer : VueComponent {
     open var beforeClose: callbackType by `$props`
     open var closeColor: String by `$props`
     open var closeDarkColor: String by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var _width: Number by `$data`
     open var _height: Number by `$data`
     open var showOverflay: Boolean by `$data`
@@ -301,7 +302,6 @@ open class GenUniModulesTmxUiComponentsXDrawerXDrawer : VueComponent {
     open var _showClose: Boolean by `$data`
     open var _duration: Number by `$data`
     open var _position: String by `$data`
-    open var _title: String by `$data`
     open var _showTitle: Boolean by `$data`
     open var _round: String by `$data`
     open var _offset: Number by `$data`
@@ -311,6 +311,7 @@ open class GenUniModulesTmxUiComponentsXDrawerXDrawer : VueComponent {
     open var _showFooter: Boolean by `$data`
     open var _maxHeight: String by `$data`
     open var _showCancel: Boolean by `$data`
+    open var _title: String by `$data`
     open var _cancelText: String by `$data`
     open var _confirmText: String by `$data`
     open var _animationFun: String by `$data`
@@ -322,7 +323,7 @@ open class GenUniModulesTmxUiComponentsXDrawerXDrawer : VueComponent {
     open var _closeIcon: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("_width" to 0, "_height" to 0, "showOverflay" to false, "actioning" to false, "status" to "", "id" to ("xDrawer" + getUid()), "wrapId" to ("xDrawerWrap" + getUid()) as String, "first" to true, "tid" to 0, "windtop" to 0, "windowBottom" to 0, "start_move_x" to 0, "start_move_y" to 0, "move_x" to 0, "move_y" to 0, "move_end_x" to 0, "move_end_y" to 0, "scrollTop" to -1, "isTopOrBottomByScroll" to false, "xDrawerContentHeight" to 0, "safeFooterHeight" to 0, "lezyShowModal" to true, "isOpenedDefault" to false, "isLoading" to false, "_disabledConfirm" to computed<Boolean>(fun(): Boolean {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "_width" to 0, "_height" to 0, "showOverflay" to false, "actioning" to false, "status" to "", "id" to ("xDrawer" + getUid()), "wrapId" to ("xDrawerWrap" + getUid()) as String, "first" to true, "tid" to 0, "windtop" to 0, "windowBottom" to 0, "start_move_x" to 0, "start_move_y" to 0, "move_x" to 0, "move_y" to 0, "move_end_x" to 0, "move_end_y" to 0, "scrollTop" to -1, "isTopOrBottomByScroll" to false, "xDrawerContentHeight" to 0, "safeFooterHeight" to 0, "lezyShowModal" to true, "isOpenedDefault" to false, "isLoading" to false, "_disabledConfirm" to computed<Boolean>(fun(): Boolean {
             return this.disabledConfirm
         }
         ), "_lazy" to computed<Boolean>(fun(): Boolean {
@@ -348,9 +349,6 @@ open class GenUniModulesTmxUiComponentsXDrawerXDrawer : VueComponent {
         }
         ), "_position" to computed<String>(fun(): String {
             return this.position
-        }
-        ), "_title" to computed<String>(fun(): String {
-            return this.title
         }
         ), "_showTitle" to computed<Boolean>(fun(): Boolean {
             return this.showTitle
@@ -409,10 +407,22 @@ open class GenUniModulesTmxUiComponentsXDrawerXDrawer : VueComponent {
         ), "_showCancel" to computed<Boolean>(fun(): Boolean {
             return this.showCancel
         }
+        ), "_title" to computed<String>(fun(): String {
+            if (this.title == "") {
+                return this!!.i18n.t("tmui4x.modal.title")
+            }
+            return this.title
+        }
         ), "_cancelText" to computed<String>(fun(): String {
+            if (this.cancelText == "") {
+                return this!!.i18n.t("tmui4x.cancel")
+            }
             return this.cancelText
         }
         ), "_confirmText" to computed<String>(fun(): String {
+            if (this.cancelText == "") {
+                return this!!.i18n.t("tmui4x.confirm")
+            }
             return this.confirmText
         }
         ), "_animationFun" to computed<String>(fun(): String {
@@ -677,7 +687,7 @@ open class GenUniModulesTmxUiComponentsXDrawerXDrawer : VueComponent {
         var inheritAttrs = true
         var inject: Map<String, Map<String, Any?>> = _uM()
         var emits: Map<String, Any?> = _uM("click" to null, "close" to null, "open" to null, "beforeOpen" to null, "beforeClose" to null, "update:show" to null, "cancel" to null, "confirm" to null)
-        var props = _nP(_uM("customStyle" to _uM("type" to "String", "default" to ""), "customWrapStyle" to _uM("type" to "String", "default" to ""), "title" to _uM("type" to "String", "default" to "标题"), "showFooter" to _uM("type" to "Boolean", "default" to false), "showTitle" to _uM("type" to "Boolean", "default" to true), "showClose" to _uM("type" to "Boolean", "default" to false), "overlayClick" to _uM("type" to "Boolean", "default" to true), "show" to _uM("type" to "Boolean", "default" to false), "showCancel" to _uM("type" to "Boolean", "default" to true), "cancelText" to _uM("type" to "String", "default" to "取消"), "confirmText" to _uM("type" to "String", "default" to "确认"), "duration" to _uM("type" to "Number", "default" to 300), "watiDuration" to _uM("type" to "Number", "default" to 120), "position" to _uM("type" to "String", "default" to "bottom"), "round" to _uM("type" to "String", "default" to ""), "size" to _uM("type" to "String", "default" to "50%"), "maxHeight" to _uM("type" to "String", "default" to ""), "bgColor" to _uM("type" to "String", "default" to "white"), "darkBgColor" to _uM("type" to "String", "default" to ""), "overflayBgColor" to _uM("type" to "String", "default" to "rgba(0, 0, 0, 0.4)"), "disabledScroll" to _uM("type" to "Boolean", "default" to false), "contentMargin" to _uM("type" to "String", "default" to "16"), "widthCoverCenter" to _uM("type" to "Boolean", "default" to false), "swiperLenClose" to _uM("type" to "Number", "default" to 0), "offsetTop" to _uM("type" to "String", "default" to "0"), "offsetBottom" to _uM("type" to "String", "default" to "0"), "zIndex" to _uM("type" to "Number", "default" to 1100), "lazy" to _uM("type" to "Boolean", "default" to false), "disabledConfirm" to _uM("type" to "Boolean", "default" to false), "btnColor" to _uM("type" to "String", "default" to ""), "beforeClose" to _uM("type" to "Function", "default" to fun(): UTSPromise<Boolean> {
+        var props = _nP(_uM("customStyle" to _uM("type" to "String", "default" to ""), "customWrapStyle" to _uM("type" to "String", "default" to ""), "title" to _uM("type" to "String", "default" to ""), "showFooter" to _uM("type" to "Boolean", "default" to false), "showTitle" to _uM("type" to "Boolean", "default" to true), "showClose" to _uM("type" to "Boolean", "default" to false), "overlayClick" to _uM("type" to "Boolean", "default" to true), "show" to _uM("type" to "Boolean", "default" to false), "showCancel" to _uM("type" to "Boolean", "default" to true), "cancelText" to _uM("type" to "String", "default" to ""), "confirmText" to _uM("type" to "String", "default" to ""), "duration" to _uM("type" to "Number", "default" to 300), "watiDuration" to _uM("type" to "Number", "default" to 120), "position" to _uM("type" to "String", "default" to "bottom"), "round" to _uM("type" to "String", "default" to ""), "size" to _uM("type" to "String", "default" to "50%"), "maxHeight" to _uM("type" to "String", "default" to ""), "bgColor" to _uM("type" to "String", "default" to "white"), "darkBgColor" to _uM("type" to "String", "default" to ""), "overflayBgColor" to _uM("type" to "String", "default" to "rgba(0, 0, 0, 0.4)"), "disabledScroll" to _uM("type" to "Boolean", "default" to false), "contentMargin" to _uM("type" to "String", "default" to "16"), "widthCoverCenter" to _uM("type" to "Boolean", "default" to false), "swiperLenClose" to _uM("type" to "Number", "default" to 0), "offsetTop" to _uM("type" to "String", "default" to "0"), "offsetBottom" to _uM("type" to "String", "default" to "0"), "zIndex" to _uM("type" to "Number", "default" to 1100), "lazy" to _uM("type" to "Boolean", "default" to false), "disabledConfirm" to _uM("type" to "Boolean", "default" to false), "btnColor" to _uM("type" to "String", "default" to ""), "beforeClose" to _uM("type" to "Function", "default" to fun(): UTSPromise<Boolean> {
             return UTSPromise.resolve(true)
         }
         ), "closeColor" to _uM("type" to "String", "default" to "#e6e6e6"), "closeDarkColor" to _uM("type" to "String", "default" to "#545454")))

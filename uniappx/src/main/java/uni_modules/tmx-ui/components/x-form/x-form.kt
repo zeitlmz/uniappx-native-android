@@ -26,6 +26,7 @@ open class GenUniModulesTmxUiComponentsXFormXForm : VueComponent {
     open var rules: Map<String, UTSArray<FORM_RULE>> by `$props`
     open var watchValidStatus: Boolean by `$props`
     open var modelValid: Boolean by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var pushAdd: (item: FORM_ITEM) -> Unit
         get() {
             return unref(this.`$exposed`["pushAdd"]) as (item: FORM_ITEM) -> Unit
@@ -46,6 +47,13 @@ open class GenUniModulesTmxUiComponentsXFormXForm : VueComponent {
         }
         set(value) {
             setRefValue(this.`$exposed`, "getRules", value)
+        }
+    open var checkAsyncVaildStatus: () -> Unit
+        get() {
+            return unref(this.`$exposed`["checkAsyncVaildStatus"]) as () -> Unit
+        }
+        set(value) {
+            setRefValue(this.`$exposed`, "checkAsyncVaildStatus", value)
         }
     open var valid: (keys: UTSArray<String>) -> FORM_SUBMIT_RESULT
         get() {
@@ -68,6 +76,10 @@ open class GenUniModulesTmxUiComponentsXFormXForm : VueComponent {
         set(value) {
             setRefValue(this.`$exposed`, "submit", value)
         }
+    @Suppress("USELESS_CAST")
+    override fun data(): Map<String, Any?> {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml)
+    }
     companion object {
         @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
         var setup: (__props: GenUniModulesTmxUiComponentsXFormXForm, _arg1: SetupContext) -> Any? = fun(__props, ref1): Any? {
@@ -285,6 +297,9 @@ open class GenUniModulesTmxUiComponentsXFormXForm : VueComponent {
                     return _uA<FORM_RULE>()
                 }
                 return _localRules!!
+            }
+            , "checkAsyncVaildStatus" to fun() {
+                getStatus()
             }
             , "valid" to fun(keys: UTSArray<String>): FORM_SUBMIT_RESULT {
                 return _valid(keys)

@@ -152,6 +152,7 @@ open class GenUniModulesTmxUiComponentsXButtonXButton : VueComponent {
     open var appParameter: String by `$props`
     open var showMessageCard: Boolean by `$props`
     open var phoneNumberNoQuotaToast: Boolean by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var _set_border_color: String by `$data`
     open var _set_background_color: String by `$data`
     open var _set_background_img: String by `$data`
@@ -175,7 +176,7 @@ open class GenUniModulesTmxUiComponentsXButtonXButton : VueComponent {
     open var _styleMap: Map<String, String> by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("_set_border_color" to "1px solid transparent", "_set_background_color" to "transparent", "_set_background_img" to "", "_set_font_color" to "#ffffff", "_set_opacity" to "1", "_isHover" to false, "boxShadow" to "0 0px 0px rgba(0,0,0,0)", "_fontWeight" to computed<String>(fun(): String {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "_set_border_color" to "1px solid transparent", "_set_background_color" to "transparent", "_set_background_img" to "", "_set_font_color" to "#ffffff", "_set_opacity" to "1", "_isHover" to false, "boxShadow" to "0 0px 0px rgba(0,0,0,0)", "_fontWeight" to computed<String>(fun(): String {
             return this.fontWeight
         }
         ), "_fontSize" to computed<String>(fun(): String {
@@ -319,7 +320,9 @@ open class GenUniModulesTmxUiComponentsXButtonXButton : VueComponent {
             styleMap.set("height", this._height)
             styleMap.set("border", this._set_border_color)
             styleMap.set("backgroundColor", this._set_background_color)
-            styleMap.set("backgroundImage", this._set_background_img)
+            if (this._set_background_img != "") {
+                styleMap.set("backgroundImage", this._set_background_img)
+            }
             styleMap.set("borderRadius", this._radius)
             var opacity = "1"
             if (this._disabled || this._loading) {

@@ -35,6 +35,11 @@ open class GenUniModulesTmxUiComponentsXNavbarXNavbar : VueComponent {
     open var staticTransparent: Boolean by `$props`
     open var maxWidth: String by `$props`
     open var height: Number by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
+    @Suppress("USELESS_CAST")
+    override fun data(): Map<String, Any?> {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml)
+    }
     companion object {
         @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
         var setup: (__props: GenUniModulesTmxUiComponentsXNavbarXNavbar) -> Any? = fun(__props): Any? {
@@ -212,8 +217,8 @@ open class GenUniModulesTmxUiComponentsXNavbarXNavbar : VueComponent {
                             _cE("view", _uM("class" to "xNavbarContent", "style" to _nS(_uM("height" to (unref(navbarHeight) + "px")))), _uA(
                                 _cE("view", _uM("class" to "xNavBarLeft", "style" to _nS(_uM("width" to unref(_llWidth)))), _uA(
                                     if (isTrue(_ctx.showNavBack)) {
-                                        _cE("view", _uM("key" to 0, "onClick" to backGo, "class" to "xNavBarBack", "style" to _nS(_uM("paddingLeft" to "16px"))), _uA(
-                                            _cV(_component_x_icon, _uM("font-size" to "26", "name" to "arrow-left-s-line", "color" to if (unref(isFiexd)) {
+                                        _cE("view", _uM("key" to 0, "onClick" to backGo, "class" to "xNavBarBack", "style" to _nS(_uM("paddingLeft" to "6px"))), _uA(
+                                            _cV(_component_x_icon, _uM("font-size" to "28", "name" to "arrow-left-s-line", "color" to if (unref(isFiexd)) {
                                                 unref(_titleActiveColor)
                                             } else {
                                                 unref(_backColor)

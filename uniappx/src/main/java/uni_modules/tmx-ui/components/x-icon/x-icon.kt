@@ -92,6 +92,7 @@ open class GenUniModulesTmxUiComponentsXIconXIcon : VueComponent {
     open var spin: Boolean by `$props`
     open var rotation: Number by `$props`
     open var duration: Number by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var xIcon: Element? by `$data`
     open var refreshId: Number by `$data`
     open var id: Any? by `$data`
@@ -112,7 +113,7 @@ open class GenUniModulesTmxUiComponentsXIconXIcon : VueComponent {
     open var _rotation: Number by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("xIcon" to null as Element?, "refreshId" to 1, "id" to ("xIconspin" + getUid()), "element" to null as Element?, "rotationDeg" to 0, "isLoad" to false, "isdestory" to false, "status" to "play", "tid" to 0, "xt" to xTween(), "_iconName" to computed<String>(fun(): String {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "xIcon" to null as Element?, "refreshId" to 1, "id" to ("xIconspin" + getUid()), "element" to null as Element?, "rotationDeg" to 0, "isLoad" to false, "isdestory" to false, "status" to "play", "tid" to 0, "xt" to xTween(), "_iconName" to computed<String>(fun(): String {
             return this.name
         }
         ), "_mpcode" to computed<String>(fun(): String {

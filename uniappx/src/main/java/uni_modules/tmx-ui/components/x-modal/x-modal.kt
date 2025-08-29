@@ -194,6 +194,7 @@ open class GenUniModulesTmxUiComponentsXModalXModal : VueComponent {
     open var beforeClose: callbackType1 by `$props`
     open var closeColor: String by `$props`
     open var closeDarkColor: String by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var _width: Number by `$data`
     open var _height: Number by `$data`
     open var showOverflay: Boolean by `$data`
@@ -215,7 +216,6 @@ open class GenUniModulesTmxUiComponentsXModalXModal : VueComponent {
     open var _disabledScroll: Boolean by `$data`
     open var _showClose: Boolean by `$data`
     open var _duration: Number by `$data`
-    open var _title: String by `$data`
     open var _showTitle: Boolean by `$data`
     open var _round: String by `$data`
     open var _c_width: String by `$data`
@@ -224,6 +224,7 @@ open class GenUniModulesTmxUiComponentsXModalXModal : VueComponent {
     open var _maxHeight: String by `$data`
     open var _contentPadding: String by `$data`
     open var _showCancel: Boolean by `$data`
+    open var _title: String by `$data`
     open var _cancelText: String by `$data`
     open var _confirmText: String by `$data`
     open var _animationFun: String by `$data`
@@ -233,7 +234,7 @@ open class GenUniModulesTmxUiComponentsXModalXModal : VueComponent {
     open var _closeIcon: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("_width" to 0, "_height" to 0, "showOverflay" to false, "element" to null as UniElement?, "elementWrap" to null as UniElement?, "actioning" to false, "status" to "", "id" to ("xModal" + getUid()), "wrapId" to ("xModal" + getUid()), "first" to true, "tid" to 0, "tid2" to 34, "windtop" to 0, "xani" to null as xAnimate?, "isOpenedDefault" to false, "isLoading" to false, "_customStyle" to computed<String>(fun(): String {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "_width" to 0, "_height" to 0, "showOverflay" to false, "element" to null as UniElement?, "elementWrap" to null as UniElement?, "actioning" to false, "status" to "", "id" to ("xModal" + getUid()), "wrapId" to ("xModal" + getUid()), "first" to true, "tid" to 0, "tid2" to 34, "windtop" to 0, "xani" to null as xAnimate?, "isOpenedDefault" to false, "isLoading" to false, "_customStyle" to computed<String>(fun(): String {
             return this.customStyle
         }
         ), "_show" to computed<Boolean>(fun(): Boolean {
@@ -247,9 +248,6 @@ open class GenUniModulesTmxUiComponentsXModalXModal : VueComponent {
         }
         ), "_duration" to computed<Number>(fun(): Number {
             return this.duration
-        }
-        ), "_title" to computed<String>(fun(): String {
-            return this.title
         }
         ), "_showTitle" to computed<Boolean>(fun(): Boolean {
             return this.showTitle
@@ -273,15 +271,31 @@ open class GenUniModulesTmxUiComponentsXModalXModal : VueComponent {
             return checkIsCssUnit(this.maxHeight, xConfig.unit)
         }
         ), "_contentPadding" to computed<String>(fun(): String {
+            var cps = this.contentPadding.split(" ")
+            if (cps.length > 1) {
+                return this.contentPadding
+            }
             return "0px " + checkIsCssUnit(this.contentPadding, xConfig.unit)
         }
         ), "_showCancel" to computed<Boolean>(fun(): Boolean {
             return this.showCancel
         }
+        ), "_title" to computed<String>(fun(): String {
+            if (this.title == "") {
+                return this!!.i18n.t("tmui4x.modal.title")
+            }
+            return this.title
+        }
         ), "_cancelText" to computed<String>(fun(): String {
+            if (this.cancelText == "") {
+                return this!!.i18n.t("tmui4x.cancel")
+            }
             return this.cancelText
         }
         ), "_confirmText" to computed<String>(fun(): String {
+            if (this.confirmText == "") {
+                return this!!.i18n.t("tmui4x.confirm")
+            }
             return this.confirmText
         }
         ), "_animationFun" to computed<String>(fun(): String {
@@ -457,7 +471,7 @@ open class GenUniModulesTmxUiComponentsXModalXModal : VueComponent {
         var inheritAttrs = true
         var inject: Map<String, Map<String, Any?>> = _uM()
         var emits: Map<String, Any?> = _uM("click" to null, "close" to null, "open" to null, "beforeOpen" to null, "beforeClose" to null, "update:show" to null, "cancel" to null, "confirm" to null)
-        var props = _nP(_uM("customStyle" to _uM("type" to "String", "default" to ""), "title" to _uM("type" to "String", "default" to "标题"), "showFooter" to _uM("type" to "Boolean", "default" to true), "showTitle" to _uM("type" to "Boolean", "default" to true), "showClose" to _uM("type" to "Boolean", "default" to false), "showCancel" to _uM("type" to "Boolean", "default" to true), "overlayClick" to _uM("type" to "Boolean", "default" to true), "show" to _uM("type" to "Boolean", "default" to false), "duration" to _uM("type" to "Number", "default" to 300), "watiDuration" to _uM("type" to "Number", "default" to 120), "cancelText" to _uM("type" to "String", "default" to "取消"), "confirmText" to _uM("type" to "String", "default" to "确认"), "round" to _uM("type" to "String", "default" to ""), "width" to _uM("type" to "String", "default" to "84%"), "height" to _uM("type" to "String", "default" to "240px"), "maxHeight" to _uM("type" to "String", "default" to "80%"), "disabledScroll" to _uM("type" to "Boolean", "default" to false), "bgColor" to _uM("type" to "String", "default" to "white"), "darkBgColor" to _uM("type" to "String", "default" to ""), "zIndex" to _uM("type" to "String", "default" to "1105"), "contentPadding" to _uM("type" to "String", "default" to "16"), "btnColor" to _uM("type" to "String", "default" to ""), "beforeClose" to _uM("type" to "Function", "default" to fun(): UTSPromise<Boolean> {
+        var props = _nP(_uM("customStyle" to _uM("type" to "String", "default" to ""), "title" to _uM("type" to "String", "default" to ""), "showFooter" to _uM("type" to "Boolean", "default" to true), "showTitle" to _uM("type" to "Boolean", "default" to true), "showClose" to _uM("type" to "Boolean", "default" to false), "showCancel" to _uM("type" to "Boolean", "default" to true), "overlayClick" to _uM("type" to "Boolean", "default" to true), "show" to _uM("type" to "Boolean", "default" to false), "duration" to _uM("type" to "Number", "default" to 300), "watiDuration" to _uM("type" to "Number", "default" to 120), "cancelText" to _uM("type" to "String", "default" to ""), "confirmText" to _uM("type" to "String", "default" to ""), "round" to _uM("type" to "String", "default" to ""), "width" to _uM("type" to "String", "default" to "84%"), "height" to _uM("type" to "String", "default" to "240px"), "maxHeight" to _uM("type" to "String", "default" to "80%"), "disabledScroll" to _uM("type" to "Boolean", "default" to false), "bgColor" to _uM("type" to "String", "default" to "white"), "darkBgColor" to _uM("type" to "String", "default" to ""), "zIndex" to _uM("type" to "String", "default" to "1105"), "contentPadding" to _uM("type" to "String", "default" to "16"), "btnColor" to _uM("type" to "String", "default" to ""), "beforeClose" to _uM("type" to "Function", "default" to fun(): UTSPromise<Boolean> {
             return UTSPromise.resolve(true)
         }
         ), "closeColor" to _uM("type" to "String", "default" to "#e6e6e6"), "closeDarkColor" to _uM("type" to "String", "default" to "#545454")))

@@ -20,6 +20,7 @@ open class GenComponentsMcSeatSelectIndex : VueComponent {
     open var max: Number by `$props`
     open var carInfo: CarInfo by `$props`
     open var seatTemplates: UTSArray<SeatSelectTemplate> by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var processSeat: () -> Unit
         get() {
             return unref(this.`$exposed`["processSeat"]) as () -> Unit
@@ -27,6 +28,10 @@ open class GenComponentsMcSeatSelectIndex : VueComponent {
         set(value) {
             setRefValue(this.`$exposed`, "processSeat", value)
         }
+    @Suppress("USELESS_CAST")
+    override fun data(): Map<String, Any?> {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml)
+    }
     companion object {
         @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
         var setup: (__props: GenComponentsMcSeatSelectIndex, _arg1: SetupContext) -> Any? = fun(__props, ref1): Any? {

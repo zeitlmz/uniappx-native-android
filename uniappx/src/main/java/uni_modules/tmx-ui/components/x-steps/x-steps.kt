@@ -64,13 +64,14 @@ open class GenUniModulesTmxUiComponentsXStepsXSteps : VueComponent {
     open var vertical: Boolean by `$props`
     open var reverse: Boolean by `$props`
     open var disabled: Boolean by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var list: UTSArray<CHIDREN_ITEM1> by `$data`
     open var activeIndex: Number by `$data`
     open var _vertical: Boolean by `$data`
     open var _disabled: Boolean by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("list" to _uA<CHIDREN_ITEM1>(), "activeIndex" to 0, "_vertical" to computed<Boolean>(fun(): Boolean {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "list" to _uA<CHIDREN_ITEM1>(), "activeIndex" to 0, "_vertical" to computed<Boolean>(fun(): Boolean {
             return this.vertical
         }
         ), "_disabled" to computed<Boolean>(fun(): Boolean {

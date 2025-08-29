@@ -131,6 +131,7 @@ open class GenUniModulesTmxUiComponentsXStepperXStepper : VueComponent {
     open var btnFontColor: String by `$props`
     open var fontColor: String by `$props`
     open var fontSize: String by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var _value: Number by `$data`
     open var _input_value: String by `$data`
     open var addDomDisabeld: Boolean by `$data`
@@ -154,7 +155,7 @@ open class GenUniModulesTmxUiComponentsXStepperXStepper : VueComponent {
     open var _disabled: Boolean by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("_value" to 0, "_input_value" to "", "addDomDisabeld" to false, "surDomDisabeld" to false, "_round" to computed<String>(fun(): String {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "_value" to 0, "_input_value" to "", "addDomDisabeld" to false, "surDomDisabeld" to false, "_round" to computed<String>(fun(): String {
             if (this.round == "") {
                 return checkIsCssUnit(xConfig.progressRadius, xConfig.unit)
             }

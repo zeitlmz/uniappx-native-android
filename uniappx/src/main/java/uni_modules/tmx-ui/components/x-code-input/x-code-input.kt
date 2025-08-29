@@ -145,6 +145,7 @@ open class GenUniModulesTmxUiComponentsXCodeInputXCodeInput : VueComponent {
     open var unDarkBorderColor: String by `$props`
     open var skin: String by `$props`
     open var placeShape: String by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var _autoFocus: Boolean by `$data`
     open var inputvalue: String by `$data`
     open var tid: Number by `$data`
@@ -160,7 +161,7 @@ open class GenUniModulesTmxUiComponentsXCodeInputXCodeInput : VueComponent {
     open var _height: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("_autoFocus" to false, "inputvalue" to "", "tid" to 0, "_fontColor" to computed<String>(fun(): String {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "_autoFocus" to false, "inputvalue" to "", "tid" to 0, "_fontColor" to computed<String>(fun(): String {
             var fontcolor = if (this.fontColor == "") {
                 xConfig.color
             } else {

@@ -30,6 +30,7 @@ open class GenComponentsMcDragVerifyIndex : VueComponent {
     open var bgColor: String by `$props`
     open var completeLinearGradient: UTSArray<String> by `$props`
     open var verifyPos: String by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var reset: () -> Unit
         get() {
             return unref(this.`$exposed`["reset"]) as () -> Unit
@@ -37,6 +38,10 @@ open class GenComponentsMcDragVerifyIndex : VueComponent {
         set(value) {
             setRefValue(this.`$exposed`, "reset", value)
         }
+    @Suppress("USELESS_CAST")
+    override fun data(): Map<String, Any?> {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml)
+    }
     companion object {
         @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
         var setup: (__props: GenComponentsMcDragVerifyIndex, _arg1: SetupContext) -> Any? = fun(__props, ref1): Any? {

@@ -25,6 +25,7 @@ import uts.sdk.modules.xToastS.showToast as showXToast
 import uts.sdk.modules.uniKuxrouter.useKuxRouter as uni_useKuxRouter
 open class GenPagesHomeHadSettled : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {}
+    open var i18n: Tmui4xI18nTml by `$data`
     open var onShow: () -> Unit
         get() {
             return unref(this.`$exposed`["onShow"]) as () -> Unit
@@ -46,6 +47,10 @@ open class GenPagesHomeHadSettled : VueComponent {
         set(value) {
             setRefValue(this.`$exposed`, "onInit", value)
         }
+    @Suppress("USELESS_CAST")
+    override fun data(): Map<String, Any?> {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml)
+    }
     companion object {
         @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
         var setup: (__props: GenPagesHomeHadSettled, _arg1: SetupContext) -> Any? = fun(__props, ref1): Any? {
@@ -276,7 +281,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                         todayOrderCount.value = orderInfo?.data?.todayOrderCount ?: 0
                         otherOrderCount.value = orderInfo?.data?.otherOrderCount ?: 0
                         orderList.value = orderInfo?.data?.intercityOrderSummaryInfos ?: _uA()
-                    } else if (res?.queryType == 1) {
+                    } else if (res?.queryType == 2) {
                         val orderInfo = JSON.parse<QueryResponse<OrderSummary>>(data)
                         todayOrderCount.value = orderInfo?.data?.todayOrderCount ?: 0
                         otherOrderCount.value = orderInfo?.data?.otherOrderCount ?: 0
@@ -555,6 +560,10 @@ open class GenPagesHomeHadSettled : VueComponent {
                 initMap()
                 uni__on("orderReceiveQuery", fun(){
                     orderReceiveQuery()
+                }
+                )
+                uni__on("orderQuery", fun(){
+                    orderQuery()
                 }
                 )
                 anmiInterval()
@@ -1020,19 +1029,7 @@ open class GenPagesHomeHadSettled : VueComponent {
                                                                                     "onClick"
                                                                                 ))
                                                                             } else {
-                                                                                if (isTrue(order.status == 1 && checkTimeBefore(order.departureDate))) {
-                                                                                    _cV(_component_mc_primary_button, _uM("key" to 1, "margin-right" to "10px", "onClick" to fun(){
-                                                                                        handleCancelPickup(order)
-                                                                                    }), _uM("default" to withSlotCtx(fun(): UTSArray<Any> {
-                                                                                        return _uA(
-                                                                                            "取消接驾"
-                                                                                        )
-                                                                                    }), "_" to 2), 1032, _uA(
-                                                                                        "onClick"
-                                                                                    ))
-                                                                                } else {
-                                                                                    _cC("v-if", true)
-                                                                                }
+                                                                                _cC("v-if", true)
                                                                             },
                                                                             _cV(_component_mc_primary_button, _uM("onClick" to fun(){
                                                                                 handleScanBoard(order)

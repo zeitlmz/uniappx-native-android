@@ -29,6 +29,11 @@ open class GenComponentsMcBaseContainerIndex : VueComponent {
     open var linearGradient: UTSArray<String> by `$props`
     open var linearActiveGradient: UTSArray<String> by `$props`
     open var lrWidth: String by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
+    @Suppress("USELESS_CAST")
+    override fun data(): Map<String, Any?> {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml)
+    }
     companion object {
         @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
         var setup: (__props: GenComponentsMcBaseContainerIndex) -> Any? = fun(__props): Any? {

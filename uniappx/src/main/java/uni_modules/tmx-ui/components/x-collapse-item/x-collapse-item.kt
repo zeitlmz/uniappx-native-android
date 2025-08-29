@@ -146,6 +146,7 @@ open class GenUniModulesTmxUiComponentsXCollapseItemXCollapseItem : VueComponent
     open var title: String by `$props`
     open var titleHeight: String by `$props`
     open var titleLines: Number by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var itemHeight: Number by `$data`
     open var opened: Boolean by `$data`
     open var id: Any? by `$data`
@@ -163,7 +164,7 @@ open class GenUniModulesTmxUiComponentsXCollapseItemXCollapseItem : VueComponent
     open var _textMap: Map<String, String> by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("itemHeight" to 0, "opened" to false, "id" to ("xCollapseItem-" + getUid()), "list" to _uA<String>(), "resizeObserver" to null as UniResizeObserver?, "_disabled" to computed<Boolean>(fun(): Boolean {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "itemHeight" to 0, "opened" to false, "id" to ("xCollapseItem-" + getUid()), "list" to _uA<String>(), "resizeObserver" to null as UniResizeObserver?, "_disabled" to computed<Boolean>(fun(): Boolean {
             return this.disabled
         }
         ), "_titleFontSize" to computed<String>(fun(): String {

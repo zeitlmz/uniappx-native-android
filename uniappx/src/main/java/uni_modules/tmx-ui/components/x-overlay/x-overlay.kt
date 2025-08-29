@@ -126,6 +126,7 @@ open class GenUniModulesTmxUiComponentsXOverlayXOverlay : VueComponent {
     open var duration: Number by `$props`
     open var watiDuration: Number by `$props`
     open var zIndex: Number by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var _width: Number by `$data`
     open var _height: Number by `$data`
     open var showOverflay: Boolean by `$data`
@@ -147,7 +148,7 @@ open class GenUniModulesTmxUiComponentsXOverlayXOverlay : VueComponent {
     open var __height: String by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("_width" to 0, "_height" to 0, "showOverflay" to false, "element" to null as Element?, "actioning" to false, "status" to "", "id" to ("xoverflay" + getUid()), "tid" to 0, "windtop" to 0, "isOpenedDefault" to false, "xani" to null as xAnimate?, "tw" to xTween(), "_customStyle" to computed<String>(fun(): String {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "_width" to 0, "_height" to 0, "showOverflay" to false, "element" to null as Element?, "actioning" to false, "status" to "", "id" to ("xoverflay" + getUid()), "tid" to 0, "windtop" to 0, "isOpenedDefault" to false, "xani" to null as xAnimate?, "tw" to xTween(), "_customStyle" to computed<String>(fun(): String {
             return this.customStyle
         }
         ), "_customContentStyle" to computed<String>(fun(): String {

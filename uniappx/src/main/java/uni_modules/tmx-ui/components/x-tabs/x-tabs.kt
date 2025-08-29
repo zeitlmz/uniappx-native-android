@@ -193,6 +193,7 @@ open class GenUniModulesTmxUiComponentsXTabsXTabs : VueComponent {
     open var itemStyle: String by `$props`
     open var textActiveStyle: String by `$props`
     open var textStyle: String by `$props`
+    open var i18n: Tmui4xI18nTml by `$data`
     open var nowActiveId: String by `$data`
     open var id: String by `$data`
     open var lineLeft: Number by `$data`
@@ -228,7 +229,7 @@ open class GenUniModulesTmxUiComponentsXTabsXTabs : VueComponent {
     open var _list: UTSArray<TABS_ITEM> by `$data`
     @Suppress("USELESS_CAST")
     override fun data(): Map<String, Any?> {
-        return _uM("nowActiveId" to "", "id" to ("xTabsItem-" + getUid() + "-") as String, "lineLeft" to 0, "lineWidth" to 18, "activeLineWidth" to 18, "totalWidth" to 0, "scrollNowPosId" to "", "first" to true, "isQueryOk" to false, "tid" to 0, "tid2" to 12, "tid3" to 133, "tabsList" to Map<String, NodeInfo>(), "tabsItemLeft" to 0, "tabasItemCenter" to false, "_itemActiveStyle" to computed<String>(fun(): String {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml, "nowActiveId" to "", "id" to ("xTabsItem-" + getUid() + "-") as String, "lineLeft" to 0, "lineWidth" to 18, "activeLineWidth" to 18, "totalWidth" to 0, "scrollNowPosId" to "", "first" to true, "isQueryOk" to false, "tid" to 0, "tid2" to 12, "tid3" to 133, "tabsList" to Map<String, NodeInfo>(), "tabsItemLeft" to 0, "tabasItemCenter" to false, "_itemActiveStyle" to computed<String>(fun(): String {
             return this.itemActiveStyle
         }
         ), "_itemStyle" to computed<String>(fun(): String {

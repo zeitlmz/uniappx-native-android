@@ -13,6 +13,11 @@ import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
 open class GenComponentsMcEnvTagIndex : VueComponent {
     constructor(__ins: ComponentInternalInstance) : super(__ins) {}
+    open var i18n: Tmui4xI18nTml by `$data`
+    @Suppress("USELESS_CAST")
+    override fun data(): Map<String, Any?> {
+        return _uM("i18n" to xConfig.i18n as Tmui4xI18nTml)
+    }
     companion object {
         @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
         var setup: (__props: GenComponentsMcEnvTagIndex) -> Any? = fun(__props): Any? {
